@@ -182,51 +182,133 @@
             <h2 class="section-title">Berapa Yang <span class="text-gold">Bisa Kamu Dapat?</span></h2>
         </div>
         
-        <div class="calculator-box">
+        <div class="calculator-wrapper">
             <div class="calc-inputs">
+                
+                <!-- ===== TIER DROPDOWN (100% Custom) ===== -->
                 <div class="calc-field">
-                    <label>Pilih Tier Kamu:</label>
-                    <select id="tierSelect">
-                        <option value="15">🥉 Silver (15%)</option>
-                        <option value="20" selected>🥈 Gold (20% + Rp 100rb bonus)</option>
-                        <option value="25">🥇 Platinum (25% + Rp 200rb bonus)</option>
-                    </select>
+                    <label>
+                        <i class="fas fa-medal"></i> Pilih Tier Kamu:
+                    </label>
+                    <div class="custom-dropdown" id="tierDropdown">
+                        <div class="dropdown-selected" onclick="toggleDropdown('tierDropdown')">
+                            <span class="dropdown-selected-icon">🥈</span>
+                            <span class="dropdown-selected-text">Gold (20% + Rp 100rb bonus)</span>
+                            <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        </div>
+                        <div class="dropdown-options">
+                            <div class="dropdown-option" data-value="15" data-icon="🥉" onclick="selectOption('tierDropdown', this)">
+                                <span class="dropdown-option-icon">🥉</span>
+                                <div class="dropdown-option-content">
+                                    <div class="dropdown-option-title">Silver</div>
+                                    <div class="dropdown-option-desc">Komisi 15%</div>
+                                </div>
+                            </div>
+                            <div class="dropdown-option selected" data-value="20" data-icon="🥈" onclick="selectOption('tierDropdown', this)">
+                                <span class="dropdown-option-icon">🥈</span>
+                                <div class="dropdown-option-content">
+                                    <div class="dropdown-option-title">Gold</div>
+                                    <div class="dropdown-option-desc">20% + Rp 100rb bonus</div>
+                                </div>
+                                <i class="fas fa-check dropdown-option-check"></i>
+                            </div>
+                            <div class="dropdown-option" data-value="25" data-icon="🥇" onclick="selectOption('tierDropdown', this)">
+                                <span class="dropdown-option-icon">🥇</span>
+                                <div class="dropdown-option-content">
+                                    <div class="dropdown-option-title">Platinum</div>
+                                    <div class="dropdown-option-desc">25% + Rp 200rb bonus</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
+                <!-- ===== PAKET DROPDOWN (100% Custom) ===== -->
                 <div class="calc-field">
-                    <label>Pilih Paket:</label>
-                    <select id="paketSelect">
-                        <option value="1500000">Paket Hemat - Rp 1.500.000</option>
-                        <option value="2500000" selected>Paket Reguler - Rp 2.500.000</option>
-                        <option value="5000000">Paket Premium - Rp 5.000.000</option>
-                    </select>
+                    <label>
+                        <i class="fas fa-box"></i> Pilih Paket:
+                    </label>
+                    <div class="custom-dropdown" id="paketDropdown">
+                        <div class="dropdown-selected" onclick="toggleDropdown('paketDropdown')">
+                            <span class="dropdown-selected-icon">⭐</span>
+                            <span class="dropdown-selected-text">Paket Reguler - Rp 2.500.000</span>
+                            <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        </div>
+                        <div class="dropdown-options">
+                            <div class="dropdown-option" data-value="1500000" data-icon="💎" onclick="selectOption('paketDropdown', this)">
+                                <span class="dropdown-option-icon">💎</span>
+                                <div class="dropdown-option-content">
+                                    <div class="dropdown-option-title">Paket Hemat</div>
+                                    <div class="dropdown-option-desc">Rp 1.500.000 · Landing Page</div>
+                                </div>
+                            </div>
+                            <div class="dropdown-option selected" data-value="2500000" data-icon="⭐" onclick="selectOption('paketDropdown', this)">
+                                <span class="dropdown-option-icon">⭐</span>
+                                <div class="dropdown-option-content">
+                                    <div class="dropdown-option-title">Paket Reguler</div>
+                                    <div class="dropdown-option-desc">Rp 2.500.000 · Website Lengkap</div>
+                                </div>
+                                <i class="fas fa-check dropdown-option-check"></i>
+                            </div>
+                            <div class="dropdown-option" data-value="5000000" data-icon="👑" onclick="selectOption('paketDropdown', this)">
+                                <span class="dropdown-option-icon">👑</span>
+                                <div class="dropdown-option-content">
+                                    <div class="dropdown-option-title">Paket Premium</div>
+                                    <div class="dropdown-option-desc">Rp 5.000.000 · Company Profile</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
+                <!-- ===== NUMBER COUNTER ===== -->
                 <div class="calc-field">
-                    <label>Jumlah Closing/Bulan:</label>
-                    <input type="number" id="closingCount" value="3" min="1" max="50">
+                    <label>
+                        <i class="fas fa-chart-line"></i> Jumlah Closing/Bulan:
+                    </label>
+                    <div class="number-counter">
+                        <button type="button" class="counter-btn" onclick="decrementClosing()" aria-label="Kurangi">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <input type="number" id="closingCount" value="3" min="1" max="50" oninput="updateCalculator()">
+                        <button type="button" class="counter-btn" onclick="incrementClosing()" aria-label="Tambah">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
                 </div>
+                
             </div>
             
+            <!-- RESULT -->
             <div class="calc-result">
                 <div class="calc-item">
-                    <span>Komisi per Closing:</span>
-                    <strong id="komisiPerClosing">Rp 500.000</strong>
+                    <span class="calc-item-label">
+                        <i class="fas fa-hand-holding-usd"></i> Komisi per Closing
+                    </span>
+                    <strong class="calc-item-value" id="komisiPerClosing">Rp 500.000</strong>
                 </div>
                 <div class="calc-item">
-                    <span>Bonus per Closing:</span>
-                    <strong id="bonusPerClosing">Rp 100.000</strong>
+                    <span class="calc-item-label">
+                        <i class="fas fa-gift"></i> Bonus per Closing
+                    </span>
+                    <strong class="calc-item-value" id="bonusPerClosing">Rp 100.000</strong>
                 </div>
                 <div class="calc-item highlight">
-                    <span>💰 Total Penghasilan/Bulan:</span>
-                    <strong id="totalIncome">Rp 1.800.000</strong>
+                    <span class="calc-item-label">
+                        <i class="fas fa-sack-dollar"></i> Total/Bulan
+                    </span>
+                    <strong class="calc-item-value" id="totalIncome">Rp 1.800.000</strong>
                 </div>
-                <div class="calc-item">
-                    <span>📈 Estimasi/Tahun:</span>
-                    <strong id="totalYear">Rp 21.600.000</strong>
+                <div class="calc-item yearly">
+                    <span class="calc-item-label">
+                        <i class="fas fa-chart-line"></i> Estimasi/Tahun
+                    </span>
+                    <strong class="calc-item-value" id="totalYear">Rp 21.600.000</strong>
                 </div>
             </div>
             
             <p class="calc-note">
-                * Simulasi ini adalah estimasi berdasarkan tier & paket yang dipilih. 
+                💡 Simulasi berdasarkan tier & paket yang dipilih. 
                 Hasil aktual tergantung performa closing.
             </p>
         </div>
@@ -362,14 +444,90 @@
 <a href="https://wa.me/6281401643188" class="fab-wa"><i class="fab fa-whatsapp"></i></a>
 
 <script>
-// Kalkulator Komisi
+// ====================================================
+// CUSTOM DROPDOWN LOGIC
+// ====================================================
+
+// State untuk simpan nilai dropdown
+const dropdownValues = {
+    tierDropdown: 20,
+    paketDropdown: 2500000
+};
+
+// Toggle dropdown open/close
+function toggleDropdown(id) {
+    const dropdown = document.getElementById(id);
+    const isOpen = dropdown.classList.contains('open');
+    
+    // Close all other dropdowns
+    document.querySelectorAll('.custom-dropdown').forEach(d => {
+        d.classList.remove('open');
+    });
+    
+    // Toggle current
+    if (!isOpen) {
+        dropdown.classList.add('open');
+    }
+}
+
+// Select option
+function selectOption(dropdownId, element) {
+    const dropdown = document.getElementById(dropdownId);
+    const value = element.getAttribute('data-value');
+    const icon = element.getAttribute('data-icon');
+    const title = element.querySelector('.dropdown-option-title').innerText;
+    const desc = element.querySelector('.dropdown-option-desc').innerText;
+    
+    // Update selected display
+    dropdown.querySelector('.dropdown-selected-icon').innerText = icon;
+    dropdown.querySelector('.dropdown-selected-text').innerText = title + ' - ' + desc;
+    
+    // Update state
+    dropdownValues[dropdownId] = parseInt(value);
+    
+    // Update visual selected
+    dropdown.querySelectorAll('.dropdown-option').forEach(opt => {
+        opt.classList.remove('selected');
+        const check = opt.querySelector('.dropdown-option-check');
+        if (check) check.remove();
+    });
+    element.classList.add('selected');
+    
+    // Add check icon
+    if (!element.querySelector('.dropdown-option-check')) {
+        const check = document.createElement('i');
+        check.className = 'fas fa-check dropdown-option-check';
+        element.appendChild(check);
+    }
+    
+    // Close dropdown
+    dropdown.classList.remove('open');
+    
+    // Update calculator
+    updateCalculator();
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.custom-dropdown')) {
+        document.querySelectorAll('.custom-dropdown').forEach(d => {
+            d.classList.remove('open');
+        });
+    }
+});
+
+
+// ====================================================
+// CALCULATOR LOGIC
+// ====================================================
+
 function updateCalculator() {
-    const tier = parseInt(document.getElementById('tierSelect').value);
-    const paket = parseInt(document.getElementById('paketSelect').value);
+    const tier = dropdownValues.tierDropdown;
+    const paket = dropdownValues.paketDropdown;
     const closingInput = document.getElementById('closingCount');
     let closing = parseInt(closingInput.value) || 1;
     
-    // Validasi min/max
+    // Validasi
     if (closing < 1) {
         closing = 1;
         closingInput.value = 1;
@@ -399,7 +557,7 @@ function updateCalculator() {
         'Rp ' + totalYear.toLocaleString('id-ID');
 }
 
-// Increment/Decrement functions
+// Increment/Decrement
 function incrementClosing() {
     const input = document.getElementById('closingCount');
     let value = parseInt(input.value) || 0;
@@ -418,12 +576,10 @@ function decrementClosing() {
     }
 }
 
-// Event listeners
-document.getElementById('tierSelect').addEventListener('change', updateCalculator);
-document.getElementById('paketSelect').addEventListener('change', updateCalculator);
-document.getElementById('closingCount').addEventListener('input', updateCalculator);
 
-// FAQ Toggle
+// ====================================================
+// FAQ TOGGLE
+// ====================================================
 document.querySelectorAll('.faq-q').forEach(btn => {
     btn.addEventListener('click', () => {
         btn.parentElement.classList.toggle('active');
