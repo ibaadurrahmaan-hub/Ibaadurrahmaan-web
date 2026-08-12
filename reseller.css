@@ -1940,3 +1940,68 @@ body{
     }
 }
 
+/* ====================================================
+   🔧 v5.6 FIX: Step Icon (WA di Step Card 01)
+   Perbesar SEMUA icon di dalam step card
+   ==================================================== */
+
+/* Step icon - SEMUA icon di step card lebih besar */
+.step-card .step-icon,
+.step-card i.step-icon{
+    font-size:4.5rem !important;
+    line-height:1;
+    margin-bottom:24px !important;
+    display:block;
+    color:var(--gold);
+    filter:drop-shadow(0 4px 15px var(--gold-glow));
+}
+
+/* Khusus WhatsApp icon di step card - lebih besar lagi */
+.step-card .fa-whatsapp,
+.step-card i.fa-whatsapp,
+.step-card .fab.fa-whatsapp{
+    font-size:5rem !important;
+    color:var(--gold) !important;
+}
+
+/* Icon file-signature (MoU) di step card */
+.step-card .fa-file-signature{
+    font-size:4.5rem !important;
+}
+
+/* Icon rocket di step card */
+.step-card .fa-rocket{
+    font-size:4.5rem !important;
+}
+
+
+/* ====================================================
+   📱 MOBILE - Step Icon
+   ==================================================== */
+@media (max-width:768px){
+    .step-card .step-icon,
+    .step-card i.step-icon{
+        font-size:4rem !important;
+        margin-bottom:20px !important;
+    }
+
+    .step-card .fa-whatsapp{
+        font-size:4.5rem !important;
+    }
+
+    .step-card .fa-file-signature,
+    .step-card .fa-rocket{
+        font-size:4rem !important;
+    }
+}
+
+@media (max-width:400px){
+    .step-card .step-icon,
+    .step-card i.step-icon{
+        font-size:3.5rem !important;
+    }
+
+    .step-card .fa-whatsapp{
+        font-size:4rem !important;
+    }
+}
