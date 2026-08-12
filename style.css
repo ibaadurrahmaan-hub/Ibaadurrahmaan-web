@@ -1977,3 +1977,372 @@ body{
   .section{padding:60px 0;}
   .section-header{margin-bottom:40px;}
 }
+
+/* ==================================================
+   RESELLER BANNER SECTION (Homepage)
+   ================================================== */
+.reseller-banner-section{
+  padding:60px 0;
+  background:var(--bg-2);
+  position:relative;
+  overflow:hidden;
+}
+
+.reseller-banner-section::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(212,165,54,0.1), transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(37,211,102,0.05), transparent 50%);
+  pointer-events:none;
+}
+
+.reseller-banner{
+  background:var(--grad-card);
+  border:2px solid var(--gold);
+  border-radius:var(--radius-xl);
+  padding:50px 40px;
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:40px;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 20px 50px rgba(212,165,54,0.2);
+}
+
+.reseller-banner::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:5px;
+  background:var(--grad-gold-shine);
+}
+
+.reseller-banner::after{
+  content:'';
+  position:absolute;
+  top:-100px;
+  right:-100px;
+  width:300px;
+  height:300px;
+  background:radial-gradient(circle, rgba(212,165,54,0.2), transparent 70%);
+  pointer-events:none;
+}
+
+.reseller-banner-content{
+  position:relative;
+  z-index:2;
+}
+
+.reseller-banner-badge{
+  display:inline-block;
+  padding:8px 20px;
+  background:var(--grad-gold-shine);
+  color:var(--bg);
+  border-radius:100px;
+  font-size:0.8rem;
+  font-weight:800;
+  letter-spacing:1.5px;
+  margin-bottom:20px;
+  text-transform:uppercase;
+  box-shadow:0 6px 18px var(--gold-glow);
+  animation:pulseBanner 2s ease-in-out infinite;
+}
+
+@keyframes pulseBanner{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.05);}
+}
+
+.reseller-banner-title{
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(1.8rem,3.5vw,2.5rem);
+  font-weight:900;
+  line-height:1.2;
+  color:var(--text);
+  margin-bottom:16px;
+  letter-spacing:-0.5px;
+}
+
+.reseller-banner-desc{
+  color:var(--text-muted);
+  font-size:1rem;
+  line-height:1.7;
+  margin-bottom:28px;
+  max-width:500px;
+}
+
+.reseller-banner-desc strong{
+  color:var(--gold);
+  font-weight:700;
+}
+
+.reseller-banner-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-bottom:32px;
+  max-width:500px;
+}
+
+.reseller-stat{
+  background:rgba(212,165,54,0.08);
+  padding:16px 12px;
+  border-radius:var(--radius-md);
+  border:1px solid var(--border);
+  text-align:center;
+  transition:all 0.3s var(--ease);
+}
+
+.reseller-stat:hover{
+  transform:translateY(-4px);
+  border-color:var(--gold);
+  background:rgba(212,165,54,0.15);
+}
+
+.reseller-stat-num{
+  font-family:'Montserrat',sans-serif;
+  font-size:1.8rem;
+  font-weight:900;
+  background:var(--grad-gold-shine);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  line-height:1;
+  margin-bottom:6px;
+}
+
+.reseller-stat-label{
+  font-size:0.75rem;
+  color:var(--text-muted);
+  font-weight:600;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+}
+
+.reseller-banner-actions{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+.reseller-banner-visual{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:250px;
+}
+
+.reseller-icon-large{
+  width:180px;
+  height:180px;
+  background:var(--grad-gold-shine);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:5rem;
+  color:var(--bg);
+  box-shadow:0 20px 60px var(--gold-glow);
+  animation:floatIcon 3s ease-in-out infinite;
+  position:relative;
+  z-index:2;
+}
+
+@keyframes floatIcon{
+  0%,100%{transform:translateY(0) rotate(0deg);}
+  50%{transform:translateY(-15px) rotate(5deg);}
+}
+
+.reseller-coins{
+  position:absolute;
+  width:100%;
+  height:100%;
+  z-index:1;
+}
+
+.reseller-coins i{
+  position:absolute;
+  color:var(--gold);
+  font-size:2.5rem;
+  filter:drop-shadow(0 4px 12px var(--gold-glow));
+  animation:coinFloat 3s ease-in-out infinite;
+}
+
+.reseller-coins i:nth-child(1){
+  top:20%;
+  left:10%;
+  animation-delay:0s;
+}
+
+.reseller-coins i:nth-child(2){
+  top:60%;
+  right:15%;
+  animation-delay:1s;
+}
+
+.reseller-coins i:nth-child(3){
+  bottom:15%;
+  left:20%;
+  animation-delay:2s;
+}
+
+@keyframes coinFloat{
+  0%,100%{
+    transform:translateY(0) scale(1);
+    opacity:0.7;
+  }
+  50%{
+    transform:translateY(-20px) scale(1.15);
+    opacity:1;
+  }
+}
+
+
+/* ==================================================
+   NAV LINK HIGHLIGHT (Reseller Badge)
+   ================================================== */
+.nav-link-highlight{
+  background:var(--grad-gold-shine);
+  color:var(--bg) !important;
+  font-weight:700 !important;
+  position:relative;
+  overflow:hidden;
+  animation:glowPulse 2s ease-in-out infinite;
+}
+
+.nav-link-highlight:hover{
+  background:var(--grad-gold-shine);
+  color:var(--bg) !important;
+  transform:translateY(-2px);
+  box-shadow:0 6px 18px var(--gold-glow);
+}
+
+.nav-link-highlight i{
+  margin-right:4px;
+  animation:fireFlicker 1s ease-in-out infinite;
+}
+
+@keyframes glowPulse{
+  0%,100%{box-shadow:0 4px 15px rgba(212,165,54,0.3);}
+  50%{box-shadow:0 4px 25px rgba(212,165,54,0.6);}
+}
+
+@keyframes fireFlicker{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.15);}
+}
+
+
+/* Mobile Nav Highlight */
+.mnav-highlight{
+  position:relative;
+}
+
+.mnav-highlight::before{
+  content:'HOT';
+  position:absolute;
+  top:2px;
+  right:8px;
+  background:#ff4444;
+  color:white;
+  font-size:0.5rem;
+  font-weight:800;
+  padding:2px 5px;
+  border-radius:8px;
+  letter-spacing:0.5px;
+  animation:hotBadge 1.5s ease-in-out infinite;
+}
+
+@keyframes hotBadge{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.2);}
+}
+
+
+/* ==================================================
+   RESPONSIVE (Reseller Banner)
+   ================================================== */
+@media (max-width:992px){
+  .reseller-banner{
+    grid-template-columns:1fr;
+    gap:30px;
+    padding:40px 30px;
+    text-align:center;
+  }
+  
+  .reseller-banner-desc{
+    max-width:100%;
+  }
+  
+  .reseller-banner-stats{
+    max-width:100%;
+  }
+  
+  .reseller-banner-actions{
+    justify-content:center;
+  }
+  
+  .reseller-banner-visual{
+    order:-1;
+    min-height:200px;
+  }
+  
+  .reseller-icon-large{
+    width:140px;
+    height:140px;
+    font-size:4rem;
+  }
+}
+
+@media (max-width:640px){
+  .reseller-banner{
+    padding:30px 20px;
+  }
+  
+  .reseller-banner-title{
+    font-size:1.5rem;
+  }
+  
+  .reseller-banner-desc{
+    font-size:0.9rem;
+  }
+  
+  .reseller-banner-stats{
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+  }
+  
+  .reseller-stat{
+    padding:12px 8px;
+  }
+  
+  .reseller-stat-num{
+    font-size:1.4rem;
+  }
+  
+  .reseller-stat-label{
+    font-size:0.65rem;
+  }
+  
+  .reseller-icon-large{
+    width:120px;
+    height:120px;
+    font-size:3.5rem;
+  }
+  
+  .reseller-banner-actions{
+    flex-direction:column;
+  }
+  
+  .reseller-banner-actions .btn-primary,
+  .reseller-banner-actions .btn-secondary{
+    width:100%;
+    justify-content:center;
+  }
+}
