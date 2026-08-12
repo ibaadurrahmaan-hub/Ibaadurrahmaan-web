@@ -26,7 +26,7 @@
 </head>
 <body>
 
-<!-- ===== NAVBAR ===== -->
+<!-- ===== NAVBAR (Sama seperti index.html) ===== -->
 <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
         <a href="index.html" class="nav-brand-text" aria-label="Ibaadurrahmaan Web Designer Home">
@@ -34,7 +34,6 @@
             <span class="brand-sub-nav">Web Designer</span>
         </a>
         
-        <!-- Desktop Menu -->
         <div class="nav-menu">
             <a href="index.html" class="nav-link">Beranda</a>
             <a href="index.html#layanan" class="nav-link">Layanan</a>
@@ -45,68 +44,8 @@
             <a href="index.html#tentang" class="nav-link">Tentang</a>
             <a href="index.html#faq" class="nav-link">FAQ</a>
         </div>
-        
-        <!-- Hamburger Button (Mobile) -->
-        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
     </div>
 </nav>
-
-<!-- ===== MOBILE MENU OVERLAY ===== -->
-<div class="mobile-menu-overlay" id="mobileMenuOverlay">
-    <div class="mobile-menu-content">
-        <div class="mobile-menu-header">
-            <div class="mobile-menu-brand">
-                <img src="main-logo.png" alt="Logo" class="mobile-menu-logo">
-                <div>
-                    <div class="mobile-menu-name">Ibaadurrahmaan</div>
-                    <div class="mobile-menu-sub">Web Designer</div>
-                </div>
-            </div>
-            <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        
-        <nav class="mobile-menu-nav">
-            <a href="index.html" class="mobile-menu-link">
-                <i class="fas fa-home"></i>
-                <span>Beranda</span>
-            </a>
-            <a href="index.html#layanan" class="mobile-menu-link">
-                <i class="fas fa-briefcase"></i>
-                <span>Layanan</span>
-            </a>
-            <a href="index.html#paket" class="mobile-menu-link">
-                <i class="fas fa-tag"></i>
-                <span>Paket</span>
-            </a>
-            <a href="reseller.html" class="mobile-menu-link active">
-                <i class="fas fa-fire"></i>
-                <span>Reseller</span>
-                <span class="mobile-menu-badge">HOT</span>
-            </a>
-            <a href="index.html#tentang" class="mobile-menu-link">
-                <i class="fas fa-user"></i>
-                <span>Tentang</span>
-            </a>
-            <a href="index.html#faq" class="mobile-menu-link">
-                <i class="fas fa-question-circle"></i>
-                <span>FAQ</span>
-            </a>
-        </nav>
-        
-        <div class="mobile-menu-footer">
-            <a href="https://wa.me/6281401643188" class="mobile-menu-cta">
-                <i class="fab fa-whatsapp"></i>
-                Chat WhatsApp
-            </a>
-        </div>
-    </div>
-</div>
 
 <!-- ===== HERO RESELLER ===== -->
 <section class="reseller-hero">
@@ -256,7 +195,6 @@
         <div class="calculator-wrapper">
             <div class="calc-inputs">
                 
-                <!-- TIER DROPDOWN -->
                 <div class="calc-field">
                     <label>
                         <i class="fas fa-medal"></i> Pilih Tier Kamu:
@@ -294,7 +232,6 @@
                     </div>
                 </div>
                 
-                <!-- PAKET DROPDOWN -->
                 <div class="calc-field">
                     <label>
                         <i class="fas fa-box"></i> Pilih Paket:
@@ -332,7 +269,6 @@
                     </div>
                 </div>
                 
-                <!-- NUMBER COUNTER -->
                 <div class="calc-field">
                     <label>
                         <i class="fas fa-chart-line"></i> Jumlah Closing/Bulan:
@@ -350,7 +286,6 @@
                 
             </div>
             
-            <!-- RESULT -->
             <div class="calc-result">
                 <div class="calc-item">
                     <span class="calc-item-label">
@@ -511,52 +446,34 @@
     </div>
 </footer>
 
+<!-- ===== MOBILE BOTTOM NAV (Sama seperti index.html) ===== -->
+<nav class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+    <a href="index.html" class="mnav-item" aria-label="Beranda">
+        <i class="fas fa-home" aria-hidden="true"></i>
+        <span>Beranda</span>
+    </a>
+    <a href="index.html#layanan" class="mnav-item" aria-label="Layanan">
+        <i class="fas fa-briefcase" aria-hidden="true"></i>
+        <span>Layanan</span>
+    </a>
+    <a href="index.html#paket" class="mnav-item" aria-label="Paket">
+        <i class="fas fa-tag" aria-hidden="true"></i>
+        <span>Paket</span>
+    </a>
+    <a href="reseller.html" class="mnav-item mnav-highlight active" aria-label="Reseller">
+        <i class="fas fa-fire" aria-hidden="true"></i>
+        <span>Reseller</span>
+    </a>
+    <a href="index.html#faq" class="mnav-item" aria-label="FAQ">
+        <i class="fas fa-question-circle" aria-hidden="true"></i>
+        <span>FAQ</span>
+    </a>
+</nav>
+
 <!-- Floating WA -->
 <a href="https://wa.me/6281401643188" class="fab-wa" aria-label="Chat WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
 <script>
-// ====================================================
-// HAMBURGER MENU
-// ====================================================
-const hamburgerBtn = document.getElementById('hamburgerBtn');
-const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-const mobileMenuClose = document.getElementById('mobileMenuClose');
-
-function openMobileMenu() {
-    mobileMenuOverlay.classList.add('active');
-    hamburgerBtn.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeMobileMenu() {
-    mobileMenuOverlay.classList.remove('active');
-    hamburgerBtn.classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-hamburgerBtn.addEventListener('click', () => {
-    if (mobileMenuOverlay.classList.contains('active')) {
-        closeMobileMenu();
-    } else {
-        openMobileMenu();
-    }
-});
-
-mobileMenuClose.addEventListener('click', closeMobileMenu);
-
-// Close menu when click on overlay
-mobileMenuOverlay.addEventListener('click', (e) => {
-    if (e.target === mobileMenuOverlay) {
-        closeMobileMenu();
-    }
-});
-
-// Close menu when click on link
-document.querySelectorAll('.mobile-menu-link').forEach(link => {
-    link.addEventListener('click', closeMobileMenu);
-});
-
-
 // ====================================================
 // CUSTOM DROPDOWN LOGIC
 // ====================================================
