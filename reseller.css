@@ -1577,3 +1577,366 @@ body{
     text-decoration:none !important;
 }
 
+/* ====================================================
+   🔧 v5.5 GLOBAL ICON FIX - SEMUA IKON DIPERBESAR
+   Fokus: WhatsApp icon paling besar & jelas
+   ==================================================== */
+
+
+/* ============================================
+   🌐 UNIVERSAL: Semua tombol pakai flex + gap
+   ============================================ */
+.btn-primary,
+.btn-secondary,
+.btn-large,
+.mou-link-btn,
+.step-mou-btn,
+.mou-btn{
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:14px !important;
+    line-height:1 !important;
+}
+
+
+/* ============================================
+   🎯 ICON UMUM di dalam tombol
+   ============================================ */
+.btn-primary i,
+.btn-secondary i,
+.btn-large i,
+.mou-link-btn i,
+.step-mou-btn i{
+    font-size:1.5rem !important;
+    margin:0 !important;
+    line-height:1 !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    min-width:1.5rem;
+}
+
+
+/* ============================================
+   💬 ICON WHATSAPP - PALING BESAR & TEBAL
+   ============================================ */
+.fa-whatsapp,
+.fab.fa-whatsapp{
+    font-size:1.8rem !important;
+    line-height:1 !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+}
+
+/* WA icon di tombol utama */
+.btn-primary .fa-whatsapp,
+.btn-secondary .fa-whatsapp,
+.btn-large .fa-whatsapp{
+    font-size:1.9rem !important;
+    color:inherit;
+}
+
+/* WA icon di tombol CTA besar */
+.cta-box-large .fa-whatsapp,
+.cta-buttons .fa-whatsapp{
+    font-size:2.1rem !important;
+}
+
+
+/* ============================================
+   🚀 HERO CTA BUTTONS (Daftar & Chat WA)
+   ============================================ */
+.reseller-hero .btn-primary,
+.reseller-hero .btn-secondary,
+.hero-cta .btn-large,
+.hero-cta .btn-primary,
+.hero-cta .btn-secondary{
+    padding:22px 40px !important;
+    font-size:1.15rem !important;
+    font-weight:700 !important;
+    min-height:64px;
+    gap:14px !important;
+}
+
+
+/* ============================================
+   📞 CTA SECTION (Daftar via WhatsApp)
+   ============================================ */
+.cta-box-large .btn-primary,
+.cta-box-large .btn-large,
+.cta-buttons .btn-primary,
+.cta-buttons .btn-large{
+    padding:24px 44px !important;
+    font-size:1.2rem !important;
+    font-weight:800 !important;
+    min-height:68px;
+    gap:16px !important;
+}
+
+
+/* ============================================
+   📄 MOU BUTTONS
+   ============================================ */
+.mou-link-btn,
+.step-mou-btn{
+    padding:16px 32px !important;
+    font-size:1rem !important;
+    font-weight:700 !important;
+    background:rgba(212,165,54,0.1);
+    border:1px solid rgba(212,165,54,0.4);
+    border-radius:100px;
+    color:var(--gold) !important;
+    text-decoration:none !important;
+    transition:all 0.3s var(--ease);
+    font-style:normal;
+    gap:12px !important;
+}
+
+.mou-link-btn i,
+.step-mou-btn i{
+    font-size:1.3rem !important;
+}
+
+.mou-link-btn:hover,
+.step-mou-btn:hover{
+    background:rgba(212,165,54,0.2);
+    border-color:var(--gold);
+    transform:translateY(-2px);
+    box-shadow:0 6px 20px rgba(212,165,54,0.3);
+}
+
+
+/* ============================================
+   🌐 FLOATING WA BUTTON (Bulat kanan bawah)
+   ============================================ */
+.fab-wa{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+}
+
+.fab-wa i,
+.fab-wa .fa-whatsapp{
+    font-size:2.2rem !important;
+    line-height:1;
+}
+
+
+/* ============================================
+   📱 BOTTOM NAV ICONS (Mobile)
+   ============================================ */
+.mnav-item i{
+    font-size:1.3rem !important;
+    margin-bottom:4px;
+}
+
+.mnav-highlight i{
+    font-size:1.4rem !important;
+}
+
+
+/* ============================================
+   📊 STAT & BENEFIT ICONS
+   ============================================ */
+.benefit-icon i{
+    font-size:2rem !important;
+}
+
+.step-icon{
+    font-size:3.5rem !important;
+    line-height:1;
+}
+
+
+/* ============================================
+   📝 CTA NOTE
+   ============================================ */
+.cta-note{
+    font-size:1rem !important;
+    line-height:2 !important;
+    font-style:normal !important;
+    margin-top:24px !important;
+}
+
+
+/* ============================================
+   💰 CTA BOX HEADING
+   ============================================ */
+.cta-box-large h2{
+    font-size:clamp(2rem,4vw,3rem) !important;
+    line-height:1.25 !important;
+    margin-bottom:20px !important;
+}
+
+.cta-box-large p{
+    font-size:1.15rem !important;
+    line-height:1.7 !important;
+    margin-bottom:36px !important;
+}
+
+
+/* ============================================
+   👣 STEP CARD
+   ============================================ */
+.step-card h3{
+    font-size:1.4rem !important;
+    margin-bottom:14px !important;
+}
+
+.step-card p{
+    font-size:1rem !important;
+    line-height:1.7 !important;
+}
+
+
+/* ====================================================
+   📱 RESPONSIVE - MOBILE (max-width: 768px)
+   ==================================================== */
+@media (max-width:768px){
+    /* Hero buttons */
+    .reseller-hero .btn-primary,
+    .reseller-hero .btn-secondary,
+    .hero-cta .btn-large{
+        padding:20px 32px !important;
+        font-size:1.1rem !important;
+        min-height:62px;
+        width:100%;
+        max-width:360px;
+        gap:14px !important;
+    }
+
+    /* Semua icon umum */
+    .btn-primary i,
+    .btn-secondary i,
+    .btn-large i,
+    .mou-link-btn i,
+    .step-mou-btn i{
+        font-size:1.4rem !important;
+    }
+
+    /* Icon WhatsApp mobile */
+    .fa-whatsapp,
+    .fab.fa-whatsapp{
+        font-size:1.7rem !important;
+    }
+
+    .btn-primary .fa-whatsapp,
+    .btn-secondary .fa-whatsapp,
+    .btn-large .fa-whatsapp{
+        font-size:1.8rem !important;
+    }
+
+    .cta-box-large .fa-whatsapp{
+        font-size:2rem !important;
+    }
+
+    /* CTA button */
+    .cta-box-large .btn-primary,
+    .cta-box-large .btn-large{
+        padding:22px 32px !important;
+        font-size:1.15rem !important;
+        min-height:64px;
+        width:100%;
+        max-width:360px;
+        gap:14px !important;
+    }
+
+    /* MoU buttons */
+    .mou-link-btn,
+    .step-mou-btn{
+        padding:15px 28px !important;
+        font-size:0.95rem !important;
+        gap:10px !important;
+    }
+
+    .mou-link-btn i,
+    .step-mou-btn i{
+        font-size:1.2rem !important;
+    }
+
+    /* Floating WA */
+    .fab-wa i,
+    .fab-wa .fa-whatsapp{
+        font-size:2rem !important;
+    }
+
+    /* CTA box */
+    .cta-box-large h2{
+        font-size:1.8rem !important;
+    }
+
+    .cta-box-large p{
+        font-size:1rem !important;
+    }
+
+    /* Step card */
+    .step-card h3{
+        font-size:1.25rem !important;
+    }
+
+    .step-card p{
+        font-size:0.95rem !important;
+    }
+
+    .step-icon{
+        font-size:3rem !important;
+    }
+
+    /* Bottom nav */
+    .mnav-item i{
+        font-size:1.25rem !important;
+    }
+
+    .cta-note{
+        font-size:0.95rem !important;
+        line-height:1.9 !important;
+    }
+}
+
+
+/* ====================================================
+   📱 EXTRA SMALL (max-width: 400px)
+   ==================================================== */
+@media (max-width:400px){
+    .reseller-hero .btn-primary,
+    .reseller-hero .btn-secondary,
+    .cta-box-large .btn-primary{
+        padding:18px 24px !important;
+        font-size:1.05rem !important;
+        gap:12px !important;
+    }
+
+    .btn-primary i,
+    .btn-secondary i,
+    .btn-large i{
+        font-size:1.3rem !important;
+    }
+
+    .fa-whatsapp,
+    .fab.fa-whatsapp{
+        font-size:1.6rem !important;
+    }
+
+    .btn-primary .fa-whatsapp,
+    .btn-secondary .fa-whatsapp{
+        font-size:1.7rem !important;
+    }
+
+    .cta-box-large .fa-whatsapp{
+        font-size:1.9rem !important;
+    }
+
+    .mou-link-btn,
+    .step-mou-btn{
+        padding:13px 24px !important;
+        font-size:0.9rem !important;
+    }
+
+    .mou-link-btn i,
+    .step-mou-btn i{
+        font-size:1.15rem !important;
+    }
+}
+
