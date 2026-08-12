@@ -675,7 +675,7 @@ document.addEventListener('click', (e) => {
 });
 
 // ====================================================
-// BANNER SLIDER
+// BANNER SLIDER v2.0 - Smooth & Comfortable
 // ====================================================
 const bannerSlider = document.getElementById('bannerSlider');
 const bannerSlides = document.querySelectorAll('.banner-slide');
@@ -686,21 +686,17 @@ const bannerProgress = document.getElementById('bannerProgress');
 
 let currentSlide = 0;
 const totalSlides = bannerSlides.length;
-const slideDuration = 5000; // 5 detik per slide
+const slideDuration = 7000; // 🔑 7 detik per slide (lebih santai)
 let slideInterval;
-let progressInterval;
-let startProgress = 0;
 
 // Show slide
 function showSlide(index) {
-    // Remove all active/prev classes
     bannerSlides.forEach((slide, i) => {
         slide.classList.remove('active', 'prev');
         if (i < index) slide.classList.add('prev');
     });
     bannerDots.forEach(dot => dot.classList.remove('active'));
     
-    // Add active to current
     bannerSlides[index].classList.add('active');
     bannerDots[index].classList.add('active');
     
@@ -729,29 +725,31 @@ function startAutoPlay() {
 
 function stopAutoPlay() {
     clearInterval(slideInterval);
-    clearInterval(progressInterval);
 }
 
-// Progress bar animation
+// 🔑 Progress bar dengan CSS transition (smooth!)
 function startProgressBar() {
-    startProgress = 0;
+    bannerProgress.style.transition = 'none';
     bannerProgress.style.width = '0%';
+    bannerProgress.style.opacity = '1';
     
-    clearInterval(progressInterval);
-    progressInterval = setInterval(() => {
-        startProgress += (100 / (slideDuration / 100));
-        bannerProgress.style.width = startProgress + '%';
-        
-        if (startProgress >= 100) {
-            clearInterval(progressInterval);
-        }
-    }, 100);
+    // Force reflow biar transition di-apply setelah reset
+    void bannerProgress.offsetWidth;
+    
+    // Nyalakan animasi mulus
+    bannerProgress.style.transition = `width ${slideDuration}ms linear`;
+    bannerProgress.style.width = '100%';
 }
 
 function resetProgress() {
-    clearInterval(progressInterval);
-    bannerProgress.style.width = '0%';
-    setTimeout(() => startProgressBar(), 50);
+    // Smooth reset - fade out dulu, baru start ulang
+    bannerProgress.style.transition = 'width 0.3s ease-out, opacity 0.2s ease-out';
+    bannerProgress.style.opacity = '0';
+    
+    setTimeout(() => {
+        bannerProgress.style.opacity = '1';
+        startProgressBar();
+    }, 300);
 }
 
 // Event listeners
@@ -773,7 +771,7 @@ bannerDots.forEach(dot => {
     });
 });
 
-// Pause on hover
+// Pause on hover (desktop)
 bannerSlider.addEventListener('mouseenter', stopAutoPlay);
 bannerSlider.addEventListener('mouseleave', startAutoPlay);
 
@@ -800,10 +798,8 @@ function handleSwipe() {
     const minSwipe = 50;
     
     if (swipeDistance > minSwipe) {
-        // Swipe left = next
         nextSlide();
     } else if (swipeDistance < -minSwipe) {
-        // Swipe right = prev
         prevSlide();
     }
 }
@@ -829,9 +825,17 @@ function isElementInViewport(el) {
     );
 }
 
+// 🔑 Pause auto-play kalau tab tidak aktif (hemat resource)
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        stopAutoPlay();
+    } else {
+        startAutoPlay();
+    }
+});
+
 // Start auto play on load
 startAutoPlay();
-
 
 // ====================================================
 // CALCULATOR
