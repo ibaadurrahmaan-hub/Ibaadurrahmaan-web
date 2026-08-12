@@ -1,7 +1,8 @@
 /* ====================================================
-   RESELLER PAGE STYLES v4.0
+   RESELLER PAGE STYLES v4.1
    Clean Minimal Dropdown - No Border Wrapper
    Navbar mengikuti index.html (via style.css)
+   Header logo center (navbar bottom pill-style)
    ==================================================== */
 
 /* ==== HERO ==== */
@@ -837,419 +838,6 @@
 
 
 /* ====================================================
-   HAMBURGER BUTTON (Mobile Menu)
-   ==================================================== */
-.hamburger-btn{
-    display:none;
-    background:transparent;
-    border:none;
-    cursor:pointer;
-    padding:8px;
-    width:40px;
-    height:40px;
-    flex-direction:column;
-    justify-content:space-around;
-    align-items:center;
-    z-index:101;
-    position:relative;
-}
-
-.hamburger-btn span{
-    display:block;
-    width:24px;
-    height:3px;
-    background:var(--gold);
-    border-radius:3px;
-    transition:all 0.3s var(--ease);
-    transform-origin:center;
-}
-
-.hamburger-btn.active span:nth-child(1){
-    transform:translateY(8px) rotate(45deg);
-}
-
-.hamburger-btn.active span:nth-child(2){
-    opacity:0;
-    transform:translateX(-20px);
-}
-
-.hamburger-btn.active span:nth-child(3){
-    transform:translateY(-8px) rotate(-45deg);
-}
-
-
-/* ====================================================
-   MOBILE MENU OVERLAY
-   ==================================================== */
-.mobile-menu-overlay{
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    background:rgba(0,0,0,0.7);
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-    z-index:200;
-    opacity:0;
-    visibility:hidden;
-    transition:all 0.3s var(--ease);
-    display:flex;
-    justify-content:flex-end;
-}
-
-.mobile-menu-overlay.active{
-    opacity:1;
-    visibility:visible;
-}
-
-.mobile-menu-content{
-    background:linear-gradient(180deg,#0A1526 0%,#050B18 100%);
-    width:85%;
-    max-width:340px;
-    height:100vh;
-    padding:24px;
-    overflow-y:auto;
-    display:flex;
-    flex-direction:column;
-    transform:translateX(100%);
-    transition:transform 0.4s var(--ease);
-    box-shadow:-10px 0 40px rgba(0,0,0,0.5);
-    border-left:1px solid rgba(212,165,54,0.2);
-}
-
-.mobile-menu-overlay.active .mobile-menu-content{
-    transform:translateX(0);
-}
-
-.mobile-menu-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding-bottom:20px;
-    margin-bottom:24px;
-    border-bottom:1px solid rgba(212,165,54,0.15);
-}
-
-.mobile-menu-brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.mobile-menu-logo{
-    width:44px;
-    height:44px;
-    object-fit:contain;
-    filter:drop-shadow(0 2px 8px var(--gold-glow));
-}
-
-.mobile-menu-name{
-    font-family:'Montserrat',sans-serif;
-    font-size:1rem;
-    font-weight:800;
-    background:var(--grad-gold-shine);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-    line-height:1;
-}
-
-.mobile-menu-sub{
-    font-size:0.65rem;
-    color:var(--text-muted);
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    margin-top:4px;
-}
-
-.mobile-menu-close{
-    background:rgba(212,165,54,0.1);
-    border:1px solid var(--border);
-    color:var(--gold);
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    font-size:1rem;
-    transition:all 0.3s var(--ease);
-}
-
-.mobile-menu-close:hover{
-    background:var(--gold);
-    color:var(--bg);
-    transform:rotate(90deg);
-}
-
-.mobile-menu-nav{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-    flex:1;
-}
-
-.mobile-menu-link{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding:14px 18px;
-    color:var(--text);
-    text-decoration:none;
-    border-radius:var(--radius-md);
-    font-size:0.95rem;
-    font-weight:600;
-    transition:all 0.3s var(--ease);
-    position:relative;
-    border:1px solid transparent;
-}
-
-.mobile-menu-link i{
-    width:24px;
-    text-align:center;
-    color:var(--gold);
-    font-size:1.05rem;
-    transition:transform 0.3s var(--ease);
-}
-
-.mobile-menu-link:hover{
-    background:rgba(212,165,54,0.08);
-    padding-left:22px;
-    border-color:rgba(212,165,54,0.2);
-}
-
-.mobile-menu-link:hover i{
-    transform:scale(1.15);
-}
-
-.mobile-menu-link.active{
-    background:linear-gradient(135deg,rgba(212,165,54,0.2),rgba(212,165,54,0.05));
-    border-color:var(--gold);
-    color:var(--gold);
-}
-
-.mobile-menu-link.active i{
-    color:var(--gold);
-}
-
-.mobile-menu-badge{
-    background:#ff4444;
-    color:white;
-    padding:2px 8px;
-    border-radius:20px;
-    font-size:0.6rem;
-    font-weight:800;
-    margin-left:auto;
-    letter-spacing:0.5px;
-    animation:hotBadge 1.5s ease-in-out infinite;
-}
-
-@keyframes hotBadge{
-    0%,100%{transform:scale(1);}
-    50%{transform:scale(1.15);}
-}
-
-.mobile-menu-footer{
-    padding-top:20px;
-    margin-top:20px;
-    border-top:1px solid rgba(212,165,54,0.15);
-}
-
-.mobile-menu-cta{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    padding:16px;
-    background:var(--wa);
-    color:white;
-    text-decoration:none;
-    border-radius:var(--radius-md);
-    font-weight:700;
-    font-size:1rem;
-    transition:all 0.3s var(--ease);
-    box-shadow:0 6px 18px rgba(37,211,102,0.3);
-}
-
-.mobile-menu-cta:hover{
-    transform:translateY(-3px);
-    box-shadow:0 10px 25px rgba(37,211,102,0.5);
-}
-
-.mobile-menu-cta i{
-    font-size:1.3rem;
-}
-
-
-/* ====================================================
-   RESPONSIVE
-   ==================================================== */
-@media (max-width:992px){
-    .benefit-grid,
-    .tier-grid,
-    .steps-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-    .hero-stats{grid-template-columns:repeat(2,1fr);}
-    .tier-card.gold{transform:scale(1);}
-}
-
-@media (max-width:768px){
-    /* Hide desktop menu, show hamburger */
-    .nav-menu{
-        display:none !important;
-    }
-    
-    .hamburger-btn{
-        display:flex !important;
-    }
-    
-    .navbar{
-        padding:12px 20px;
-    }
-    
-    .nav-inner{
-        justify-content:space-between;
-    }
-    
-    /* Floating WA position fix */
-    .fab-wa{
-        bottom:130px !important;
-        font-size:3rem !important;
-        right:12px !important;
-    }
-}
-
-@media (max-width:640px){
-    .benefit-grid,
-    .tier-grid,
-    .steps-grid{
-        grid-template-columns:1fr;
-    }
-    .hero-stats{grid-template-columns:repeat(2,1fr);}
-    
-    .calculator-wrapper{
-        max-width:100%;
-    }
-    
-    .cta-box-large{padding:40px 24px;}
-    
-    /* Reseller hero */
-    .reseller-hero{
-        padding:100px 20px 60px;
-    }
-    
-    /* Dropdown mobile */
-    .dropdown-selected{
-        padding:14px 14px;
-    }
-    
-    .dropdown-selected-icon{
-        font-size:1.2rem;
-    }
-    
-    .dropdown-selected-text{
-        font-size:0.88rem;
-    }
-    
-    .dropdown-option{
-        padding:11px 12px;
-    }
-    
-    .dropdown-option-icon{
-        font-size:1.4rem;
-    }
-    
-    .dropdown-option-title{
-        font-size:0.9rem;
-    }
-    
-    .dropdown-option-desc{
-        font-size:0.72rem;
-    }
-    
-    /* Counter mobile */
-    .counter-btn{
-        width:44px;
-        height:48px;
-    }
-    
-    .number-counter input{
-        font-size:1.2rem;
-        padding:12px 8px;
-    }
-    
-    /* Result mobile */
-    .calc-result{
-        padding:18px 14px;
-    }
-    
-    .calc-item{
-        padding:11px 0;
-    }
-    
-    .calc-item-label{
-        font-size:0.85rem;
-        gap:8px;
-    }
-    
-    .calc-item-label i{
-        font-size:0.85rem;
-        width:18px;
-    }
-    
-    .calc-item-value{
-        font-size:0.92rem;
-    }
-    
-    /* HIGHLIGHT mobile */
-    .calc-item.highlight{
-        padding:16px 14px;
-        margin:10px 0;
-    }
-    
-    .calc-item.highlight .calc-item-label{
-        font-size:0.78rem;
-    }
-    
-    .calc-item.highlight .calc-item-value{
-        font-size:1.7rem;
-    }
-    
-    /* YEARLY mobile */
-    .calc-item.yearly .calc-item-value{
-        font-size:0.95rem;
-    }
-    
-    /* Field label mobile */
-    .calc-field label{
-        font-size:0.88rem;
-    }
-    
-    .calc-field label i{
-        font-size:0.88rem;
-        width:18px;
-    }
-    
-    /* CTA section — kasih ruang untuk mobile bottom nav */
-    .cta-section{
-        padding:80px 0 100px;
-    }
-}
-
-@media (max-width:400px){
-    .calc-item.highlight .calc-item-value{
-        font-size:1.5rem;
-    }
-    
-    .calc-item-value{
-        font-size:0.88rem;
-    }
-}
-
-/* ====================================================
    🎨 BANNER SLIDER SECTION
    ==================================================== */
 .banner-slider-section{
@@ -1637,9 +1225,91 @@
 
 
 /* ====================================================
-   RESPONSIVE
+   🔧 FIX: HEADER LOGO CENTER DI MOBILE
+   (Karena navbar utama pakai pill-style di bawah)
+   ==================================================== */
+@media (max-width:768px){
+    /* Container navbar atas - center everything */
+    .nav-inner{
+        display:flex !important;
+        justify-content:center !important;
+        align-items:center !important;
+        width:100% !important;
+    }
+    
+    /* Logo/Brand - center di tengah */
+    .nav-brand,
+    .logo{
+        display:flex !important;
+        align-items:center !important;
+        justify-content:center !important;
+        gap:12px !important;
+        margin:0 auto !important;
+        text-align:center !important;
+        width:auto !important;
+    }
+    
+    /* Text brand - center */
+    .nav-brand-text,
+    .logo-text{
+        display:flex !important;
+        flex-direction:column !important;
+        align-items:center !important;
+        justify-content:center !important;
+        text-align:center !important;
+    }
+    
+    /* Nama brand center */
+    .brand-name,
+    .logo h1,
+    .logo-title{
+        text-align:center !important;
+        width:100% !important;
+    }
+    
+    /* Subtitle "WEB DESIGNER" center */
+    .brand-sub,
+    .logo span,
+    .logo-subtitle,
+    .brand-tagline{
+        text-align:center !important;
+        width:100% !important;
+        letter-spacing:2px !important;
+    }
+    
+    /* Hide desktop menu & hamburger di navbar atas */
+    .nav-menu,
+    .hamburger-btn{
+        display:none !important;
+    }
+    
+    /* Padding navbar */
+    .navbar{
+        padding:12px 20px;
+    }
+    
+    /* Floating WA position fix */
+    .fab-wa{
+        bottom:130px !important;
+        font-size:3rem !important;
+        right:12px !important;
+    }
+}
+
+
+/* ====================================================
+   RESPONSIVE - Tablet & Mobile
    ==================================================== */
 @media (max-width:992px){
+    .benefit-grid,
+    .tier-grid,
+    .steps-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+    .hero-stats{grid-template-columns:repeat(2,1fr);}
+    .tier-card.gold{transform:scale(1);}
+    
+    /* Banner slider tablet */
     .banner-slider{
         height:auto;
         min-height:380px;
@@ -1683,7 +1353,124 @@
     .banner-arrow.next{right:8px;}
 }
 
+
 @media (max-width:640px){
+    .benefit-grid,
+    .tier-grid,
+    .steps-grid{
+        grid-template-columns:1fr;
+    }
+    .hero-stats{grid-template-columns:repeat(2,1fr);}
+    
+    .calculator-wrapper{
+        max-width:100%;
+    }
+    
+    .cta-box-large{padding:40px 24px;}
+    
+    /* Reseller hero */
+    .reseller-hero{
+        padding:100px 20px 60px;
+    }
+    
+    /* Dropdown mobile */
+    .dropdown-selected{
+        padding:14px 14px;
+    }
+    
+    .dropdown-selected-icon{
+        font-size:1.2rem;
+    }
+    
+    .dropdown-selected-text{
+        font-size:0.88rem;
+    }
+    
+    .dropdown-option{
+        padding:11px 12px;
+    }
+    
+    .dropdown-option-icon{
+        font-size:1.4rem;
+    }
+    
+    .dropdown-option-title{
+        font-size:0.9rem;
+    }
+    
+    .dropdown-option-desc{
+        font-size:0.72rem;
+    }
+    
+    /* Counter mobile */
+    .counter-btn{
+        width:44px;
+        height:48px;
+    }
+    
+    .number-counter input{
+        font-size:1.2rem;
+        padding:12px 8px;
+    }
+    
+    /* Result mobile */
+    .calc-result{
+        padding:18px 14px;
+    }
+    
+    .calc-item{
+        padding:11px 0;
+    }
+    
+    .calc-item-label{
+        font-size:0.85rem;
+        gap:8px;
+    }
+    
+    .calc-item-label i{
+        font-size:0.85rem;
+        width:18px;
+    }
+    
+    .calc-item-value{
+        font-size:0.92rem;
+    }
+    
+    /* HIGHLIGHT mobile */
+    .calc-item.highlight{
+        padding:16px 14px;
+        margin:10px 0;
+    }
+    
+    .calc-item.highlight .calc-item-label{
+        font-size:0.78rem;
+    }
+    
+    .calc-item.highlight .calc-item-value{
+        font-size:1.7rem;
+    }
+    
+    /* YEARLY mobile */
+    .calc-item.yearly .calc-item-value{
+        font-size:0.95rem;
+    }
+    
+    /* Field label mobile */
+    .calc-field label{
+        font-size:0.88rem;
+    }
+    
+    .calc-field label i{
+        font-size:0.88rem;
+        width:18px;
+    }
+    
+    /* CTA section — kasih ruang untuk mobile bottom nav */
+    .cta-section{
+        padding:80px 0 100px;
+    }
+    
+    /* Banner slider mobile */
     .banner-slider-section{
         padding:40px 0 30px;
     }
@@ -1771,55 +1558,22 @@
     }
 }
 
+
 @media (max-width:400px){
+    .calc-item.highlight .calc-item-value{
+        font-size:1.5rem;
+    }
+    
+    .calc-item-value{
+        font-size:0.88rem;
+    }
+    
+    /* Banner extra small */
     .banner-title{
         font-size:1.2rem;
     }
     
     .banner-emoji{
         font-size:3.5rem;
-    }
-}
-
-/* ====================================================
-   🔧 FIX: HEADER LOGO CENTER DI MOBILE
-   ==================================================== */
-@media (max-width:768px){
-    /* Force logo text center */
-    .logo,
-    .nav-brand,
-    .header .logo,
-    header .logo{
-        text-align:center !important;
-        display:flex !important;
-        flex-direction:column !important;
-        align-items:center !important;
-        justify-content:center !important;
-        width:100% !important;
-    }
-    
-    .logo-text,
-    .brand-name,
-    .logo h1,
-    .logo-title{
-        text-align:center !important;
-        width:100% !important;
-    }
-    
-    .logo-subtitle,
-    .brand-tagline,
-    .logo span,
-    .logo p{
-        text-align:center !important;
-        width:100% !important;
-        letter-spacing:2px !important;
-    }
-    
-    /* Center the whole header container */
-    .header-container,
-    .nav-container,
-    header .container{
-        justify-content:center !important;
-        text-align:center !important;
     }
 }
