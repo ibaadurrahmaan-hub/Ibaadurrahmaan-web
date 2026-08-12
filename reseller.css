@@ -1780,3 +1780,46 @@
         font-size:3.5rem;
     }
 }
+
+/* ====================================================
+   🔧 FIX: HEADER LOGO CENTER DI MOBILE
+   ==================================================== */
+@media (max-width:768px){
+    /* Force logo text center */
+    .logo,
+    .nav-brand,
+    .header .logo,
+    header .logo{
+        text-align:center !important;
+        display:flex !important;
+        flex-direction:column !important;
+        align-items:center !important;
+        justify-content:center !important;
+        width:100% !important;
+    }
+    
+    .logo-text,
+    .brand-name,
+    .logo h1,
+    .logo-title{
+        text-align:center !important;
+        width:100% !important;
+    }
+    
+    .logo-subtitle,
+    .brand-tagline,
+    .logo span,
+    .logo p{
+        text-align:center !important;
+        width:100% !important;
+        letter-spacing:2px !important;
+    }
+    
+    /* Center the whole header container */
+    .header-container,
+    .nav-container,
+    header .container{
+        justify-content:center !important;
+        text-align:center !important;
+    }
+}
