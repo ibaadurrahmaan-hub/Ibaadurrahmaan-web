@@ -1,6 +1,6 @@
 /* ====================================================
-   RESELLER PAGE STYLES v2.0
-   Improved Layout & Custom Dropdown
+   RESELLER PAGE STYLES v3.0
+   Premium Custom Dropdown (No Native Select)
    ==================================================== */
 
 /* ==== HERO ==== */
@@ -256,18 +256,17 @@
 
 
 /* ====================================================
-   ✨ CALCULATOR — REDESIGNED (No Outer Card)
+   🎨 CALCULATOR — PREMIUM DESIGN
    ==================================================== */
 .calculator-wrapper{
     max-width:640px;
     margin:0 auto;
 }
 
-/* Input Fields Container */
 .calc-inputs{
     display:flex;
     flex-direction:column;
-    gap:20px;
+    gap:22px;
     margin-bottom:32px;
 }
 
@@ -281,129 +280,249 @@
     color:var(--gold);
     font-weight:700;
     font-size:0.95rem;
-    letter-spacing:0.5px;
+    letter-spacing:0.3px;
     padding-left:4px;
+    display:flex;
+    align-items:center;
+    gap:8px;
 }
 
-/* ==== CUSTOM DROPDOWN ==== */
-.custom-select{
+.calc-field label i{
+    font-size:1rem;
+}
+
+
+/* ====================================================
+   ✨ CUSTOM DROPDOWN (100% Custom, No Native Select)
+   ==================================================== */
+.custom-dropdown{
     position:relative;
     width:100%;
+    user-select:none;
 }
 
-.custom-select select{
-    /* Hide default dropdown */
-    -webkit-appearance:none;
-    -moz-appearance:none;
-    appearance:none;
-    
-    width:100%;
-    background:var(--grad-card);
-    border:1.5px solid var(--border);
-    color:var(--text);
-    padding:16px 50px 16px 20px;
-    border-radius:var(--radius-md);
-    font-size:1rem;
-    font-family:'Poppins',sans-serif;
-    font-weight:600;
-    cursor:pointer;
-    transition:all 0.3s var(--ease);
-    box-shadow:0 4px 12px rgba(0,0,0,0.2);
-}
-
-.custom-select select:hover{
-    border-color:var(--gold);
-    background:linear-gradient(145deg,#12233d 0%,#0a1220 100%);
-}
-
-.custom-select select:focus{
-    outline:none;
-    border-color:var(--gold);
-    box-shadow:0 0 0 3px rgba(212,165,54,0.15),0 4px 12px rgba(0,0,0,0.2);
-}
-
-/* Custom arrow icon */
-.custom-select::after{
-    content:'\f078'; /* Font Awesome chevron-down */
-    font-family:'Font Awesome 6 Free';
-    font-weight:900;
-    position:absolute;
-    top:50%;
-    right:20px;
-    transform:translateY(-50%);
-    color:var(--gold);
-    pointer-events:none;
-    font-size:0.85rem;
-    transition:transform 0.3s var(--ease);
-}
-
-.custom-select:hover::after{
-    transform:translateY(-50%) translateY(2px);
-}
-
-/* Style dropdown options */
-.custom-select select option{
-    background:var(--bg-2);
-    color:var(--text);
-    padding:12px;
-    font-size:1rem;
-    font-weight:500;
-}
-
-/* Number Input */
-.calc-input-number{
-    width:100%;
-    background:var(--grad-card);
-    border:1.5px solid var(--border);
+/* Selected Display (Trigger) */
+.dropdown-selected{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:linear-gradient(145deg,#0D1829 0%,#0A1220 100%);
+    border:1.5px solid rgba(212,165,54,0.25);
     color:var(--text);
     padding:16px 20px;
     border-radius:var(--radius-md);
-    font-size:1.2rem;
-    font-family:'Montserrat',sans-serif;
-    font-weight:700;
-    text-align:center;
+    cursor:pointer;
     transition:all 0.3s var(--ease);
-    box-shadow:0 4px 12px rgba(0,0,0,0.2);
-    -moz-appearance:textfield; /* Firefox hide arrow */
+    box-shadow:0 4px 12px rgba(0,0,0,0.25);
+    position:relative;
+    overflow:hidden;
 }
 
-.calc-input-number::-webkit-outer-spin-button,
-.calc-input-number::-webkit-inner-spin-button{
-    -webkit-appearance:none;
-    margin:0;
+.dropdown-selected::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:4px;
+    height:100%;
+    background:var(--grad-gold-shine);
+    transform:scaleY(0);
+    transition:transform 0.3s var(--ease);
+    transform-origin:center;
 }
 
-.calc-input-number:focus{
-    outline:none;
+.dropdown-selected:hover{
     border-color:var(--gold);
-    box-shadow:0 0 0 3px rgba(212,165,54,0.15),0 4px 12px rgba(0,0,0,0.2);
+    background:linear-gradient(145deg,#12233d 0%,#0D1829 100%);
+    box-shadow:0 6px 18px rgba(212,165,54,0.15);
 }
 
-/* Number Counter Wrapper (with +/- buttons) */
+.dropdown-selected:hover::before{
+    transform:scaleY(1);
+}
+
+.custom-dropdown.open .dropdown-selected{
+    border-color:var(--gold);
+    box-shadow:0 0 0 3px rgba(212,165,54,0.15),0 6px 18px rgba(212,165,54,0.2);
+}
+
+.custom-dropdown.open .dropdown-selected::before{
+    transform:scaleY(1);
+}
+
+.dropdown-selected-icon{
+    font-size:1.5rem;
+    flex-shrink:0;
+    filter:drop-shadow(0 2px 4px rgba(212,165,54,0.3));
+}
+
+.dropdown-selected-text{
+    flex:1;
+    font-size:0.95rem;
+    font-weight:600;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.dropdown-arrow{
+    color:var(--gold);
+    font-size:0.85rem;
+    transition:transform 0.3s var(--ease);
+    flex-shrink:0;
+}
+
+.custom-dropdown.open .dropdown-arrow{
+    transform:rotate(180deg);
+}
+
+/* Options Panel */
+.dropdown-options{
+    position:absolute;
+    top:calc(100% + 8px);
+    left:0;
+    right:0;
+    background:linear-gradient(145deg,#0F1E33 0%,#0A1526 100%);
+    border:1.5px solid var(--gold);
+    border-radius:var(--radius-md);
+    padding:8px;
+    z-index:100;
+    box-shadow:0 15px 40px rgba(0,0,0,0.5),0 0 0 3px rgba(212,165,54,0.1);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-10px);
+    transition:all 0.3s var(--ease);
+    max-height:400px;
+    overflow-y:auto;
+}
+
+.custom-dropdown.open .dropdown-options{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+/* Custom scrollbar for dropdown */
+.dropdown-options::-webkit-scrollbar{
+    width:6px;
+}
+.dropdown-options::-webkit-scrollbar-track{
+    background:transparent;
+}
+.dropdown-options::-webkit-scrollbar-thumb{
+    background:var(--gold-dark);
+    border-radius:10px;
+}
+
+/* Option Item */
+.dropdown-option{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:14px 16px;
+    border-radius:var(--radius-sm);
+    cursor:pointer;
+    transition:all 0.2s var(--ease);
+    position:relative;
+    color:var(--text);
+}
+
+.dropdown-option:hover{
+    background:rgba(212,165,54,0.1);
+    padding-left:20px;
+}
+
+.dropdown-option.selected{
+    background:linear-gradient(135deg,rgba(212,165,54,0.2),rgba(212,165,54,0.05));
+    border:1px solid rgba(212,165,54,0.3);
+}
+
+.dropdown-option-icon{
+    font-size:1.8rem;
+    flex-shrink:0;
+    filter:drop-shadow(0 2px 6px rgba(212,165,54,0.3));
+}
+
+.dropdown-option-content{
+    flex:1;
+    min-width:0;
+}
+
+.dropdown-option-title{
+    font-size:1rem;
+    font-weight:700;
+    color:var(--text);
+    line-height:1.2;
+    margin-bottom:2px;
+}
+
+.dropdown-option-desc{
+    font-size:0.8rem;
+    color:var(--text-muted);
+    font-weight:500;
+}
+
+.dropdown-option.selected .dropdown-option-title{
+    color:var(--gold);
+}
+
+.dropdown-option-check{
+    color:var(--gold);
+    font-size:1rem;
+    flex-shrink:0;
+    animation:checkPop 0.3s ease-out;
+}
+
+@keyframes checkPop{
+    from{transform:scale(0);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+
+/* ====================================================
+   NUMBER COUNTER (Premium)
+   ==================================================== */
 .number-counter{
     display:flex;
     align-items:center;
-    gap:0;
-    background:var(--grad-card);
-    border:1.5px solid var(--border);
+    background:linear-gradient(145deg,#0D1829 0%,#0A1220 100%);
+    border:1.5px solid rgba(212,165,54,0.25);
     border-radius:var(--radius-md);
     overflow:hidden;
-    box-shadow:0 4px 12px rgba(0,0,0,0.2);
+    box-shadow:0 4px 12px rgba(0,0,0,0.25);
     transition:all 0.3s var(--ease);
+    position:relative;
+}
+
+.number-counter::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:4px;
+    height:100%;
+    background:var(--grad-gold-shine);
+    transform:scaleY(0);
+    transition:transform 0.3s var(--ease);
+    z-index:2;
 }
 
 .number-counter:focus-within{
     border-color:var(--gold);
-    box-shadow:0 0 0 3px rgba(212,165,54,0.15),0 4px 12px rgba(0,0,0,0.2);
+    box-shadow:0 0 0 3px rgba(212,165,54,0.15),0 6px 18px rgba(212,165,54,0.2);
+}
+
+.number-counter:focus-within::before{
+    transform:scaleY(1);
 }
 
 .counter-btn{
-    background:rgba(212,165,54,0.1);
+    background:rgba(212,165,54,0.08);
     border:none;
     color:var(--gold);
     width:56px;
     height:56px;
-    font-size:1.4rem;
+    font-size:1rem;
     font-weight:700;
     cursor:pointer;
     transition:all 0.2s var(--ease);
@@ -414,8 +533,9 @@
 }
 
 .counter-btn:hover{
-    background:var(--gold);
+    background:var(--grad-gold-shine);
     color:var(--bg);
+    transform:scale(1.05);
 }
 
 .counter-btn:active{
@@ -428,9 +548,9 @@
     border:none;
     color:var(--text);
     padding:16px 8px;
-    font-size:1.3rem;
+    font-size:1.5rem;
     font-family:'Montserrat',sans-serif;
-    font-weight:800;
+    font-weight:900;
     text-align:center;
     -moz-appearance:textfield;
     min-width:0;
@@ -447,14 +567,17 @@
 }
 
 
-/* ==== RESULT SECTION ==== */
+/* ====================================================
+   RESULT SECTION
+   ==================================================== */
 .calc-result{
     background:linear-gradient(145deg,#0D1829 0%,#0A1220 100%);
     padding:28px 24px;
     border-radius:var(--radius-lg);
-    border:1px solid var(--border);
+    border:1px solid rgba(212,165,54,0.15);
     position:relative;
     overflow:hidden;
+    box-shadow:0 8px 24px rgba(0,0,0,0.3);
 }
 
 .calc-result::before{
@@ -483,6 +606,14 @@
     font-size:0.95rem;
     flex:1;
     min-width:0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.calc-item-label i{
+    color:var(--gold);
+    font-size:0.9rem;
 }
 
 .calc-item-value{
@@ -502,16 +633,17 @@
     margin:14px -8px;
     border-radius:var(--radius-md);
     border:1px solid rgba(212,165,54,0.3);
-    border-bottom:1px solid rgba(212,165,54,0.3);
 }
 
 .calc-item.highlight .calc-item-label{
     color:var(--gold);
     font-weight:700;
     font-size:1rem;
-    display:flex;
-    align-items:center;
-    gap:8px;
+}
+
+.calc-item.highlight .calc-item-label i{
+    color:var(--gold);
+    font-size:1.1rem;
 }
 
 .calc-item.highlight .calc-item-value{
@@ -533,7 +665,8 @@
     border:1px dashed rgba(37,211,102,0.3);
 }
 
-.calc-item.yearly .calc-item-label{
+.calc-item.yearly .calc-item-label,
+.calc-item.yearly .calc-item-label i{
     color:var(--wa);
     font-weight:600;
 }
@@ -681,7 +814,48 @@
     
     .cta-box-large{padding:40px 24px;}
     
-    /* Calculator mobile adjustments */
+    /* Dropdown mobile */
+    .dropdown-selected{
+        padding:14px 16px;
+    }
+    
+    .dropdown-selected-icon{
+        font-size:1.3rem;
+    }
+    
+    .dropdown-selected-text{
+        font-size:0.9rem;
+    }
+    
+    .dropdown-option{
+        padding:12px 14px;
+    }
+    
+    .dropdown-option-icon{
+        font-size:1.5rem;
+    }
+    
+    .dropdown-option-title{
+        font-size:0.95rem;
+    }
+    
+    .dropdown-option-desc{
+        font-size:0.75rem;
+    }
+    
+    /* Counter mobile */
+    .counter-btn{
+        width:48px;
+        height:48px;
+        font-size:0.9rem;
+    }
+    
+    .number-counter input{
+        font-size:1.3rem;
+        padding:14px 8px;
+    }
+    
+    /* Result mobile */
     .calc-result{
         padding:20px 16px;
     }
@@ -692,7 +866,7 @@
     }
     
     .calc-item-label{
-        font-size:0.9rem;
+        font-size:0.88rem;
     }
     
     .calc-item-value{
@@ -702,7 +876,10 @@
     .calc-item.highlight{
         padding:16px 14px;
         margin:12px -4px;
-        flex-direction:row;
+    }
+    
+    .calc-item.highlight .calc-item-label{
+        font-size:0.9rem;
     }
     
     .calc-item.highlight .calc-item-value{
@@ -711,22 +888,6 @@
     
     .calc-item.yearly .calc-item-value{
         font-size:1rem;
-    }
-    
-    /* Custom select mobile */
-    .custom-select select{
-        padding:14px 45px 14px 16px;
-        font-size:0.95rem;
-    }
-    
-    .counter-btn{
-        width:50px;
-        height:50px;
-        font-size:1.2rem;
-    }
-    
-    .number-counter input{
-        font-size:1.15rem;
     }
     
     .calc-field label{
