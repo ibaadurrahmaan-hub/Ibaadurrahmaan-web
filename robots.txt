@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/sitemap.xml
