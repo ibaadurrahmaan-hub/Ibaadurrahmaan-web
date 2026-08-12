@@ -2,7 +2,9 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050B18">
 <title>Program Reseller | Ibaadurrahmaan Web Designer | Komisi Hingga 25%</title>
 <meta name="description" content="Join Program Reseller Ibaadurrahmaan Web Designer! Komisi 15%-25%, bonus per closing, materi promosi gratis, support 24 jam. Modal Rp 0!">
 <meta name="keywords" content="reseller website, program reseller jasa web, komisi web designer, bisnis online tanpa modal, reseller landing page">
@@ -13,6 +15,8 @@
 <meta property="og:title" content="Program Reseller Ibaadurrahmaan | Komisi Hingga 25%">
 <meta property="og:description" content="Modal Rp 0, komisi hingga 25%, bonus per closing! Peluang bisnis website tanpa ribet.">
 <meta property="og:image" content="https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 
 <link rel="icon" type="image/png" href="main-logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -25,23 +29,85 @@
 <!-- ===== NAVBAR ===== -->
 <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
-        <a href="#beranda" class="nav-brand-text" aria-label="Ibaadurrahmaan Web Designer Home">
+        <a href="index.html" class="nav-brand-text" aria-label="Ibaadurrahmaan Web Designer Home">
             <span class="brand-name-nav">Ibaadurrahmaan</span>
             <span class="brand-sub-nav">Web Designer</span>
         </a>
         
+        <!-- Desktop Menu -->
         <div class="nav-menu">
-            <a href="#beranda" class="nav-link active">Beranda</a>
-            <a href="#layanan" class="nav-link">Layanan</a>
-            <a href="#paket" class="nav-link">Paket</a>
-            <a href="reseller.html" class="nav-link nav-link-highlight">
+            <a href="index.html" class="nav-link">Beranda</a>
+            <a href="index.html#layanan" class="nav-link">Layanan</a>
+            <a href="index.html#paket" class="nav-link">Paket</a>
+            <a href="reseller.html" class="nav-link nav-link-highlight active">
                 <i class="fas fa-fire"></i> Reseller
             </a>
-            <a href="#tentang" class="nav-link">Tentang</a>
-            <a href="#faq" class="nav-link">FAQ</a>
+            <a href="index.html#tentang" class="nav-link">Tentang</a>
+            <a href="index.html#faq" class="nav-link">FAQ</a>
         </div>
+        
+        <!-- Hamburger Button (Mobile) -->
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
 </nav>
+
+<!-- ===== MOBILE MENU OVERLAY ===== -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay">
+    <div class="mobile-menu-content">
+        <div class="mobile-menu-header">
+            <div class="mobile-menu-brand">
+                <img src="main-logo.png" alt="Logo" class="mobile-menu-logo">
+                <div>
+                    <div class="mobile-menu-name">Ibaadurrahmaan</div>
+                    <div class="mobile-menu-sub">Web Designer</div>
+                </div>
+            </div>
+            <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="mobile-menu-nav">
+            <a href="index.html" class="mobile-menu-link">
+                <i class="fas fa-home"></i>
+                <span>Beranda</span>
+            </a>
+            <a href="index.html#layanan" class="mobile-menu-link">
+                <i class="fas fa-briefcase"></i>
+                <span>Layanan</span>
+            </a>
+            <a href="index.html#paket" class="mobile-menu-link">
+                <i class="fas fa-tag"></i>
+                <span>Paket</span>
+            </a>
+            <a href="reseller.html" class="mobile-menu-link active">
+                <i class="fas fa-fire"></i>
+                <span>Reseller</span>
+                <span class="mobile-menu-badge">HOT</span>
+            </a>
+            <a href="index.html#tentang" class="mobile-menu-link">
+                <i class="fas fa-user"></i>
+                <span>Tentang</span>
+            </a>
+            <a href="index.html#faq" class="mobile-menu-link">
+                <i class="fas fa-question-circle"></i>
+                <span>FAQ</span>
+            </a>
+        </nav>
+        
+        <div class="mobile-menu-footer">
+            <a href="https://wa.me/6281401643188" class="mobile-menu-cta">
+                <i class="fab fa-whatsapp"></i>
+                Chat WhatsApp
+            </a>
+        </div>
+    </div>
+</div>
+
 <!-- ===== HERO RESELLER ===== -->
 <section class="reseller-hero">
     <div class="container">
@@ -190,7 +256,7 @@
         <div class="calculator-wrapper">
             <div class="calc-inputs">
                 
-                <!-- ===== TIER DROPDOWN (100% Custom) ===== -->
+                <!-- TIER DROPDOWN -->
                 <div class="calc-field">
                     <label>
                         <i class="fas fa-medal"></i> Pilih Tier Kamu:
@@ -228,7 +294,7 @@
                     </div>
                 </div>
                 
-                <!-- ===== PAKET DROPDOWN (100% Custom) ===== -->
+                <!-- PAKET DROPDOWN -->
                 <div class="calc-field">
                     <label>
                         <i class="fas fa-box"></i> Pilih Paket:
@@ -266,7 +332,7 @@
                     </div>
                 </div>
                 
-                <!-- ===== NUMBER COUNTER ===== -->
+                <!-- NUMBER COUNTER -->
                 <div class="calc-field">
                     <label>
                         <i class="fas fa-chart-line"></i> Jumlah Closing/Bulan:
@@ -446,36 +512,72 @@
 </footer>
 
 <!-- Floating WA -->
-<a href="https://wa.me/6281401643188" class="fab-wa"><i class="fab fa-whatsapp"></i></a>
+<a href="https://wa.me/6281401643188" class="fab-wa" aria-label="Chat WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
 <script>
 // ====================================================
+// HAMBURGER MENU
+// ====================================================
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+function openMobileMenu() {
+    mobileMenuOverlay.classList.add('active');
+    hamburgerBtn.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeMobileMenu() {
+    mobileMenuOverlay.classList.remove('active');
+    hamburgerBtn.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+hamburgerBtn.addEventListener('click', () => {
+    if (mobileMenuOverlay.classList.contains('active')) {
+        closeMobileMenu();
+    } else {
+        openMobileMenu();
+    }
+});
+
+mobileMenuClose.addEventListener('click', closeMobileMenu);
+
+// Close menu when click on overlay
+mobileMenuOverlay.addEventListener('click', (e) => {
+    if (e.target === mobileMenuOverlay) {
+        closeMobileMenu();
+    }
+});
+
+// Close menu when click on link
+document.querySelectorAll('.mobile-menu-link').forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+});
+
+
+// ====================================================
 // CUSTOM DROPDOWN LOGIC
 // ====================================================
-
-// State untuk simpan nilai dropdown
 const dropdownValues = {
     tierDropdown: 20,
     paketDropdown: 2500000
 };
 
-// Toggle dropdown open/close
 function toggleDropdown(id) {
     const dropdown = document.getElementById(id);
     const isOpen = dropdown.classList.contains('open');
     
-    // Close all other dropdowns
     document.querySelectorAll('.custom-dropdown').forEach(d => {
         d.classList.remove('open');
     });
     
-    // Toggle current
     if (!isOpen) {
         dropdown.classList.add('open');
     }
 }
 
-// Select option
 function selectOption(dropdownId, element) {
     const dropdown = document.getElementById(dropdownId);
     const value = element.getAttribute('data-value');
@@ -483,14 +585,11 @@ function selectOption(dropdownId, element) {
     const title = element.querySelector('.dropdown-option-title').innerText;
     const desc = element.querySelector('.dropdown-option-desc').innerText;
     
-    // Update selected display
     dropdown.querySelector('.dropdown-selected-icon').innerText = icon;
     dropdown.querySelector('.dropdown-selected-text').innerText = title + ' - ' + desc;
     
-    // Update state
     dropdownValues[dropdownId] = parseInt(value);
     
-    // Update visual selected
     dropdown.querySelectorAll('.dropdown-option').forEach(opt => {
         opt.classList.remove('selected');
         const check = opt.querySelector('.dropdown-option-check');
@@ -498,21 +597,16 @@ function selectOption(dropdownId, element) {
     });
     element.classList.add('selected');
     
-    // Add check icon
     if (!element.querySelector('.dropdown-option-check')) {
         const check = document.createElement('i');
         check.className = 'fas fa-check dropdown-option-check';
         element.appendChild(check);
     }
     
-    // Close dropdown
     dropdown.classList.remove('open');
-    
-    // Update calculator
     updateCalculator();
 }
 
-// Close dropdown when clicking outside
 document.addEventListener('click', (e) => {
     if (!e.target.closest('.custom-dropdown')) {
         document.querySelectorAll('.custom-dropdown').forEach(d => {
@@ -523,26 +617,17 @@ document.addEventListener('click', (e) => {
 
 
 // ====================================================
-// CALCULATOR LOGIC
+// CALCULATOR
 // ====================================================
-
 function updateCalculator() {
     const tier = dropdownValues.tierDropdown;
     const paket = dropdownValues.paketDropdown;
     const closingInput = document.getElementById('closingCount');
     let closing = parseInt(closingInput.value) || 1;
     
-    // Validasi
-    if (closing < 1) {
-        closing = 1;
-        closingInput.value = 1;
-    }
-    if (closing > 50) {
-        closing = 50;
-        closingInput.value = 50;
-    }
+    if (closing < 1) { closing = 1; closingInput.value = 1; }
+    if (closing > 50) { closing = 50; closingInput.value = 50; }
     
-    // Bonus per tier
     let bonus = 0;
     if (tier === 20) bonus = 100000;
     if (tier === 25) bonus = 200000;
@@ -562,7 +647,6 @@ function updateCalculator() {
         'Rp ' + totalYear.toLocaleString('id-ID');
 }
 
-// Increment/Decrement
 function incrementClosing() {
     const input = document.getElementById('closingCount');
     let value = parseInt(input.value) || 0;
@@ -589,6 +673,16 @@ document.querySelectorAll('.faq-q').forEach(btn => {
     btn.addEventListener('click', () => {
         btn.parentElement.classList.toggle('active');
     });
+});
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > 20) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
 });
 
 // Initialize
