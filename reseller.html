@@ -689,6 +689,164 @@ document.addEventListener('click', (e) => {
     }
 });
 
+// ====================================================
+// BANNER SLIDER
+// ====================================================
+const bannerSlider = document.getElementById('bannerSlider');
+const bannerSlides = document.querySelectorAll('.banner-slide');
+const bannerDots = document.querySelectorAll('.banner-dot');
+const bannerPrev = document.getElementById('bannerPrev');
+const bannerNext = document.getElementById('bannerNext');
+const bannerProgress = document.getElementById('bannerProgress');
+
+let currentSlide = 0;
+const totalSlides = bannerSlides.length;
+const slideDuration = 5000; // 5 detik per slide
+let slideInterval;
+let progressInterval;
+let startProgress = 0;
+
+// Show slide
+function showSlide(index) {
+    // Remove all active/prev classes
+    bannerSlides.forEach((slide, i) => {
+        slide.classList.remove('active', 'prev');
+        if (i < index) slide.classList.add('prev');
+    });
+    bannerDots.forEach(dot => dot.classList.remove('active'));
+    
+    // Add active to current
+    bannerSlides[index].classList.add('active');
+    bannerDots[index].classList.add('active');
+    
+    currentSlide = index;
+    resetProgress();
+}
+
+// Next slide
+function nextSlide() {
+    const next = (currentSlide + 1) % totalSlides;
+    showSlide(next);
+}
+
+// Prev slide
+function prevSlide() {
+    const prev = (currentSlide - 1 + totalSlides) % totalSlides;
+    showSlide(prev);
+}
+
+// Auto play
+function startAutoPlay() {
+    stopAutoPlay();
+    slideInterval = setInterval(nextSlide, slideDuration);
+    startProgressBar();
+}
+
+function stopAutoPlay() {
+    clearInterval(slideInterval);
+    clearInterval(progressInterval);
+}
+
+// Progress bar animation
+function startProgressBar() {
+    startProgress = 0;
+    bannerProgress.style.width = '0%';
+    
+    clearInterval(progressInterval);
+    progressInterval = setInterval(() => {
+        startProgress += (100 / (slideDuration / 100));
+        bannerProgress.style.width = startProgress + '%';
+        
+        if (startProgress >= 100) {
+            clearInterval(progressInterval);
+        }
+    }, 100);
+}
+
+function resetProgress() {
+    clearInterval(progressInterval);
+    bannerProgress.style.width = '0%';
+    setTimeout(() => startProgressBar(), 50);
+}
+
+// Event listeners
+bannerNext.addEventListener('click', () => {
+    nextSlide();
+    startAutoPlay();
+});
+
+bannerPrev.addEventListener('click', () => {
+    prevSlide();
+    startAutoPlay();
+});
+
+bannerDots.forEach(dot => {
+    dot.addEventListener('click', () => {
+        const index = parseInt(dot.getAttribute('data-dot'));
+        showSlide(index);
+        startAutoPlay();
+    });
+});
+
+// Pause on hover
+bannerSlider.addEventListener('mouseenter', stopAutoPlay);
+bannerSlider.addEventListener('mouseleave', startAutoPlay);
+
+
+// ====================================================
+// TOUCH/SWIPE SUPPORT (Mobile)
+// ====================================================
+let touchStartX = 0;
+let touchEndX = 0;
+
+bannerSlider.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    stopAutoPlay();
+}, { passive: true });
+
+bannerSlider.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+    startAutoPlay();
+}, { passive: true });
+
+function handleSwipe() {
+    const swipeDistance = touchStartX - touchEndX;
+    const minSwipe = 50;
+    
+    if (swipeDistance > minSwipe) {
+        // Swipe left = next
+        nextSlide();
+    } else if (swipeDistance < -minSwipe) {
+        // Swipe right = prev
+        prevSlide();
+    }
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+    if (!isElementInViewport(bannerSlider)) return;
+    
+    if (e.key === 'ArrowLeft') {
+        prevSlide();
+        startAutoPlay();
+    } else if (e.key === 'ArrowRight') {
+        nextSlide();
+        startAutoPlay();
+    }
+});
+
+function isElementInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.bottom <= window.innerHeight
+    );
+}
+
+// Start auto play on load
+startAutoPlay();
+
 
 // ====================================================
 // CALCULATOR
