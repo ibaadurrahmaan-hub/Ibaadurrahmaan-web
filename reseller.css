@@ -1,8 +1,9 @@
 /* ====================================================
-   RESELLER PAGE STYLES v5.0
+   RESELLER PAGE STYLES v5.1 FINAL
    ✅ NO DUPLICATE - Bersih, tidak ada konflik
-   ✅ Fixed: Banner slider dot & progress bar
+   ✅ Fixed: Banner dot position + text slide overflow
    ==================================================== */
+
 
 /* ==== HERO ==== */
 .reseller-hero{
@@ -299,16 +300,12 @@
 
 
 /* ====================================================
-   ✨ CUSTOM DROPDOWN v4.0 - CLEAN MINIMAL
+   ✨ CUSTOM DROPDOWN v4.0
    ==================================================== */
 .custom-dropdown{
     position:relative;
     width:100%;
     user-select:none;
-    background:transparent;
-    border:none;
-    box-shadow:none;
-    padding:0;
 }
 
 .dropdown-selected{
@@ -325,12 +322,6 @@
     position:relative;
 }
 
-.dropdown-selected::before,
-.dropdown-selected::after{
-    display:none;
-    content:none;
-}
-
 .dropdown-selected:hover{
     background:#12233d;
     border-color:rgba(212,165,54,0.3);
@@ -339,9 +330,8 @@
 .custom-dropdown.open .dropdown-selected{
     background:#12233d;
     border-color:var(--gold);
-    box-shadow:none;
     border-radius:12px 12px 0 0;
-    border-bottom:1px solid transparent;
+    border-bottom-color:transparent;
 }
 
 .dropdown-selected-icon{
@@ -374,8 +364,7 @@
     opacity:1;
 }
 
-
-/* ==== OPTIONS PANEL ==== */
+/* Options Panel */
 .dropdown-options{
     position:absolute;
     top:100%;
@@ -409,8 +398,7 @@
     border-radius:10px;
 }
 
-
-/* ==== OPTION ITEM ==== */
+/* Option Item */
 .dropdown-option{
     display:flex;
     align-items:center;
@@ -486,13 +474,6 @@
     border-radius:12px;
     overflow:hidden;
     transition:all 0.25s var(--ease);
-    position:relative;
-}
-
-.number-counter::before,
-.number-counter::after{
-    display:none;
-    content:none;
 }
 
 .number-counter:focus-within{
@@ -544,13 +525,11 @@
     margin:0;
 }
 
-.number-counter input:focus{
-    outline:none;
-}
+.number-counter input:focus{outline:none;}
 
 
 /* ====================================================
-   💰 RESULT SECTION
+   💰 CALCULATOR RESULT
    ==================================================== */
 .calc-result{
     background:#0D1829;
@@ -560,12 +539,6 @@
     position:relative;
     overflow:hidden;
     margin-top:8px;
-}
-
-.calc-result::before,
-.calc-result::after{
-    display:none;
-    content:none;
 }
 
 .calc-item{
@@ -781,9 +754,7 @@
 }
 
 
-/* ====================================================
-   NAV LINK HIGHLIGHT (Reseller)
-   ==================================================== */
+/* ==== NAV HIGHLIGHT ==== */
 .nav-link-highlight{
     animation:glowPulse 2s ease-in-out infinite;
 }
@@ -805,10 +776,24 @@
 
 
 /* ====================================================
-   🎨 BANNER SLIDER SECTION v5.0 - FINAL CLEAN
-   Hybrid Mode: Image (square) + Text Content
-   ✅ NO CONFLICTING RULES
+   🎨 BANNER SLIDER SECTION v5.1 FINAL
+   ✅ SATU DEFINISI - tidak ada duplikat
+   ====================================================
+
+   HTML STRUCTURE:
+   .banner-slider-section
+     .container
+       .banner-slider
+         .banner-slide.banner-slide-image (slide gambar)
+         .banner-slide[data-slide="1"]    (slide teks)
+         ...
+       .banner-dots
+         .banner-dot (x5)
+       .banner-progress
+         .banner-progress-bar
    ==================================================== */
+
+/* === Section Wrapper === */
 .banner-slider-section{
     padding:60px 0 40px;
     background:var(--bg);
@@ -826,7 +811,7 @@
     box-sizing:border-box;
 }
 
-/* Slider Container - Fixed height */
+/* === Slider Box === */
 .banner-slider{
     position:relative;
     width:100%;
@@ -841,13 +826,10 @@
     box-sizing:border-box;
 }
 
-/* Individual Slide - Default (text mode) */
+/* === Base Slide (text mode) === */
 .banner-slide{
     position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
+    inset:0;
     width:100%;
     height:100%;
     display:grid;
@@ -871,115 +853,25 @@
 }
 
 .banner-slide.prev{
-    transform:translateX(-50px);
-}
-
-/* Different background gradient per TEXT slide */
-.banner-slide[data-slide="1"]{
-    background:linear-gradient(135deg,#2a1f08 0%,#050B18 100%);
-}
-.banner-slide[data-slide="2"]{
-    background:linear-gradient(135deg,#0a2a1f 0%,#050B18 100%);
-}
-.banner-slide[data-slide="3"]{
-    background:linear-gradient(135deg,#2a1a2e 0%,#050B18 100%);
-}
-.banner-slide[data-slide="4"]{
-    background:linear-gradient(135deg,#1a2a3e 0%,#050B18 100%);
-}
-
-
-/* ====================================================
-   🎨 BANNER SLIDER SECTION v5.1 - FIXED DOT POSITION
-   ==================================================== */
-.banner-slider-section{
-    padding:60px 0 40px;
-    background:var(--bg);
-    position:relative;
-    overflow:hidden;
-    width:100%;
-}
-
-.banner-slider-section .container{
-    position:relative;
-    width:100%;
-    max-width:1200px;
-    margin:0 auto;
-    padding:0 20px;
-    box-sizing:border-box;
-}
-
-/* Slider Container - Fixed height */
-.banner-slider{
-    position:relative;
-    width:100%;
-    max-width:1100px;
-    margin:0 auto;
-    height:400px;
-    overflow:hidden;
-    border-radius:var(--radius-lg);
-    background:var(--grad-card);
-    border:1px solid var(--border);
-    box-shadow:0 20px 60px rgba(0,0,0,0.4);
-    box-sizing:border-box;
-}
-
-/* Individual Slide - Default (text mode) */
-.banner-slide{
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    width:100%;
-    height:100%;
-    display:grid;
-    grid-template-columns:1.5fr 1fr;
-    gap:30px;
-    padding:50px 60px;
-    align-items:center;
     opacity:0;
     visibility:hidden;
-    transform:translateX(50px);
-    transition:all 0.6s cubic-bezier(0.4,0,0.2,1);
-    background:linear-gradient(135deg,#0F1E33 0%,#050B18 100%);
-    box-sizing:border-box;
-    overflow:hidden;
-}
-
-.banner-slide.active{
-    opacity:1;
-    visibility:visible;
-    transform:translateX(0);
-}
-
-.banner-slide.prev{
     transform:translateX(-50px);
 }
 
-/* Different background per text slide */
-.banner-slide[data-slide="1"]{
-    background:linear-gradient(135deg,#2a1f08 0%,#050B18 100%);
-}
-.banner-slide[data-slide="2"]{
-    background:linear-gradient(135deg,#0a2a1f 0%,#050B18 100%);
-}
-.banner-slide[data-slide="3"]{
-    background:linear-gradient(135deg,#2a1a2e 0%,#050B18 100%);
-}
-.banner-slide[data-slide="4"]{
-    background:linear-gradient(135deg,#1a2a3e 0%,#050B18 100%);
-}
+/* Per-slide background */
+.banner-slide[data-slide="1"]{background:linear-gradient(135deg,#2a1f08 0%,#050B18 100%);}
+.banner-slide[data-slide="2"]{background:linear-gradient(135deg,#0a2a1f 0%,#050B18 100%);}
+.banner-slide[data-slide="3"]{background:linear-gradient(135deg,#2a1a2e 0%,#050B18 100%);}
+.banner-slide[data-slide="4"]{background:linear-gradient(135deg,#1a2a3e 0%,#050B18 100%);}
 
-
-/* SLIDE IMAGE MODE (Slide 1) */
+/* === Image Slide === */
 .banner-slide-image{
     display:flex !important;
+    grid-template-columns:none !important;
     padding:0 !important;
     background:#050B18 !important;
     justify-content:center;
     align-items:center;
-    grid-template-columns:none !important;
 }
 
 .banner-slide-image .banner-link{
@@ -1020,16 +912,12 @@
     transition:opacity 0.4s var(--ease);
 }
 
-.banner-slide-image:hover::before{
-    opacity:1;
-}
+.banner-slide-image:hover::before{opacity:1;}
 
-
-/* Slide Content (Text mode) */
+/* === Slide Content (text) === */
 .banner-content{
     position:relative;
     z-index:2;
-    max-width:100%;
     overflow:hidden;
 }
 
@@ -1085,8 +973,7 @@
     flex-wrap:wrap;
 }
 
-
-/* Mini Stats (Slide 2) */
+/* Mini Stats */
 .banner-stats-mini{
     display:flex;
     gap:16px;
@@ -1131,8 +1018,7 @@
     font-weight:600;
 }
 
-
-/* Features Inline (Slide 3) */
+/* Features Inline */
 .banner-features-inline{
     display:flex;
     gap:16px;
@@ -1154,8 +1040,7 @@
     font-size:1.1rem;
 }
 
-
-/* Tier Mini (Slide 4) */
+/* Tier Mini */
 .banner-tiers{
     display:flex;
     gap:12px;
@@ -1186,8 +1071,7 @@
     box-shadow:0 4px 15px var(--gold-glow);
 }
 
-
-/* Target Tags (Slide 5) */
+/* Target Tags */
 .banner-target{
     display:flex;
     gap:10px;
@@ -1213,8 +1097,7 @@
     transform:translateY(-2px);
 }
 
-
-/* Visual Side (Emoji + Glow) */
+/* Visual Side */
 .banner-visual{
     position:relative;
     display:flex;
@@ -1249,8 +1132,11 @@
     50%{opacity:1;transform:scale(1.1);}
 }
 
-
-/* ==== 🔑 NAVIGATION DOTS - FIXED POSITION ==== */
+/* ============================================
+   🔑 NAVIGATION DOTS
+   - Ada di LUAR .banner-slider
+   - Tidak akan ter-clip overflow:hidden
+   ============================================ */
 .banner-dots{
     display:flex;
     justify-content:center;
@@ -1263,6 +1149,8 @@
     min-height:32px;
     position:relative;
     z-index:5;
+    /* Pastikan tidak ter-clip */
+    overflow:visible;
 }
 
 .banner-dot{
@@ -1275,6 +1163,7 @@
     transition:all 0.5s cubic-bezier(0.4,0,0.2,1);
     padding:0;
     flex-shrink:0;
+    display:block;
 }
 
 .banner-dot:hover{
@@ -1287,14 +1176,12 @@
     width:36px;
     border-radius:10px;
     box-shadow:0 2px 12px var(--gold-glow);
-    transform:scale(1);
 }
 
-
-/* ==== PREV/NEXT ARROWS ==== */
+/* === Arrows === */
 .banner-arrow{
     position:absolute;
-    top:calc(50% - 20px);
+    top:50%;
     transform:translateY(-50%);
     background:rgba(0,0,0,0.5);
     backdrop-filter:blur(10px);
@@ -1324,8 +1211,7 @@
 .banner-arrow.prev{left:16px;}
 .banner-arrow.next{right:16px;}
 
-
-/* ==== PROGRESS BAR ==== */
+/* === Progress Bar === */
 .banner-progress{
     max-width:1100px;
     margin:8px auto 0;
@@ -1333,7 +1219,6 @@
     background:rgba(255,255,255,0.08);
     border-radius:10px;
     overflow:hidden;
-    position:relative;
 }
 
 .banner-progress-bar{
@@ -1342,189 +1227,42 @@
     width:0%;
     border-radius:10px;
     box-shadow:0 0 10px var(--gold-glow);
+    transition:width 0.1s linear;
 }
 
-
-/* ====================================================
-   🔧 FIX: Content Overflow Text Slide Mobile
-   ==================================================== */
-@media (max-width:768px){
-    /* Slider mobile - height sedikit dinaikkan biar content fit */
-    .banner-slider{
-        height:440px;
-    }
-}
-
-@media (max-width:640px){
-    /* Text slides padding lebih compact */
-    .banner-slide:not(.banner-slide-image){
-        padding:20px 20px !important;
-        gap:12px !important;
-    }
-    
-    /* Banner title lebih kecil */
-    .banner-title{
-        font-size:1.25rem !important;
-        margin-bottom:8px !important;
-        line-height:1.2 !important;
-    }
-    
-    /* Description compact & max 2 baris */
-    .banner-desc{
-        font-size:0.85rem !important;
-        margin-bottom:12px !important;
-        line-height:1.4 !important;
-        display:-webkit-box;
-        -webkit-line-clamp:2;
-        -webkit-box-orient:vertical;
-        overflow:hidden;
-    }
-    
-    /* Badge compact */
-    .banner-badge{
-        font-size:0.65rem !important;
-        padding:5px 12px !important;
-        margin-bottom:10px !important;
-    }
-    
-    /* Emoji lebih kecil */
-    .banner-emoji{
-        font-size:3rem !important;
-    }
-    
-    /* Mini stats compact */
-    .banner-stats-mini{
-        gap:8px !important;
-        margin-top:12px !important;
-    }
-    
-    .mini-stat{
-        padding:8px 10px !important;
-        min-width:auto !important;
-    }
-    
-    .mini-stat strong{
-        font-size:1rem !important;
-    }
-    
-    .mini-stat span{
-        font-size:0.65rem !important;
-    }
-    
-    /* Features compact */
-    .banner-features-inline{
-        gap:10px !important;
-        margin-top:12px !important;
-    }
-    
-    .feat-item{
-        font-size:0.75rem !important;
-    }
-    
-    /* Tier compact */
-    .banner-tiers{
-        gap:8px !important;
-        margin-top:12px !important;
-    }
-    
-    .tier-mini{
-        padding:6px 12px !important;
-        font-size:0.8rem !important;
-    }
-    
-    /* Target compact */
-    .banner-target{
-        gap:6px !important;
-        margin-top:12px !important;
-    }
-    
-    .target-tag{
-        padding:5px 10px !important;
-        font-size:0.7rem !important;
-    }
-    
-    /* Slider mobile height */
-    .banner-slider{
-        height:440px;
-    }
-    
-    /* Dots mobile */
-    .banner-dots{
-        gap:8px;
-        margin:16px auto 0;
-        padding:10px 0;
-        min-height:28px;
-    }
-    
-    .banner-dot{
-        width:8px;
-        height:8px;
-    }
-    
-    .banner-dot.active{
-        width:28px;
-    }
-    
-    /* Hide arrows di mobile */
-    .banner-arrow{
-        display:none;
-    }
-}
-
-@media (max-width:400px){
-    .banner-slider{
-        height:420px;
-    }
-    
-    .banner-title{
-        font-size:1.1rem !important;
-    }
-    
-    .banner-desc{
-        font-size:0.8rem !important;
-    }
-    
-    .banner-emoji{
-        font-size:2.5rem !important;
-    }
-}
 
 /* ====================================================
    📱 RESPONSIVE - TABLET (max-width: 992px)
-   ✅ ALL RULES GABUNG DI SINI (no duplicate)
    ==================================================== */
 @media (max-width:992px){
-    /* Grid */
+    /* Grids */
     .benefit-grid,
     .tier-grid,
     .steps-grid{
         grid-template-columns:repeat(2,1fr);
     }
-    
+
     .hero-stats{grid-template-columns:repeat(2,1fr);}
     .tier-card.gold{transform:scale(1);}
-    
-    /* 🔑 Banner slider - height konsisten */
-    .banner-slider{
-        height:420px;
-    }
-    
-    /* 🔑 Text slides ONLY (bukan image) - jadi 1 kolom */
+
+    /* Banner */
+    .banner-slider{height:420px;}
+
     .banner-slide:not(.banner-slide-image){
         grid-template-columns:1fr;
         padding:40px 30px;
         text-align:center;
         gap:20px;
     }
-    
+
     .banner-visual{order:-1;}
     .banner-emoji{font-size:5rem;}
-    
+
     .banner-desc{
         max-width:100%;
         margin:0 auto 20px;
     }
-    
+
     .banner-cta,
     .banner-stats-mini,
     .banner-features-inline,
@@ -1532,13 +1270,13 @@
     .banner-target{
         justify-content:center;
     }
-    
+
     .banner-arrow{
         width:38px;
         height:38px;
         font-size:0.85rem;
     }
-    
+
     .banner-arrow.prev{left:8px;}
     .banner-arrow.next{right:8px;}
 }
@@ -1546,17 +1284,16 @@
 
 /* ====================================================
    📱 RESPONSIVE - MOBILE (max-width: 768px)
-   Header logo center + Navbar
    ==================================================== */
 @media (max-width:768px){
-    /* Navbar - logo center */
+    /* Navbar center */
     .nav-inner{
         display:flex !important;
         justify-content:center !important;
         align-items:center !important;
         width:100% !important;
     }
-    
+
     .nav-brand,
     .logo{
         display:flex !important;
@@ -1567,7 +1304,7 @@
         text-align:center !important;
         width:auto !important;
     }
-    
+
     .nav-brand-text,
     .logo-text{
         display:flex !important;
@@ -1576,14 +1313,14 @@
         justify-content:center !important;
         text-align:center !important;
     }
-    
+
     .brand-name,
     .logo h1,
     .logo-title{
         text-align:center !important;
         width:100% !important;
     }
-    
+
     .brand-sub,
     .logo span,
     .logo-subtitle,
@@ -1592,194 +1329,151 @@
         width:100% !important;
         letter-spacing:2px !important;
     }
-    
+
     .nav-menu,
-    .hamburger-btn{
-        display:none !important;
-    }
-    
+    .hamburger-btn{display:none !important;}
+
     .navbar{padding:12px 20px;}
-    
+
     /* Floating WA */
     .fab-wa{
         bottom:130px !important;
         font-size:3rem !important;
         right:12px !important;
     }
+
+    /* Banner */
+    .banner-slider{height:440px;}
 }
 
 
 /* ====================================================
    📱 RESPONSIVE - MOBILE SMALL (max-width: 640px)
-   ✅ ALL RULES GABUNG DI SINI (no duplicate)
    ==================================================== */
 @media (max-width:640px){
-    /* Grid mobile */
+    /* Grids */
     .benefit-grid,
     .tier-grid,
     .steps-grid{
         grid-template-columns:1fr;
     }
-    
+
     .hero-stats{grid-template-columns:repeat(2,1fr);}
-    
+
+    /* Misc */
     .calculator-wrapper{max-width:100%;}
     .cta-box-large{padding:40px 24px;}
-    
-    /* Hero */
     .reseller-hero{padding:100px 20px 60px;}
-    
-    /* Dropdown mobile */
+    .cta-section{padding:80px 0 100px;}
+
+    /* Dropdown */
     .dropdown-selected{padding:14px 14px;}
     .dropdown-selected-icon{font-size:1.2rem;}
     .dropdown-selected-text{font-size:0.88rem;}
-    
     .dropdown-option{padding:11px 12px;}
     .dropdown-option-icon{font-size:1.4rem;}
     .dropdown-option-title{font-size:0.9rem;}
     .dropdown-option-desc{font-size:0.72rem;}
-    
+
     /* Counter */
-    .counter-btn{
-        width:44px;
-        height:48px;
-    }
-    
-    .number-counter input{
-        font-size:1.2rem;
-        padding:12px 8px;
-    }
-    
-    /* Result */
+    .counter-btn{width:44px;height:48px;}
+    .number-counter input{font-size:1.2rem;padding:12px 8px;}
+
+    /* Calc result */
     .calc-result{padding:18px 14px;}
     .calc-item{padding:11px 0;}
-    
-    .calc-item-label{
-        font-size:0.85rem;
-        gap:8px;
-    }
-    
-    .calc-item-label i{
-        font-size:0.85rem;
-        width:18px;
-    }
-    
+    .calc-item-label{font-size:0.85rem;gap:8px;}
+    .calc-item-label i{font-size:0.85rem;width:18px;}
     .calc-item-value{font-size:0.92rem;}
-    
-    .calc-item.highlight{
-        padding:16px 14px;
-        margin:10px 0;
-    }
-    
+    .calc-item.highlight{padding:16px 14px;margin:10px 0;}
     .calc-item.highlight .calc-item-label{font-size:0.78rem;}
     .calc-item.highlight .calc-item-value{font-size:1.7rem;}
-    
     .calc-item.yearly .calc-item-value{font-size:0.95rem;}
-    
     .calc-field label{font-size:0.88rem;}
-    .calc-field label i{
-        font-size:0.88rem;
-        width:18px;
-    }
-    
-    /* CTA */
-    .cta-section{padding:80px 0 100px;}
-    
-    /* 🔑 BANNER SLIDER MOBILE - 1 SET ATURAN, TIDAK DUPLIKAT */
-    .banner-slider-section{
-        padding:40px 0 30px;
-    }
-    
-    .banner-slider-section .container{
-        padding:0 12px;
-    }
-    
-    .banner-slider{
-        height:400px;
-        border-radius:var(--radius-md);
-    }
-    
-    /* Text slides only */
+    .calc-field label i{font-size:0.88rem;width:18px;}
+
+    /* Banner section */
+    .banner-slider-section{padding:40px 0 30px;}
+    .banner-slider-section .container{padding:0 12px;}
+
+    /* 🔑 Slide text - compact agar fit di 440px */
     .banner-slide:not(.banner-slide-image){
-        padding:30px 24px;
+        padding:24px 20px !important;
+        gap:12px !important;
     }
-    
+
     .banner-badge{
-        font-size:0.7rem;
-        padding:6px 14px;
-        margin-bottom:14px;
+        font-size:0.65rem !important;
+        padding:5px 12px !important;
+        margin-bottom:10px !important;
     }
-    
+
     .banner-title{
-        font-size:1.4rem;
-        margin-bottom:12px;
+        font-size:1.25rem !important;
+        margin-bottom:8px !important;
+        line-height:1.2 !important;
     }
-    
+
+    /* Description max 2 baris - cegah overflow */
     .banner-desc{
-        font-size:0.9rem;
-        margin-bottom:16px;
+        font-size:0.85rem !important;
+        margin-bottom:10px !important;
+        line-height:1.4 !important;
+        display:-webkit-box !important;
+        -webkit-line-clamp:2 !important;
+        -webkit-box-orient:vertical !important;
+        overflow:hidden !important;
     }
-    
-    .banner-emoji{font-size:4rem;}
-    
-    .mini-stat{
-        min-width:auto;
-        padding:10px 14px;
-        flex:1;
-    }
-    
-    .mini-stat strong{font-size:1.2rem;}
-    .mini-stat span{font-size:0.7rem;}
-    
-    .feat-item{
-        font-size:0.8rem;
-        gap:6px;
-    }
-    
-    .tier-mini{
-        padding:8px 14px;
-        font-size:0.85rem;
-    }
-    
-    .target-tag{
-        font-size:0.75rem;
-        padding:6px 12px;
-    }
-    
-    /* Dots mobile */
+
+    .banner-emoji{font-size:3.5rem !important;}
+
+    .banner-stats-mini{gap:8px !important;margin-top:10px !important;}
+    .mini-stat{padding:8px 10px !important;min-width:auto !important;flex:1;}
+    .mini-stat strong{font-size:1rem !important;}
+    .mini-stat span{font-size:0.65rem !important;}
+
+    .banner-features-inline{gap:8px !important;margin-top:10px !important;}
+    .feat-item{font-size:0.75rem !important;}
+
+    .banner-tiers{gap:8px !important;margin-top:10px !important;}
+    .tier-mini{padding:6px 12px !important;font-size:0.8rem !important;}
+
+    .banner-target{gap:6px !important;margin-top:10px !important;}
+    .target-tag{padding:5px 10px !important;font-size:0.7rem !important;}
+
+    /* Dots */
     .banner-dots{
-        gap:6px;
-        margin-top:16px;
+        gap:8px;
+        margin:14px auto 0;
+        padding:10px 0;
+        min-height:28px;
     }
-    
-    .banner-dot{
-        width:8px;
-        height:8px;
-    }
-    
-    .banner-dot.active{width:24px;}
-    
-    /* Hide arrows di HP - pakai swipe */
-    .banner-arrow{display:none;}
+
+    .banner-dot{width:8px;height:8px;}
+    .banner-dot.active{width:28px;}
+
+    /* Hide arrows - pakai swipe */
+    .banner-arrow{display:none !important;}
 }
 
 
 /* ====================================================
-   📱 RESPONSIVE - MOBILE X-SMALL (max-width: 400px)
+   📱 RESPONSIVE - XSMALL (max-width: 400px)
    ==================================================== */
 @media (max-width:400px){
-    .banner-slider{height:360px;}
-    
-    .banner-title{font-size:1.2rem;}
-    .banner-emoji{font-size:3.5rem;}
-    
+    .banner-slider{height:400px;}
+
+    .banner-title{font-size:1.1rem !important;}
+    .banner-desc{font-size:0.8rem !important;}
+    .banner-emoji{font-size:2.8rem !important;}
+
     .calc-item.highlight .calc-item-value{font-size:1.5rem;}
     .calc-item-value{font-size:0.88rem;}
 }
 
 
 /* ====================================================
-   🔧 GLOBAL FIX: Prevent horizontal scroll
+   🔧 GLOBAL FIX
    ==================================================== */
 html,
 body{
