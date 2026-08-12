@@ -366,7 +366,18 @@
 function updateCalculator() {
     const tier = parseInt(document.getElementById('tierSelect').value);
     const paket = parseInt(document.getElementById('paketSelect').value);
-    const closing = parseInt(document.getElementById('closingCount').value);
+    const closingInput = document.getElementById('closingCount');
+    let closing = parseInt(closingInput.value) || 1;
+    
+    // Validasi min/max
+    if (closing < 1) {
+        closing = 1;
+        closingInput.value = 1;
+    }
+    if (closing > 50) {
+        closing = 50;
+        closingInput.value = 50;
+    }
     
     // Bonus per tier
     let bonus = 0;
@@ -381,13 +392,33 @@ function updateCalculator() {
     document.getElementById('komisiPerClosing').innerText = 
         'Rp ' + komisiPerClosing.toLocaleString('id-ID');
     document.getElementById('bonusPerClosing').innerText = 
-        'Rp ' + bonus.toLocaleString('id-ID');
+        bonus > 0 ? 'Rp ' + bonus.toLocaleString('id-ID') : 'Rp 0';
     document.getElementById('totalIncome').innerText = 
         'Rp ' + totalMonth.toLocaleString('id-ID');
     document.getElementById('totalYear').innerText = 
         'Rp ' + totalYear.toLocaleString('id-ID');
 }
 
+// Increment/Decrement functions
+function incrementClosing() {
+    const input = document.getElementById('closingCount');
+    let value = parseInt(input.value) || 0;
+    if (value < 50) {
+        input.value = value + 1;
+        updateCalculator();
+    }
+}
+
+function decrementClosing() {
+    const input = document.getElementById('closingCount');
+    let value = parseInt(input.value) || 0;
+    if (value > 1) {
+        input.value = value - 1;
+        updateCalculator();
+    }
+}
+
+// Event listeners
 document.getElementById('tierSelect').addEventListener('change', updateCalculator);
 document.getElementById('paketSelect').addEventListener('change', updateCalculator);
 document.getElementById('closingCount').addEventListener('input', updateCalculator);
@@ -399,7 +430,7 @@ document.querySelectorAll('.faq-q').forEach(btn => {
     });
 });
 
-// Init calculator
+// Initialize
 updateCalculator();
 </script>
 
