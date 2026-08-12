@@ -1480,3 +1480,99 @@ body{
     overflow-x:hidden !important;
     max-width:100vw;
 }
+
+/* ====================================================
+   🔧 v5.2 FIX: Icon Spacing & Remove Underline
+   ==================================================== */
+
+/* Universal icon spacing dalam button */
+.btn-primary,
+.btn-secondary,
+.btn-large{
+    display:inline-flex !important;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+
+.btn-primary i,
+.btn-secondary i,
+.btn-large i{
+    margin:0 !important;
+    font-size:0.95em;
+    line-height:1;
+}
+
+/* CTA Note styling */
+.cta-note{
+    line-height:1.9 !important;
+    font-style:normal !important;
+}
+
+/* MoU Link Button (di CTA section) */
+.mou-link-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:12px 24px;
+    background:rgba(212,165,54,0.1);
+    border:1px solid rgba(212,165,54,0.4);
+    border-radius:100px;
+    color:var(--gold) !important;
+    font-size:0.9rem;
+    font-weight:700;
+    text-decoration:none !important;
+    transition:all 0.3s var(--ease);
+    font-style:normal;
+}
+
+.mou-link-btn:hover{
+    background:rgba(212,165,54,0.2);
+    border-color:var(--gold);
+    transform:translateY(-2px);
+    box-shadow:0 6px 20px rgba(212,165,54,0.3);
+}
+
+.mou-link-btn i{
+    font-size:0.95em;
+    margin:0 !important;
+}
+
+/* Step Card MoU Button */
+.step-mou-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin-top:20px;
+    padding:12px 24px;
+    background:rgba(212,165,54,0.08);
+    border:1px solid rgba(212,165,54,0.3);
+    border-radius:100px;
+    color:var(--gold) !important;
+    font-size:0.88rem;
+    font-weight:700;
+    text-decoration:none !important;
+    transition:all 0.3s var(--ease);
+}
+
+.step-mou-btn:hover{
+    background:rgba(212,165,54,0.15);
+    border-color:var(--gold);
+    transform:translateY(-2px);
+    box-shadow:0 4px 15px var(--gold-glow);
+}
+
+.step-mou-btn i{
+    font-size:0.9em;
+    margin:0;
+}
+
+/* Hapus semua underline pada link reseller */
+.reseller-hero a,
+.cta-box-large a,
+.step-card a,
+.cta-note a{
+    text-decoration:none !important;
+}
