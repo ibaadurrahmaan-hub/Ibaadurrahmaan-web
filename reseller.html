@@ -675,166 +675,226 @@ document.addEventListener('click', (e) => {
 });
 
 // ====================================================
-// BANNER SLIDER v2.0 - Smooth & Comfortable
+// BANNER SLIDER v2.1 - Fixed Progress Bar
 // ====================================================
-const bannerSlider = document.getElementById('bannerSlider');
-const bannerSlides = document.querySelectorAll('.banner-slide');
-const bannerDots = document.querySelectorAll('.banner-dot');
-const bannerPrev = document.getElementById('bannerPrev');
-const bannerNext = document.getElementById('bannerNext');
-const bannerProgress = document.getElementById('bannerProgress');
+const bannerSlider    = document.getElementById('bannerSlider');
+const bannerSlides    = document.querySelectorAll('.banner-slide');
+const bannerDots      = document.querySelectorAll('.banner-dot');
+const bannerPrev      = document.getElementById('bannerPrev');
+const bannerNext      = document.getElementById('bannerNext');
+const bannerProgress  = document.getElementById('bannerProgress');
 
-let currentSlide = 0;
+let currentSlide  = 0;
 const totalSlides = bannerSlides.length;
-const slideDuration = 5000; // 🔑 7 detik per slide (lebih santai)
-let slideInterval;
+const DURATION    = 5000; // ms per slide
 
-// Show slide
+let slideInterval    = null;
+let progressTimeout  = null; // 🔑 Track timeout resetProgress
+
+
+// ====================================================
+// CORE: Show Slide
+// ====================================================
 function showSlide(index) {
+    // Guard
+    if (index < 0 || index >= totalSlides) return;
+
+    // Update slides
     bannerSlides.forEach((slide, i) => {
         slide.classList.remove('active', 'prev');
         if (i < index) slide.classList.add('prev');
     });
+
+    // Update dots
     bannerDots.forEach(dot => dot.classList.remove('active'));
-    
+
     bannerSlides[index].classList.add('active');
-    bannerDots[index].classList.add('active');
-    
+    if (bannerDots[index]) bannerDots[index].classList.add('active');
+
     currentSlide = index;
+
+    // 🔑 Reset progress HANYA di sini, tidak di tempat lain
     resetProgress();
 }
 
-// Next slide
 function nextSlide() {
-    const next = (currentSlide + 1) % totalSlides;
-    showSlide(next);
+    showSlide((currentSlide + 1) % totalSlides);
 }
 
-// Prev slide
 function prevSlide() {
-    const prev = (currentSlide - 1 + totalSlides) % totalSlides;
-    showSlide(prev);
+    showSlide((currentSlide - 1 + totalSlides) % totalSlides);
 }
 
-// Auto play
+
+// ====================================================
+// PROGRESS BAR
+// 🔑 Hanya dipanggil dari resetProgress()
+// ====================================================
+function startProgressBar() {
+    if (!bannerProgress) return;
+
+    // Reset ke 0 tanpa animasi
+    bannerProgress.style.transition = 'none';
+    bannerProgress.style.width      = '0%';
+    bannerProgress.style.opacity    = '1';
+
+    // Force reflow → baru pasang transition
+    void bannerProgress.offsetWidth;
+
+    // Animasi maju selama DURATION ms
+    bannerProgress.style.transition = `width ${DURATION}ms linear`;
+    bannerProgress.style.width      = '100%';
+}
+
+function resetProgress() {
+    if (!bannerProgress) return;
+
+    // Bersihkan timeout sebelumnya (hindari double-call)
+    clearTimeout(progressTimeout);
+
+    // Fade out
+    bannerProgress.style.transition = 'opacity 0.2s ease-out';
+    bannerProgress.style.opacity    = '0';
+
+    // Setelah fade-out selesai, start ulang
+    progressTimeout = setTimeout(() => {
+        startProgressBar();
+    }, 220); // sedikit lebih dari transition 0.2s
+}
+
+
+// ====================================================
+// AUTO PLAY
+// 🔑 startAutoPlay() TIDAK memanggil startProgressBar()
+//    Progress sudah di-handle oleh showSlide()
+// ====================================================
 function startAutoPlay() {
     stopAutoPlay();
-    slideInterval = setInterval(nextSlide, slideDuration);
-    startProgressBar();
+    slideInterval = setInterval(nextSlide, DURATION);
+    // ❌ Tidak perlu startProgressBar() di sini
 }
 
 function stopAutoPlay() {
     clearInterval(slideInterval);
+    slideInterval = null;
 }
 
-// 🔑 Progress bar dengan CSS transition (smooth!)
-function startProgressBar() {
-    bannerProgress.style.transition = 'none';
-    bannerProgress.style.width = '0%';
-    bannerProgress.style.opacity = '1';
-    
-    // Force reflow biar transition di-apply setelah reset
-    void bannerProgress.offsetWidth;
-    
-    // Nyalakan animasi mulus
-    bannerProgress.style.transition = `width ${slideDuration}ms linear`;
-    bannerProgress.style.width = '100%';
+// Restart autoplay + sinkronkan progress setelah aksi manual
+function restartAll() {
+    stopAutoPlay();
+    // showSlide sudah dipanggil sebelumnya → progress sudah reset
+    // Tinggal restart interval
+    slideInterval = setInterval(nextSlide, DURATION);
 }
 
-function resetProgress() {
-    // Smooth reset - fade out dulu, baru start ulang
-    bannerProgress.style.transition = 'width 0.3s ease-out, opacity 0.2s ease-out';
-    bannerProgress.style.opacity = '0';
-    
-    setTimeout(() => {
-        bannerProgress.style.opacity = '1';
-        startProgressBar();
-    }, 300);
-}
 
-// Event listeners
+// ====================================================
+// EVENT LISTENERS
+// ====================================================
+
+// Arrows
 bannerNext.addEventListener('click', () => {
     nextSlide();
-    startAutoPlay();
+    restartAll();
 });
 
 bannerPrev.addEventListener('click', () => {
     prevSlide();
-    startAutoPlay();
+    restartAll();
 });
 
+// Dots
 bannerDots.forEach(dot => {
     dot.addEventListener('click', () => {
-        const index = parseInt(dot.getAttribute('data-dot'));
-        showSlide(index);
-        startAutoPlay();
+        const index = parseInt(dot.getAttribute('data-dot'), 10);
+        if (!isNaN(index)) {
+            showSlide(index);
+            restartAll();
+        }
     });
 });
 
-// Pause on hover (desktop)
-bannerSlider.addEventListener('mouseenter', stopAutoPlay);
-bannerSlider.addEventListener('mouseleave', startAutoPlay);
+// Hover pause (desktop)
+bannerSlider.addEventListener('mouseenter', () => {
+    stopAutoPlay();
+    // 🔑 Pause progress bar juga
+    if (bannerProgress) {
+        bannerProgress.style.transition = 'none';
+        // Capture current width
+        const computed = getComputedStyle(bannerProgress).width;
+        const parent   = bannerProgress.parentElement;
+        const pct      = parent
+            ? (parseFloat(computed) / parent.offsetWidth * 100).toFixed(2)
+            : '0';
+        bannerProgress.style.width = pct + '%';
+    }
+});
+
+bannerSlider.addEventListener('mouseleave', () => {
+    // Resume: restart slide dari awal (lebih simple & predictable)
+    showSlide(currentSlide);
+    startAutoPlay();
+});
 
 
 // ====================================================
-// TOUCH/SWIPE SUPPORT (Mobile)
+// TOUCH / SWIPE (Mobile)
 // ====================================================
 let touchStartX = 0;
-let touchEndX = 0;
+let touchEndX   = 0;
 
-bannerSlider.addEventListener('touchstart', (e) => {
+bannerSlider.addEventListener('touchstart', e => {
     touchStartX = e.changedTouches[0].screenX;
     stopAutoPlay();
 }, { passive: true });
 
-bannerSlider.addEventListener('touchend', (e) => {
+bannerSlider.addEventListener('touchend', e => {
     touchEndX = e.changedTouches[0].screenX;
     handleSwipe();
-    startAutoPlay();
+    restartAll();
 }, { passive: true });
 
 function handleSwipe() {
-    const swipeDistance = touchStartX - touchEndX;
+    const dist    = touchStartX - touchEndX;
     const minSwipe = 50;
-    
-    if (swipeDistance > minSwipe) {
-        nextSlide();
-    } else if (swipeDistance < -minSwipe) {
-        prevSlide();
-    }
+    if (dist  >  minSwipe) nextSlide();
+    if (dist  < -minSwipe) prevSlide();
 }
 
-// Keyboard navigation
-document.addEventListener('keydown', (e) => {
-    if (!isElementInViewport(bannerSlider)) return;
-    
-    if (e.key === 'ArrowLeft') {
-        prevSlide();
-        startAutoPlay();
-    } else if (e.key === 'ArrowRight') {
-        nextSlide();
-        startAutoPlay();
-    }
+
+// ====================================================
+// KEYBOARD
+// ====================================================
+document.addEventListener('keydown', e => {
+    if (!isInViewport(bannerSlider)) return;
+    if (e.key === 'ArrowRight') { nextSlide(); restartAll(); }
+    if (e.key === 'ArrowLeft')  { prevSlide(); restartAll(); }
 });
 
-function isElementInViewport(el) {
-    const rect = el.getBoundingClientRect();
-    return (
-        rect.top >= 0 &&
-        rect.bottom <= window.innerHeight
-    );
+function isInViewport(el) {
+    const r = el.getBoundingClientRect();
+    return r.top < window.innerHeight && r.bottom > 0;
 }
 
-// 🔑 Pause auto-play kalau tab tidak aktif (hemat resource)
+
+// ====================================================
+// VISIBILITY API - hemat resource saat tab tersembunyi
+// ====================================================
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
         stopAutoPlay();
+        clearTimeout(progressTimeout);
     } else {
+        showSlide(currentSlide); // reset progress bar
         startAutoPlay();
     }
 });
 
-// Start auto play on load
+
+// ====================================================
+// INIT
+// ====================================================
+showSlide(0);
 startAutoPlay();
 
 // ====================================================
