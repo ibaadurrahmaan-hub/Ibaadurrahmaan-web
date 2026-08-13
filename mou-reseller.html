@@ -2578,6 +2578,26 @@ function generatePDFHTML(data, sig) {
     return `
     <div style="max-width:720px;margin:0 auto;font-size:12px;line-height:1.6;">
         <div style="text-align:center;border-bottom:3px double #d4a536;padding-bottom:20px;margin-bottom:25px;">
+<div class="custom-select-wrapper">
+    <div class="custom-select" id="levelSelect" onclick="toggleLevelDropdown()">
+        <div class="custom-select-value">
+            <span class="level-icon">🥈</span>
+            <span class="level-text">Gold (20% + Rp 100rb)</span>
+        </div>
+        <span class="custom-select-arrow">▼</span>
+    </div>
+    <div class="custom-select-options" id="levelOptions">
+        <div class="custom-option" data-value="silver" data-icon="🥉" data-text="Silver (15%)" onclick="selectLevel(this)">
+            <span class="level-icon">🥉</span>
+            <span class="level-text">Silver (15%)</span>
+        </div>
+        <div class="custom-option selected" data-value="gold" data-icon="🥈" data-text="Gold (20% + Rp 100rb)" onclick="selectLevel(this)">
+            <span class="level-icon">🥈</span>
+            <span class="level-text">Gold (20% + Rp 100rb)</span>
+        </div>
+<div style="text-align:center;margin-bottom:16px;">
+    <img src="main-logo.jpg" alt="Logo" style="width:60px;height:60px;border-radius:50%;border:2px solid #d4a536;padding:4px;background:#fff;">
+</div>
             <h1 style="color:#d4a536;margin:0 0 5px;font-size:20px;">SURAT PERJANJIAN KEMITRAAN RESELLER</h1>
             <h2 style="margin:0;font-size:14px;color:#333;">Ibaadurrahmaan Web Designer</h2>
             <p style="margin:10px 0 0;font-size:11px;">No: RSL/${new Date().getFullYear()}/${String(Date.now()).slice(-4)}</p>
