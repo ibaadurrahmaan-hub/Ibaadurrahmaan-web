@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Order website profesional - Ibaadurrahmaan Web Designer. Proses pemesanan mudah, cepat, dan aman.">
+<title>Order Website - Ibaadurrahmaan Web Designer</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="order.css">
+</head>
+
+<body>
+
+<!-- ==================== ORDER HEADER ==================== -->
+<header class="order-header">
+  <div class="container header-inner">
+    <a href="index.html" class="order-brand">
+      <span class="brand-name-nav">Ibaadurrahmaan</span>
+      <span class="brand-sub-nav">Web Designer</span>
+    </a>
+    
+    <div class="progress-steps">
+      <div class="step active" data-step="1">
+        <div class="step-circle"><i class="fas fa-box-open"></i></div>
+        <span>Paket</span>
+      </div>
+      <div class="step-line active"></div>
+      <div class="step" data-step="2">
+        <div class="step-circle"><i class="fas fa-user"></i></div>
+        <span>Data</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" data-step="3">
+        <div class="step-circle"><i class="fas fa-credit-card"></i></div>
+        <span>Bayar</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" data-step="4">
+        <div class="step-circle"><i class="fas fa-check"></i></div>
+        <span>Selesai</span>
+      </div>
+    </div>
+    
+    <div class="header-secure">
+      <i class="fas fa-shield-alt"></i>
+      <span>Secure Order</span>
+    </div>
+  </div>
+</header>
+
+<!-- ==================== MAIN CONTENT ==================== -->
+<main class="order-main">
+  <div class="container">
+
+    <!-- ============ STEP 1: PILIH PAKET ============ -->
+    <section class="order-step" id="step1">
+      <div class="step-header">
+        <span class="step-badge">STEP 1 DARI 4</span>
+        <h1 class="step-title">Pilih Paket Website Anda</h1>
+        <p class="step-desc">Pilih paket yang paling sesuai dengan kebutuhan bisnis Anda</p>
+      </div>
+
+      <div class="package-grid">
+        <!-- Paket Hemat -->
+        <div class="package-card" data-pkg="hemat" data-price="150000" data-name="Paket Hemat - Landing Page">
+          <div class="pkg-badge tier-hemat">HEMAT</div>
+          <div class="pkg-icon">💰</div>
+          <h3 class="pkg-name">Landing Page</h3>
+          <p class="pkg-tagline">Perfect untuk promosi produk & event</p>
+          <div class="pkg-price">
+            <span class="pp-label">Mulai dari</span>
+            <div class="pp-value">
+              <span class="pp-rp">Rp</span>
+              <span class="pp-amount">150K</span>
+            </div>
+          </div>
+          <ul class="pkg-features">
+            <li><i class="fas fa-check"></i> 1 Halaman Landing</li>
+            <li><i class="fas fa-check"></i> Desain Responsive</li>
+            <li><i class="fas fa-check"></i> WhatsApp Button</li>
+            <li><i class="fas fa-check"></i> Form Kontak</li>
+            <li><i class="fas fa-check"></i> Free Konsultasi</li>
+          </ul>
+          <button class="pkg-select-btn" onclick="selectPackage(this)">
+            <i class="fas fa-check-circle"></i>
+            <span>Pilih Paket</span>
+          </button>
+        </div>
+
+        <!-- Paket Reguler (Featured) -->
+        <div class="package-card featured" data-pkg="reguler" data-price="500000" data-name="Paket Reguler - Company Profile">
+          <div class="popular-ribbon">⭐ PALING POPULER</div>
+          <div class="pkg-badge tier-reguler">REGULER</div>
+          <div class="pkg-icon">🏢</div>
+          <h3 class="pkg-name">Company Profile</h3>
+          <p class="pkg-tagline">Website profesional untuk bisnis Anda</p>
+          <div class="pkg-price">
+            <span class="pp-label">Mulai dari</span>
+            <div class="pp-value">
+              <span class="pp-rp">Rp</span>
+              <span class="pp-amount">500K</span>
+            </div>
+          </div>
+          <ul class="pkg-features">
+            <li><i class="fas fa-check"></i> 5+ Halaman Website</li>
+            <li><i class="fas fa-check"></i> Desain Custom Premium</li>
+            <li><i class="fas fa-check"></i> Blog Section</li>
+            <li><i class="fas fa-check"></i> Portfolio Page</li>
+            <li><i class="fas fa-check"></i> Team Page</li>
+            <li><i class="fas fa-check"></i> SEO Optimized</li>
+            <li><i class="fas fa-check"></i> Free Konsultasi</li>
+          </ul>
+          <button class="pkg-select-btn" onclick="selectPackage(this)">
+            <i class="fas fa-check-circle"></i>
+            <span>Pilih Paket</span>
+          </button>
+        </div>
+
+        <!-- Paket Premium -->
+        <div class="package-card premium" data-pkg="premium" data-price="1500000" data-name="Paket Premium - E-Commerce">
+          <div class="pkg-badge tier-premium">PREMIUM</div>
+          <div class="pkg-icon">👑</div>
+          <h3 class="pkg-name">E-Commerce</h3>
+          <p class="pkg-tagline">Toko online lengkap dengan payment</p>
+          <div class="pkg-price">
+            <span class="pp-label">Mulai dari</span>
+            <div class="pp-value">
+              <span class="pp-rp">Rp</span>
+              <span class="pp-amount">1.5jt</span>
+            </div>
+          </div>
+          <ul class="pkg-features">
+            <li><i class="fas fa-check"></i> Toko Online Lengkap</li>
+            <li><i class="fas fa-check"></i> Product Management</li>
+            <li><i class="fas fa-check"></i> Shopping Cart</li>
+            <li><i class="fas fa-check"></i> Payment Gateway</li>
+            <li><i class="fas fa-check"></i> Order Management</li>
+            <li><i class="fas fa-check"></i> Customer Dashboard</li>
+            <li><i class="fas fa-check"></i> Priority Support</li>
+          </ul>
+          <button class="pkg-select-btn" onclick="selectPackage(this)">
+            <i class="fas fa-check-circle"></i>
+            <span>Pilih Paket</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Add-ons -->
+      <div class="addons-section">
+        <div class="addons-header">
+          <h3><i class="fas fa-plus-circle"></i> Layanan Tambahan (Opsional)</h3>
+          <p>Tingkatkan performa website Anda dengan add-on premium</p>
+        </div>
+        <div class="addons-grid">
+          <label class="addon-card">
+            <input type="checkbox" data-addon="domain" data-price="150000" data-name="Domain .COM (1 tahun)">
+            <div class="addon-check"><i class="fas fa-check"></i></div>
+            <div class="addon-icon">🌐</div>
+            <div class="addon-info">
+              <div class="addon-name">Domain .COM (1 tahun)</div>
+              <div class="addon-desc">Nama domain profesional</div>
+            </div>
+            <div class="addon-price">+Rp 150K</div>
+          </label>
+          
+          <label class="addon-card">
+            <input type="checkbox" data-addon="hosting" data-price="300000" data-name="Hosting Premium (1 tahun)">
+            <div class="addon-check"><i class="fas fa-check"></i></div>
+            <div class="addon-icon">☁️</div>
+            <div class="addon-info">
+              <div class="addon-name">Hosting Premium (1 tahun)</div>
+              <div class="addon-desc">SSD, unlimited bandwidth</div>
+            </div>
+            <div class="addon-price">+Rp 300K</div>
+          </label>
+          
+          <label class="addon-card">
+            <input type="checkbox" data-addon="ssl" data-price="0" data-name="SSL Certificate">
+            <div class="addon-check"><i class="fas fa-check"></i></div>
+            <div class="addon-icon">🔒</div>
+            <div class="addon-info">
+              <div class="addon-name">SSL Certificate</div>
+              <div class="addon-desc">Website aman dengan HTTPS</div>
+            </div>
+            <div class="addon-price free">FREE</div>
+          </label>
+          
+          <label class="addon-card">
+            <input type="checkbox" data-addon="seo" data-price="500000" data-name="SEO Optimization Advanced">
+            <div class="addon-check"><i class="fas fa-check"></i></div>
+            <div class="addon-icon">🚀</div>
+            <div class="addon-info">
+              <div class="addon-name">SEO Optimization</div>
+              <div class="addon-desc">Ranking Google top halaman 1</div>
+            </div>
+            <div class="addon-price">+Rp 500K</div>
+          </label>
+          
+          <label class="addon-card">
+            <input type="checkbox" data-addon="maintenance" data-price="250000" data-name="Maintenance (3 bulan)">
+            <div class="addon-check"><i class="fas fa-check"></i></div>
+            <div class="addon-icon">🔧</div>
+            <div class="addon-info">
+              <div class="addon-name">Maintenance (3 bulan)</div>
+              <div class="addon-desc">Update konten & bug fix</div>
+            </div>
+            <div class="addon-price">+Rp 250K</div>
+          </label>
+          
+          <label class="addon-card">
+            <input type="checkbox" data-addon="wa" data-price="200000" data-name="WhatsApp Integration Bot">
+            <div class="addon-check"><i class="fas fa-check"></i></div>
+            <div class="addon-icon">💬</div>
+            <div class="addon-info">
+              <div class="addon-name">WA Bot Integration</div>
+              <div class="addon-desc">Auto-reply & customer service</div>
+            </div>
+            <div class="addon-price">+Rp 200K</div>
+          </label>
+        </div>
+      </div>
+
+      <div class="step-nav">
+        <a href="index.html" class="btn-outline">
+          <i class="fas fa-arrow-left"></i> Kembali
+        </a>
+        <button class="btn-primary btn-continue" onclick="goToStep(2)" id="continueBtn1" disabled>
+          <span>Lanjut ke Data</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============ STEP 2: DATA CUSTOMER ============ -->
+    <section class="order-step hidden" id="step2">
+      <div class="order-grid">
+        <div class="order-left">
+          <div class="step-header">
+            <span class="step-badge">STEP 2 DARI 4</span>
+            <h1 class="step-title">Data Pemesan</h1>
+            <p class="step-desc">Lengkapi data Anda untuk pengiriman invoice & follow-up</p>
+          </div>
+
+          <!-- Contact Info -->
+          <div class="section-card">
+            <div class="sc-header">
+              <h2><i class="fas fa-user"></i> Informasi Kontak</h2>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nama Lengkap *</label>
+                <input type="text" id="fullName" placeholder="Nama lengkap Anda" required>
+              </div>
+              <div class="form-group">
+                <label>Nama Bisnis / Perusahaan</label>
+                <input type="text" id="companyName" placeholder="Contoh: PT Sukses Jaya">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Email *</label>
+                <input type="email" id="email" placeholder="email@example.com" required>
+              </div>
+              <div class="form-group">
+                <label>Nomor WhatsApp *</label>
+                <div class="input-prefix">
+                  <span>+62</span>
+                  <input type="tel" id="phone" placeholder="812-xxxx-xxxx" required>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Business Info -->
+          <div class="section-card">
+            <div class="sc-header">
+              <h2><i class="fas fa-briefcase"></i> Informasi Bisnis</h2>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Jenis Bisnis *</label>
+                <select id="businessType" required>
+                  <option value="">Pilih jenis bisnis</option>
+                  <option>UMKM / Toko Online</option>
+                  <option>Restoran / Cafe / F&B</option>
+                  <option>Salon / Beauty / Spa</option>
+                  <option>Klinik / Kesehatan</option>
+                  <option>Sekolah / Pendidikan</option>
+                  <option>Property / Real Estate</option>
+                  <option>Konsultan / Jasa Profesional</option>
+                  <option>Corporate / Perusahaan</option>
+                  <option>Event Organizer</option>
+                  <option>Lainnya</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Website Sudah Ada?</label>
+                <select id="hasWebsite">
+                  <option value="">Pilih opsi</option>
+                  <option>Belum, ini pertama kali</option>
+                  <option>Sudah, ingin redesign</option>
+                  <option>Sudah, ingin tambah fitur</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Deskripsi Bisnis / Kebutuhan *</label>
+              <textarea id="description" placeholder="Ceritakan sedikit tentang bisnis Anda dan apa yang Anda butuhkan dari website ini..." rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+              <label>Referensi Website (Opsional)</label>
+              <input type="url" id="reference" placeholder="https://contoh-website.com">
+              <span class="form-hint">Jika ada website yang Anda sukai desainnya sebagai referensi</span>
+            </div>
+          </div>
+
+          <!-- Deadline -->
+          <div class="section-card">
+            <div class="sc-header">
+              <h2><i class="fas fa-calendar-alt"></i> Timeline</h2>
+            </div>
+            <div class="deadline-options">
+              <label class="deadline-option">
+                <input type="radio" name="deadline" value="standard" checked>
+                <div class="do-radio"></div>
+                <div class="do-info">
+                  <div class="do-name">Standard (7-14 hari)</div>
+                  <div class="do-desc">Timeline reguler, harga normal</div>
+                </div>
+                <div class="do-icon"><i class="fas fa-clock"></i></div>
+                <div class="do-price">Termasuk</div>
+              </label>
+              <label class="deadline-option">
+                <input type="radio" name="deadline" value="fast">
+                <div class="do-radio"></div>
+                <div class="do-info">
+                  <div class="do-name">Fast Track (3-5 hari)</div>
+                  <div class="do-desc">Prioritas pengerjaan</div>
+                </div>
+                <div class="do-icon"><i class="fas fa-tachometer-alt"></i></div>
+                <div class="do-price">+Rp 200K</div>
+              </label>
+              <label class="deadline-option">
+                <input type="radio" name="deadline" value="express">
+                <div class="do-radio"></div>
+                <div class="do-info">
+                  <div class="do-name">Express (24-48 jam)</div>
+                  <div class="do-desc">Super cepat, langsung dikerjakan</div>
+                </div>
+                <div class="do-icon"><i class="fas fa-bolt"></i></div>
+                <div class="do-price">+Rp 500K</div>
+              </label>
+            </div>
+          </div>
+
+          <div class="step-nav">
+            <button class="btn-outline" onclick="goToStep(1)">
+              <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <button class="btn-primary" onclick="goToStep(3)">
+              <span>Lanjut ke Pembayaran</span>
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Summary Sidebar -->
+        <div class="order-right">
+          <div class="summary-card sticky">
+            <h3><i class="fas fa-receipt"></i> Ringkasan Order</h3>
+            <div class="summary-package" id="summaryPackage2"></div>
+            <div class="summary-addons" id="summaryAddons2"></div>
+            <div class="summary-divider"></div>
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="subtotal2">Rp 0</span>
+            </div>
+            <div class="summary-row" id="deadlineRow2" style="display:none">
+              <span>Fast Delivery</span>
+              <span id="deadlineFee2">Rp 0</span>
+            </div>
+            <div class="summary-row" id="discountRow2" style="display:none">
+              <span>Diskon</span>
+              <span class="discount" id="discountAmt2">-Rp 0</span>
+            </div>
+            <div class="summary-divider"></div>
+            <div class="summary-row total">
+              <span>Total</span>
+              <span id="total2">Rp 0</span>
+            </div>
+            <div class="summary-note">
+              <i class="fas fa-info-circle"></i>
+              <span>Harga sudah termasuk konsultasi & revisi</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STEP 3: PAYMENT ============ -->
+    <section class="order-step hidden" id="step3">
+      <div class="order-grid">
+        <div class="order-left">
+          <div class="step-header">
+            <span class="step-badge">STEP 3 DARI 4</span>
+            <h1 class="step-title">Metode Pembayaran</h1>
+            <p class="step-desc">Pilih metode pembayaran yang paling nyaman untuk Anda</p>
+          </div>
+
+          <!-- Payment Type Toggle -->
+          <div class="section-card">
+            <div class="sc-header">
+              <h2><i class="fas fa-hand-holding-usd"></i> Sistem Pembayaran</h2>
+            </div>
+            <div class="payment-type-toggle">
+              <label class="pt-option active">
+                <input type="radio" name="paymentType" value="full" checked onchange="selectPaymentType(this)">
+                <div class="pt-radio"></div>
+                <div class="pt-content">
+                  <div class="pt-name">Bayar Lunas</div>
+                  <div class="pt-desc">Bayar sekaligus 100%, langsung dikerjakan</div>
+                  <div class="pt-benefit"><i class="fas fa-gift"></i> Dapat diskon 5% untuk bayar lunas</div>
+                </div>
+              </label>
+              <label class="pt-option">
+                <input type="radio" name="paymentType" value="dp" onchange="selectPaymentType(this)">
+                <div class="pt-radio"></div>
+                <div class="pt-content">
+                  <div class="pt-name">DP 50%</div>
+                  <div class="pt-desc">Bayar 50% di awal, sisanya setelah selesai</div>
+                  <div class="pt-benefit"><i class="fas fa-shield-alt"></i> Aman & fleksibel</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Coupon -->
+          <div class="section-card coupon-card">
+            <h3><i class="fas fa-tag"></i> Punya Kode Voucher?</h3>
+            <div class="coupon-form">
+              <input type="text" id="couponInput" placeholder="Masukkan kode voucher" maxlength="20">
+              <button class="btn-coupon" onclick="applyCoupon()">Gunakan</button>
+            </div>
+            <div class="coupon-result" id="couponResult"></div>
+            <div class="coupon-hints">
+              <p>💡 Coba: 
+                <button onclick="document.getElementById('couponInput').value='HEMAT10';applyCoupon()">HEMAT10</button>
+                <button onclick="document.getElementById('couponInput').value='NEWCLIENT';applyCoupon()">NEWCLIENT</button>
+              </p>
+            </div>
+          </div>
+
+          <!-- Payment Methods -->
+          <div class="section-card">
+            <div class="sc-header">
+              <h2><i class="fas fa-credit-card"></i> Metode Pembayaran</h2>
+            </div>
+            <div class="payment-methods">
+              <label class="payment-option active">
+                <input type="radio" name="payment" value="bank_transfer" checked onchange="selectPayment(this)">
+                <div class="po-radio"></div>
+                <div class="po-icon"><i class="fas fa-university"></i></div>
+                <div class="po-info">
+                  <div class="po-name">Transfer Bank</div>
+                  <div class="po-desc">BCA, Mandiri, BNI, BRI</div>
+                </div>
+                <div class="po-badge popular">Populer</div>
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="payment" value="ewallet" onchange="selectPayment(this)">
+                <div class="po-radio"></div>
+                <div class="po-icon"><i class="fas fa-wallet"></i></div>
+                <div class="po-info">
+                  <div class="po-name">E-Wallet</div>
+                  <div class="po-desc">GoPay, OVO, DANA, ShopeePay</div>
+                </div>
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="payment" value="qris" onchange="selectPayment(this)">
+                <div class="po-radio"></div>
+                <div class="po-icon"><i class="fas fa-qrcode"></i></div>
+                <div class="po-info">
+                  <div class="po-name">QRIS</div>
+                  <div class="po-desc">Scan & bayar dengan aplikasi favorit</div>
+                </div>
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="payment" value="cc" onchange="selectPayment(this)">
+                <div class="po-radio"></div>
+                <div class="po-icon"><i class="fas fa-credit-card"></i></div>
+                <div class="po-info">
+                  <div class="po-name">Kartu Kredit</div>
+                  <div class="po-desc">Visa, Mastercard, JCB (biaya +2.9%)</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Payment Detail (Bank Transfer) -->
+          <div class="section-card payment-detail" id="paymentDetail">
+            <h3><i class="fas fa-info-circle"></i> Detail Pembayaran</h3>
+            <div class="bank-options">
+              <div class="bank-option active" onclick="selectBank(this,'BCA','1234567890','a.n. Ibaadurrahmaan')">
+                <div class="bo-logo bo-bca">BCA</div>
+                <span>BCA</span>
+              </div>
+              <div class="bank-option" onclick="selectBank(this,'Mandiri','0987654321','a.n. Ibaadurrahmaan')">
+                <div class="bo-logo bo-mandiri">MDR</div>
+                <span>Mandiri</span>
+              </div>
+              <div class="bank-option" onclick="selectBank(this,'BNI','1122334455','a.n. Ibaadurrahmaan')">
+                <div class="bo-logo bo-bni">BNI</div>
+                <span>BNI</span>
+              </div>
+              <div class="bank-option" onclick="selectBank(this,'BRI','5544332211','a.n. Ibaadurrahmaan')">
+                <div class="bo-logo bo-bri">BRI</div>
+                <span>BRI</span>
+              </div>
+            </div>
+            <div class="bank-detail">
+              <div class="bd-item">
+                <span class="bd-label">Bank Tujuan</span>
+                <span class="bd-value" id="bankName">BCA</span>
+              </div>
+              <div class="bd-item">
+                <span class="bd-label">Nomor Rekening</span>
+                <div class="bd-copy">
+                  <span class="bd-value" id="bankAccount">1234567890</span>
+                  <button class="btn-copy" onclick="copyText('bankAccount')">
+                    <i class="fas fa-copy"></i> Salin
+                  </button>
+                </div>
+              </div>
+              <div class="bd-item">
+                <span class="bd-label">Atas Nama</span>
+                <span class="bd-value" id="bankHolder">a.n. Ibaadurrahmaan</span>
+              </div>
+              <div class="bd-item highlight">
+                <span class="bd-label">Jumlah Transfer</span>
+                <div class="bd-copy">
+                  <span class="bd-value bd-amount" id="payAmount">Rp 0</span>
+                  <button class="btn-copy" onclick="copyText('payAmount')">
+                    <i class="fas fa-copy"></i> Salin
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="payment-note">
+              <i class="fas fa-exclamation-triangle"></i>
+              <div>
+                <p><b>Penting:</b> Transfer dengan jumlah <b>tepat</b> untuk verifikasi otomatis.</p>
+                <p>Setelah transfer, konfirmasi via WhatsApp dengan bukti transfer.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Terms -->
+          <div class="section-card terms-card">
+            <label class="checkbox-wrap">
+              <input type="checkbox" id="agreeTerms">
+              <span class="check-custom"></span>
+              <span>Saya menyetujui <a href="#">Syarat & Ketentuan</a> dan <a href="#">Kebijakan Privasi</a></span>
+            </label>
+            <label class="checkbox-wrap">
+              <input type="checkbox" id="agreeNews" checked>
+              <span class="check-custom"></span>
+              <span>Kirim saya update tentang promo & tips digital marketing</span>
+            </label>
+          </div>
+
+          <div class="step-nav">
+            <button class="btn-outline" onclick="goToStep(2)">
+              <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <button class="btn-primary btn-pay" onclick="placeOrder()">
+              <i class="fas fa-lock"></i>
+              <span>Buat Pesanan</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Summary Sidebar -->
+        <div class="order-right">
+          <div class="summary-card sticky">
+            <h3><i class="fas fa-receipt"></i> Ringkasan Order</h3>
+            <div class="summary-package" id="summaryPackage3"></div>
+            <div class="summary-addons" id="summaryAddons3"></div>
+            <div class="summary-divider"></div>
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="subtotal3">Rp 0</span>
+            </div>
+            <div class="summary-row" id="deadlineRow3" style="display:none">
+              <span>Fast Delivery</span>
+              <span id="deadlineFee3">Rp 0</span>
+            </div>
+            <div class="summary-row" id="discountRow3" style="display:none">
+              <span>Diskon Voucher</span>
+              <span class="discount" id="discountAmt3">-Rp 0</span>
+            </div>
+            <div class="summary-row" id="fullpayRow" style="display:none">
+              <span>Diskon Bayar Lunas 5%</span>
+              <span class="discount" id="fullpayDisc">-Rp 0</span>
+            </div>
+            <div class="summary-divider"></div>
+            <div class="summary-row total">
+              <span>Total Pesanan</span>
+              <span id="total3">Rp 0</span>
+            </div>
+            <div class="summary-row payment-now" id="paymentNowRow">
+              <span><b>Bayar Sekarang</b></span>
+              <span class="pay-now-amt" id="payNowAmt">Rp 0</span>
+            </div>
+            <div class="summary-row" id="remainingRow" style="display:none">
+              <span>Sisa Pelunasan</span>
+              <span id="remainingAmt">Rp 0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STEP 4: ORDER COMPLETE / INVOICE ============ -->
+    <section class="order-step hidden" id="step4">
+      <div class="success-section">
+        <!-- Success Animation -->
+        <div class="success-icon">
+          <div class="success-circle">
+            <i class="fas fa-check"></i>
+          </div>
+          <div class="confetti">
+            <span>🎉</span><span>✨</span><span>💎</span>
+            <span>🎊</span><span>⭐</span><span>🌟</span>
+          </div>
+        </div>
+        <h1 class="success-title">Pesanan Berhasil Dibuat!</h1>
+        <p class="success-desc">Terima kasih atas kepercayaan Anda. Tim kami akan segera menghubungi Anda via WhatsApp.</p>
+
+        <!-- Invoice Card -->
+        <div class="invoice-card" id="invoiceCard">
+          <div class="invoice-header">
+            <div class="inv-brand">
+              <div class="inv-logo">
+                <i class="fas fa-code"></i>
+              </div>
+              <div class="inv-brand-info">
+                <span class="inv-brand-name">Ibaadurrahmaan</span>
+                <span class="inv-brand-tag">WEB DESIGNER</span>
+              </div>
+            </div>
+            <div class="inv-title">
+              <h2>INVOICE</h2>
+              <div class="inv-number" id="invNumber">INV-20250615-XXXX</div>
+              <div class="inv-status">
+                <span class="status-badge pending"><i class="fas fa-clock"></i> Menunggu Pembayaran</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="invoice-info-grid">
+            <div class="inv-info-col">
+              <h4><i class="fas fa-user"></i> Ditagihkan Kepada</h4>
+              <p class="inv-name" id="invName">-</p>
+              <p id="invCompany">-</p>
+              <p id="invEmail">-</p>
+              <p id="invPhone">-</p>
+            </div>
+            <div class="inv-info-col">
+              <h4><i class="fas fa-file-invoice"></i> Detail Pesanan</h4>
+              <div class="inv-detail-row">
+                <span>Tanggal Order</span>
+                <span id="invDate">-</span>
+              </div>
+              <div class="inv-detail-row">
+                <span>Timeline</span>
+                <span id="invTimeline">-</span>
+              </div>
+              <div class="inv-detail-row">
+                <span>Estimasi Selesai</span>
+                <span id="invEstimate">-</span>
+              </div>
+              <div class="inv-detail-row">
+                <span>Metode Bayar</span>
+                <span id="invPayment">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Invoice Table -->
+          <div class="invoice-table-wrap">
+            <table class="invoice-table">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Deskripsi</th>
+                  <th style="text-align:right">Harga</th>
+                </tr>
+              </thead>
+              <tbody id="invTableBody"></tbody>
+            </table>
+          </div>
+
+          <!-- Invoice Totals -->
+          <div class="invoice-totals">
+            <div class="inv-total-row">
+              <span>Subtotal</span>
+              <span id="invSubtotal">Rp 0</span>
+            </div>
+            <div class="inv-total-row" id="invDeadlineRow" style="display:none">
+              <span>Fast Delivery</span>
+              <span id="invDeadlineFee">Rp 0</span>
+            </div>
+            <div class="inv-total-row" id="invDiscountRow" style="display:none">
+              <span>Diskon Voucher</span>
+              <span class="discount" id="invDiscount">-Rp 0</span>
+            </div>
+            <div class="inv-total-row" id="invFullpayRow" style="display:none">
+              <span>Diskon Bayar Lunas</span>
+              <span class="discount" id="invFullpay">-Rp 0</span>
+            </div>
+            <div class="inv-total-row grand-total">
+              <span>TOTAL</span>
+              <span id="invTotal">Rp 0</span>
+            </div>
+            <div class="inv-total-row payment-now-row">
+              <span><b>Bayar Sekarang</b></span>
+              <span class="inv-paynow" id="invPayNow">Rp 0</span>
+            </div>
+            <div class="inv-total-row" id="invRemainingRow" style="display:none">
+              <span>Sisa Pelunasan</span>
+              <span id="invRemaining">Rp 0</span>
+            </div>
+          </div>
+
+          <!-- Payment Info Box -->
+          <div class="invoice-payment-box" id="invPaymentBox">
+            <div class="ipb-header">
+              <i class="fas fa-university"></i>
+              <h4>Instruksi Pembayaran</h4>
+            </div>
+            <div class="ipb-grid">
+              <div class="ipb-item">
+                <span class="ipb-label">Bank</span>
+                <span class="ipb-value" id="invBankName">BCA</span>
+              </div>
+              <div class="ipb-item">
+                <span class="ipb-label">No. Rekening</span>
+                <span class="ipb-value" id="invBankAcc">1234567890</span>
+              </div>
+              <div class="ipb-item">
+                <span class="ipb-label">Atas Nama</span>
+                <span class="ipb-value" id="invBankHolder">a.n. Ibaadurrahmaan</span>
+              </div>
+              <div class="ipb-item highlight">
+                <span class="ipb-label">Jumlah Transfer</span>
+                <span class="ipb-value ipb-amount" id="invPayTotal">Rp 0</span>
+              </div>
+            </div>
+            <div class="ipb-deadline">
+              <i class="fas fa-clock"></i>
+              <span>Selesaikan pembayaran dalam <b>24 jam</b> sebelum <b id="invDeadline">-</b></span>
+            </div>
+          </div>
+
+          <!-- Next Steps -->
+          <div class="invoice-nextsteps">
+            <h4><i class="fas fa-list-check"></i> Langkah Selanjutnya</h4>
+            <ol>
+              <li>Transfer sesuai jumlah di atas ke rekening yang tertera</li>
+              <li>Konfirmasi pembayaran via WhatsApp dengan bukti transfer</li>
+              <li>Tim kami akan mengirim brief form via email dalam 1x24 jam</li>
+              <li>Isi brief form, project akan segera dimulai</li>
+              <li>Update progress akan dikirim berkala via WhatsApp</li>
+            </ol>
+          </div>
+
+          <div class="invoice-footer">
+            <p><b>Ibaadurrahmaan Web Designer</b></p>
+            <p>💬 WhatsApp: +62 814-0164-3188 | 📧 hello@ibaadurrahmaan.com</p>
+            <p class="inv-small">Invoice ini digenerate otomatis oleh sistem. Tidak memerlukan tanda tangan.</p>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="success-actions">
+          <button class="btn-primary" onclick="downloadInvoice()">
+            <i class="fas fa-download"></i>
+            <span>Download Invoice</span>
+          </button>
+          <button class="btn-outline" onclick="printInvoice()">
+            <i class="fas fa-print"></i>
+            <span>Print Invoice</span>
+          </button>
+          <a href="#" class="btn-wa" id="waConfirm">
+            <i class="fab fa-whatsapp"></i>
+            <span>Konfirmasi via WhatsApp</span>
+          </a>
+        </div>
+
+        <!-- Order Timeline -->
+        <div class="tracking-card">
+          <h3><i class="fas fa-tasks"></i> Progress Pesanan Anda</h3>
+          <div class="tracking-timeline">
+            <div class="track-item active">
+              <div class="track-dot"></div>
+              <div class="track-info">
+                <div class="track-title">Pesanan Dibuat</div>
+                <div class="track-time" id="trackTime1">Baru saja</div>
+              </div>
+              <div class="track-icon"><i class="fas fa-check-circle"></i></div>
+            </div>
+            <div class="track-item">
+              <div class="track-dot"></div>
+              <div class="track-info">
+                <div class="track-title">Pembayaran Dikonfirmasi</div>
+                <div class="track-time">Menunggu transfer</div>
+              </div>
+              <div class="track-icon"><i class="fas fa-clock"></i></div>
+            </div>
+            <div class="track-item">
+              <div class="track-dot"></div>
+              <div class="track-info">
+                <div class="track-title">Brief & Konsultasi</div>
+                <div class="track-time">-</div>
+              </div>
+              <div class="track-icon"><i class="fas fa-comments"></i></div>
+            </div>
+            <div class="track-item">
+              <div class="track-dot"></div>
+              <div class="track-info">
+                <div class="track-title">Design & Development</div>
+                <div class="track-time">-</div>
+              </div>
+              <div class="track-icon"><i class="fas fa-code"></i></div>
+            </div>
+            <div class="track-item">
+              <div class="track-dot"></div>
+              <div class="track-info">
+                <div class="track-title">Revisi & Finalisasi</div>
+                <div class="track-time">-</div>
+              </div>
+              <div class="track-icon"><i class="fas fa-magic"></i></div>
+            </div>
+            <div class="track-item">
+              <div class="track-dot"></div>
+              <div class="track-info">
+                <div class="track-title">Website Live!</div>
+                <div class="track-time">-</div>
+              </div>
+              <div class="track-icon"><i class="fas fa-rocket"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="back-shop">
+          <a href="index.html" class="btn-outline">
+            <i class="fas fa-home"></i> Kembali ke Beranda
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <i class="fas fa-check-circle"></i>
+  <span id="toastText">Berhasil!</span>
+</div>
+
+<!-- Processing Overlay -->
+<div class="processing-overlay" id="processingOverlay">
+  <div class="processing-content">
+    <div class="processing-spinner"></div>
+    <h3>Memproses Pesanan...</h3>
+    <p>Mohon tunggu sebentar</p>
+  </div>
+</div>
+
+<script>
+// ============ STATE ============
+let selectedPkg = null;
+let selectedAddons = [];
+let couponDiscount = 0;
+let couponCode = '';
+let deadlineFee = 0;
+let selectedDeadline = 'Standard (7-14 hari)';
+let paymentType = 'full'; // full or dp
+let selectedBank = {name:'BCA', account:'1234567890', holder:'a.n. Ibaadurrahmaan'};
+let selectedPayment = 'Transfer Bank';
+
+// ============ FORMAT ============
+function formatRp(n){
+  return 'Rp ' + n.toLocaleString('id-ID');
+}
+
+function generateOrderId(){
+  const d = new Date();
+  const date = d.getFullYear().toString() +
+    String(d.getMonth()+1).padStart(2,'0') +
+    String(d.getDate()).padStart(2,'0');
+  const rand = Math.floor(1000 + Math.random() * 9000);
+  return 'INV-' + date + '-' + rand;
+}
+
+// ============ CALCULATIONS ============
+function calculate(){
+  const pkgPrice = selectedPkg ? parseInt(selectedPkg.dataset.price) : 0;
+  const addonsPrice = selectedAddons.reduce((s,a) => s + parseInt(a.dataset.price), 0);
+  const subtotal = pkgPrice + addonsPrice;
+  const withDeadline = subtotal + deadlineFee;
+  const couponAmt = couponDiscount > 0 ? Math.round(withDeadline * couponDiscount / 100) : 0;
+  const afterCoupon = withDeadline - couponAmt;
+  const fullpayDisc = paymentType === 'full' ? Math.round(afterCoupon * 0.05) : 0;
+  const total = afterCoupon - fullpayDisc;
+  const payNow = paymentType === 'full' ? total : Math.round(total * 0.5);
+  const remaining = paymentType === 'dp' ? total - payNow : 0;
+  
+  return {pkgPrice, addonsPrice, subtotal, couponAmt, fullpayDisc, total, payNow, remaining};
+}
+
+// ============ RENDER SUMMARY ============
+function renderSummary(){
+  const c = calculate();
+  
+  for(let i = 2; i <= 3; i++){
+    const pkgEl = document.getElementById('summaryPackage'+i);
+    const addonEl = document.getElementById('summaryAddons'+i);
+    
+    if(pkgEl && selectedPkg){
+      pkgEl.innerHTML = `
+        <div class="si-package">
+          <div class="si-pkg-name">${selectedPkg.dataset.name}</div>
+          <div class="si-pkg-price">${formatRp(c.pkgPrice)}</div>
+        </div>`;
+    }
+    
+    if(addonEl){
+      if(selectedAddons.length > 0){
+        addonEl.innerHTML = '<div class="si-addons-title">Add-ons:</div>' + selectedAddons.map(a => `
+          <div class="si-addon">
+            <span>+ ${a.dataset.name}</span>
+            <span>${parseInt(a.dataset.price) > 0 ? formatRp(parseInt(a.dataset.price)) : 'FREE'}</span>
+          </div>
+        `).join('');
+      } else {
+        addonEl.innerHTML = '';
+      }
+    }
+    
+    const el = id => document.getElementById(id + i);
+    if(el('subtotal')) el('subtotal').textContent = formatRp(c.subtotal);
+    if(el('total')) el('total').textContent = formatRp(c.total);
+    if(el('deadlineFee')) el('deadlineFee').textContent = formatRp(deadlineFee);
+    if(el('discountAmt')) el('discountAmt').textContent = '-' + formatRp(c.couponAmt);
+    
+    const dlr = document.getElementById('deadlineRow'+i);
+    if(dlr) dlr.style.display = deadlineFee > 0 ? 'flex' : 'none';
+    
+    const dcr = document.getElementById('discountRow'+i);
+    if(dcr) dcr.style.display = c.couponAmt > 0 ? 'flex' : 'none';
+  }
+  
+  // Step 3 specifics
+  const fpr = document.getElementById('fullpayRow');
+  const fpd = document.getElementById('fullpayDisc');
+  if(fpr && fpd){
+    if(c.fullpayDisc > 0){
+      fpr.style.display = 'flex';
+      fpd.textContent = '-' + formatRp(c.fullpayDisc);
+    } else {
+      fpr.style.display = 'none';
+    }
+  }
+  
+  const pna = document.getElementById('payNowAmt');
+  if(pna) pna.textContent = formatRp(c.payNow);
+  
+  const rr = document.getElementById('remainingRow');
+  const ra = document.getElementById('remainingAmt');
+  if(rr && ra){
+    if(c.remaining > 0){
+      rr.style.display = 'flex';
+      ra.textContent = formatRp(c.remaining);
+    } else {
+      rr.style.display = 'none';
+    }
+  }
+  
+  const pa = document.getElementById('payAmount');
+  if(pa) pa.textContent = formatRp(c.payNow);
+}
+
+// ============ PACKAGE ============
+function selectPackage(btn){
+  const card = btn.closest('.package-card');
+  document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  selectedPkg = card;
+  document.getElementById('continueBtn1').disabled = false;
+  showToast('Paket dipilih: ' + card.dataset.name);
+  renderSummary();
+}
+
+// ============ ADDONS ============
+document.querySelectorAll('.addon-card input').forEach(cb => {
+  cb.addEventListener('change', () => {
+    const card = cb.closest('.addon-card');
+    if(cb.checked){
+      card.classList.add('checked');
+      selectedAddons.push(cb);
+    } else {
+      card.classList.remove('checked');
+      selectedAddons = selectedAddons.filter(a => a !== cb);
+    }
+    renderSummary();
+  });
+});
+
+// ============ DEADLINE ============
+document.querySelectorAll('input[name="deadline"]').forEach(r => {
+  r.addEventListener('change', () => {
+    const fees = {standard: 0, fast: 200000, express: 500000};
+    const names = {standard: 'Standard (7-14 hari)', fast: 'Fast Track (3-5 hari)', express: 'Express (24-48 jam)'};
+    deadlineFee = fees[r.value] || 0;
+    selectedDeadline = names[r.value] || 'Standard';
+    document.querySelectorAll('.deadline-option').forEach(o => o.classList.remove('active'));
+    r.closest('.deadline-option').classList.add('active');
+    renderSummary();
+  });
+});
+
+// ============ COUPON ============
+function applyCoupon(){
+  const code = document.getElementById('couponInput').value.trim().toUpperCase();
+  const result = document.getElementById('couponResult');
+  
+  const coupons = {
+    'HEMAT10': {discount: 10, label: 'Diskon 10%'},
+    'NEWCLIENT': {discount: 15, label: 'Diskon 15% untuk client baru'},
+    'IBAAD25': {discount: 25, label: 'Diskon 25% spesial!'}
+  };
+  
+  if(coupons[code]){
+    couponDiscount = coupons[code].discount;
+    couponCode = code;
+    result.innerHTML = `<div class="coupon-success"><i class="fas fa-check-circle"></i> Kode <b>${code}</b> berhasil! ${coupons[code].label}</div>`;
+    showToast('Voucher berhasil digunakan!');
+  } else {
+    couponDiscount = 0;
+    couponCode = '';
+    result.innerHTML = `<div class="coupon-error"><i class="fas fa-times-circle"></i> Kode voucher tidak valid</div>`;
+  }
+  renderSummary();
+}
+
+// ============ PAYMENT ============
+function selectPaymentType(radio){
+  document.querySelectorAll('.pt-option').forEach(o => o.classList.remove('active'));
+  radio.closest('.pt-option').classList.add('active');
+  paymentType = radio.value;
+  renderSummary();
+}
+
+function selectPayment(radio){
+  document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('active'));
+  radio.closest('.payment-option').classList.add('active');
+  const names = {
+    bank_transfer: 'Transfer Bank',
+    ewallet: 'E-Wallet',
+    qris: 'QRIS',
+    cc: 'Kartu Kredit'
+  };
+  selectedPayment = names[radio.value] || 'Transfer Bank';
+  document.getElementById('paymentDetail').style.display = radio.value === 'bank_transfer' ? 'block' : 'none';
+}
+
+function selectBank(el, name, account, holder){
+  document.querySelectorAll('.bank-option').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+  selectedBank = {name, account, holder};
+  document.getElementById('bankName').textContent = name;
+  document.getElementById('bankAccount').textContent = account;
+  document.getElementById('bankHolder').textContent = holder;
+}
+
+// ============ NAVIGATION ============
+function goToStep(n){
+  if(n === 2 && !selectedPkg){
+    showToast('Pilih paket terlebih dahulu!');
+    return;
+  }
+  
+  if(n === 3){
+    const req = ['fullName','email','phone','businessType','description'];
+    for(let id of req){
+      const el = document.getElementById(id);
+      if(el && !el.value.trim()){
+        showToast('Lengkapi semua data yang wajib diisi!');
+        el.focus();
+        return;
+      }
+    }
+  }
+  
+  document.querySelectorAll('.order-step').forEach(s => s.classList.add('hidden'));
+  document.getElementById('step'+n).classList.remove('hidden');
+  
+  document.querySelectorAll('.step').forEach(s => {
+    const sn = parseInt(s.dataset.step);
+    s.classList.toggle('active', sn <= n);
+    s.classList.toggle('done', sn < n);
+  });
+  
+  document.querySelectorAll('.step-line').forEach((l,i) => {
+    l.classList.toggle('active', i < n - 1);
+  });
+  
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  renderSummary();
+}
+
+// ============ PLACE ORDER ============
+function placeOrder(){
+  if(!document.getElementById('agreeTerms').checked){
+    showToast('Setujui Syarat & Ketentuan terlebih dahulu');
+    return;
+  }
+  
+  document.getElementById('processingOverlay').classList.add('show');
+  setTimeout(() => {
+    document.getElementById('processingOverlay').classList.remove('show');
+    generateInvoice();
+    goToStep(4);
+  }, 2500);
+}
+
+// ============ INVOICE ============
+function generateInvoice(){
+  const orderId = generateOrderId();
+  const now = new Date();
+  const deadline = new Date(now.getTime() + 24*60*60*1000);
+  
+  const timelineDays = {
+    'standard': 14, 'fast': 5, 'express': 2
+  };
+  const dlValue = document.querySelector('input[name="deadline"]:checked')?.value || 'standard';
+  const estimate = new Date(now.getTime() + timelineDays[dlValue]*24*60*60*1000);
+  
+  const c = calculate();
+  const name = document.getElementById('fullName').value;
+  const company = document.getElementById('companyName').value;
+  const email = document.getElementById('email').value;
+  const phone = document.getElementById('phone').value;
+  
+  document.getElementById('invNumber').textContent = orderId;
+  document.getElementById('invName').textContent = name;
+  document.getElementById('invCompany').textContent = company || '-';
+  document.getElementById('invEmail').textContent = email;
+  document.getElementById('invPhone').textContent = '+62 ' + phone;
+  document.getElementById('invDate').textContent = now.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('invTimeline').textContent = selectedDeadline;
+  document.getElementById('invEstimate').textContent = estimate.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('invPayment').textContent = selectedPayment + ' (' + selectedBank.name + ')';
+  
+  // Table
+  let tableHtml = `
+    <tr>
+      <td><b>${selectedPkg.dataset.name}</b></td>
+      <td>Website ${selectedPkg.dataset.pkg} package</td>
+      <td style="text-align:right"><b>${formatRp(c.pkgPrice)}</b></td>
+    </tr>`;
+  
+  selectedAddons.forEach(a => {
+    tableHtml += `
+      <tr>
+        <td>+ ${a.dataset.name}</td>
+        <td>Add-on service</td>
+        <td style="text-align:right">${parseInt(a.dataset.price) > 0 ? formatRp(parseInt(a.dataset.price)) : 'FREE'}</td>
+      </tr>`;
+  });
+  
+  if(deadlineFee > 0){
+    tableHtml += `
+      <tr>
+        <td>+ ${selectedDeadline}</td>
+        <td>Prioritas pengerjaan</td>
+        <td style="text-align:right">${formatRp(deadlineFee)}</td>
+      </tr>`;
+  }
+  
+  document.getElementById('invTableBody').innerHTML = tableHtml;
+  
+  // Totals
+  document.getElementById('invSubtotal').textContent = formatRp(c.subtotal);
+  document.getElementById('invTotal').textContent = formatRp(c.total);
+  document.getElementById('invPayNow').textContent = formatRp(c.payNow);
+  document.getElementById('invPayTotal').textContent = formatRp(c.payNow);
+  
+  if(deadlineFee > 0){
+    document.getElementById('invDeadlineRow').style.display = 'flex';
+    document.getElementById('invDeadlineFee').textContent = formatRp(deadlineFee);
+  }
+  
+  if(c.couponAmt > 0){
+    document.getElementById('invDiscountRow').style.display = 'flex';
+    document.getElementById('invDiscount').textContent = '-' + formatRp(c.couponAmt);
+  }
+  
+  if(c.fullpayDisc > 0){
+    document.getElementById('invFullpayRow').style.display = 'flex';
+    document.getElementById('invFullpay').textContent = '-' + formatRp(c.fullpayDisc);
+  }
+  
+  if(c.remaining > 0){
+    document.getElementById('invRemainingRow').style.display = 'flex';
+    document.getElementById('invRemaining').textContent = formatRp(c.remaining);
+  }
+  
+  document.getElementById('invBankName').textContent = selectedBank.name;
+  document.getElementById('invBankAcc').textContent = selectedBank.account;
+  document.getElementById('invBankHolder').textContent = selectedBank.holder;
+  document.getElementById('invDeadline').textContent = deadline.toLocaleString('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  
+  document.getElementById('trackTime1').textContent = now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}) + ' WIB';
+  
+  // WA Link
+  const waText = `Halo, saya sudah melakukan pemesanan di Ibaadurrahmaan Web Designer.%0A%0A📋 *Detail Pesanan:*%0AInvoice: ${orderId}%0ANama: ${name}${company ? '%0APerusahaan: '+company : ''}%0APaket: ${selectedPkg.dataset.name}%0ATotal: ${formatRp(c.total)}%0ABayar Sekarang: ${formatRp(c.payNow)}%0AMetode: ${selectedPayment} (${selectedBank.name})%0A%0AMohon informasinya untuk langkah selanjutnya. Terima kasih!`;
+  document.getElementById('waConfirm').href = `https://wa.me/6281401643188?text=${waText}`;
+}
+
+function downloadInvoice(){
+  showToast('Fitur download - Simulasi demo!');
+}
+
+function printInvoice(){
+  window.print();
+}
+
+// ============ UTILS ============
+function copyText(id){
+  const text = document.getElementById(id).textContent;
+  const cleaned = text.replace(/[^0-9]/g,'');
+  navigator.clipboard.writeText(cleaned || text).then(() => {
+    showToast('Berhasil disalin!');
+  }).catch(() => {
+    showToast('Copy: ' + text);
+  });
+}
+
+function showToast(text){
+  const toast = document.getElementById('toast');
+  document.getElementById('toastText').textContent = text;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// Init
+renderSummary();
+
+// URL param - auto select package
+const urlParams = new URLSearchParams(window.location.search);
+const pkgParam = urlParams.get('pkg');
+if(pkgParam){
+  setTimeout(() => {
+    const card = document.querySelector(`.package-card[data-pkg="${pkgParam}"]`);
+    if(card) card.querySelector('.pkg-select-btn').click();
+  }, 100);
+}
+</script>
+
+</body>
+</html>
