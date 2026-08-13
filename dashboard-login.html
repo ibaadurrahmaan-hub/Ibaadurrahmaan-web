@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050B18">
+<title>Login Dashboard | Ibaadurrahmaan Web Designer</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="main-logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+    --bg:#050B18;
+    --gold:#d4a536;
+    --gold-glow:rgba(212,165,54,0.3);
+    --text:#fff;
+    --text-muted:#8a94a6;
+    --border:rgba(255,255,255,0.08);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Poppins',sans-serif;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background-image:
+        radial-gradient(circle at 20% 20%,rgba(212,165,54,0.15),transparent 40%),
+        radial-gradient(circle at 80% 80%,rgba(212,165,54,0.1),transparent 40%);
+}
+
+.login-container{
+    width:100%;
+    max-width:420px;
+    background:linear-gradient(145deg,#0F1E33,#0A1626);
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:40px 32px;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.5),
+        0 0 40px rgba(212,165,54,0.1);
+    position:relative;
+    overflow:hidden;
+}
+
+.login-container::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:3px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+
+.login-logo{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    background:#fff;
+    padding:6px;
+    margin:0 auto 20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 8px 24px var(--gold-glow);
+    border:2px solid var(--gold);
+    box-sizing:border-box;
+    overflow:hidden;
+}
+
+.login-logo img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    border-radius:50%;
+}
+
+.login-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.5rem;
+    font-weight:900;
+    text-align:center;
+    margin-bottom:8px;
+    background:linear-gradient(135deg,var(--gold),#e8bd52);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+}
+
+.login-subtitle{
+    text-align:center;
+    color:var(--text-muted);
+    font-size:0.9rem;
+    margin-bottom:32px;
+}
+
+.login-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:6px 14px;
+    background:rgba(212,165,54,0.15);
+    border:1px solid rgba(212,165,54,0.3);
+    border-radius:100px;
+    color:var(--gold);
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin:0 auto 20px;
+    width:fit-content;
+    display:table;
+}
+
+.form-group{
+    margin-bottom:20px;
+}
+
+.form-label{
+    display:block;
+    color:var(--gold);
+    font-size:0.85rem;
+    font-weight:700;
+    margin-bottom:8px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.form-input{
+    width:100%;
+    background:#0D1829;
+    border:1.5px solid rgba(255,255,255,0.08);
+    color:var(--text);
+    padding:14px 18px;
+    border-radius:12px;
+    font-size:0.95rem;
+    font-family:'Poppins',sans-serif;
+    transition:all 0.3s ease;
+    box-sizing:border-box;
+}
+
+.form-input:focus{
+    outline:none;
+    border-color:var(--gold);
+    background:#12233d;
+    box-shadow:0 0 0 3px rgba(212,165,54,0.1);
+}
+
+.password-wrapper{
+    position:relative;
+}
+
+.password-toggle{
+    position:absolute;
+    right:16px;
+    top:50%;
+    transform:translateY(-50%);
+    background:none;
+    border:none;
+    color:var(--text-muted);
+    cursor:pointer;
+    font-size:1rem;
+    padding:4px;
+    transition:color 0.2s;
+}
+
+.password-toggle:hover{
+    color:var(--gold);
+}
+
+.login-btn{
+    width:100%;
+    background:linear-gradient(135deg,var(--gold),#c19a2e);
+    color:var(--bg);
+    border:none;
+    padding:16px;
+    border-radius:12px;
+    font-size:1rem;
+    font-weight:800;
+    cursor:pointer;
+    font-family:'Poppins',sans-serif;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    box-shadow:0 6px 20px var(--gold-glow);
+    transition:all 0.3s ease;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin-top:8px;
+}
+
+.login-btn:hover:not(:disabled){
+    transform:translateY(-2px);
+    box-shadow:0 8px 30px var(--gold-glow);
+}
+
+.login-btn:disabled{
+    opacity:0.6;
+    cursor:not-allowed;
+}
+
+.error-msg{
+    background:rgba(231,76,60,0.15);
+    border:1px solid rgba(231,76,60,0.3);
+    color:#ff6b5b;
+    padding:12px 16px;
+    border-radius:10px;
+    font-size:0.85rem;
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    animation:shake 0.4s;
+}
+
+@keyframes shake{
+    0%,100%{transform:translateX(0);}
+    25%{transform:translateX(-8px);}
+    75%{transform:translateX(8px);}
+}
+
+.back-link{
+    display:block;
+    text-align:center;
+    margin-top:24px;
+    color:var(--text-muted);
+    text-decoration:none;
+    font-size:0.85rem;
+    transition:color 0.2s;
+}
+
+.back-link:hover{
+    color:var(--gold);
+}
+
+.footer-note{
+    text-align:center;
+    color:var(--text-muted);
+    font-size:0.72rem;
+    margin-top:20px;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+}
+
+.footer-note i{
+    color:var(--gold);
+}
+</style>
+</head>
+<body>
+
+<div class="login-container">
+    <div class="login-logo">
+        <img src="main-logo.jpg" alt="Ibaadurrahmaan" onerror="this.parentElement.innerHTML='<div style=\'font-size:2rem;font-weight:900;color:#d4a536;\'>I</div>'">
+    </div>
+    
+    <div class="login-badge">🔒 Private Access</div>
+    
+    <h1 class="login-title">Dashboard Owner</h1>
+    <p class="login-subtitle">Ibaadurrahmaan Web Designer</p>
+    
+    <form id="loginForm" onsubmit="handleLogin(event)">
+        <div id="errorContainer"></div>
+        
+        <div class="form-group">
+            <label class="form-label">
+                <i class="fas fa-user"></i> Username
+            </label>
+            <input type="text" class="form-input" id="username" placeholder="Masukkan username" required autocomplete="username">
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">
+                <i class="fas fa-lock"></i> Password
+            </label>
+            <div class="password-wrapper">
+                <input type="password" class="form-input" id="password" placeholder="Masukkan password" required autocomplete="current-password">
+                <button type="button" class="password-toggle" onclick="togglePassword()">
+                    <i class="fas fa-eye" id="eyeIcon"></i>
+                </button>
+            </div>
+        </div>
+        
+        <button type="submit" class="login-btn" id="loginBtn">
+            <i class="fas fa-sign-in-alt"></i>
+            <span>Masuk Dashboard</span>
+        </button>
+    </form>
+    
+    <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Kembali ke Website
+    </a>
+    
+    <div class="footer-note">
+        <i class="fas fa-shield-alt"></i> 
+        Akses terenkripsi & privat
+    </div>
+</div>
+
+<script>
+// ====================================================
+// LOGIN CONFIGURATION
+// ====================================================
+// ⚠️ GANTI CREDENTIAL DI SINI (jangan hardcode di production!)
+const CREDENTIALS = {
+    username: 'owner',
+    password: 'ibaadurrahmaan2024'  // 👈 Ganti password ini!
+};
+
+const SESSION_HOURS = 24; // Auto logout setelah X jam
+
+// ====================================================
+// AUTO REDIRECT jika sudah login
+// ====================================================
+if (isLoggedIn()) {
+    window.location.href = 'dashboard.html';
+}
+
+// ====================================================
+// SIMPLE HASH (untuk obfuscation, bukan security real)
+// ====================================================
+function simpleHash(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
+    }
+    return hash.toString(36) + str.length.toString(36);
+}
+
+// ====================================================
+// CHECK LOGIN STATUS
+// ====================================================
+function isLoggedIn() {
+    const session = localStorage.getItem('ibaad_session');
+    if (!session) return false;
+    
+    try {
+        const data = JSON.parse(session);
+        const now = Date.now();
+        const expiry = data.expiry;
+        
+        if (now > expiry) {
+            localStorage.removeItem('ibaad_session');
+            return false;
+        }
+        
+        return data.token === simpleHash(CREDENTIALS.username + CREDENTIALS.password);
+    } catch(e) {
+        return false;
+    }
+}
+
+// ====================================================
+// TOGGLE PASSWORD VISIBILITY
+// ====================================================
+function togglePassword() {
+    const input = document.getElementById('password');
+    const icon = document.getElementById('eyeIcon');
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
+
+// ====================================================
+// HANDLE LOGIN
+// ====================================================
+function handleLogin(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+    const errorContainer = document.getElementById('errorContainer');
+    const btn = document.getElementById('loginBtn');
+    
+    // Clear error
+    errorContainer.innerHTML = '';
+    
+    // Show loading
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Memverifikasi...</span>';
+    
+    // Simulate delay biar terlihat processing
+    setTimeout(() => {
+        if (username === CREDENTIALS.username && password === CREDENTIALS.password) {
+            // Success - save session
+            const session = {
+                token: simpleHash(username + password),
+                loginAt: Date.now(),
+                expiry: Date.now() + (SESSION_HOURS * 60 * 60 * 1000),
+                username: username
+            };
+            localStorage.setItem('ibaad_session', JSON.stringify(session));
+            
+            // Success animation
+            btn.innerHTML = '<i class="fas fa-check-circle"></i> <span>Berhasil! Redirecting...</span>';
+            btn.style.background = 'linear-gradient(135deg,#25d366,#128c7e)';
+            btn.style.color = '#fff';
+            
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 800);
+        } else {
+            // Failed
+            errorContainer.innerHTML = `
+                <div class="error-msg">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Username atau password salah!</span>
+                </div>
+            `;
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> <span>Masuk Dashboard</span>';
+            
+            document.getElementById('password').value = '';
+            document.getElementById('password').focus();
+        }
+    }, 600);
+}
+</script>
+
+</body>
+</html>
