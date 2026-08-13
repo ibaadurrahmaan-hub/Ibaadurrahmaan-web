@@ -1079,30 +1079,30 @@
                 <label class="slip-form-label">
                     <i class="fas fa-medal"></i> Tier Reseller
                 </label>
-             <div class="custom-select-wrapper">
-    <div class="custom-select" id="levelSelect" onclick="toggleLevelDropdown()">
-        <div class="custom-select-value">
-            <span class="level-icon">🥈</span>
-            <span class="level-text">Gold (20% + Rp 100rb)</span>
-        </div>
-        <span class="custom-select-arrow">▼</span>
-    </div>
-    <div class="custom-select-options" id="levelOptions">
-        <div class="custom-option" data-value="silver" data-icon="🥉" data-text="Silver (15%)" onclick="selectLevel(this)">
-            <span class="level-icon">🥉</span>
-            <span class="level-text">Silver (15%)</span>
-        </div>
-        <div class="custom-option selected" data-value="gold" data-icon="🥈" data-text="Gold (20% + Rp 100rb)" onclick="selectLevel(this)">
-            <span class="level-icon">🥈</span>
-            <span class="level-text">Gold (20% + Rp 100rb)</span>
-        </div>
-        <div class="custom-option" data-value="platinum" data-icon="🥇" data-text="Platinum (25% + Rp 200rb)" onclick="selectLevel(this)">
-            <span class="level-icon">🥇</span>
-            <span class="level-text">Platinum (25% + Rp 200rb)</span>
-        </div>
-    </div>
-    <input type="hidden" id="resellerLevel" value="gold">
-</div>
+                <div class="custom-select-wrapper">
+                    <div class="custom-select" id="levelSelect" onclick="toggleLevelDropdown()">
+                        <div class="custom-select-value">
+                            <span class="level-icon">🥈</span>
+                            <span class="level-text">Gold (20% + Rp 100rb)</span>
+                        </div>
+                        <span class="custom-select-arrow">▼</span>
+                    </div>
+                    <div class="custom-select-options" id="levelOptions">
+                        <div class="custom-option" data-value="silver" data-icon="🥉" data-text="Silver (15%)" onclick="selectLevel(this)">
+                            <span class="level-icon">🥉</span>
+                            <span class="level-text">Silver (15%)</span>
+                        </div>
+                        <div class="custom-option selected" data-value="gold" data-icon="🥈" data-text="Gold (20% + Rp 100rb)" onclick="selectLevel(this)">
+                            <span class="level-icon">🥈</span>
+                            <span class="level-text">Gold (20% + Rp 100rb)</span>
+                        </div>
+                        <div class="custom-option" data-value="platinum" data-icon="🥇" data-text="Platinum (25% + Rp 200rb)" onclick="selectLevel(this)">
+                            <span class="level-icon">🥇</span>
+                            <span class="level-text">Platinum (25% + Rp 200rb)</span>
+                        </div>
+                    </div>
+                    <input type="hidden" id="resellerLevel" value="gold">
+                </div>
             </div>
             
             <div class="slip-form-group">
@@ -1233,7 +1233,7 @@
 
 <script>
 // ====================================================
-// SLIP KOMISI GENERATOR
+// SLIP KOMISI GENERATOR - FIXED VERSION
 // ====================================================
 
 const daysID = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
@@ -1242,6 +1242,17 @@ const monthsID = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
 
 let currentMode = 'monthly';
 let closingCount = 0;
+
+
+// ====================================================
+// TIER HELPER - Convert level string to percent
+// ====================================================
+function getTierPercent(level) {
+    if (level === 'silver') return 15;
+    if (level === 'gold') return 20;
+    if (level === 'platinum') return 25;
+    return 20; // default gold
+}
 
 
 // ====================================================
@@ -1259,6 +1270,54 @@ function selectMode(mode) {
     
     updatePreview();
 }
+
+
+// ====================================================
+// CUSTOM DROPDOWN
+// ====================================================
+function toggleLevelDropdown(){
+    const select = document.getElementById('levelSelect');
+    const options = document.getElementById('levelOptions');
+    
+    select.classList.toggle('active');
+    options.classList.toggle('show');
+}
+
+function selectLevel(element){
+    const value = element.dataset.value;
+    const icon = element.dataset.icon;
+    const text = element.dataset.text;
+    
+    // Update hidden input
+    document.getElementById('resellerLevel').value = value;
+    
+    // Update display
+    const select = document.getElementById('levelSelect');
+    select.querySelector('.level-icon').textContent = icon;
+    select.querySelector('.level-text').textContent = text;
+    
+    // Update selected state
+    document.querySelectorAll('.custom-option').forEach(opt => {
+        opt.classList.remove('selected');
+    });
+    element.classList.add('selected');
+    
+    // Close dropdown
+    select.classList.remove('active');
+    document.getElementById('levelOptions').classList.remove('show');
+    
+    // Trigger preview update
+    updatePreview();
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e){
+    const wrapper = document.querySelector('.custom-select-wrapper');
+    if(wrapper && !wrapper.contains(e.target)){
+        document.getElementById('levelSelect')?.classList.remove('active');
+        document.getElementById('levelOptions')?.classList.remove('show');
+    }
+});
 
 
 // ====================================================
@@ -1290,10 +1349,6 @@ function addClosing() {
 function removeClosing(id) {
     const item = document.querySelector(`.slip-closing-item[data-id="${id}"]`);
     if (item) item.remove();
-    updatePreview();
-}
-
-function updateAllClosings() {
     updatePreview();
 }
 
@@ -1339,7 +1394,7 @@ function generateSlipNo(mode) {
     const y = now.getFullYear();
     const m = String(now.getMonth() + 1).padStart(2, '0');
     const random = String(Date.now()).slice(-4);
-    const prefix = mode === 'monthly' ? 'SKB' : 'SKC'; // Slip Komisi Bulanan/Closing
+    const prefix = mode === 'monthly' ? 'SKB' : 'SKC';
     return `${prefix}/${y}${m}/${random}`;
 }
 
@@ -1361,7 +1416,7 @@ function generateMonthlySlip() {
     const data = {
         nama: document.getElementById('fieldNama').value.trim() || 'Nama Reseller',
         kode: document.getElementById('fieldKode').value.trim() || 'RSL-XXX',
-        tier: parseInt(document.getElementById('fieldTier').value),
+        tier: getTierPercent(document.getElementById('resellerLevel').value),
         bank: document.getElementById('fieldBank').value.trim() || 'Bank',
         norek: document.getElementById('fieldNorek').value.trim() || '000-0000-0000',
         periode: document.getElementById('fieldPeriode').value,
@@ -1397,16 +1452,16 @@ function generateMonthlySlip() {
     const grandTotal = totalKomisi + totalBonus;
     
     const html = `
-    <div class="slip-doc-header">
-        <div class="slip-brand">
-            <div class="slip-brand-logo">
-                <img src="main-logo.jpg" alt="Ibaadurrahmaan" onerror="this.parentElement.innerHTML='I';this.parentElement.classList.add('fallback');">
+        <div class="slip-doc-header">
+            <div class="slip-brand">
+                <div class="slip-brand-logo">
+                    <img src="main-logo.jpg" alt="Ibaadurrahmaan" onerror="this.parentElement.innerHTML='I';this.parentElement.classList.add('fallback');">
+                </div>
+                <div class="slip-brand-text">
+                    <h2>Ibaadurrahmaan</h2>
+                    <p>WEB DESIGNER</p>
+                </div>
             </div>
-            <div class="slip-brand-text">
-                <h2>Ibaadurrahmaan</h2>
-                <p>WEB DESIGNER</p>
-            </div>
-        </div>
             <div class="slip-doc-info">
                 <h3>Slip Komisi Bulanan</h3>
                 <p class="slip-no">No: ${slipNo}</p>
@@ -1519,7 +1574,7 @@ function generateSingleSlip() {
     const data = {
         nama: document.getElementById('fieldNama').value.trim() || 'Nama Reseller',
         kode: document.getElementById('fieldKode').value.trim() || 'RSL-XXX',
-        tier: parseInt(document.getElementById('fieldTier').value),
+        tier: getTierPercent(document.getElementById('resellerLevel').value),
         bank: document.getElementById('fieldBank').value.trim() || 'Bank',
         norek: document.getElementById('fieldNorek').value.trim() || '000-0000-0000',
         client: document.getElementById('singleClient').value.trim() || 'Nama Client',
@@ -1537,16 +1592,16 @@ function generateSingleSlip() {
     const total = komisi + bonus;
 
     const html = `
-    <div class="slip-doc-header">
-        <div class="slip-brand">
-            <div class="slip-brand-logo">
-                <img src="main-logo.jpg" alt="Ibaadurrahmaan" onerror="this.parentElement.innerHTML='I';this.parentElement.classList.add('fallback');">
+        <div class="slip-doc-header">
+            <div class="slip-brand">
+                <div class="slip-brand-logo">
+                    <img src="main-logo.jpg" alt="Ibaadurrahmaan" onerror="this.parentElement.innerHTML='I';this.parentElement.classList.add('fallback');">
+                </div>
+                <div class="slip-brand-text">
+                    <h2>Ibaadurrahmaan</h2>
+                    <p>WEB DESIGNER</p>
+                </div>
             </div>
-            <div class="slip-brand-text">
-                <h2>Ibaadurrahmaan</h2>
-                <p>WEB DESIGNER</p>
-            </div>
-        </div>
             <div class="slip-doc-info">
                 <h3>Slip Komisi Closing</h3>
                 <p class="slip-no">No: ${slipNo}</p>
@@ -1708,7 +1763,7 @@ function printSlip() {
 // ====================================================
 function sendToWA() {
     const nama = document.getElementById('fieldNama').value.trim() || 'Reseller';
-    const tier = parseInt(document.getElementById('fieldTier').value);
+    const tier = getTierPercent(document.getElementById('resellerLevel').value);
     const tierInfo = getTierName(tier);
     
     let message = '';
@@ -1801,57 +1856,7 @@ window.addEventListener('load', () => {
         input.addEventListener('change', updatePreview);
     });
 });
-
-// Toggle dropdown
-function toggleLevelDropdown(){
-    const select = document.getElementById('levelSelect');
-    const options = document.getElementById('levelOptions');
-    
-    select.classList.toggle('active');
-    options.classList.toggle('show');
-}
-
-// Select option
-function selectLevel(element){
-    const value = element.dataset.value;
-    const icon = element.dataset.icon;
-    const text = element.dataset.text;
-    
-    // Update hidden input
-    document.getElementById('resellerLevel').value = value;
-    
-    // Update display
-    const select = document.getElementById('levelSelect');
-    select.querySelector('.level-icon').textContent = icon;
-    select.querySelector('.level-text').textContent = text;
-    
-    // Update selected state
-    document.querySelectorAll('.custom-option').forEach(opt => {
-        opt.classList.remove('selected');
-    });
-    element.classList.add('selected');
-    
-    // Close dropdown
-    select.classList.remove('active');
-    document.getElementById('levelOptions').classList.remove('show');
-    
-    // Trigger update function
-    updateLevel();
-}
-
-// Close dropdown when clicking outside
-document.addEventListener('click', function(e){
-    const wrapper = document.querySelector('.custom-select-wrapper');
-    if(wrapper && !wrapper.contains(e.target)){
-        document.getElementById('levelSelect')?.classList.remove('active');
-        document.getElementById('levelOptions')?.classList.remove('show');
-    }
-});
-
-// Update function - PASTIKAN function updateLevel() existing masih baca dari #resellerLevel
-// Karena kita pakai hidden input dengan id yang sama, function lama tetap jalan!
 </script>
 
 </body>
 </html>
-
