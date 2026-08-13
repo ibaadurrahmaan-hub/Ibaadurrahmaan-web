@@ -11,8 +11,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
 <style>
 /* ====================================================
    💰 SLIP KOMISI STYLES
@@ -1225,13 +1223,9 @@
 
     <!-- Actions -->
     <div class="slip-actions">
-        <button class="slip-btn slip-btn-secondary" onclick="downloadPDF()">
-            <i class="fas fa-download"></i>
-            <span>Download PDF</span>
-        </button>
-        <button class="slip-btn slip-btn-primary" onclick="printSlip()">
-            <i class="fas fa-print"></i>
-            <span>Cetak Slip</span>
+        <button class="slip-btn slip-btn-primary" onclick="downloadPDF()">
+            <i class="fas fa-file-pdf"></i>
+            <span>Download / Save PDF</span>
         </button>
         <button class="slip-btn slip-btn-wa" onclick="sendToWA()">
             <i class="fab fa-whatsapp"></i>
@@ -1244,7 +1238,7 @@
 
 <script>
 // ====================================================
-// SLIP KOMISI GENERATOR - FIXED VERSION
+// SLIP KOMISI GENERATOR - FINAL VERSION
 // ====================================================
 
 const daysID = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
@@ -1256,13 +1250,13 @@ let closingCount = 0;
 
 
 // ====================================================
-// TIER HELPER - Convert level string to percent
+// TIER HELPER
 // ====================================================
 function getTierPercent(level) {
     if (level === 'silver') return 15;
     if (level === 'gold') return 20;
     if (level === 'platinum') return 25;
-    return 20; // default gold
+    return 20;
 }
 
 
@@ -1299,29 +1293,23 @@ function selectLevel(element){
     const icon = element.dataset.icon;
     const text = element.dataset.text;
     
-    // Update hidden input
     document.getElementById('resellerLevel').value = value;
     
-    // Update display
     const select = document.getElementById('levelSelect');
     select.querySelector('.level-icon').textContent = icon;
     select.querySelector('.level-text').textContent = text;
     
-    // Update selected state
     document.querySelectorAll('.custom-option').forEach(opt => {
         opt.classList.remove('selected');
     });
     element.classList.add('selected');
     
-    // Close dropdown
     select.classList.remove('active');
     document.getElementById('levelOptions').classList.remove('show');
     
-    // Trigger preview update
     updatePreview();
 }
 
-// Close dropdown when clicking outside
 document.addEventListener('click', function(e){
     const wrapper = document.querySelector('.custom-select-wrapper');
     if(wrapper && !wrapper.contains(e.target)){
@@ -1332,7 +1320,7 @@ document.addEventListener('click', function(e){
 
 
 // ====================================================
-// CLOSING LIST (Monthly Mode)
+// CLOSING LIST
 // ====================================================
 function addClosing() {
     closingCount++;
@@ -1727,124 +1715,114 @@ function generateSingleSlip() {
 
 
 // ====================================================
-// DOWNLOAD PDF - FIXED VERSION
+// DOWNLOAD PDF - Via Native Browser Print (100% Reliable)
 // ====================================================
-async function downloadPDF() {
-    const btn = event.target.closest('.slip-btn');
-    const originalHTML = btn.innerHTML;
+function downloadPDF() {
+    const nama = document.getElementById('fieldNama').value.trim() || 'reseller';
+    const now = new Date();
+    const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+    const filename = `Slip-Komisi-${nama.replace(/\s+/g, '-')}-${dateStr}`;
     
-    // Show loading
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Generating PDF...</span>';
-    btn.disabled = true;
+    const preview = document.getElementById('slipPreview').outerHTML;
+    const styles = document.querySelector('style').innerHTML;
     
-    try {
-        const preview = document.getElementById('slipPreview');
-        const nama = document.getElementById('fieldNama').value.trim() || 'reseller';
-        const now = new Date();
-        const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
-        const filename = `Slip-Komisi-${nama.replace(/\s+/g, '-')}-${dateStr}.pdf`;
-        
-        // ✅ STEP 1: Clone element supaya tidak ganggu tampilan asli
-        const clone = preview.cloneNode(true);
-        clone.style.width = '210mm';
-        clone.style.padding = '20mm';
-        clone.style.background = '#fff';
-        clone.style.position = 'absolute';
-        clone.style.left = '-9999px';
-        clone.style.top = '0';
-        document.body.appendChild(clone);
-        
-        // ✅ STEP 2: Convert logo image ke Base64 (biar tidak CORS issue)
-        const img = clone.querySelector('.slip-brand-logo img');
-        if (img) {
-            try {
-                const base64 = await imageToBase64(img.src);
-                img.src = base64;
-            } catch(e) {
-                console.warn('Logo gagal load, pakai fallback:', e);
-                // Fallback: ganti dengan text "I"
-                const parent = img.parentElement;
-                parent.innerHTML = 'I';
-                parent.classList.add('fallback');
-            }
-        }
-        
-        // ✅ STEP 3: Tunggu semua image + font ready
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        // ✅ STEP 4: Generate PDF dengan settings optimal
-        const opt = {
-            margin: [10, 10, 10, 10],
-            filename: filename,
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { 
-                scale: 2,
-                useCORS: true,
-                allowTaint: true,
-                backgroundColor: '#ffffff',
-                logging: false,
-                windowWidth: 900,
-                onclone: function(clonedDoc) {
-                    // Pastikan font ter-apply di clone
-                    const style = clonedDoc.createElement('style');
-                    style.innerHTML = `
-                        * { font-family: 'Poppins', Arial, sans-serif !important; }
-                        h1, h2, h3 { font-family: 'Montserrat', Arial, sans-serif !important; }
-                    `;
-                    clonedDoc.head.appendChild(style);
-                }
-            },
-            jsPDF: { 
-                unit: 'mm', 
-                format: 'a4', 
-                orientation: 'portrait',
-                compress: true
-            },
-            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-        };
-        
-        await html2pdf().from(clone).set(opt).save();
-        
-        // Cleanup clone
-        document.body.removeChild(clone);
-        
-        // Success notification
-        showToast('✅ PDF berhasil didownload!', 'success');
-        
-    } catch (error) {
-        console.error('PDF generation error:', error);
-        showToast('❌ Gagal generate PDF. Coba gunakan "Cetak Slip" → Save as PDF', 'error');
-    } finally {
-        // Restore button
-        btn.innerHTML = originalHTML;
-        btn.disabled = false;
+    const win = window.open('', '_blank', 'width=900,height=1000');
+    
+    if (!win) {
+        showToast('❌ Popup diblokir! Izinkan popup untuk website ini.', 'error');
+        return;
     }
-}
-
-
-// ====================================================
-// HELPER: Convert Image to Base64
-// ====================================================
-function imageToBase64(url) {
-    return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.crossOrigin = 'Anonymous';
-        img.onload = function() {
-            const canvas = document.createElement('canvas');
-            canvas.width = this.naturalWidth;
-            canvas.height = this.naturalHeight;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(this, 0, 0);
-            try {
-                const dataURL = canvas.toDataURL('image/jpeg', 0.95);
-                resolve(dataURL);
-            } catch(e) {
-                reject(e);
-            }
-        };
-        img.onerror = reject;
-        img.src = url;
-    });
+    
+    win.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>${filename}</title>
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+            <style>
+                ${styles}
+                body { 
+                    background:#fff !important; 
+                    padding:20px;
+                    margin:0;
+                    font-family:'Poppins',sans-serif;
+                }
+                .slip-preview {
+                    box-shadow:none !important;
+                    max-width:800px;
+                    margin:0 auto;
+                }
+                @media print {
+                    body { padding:0; margin:0; }
+                    .slip-preview { 
+                        padding:15mm !important; 
+                        box-shadow:none !important;
+                        border-radius:0 !important;
+                    }
+                    @page {
+                        size: A4;
+                        margin: 0;
+                    }
+                }
+                .print-info {
+                    max-width:800px;
+                    margin:0 auto 20px;
+                    padding:16px 20px;
+                    background:linear-gradient(135deg,#d4a536,#c19a2e);
+                    color:#fff;
+                    border-radius:12px;
+                    text-align:center;
+                    font-family:'Poppins',sans-serif;
+                    box-shadow:0 4px 15px rgba(212,165,54,0.3);
+                }
+                .print-info h3 {
+                    margin:0 0 8px;
+                    font-size:1.1rem;
+                    font-weight:800;
+                }
+                .print-info p {
+                    margin:4px 0;
+                    font-size:0.85rem;
+                    opacity:0.95;
+                }
+                .print-info button {
+                    margin-top:12px;
+                    padding:10px 24px;
+                    background:#fff;
+                    color:#d4a536;
+                    border:none;
+                    border-radius:100px;
+                    font-weight:700;
+                    cursor:pointer;
+                    font-size:0.9rem;
+                }
+                @media print {
+                    .print-info { display:none !important; }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="print-info">
+                <h3>💾 Simpan sebagai PDF</h3>
+                <p>Di dialog print yang muncul, pilih tujuan <b>"Save as PDF"</b> atau <b>"Simpan sebagai PDF"</b></p>
+                <button onclick="window.print()">🖨️ Buka Dialog Print</button>
+            </div>
+            ${preview}
+            <script>
+                window.onload = function() {
+                    setTimeout(() => {
+                        window.print();
+                    }, 1000);
+                };
+            <\/script>
+        </body>
+        </html>
+    `);
+    win.document.close();
+    
+    showToast('💡 Di dialog print, pilih "Save as PDF" untuk download', 'info');
 }
 
 
@@ -1852,7 +1830,6 @@ function imageToBase64(url) {
 // HELPER: Toast Notification
 // ====================================================
 function showToast(message, type = 'info') {
-    // Remove existing toast
     const existing = document.querySelector('.slip-toast');
     if (existing) existing.remove();
     
@@ -1879,33 +1856,10 @@ function showToast(message, type = 'info') {
     
     document.body.appendChild(toast);
     
-    // Auto remove after 4s
     setTimeout(() => {
         toast.style.animation = 'slideOutRight 0.3s ease';
         setTimeout(() => toast.remove(), 300);
     }, 4000);
-}
-
-
-// ====================================================
-// PRINT SLIP
-// ====================================================
-function printSlip() {
-    const preview = document.getElementById('slipPreview').outerHTML;
-    const win = window.open('', '', 'width=800,height=900');
-    win.document.write(`
-        <html>
-        <head>
-            <title>Slip Komisi</title>
-            <style>${document.querySelector('style').innerHTML}</style>
-        </head>
-        <body style="background:#fff;padding:20px;">
-            ${preview}
-        </body>
-        </html>
-    `);
-    win.document.close();
-    setTimeout(() => win.print(), 500);
 }
 
 
@@ -1988,7 +1942,6 @@ Terus semangat closing ya! 🚀
 // INIT
 // ====================================================
 window.addEventListener('load', () => {
-    // Set default dates
     const now = new Date();
     const yearMonth = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
     document.getElementById('fieldPeriode').value = yearMonth;
@@ -1998,10 +1951,8 @@ window.addEventListener('load', () => {
     document.getElementById('singleTglClosing').value = today;
     document.getElementById('singleTglBayar').value = today;
     
-    // Add first closing
     addClosing();
     
-    // Listen to all inputs
     document.querySelectorAll('.slip-form-input, .slip-form-select').forEach(input => {
         input.addEventListener('input', updatePreview);
         input.addEventListener('change', updatePreview);
