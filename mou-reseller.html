@@ -4,16 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#050B18">
-<title>Surat Perjanjian Kemitraan Reseller | Ibaadurrahmaan Web Designer</title>
-<meta name="description" content="Surat Perjanjian Kemitraan Reseller Ibaadurrahmaan Web Designer - MoU Digital Resmi">
+<title>MoU Digital Reseller | Isi & Tandatangani Online | Ibaadurrahmaan Web Designer</title>
 <link rel="icon" type="image/png" href="main-logo.png">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;600;700;800;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 
+<!-- Library untuk PDF & Signature -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+
 <style>
 /* ====================================================
-   📄 MOU PAGE STYLES
+   📄 MoU DIGITAL INTERACTIVE STYLES
    ==================================================== */
 .mou-page{
     background:var(--bg);
@@ -61,7 +64,6 @@
     margin-bottom:12px;
     position:relative;
     z-index:2;
-    line-height:1.2;
 }
 
 .mou-header p{
@@ -71,460 +73,541 @@
     z-index:2;
 }
 
-/* Document Container */
+/* Progress Steps */
+.mou-progress{
+    background:rgba(255,255,255,0.03);
+    border-bottom:1px solid var(--border);
+    padding:20px 0;
+    position:sticky;
+    top:0;
+    z-index:99;
+    backdrop-filter:blur(10px);
+}
+
+.mou-progress-inner{
+    max-width:800px;
+    margin:0 auto;
+    padding:0 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+}
+
+.mou-step{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex:1;
+    min-width:0;
+}
+
+.mou-step-num{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.05);
+    border:2px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--text-muted);
+    font-weight:800;
+    font-family:'Montserrat',sans-serif;
+    font-size:0.9rem;
+    flex-shrink:0;
+    transition:all 0.3s var(--ease);
+}
+
+.mou-step.active .mou-step-num{
+    background:var(--grad-gold-shine);
+    color:var(--bg);
+    border-color:var(--gold);
+    box-shadow:0 4px 15px var(--gold-glow);
+}
+
+.mou-step.completed .mou-step-num{
+    background:var(--wa);
+    color:#fff;
+    border-color:var(--wa);
+}
+
+.mou-step-label{
+    color:var(--text-muted);
+    font-size:0.85rem;
+    font-weight:600;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.mou-step.active .mou-step-label{
+    color:var(--gold);
+}
+
+/* Container */
 .mou-container{
     max-width:800px;
     margin:0 auto;
     padding:40px 20px 80px;
 }
 
-/* Document Card */
-.mou-document{
+/* Form Card */
+.mou-form-card{
     background:var(--grad-card);
     border:1px solid var(--border);
     border-radius:var(--radius-lg);
-    overflow:hidden;
-    box-shadow:0 20px 60px rgba(0,0,0,0.4);
+    padding:32px;
+    margin-bottom:24px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
-/* Document Header */
-.mou-doc-header{
-    background:linear-gradient(135deg,rgba(212,165,54,0.15),rgba(212,165,54,0.05));
-    border-bottom:2px solid var(--gold);
-    padding:40px 40px 30px;
-    text-align:center;
-}
-
-.mou-doc-logo{
-    width:60px;
-    height:60px;
-    margin:0 auto 16px;
-    border-radius:50%;
-    border:2px solid var(--gold);
-    overflow:hidden;
-    box-shadow:0 4px 15px var(--gold-glow);
-}
-
-.mou-doc-logo img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.mou-doc-header h2{
+.mou-form-title{
     font-family:'Montserrat',sans-serif;
     font-size:1.3rem;
-    font-weight:900;
-    color:var(--gold);
-    letter-spacing:2px;
-    text-transform:uppercase;
-    margin-bottom:6px;
-}
-
-.mou-doc-header h3{
-    font-family:'Montserrat',sans-serif;
-    font-size:0.95rem;
-    font-weight:700;
-    color:var(--text);
-    margin-bottom:16px;
-}
-
-.mou-doc-number{
-    display:inline-block;
-    padding:6px 16px;
-    background:rgba(212,165,54,0.15);
-    border:1px solid rgba(212,165,54,0.3);
-    border-radius:100px;
-    font-size:0.8rem;
-    font-weight:700;
-    color:var(--gold);
-    font-family:'Montserrat',sans-serif;
-    letter-spacing:1px;
-}
-
-/* Document Body */
-.mou-doc-body{
-    padding:40px;
-}
-
-.mou-intro{
-    color:var(--text-muted);
-    font-size:0.95rem;
-    line-height:1.8;
-    margin-bottom:32px;
-    padding-bottom:24px;
-    border-bottom:1px solid var(--border);
-}
-
-/* Party Info */
-.mou-party{
-    background:rgba(255,255,255,0.03);
-    border:1px solid var(--border);
-    border-radius:var(--radius-md);
-    padding:24px;
-    margin-bottom:20px;
-    transition:border-color 0.3s var(--ease);
-}
-
-.mou-party:hover{
-    border-color:rgba(212,165,54,0.3);
-}
-
-.mou-party-label{
-    display:inline-block;
-    padding:4px 12px;
-    background:var(--grad-gold-shine);
-    color:var(--bg);
-    border-radius:100px;
-    font-size:0.7rem;
     font-weight:800;
-    letter-spacing:1px;
-    text-transform:uppercase;
-    margin-bottom:16px;
-}
-
-.mou-party-label.reseller{
-    background:linear-gradient(135deg,#25D366,#128C7E);
-}
-
-.mou-party-fields{
-    display:grid;
-    grid-template-columns:140px 1fr;
-    gap:8px 16px;
-    font-size:0.9rem;
-}
-
-.mou-field-label{
-    color:var(--text-muted);
-    font-weight:600;
-}
-
-.mou-field-value{
-    color:var(--text);
-    font-weight:500;
-}
-
-.mou-field-value.blank{
-    border-bottom:1px dashed rgba(255,255,255,0.2);
-    min-height:20px;
-    color:var(--text-dim);
-    font-style:italic;
-    font-size:0.85rem;
-}
-
-/* Section / Pasal */
-.mou-section{
-    margin:36px 0;
-}
-
-.mou-pasal-header{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin-bottom:20px;
-    padding-bottom:12px;
-    border-bottom:1px solid var(--border);
-}
-
-.mou-pasal-num{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:36px;
-    height:36px;
-    background:var(--grad-gold-shine);
-    color:var(--bg);
-    border-radius:50%;
-    font-family:'Montserrat',sans-serif;
-    font-size:0.85rem;
-    font-weight:900;
-    flex-shrink:0;
-    box-shadow:0 4px 12px var(--gold-glow);
-}
-
-.mou-pasal-title{
-    font-family:'Montserrat',sans-serif;
-    font-size:1.1rem;
-    font-weight:800;
-    color:var(--text);
-    text-transform:uppercase;
-    letter-spacing:1px;
-}
-
-.mou-content{
-    color:var(--text-muted);
-    font-size:0.92rem;
-    line-height:1.8;
-}
-
-.mou-content p{
-    margin-bottom:12px;
-}
-
-.mou-content strong{
-    color:var(--text);
-    font-weight:700;
-}
-
-/* Ordered List */
-.mou-list{
-    list-style:none;
-    padding:0;
-    margin:0;
-}
-
-.mou-list li{
-    padding:8px 0 8px 0;
-    color:var(--text-muted);
-    font-size:0.92rem;
-    line-height:1.7;
-    display:flex;
-    gap:12px;
-}
-
-.mou-list li .num{
     color:var(--gold);
-    font-weight:700;
-    font-family:'Montserrat',sans-serif;
-    font-size:0.85rem;
-    flex-shrink:0;
-    min-width:30px;
-}
-
-.mou-sub-list{
-    list-style:none;
-    padding:4px 0 4px 42px;
-    margin:0;
-}
-
-.mou-sub-list li{
-    padding:4px 0;
-    font-size:0.88rem;
-    display:flex;
-    gap:8px;
-}
-
-.mou-sub-list li .letter{
-    color:var(--gold);
-    font-weight:700;
-    flex-shrink:0;
-    min-width:20px;
-}
-
-/* Tier Table */
-.mou-table{
-    width:100%;
-    border-collapse:collapse;
-    margin:16px 0;
-    border-radius:var(--radius-md);
-    overflow:hidden;
-    border:1px solid var(--border);
-}
-
-.mou-table th{
-    background:rgba(212,165,54,0.15);
-    color:var(--gold);
-    padding:12px 16px;
-    font-family:'Montserrat',sans-serif;
-    font-size:0.8rem;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    text-align:left;
-    border-bottom:2px solid var(--gold);
-}
-
-.mou-table td{
-    padding:12px 16px;
-    color:var(--text);
-    font-size:0.9rem;
-    border-bottom:1px solid var(--border);
-    font-weight:500;
-}
-
-.mou-table tr:last-child td{
-    border-bottom:none;
-}
-
-.mou-table tr:hover td{
-    background:rgba(212,165,54,0.05);
-}
-
-.mou-table .tier-gold td{
-    background:rgba(212,165,54,0.08);
-    font-weight:700;
-}
-
-/* Highlight Box */
-.mou-highlight{
-    background:rgba(212,165,54,0.08);
-    border:1px solid rgba(212,165,54,0.25);
-    border-left:4px solid var(--gold);
-    border-radius:0 var(--radius-md) var(--radius-md) 0;
-    padding:16px 20px;
-    margin:16px 0;
-}
-
-.mou-highlight p{
-    color:var(--text);
-    font-size:0.9rem;
-    line-height:1.7;
-    margin:0;
-}
-
-.mou-highlight .icon{
-    color:var(--gold);
-    margin-right:6px;
-}
-
-/* Warning Box */
-.mou-warning{
-    background:rgba(231,76,60,0.08);
-    border:1px solid rgba(231,76,60,0.25);
-    border-left:4px solid #e74c3c;
-    border-radius:0 var(--radius-md) var(--radius-md) 0;
-    padding:16px 20px;
-    margin:16px 0;
-}
-
-.mou-warning p{
-    color:var(--text);
-    font-size:0.88rem;
-    line-height:1.7;
-    margin:4px 0;
-}
-
-.mou-warning .warn-title{
-    color:#e74c3c;
-    font-weight:700;
-    font-size:0.85rem;
-    text-transform:uppercase;
-    letter-spacing:1px;
     margin-bottom:8px;
     display:flex;
     align-items:center;
-    gap:6px;
+    gap:12px;
 }
 
-/* Signature Section */
-.mou-signature{
-    margin-top:48px;
-    padding-top:32px;
-    border-top:2px solid var(--border);
+.mou-form-title i{
+    font-size:1.4rem;
 }
 
-.mou-sign-info{
+.mou-form-subtitle{
     color:var(--text-muted);
-    font-size:0.9rem;
-    margin-bottom:32px;
-    line-height:1.7;
+    font-size:0.95rem;
+    margin-bottom:28px;
+    line-height:1.6;
 }
 
-.mou-sign-grid{
+/* Form Grid */
+.mou-form-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:40px;
-    text-align:center;
+    gap:20px;
 }
 
-.mou-sign-box{
-    padding:24px;
-    border:1px dashed var(--border);
-    border-radius:var(--radius-md);
-    transition:border-color 0.3s var(--ease);
+.mou-form-grid.full{
+    grid-template-columns:1fr;
 }
 
-.mou-sign-box:hover{
-    border-color:rgba(212,165,54,0.3);
+.mou-form-group{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
 }
 
-.mou-sign-role{
-    font-family:'Montserrat',sans-serif;
-    font-size:0.75rem;
-    font-weight:800;
+.mou-form-group.full{
+    grid-column:1 / -1;
+}
+
+.mou-form-label{
     color:var(--gold);
-    text-transform:uppercase;
-    letter-spacing:1.5px;
-    margin-bottom:6px;
+    font-size:0.88rem;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:8px;
 }
 
-.mou-sign-desc{
-    font-size:0.8rem;
+.mou-form-label i{
+    font-size:0.9rem;
+    opacity:0.8;
+    width:16px;
+}
+
+.mou-form-label .required{
+    color:#e74c3c;
+    font-size:1rem;
+}
+
+.mou-form-input,
+.mou-form-select,
+.mou-form-textarea{
+    background:#0D1829;
+    border:1px solid rgba(255,255,255,0.08);
+    color:var(--text);
+    padding:14px 16px;
+    border-radius:10px;
+    font-size:0.95rem;
+    font-family:'Poppins',sans-serif;
+    transition:all 0.3s var(--ease);
+    width:100%;
+    box-sizing:border-box;
+}
+
+.mou-form-input:focus,
+.mou-form-select:focus,
+.mou-form-textarea:focus{
+    outline:none;
+    background:#12233d;
+    border-color:var(--gold);
+    box-shadow:0 0 0 3px rgba(212,165,54,0.1);
+}
+
+.mou-form-input::placeholder,
+.mou-form-textarea::placeholder{
     color:var(--text-dim);
-    margin-bottom:24px;
 }
 
-.mou-sign-stamp{
-    width:80px;
-    height:80px;
-    margin:0 auto 16px;
-    border:2px dashed rgba(255,255,255,0.1);
-    border-radius:50%;
+.mou-form-textarea{
+    resize:vertical;
+    min-height:80px;
+    line-height:1.6;
+}
+
+.mou-form-hint{
+    color:var(--text-dim);
+    font-size:0.78rem;
+    margin-top:2px;
+    font-style:italic;
+}
+
+
+/* Signature Section */
+.mou-signature-section{
+    margin-top:16px;
+}
+
+.mou-signature-tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:16px;
+    background:rgba(255,255,255,0.03);
+    padding:6px;
+    border-radius:10px;
+    border:1px solid var(--border);
+}
+
+.mou-sig-tab{
+    flex:1;
+    padding:10px 16px;
+    background:transparent;
+    border:none;
+    color:var(--text-muted);
+    font-size:0.9rem;
+    font-weight:600;
+    cursor:pointer;
+    border-radius:8px;
+    transition:all 0.3s var(--ease);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:0.7rem;
-    color:var(--text-dim);
-    text-transform:uppercase;
-    letter-spacing:1px;
+    gap:8px;
 }
 
-.mou-sign-line{
-    width:80%;
-    height:1px;
-    background:var(--text-muted);
-    margin:0 auto 8px;
-}
-
-.mou-sign-name{
-    font-family:'Montserrat',sans-serif;
-    font-size:0.95rem;
+.mou-sig-tab.active{
+    background:var(--grad-gold-shine);
+    color:var(--bg);
     font-weight:700;
-    color:var(--text);
-    min-height:24px;
+    box-shadow:0 2px 8px var(--gold-glow);
 }
 
-.mou-sign-name.owner{
+.mou-sig-tab i{
+    font-size:0.95rem;
+}
+
+/* Signature Draw Pad */
+.mou-sig-pad-wrapper{
+    background:#fff;
+    border:2px dashed rgba(255,255,255,0.15);
+    border-radius:12px;
+    padding:0;
+    position:relative;
+    overflow:hidden;
+}
+
+.mou-sig-pad-wrapper.active{
+    border-color:var(--gold);
+    border-style:solid;
+}
+
+#signaturePad{
+    display:block;
+    width:100%;
+    height:200px;
+    cursor:crosshair;
+    touch-action:none;
+    background:#fff;
+}
+
+.mou-sig-placeholder{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    color:#999;
+    font-size:0.9rem;
+    pointer-events:none;
+    text-align:center;
+    z-index:1;
+}
+
+.mou-sig-placeholder.hidden{
+    display:none;
+}
+
+.mou-sig-placeholder i{
+    font-size:2rem;
+    display:block;
+    margin-bottom:8px;
+    color:#ccc;
+}
+
+.mou-sig-actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:12px;
+    gap:12px;
+}
+
+.mou-sig-clear{
+    background:transparent;
+    border:1px solid var(--border);
+    color:var(--text-muted);
+    padding:10px 20px;
+    border-radius:100px;
+    font-size:0.85rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.3s var(--ease);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+}
+
+.mou-sig-clear:hover{
+    color:#e74c3c;
+    border-color:#e74c3c;
+}
+
+.mou-sig-status{
+    color:var(--text-dim);
+    font-size:0.8rem;
+    font-style:italic;
+}
+
+.mou-sig-status.signed{
+    color:var(--wa);
+    font-weight:600;
+    font-style:normal;
+}
+
+/* Signature Type Input */
+.mou-sig-type-wrapper{
+    display:none;
+}
+
+.mou-sig-type-wrapper.active{
+    display:block;
+}
+
+.mou-sig-type-input{
+    background:#fff;
+    color:#000;
+    border:2px dashed rgba(212,165,54,0.4);
+    border-radius:12px;
+    padding:30px;
+    text-align:center;
+    font-family:'Dancing Script',cursive;
+    font-size:2.5rem;
+    font-weight:700;
+    width:100%;
+    box-sizing:border-box;
+    transition:all 0.3s var(--ease);
+}
+
+.mou-sig-type-input:focus{
+    outline:none;
+    border-color:var(--gold);
+    border-style:solid;
+}
+
+.mou-sig-type-input::placeholder{
+    color:#ccc;
+    font-family:'Poppins',sans-serif;
+    font-size:1rem;
+    font-weight:400;
+}
+
+
+/* Checkbox Agreement */
+.mou-agreement{
+    background:rgba(212,165,54,0.08);
+    border:1px solid rgba(212,165,54,0.25);
+    border-radius:12px;
+    padding:20px;
+    margin-top:20px;
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    cursor:pointer;
+    transition:all 0.3s var(--ease);
+}
+
+.mou-agreement:hover{
+    background:rgba(212,165,54,0.12);
+    border-color:rgba(212,165,54,0.4);
+}
+
+.mou-agreement input[type="checkbox"]{
+    width:22px;
+    height:22px;
+    accent-color:var(--gold);
+    cursor:pointer;
+    flex-shrink:0;
+    margin-top:2px;
+}
+
+.mou-agreement label{
+    color:var(--text);
+    font-size:0.92rem;
+    line-height:1.6;
+    cursor:pointer;
+    flex:1;
+}
+
+.mou-agreement label strong{
     color:var(--gold);
 }
 
-/* Document Footer */
-.mou-doc-footer{
+
+/* Read MoU Toggle */
+.mou-read-toggle{
+    display:flex;
+    justify-content:center;
+    margin:24px 0;
+}
+
+.mou-read-btn{
+    background:transparent;
+    border:1px solid var(--gold);
+    color:var(--gold);
+    padding:12px 28px;
+    border-radius:100px;
+    font-size:0.9rem;
+    font-weight:700;
+    cursor:pointer;
+    transition:all 0.3s var(--ease);
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+}
+
+.mou-read-btn:hover{
+    background:rgba(212,165,54,0.1);
+}
+
+.mou-read-btn i{
+    font-size:1rem;
+    transition:transform 0.3s var(--ease);
+}
+
+.mou-read-btn.open i{
+    transform:rotate(180deg);
+}
+
+/* MoU Content (Collapsible) */
+.mou-content-full{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.5s var(--ease);
     background:rgba(255,255,255,0.02);
-    border-top:1px solid var(--border);
-    padding:24px 40px;
-    text-align:center;
+    border-radius:12px;
+    margin-bottom:24px;
 }
 
-.mou-doc-footer p{
-    color:var(--text-dim);
-    font-size:0.78rem;
-    line-height:1.6;
-    margin:4px 0;
+.mou-content-full.open{
+    max-height:5000px;
 }
 
-/* Action Buttons */
+.mou-content-inner{
+    padding:32px;
+    color:var(--text-muted);
+    font-size:0.9rem;
+    line-height:1.8;
+}
+
+.mou-content-inner h3{
+    color:var(--gold);
+    font-family:'Montserrat',sans-serif;
+    font-size:1.05rem;
+    font-weight:800;
+    margin:24px 0 12px;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--border);
+}
+
+.mou-content-inner h3:first-child{
+    margin-top:0;
+}
+
+.mou-content-inner p{
+    margin-bottom:10px;
+}
+
+.mou-content-inner ul{
+    list-style:none;
+    padding:0;
+    margin:10px 0;
+}
+
+.mou-content-inner ul li{
+    padding:6px 0 6px 24px;
+    position:relative;
+}
+
+.mou-content-inner ul li::before{
+    content:'•';
+    color:var(--gold);
+    position:absolute;
+    left:8px;
+    font-weight:700;
+}
+
+
+/* Action Buttons Sticky */
+.mou-actions-sticky{
+    position:sticky;
+    bottom:0;
+    background:linear-gradient(180deg,transparent 0%,#050B18 30%);
+    padding:32px 0 20px;
+    margin-top:20px;
+    z-index:50;
+}
+
 .mou-actions{
     display:flex;
-    gap:16px;
+    gap:12px;
     justify-content:center;
     flex-wrap:wrap;
-    margin-top:40px;
-    padding:0 20px;
 }
 
 .mou-btn{
     display:inline-flex;
     align-items:center;
-    gap:8px;
-    padding:14px 28px;
+    justify-content:center;
+    gap:12px;
+    padding:16px 28px;
     border-radius:100px;
-    font-size:0.9rem;
+    font-size:1rem;
     font-weight:700;
     text-decoration:none;
     cursor:pointer;
     transition:all 0.3s var(--ease);
     border:none;
+    min-width:180px;
+    line-height:1;
+    font-family:'Poppins',sans-serif;
+}
+
+.mou-btn i{
+    font-size:1.2rem;
 }
 
 .mou-btn-primary{
@@ -533,9 +616,34 @@
     box-shadow:0 6px 20px var(--gold-glow);
 }
 
-.mou-btn-primary:hover{
+.mou-btn-primary:hover:not(:disabled){
     transform:translateY(-3px);
     box-shadow:0 8px 30px var(--gold-glow);
+}
+
+.mou-btn-primary:disabled{
+    opacity:0.4;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.mou-btn-wa{
+    background:#25D366;
+    color:#fff;
+    box-shadow:0 6px 20px rgba(37,211,102,0.3);
+}
+
+.mou-btn-wa:hover:not(:disabled){
+    background:#20BA5A;
+    transform:translateY(-3px);
+    box-shadow:0 8px 30px rgba(37,211,102,0.5);
+}
+
+.mou-btn-wa:disabled{
+    background:#333;
+    color:#666;
+    cursor:not-allowed;
+    box-shadow:none;
 }
 
 .mou-btn-secondary{
@@ -551,17 +659,6 @@
     transform:translateY(-3px);
 }
 
-.mou-btn-back{
-    background:transparent;
-    color:var(--text-muted);
-    border:1px solid var(--border);
-}
-
-.mou-btn-back:hover{
-    color:var(--gold);
-    border-color:var(--gold);
-}
-
 /* Back link */
 .mou-back{
     display:inline-flex;
@@ -571,16 +668,16 @@
     text-decoration:none;
     font-size:0.9rem;
     font-weight:600;
-    padding:20px;
-    transition:color 0.3s var(--ease);
-    position:fixed;
-    top:20px;
-    left:20px;
-    z-index:100;
+    padding:12px 20px;
     background:rgba(5,11,24,0.8);
     backdrop-filter:blur(10px);
     border-radius:100px;
     border:1px solid var(--border);
+    position:fixed;
+    top:20px;
+    left:20px;
+    z-index:100;
+    transition:all 0.3s var(--ease);
 }
 
 .mou-back:hover{
@@ -588,113 +685,154 @@
     border-color:var(--gold);
 }
 
-/* Print Styles */
-@media print{
-    .mou-back,
-    .mou-actions,
-    .mou-header{
-        display:none !important;
-    }
-    
-    .mou-page{
-        background:#fff !important;
-        padding:0 !important;
-    }
-    
-    .mou-container{
-        padding:0 !important;
-        max-width:100% !important;
-    }
-    
-    .mou-document{
-        border:none !important;
-        box-shadow:none !important;
-        border-radius:0 !important;
-    }
-    
-    .mou-doc-body{
-        padding:20px !important;
-    }
-    
-    *{
-        color:#000 !important;
-        background:transparent !important;
-        border-color:#ccc !important;
-    }
-    
-    .mou-pasal-num{
-        background:#d4a536 !important;
-        color:#fff !important;
-        -webkit-print-color-adjust:exact;
-        print-color-adjust:exact;
-    }
-    
-    .mou-table th{
-        background:#f5e6c0 !important;
-        -webkit-print-color-adjust:exact;
-        print-color-adjust:exact;
-    }
+
+/* Success Modal */
+.mou-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(5,11,24,0.9);
+    backdrop-filter:blur(10px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+    opacity:0;
+    visibility:hidden;
+    transition:all 0.3s var(--ease);
+    padding:20px;
 }
+
+.mou-modal.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.mou-modal-content{
+    background:var(--grad-card);
+    border:2px solid var(--gold);
+    border-radius:var(--radius-lg);
+    padding:40px 32px;
+    max-width:500px;
+    width:100%;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+    transform:scale(0.9);
+    transition:transform 0.3s var(--ease);
+}
+
+.mou-modal.active .mou-modal-content{
+    transform:scale(1);
+}
+
+.mou-modal-icon{
+    width:80px;
+    height:80px;
+    margin:0 auto 20px;
+    background:var(--grad-gold-shine);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:2.5rem;
+    color:var(--bg);
+    box-shadow:0 8px 30px var(--gold-glow);
+}
+
+.mou-modal h2{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.5rem;
+    color:var(--text);
+    margin-bottom:12px;
+}
+
+.mou-modal p{
+    color:var(--text-muted);
+    line-height:1.6;
+    margin-bottom:24px;
+    font-size:0.95rem;
+}
+
+.mou-modal-buttons{
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+
+/* Preview Signature Result */
+.mou-preview-sig{
+    background:#fff;
+    border-radius:8px;
+    padding:12px;
+    margin-top:12px;
+    text-align:center;
+    display:none;
+}
+
+.mou-preview-sig.show{
+    display:block;
+}
+
+.mou-preview-sig img{
+    max-width:200px;
+    max-height:80px;
+}
+
 
 /* Responsive */
 @media (max-width:768px){
     .mou-header{
         padding:100px 20px 40px;
     }
-    
-    .mou-doc-body{
+
+    .mou-progress-inner{
+        gap:6px;
+    }
+
+    .mou-step-label{
+        display:none;
+    }
+
+    .mou-form-card{
         padding:24px 20px;
     }
-    
-    .mou-doc-header{
-        padding:30px 20px 24px;
-    }
-    
-    .mou-party-fields{
+
+    .mou-form-grid{
         grid-template-columns:1fr;
-        gap:4px 0;
+        gap:16px;
     }
-    
-    .mou-field-label{
-        font-size:0.78rem;
-        color:var(--gold);
-        margin-top:8px;
+
+    .mou-form-title{
+        font-size:1.15rem;
     }
-    
-    .mou-sign-grid{
-        grid-template-columns:1fr;
-        gap:24px;
+
+    #signaturePad{
+        height:180px;
     }
-    
-    .mou-table{
-        font-size:0.82rem;
+
+    .mou-sig-type-input{
+        font-size:2rem;
+        padding:24px 20px;
     }
-    
-    .mou-table th,
-    .mou-table td{
-        padding:10px 12px;
+
+    .mou-actions{
+        flex-direction:column;
     }
-    
-    .mou-doc-footer{
-        padding:20px;
+
+    .mou-btn{
+        width:100%;
     }
-    
+
     .mou-back{
         top:12px;
         left:12px;
+        padding:10px 16px;
         font-size:0.8rem;
-        padding:12px 16px;
     }
-}
 
-@media (max-width:400px){
-    .mou-doc-header h2{
-        font-size:1rem;
-        letter-spacing:1px;
-    }
-    
-    .mou-pasal-title{
-        font-size:0.95rem;
+    .mou-modal-content{
+        padding:32px 24px;
     }
 }
 </style>
@@ -703,366 +841,737 @@
 
 <!-- Back Button -->
 <a href="reseller.html" class="mou-back">
-    <i class="fas fa-arrow-left"></i> Kembali
+    <i class="fas fa-arrow-left"></i>
+    <span>Kembali</span>
 </a>
 
 <!-- Header -->
 <header class="mou-header">
-    <div class="mou-header-badge">📄 DOKUMEN RESMI</div>
-    <h1>Surat Perjanjian Kemitraan<br>Reseller</h1>
-    <p>Ibaadurrahmaan Web Designer</p>
+    <div class="mou-header-badge">✍️ MOU DIGITAL INTERAKTIF</div>
+    <h1>Isi & Tandatangani<br>Perjanjian Reseller</h1>
+    <p>Cepat, mudah, langsung dari HP kamu</p>
 </header>
 
-<!-- Document -->
-<div class="mou-container">
-    <div class="mou-document">
-        
-        <!-- Doc Header -->
-        <div class="mou-doc-header">
-            <div class="mou-doc-logo">
-                <img src="main-logo.png" alt="Logo">
-            </div>
-            <h2>Surat Perjanjian</h2>
-            <h3>Kemitraan Reseller</h3>
-            <div class="mou-doc-number">NO: RSL/2025/___</div>
+<!-- Progress Steps -->
+<div class="mou-progress">
+    <div class="mou-progress-inner">
+        <div class="mou-step active" id="progressStep1">
+            <div class="mou-step-num">1</div>
+            <span class="mou-step-label">Data Diri</span>
         </div>
-        
-        <!-- Doc Body -->
-        <div class="mou-doc-body">
-            
-            <!-- Intro -->
-            <div class="mou-intro">
-                Pada hari ini, <strong>___________</strong>, tanggal <strong>___________</strong> 
-                bulan <strong>___________</strong> tahun <strong>___________</strong>, 
-                telah dibuat dan disepakati perjanjian kemitraan reseller antara kedua belah pihak 
-                sebagai berikut:
-            </div>
-            
-            <!-- Pihak Pertama -->
-            <div class="mou-party">
-                <div class="mou-party-label">Pihak Pertama — Pemilik Jasa</div>
-                <div class="mou-party-fields">
-                    <span class="mou-field-label">Nama</span>
-                    <span class="mou-field-value">Ibaadurrahmaan</span>
-                    <span class="mou-field-label">No. WhatsApp</span>
-                    <span class="mou-field-value">0814-0164-3188</span>
-                    <span class="mou-field-label">Email</span>
-                    <span class="mou-field-value">ibadurrohman1428@gmail.com</span>
-                    <span class="mou-field-label">Website</span>
-                    <span class="mou-field-value">ibaadurrahmaan-hub.github.io</span>
-                </div>
-            </div>
-            
-            <!-- Pihak Kedua -->
-            <div class="mou-party">
-                <div class="mou-party-label reseller">Pihak Kedua — Reseller</div>
-                <div class="mou-party-fields">
-                    <span class="mou-field-label">Nama</span>
-                    <span class="mou-field-value blank">Diisi saat pendaftaran</span>
-                    <span class="mou-field-label">No. KTP</span>
-                    <span class="mou-field-value blank">Diisi saat pendaftaran</span>
-                    <span class="mou-field-label">Alamat</span>
-                    <span class="mou-field-value blank">Diisi saat pendaftaran</span>
-                    <span class="mou-field-label">No. WhatsApp</span>
-                    <span class="mou-field-value blank">Diisi saat pendaftaran</span>
-                    <span class="mou-field-label">Email</span>
-                    <span class="mou-field-value blank">Diisi saat pendaftaran</span>
-                    <span class="mou-field-label">No. Rekening</span>
-                    <span class="mou-field-value blank">Diisi saat pendaftaran</span>
-                </div>
-            </div>
-            
-            
-            <!-- ==================== PASAL 1 ==================== -->
-            <div class="mou-section">
-                <div class="mou-pasal-header">
-                    <div class="mou-pasal-num">1</div>
-                    <div class="mou-pasal-title">Lingkup Kemitraan</div>
-                </div>
-                <div class="mou-content">
-                    <ul class="mou-list">
-                        <li>
-                            <span class="num">1.1</span>
-                            <span>PIHAK PERTAMA memberikan hak kepada PIHAK KEDUA untuk memasarkan jasa pembuatan website dengan merek <strong>"Ibaadurrahmaan Web Designer"</strong>.</span>
-                        </li>
-                        <li>
-                            <span class="num">1.2</span>
-                            <span>Layanan yang dipasarkan meliputi:</span>
-                        </li>
-                    </ul>
-                    <ul class="mou-sub-list">
-                        <li><span class="letter">a.</span> Paket Hemat (Landing Page) — <strong>Rp 1.500.000</strong></li>
-                        <li><span class="letter">b.</span> Paket Reguler (Website Lengkap) — <strong>Rp 2.500.000</strong></li>
-                        <li><span class="letter">c.</span> Paket Premium (Company Profile) — <strong>Rp 5.000.000</strong></li>
-                        <li><span class="letter">d.</span> Layanan tambahan sesuai kebutuhan client</li>
-                    </ul>
-                    <ul class="mou-list">
-                        <li>
-                            <span class="num">1.3</span>
-                            <span>PIHAK KEDUA bertugas mencari calon client dan memberikan referensi. Seluruh proses teknis (design, development, revisi, delivery) menjadi tanggung jawab PIHAK PERTAMA.</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            
-            
-            <!-- ==================== PASAL 2 ==================== -->
-            <div class="mou-section">
-                <div class="mou-pasal-header">
-                    <div class="mou-pasal-num">2</div>
-                    <div class="mou-pasal-title">Komisi & Pembayaran</div>
-                </div>
-                <div class="mou-content">
-                    <ul class="mou-list">
-                        <li>
-                            <span class="num">2.1</span>
-                            <span>PIHAK KEDUA berhak mendapatkan komisi berdasarkan tier berikut:</span>
-                        </li>
-                    </ul>
-                    
-                    <table class="mou-table">
-                        <thead>
-                            <tr>
-                                <th>Tier</th>
-                                <th>Komisi</th>
-                                <th>Bonus/Closing</th>
-                                <th>Syarat</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>🥉 Silver</td>
-                                <td><strong>15%</strong></td>
-                                <td>—</td>
-                                <td>0–2 closing/bulan</td>
-                            </tr>
-                            <tr class="tier-gold">
-                                <td>🥈 Gold</td>
-                                <td><strong>20%</strong></td>
-                                <td>Rp 100.000</td>
-                                <td>3–5 closing/bulan</td>
-                            </tr>
-                            <tr>
-                                <td>🥇 Platinum</td>
-                                <td><strong>25%</strong></td>
-                                <td>Rp 200.000</td>
-                                <td>6+ closing/bulan</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
-                    <ul class="mou-list">
-                        <li>
-                            <span class="num">2.2</span>
-                            <span>Komisi dihitung dari <strong>nilai total project (nett)</strong>, tidak termasuk biaya domain, hosting, atau layanan pihak ketiga.</span>
-                        </li>
-                        <li>
-                            <span class="num">2.3</span>
-                            <span>Komisi akan dibayarkan <strong>maksimal 3 (tiga) hari kerja</strong> setelah client melunasi 100% pembayaran ke PIHAK PERTAMA.</span>
-                        </li>
-                        <li>
-                            <span class="num">2.4</span>
-                            <span>Pembayaran komisi dilakukan via transfer bank ke rekening PIHAK KEDUA yang tercantum di atas.</span>
-                        </li>
-                        <li>
-                            <span class="num">2.5</span>
-                            <span>Tier reseller akan direview setiap bulan berdasarkan performa closing.</span>
-                        </li>
-                    </ul>
-                    
-                    <div class="mou-highlight">
-                        <p><span class="icon">💡</span> <strong>Contoh:</strong> Reseller Gold menjual Paket Reguler Rp 2.500.000 → Komisi 20% = Rp 500.000 + Bonus Rp 100.000 = <strong>Total Rp 600.000 per closing</strong>.</p>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <!-- ==================== PASAL 3 ==================== -->
-            <div class="mou-section">
-                <div class="mou-pasal-header">
-                    <div class="mou-pasal-num">3</div>
-                    <div class="mou-pasal-title">Hak & Kewajiban</div>
-                </div>
-                <div class="mou-content">
-                    
-                    <p><strong>3.1 Hak Pihak Kedua (Reseller):</strong></p>
-                    <ul class="mou-sub-list">
-                        <li><span class="letter">a.</span> Mendapatkan komisi sesuai ketentuan Pasal 2</li>
-                        <li><span class="letter">b.</span> Mendapatkan materi promosi (banner, caption, portfolio, video)</li>
-                        <li><span class="letter">c.</span> Mendapat training pitching (opsional)</li>
-                        <li><span class="letter">d.</span> Support via WhatsApp selama jam kerja</li>
-                        <li><span class="letter">e.</span> Akses grup komunitas reseller</li>
-                        <li><span class="letter">f.</span> Naik tier otomatis berdasarkan performa</li>
-                    </ul>
-                    
-                    <p><strong>3.2 Kewajiban Pihak Kedua (Reseller):</strong></p>
-                    <ul class="mou-sub-list">
-                        <li><span class="letter">a.</span> Memasarkan produk sesuai standar & etika</li>
-                        <li><span class="letter">b.</span> <strong>TIDAK</strong> boleh menaikkan harga di atas harga resmi tanpa persetujuan</li>
-                        <li><span class="letter">c.</span> <strong>TIDAK</strong> boleh menggunakan logo/brand untuk tujuan di luar kerjasama</li>
-                        <li><span class="letter">d.</span> Menjaga rahasia data client dan bisnis</li>
-                        <li><span class="letter">e.</span> Menyerahkan lead/client ke PIHAK PERTAMA untuk follow-up teknis</li>
-                        <li><span class="letter">f.</span> Melaporkan setiap closing via WhatsApp</li>
-                    </ul>
-                    
-                    <p><strong>3.3 Hak Pihak Pertama:</strong></p>
-                    <ul class="mou-sub-list">
-                        <li><span class="letter">a.</span> Menerima laporan closing dari PIHAK KEDUA</li>
-                        <li><span class="letter">b.</span> Mengatur harga & paket layanan</li>
-                        <li><span class="letter">c.</span> Melakukan komunikasi langsung dengan client</li>
-                        <li><span class="letter">d.</span> Menolak lead yang tidak sesuai kriteria</li>
-                        <li><span class="letter">e.</span> Mencabut status reseller jika ada pelanggaran</li>
-                    </ul>
-                    
-                    <p><strong>3.4 Kewajiban Pihak Pertama:</strong></p>
-                    <ul class="mou-sub-list">
-                        <li><span class="letter">a.</span> Membayar komisi tepat waktu sesuai Pasal 2</li>
-                        <li><span class="letter">b.</span> Menyediakan materi promosi</li>
-                        <li><span class="letter">c.</span> Melayani client dengan kualitas terbaik</li>
-                        <li><span class="letter">d.</span> Memberikan update progress kepada reseller</li>
-                        <li><span class="letter">e.</span> Menjaga rahasia data reseller</li>
-                    </ul>
-                </div>
-            </div>
-            
-            
-            <!-- ==================== PASAL 4 ==================== -->
-            <div class="mou-section">
-                <div class="mou-pasal-header">
-                    <div class="mou-pasal-num">4</div>
-                    <div class="mou-pasal-title">Ketentuan Khusus</div>
-                </div>
-                <div class="mou-content">
-                    <ul class="mou-list">
-                        <li>
-                            <span class="num">4.1</span>
-                            <span>Lead/client yang sudah dibawa oleh PIHAK KEDUA akan dicatat sebagai <strong>"asset reseller" selama 3 (tiga) bulan</strong>.</span>
-                        </li>
-                        <li>
-                            <span class="num">4.2</span>
-                            <span>Jika client yang direferensikan <strong>repeat order dalam 3 bulan</strong>, komisi tetap diberikan kepada PIHAK KEDUA.</span>
-                        </li>
-                        <li>
-                            <span class="num">4.3</span>
-                            <span>Jika ada dispute antara sesama reseller yang mengklaim satu lead, keputusan akhir ada di PIHAK PERTAMA berdasarkan <strong>bukti pertama kontak</strong>.</span>
-                        </li>
-                    </ul>
-                    
-                    <div class="mou-warning">
-                        <div class="warn-title"><i class="fas fa-exclamation-triangle"></i> Larangan</div>
-                        <p>4.4 Reseller <strong>TIDAK DIPERKENANKAN</strong>:</p>
-                        <p>• Membuat website tandingan</p>
-                        <p>• Menawarkan jasa serupa atas nama pribadi</p>
-                        <p>• Membocorkan strategi harga/paket</p>
-                        <p>• Merusak reputasi brand</p>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <!-- ==================== PASAL 5 ==================== -->
-            <div class="mou-section">
-                <div class="mou-pasal-header">
-                    <div class="mou-pasal-num">5</div>
-                    <div class="mou-pasal-title">Masa Berlaku</div>
-                </div>
-                <div class="mou-content">
-                    <ul class="mou-list">
-                        <li>
-                            <span class="num">5.1</span>
-                            <span>Perjanjian ini berlaku selama <strong>1 (satu) tahun</strong> sejak ditandatangani dan otomatis diperpanjang jika tidak ada pemberitahuan pembatalan.</span>
-                        </li>
-                        <li>
-                            <span class="num">5.2</span>
-                            <span>Salah satu pihak dapat mengakhiri perjanjian dengan pemberitahuan minimal <strong>14 hari</strong> sebelumnya.</span>
-                        </li>
-                        <li>
-                            <span class="num">5.3</span>
-                            <span>Komisi dari closing yang sudah terjadi <strong>TETAP dibayarkan</strong> meskipun perjanjian sudah berakhir.</span>
-                        </li>
-                    </ul>
-                    
-                    <div class="mou-highlight">
-                        <p><span class="icon">✅</span> <strong>Catatan:</strong> Kamu bebas keluar kapan saja. Komisi yang sudah menjadi hak kamu tetap dibayarkan penuh.</p>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <!-- ==================== PASAL 6 ==================== -->
-            <div class="mou-section">
-                <div class="mou-pasal-header">
-                    <div class="mou-pasal-num">6</div>
-                    <div class="mou-pasal-title">Penyelesaian Sengketa</div>
-                </div>
-                <div class="mou-content">
-                    <ul class="mou-list">
-                        <li>
-                            <span class="num">6.1</span>
-                            <span>Apabila terjadi perselisihan, akan diselesaikan secara <strong>musyawarah kekeluargaan</strong>.</span>
-                        </li>
-                        <li>
-                            <span class="num">6.2</span>
-                            <span>Jika tidak tercapai kesepakatan, akan diselesaikan sesuai hukum yang berlaku di Indonesia.</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            
-            
-            <!-- ==================== TANDA TANGAN ==================== -->
-            <div class="mou-signature">
-                <div class="mou-sign-info">
-                    <p>Demikian perjanjian ini dibuat dalam <strong>2 (dua) rangkap</strong> bermeterai cukup, 
-                    masing-masing pihak menerima 1 (satu) rangkap dengan kekuatan hukum yang sama.</p>
-                    <p style="margin-top:12px;">
-                        Ditandatangani di: <strong>___________</strong><br>
-                        Pada tanggal: <strong>___________</strong>
-                    </p>
-                </div>
-                
-                <div class="mou-sign-grid">
-                    <div class="mou-sign-box">
-                        <div class="mou-sign-role">Pihak Pertama</div>
-                        <div class="mou-sign-desc">Pemilik Jasa</div>
-                        <div class="mou-sign-stamp">Materai<br>10.000</div>
-                        <div class="mou-sign-line"></div>
-                        <div class="mou-sign-name owner">Ibaadurrahmaan</div>
-                    </div>
-                    <div class="mou-sign-box">
-                        <div class="mou-sign-role">Pihak Kedua</div>
-                        <div class="mou-sign-desc">Reseller</div>
-                        <div class="mou-sign-stamp">Materai<br>10.000</div>
-                        <div class="mou-sign-line"></div>
-                        <div class="mou-sign-name">( _______________ )</div>
-                    </div>
-                </div>
-            </div>
-            
+        <div class="mou-step" id="progressStep2">
+            <div class="mou-step-num">2</div>
+            <span class="mou-step-label">Rekening</span>
         </div>
-        
-        <!-- Doc Footer -->
-        <div class="mou-doc-footer">
-            <p>📄 Dokumen ini diterbitkan oleh Ibaadurrahmaan Web Designer</p>
-            <p>Untuk verifikasi keaslian, hubungi WA: 0814-0164-3188</p>
+        <div class="mou-step" id="progressStep3">
+            <div class="mou-step-num">3</div>
+            <span class="mou-step-label">Tanda Tangan</span>
         </div>
-        
+        <div class="mou-step" id="progressStep4">
+            <div class="mou-step-num">4</div>
+            <span class="mou-step-label">Kirim</span>
+        </div>
     </div>
-    
-    <!-- Action Buttons -->
-    <div class="mou-actions">
-        <button class="mou-btn mou-btn-secondary" onclick="window.print()">
-            <i class="fas fa-print"></i> Cetak / PDF
-        </button>
-        <a href="https://wa.me/6281401643188?text=Halo,%20saya%20sudah%20baca%20MoU%20reseller%20dan%20siap%20menandatangani.%20Mohon%20proses%20pendaftaran%20saya." class="mou-btn mou-btn-primary">
-            <i class="fab fa-whatsapp"></i> Tanda Tangani via WhatsApp
-        </a>
-        <a href="reseller.html" class="mou-btn mou-btn-back">
-            <i class="fas fa-arrow-left"></i> Kembali
-        </a>
-    </div>
-    
 </div>
+
+<!-- Container -->
+<div class="mou-container">
+
+    <!-- Form Data Diri -->
+    <div class="mou-form-card" id="cardData">
+        <div class="mou-form-title">
+            <i class="fas fa-user-circle"></i>
+            <span>Data Diri Reseller</span>
+        </div>
+        <p class="mou-form-subtitle">Isi data diri kamu dengan lengkap dan benar.</p>
+        
+        <div class="mou-form-grid">
+            <div class="mou-form-group full">
+                <label class="mou-form-label">
+                    <i class="fas fa-user"></i> Nama Lengkap <span class="required">*</span>
+                </label>
+                <input type="text" class="mou-form-input" id="fieldNama" placeholder="Contoh: Ahmad Setiawan" required>
+            </div>
+            
+            <div class="mou-form-group">
+                <label class="mou-form-label">
+                    <i class="fas fa-id-card"></i> No. KTP <span class="required">*</span>
+                </label>
+                <input type="text" class="mou-form-input" id="fieldKTP" placeholder="16 digit NIK" maxlength="16" required>
+            </div>
+            
+            <div class="mou-form-group">
+                <label class="mou-form-label">
+                    <i class="fas fa-birthday-cake"></i> Tanggal Lahir
+                </label>
+                <input type="date" class="mou-form-input" id="fieldTgllahir">
+            </div>
+            
+            <div class="mou-form-group full">
+                <label class="mou-form-label">
+                    <i class="fas fa-map-marker-alt"></i> Alamat Lengkap <span class="required">*</span>
+                </label>
+                <textarea class="mou-form-textarea" id="fieldAlamat" placeholder="Jl. ... No. ..., Kelurahan, Kecamatan, Kota, Provinsi, Kode Pos" required></textarea>
+            </div>
+            
+            <div class="mou-form-group">
+                <label class="mou-form-label">
+                    <i class="fab fa-whatsapp"></i> No. WhatsApp <span class="required">*</span>
+                </label>
+                <input type="tel" class="mou-form-input" id="fieldWA" placeholder="08xxx-xxxx-xxxx" required>
+            </div>
+            
+            <div class="mou-form-group">
+                <label class="mou-form-label">
+                    <i class="fas fa-envelope"></i> Email <span class="required">*</span>
+                </label>
+                <input type="email" class="mou-form-input" id="fieldEmail" placeholder="email@example.com" required>
+            </div>
+            
+            <div class="mou-form-group full">
+                <label class="mou-form-label">
+                    <i class="fab fa-instagram"></i> Instagram / Sosial Media
+                </label>
+                <input type="text" class="mou-form-input" id="fieldSosmed" placeholder="@username (opsional)">
+                <span class="mou-form-hint">Untuk portfolio jangkauan promosi kamu</span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Form Rekening -->
+    <div class="mou-form-card" id="cardRekening">
+        <div class="mou-form-title">
+            <i class="fas fa-university"></i>
+            <span>Data Rekening Bank</span>
+        </div>
+        <p class="mou-form-subtitle">Rekening untuk transfer komisi. Pastikan atas nama sendiri.</p>
+        
+        <div class="mou-form-grid">
+            <div class="mou-form-group">
+                <label class="mou-form-label">
+                    <i class="fas fa-landmark"></i> Nama Bank <span class="required">*</span>
+                </label>
+                <select class="mou-form-select" id="fieldBank" required>
+                    <option value="">-- Pilih Bank --</option>
+                    <option value="BCA">BCA</option>
+                    <option value="BNI">BNI</option>
+                    <option value="BRI">BRI</option>
+                    <option value="Mandiri">Mandiri</option>
+                    <option value="BSI">BSI (Bank Syariah Indonesia)</option>
+                    <option value="CIMB Niaga">CIMB Niaga</option>
+                    <option value="Permata">Permata</option>
+                    <option value="Danamon">Danamon</option>
+                    <option value="BTN">BTN</option>
+                    <option value="Jenius">Jenius</option>
+                    <option value="Seabank">Seabank</option>
+                    <option value="Blu BCA">Blu BCA</option>
+                    <option value="Dana">DANA (E-Wallet)</option>
+                    <option value="OVO">OVO (E-Wallet)</option>
+                    <option value="GoPay">GoPay (E-Wallet)</option>
+                    <option value="Lainnya">Lainnya</option>
+                </select>
+            </div>
+            
+            <div class="mou-form-group">
+                <label class="mou-form-label">
+                    <i class="fas fa-credit-card"></i> No. Rekening <span class="required">*</span>
+                </label>
+                <input type="text" class="mou-form-input" id="fieldNorek" placeholder="Nomor rekening" required>
+            </div>
+            
+            <div class="mou-form-group full">
+                <label class="mou-form-label">
+                    <i class="fas fa-user"></i> Nama Pemilik Rekening <span class="required">*</span>
+                </label>
+                <input type="text" class="mou-form-input" id="fieldAtasNama" placeholder="Sesuai buku tabungan" required>
+                <span class="mou-form-hint">⚠️ Harus atas nama sendiri, tidak boleh nama orang lain</span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Baca MoU Toggle -->
+    <div class="mou-read-toggle">
+        <button class="mou-read-btn" id="btnReadMou" onclick="toggleMouContent()">
+            <i class="fas fa-file-alt"></i>
+            <span>Baca Isi Perjanjian</span>
+            <i class="fas fa-chevron-down"></i>
+        </button>
+    </div>
+
+    <!-- MoU Content (Collapsible) -->
+    <div class="mou-content-full" id="mouContent">
+        <div class="mou-content-inner">
+            
+            <h3>PASAL 1 - Lingkup Kemitraan</h3>
+            <p>1.1 PIHAK PERTAMA memberikan hak kepada PIHAK KEDUA untuk memasarkan jasa pembuatan website dengan merek "Ibaadurrahmaan Web Designer".</p>
+            <p>1.2 Layanan yang dipasarkan meliputi:</p>
+            <ul>
+                <li>Paket Hemat (Landing Page) - Rp 1.500.000</li>
+                <li>Paket Reguler (Website Lengkap) - Rp 2.500.000</li>
+                <li>Paket Premium (Company Profile) - Rp 5.000.000</li>
+            </ul>
+            <p>1.3 PIHAK KEDUA bertugas mencari calon client. Seluruh proses teknis menjadi tanggung jawab PIHAK PERTAMA.</p>
+            
+            <h3>PASAL 2 - Komisi & Pembayaran</h3>
+            <p>2.1 Komisi berdasarkan tier:</p>
+            <ul>
+                <li><strong>Silver (0-2 closing/bulan):</strong> 15%</li>
+                <li><strong>Gold (3-5 closing/bulan):</strong> 20% + bonus Rp 100.000/closing</li>
+                <li><strong>Platinum (6+ closing/bulan):</strong> 25% + bonus Rp 200.000/closing</li>
+            </ul>
+            <p>2.2 Komisi dihitung dari nilai nett project (tidak termasuk domain/hosting).</p>
+            <p>2.3 Pembayaran komisi maksimal <strong>3 hari kerja</strong> setelah client melunasi 100%.</p>
+            
+            <h3>PASAL 3 - Hak & Kewajiban</h3>
+            <p><strong>Hak Reseller:</strong> Komisi, materi promosi, training, support WA, akses grup, naik tier otomatis.</p>
+            <p><strong>Kewajiban Reseller:</strong> Memasarkan sesuai etika, tidak menaikkan harga, menjaga rahasia data, melaporkan closing.</p>
+            
+            <h3>PASAL 4 - Ketentuan Khusus</h3>
+            <p>4.1 Lead yang dibawa reseller dicatat sebagai "asset reseller" selama 3 bulan.</p>
+            <p>4.2 Repeat order dalam 3 bulan tetap dapat komisi.</p>
+            <p>4.3 Dispute lead diputuskan berdasarkan bukti pertama kontak.</p>
+            <p><strong>Larangan:</strong> Membuat website tandingan, menawarkan jasa serupa atas nama pribadi, membocorkan strategi harga, merusak brand.</p>
+            
+            <h3>PASAL 5 - Masa Berlaku</h3>
+            <p>5.1 Berlaku 1 tahun, otomatis diperpanjang jika tidak ada pembatalan.</p>
+            <p>5.2 Bisa diakhiri dengan pemberitahuan 14 hari sebelumnya.</p>
+            <p>5.3 Komisi dari closing sebelumnya tetap dibayar meski perjanjian berakhir.</p>
+            
+            <h3>PASAL 6 - Penyelesaian Sengketa</h3>
+            <p>6.1 Perselisihan diselesaikan secara musyawarah kekeluargaan.</p>
+            <p>6.2 Jika tidak tercapai, sesuai hukum Indonesia.</p>
+            
+        </div>
+    </div>
+
+
+    <!-- Signature -->
+    <div class="mou-form-card" id="cardSignature">
+        <div class="mou-form-title">
+            <i class="fas fa-signature"></i>
+            <span>Tanda Tangan Digital</span>
+        </div>
+        <p class="mou-form-subtitle">Bubuhkan tanda tangan sebagai bentuk persetujuan.</p>
+        
+        <div class="mou-signature-section">
+            <!-- Tabs -->
+            <div class="mou-signature-tabs">
+                <button class="mou-sig-tab active" data-tab="draw" onclick="switchSigTab('draw')">
+                    <i class="fas fa-pen"></i>
+                    <span>Gambar TTD</span>
+                </button>
+                <button class="mou-sig-tab" data-tab="type" onclick="switchSigTab('type')">
+                    <i class="fas fa-keyboard"></i>
+                    <span>Ketik Nama</span>
+                </button>
+            </div>
+            
+            <!-- Draw Signature -->
+            <div class="mou-sig-draw-wrapper" id="drawTab">
+                <div class="mou-sig-pad-wrapper" id="sigPadWrapper">
+                    <canvas id="signaturePad"></canvas>
+                    <div class="mou-sig-placeholder" id="sigPlaceholder">
+                        <i class="fas fa-hand-pointer"></i>
+                        <span>Tanda tangani di sini</span>
+                    </div>
+                </div>
+                <div class="mou-sig-actions">
+                    <button class="mou-sig-clear" onclick="clearSignature()">
+                        <i class="fas fa-eraser"></i>
+                        <span>Hapus</span>
+                    </button>
+                    <span class="mou-sig-status" id="sigStatus">Belum ditandatangani</span>
+                </div>
+            </div>
+            
+            <!-- Type Signature -->
+            <div class="mou-sig-type-wrapper" id="typeTab">
+                <input type="text" 
+                       class="mou-sig-type-input" 
+                       id="sigTypeInput" 
+                       placeholder="Ketik nama lengkap sebagai tanda tangan"
+                       oninput="updateSigStatus()">
+                <span class="mou-form-hint" style="display:block;margin-top:8px;text-align:center;">
+                    💡 Ketik nama lengkap kamu, akan otomatis menjadi tanda tangan digital
+                </span>
+            </div>
+        </div>
+        
+        <!-- Agreement Checkbox -->
+        <div class="mou-agreement">
+            <input type="checkbox" id="agreementCheck" onchange="checkFormComplete()">
+            <label for="agreementCheck">
+                Saya telah membaca, memahami, dan <strong>menyetujui</strong> seluruh isi 
+                perjanjian kemitraan reseller di atas. Saya siap menjalankan kewajiban sebagai 
+                reseller dan bersedia menerima konsekuensi jika melanggar.
+            </label>
+        </div>
+    </div>
+
+
+    <!-- Action Buttons -->
+    <div class="mou-actions-sticky">
+        <div class="mou-actions">
+            <button class="mou-btn mou-btn-secondary" onclick="downloadPDF()" id="btnDownload" disabled>
+                <i class="fas fa-download"></i>
+                <span>Download PDF</span>
+            </button>
+            <button class="mou-btn mou-btn-wa" onclick="sendToWhatsApp()" id="btnSubmit" disabled>
+                <i class="fab fa-whatsapp"></i>
+                <span>Kirim & Daftar</span>
+            </button>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Success Modal -->
+<div class="mou-modal" id="successModal">
+    <div class="mou-modal-content">
+        <div class="mou-modal-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <h2>MoU Berhasil Dikirim! 🎉</h2>
+        <p>
+            Terima kasih telah bergabung sebagai reseller!<br>
+            Kami akan menghubungi kamu via WhatsApp maksimal <strong>1×24 jam</strong> untuk proses selanjutnya.
+        </p>
+        <div class="mou-modal-buttons">
+            <button class="mou-btn mou-btn-secondary" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+                <span>Tutup</span>
+            </button>
+            <a href="reseller.html" class="mou-btn mou-btn-primary">
+                <i class="fas fa-home"></i>
+                <span>Kembali</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<script>
+// ====================================================
+// SIGNATURE PAD
+// ====================================================
+const canvas = document.getElementById('signaturePad');
+const sigPlaceholder = document.getElementById('sigPlaceholder');
+const sigStatus = document.getElementById('sigStatus');
+const sigPadWrapper = document.getElementById('sigPadWrapper');
+
+let signaturePad;
+let signatureType = 'draw'; // 'draw' or 'type'
+
+function initSignaturePad() {
+    // Resize canvas for retina
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    canvas.width = canvas.offsetWidth * ratio;
+    canvas.height = canvas.offsetHeight * ratio;
+    canvas.getContext("2d").scale(ratio, ratio);
+    
+    signaturePad = new SignaturePad(canvas, {
+        backgroundColor: 'rgb(255,255,255)',
+        penColor: 'rgb(0,0,0)',
+        minWidth: 1.5,
+        maxWidth: 3
+    });
+    
+    signaturePad.addEventListener('beginStroke', () => {
+        sigPlaceholder.classList.add('hidden');
+        sigPadWrapper.classList.add('active');
+    });
+    
+    signaturePad.addEventListener('endStroke', () => {
+        updateSigStatus();
+    });
+}
+
+function clearSignature() {
+    if (signatureType === 'draw') {
+        signaturePad.clear();
+        sigPlaceholder.classList.remove('hidden');
+        sigPadWrapper.classList.remove('active');
+    } else {
+        document.getElementById('sigTypeInput').value = '';
+    }
+    updateSigStatus();
+}
+
+function switchSigTab(tab) {
+    signatureType = tab;
+    
+    // Update tab buttons
+    document.querySelectorAll('.mou-sig-tab').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tab);
+    });
+    
+    // Show/hide content
+    document.getElementById('drawTab').style.display = tab === 'draw' ? 'block' : 'none';
+    document.getElementById('typeTab').classList.toggle('active', tab === 'type');
+    
+    updateSigStatus();
+}
+
+function updateSigStatus() {
+    let hasSignature = false;
+    
+    if (signatureType === 'draw') {
+        hasSignature = signaturePad && !signaturePad.isEmpty();
+    } else {
+        hasSignature = document.getElementById('sigTypeInput').value.trim().length >= 3;
+    }
+    
+    if (hasSignature) {
+        sigStatus.textContent = '✓ Sudah ditandatangani';
+        sigStatus.classList.add('signed');
+    } else {
+        sigStatus.textContent = 'Belum ditandatangani';
+        sigStatus.classList.remove('signed');
+    }
+    
+    checkFormComplete();
+}
+
+
+// ====================================================
+// FORM VALIDATION
+// ====================================================
+function isFormValid() {
+    const required = ['fieldNama', 'fieldKTP', 'fieldAlamat', 'fieldWA', 'fieldEmail', 'fieldBank', 'fieldNorek', 'fieldAtasNama'];
+    
+    for (const id of required) {
+        const val = document.getElementById(id).value.trim();
+        if (!val) return false;
+    }
+    
+    // Check signature
+    let hasSignature = false;
+    if (signatureType === 'draw') {
+        hasSignature = signaturePad && !signaturePad.isEmpty();
+    } else {
+        hasSignature = document.getElementById('sigTypeInput').value.trim().length >= 3;
+    }
+    
+    // Check agreement
+    const agreed = document.getElementById('agreementCheck').checked;
+    
+    return hasSignature && agreed;
+}
+
+function checkFormComplete() {
+    const valid = isFormValid();
+    document.getElementById('btnSubmit').disabled = !valid;
+    document.getElementById('btnDownload').disabled = !valid;
+    
+    // Update progress steps
+    updateProgress();
+}
+
+function updateProgress() {
+    const nama = document.getElementById('fieldNama').value.trim();
+    const alamat = document.getElementById('fieldAlamat').value.trim();
+    const bank = document.getElementById('fieldBank').value.trim();
+    const norek = document.getElementById('fieldNorek').value.trim();
+    
+    // Step 1: Data Diri
+    const step1Complete = nama && document.getElementById('fieldKTP').value.trim() && alamat;
+    document.getElementById('progressStep1').classList.toggle('completed', step1Complete);
+    
+    // Step 2: Rekening
+    const step2Complete = bank && norek;
+    document.getElementById('progressStep2').classList.toggle('completed', step2Complete);
+    document.getElementById('progressStep2').classList.toggle('active', step1Complete);
+    
+    // Step 3: Tanda Tangan
+    let hasSignature = false;
+    if (signatureType === 'draw') {
+        hasSignature = signaturePad && !signaturePad.isEmpty();
+    } else {
+        hasSignature = document.getElementById('sigTypeInput').value.trim().length >= 3;
+    }
+    document.getElementById('progressStep3').classList.toggle('completed', hasSignature);
+    document.getElementById('progressStep3').classList.toggle('active', step2Complete);
+    
+    // Step 4: Kirim
+    const step4Ready = hasSignature && document.getElementById('agreementCheck').checked;
+    document.getElementById('progressStep4').classList.toggle('active', step4Ready);
+}
+
+
+// ====================================================
+// TOGGLE MOU CONTENT
+// ====================================================
+function toggleMouContent() {
+    const content = document.getElementById('mouContent');
+    const btn = document.getElementById('btnReadMou');
+    const isOpen = content.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    btn.querySelector('span').textContent = isOpen ? 'Tutup Perjanjian' : 'Baca Isi Perjanjian';
+}
+
+
+// ====================================================
+// GET FORM DATA
+// ====================================================
+function getFormData() {
+    return {
+        nama: document.getElementById('fieldNama').value.trim(),
+        ktp: document.getElementById('fieldKTP').value.trim(),
+        tgllahir: document.getElementById('fieldTgllahir').value,
+        alamat: document.getElementById('fieldAlamat').value.trim(),
+        wa: document.getElementById('fieldWA').value.trim(),
+        email: document.getElementById('fieldEmail').value.trim(),
+        sosmed: document.getElementById('fieldSosmed').value.trim() || '-',
+        bank: document.getElementById('fieldBank').value,
+        norek: document.getElementById('fieldNorek').value.trim(),
+        atasNama: document.getElementById('fieldAtasNama').value.trim(),
+        tanggal: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
+    };
+}
+
+function getSignatureData() {
+    if (signatureType === 'draw') {
+        return signaturePad.toDataURL('image/png');
+    } else {
+        // Convert text to canvas image
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = 400;
+        tempCanvas.height = 100;
+        const ctx = tempCanvas.getContext('2d');
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, 400, 100);
+        ctx.fillStyle = '#000';
+        ctx.font = "italic bold 40px 'Dancing Script', cursive";
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(document.getElementById('sigTypeInput').value.trim(), 200, 50);
+        return tempCanvas.toDataURL('image/png');
+    }
+}
+
+
+// ====================================================
+// DOWNLOAD PDF
+// ====================================================
+function downloadPDF() {
+    if (!isFormValid()) {
+        alert('⚠️ Lengkapi semua data & tanda tangan dulu!');
+        return;
+    }
+    
+    const data = getFormData();
+    const sig = getSignatureData();
+    
+    // Create PDF content
+    const pdfContent = document.createElement('div');
+    pdfContent.innerHTML = generatePDFHTML(data, sig);
+    pdfContent.style.padding = '40px';
+    pdfContent.style.fontFamily = 'Arial, sans-serif';
+    pdfContent.style.color = '#000';
+    pdfContent.style.background = '#fff';
+    pdfContent.style.width = '800px';
+    
+    document.body.appendChild(pdfContent);
+    
+    const opt = {
+        margin: 10,
+        filename: `MoU-Reseller-${data.nama.replace(/\s+/g, '-')}.pdf`,
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    
+    html2pdf().from(pdfContent).set(opt).save().then(() => {
+        document.body.removeChild(pdfContent);
+    });
+}
+
+
+// ====================================================
+// GENERATE PDF HTML
+// ====================================================
+function generatePDFHTML(data, sig) {
+    return `
+    <div style="max-width:720px;margin:0 auto;font-size:12px;line-height:1.6;">
+        <div style="text-align:center;border-bottom:3px double #d4a536;padding-bottom:20px;margin-bottom:25px;">
+            <h1 style="color:#d4a536;margin:0 0 5px;font-size:20px;">SURAT PERJANJIAN KEMITRAAN RESELLER</h1>
+            <h2 style="margin:0;font-size:14px;color:#333;">Ibaadurrahmaan Web Designer</h2>
+            <p style="margin:10px 0 0;font-size:11px;">No: RSL/${new Date().getFullYear()}/${String(Date.now()).slice(-4)}</p>
+        </div>
+        
+        <p>Pada hari ini, <b>${data.tanggal}</b>, telah dibuat perjanjian antara:</p>
+        
+        <div style="background:#faf5e6;padding:15px;border-left:4px solid #d4a536;margin:15px 0;">
+            <b style="color:#d4a536;">PIHAK PERTAMA (Pemilik Jasa):</b><br>
+            Nama: <b>Ibaadurrahmaan</b><br>
+            WhatsApp: 0814-0164-3188<br>
+            Email: ibadurrohman1428@gmail.com
+        </div>
+        
+        <div style="background:#e6f9ee;padding:15px;border-left:4px solid #25d366;margin:15px 0;">
+            <b style="color:#128c7e;">PIHAK KEDUA (Reseller):</b><br>
+            Nama: <b>${data.nama}</b><br>
+            No. KTP: ${data.ktp}<br>
+            ${data.tgllahir ? `Tanggal Lahir: ${new Date(data.tgllahir).toLocaleDateString('id-ID')}<br>` : ''}
+            Alamat: ${data.alamat}<br>
+            WhatsApp: ${data.wa}<br>
+            Email: ${data.email}<br>
+            ${data.sosmed !== '-' ? `Sosial Media: ${data.sosmed}<br>` : ''}
+            <br>
+            <b>Rekening:</b> ${data.bank} - ${data.norek}<br>
+            <b>Atas Nama:</b> ${data.atasNama}
+        </div>
+        
+        <h3 style="color:#d4a536;border-bottom:1px solid #ddd;padding-bottom:5px;">PASAL 1 - LINGKUP KEMITRAAN</h3>
+        <p>1.1 PIHAK PERTAMA memberikan hak kepada PIHAK KEDUA memasarkan jasa "Ibaadurrahmaan Web Designer".</p>
+        <p>1.2 Paket: Hemat (Rp 1.5jt), Reguler (Rp 2.5jt), Premium (Rp 5jt).</p>
+        <p>1.3 PIHAK KEDUA mencari client, teknis oleh PIHAK PERTAMA.</p>
+        
+        <h3 style="color:#d4a536;border-bottom:1px solid #ddd;padding-bottom:5px;">PASAL 2 - KOMISI</h3>
+        <p>2.1 Tier: Silver 15% | Gold 20% + bonus Rp 100rb | Platinum 25% + bonus Rp 200rb</p>
+        <p>2.2 Komisi dari nilai nett project.</p>
+        <p>2.3 Pembayaran max 3 hari kerja setelah pelunasan.</p>
+        
+        <h3 style="color:#d4a536;border-bottom:1px solid #ddd;padding-bottom:5px;">PASAL 3 - HAK & KEWAJIBAN</h3>
+        <p><b>Reseller berhak:</b> Komisi, materi promosi, support, akses grup.</p>
+        <p><b>Reseller wajib:</b> Memasarkan sesuai etika, tidak menaikkan harga, menjaga rahasia data.</p>
+        
+        <h3 style="color:#d4a536;border-bottom:1px solid #ddd;padding-bottom:5px;">PASAL 4 - KETENTUAN KHUSUS</h3>
+        <p>4.1 Lead reseller = asset 3 bulan.</p>
+        <p>4.2 Repeat order tetap dapat komisi.</p>
+        <p>4.3 Larangan: Website tandingan, jual jasa serupa, bocor strategi harga.</p>
+        
+        <h3 style="color:#d4a536;border-bottom:1px solid #ddd;padding-bottom:5px;">PASAL 5 - MASA BERLAKU</h3>
+        <p>Berlaku 1 tahun, otomatis diperpanjang. Bisa diakhiri dengan pemberitahuan 14 hari.</p>
+        
+        <h3 style="color:#d4a536;border-bottom:1px solid #ddd;padding-bottom:5px;">PASAL 6 - PENYELESAIAN SENGKETA</h3>
+        <p>Musyawarah kekeluargaan, jika tidak tercapai sesuai hukum Indonesia.</p>
+        
+        <div style="margin-top:40px;padding-top:20px;border-top:2px solid #ddd;">
+            <p style="text-align:center;font-size:11px;">
+                Dengan menandatangani dokumen ini, kedua pihak menyatakan setuju & bersedia terikat pada perjanjian di atas.
+            </p>
+            
+            <table style="width:100%;margin-top:30px;">
+                <tr>
+                    <td style="width:50%;text-align:center;vertical-align:top;padding:20px;">
+                        <b style="color:#d4a536;">PIHAK PERTAMA</b><br>
+                        <span style="font-size:10px;">Pemilik Jasa</span>
+                        <div style="height:80px;margin:20px 0;display:flex;align-items:center;justify-content:center;">
+                            <em style="font-family:'Dancing Script',cursive;font-size:24px;color:#333;">Ibaadurrahmaan</em>
+                        </div>
+                        <div style="border-top:1px solid #333;padding-top:5px;">
+                            <b>Ibaadurrahmaan</b>
+                        </div>
+                    </td>
+                    <td style="width:50%;text-align:center;vertical-align:top;padding:20px;">
+                        <b style="color:#25d366;">PIHAK KEDUA</b><br>
+                        <span style="font-size:10px;">Reseller</span>
+                        <div style="height:80px;margin:20px 0;">
+                            <img src="${sig}" style="max-height:80px;max-width:200px;">
+                        </div>
+                        <div style="border-top:1px solid #333;padding-top:5px;">
+                            <b>${data.nama}</b>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <div style="margin-top:30px;text-align:center;font-size:10px;color:#666;border-top:1px solid #ddd;padding-top:15px;">
+            <p>Dokumen digital ini sah dan mengikat secara hukum.</p>
+            <p>Ditandatangani secara elektronik pada ${data.tanggal}</p>
+            <p>Verifikasi: WA 0814-0164-3188</p>
+        </div>
+    </div>
+    `;
+}
+
+
+// ====================================================
+// SEND TO WHATSAPP
+// ====================================================
+function sendToWhatsApp() {
+    if (!isFormValid()) {
+        alert('⚠️ Lengkapi semua data & tanda tangan dulu!');
+        return;
+    }
+    
+    const data = getFormData();
+    
+    const message = `Halo, saya *${data.nama}* mendaftar sebagai *RESELLER* Ibaadurrahmaan Web Designer.
+
+📋 *DATA DIRI:*
+• Nama: ${data.nama}
+• KTP: ${data.ktp}
+• WA: ${data.wa}
+• Email: ${data.email}
+• Alamat: ${data.alamat}
+${data.sosmed !== '-' ? `• Sosmed: ${data.sosmed}` : ''}
+
+🏦 *REKENING:*
+• Bank: ${data.bank}
+• No: ${data.norek}
+• A/n: ${data.atasNama}
+
+✅ *Persetujuan MoU:*
+Saya telah membaca, memahami & menyetujui seluruh isi perjanjian kemitraan reseller.
+
+📅 Tanggal: ${data.tanggal}
+
+Mohon proses pendaftaran saya. Terima kasih! 🙏`;
+    
+    // Show modal
+    document.getElementById('successModal').classList.add('active');
+    
+    // Save data to localStorage for backup
+    localStorage.setItem('resellerRegistration', JSON.stringify({
+        ...data,
+        signedAt: new Date().toISOString()
+    }));
+    
+    // Open WhatsApp after short delay
+    setTimeout(() => {
+        window.open(`https://wa.me/6281401643188?text=${encodeURIComponent(message)}`, '_blank');
+    }, 1500);
+}
+
+
+// ====================================================
+// MODAL
+// ====================================================
+function closeModal() {
+    document.getElementById('successModal').classList.remove('active');
+}
+
+
+// ====================================================
+// INIT
+// ====================================================
+window.addEventListener('load', () => {
+    initSignaturePad();
+    
+    // Auto-check form on any input change
+    document.querySelectorAll('.mou-form-input, .mou-form-select, .mou-form-textarea').forEach(input => {
+        input.addEventListener('input', checkFormComplete);
+        input.addEventListener('change', checkFormComplete);
+    });
+    
+    document.getElementById('sigTypeInput').addEventListener('input', updateSigStatus);
+});
+
+// Resize signature pad on window resize
+window.addEventListener('resize', () => {
+    if (signaturePad) {
+        const data = signaturePad.toData();
+        initSignaturePad();
+        signaturePad.fromData(data);
+    }
+});
+</script>
 
 </body>
 </html>
