@@ -49,6 +49,93 @@
     border-color:var(--gold);
 }
 
+/* ============================================
+   🎨 HERO LOGO
+   ============================================ */
+.kit-hero-logo{
+    position:relative;
+    width:120px;
+    height:120px;
+    margin:0 auto 24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:3;
+    animation:logoFloat 3s ease-in-out infinite;
+}
+
+.kit-hero-logo img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    border-radius:50%;
+    border:3px solid var(--gold);
+    padding:6px;
+    background:linear-gradient(135deg,#0F1E33,#050B18);
+    box-shadow:
+        0 10px 40px rgba(212,165,54,0.4),
+        0 4px 15px rgba(0,0,0,0.5),
+        inset 0 0 20px rgba(212,165,54,0.1);
+    position:relative;
+    z-index:2;
+    transition:all 0.4s var(--ease);
+}
+
+.kit-hero-logo:hover img{
+    transform:scale(1.05) rotate(3deg);
+    box-shadow:
+        0 15px 50px rgba(212,165,54,0.6),
+        0 6px 20px rgba(0,0,0,0.5);
+}
+
+/* Glow effect di belakang logo */
+.kit-hero-logo-glow{
+    position:absolute;
+    inset:-20px;
+    background:radial-gradient(circle,rgba(212,165,54,0.4),transparent 70%);
+    border-radius:50%;
+    z-index:1;
+    animation:glowPulse 2.5s ease-in-out infinite;
+    pointer-events:none;
+}
+
+@keyframes logoFloat{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-8px);}
+}
+
+@keyframes glowPulse{
+    0%,100%{
+        opacity:0.6;
+        transform:scale(1);
+    }
+    50%{
+        opacity:1;
+        transform:scale(1.1);
+    }
+}
+
+
+/* Mobile */
+@media (max-width:768px){
+    .kit-hero-logo{
+        width:100px;
+        height:100px;
+        margin-bottom:20px;
+    }
+    
+    .kit-hero-logo img{
+        padding:5px;
+        border-width:2px;
+    }
+}
+
+@media (max-width:400px){
+    .kit-hero-logo{
+        width:90px;
+        height:90px;
+    }
+}
 
 /* ============================================
    HERO HEADER
@@ -969,9 +1056,14 @@
     <span>Kembali</span>
 </a>
 
-
 <!-- ===== HERO ===== -->
 <section class="kit-hero">
+    <!-- 🎨 Logo -->
+    <div class="kit-hero-logo">
+        <img src="main-logo.jpg" alt="Ibaadurrahmaan Web Designer" onerror="this.parentElement.style.display='none'">
+        <div class="kit-hero-logo-glow"></div>
+    </div>
+    
     <div class="kit-hero-badge">
         <i class="fas fa-gem"></i>
         <span>EXCLUSIVE RESELLER KIT</span>
@@ -1002,7 +1094,6 @@
         </div>
     </div>
 </section>
-
 
 <!-- ===== LEARNING PATH ===== -->
 <section class="kit-section">
