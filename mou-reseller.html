@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#050B18">
 <title>MoU Digital Reseller | Isi & Tandatangani Online | Ibaadurrahmaan Web Designer</title>
+<meta name="description" content="MoU Digital Interaktif - Isi data & tanda tangan langsung online untuk pendaftaran reseller Ibaadurrahmaan Web Designer">
 <link rel="icon" type="image/png" href="main-logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;600;700;800;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -16,7 +17,7 @@
 
 <style>
 /* ====================================================
-   📄 MoU DIGITAL INTERACTIVE STYLES
+   📄 MoU DIGITAL INTERACTIVE - FULL STYLES
    ==================================================== */
 .mou-page{
     background:var(--bg);
@@ -24,7 +25,9 @@
     padding:0;
 }
 
-/* Header */
+/* ============================================
+   HEADER
+   ============================================ */
 .mou-header{
     background:linear-gradient(135deg,#0F1E33 0%,#050B18 100%);
     padding:120px 20px 60px;
@@ -64,6 +67,7 @@
     margin-bottom:12px;
     position:relative;
     z-index:2;
+    line-height:1.2;
 }
 
 .mou-header p{
@@ -73,11 +77,14 @@
     z-index:2;
 }
 
-/* Progress Steps */
+
+/* ============================================
+   PROGRESS STEPS (Sticky)
+   ============================================ */
 .mou-progress{
-    background:rgba(255,255,255,0.03);
+    background:rgba(15,30,51,0.95);
     border-bottom:1px solid var(--border);
-    padding:20px 0;
+    padding:16px 0;
     position:sticky;
     top:0;
     z-index:99;
@@ -145,14 +152,104 @@
     color:var(--gold);
 }
 
-/* Container */
+
+/* ============================================
+   🕐 LIVE DATE & TIME BANNER
+   ============================================ */
+.mou-datetime-banner{
+    background:linear-gradient(135deg,rgba(212,165,54,0.1),rgba(212,165,54,0.03));
+    border-bottom:1px solid rgba(212,165,54,0.2);
+    padding:16px 20px;
+    position:sticky;
+    top:70px;
+    z-index:98;
+    backdrop-filter:blur(10px);
+}
+
+.mou-datetime-inner{
+    max-width:800px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:24px;
+    flex-wrap:wrap;
+}
+
+.mou-datetime-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.mou-datetime-item i{
+    font-size:1.3rem;
+    color:var(--gold);
+    background:rgba(212,165,54,0.15);
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 4px 12px rgba(212,165,54,0.15);
+}
+
+.mou-datetime-content{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+}
+
+.mou-datetime-label{
+    color:var(--text-muted);
+    font-size:0.7rem;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.mou-datetime-value{
+    color:var(--gold);
+    font-size:0.95rem;
+    font-weight:700;
+    font-family:'Montserrat',sans-serif;
+    letter-spacing:0.5px;
+}
+
+.mou-datetime-value#liveTime::before{
+    content:'●';
+    color:#25D366;
+    margin-right:6px;
+    animation:livePulse 1.5s ease-in-out infinite;
+    font-size:0.8em;
+}
+
+@keyframes livePulse{
+    0%,100%{opacity:1;}
+    50%{opacity:0.3;}
+}
+
+.mou-datetime-divider{
+    width:1px;
+    height:32px;
+    background:rgba(212,165,54,0.3);
+}
+
+
+/* ============================================
+   CONTAINER
+   ============================================ */
 .mou-container{
     max-width:800px;
     margin:0 auto;
     padding:40px 20px 80px;
 }
 
-/* Form Card */
+
+/* ============================================
+   FORM CARD
+   ============================================ */
 .mou-form-card{
     background:var(--grad-card);
     border:1px solid var(--border);
@@ -184,15 +281,14 @@
     line-height:1.6;
 }
 
-/* Form Grid */
+
+/* ============================================
+   FORM GRID & INPUTS
+   ============================================ */
 .mou-form-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:20px;
-}
-
-.mou-form-grid.full{
-    grid-template-columns:1fr;
 }
 
 .mou-form-group{
@@ -268,520 +364,9 @@
 }
 
 
-/* Signature Section */
-.mou-signature-section{
-    margin-top:16px;
-}
-
-.mou-signature-tabs{
-    display:flex;
-    gap:8px;
-    margin-bottom:16px;
-    background:rgba(255,255,255,0.03);
-    padding:6px;
-    border-radius:10px;
-    border:1px solid var(--border);
-}
-
-.mou-sig-tab{
-    flex:1;
-    padding:10px 16px;
-    background:transparent;
-    border:none;
-    color:var(--text-muted);
-    font-size:0.9rem;
-    font-weight:600;
-    cursor:pointer;
-    border-radius:8px;
-    transition:all 0.3s var(--ease);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-}
-
-.mou-sig-tab.active{
-    background:var(--grad-gold-shine);
-    color:var(--bg);
-    font-weight:700;
-    box-shadow:0 2px 8px var(--gold-glow);
-}
-
-.mou-sig-tab i{
-    font-size:0.95rem;
-}
-
-/* Signature Draw Pad */
-.mou-sig-pad-wrapper{
-    background:#fff;
-    border:2px dashed rgba(255,255,255,0.15);
-    border-radius:12px;
-    padding:0;
-    position:relative;
-    overflow:hidden;
-}
-
-.mou-sig-pad-wrapper.active{
-    border-color:var(--gold);
-    border-style:solid;
-}
-
-#signaturePad{
-    display:block;
-    width:100%;
-    height:200px;
-    cursor:crosshair;
-    touch-action:none;
-    background:#fff;
-}
-
-.mou-sig-placeholder{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    color:#999;
-    font-size:0.9rem;
-    pointer-events:none;
-    text-align:center;
-    z-index:1;
-}
-
-.mou-sig-placeholder.hidden{
-    display:none;
-}
-
-.mou-sig-placeholder i{
-    font-size:2rem;
-    display:block;
-    margin-bottom:8px;
-    color:#ccc;
-}
-
-.mou-sig-actions{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-top:12px;
-    gap:12px;
-}
-
-.mou-sig-clear{
-    background:transparent;
-    border:1px solid var(--border);
-    color:var(--text-muted);
-    padding:10px 20px;
-    border-radius:100px;
-    font-size:0.85rem;
-    font-weight:600;
-    cursor:pointer;
-    transition:all 0.3s var(--ease);
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-}
-
-.mou-sig-clear:hover{
-    color:#e74c3c;
-    border-color:#e74c3c;
-}
-
-.mou-sig-status{
-    color:var(--text-dim);
-    font-size:0.8rem;
-    font-style:italic;
-}
-
-.mou-sig-status.signed{
-    color:var(--wa);
-    font-weight:600;
-    font-style:normal;
-}
-
-/* Signature Type Input */
-.mou-sig-type-wrapper{
-    display:none;
-}
-
-.mou-sig-type-wrapper.active{
-    display:block;
-}
-
-.mou-sig-type-input{
-    background:#fff;
-    color:#000;
-    border:2px dashed rgba(212,165,54,0.4);
-    border-radius:12px;
-    padding:30px;
-    text-align:center;
-    font-family:'Dancing Script',cursive;
-    font-size:2.5rem;
-    font-weight:700;
-    width:100%;
-    box-sizing:border-box;
-    transition:all 0.3s var(--ease);
-}
-
-.mou-sig-type-input:focus{
-    outline:none;
-    border-color:var(--gold);
-    border-style:solid;
-}
-
-.mou-sig-type-input::placeholder{
-    color:#ccc;
-    font-family:'Poppins',sans-serif;
-    font-size:1rem;
-    font-weight:400;
-}
-
-
-/* Checkbox Agreement */
-.mou-agreement{
-    background:rgba(212,165,54,0.08);
-    border:1px solid rgba(212,165,54,0.25);
-    border-radius:12px;
-    padding:20px;
-    margin-top:20px;
-    display:flex;
-    gap:14px;
-    align-items:flex-start;
-    cursor:pointer;
-    transition:all 0.3s var(--ease);
-}
-
-.mou-agreement:hover{
-    background:rgba(212,165,54,0.12);
-    border-color:rgba(212,165,54,0.4);
-}
-
-.mou-agreement input[type="checkbox"]{
-    width:22px;
-    height:22px;
-    accent-color:var(--gold);
-    cursor:pointer;
-    flex-shrink:0;
-    margin-top:2px;
-}
-
-.mou-agreement label{
-    color:var(--text);
-    font-size:0.92rem;
-    line-height:1.6;
-    cursor:pointer;
-    flex:1;
-}
-
-.mou-agreement label strong{
-    color:var(--gold);
-}
-
-
-/* Read MoU Toggle */
-.mou-read-toggle{
-    display:flex;
-    justify-content:center;
-    margin:24px 0;
-}
-
-.mou-read-btn{
-    background:transparent;
-    border:1px solid var(--gold);
-    color:var(--gold);
-    padding:12px 28px;
-    border-radius:100px;
-    font-size:0.9rem;
-    font-weight:700;
-    cursor:pointer;
-    transition:all 0.3s var(--ease);
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-}
-
-.mou-read-btn:hover{
-    background:rgba(212,165,54,0.1);
-}
-
-.mou-read-btn i{
-    font-size:1rem;
-    transition:transform 0.3s var(--ease);
-}
-
-.mou-read-btn.open i{
-    transform:rotate(180deg);
-}
-
-/* MoU Content (Collapsible) */
-.mou-content-full{
-    max-height:0;
-    overflow:hidden;
-    transition:max-height 0.5s var(--ease);
-    background:rgba(255,255,255,0.02);
-    border-radius:12px;
-    margin-bottom:24px;
-}
-
-.mou-content-full.open{
-    max-height:5000px;
-}
-
-.mou-content-inner{
-    padding:32px;
-    color:var(--text-muted);
-    font-size:0.9rem;
-    line-height:1.8;
-}
-
-.mou-content-inner h3{
-    color:var(--gold);
-    font-family:'Montserrat',sans-serif;
-    font-size:1.05rem;
-    font-weight:800;
-    margin:24px 0 12px;
-    padding-bottom:8px;
-    border-bottom:1px solid var(--border);
-}
-
-.mou-content-inner h3:first-child{
-    margin-top:0;
-}
-
-.mou-content-inner p{
-    margin-bottom:10px;
-}
-
-.mou-content-inner ul{
-    list-style:none;
-    padding:0;
-    margin:10px 0;
-}
-
-.mou-content-inner ul li{
-    padding:6px 0 6px 24px;
-    position:relative;
-}
-
-.mou-content-inner ul li::before{
-    content:'•';
-    color:var(--gold);
-    position:absolute;
-    left:8px;
-    font-weight:700;
-}
-
-
-/* Action Buttons Sticky */
-.mou-actions-sticky{
-    position:sticky;
-    bottom:0;
-    background:linear-gradient(180deg,transparent 0%,#050B18 30%);
-    padding:32px 0 20px;
-    margin-top:20px;
-    z-index:50;
-}
-
-.mou-actions{
-    display:flex;
-    gap:12px;
-    justify-content:center;
-    flex-wrap:wrap;
-}
-
-.mou-btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:12px;
-    padding:16px 28px;
-    border-radius:100px;
-    font-size:1rem;
-    font-weight:700;
-    text-decoration:none;
-    cursor:pointer;
-    transition:all 0.3s var(--ease);
-    border:none;
-    min-width:180px;
-    line-height:1;
-    font-family:'Poppins',sans-serif;
-}
-
-.mou-btn i{
-    font-size:1.2rem;
-}
-
-.mou-btn-primary{
-    background:var(--grad-gold-shine);
-    color:var(--bg);
-    box-shadow:0 6px 20px var(--gold-glow);
-}
-
-.mou-btn-primary:hover:not(:disabled){
-    transform:translateY(-3px);
-    box-shadow:0 8px 30px var(--gold-glow);
-}
-
-.mou-btn-primary:disabled{
-    opacity:0.4;
-    cursor:not-allowed;
-    transform:none;
-}
-
-.mou-btn-wa{
-    background:#25D366;
-    color:#fff;
-    box-shadow:0 6px 20px rgba(37,211,102,0.3);
-}
-
-.mou-btn-wa:hover:not(:disabled){
-    background:#20BA5A;
-    transform:translateY(-3px);
-    box-shadow:0 8px 30px rgba(37,211,102,0.5);
-}
-
-.mou-btn-wa:disabled{
-    background:#333;
-    color:#666;
-    cursor:not-allowed;
-    box-shadow:none;
-}
-
-.mou-btn-secondary{
-    background:rgba(255,255,255,0.05);
-    color:var(--text);
-    border:1px solid var(--border);
-}
-
-.mou-btn-secondary:hover{
-    background:rgba(255,255,255,0.1);
-    border-color:var(--gold);
-    color:var(--gold);
-    transform:translateY(-3px);
-}
-
-/* Back link */
-.mou-back{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    color:var(--text-muted);
-    text-decoration:none;
-    font-size:0.9rem;
-    font-weight:600;
-    padding:12px 20px;
-    background:rgba(5,11,24,0.8);
-    backdrop-filter:blur(10px);
-    border-radius:100px;
-    border:1px solid var(--border);
-    position:fixed;
-    top:20px;
-    left:20px;
-    z-index:100;
-    transition:all 0.3s var(--ease);
-}
-
-.mou-back:hover{
-    color:var(--gold);
-    border-color:var(--gold);
-}
-
-
-/* Success Modal */
-.mou-modal{
-    position:fixed;
-    inset:0;
-    background:rgba(5,11,24,0.9);
-    backdrop-filter:blur(10px);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:1000;
-    opacity:0;
-    visibility:hidden;
-    transition:all 0.3s var(--ease);
-    padding:20px;
-}
-
-.mou-modal.active{
-    opacity:1;
-    visibility:visible;
-}
-
-.mou-modal-content{
-    background:var(--grad-card);
-    border:2px solid var(--gold);
-    border-radius:var(--radius-lg);
-    padding:40px 32px;
-    max-width:500px;
-    width:100%;
-    text-align:center;
-    box-shadow:0 20px 60px rgba(0,0,0,0.5);
-    transform:scale(0.9);
-    transition:transform 0.3s var(--ease);
-}
-
-.mou-modal.active .mou-modal-content{
-    transform:scale(1);
-}
-
-.mou-modal-icon{
-    width:80px;
-    height:80px;
-    margin:0 auto 20px;
-    background:var(--grad-gold-shine);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:2.5rem;
-    color:var(--bg);
-    box-shadow:0 8px 30px var(--gold-glow);
-}
-
-.mou-modal h2{
-    font-family:'Montserrat',sans-serif;
-    font-size:1.5rem;
-    color:var(--text);
-    margin-bottom:12px;
-}
-
-.mou-modal p{
-    color:var(--text-muted);
-    line-height:1.6;
-    margin-bottom:24px;
-    font-size:0.95rem;
-}
-
-.mou-modal-buttons{
-    display:flex;
-    gap:12px;
-    justify-content:center;
-    flex-wrap:wrap;
-}
-
-
-/* Preview Signature Result */
-.mou-preview-sig{
-    background:#fff;
-    border-radius:8px;
-    padding:12px;
-    margin-top:12px;
-    text-align:center;
-    display:none;
-}
-
-.mou-preview-sig.show{
-    display:block;
-}
-
-.mou-preview-sig img{
-    max-width:200px;
-    max-height:80px;
-}
-
-/* ====================================================
+/* ============================================
    ✨ CUSTOM DROPDOWN BANK
-   ==================================================== */
+   ============================================ */
 .mou-custom-dropdown{
     position:relative;
     width:100%;
@@ -832,11 +417,6 @@
     text-overflow:ellipsis;
 }
 
-.mou-dropdown-text.placeholder{
-    color:var(--text-dim);
-    font-weight:400;
-}
-
 .mou-dropdown-arrow{
     color:var(--gold);
     font-size:0.85rem;
@@ -850,7 +430,6 @@
     opacity:1;
 }
 
-/* Options Panel */
 .mou-dropdown-options{
     position:absolute;
     top:100%;
@@ -877,10 +456,7 @@
     transform:translateY(0);
 }
 
-/* Scrollbar */
-.mou-dropdown-options::-webkit-scrollbar{
-    width:6px;
-}
+.mou-dropdown-options::-webkit-scrollbar{width:6px;}
 .mou-dropdown-options::-webkit-scrollbar-track{
     background:rgba(255,255,255,0.05);
     border-radius:10px;
@@ -893,7 +469,6 @@
     background:rgba(212,165,54,0.6);
 }
 
-/* Category Label */
 .mou-dropdown-category{
     padding:10px 12px 6px;
     font-size:0.72rem;
@@ -909,11 +484,8 @@
     margin-top:8px;
 }
 
-.mou-dropdown-category:first-child{
-    margin-top:0;
-}
+.mou-dropdown-category:first-child{margin-top:0;}
 
-/* Option Item */
 .mou-dropdown-option{
     display:flex;
     align-items:center;
@@ -980,85 +552,599 @@
     to{transform:scale(1);opacity:1;}
 }
 
-/* Mobile */
-@media (max-width:768px){
-    .mou-dropdown-selected{
-        padding:12px 14px;
-        min-height:48px;
-    }
 
-    .mou-dropdown-icon{
-        font-size:1.2rem;
-    }
+/* ============================================
+   SIGNATURE
+   ============================================ */
+.mou-signature-section{margin-top:16px;}
 
-    .mou-dropdown-text{
-        font-size:0.9rem;
-    }
-
-    .mou-dropdown-option{
-        padding:10px 10px;
-    }
-
-    .mou-dropdown-option-icon{
-        font-size:1.3rem;
-    }
-
-    .mou-dropdown-option-title{
-        font-size:0.88rem;
-    }
-
-    .mou-dropdown-option-desc{
-        font-size:0.72rem;
-    }
-
-    .mou-dropdown-options{
-        max-height:300px;
-    }
+.mou-signature-tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:16px;
+    background:rgba(255,255,255,0.03);
+    padding:6px;
+    border-radius:10px;
+    border:1px solid var(--border);
 }
 
-/* Responsive */
+.mou-sig-tab{
+    flex:1;
+    padding:10px 16px;
+    background:transparent;
+    border:none;
+    color:var(--text-muted);
+    font-size:0.9rem;
+    font-weight:600;
+    cursor:pointer;
+    border-radius:8px;
+    transition:all 0.3s var(--ease);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+}
+
+.mou-sig-tab.active{
+    background:var(--grad-gold-shine);
+    color:var(--bg);
+    font-weight:700;
+    box-shadow:0 2px 8px var(--gold-glow);
+}
+
+.mou-sig-tab i{font-size:0.95rem;}
+
+.mou-sig-pad-wrapper{
+    background:#fff;
+    border:2px dashed rgba(255,255,255,0.15);
+    border-radius:12px;
+    padding:0;
+    position:relative;
+    overflow:hidden;
+}
+
+.mou-sig-pad-wrapper.active{
+    border-color:var(--gold);
+    border-style:solid;
+}
+
+#signaturePad{
+    display:block;
+    width:100%;
+    height:200px;
+    cursor:crosshair;
+    touch-action:none;
+    background:#fff;
+}
+
+.mou-sig-placeholder{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    color:#999;
+    font-size:0.9rem;
+    pointer-events:none;
+    text-align:center;
+    z-index:1;
+}
+
+.mou-sig-placeholder.hidden{display:none;}
+
+.mou-sig-placeholder i{
+    font-size:2rem;
+    display:block;
+    margin-bottom:8px;
+    color:#ccc;
+}
+
+.mou-sig-actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:12px;
+    gap:12px;
+}
+
+.mou-sig-clear{
+    background:transparent;
+    border:1px solid var(--border);
+    color:var(--text-muted);
+    padding:10px 20px;
+    border-radius:100px;
+    font-size:0.85rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.3s var(--ease);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+}
+
+.mou-sig-clear:hover{
+    color:#e74c3c;
+    border-color:#e74c3c;
+}
+
+.mou-sig-status{
+    color:var(--text-dim);
+    font-size:0.8rem;
+    font-style:italic;
+}
+
+.mou-sig-status.signed{
+    color:var(--wa);
+    font-weight:600;
+    font-style:normal;
+}
+
+.mou-sig-type-wrapper{display:none;}
+.mou-sig-type-wrapper.active{display:block;}
+
+.mou-sig-type-input{
+    background:#fff;
+    color:#000;
+    border:2px dashed rgba(212,165,54,0.4);
+    border-radius:12px;
+    padding:30px;
+    text-align:center;
+    font-family:'Dancing Script',cursive;
+    font-size:2.5rem;
+    font-weight:700;
+    width:100%;
+    box-sizing:border-box;
+    transition:all 0.3s var(--ease);
+}
+
+.mou-sig-type-input:focus{
+    outline:none;
+    border-color:var(--gold);
+    border-style:solid;
+}
+
+.mou-sig-type-input::placeholder{
+    color:#ccc;
+    font-family:'Poppins',sans-serif;
+    font-size:1rem;
+    font-weight:400;
+}
+
+
+/* ============================================
+   🕐 SIGNATURE TIMESTAMP BOX
+   ============================================ */
+.mou-timestamp-box{
+    background:linear-gradient(135deg,rgba(37,211,102,0.1),rgba(37,211,102,0.03));
+    border:1px solid rgba(37,211,102,0.3);
+    border-left:4px solid #25D366;
+    border-radius:12px;
+    padding:16px 20px;
+    margin-top:16px;
+    animation:slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn{
+    from{opacity:0;transform:translateY(-10px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+.mou-timestamp-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:12px;
+    color:#25D366;
+    font-weight:700;
+    font-size:0.95rem;
+}
+
+.mou-timestamp-header i{
+    font-size:1.15rem;
+    animation:checkPop 0.5s ease-out;
+}
+
+.mou-timestamp-details{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    padding-left:26px;
+}
+
+.mou-timestamp-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--text);
+    font-size:0.9rem;
+    font-weight:600;
+}
+
+.mou-timestamp-item i{
+    color:var(--text-muted);
+    font-size:0.9rem;
+}
+
+
+/* ============================================
+   AGREEMENT CHECKBOX
+   ============================================ */
+.mou-agreement{
+    background:rgba(212,165,54,0.08);
+    border:1px solid rgba(212,165,54,0.25);
+    border-radius:12px;
+    padding:20px;
+    margin-top:20px;
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    cursor:pointer;
+    transition:all 0.3s var(--ease);
+}
+
+.mou-agreement:hover{
+    background:rgba(212,165,54,0.12);
+    border-color:rgba(212,165,54,0.4);
+}
+
+.mou-agreement input[type="checkbox"]{
+    width:22px;
+    height:22px;
+    accent-color:var(--gold);
+    cursor:pointer;
+    flex-shrink:0;
+    margin-top:2px;
+}
+
+.mou-agreement label{
+    color:var(--text);
+    font-size:0.92rem;
+    line-height:1.6;
+    cursor:pointer;
+    flex:1;
+}
+
+.mou-agreement label strong{color:var(--gold);}
+
+
+/* ============================================
+   MoU CONTENT TOGGLE
+   ============================================ */
+.mou-read-toggle{
+    display:flex;
+    justify-content:center;
+    margin:24px 0;
+}
+
+.mou-read-btn{
+    background:transparent;
+    border:1px solid var(--gold);
+    color:var(--gold);
+    padding:12px 28px;
+    border-radius:100px;
+    font-size:0.9rem;
+    font-weight:700;
+    cursor:pointer;
+    transition:all 0.3s var(--ease);
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+}
+
+.mou-read-btn:hover{background:rgba(212,165,54,0.1);}
+
+.mou-read-btn i{
+    font-size:1rem;
+    transition:transform 0.3s var(--ease);
+}
+
+.mou-read-btn.open i:last-child{transform:rotate(180deg);}
+
+.mou-content-full{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.5s var(--ease);
+    background:rgba(255,255,255,0.02);
+    border-radius:12px;
+    margin-bottom:24px;
+}
+
+.mou-content-full.open{max-height:5000px;}
+
+.mou-content-inner{
+    padding:32px;
+    color:var(--text-muted);
+    font-size:0.9rem;
+    line-height:1.8;
+}
+
+.mou-content-inner h3{
+    color:var(--gold);
+    font-family:'Montserrat',sans-serif;
+    font-size:1.05rem;
+    font-weight:800;
+    margin:24px 0 12px;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--border);
+}
+
+.mou-content-inner h3:first-child{margin-top:0;}
+.mou-content-inner p{margin-bottom:10px;}
+
+.mou-content-inner ul{
+    list-style:none;
+    padding:0;
+    margin:10px 0;
+}
+
+.mou-content-inner ul li{
+    padding:6px 0 6px 24px;
+    position:relative;
+}
+
+.mou-content-inner ul li::before{
+    content:'•';
+    color:var(--gold);
+    position:absolute;
+    left:8px;
+    font-weight:700;
+}
+
+
+/* ============================================
+   ACTION BUTTONS
+   ============================================ */
+.mou-actions-sticky{
+    position:sticky;
+    bottom:0;
+    background:linear-gradient(180deg,transparent 0%,#050B18 30%);
+    padding:32px 0 20px;
+    margin-top:20px;
+    z-index:50;
+}
+
+.mou-actions{
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.mou-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    padding:16px 28px;
+    border-radius:100px;
+    font-size:1rem;
+    font-weight:700;
+    text-decoration:none;
+    cursor:pointer;
+    transition:all 0.3s var(--ease);
+    border:none;
+    min-width:180px;
+    line-height:1;
+    font-family:'Poppins',sans-serif;
+}
+
+.mou-btn i{font-size:1.2rem;}
+
+.mou-btn-primary{
+    background:var(--grad-gold-shine);
+    color:var(--bg);
+    box-shadow:0 6px 20px var(--gold-glow);
+}
+
+.mou-btn-primary:hover:not(:disabled){
+    transform:translateY(-3px);
+    box-shadow:0 8px 30px var(--gold-glow);
+}
+
+.mou-btn-primary:disabled{
+    opacity:0.4;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.mou-btn-wa{
+    background:#25D366;
+    color:#fff;
+    box-shadow:0 6px 20px rgba(37,211,102,0.3);
+}
+
+.mou-btn-wa:hover:not(:disabled){
+    background:#20BA5A;
+    transform:translateY(-3px);
+    box-shadow:0 8px 30px rgba(37,211,102,0.5);
+}
+
+.mou-btn-wa:disabled{
+    background:#333;
+    color:#666;
+    cursor:not-allowed;
+    box-shadow:none;
+}
+
+.mou-btn-secondary{
+    background:rgba(255,255,255,0.05);
+    color:var(--text);
+    border:1px solid var(--border);
+}
+
+.mou-btn-secondary:hover{
+    background:rgba(255,255,255,0.1);
+    border-color:var(--gold);
+    color:var(--gold);
+    transform:translateY(-3px);
+}
+
+
+/* ============================================
+   BACK BUTTON
+   ============================================ */
+.mou-back{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    color:var(--text-muted);
+    text-decoration:none;
+    font-size:0.9rem;
+    font-weight:600;
+    padding:12px 20px;
+    background:rgba(5,11,24,0.8);
+    backdrop-filter:blur(10px);
+    border-radius:100px;
+    border:1px solid var(--border);
+    position:fixed;
+    top:20px;
+    left:20px;
+    z-index:100;
+    transition:all 0.3s var(--ease);
+}
+
+.mou-back:hover{
+    color:var(--gold);
+    border-color:var(--gold);
+}
+
+
+/* ============================================
+   SUCCESS MODAL
+   ============================================ */
+.mou-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(5,11,24,0.9);
+    backdrop-filter:blur(10px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+    opacity:0;
+    visibility:hidden;
+    transition:all 0.3s var(--ease);
+    padding:20px;
+}
+
+.mou-modal.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.mou-modal-content{
+    background:var(--grad-card);
+    border:2px solid var(--gold);
+    border-radius:var(--radius-lg);
+    padding:40px 32px;
+    max-width:500px;
+    width:100%;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+    transform:scale(0.9);
+    transition:transform 0.3s var(--ease);
+}
+
+.mou-modal.active .mou-modal-content{transform:scale(1);}
+
+.mou-modal-icon{
+    width:80px;
+    height:80px;
+    margin:0 auto 20px;
+    background:var(--grad-gold-shine);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:2.5rem;
+    color:var(--bg);
+    box-shadow:0 8px 30px var(--gold-glow);
+}
+
+.mou-modal h2{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.5rem;
+    color:var(--text);
+    margin-bottom:12px;
+}
+
+.mou-modal p{
+    color:var(--text-muted);
+    line-height:1.6;
+    margin-bottom:24px;
+    font-size:0.95rem;
+}
+
+.mou-modal-buttons{
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+
+/* ============================================
+   📱 RESPONSIVE
+   ============================================ */
 @media (max-width:768px){
-    .mou-header{
-        padding:100px 20px 40px;
+    .mou-header{padding:100px 20px 40px;}
+
+    .mou-progress-inner{gap:6px;}
+    .mou-step-label{display:none;}
+
+    .mou-datetime-banner{
+        top:68px;
+        padding:12px 16px;
     }
 
-    .mou-progress-inner{
-        gap:6px;
+    .mou-datetime-inner{gap:16px;}
+
+    .mou-datetime-item i{
+        width:36px;
+        height:36px;
+        font-size:1.15rem;
     }
 
-    .mou-step-label{
-        display:none;
-    }
+    .mou-datetime-label{font-size:0.65rem;}
+    .mou-datetime-value{font-size:0.85rem;}
+    .mou-datetime-divider{height:28px;}
 
-    .mou-form-card{
-        padding:24px 20px;
-    }
-
+    .mou-form-card{padding:24px 20px;}
     .mou-form-grid{
         grid-template-columns:1fr;
         gap:16px;
     }
+    .mou-form-title{font-size:1.15rem;}
 
-    .mou-form-title{
-        font-size:1.15rem;
-    }
-
-    #signaturePad{
-        height:180px;
-    }
+    #signaturePad{height:180px;}
 
     .mou-sig-type-input{
         font-size:2rem;
         padding:24px 20px;
     }
 
-    .mou-actions{
-        flex-direction:column;
+    .mou-dropdown-selected{
+        padding:12px 14px;
+        min-height:48px;
     }
 
-    .mou-btn{
-        width:100%;
+    .mou-dropdown-icon{font-size:1.2rem;}
+    .mou-dropdown-text{font-size:0.9rem;}
+
+    .mou-dropdown-option{padding:10px 10px;}
+    .mou-dropdown-option-icon{font-size:1.3rem;}
+    .mou-dropdown-option-title{font-size:0.88rem;}
+    .mou-dropdown-option-desc{font-size:0.72rem;}
+    .mou-dropdown-options{max-height:300px;}
+
+    .mou-timestamp-box{padding:14px 16px;}
+    .mou-timestamp-details{
+        gap:12px;
+        padding-left:20px;
     }
+    .mou-timestamp-item{font-size:0.85rem;}
+
+    .mou-actions{flex-direction:column;}
+    .mou-btn{width:100%;}
 
     .mou-back{
         top:12px;
@@ -1067,8 +1153,15 @@
         font-size:0.8rem;
     }
 
-    .mou-modal-content{
-        padding:32px 24px;
+    .mou-modal-content{padding:32px 24px;}
+}
+
+@media (max-width:480px){
+    .mou-datetime-inner{gap:12px;}
+    .mou-datetime-divider{display:none;}
+    .mou-datetime-item{
+        flex:1;
+        min-width:0;
     }
 }
 </style>
@@ -1110,10 +1203,31 @@
     </div>
 </div>
 
+<!-- 🕐 LIVE DATE & TIME BANNER -->
+<div class="mou-datetime-banner">
+    <div class="mou-datetime-inner">
+        <div class="mou-datetime-item">
+            <i class="fas fa-calendar-day"></i>
+            <div class="mou-datetime-content">
+                <span class="mou-datetime-label">Hari, Tanggal</span>
+                <span class="mou-datetime-value" id="liveDate">Loading...</span>
+            </div>
+        </div>
+        <div class="mou-datetime-divider"></div>
+        <div class="mou-datetime-item">
+            <i class="fas fa-clock"></i>
+            <div class="mou-datetime-content">
+                <span class="mou-datetime-label">Waktu (WIB)</span>
+                <span class="mou-datetime-value" id="liveTime">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Container -->
 <div class="mou-container">
 
-    <!-- Form Data Diri -->
+    <!-- FORM: Data Diri -->
     <div class="mou-form-card" id="cardData">
         <div class="mou-form-title">
             <i class="fas fa-user-circle"></i>
@@ -1175,7 +1289,7 @@
     </div>
 
 
-    <!-- Form Rekening -->
+    <!-- FORM: Rekening dengan Custom Dropdown -->
     <div class="mou-form-card" id="cardRekening">
         <div class="mou-form-title">
             <i class="fas fa-university"></i>
@@ -1184,152 +1298,151 @@
         <p class="mou-form-subtitle">Rekening untuk transfer komisi. Pastikan atas nama sendiri.</p>
         
         <div class="mou-form-grid">
-<div class="mou-form-group">
-    <label class="mou-form-label">
-        <i class="fas fa-landmark"></i> Nama Bank <span class="required">*</span>
-    </label>
-    <div class="mou-custom-dropdown" id="bankDropdown">
-        <div class="mou-dropdown-selected" onclick="toggleBankDropdown()">
-            <span class="mou-dropdown-icon">🏦</span>
-            <span class="mou-dropdown-text" id="bankDropdownText">Pilih bank / e-wallet</span>
-            <i class="fas fa-chevron-down mou-dropdown-arrow"></i>
-        </div>
-        <div class="mou-dropdown-options">
-            
-            <div class="mou-dropdown-category">🏦 Bank Konvensional</div>
-            <div class="mou-dropdown-option" data-value="BCA" data-icon="🔵" onclick="selectBank(this)">
-                <span class="mou-dropdown-option-icon">🔵</span>
-                <div class="mou-dropdown-option-content">
-                    <div class="mou-dropdown-option-title">BCA</div>
-                    <div class="mou-dropdown-option-desc">Bank Central Asia</div>
+            <div class="mou-form-group">
+                <label class="mou-form-label">
+                    <i class="fas fa-landmark"></i> Nama Bank <span class="required">*</span>
+                </label>
+                <div class="mou-custom-dropdown" id="bankDropdown">
+                    <div class="mou-dropdown-selected" onclick="toggleBankDropdown()">
+                        <span class="mou-dropdown-icon">🏦</span>
+                        <span class="mou-dropdown-text">Pilih bank / e-wallet</span>
+                        <i class="fas fa-chevron-down mou-dropdown-arrow"></i>
+                    </div>
+                    <div class="mou-dropdown-options">
+                        
+                        <div class="mou-dropdown-category">🏦 Bank Konvensional</div>
+                        <div class="mou-dropdown-option" data-value="BCA" data-icon="🔵" onclick="selectBank(this)">
+                            <span class="mou-dropdown-option-icon">🔵</span>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">BCA</div>
+                                <div class="mou-dropdown-option-desc">Bank Central Asia</div>
+                            </div>
+                        </div>
+                        <div class="mou-dropdown-option" data-value="BNI" data-icon="🟠" onclick="selectBank(this)">
+                            <span class="mou-dropdown-option-icon">🟠</span>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">BNI</div>
+                                <div class="mou-dropdown-option-desc">Bank Negara Indonesia</div>
+                            </div>
+                        </div>
+                        <div class="mou-dropdown-option" data-value="BRI" data-icon="🔷" onclick="selectBank(this)">
+                            <span class="mou-dropdown-option-icon">🔷</span>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">BRI</div>
+                                <div class="mou-dropdown-option-desc">Bank Rakyat Indonesia</div>
+                            </div>
+                        </div>
+                        <div class="mou-dropdown-option" data-value="Mandiri" data-icon="🟡" onclick="selectBank(this)">
+                            <span class="mou-dropdown-option-icon">🟡</span>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">Mandiri</div>
+                                <div class="mou-dropdown-option-desc">Bank Mandiri</div>
+                            </div>
+                        </div>
+                        <div class="mou-dropdown-option" data-value="CIMB Niaga" data-icon="🔴" onclick="selectBank(this)">
+                            <span class="mou-dropdown-option-icon">🔴</span>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">CIMB Niaga</div>
+                                <div class="mou-dropdown-option-desc">Bank CIMB Niaga</div>
+                            </div>
+                        </div>
+                        <div class="mou-dropdown-option" data-value="Permata" data-icon="🟢" onclick="selectBank(this)">
+                            <span class="mou-dropdown-option-icon">🟢</span>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">Permata</div>
+                                <div class="mou-dropdown-option-desc">Permata Bank</div>
+                            </div>
+                        </div>
+                        <div class="mou-dropdown-option" data-value="Danamon" data-icon="🟣" onclick="selectBank(this)">
+                            <span class="mou-dropdown-option-icon">🟣</span>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">Danamon</div>
+                                <div class="mou-dropdown-option-desc">Bank Danamon</div>
+                            </div>
+                        </div>
+                        <div class="mou-dropdown-option" data-value="BTN" data-icon="⚪" onclick="selectBank(this)">
+                            <span class="mou-dropdown-option-icon">⚪</span>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">BTN</div>
+                                <div class="mou-dropdown-option-desc">Bank Tabungan Negara</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mou-dropdown-category">🕌 Bank Syariah</div>
+                        <div class="mou-dropdown-option" data-value="BSI" data-icon="🟢" onclick="selectBank(this)">
+                            <span class="mou-dropdown-option-icon">🟢</span>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">BSI</div>
+                                <div class="mou-dropdown-option-desc">Bank Syariah Indonesia</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mou-dropdown-category">📱 Bank Digital</div>
+                        <div class="mou-dropdown-option" data-value="Jenius" data-icon="💳" onclick="selectBank(this)">
+                            <span class="mou-dropdown-option-icon">💳</span>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">Jenius</div>
+                                <div class="mou-dropdown-option-desc">Bank BTPN Jenius</div>
+                            </div>
+                        </div>
+                        <div class="mou-dropdown-option" data-value="Seabank" data-icon="🌊" onclick="selectBank(this)">
+                            <span class="mou-dropdown-option-icon">🌊</span>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">Seabank</div>
+                                <div class="mou-dropdown-option-desc">SeaBank Indonesia</div>
+                            </div>
+                        </div>
+                        <div class="mou-dropdown-option" data-value="Blu BCA" data-icon="💙" onclick="selectBank(this)">
+                            <span class="mou-dropdown-option-icon">💙</span>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">Blu BCA</div>
+                                <div class="mou-dropdown-option-desc">Blu by BCA Digital</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mou-dropdown-category">💰 E-Wallet</div>
+                        <div class="mou-dropdown-option" data-value="DANA" data-icon="💙" onclick="selectBank(this)">
+                            <span class="mou-dropdown-option-icon">💙</span>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">DANA</div>
+                                <div class="mou-dropdown-option-desc">E-Wallet DANA</div>
+                            </div>
+                        </div>
+                        <div class="mou-dropdown-option" data-value="OVO" data-icon="💜" onclick="selectBank(this)">
+                            <span class="mou-dropdown-option-icon">💜</span>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">OVO</div>
+                                <div class="mou-dropdown-option-desc">E-Wallet OVO</div>
+                            </div>
+                        </div>
+                        <div class="mou-dropdown-option" data-value="GoPay" data-icon="💚" onclick="selectBank(this)">
+                            <span class="mou-dropdown-option-icon">💚</span>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">GoPay</div>
+                                <div class="mou-dropdown-option-desc">E-Wallet GoPay by Gojek</div>
+                            </div>
+                        </div>
+                        <div class="mou-dropdown-option" data-value="ShopeePay" data-icon="🧡" onclick="selectBank(this)">
+                            <span class="mou-dropdown-option-icon">🧡</span>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">ShopeePay</div>
+                                <div class="mou-dropdown-option-desc">E-Wallet ShopeePay</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mou-dropdown-category">📝 Lainnya</div>
+                        <div class="mou-dropdown-option" data-value="Lainnya" data-icon="🏛️" onclick="selectBank(this)">
+                            <span class="mou-dropdown-option-icon">🏛️</span>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">Bank Lainnya</div>
+                                <div class="mou-dropdown-option-desc">Sebutkan di chat WA</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <input type="hidden" id="fieldBank" value="" required>
                 </div>
             </div>
-            <div class="mou-dropdown-option" data-value="BNI" data-icon="🟠" onclick="selectBank(this)">
-                <span class="mou-dropdown-option-icon">🟠</span>
-                <div class="mou-dropdown-option-content">
-                    <div class="mou-dropdown-option-title">BNI</div>
-                    <div class="mou-dropdown-option-desc">Bank Negara Indonesia</div>
-                </div>
-            </div>
-            <div class="mou-dropdown-option" data-value="BRI" data-icon="🔷" onclick="selectBank(this)">
-                <span class="mou-dropdown-option-icon">🔷</span>
-                <div class="mou-dropdown-option-content">
-                    <div class="mou-dropdown-option-title">BRI</div>
-                    <div class="mou-dropdown-option-desc">Bank Rakyat Indonesia</div>
-                </div>
-            </div>
-            <div class="mou-dropdown-option" data-value="Mandiri" data-icon="🟡" onclick="selectBank(this)">
-                <span class="mou-dropdown-option-icon">🟡</span>
-                <div class="mou-dropdown-option-content">
-                    <div class="mou-dropdown-option-title">Mandiri</div>
-                    <div class="mou-dropdown-option-desc">Bank Mandiri</div>
-                </div>
-            </div>
-            <div class="mou-dropdown-option" data-value="CIMB Niaga" data-icon="🔴" onclick="selectBank(this)">
-                <span class="mou-dropdown-option-icon">🔴</span>
-                <div class="mou-dropdown-option-content">
-                    <div class="mou-dropdown-option-title">CIMB Niaga</div>
-                    <div class="mou-dropdown-option-desc">Bank CIMB Niaga</div>
-                </div>
-            </div>
-            <div class="mou-dropdown-option" data-value="Permata" data-icon="🟢" onclick="selectBank(this)">
-                <span class="mou-dropdown-option-icon">🟢</span>
-                <div class="mou-dropdown-option-content">
-                    <div class="mou-dropdown-option-title">Permata</div>
-                    <div class="mou-dropdown-option-desc">Permata Bank</div>
-                </div>
-            </div>
-            <div class="mou-dropdown-option" data-value="Danamon" data-icon="🟣" onclick="selectBank(this)">
-                <span class="mou-dropdown-option-icon">🟣</span>
-                <div class="mou-dropdown-option-content">
-                    <div class="mou-dropdown-option-title">Danamon</div>
-                    <div class="mou-dropdown-option-desc">Bank Danamon</div>
-                </div>
-            </div>
-            <div class="mou-dropdown-option" data-value="BTN" data-icon="⚪" onclick="selectBank(this)">
-                <span class="mou-dropdown-option-icon">⚪</span>
-                <div class="mou-dropdown-option-content">
-                    <div class="mou-dropdown-option-title">BTN</div>
-                    <div class="mou-dropdown-option-desc">Bank Tabungan Negara</div>
-                </div>
-            </div>
-            
-            <div class="mou-dropdown-category">🕌 Bank Syariah</div>
-            <div class="mou-dropdown-option" data-value="BSI" data-icon="🟢" onclick="selectBank(this)">
-                <span class="mou-dropdown-option-icon">🟢</span>
-                <div class="mou-dropdown-option-content">
-                    <div class="mou-dropdown-option-title">BSI</div>
-                    <div class="mou-dropdown-option-desc">Bank Syariah Indonesia</div>
-                </div>
-            </div>
-            
-            <div class="mou-dropdown-category">📱 Bank Digital</div>
-            <div class="mou-dropdown-option" data-value="Jenius" data-icon="💳" onclick="selectBank(this)">
-                <span class="mou-dropdown-option-icon">💳</span>
-                <div class="mou-dropdown-option-content">
-                    <div class="mou-dropdown-option-title">Jenius</div>
-                    <div class="mou-dropdown-option-desc">Bank BTPN Jenius</div>
-                </div>
-            </div>
-            <div class="mou-dropdown-option" data-value="Seabank" data-icon="🌊" onclick="selectBank(this)">
-                <span class="mou-dropdown-option-icon">🌊</span>
-                <div class="mou-dropdown-option-content">
-                    <div class="mou-dropdown-option-title">Seabank</div>
-                    <div class="mou-dropdown-option-desc">SeaBank Indonesia</div>
-                </div>
-            </div>
-            <div class="mou-dropdown-option" data-value="Blu BCA" data-icon="💙" onclick="selectBank(this)">
-                <span class="mou-dropdown-option-icon">💙</span>
-                <div class="mou-dropdown-option-content">
-                    <div class="mou-dropdown-option-title">Blu BCA</div>
-                    <div class="mou-dropdown-option-desc">Blu by BCA Digital</div>
-                </div>
-            </div>
-            
-            <div class="mou-dropdown-category">💰 E-Wallet</div>
-            <div class="mou-dropdown-option" data-value="DANA" data-icon="💙" onclick="selectBank(this)">
-                <span class="mou-dropdown-option-icon">💙</span>
-                <div class="mou-dropdown-option-content">
-                    <div class="mou-dropdown-option-title">DANA</div>
-                    <div class="mou-dropdown-option-desc">E-Wallet DANA</div>
-                </div>
-            </div>
-            <div class="mou-dropdown-option" data-value="OVO" data-icon="💜" onclick="selectBank(this)">
-                <span class="mou-dropdown-option-icon">💜</span>
-                <div class="mou-dropdown-option-content">
-                    <div class="mou-dropdown-option-title">OVO</div>
-                    <div class="mou-dropdown-option-desc">E-Wallet OVO</div>
-                </div>
-            </div>
-            <div class="mou-dropdown-option" data-value="GoPay" data-icon="💚" onclick="selectBank(this)">
-                <span class="mou-dropdown-option-icon">💚</span>
-                <div class="mou-dropdown-option-content">
-                    <div class="mou-dropdown-option-title">GoPay</div>
-                    <div class="mou-dropdown-option-desc">E-Wallet GoPay by Gojek</div>
-                </div>
-            </div>
-            <div class="mou-dropdown-option" data-value="ShopeePay" data-icon="🧡" onclick="selectBank(this)">
-                <span class="mou-dropdown-option-icon">🧡</span>
-                <div class="mou-dropdown-option-content">
-                    <div class="mou-dropdown-option-title">ShopeePay</div>
-                    <div class="mou-dropdown-option-desc">E-Wallet ShopeePay</div>
-                </div>
-            </div>
-            
-            <div class="mou-dropdown-category">📝 Lainnya</div>
-            <div class="mou-dropdown-option" data-value="Lainnya" data-icon="🏛️" onclick="selectBank(this)">
-                <span class="mou-dropdown-option-icon">🏛️</span>
-                <div class="mou-dropdown-option-content">
-                    <div class="mou-dropdown-option-title">Bank Lainnya</div>
-                    <div class="mou-dropdown-option-desc">Sebutkan di chat WA</div>
-                </div>
-            </div>
-            
-        </div>
-        <!-- Hidden input untuk store value -->
-        <input type="hidden" id="fieldBank" value="" required>
-    </div>
-</div>
             
             <div class="mou-form-group">
                 <label class="mou-form-label">
@@ -1405,7 +1518,7 @@
     </div>
 
 
-    <!-- Signature -->
+    <!-- FORM: Signature -->
     <div class="mou-form-card" id="cardSignature">
         <div class="mou-form-title">
             <i class="fas fa-signature"></i>
@@ -1414,7 +1527,6 @@
         <p class="mou-form-subtitle">Bubuhkan tanda tangan sebagai bentuk persetujuan.</p>
         
         <div class="mou-signature-section">
-            <!-- Tabs -->
             <div class="mou-signature-tabs">
                 <button class="mou-sig-tab active" data-tab="draw" onclick="switchSigTab('draw')">
                     <i class="fas fa-pen"></i>
@@ -1426,7 +1538,6 @@
                 </button>
             </div>
             
-            <!-- Draw Signature -->
             <div class="mou-sig-draw-wrapper" id="drawTab">
                 <div class="mou-sig-pad-wrapper" id="sigPadWrapper">
                     <canvas id="signaturePad"></canvas>
@@ -1444,7 +1555,6 @@
                 </div>
             </div>
             
-            <!-- Type Signature -->
             <div class="mou-sig-type-wrapper" id="typeTab">
                 <input type="text" 
                        class="mou-sig-type-input" 
@@ -1454,6 +1564,24 @@
                 <span class="mou-form-hint" style="display:block;margin-top:8px;text-align:center;">
                     💡 Ketik nama lengkap kamu, akan otomatis menjadi tanda tangan digital
                 </span>
+            </div>
+        </div>
+        
+        <!-- 🕐 Signature Timestamp -->
+        <div class="mou-timestamp-box" id="signatureTimestamp" style="display:none;">
+            <div class="mou-timestamp-header">
+                <i class="fas fa-check-circle"></i>
+                <span>Waktu Tanda Tangan Tercatat</span>
+            </div>
+            <div class="mou-timestamp-details">
+                <div class="mou-timestamp-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span id="signedDate">-</span>
+                </div>
+                <div class="mou-timestamp-item">
+                    <i class="fas fa-clock"></i>
+                    <span id="signedTime">-</span> WIB
+                </div>
             </div>
         </div>
         
@@ -1512,68 +1640,73 @@
 
 
 <script>
+// ====================================================
+// GLOBAL VARIABLES
+// ====================================================
+const daysID = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+const monthsID = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+                  'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+let signaturePad;
+let signatureType = 'draw';
+let signatureTimestamp = null;
+
 
 // ====================================================
-// CUSTOM DROPDOWN BANK
+// 🕐 LIVE DATE & TIME
 // ====================================================
-function toggleBankDropdown() {
-    const dropdown = document.getElementById('bankDropdown');
-    const isOpen = dropdown.classList.contains('open');
+function updateLiveDateTime() {
+    const now = new Date();
+    const day = daysID[now.getDay()];
+    const date = now.getDate();
+    const month = monthsID[now.getMonth()];
+    const year = now.getFullYear();
+    const dateStr = `${day}, ${date} ${month} ${year}`;
     
-    // Close all dropdowns first
-    document.querySelectorAll('.mou-custom-dropdown').forEach(d => {
-        d.classList.remove('open');
-    });
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const timeStr = `${hours}:${minutes}:${seconds}`;
     
-    if (!isOpen) {
-        dropdown.classList.add('open');
-    }
+    const dateEl = document.getElementById('liveDate');
+    const timeEl = document.getElementById('liveTime');
+    
+    if (dateEl) dateEl.textContent = dateStr;
+    if (timeEl) timeEl.textContent = timeStr;
 }
 
-function selectBank(element) {
-    const dropdown = document.getElementById('bankDropdown');
-    const value = element.getAttribute('data-value');
-    const icon = element.getAttribute('data-icon');
-    const title = element.querySelector('.mou-dropdown-option-title').innerText;
-    const desc = element.querySelector('.mou-dropdown-option-desc').innerText;
+updateLiveDateTime();
+setInterval(updateLiveDateTime, 1000);
+
+
+// ====================================================
+// 🕐 SIGNATURE TIMESTAMP
+// ====================================================
+function recordSignatureTimestamp() {
+    const now = new Date();
+    signatureTimestamp = now;
     
-    // Update selected display
-    dropdown.querySelector('.mou-dropdown-icon').innerText = icon;
-    dropdown.querySelector('.mou-dropdown-text').innerText = title + ' — ' + desc;
-    dropdown.querySelector('.mou-dropdown-text').classList.remove('placeholder');
+    const day = daysID[now.getDay()];
+    const date = now.getDate();
+    const month = monthsID[now.getMonth()];
+    const year = now.getFullYear();
+    const dateStr = `${day}, ${date} ${month} ${year}`;
     
-    // Update hidden input value
-    document.getElementById('fieldBank').value = value;
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const timeStr = `${hours}:${minutes}:${seconds}`;
     
-    // Update selected state
-    dropdown.querySelectorAll('.mou-dropdown-option').forEach(opt => {
-        opt.classList.remove('selected');
-        const check = opt.querySelector('.mou-dropdown-option-check');
-        if (check) check.remove();
-    });
-    element.classList.add('selected');
-    
-    if (!element.querySelector('.mou-dropdown-option-check')) {
-        const check = document.createElement('i');
-        check.className = 'fas fa-check mou-dropdown-option-check';
-        element.appendChild(check);
-    }
-    
-    // Close dropdown
-    dropdown.classList.remove('open');
-    
-    // Trigger form validation
-    checkFormComplete();
+    document.getElementById('signedDate').textContent = dateStr;
+    document.getElementById('signedTime').textContent = timeStr;
+    document.getElementById('signatureTimestamp').style.display = 'block';
 }
 
-// Close dropdown when clicking outside
-document.addEventListener('click', (e) => {
-    if (!e.target.closest('.mou-custom-dropdown')) {
-        document.querySelectorAll('.mou-custom-dropdown').forEach(d => {
-            d.classList.remove('open');
-        });
-    }
-});
+function clearSignatureTimestamp() {
+    signatureTimestamp = null;
+    document.getElementById('signatureTimestamp').style.display = 'none';
+}
+
 
 // ====================================================
 // SIGNATURE PAD
@@ -1583,11 +1716,7 @@ const sigPlaceholder = document.getElementById('sigPlaceholder');
 const sigStatus = document.getElementById('sigStatus');
 const sigPadWrapper = document.getElementById('sigPadWrapper');
 
-let signaturePad;
-let signatureType = 'draw'; // 'draw' or 'type'
-
 function initSignaturePad() {
-    // Resize canvas for retina
     const ratio = Math.max(window.devicePixelRatio || 1, 1);
     canvas.width = canvas.offsetWidth * ratio;
     canvas.height = canvas.offsetHeight * ratio;
@@ -1618,18 +1747,17 @@ function clearSignature() {
     } else {
         document.getElementById('sigTypeInput').value = '';
     }
+    clearSignatureTimestamp();
     updateSigStatus();
 }
 
 function switchSigTab(tab) {
     signatureType = tab;
     
-    // Update tab buttons
     document.querySelectorAll('.mou-sig-tab').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.tab === tab);
     });
     
-    // Show/hide content
     document.getElementById('drawTab').style.display = tab === 'draw' ? 'block' : 'none';
     document.getElementById('typeTab').classList.toggle('active', tab === 'type');
     
@@ -1648,13 +1776,66 @@ function updateSigStatus() {
     if (hasSignature) {
         sigStatus.textContent = '✓ Sudah ditandatangani';
         sigStatus.classList.add('signed');
+        if (!signatureTimestamp) recordSignatureTimestamp();
     } else {
         sigStatus.textContent = 'Belum ditandatangani';
         sigStatus.classList.remove('signed');
+        if (signatureTimestamp) clearSignatureTimestamp();
     }
     
     checkFormComplete();
 }
+
+
+// ====================================================
+// CUSTOM DROPDOWN BANK
+// ====================================================
+function toggleBankDropdown() {
+    const dropdown = document.getElementById('bankDropdown');
+    const isOpen = dropdown.classList.contains('open');
+    
+    document.querySelectorAll('.mou-custom-dropdown').forEach(d => {
+        d.classList.remove('open');
+    });
+    
+    if (!isOpen) dropdown.classList.add('open');
+}
+
+function selectBank(element) {
+    const dropdown = document.getElementById('bankDropdown');
+    const value = element.getAttribute('data-value');
+    const icon = element.getAttribute('data-icon');
+    const title = element.querySelector('.mou-dropdown-option-title').innerText;
+    const desc = element.querySelector('.mou-dropdown-option-desc').innerText;
+    
+    dropdown.querySelector('.mou-dropdown-icon').innerText = icon;
+    dropdown.querySelector('.mou-dropdown-text').innerText = title + ' — ' + desc;
+    document.getElementById('fieldBank').value = value;
+    
+    dropdown.querySelectorAll('.mou-dropdown-option').forEach(opt => {
+        opt.classList.remove('selected');
+        const check = opt.querySelector('.mou-dropdown-option-check');
+        if (check) check.remove();
+    });
+    element.classList.add('selected');
+    
+    if (!element.querySelector('.mou-dropdown-option-check')) {
+        const check = document.createElement('i');
+        check.className = 'fas fa-check mou-dropdown-option-check';
+        element.appendChild(check);
+    }
+    
+    dropdown.classList.remove('open');
+    checkFormComplete();
+}
+
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.mou-custom-dropdown')) {
+        document.querySelectorAll('.mou-custom-dropdown').forEach(d => {
+            d.classList.remove('open');
+        });
+    }
+});
 
 
 // ====================================================
@@ -1667,9 +1848,7 @@ function isFormValid() {
         const val = document.getElementById(id).value.trim();
         if (!val) return false;
     }
-   
     
-    // Check signature
     let hasSignature = false;
     if (signatureType === 'draw') {
         hasSignature = signaturePad && !signaturePad.isEmpty();
@@ -1677,7 +1856,6 @@ function isFormValid() {
         hasSignature = document.getElementById('sigTypeInput').value.trim().length >= 3;
     }
     
-    // Check agreement
     const agreed = document.getElementById('agreementCheck').checked;
     
     return hasSignature && agreed;
@@ -1687,8 +1865,6 @@ function checkFormComplete() {
     const valid = isFormValid();
     document.getElementById('btnSubmit').disabled = !valid;
     document.getElementById('btnDownload').disabled = !valid;
-    
-    // Update progress steps
     updateProgress();
 }
 
@@ -1698,16 +1874,13 @@ function updateProgress() {
     const bank = document.getElementById('fieldBank').value.trim();
     const norek = document.getElementById('fieldNorek').value.trim();
     
-    // Step 1: Data Diri
     const step1Complete = nama && document.getElementById('fieldKTP').value.trim() && alamat;
     document.getElementById('progressStep1').classList.toggle('completed', step1Complete);
     
-    // Step 2: Rekening
     const step2Complete = bank && norek;
     document.getElementById('progressStep2').classList.toggle('completed', step2Complete);
     document.getElementById('progressStep2').classList.toggle('active', step1Complete);
     
-    // Step 3: Tanda Tangan
     let hasSignature = false;
     if (signatureType === 'draw') {
         hasSignature = signaturePad && !signaturePad.isEmpty();
@@ -1717,7 +1890,6 @@ function updateProgress() {
     document.getElementById('progressStep3').classList.toggle('completed', hasSignature);
     document.getElementById('progressStep3').classList.toggle('active', step2Complete);
     
-    // Step 4: Kirim
     const step4Ready = hasSignature && document.getElementById('agreementCheck').checked;
     document.getElementById('progressStep4').classList.toggle('active', step4Ready);
 }
@@ -1739,6 +1911,15 @@ function toggleMouContent() {
 // GET FORM DATA
 // ====================================================
 function getFormData() {
+    const now = signatureTimestamp || new Date();
+    const day = daysID[now.getDay()];
+    const date = now.getDate();
+    const month = monthsID[now.getMonth()];
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    
     return {
         nama: document.getElementById('fieldNama').value.trim(),
         ktp: document.getElementById('fieldKTP').value.trim(),
@@ -1750,7 +1931,14 @@ function getFormData() {
         bank: document.getElementById('fieldBank').value,
         norek: document.getElementById('fieldNorek').value.trim(),
         atasNama: document.getElementById('fieldAtasNama').value.trim(),
-        tanggal: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
+        hari: day,
+        tanggalAngka: date,
+        bulan: month,
+        tahun: year,
+        tanggal: `${day}, ${date} ${month} ${year}`,
+        waktu: `${hours}:${minutes}:${seconds} WIB`,
+        tanggalWaktuLengkap: `${day}, ${date} ${month} ${year} pukul ${hours}:${minutes}:${seconds} WIB`,
+        timestamp: now.toISOString()
     };
 }
 
@@ -1758,7 +1946,6 @@ function getSignatureData() {
     if (signatureType === 'draw') {
         return signaturePad.toDataURL('image/png');
     } else {
-        // Convert text to canvas image
         const tempCanvas = document.createElement('canvas');
         tempCanvas.width = 400;
         tempCanvas.height = 100;
@@ -1787,7 +1974,6 @@ function downloadPDF() {
     const data = getFormData();
     const sig = getSignatureData();
     
-    // Create PDF content
     const pdfContent = document.createElement('div');
     pdfContent.innerHTML = generatePDFHTML(data, sig);
     pdfContent.style.padding = '40px';
@@ -1824,7 +2010,12 @@ function generatePDFHTML(data, sig) {
             <p style="margin:10px 0 0;font-size:11px;">No: RSL/${new Date().getFullYear()}/${String(Date.now()).slice(-4)}</p>
         </div>
         
-        <p>Pada hari ini, <b>${data.tanggal}</b>, telah dibuat perjanjian antara:</p>
+        <div style="background:#f9f4e6;border-left:4px solid #d4a536;padding:12px 16px;margin:15px 0;border-radius:4px;">
+            <p style="margin:0;font-size:12px;">
+                Pada hari <b>${data.hari}</b>, tanggal <b>${data.tanggalAngka} ${data.bulan} ${data.tahun}</b>, 
+                pukul <b>${data.waktu}</b>, telah dibuat dan disepakati perjanjian antara:
+            </p>
+        </div>
         
         <div style="background:#faf5e6;padding:15px;border-left:4px solid #d4a536;margin:15px 0;">
             <b style="color:#d4a536;">PIHAK PERTAMA (Pemilik Jasa):</b><br>
@@ -1897,6 +2088,10 @@ function generatePDFHTML(data, sig) {
                         </div>
                         <div style="border-top:1px solid #333;padding-top:5px;">
                             <b>${data.nama}</b>
+                            <div style="font-size:9px;color:#666;margin-top:4px;">
+                                Ditandatangani: ${data.waktu}<br>
+                                ${data.tanggal}
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -1905,7 +2100,8 @@ function generatePDFHTML(data, sig) {
         
         <div style="margin-top:30px;text-align:center;font-size:10px;color:#666;border-top:1px solid #ddd;padding-top:15px;">
             <p>Dokumen digital ini sah dan mengikat secara hukum.</p>
-            <p>Ditandatangani secara elektronik pada ${data.tanggal}</p>
+            <p><b>Ditandatangani secara elektronik pada:</b></p>
+            <p style="color:#d4a536;font-weight:bold;">${data.tanggalWaktuLengkap}</p>
             <p>Verifikasi: WA 0814-0164-3188</p>
         </div>
     </div>
@@ -1943,19 +2139,17 @@ ${data.sosmed !== '-' ? `• Sosmed: ${data.sosmed}` : ''}
 Saya telah membaca, memahami & menyetujui seluruh isi perjanjian kemitraan reseller.
 
 📅 Tanggal: ${data.tanggal}
+🕐 Waktu TTD: ${data.waktu}
 
 Mohon proses pendaftaran saya. Terima kasih! 🙏`;
     
-    // Show modal
     document.getElementById('successModal').classList.add('active');
     
-    // Save data to localStorage for backup
     localStorage.setItem('resellerRegistration', JSON.stringify({
         ...data,
         signedAt: new Date().toISOString()
     }));
     
-    // Open WhatsApp after short delay
     setTimeout(() => {
         window.open(`https://wa.me/6281401643188?text=${encodeURIComponent(message)}`, '_blank');
     }, 1500);
@@ -1976,7 +2170,6 @@ function closeModal() {
 window.addEventListener('load', () => {
     initSignaturePad();
     
-    // Auto-check form on any input change
     document.querySelectorAll('.mou-form-input, .mou-form-select, .mou-form-textarea').forEach(input => {
         input.addEventListener('input', checkFormComplete);
         input.addEventListener('change', checkFormComplete);
@@ -1985,7 +2178,6 @@ window.addEventListener('load', () => {
     document.getElementById('sigTypeInput').addEventListener('input', updateSigStatus);
 });
 
-// Resize signature pad on window resize
 window.addEventListener('resize', () => {
     if (signaturePad) {
         const data = signaturePad.toData();
