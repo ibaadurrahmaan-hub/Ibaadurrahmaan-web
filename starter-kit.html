@@ -21,9 +21,7 @@
 }
 
 
-/* ============================================
-   BACK BUTTON
-   ============================================ */
+/* Back Button */
 .kit-back{
     display:inline-flex;
     align-items:center;
@@ -49,9 +47,8 @@
     border-color:var(--gold);
 }
 
-/* ============================================
-   🎨 HERO LOGO
-   ============================================ */
+
+/* Hero Logo */
 .kit-hero-logo{
     position:relative;
     width:120px;
@@ -72,10 +69,7 @@
     border:3px solid var(--gold);
     padding:6px;
     background:linear-gradient(135deg,#0F1E33,#050B18);
-    box-shadow:
-        0 10px 40px rgba(212,165,54,0.4),
-        0 4px 15px rgba(0,0,0,0.5),
-        inset 0 0 20px rgba(212,165,54,0.1);
+    box-shadow:0 10px 40px rgba(212,165,54,0.4),0 4px 15px rgba(0,0,0,0.5),inset 0 0 20px rgba(212,165,54,0.1);
     position:relative;
     z-index:2;
     transition:all 0.4s var(--ease);
@@ -83,12 +77,8 @@
 
 .kit-hero-logo:hover img{
     transform:scale(1.05) rotate(3deg);
-    box-shadow:
-        0 15px 50px rgba(212,165,54,0.6),
-        0 6px 20px rgba(0,0,0,0.5);
 }
 
-/* Glow effect di belakang logo */
 .kit-hero-logo-glow{
     position:absolute;
     inset:-20px;
@@ -105,41 +95,12 @@
 }
 
 @keyframes glowPulse{
-    0%,100%{
-        opacity:0.6;
-        transform:scale(1);
-    }
-    50%{
-        opacity:1;
-        transform:scale(1.1);
-    }
+    0%,100%{opacity:0.6;transform:scale(1);}
+    50%{opacity:1;transform:scale(1.1);}
 }
 
 
-/* Mobile */
-@media (max-width:768px){
-    .kit-hero-logo{
-        width:100px;
-        height:100px;
-        margin-bottom:20px;
-    }
-    
-    .kit-hero-logo img{
-        padding:5px;
-        border-width:2px;
-    }
-}
-
-@media (max-width:400px){
-    .kit-hero-logo{
-        width:90px;
-        height:90px;
-    }
-}
-
-/* ============================================
-   HERO HEADER
-   ============================================ */
+/* Hero Header */
 .kit-hero{
     background:linear-gradient(180deg,#0F1E33 0%,#050B18 60%,var(--bg) 100%);
     padding:140px 20px 80px;
@@ -152,21 +113,7 @@
     content:'';
     position:absolute;
     inset:0;
-    background:
-        radial-gradient(circle at 30% 20%,rgba(212,165,54,0.15),transparent 50%),
-        radial-gradient(circle at 70% 80%,rgba(37,211,102,0.08),transparent 50%);
-}
-
-.kit-hero::after{
-    content:'';
-    position:absolute;
-    top:-100px;
-    left:50%;
-    transform:translateX(-50%);
-    width:600px;
-    height:600px;
-    background:radial-gradient(circle,rgba(212,165,54,0.08),transparent 70%);
-    pointer-events:none;
+    background:radial-gradient(circle at 30% 20%,rgba(212,165,54,0.15),transparent 50%),radial-gradient(circle at 70% 80%,rgba(37,211,102,0.08),transparent 50%);
 }
 
 .kit-hero-badge{
@@ -185,10 +132,6 @@
     position:relative;
     z-index:2;
     color:var(--gold);
-}
-
-.kit-hero-badge i{
-    font-size:1rem;
 }
 
 .kit-hero h1{
@@ -221,7 +164,6 @@
     z-index:2;
 }
 
-/* Hero Stats */
 .kit-hero-stats{
     display:flex;
     justify-content:center;
@@ -231,9 +173,7 @@
     z-index:2;
 }
 
-.kit-hero-stat{
-    text-align:center;
-}
+.kit-hero-stat{text-align:center;}
 
 .kit-hero-stat-num{
     font-family:'Montserrat',sans-serif;
@@ -253,9 +193,7 @@
 }
 
 
-/* ============================================
-   SECTION WRAPPER
-   ============================================ */
+/* Section Wrapper */
 .kit-section{
     padding:80px 20px;
     position:relative;
@@ -310,41 +248,28 @@
 
 
 /* ============================================
-   📚 LEARNING PATH (Roadmap Timeline)
+   📚 LEARNING PATH - NO VERTICAL LINE!
    ============================================ */
 .kit-roadmap{
-    position:relative;
     max-width:800px;
     margin:0 auto;
-    padding-left:40px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
 }
 
-.kit-roadmap::before{
-    content:'';
-    position:absolute;
-    left:19px;
-    top:0;
-    bottom:0;
-    width:2px;
-    background:linear-gradient(180deg,var(--gold),rgba(212,165,54,0.1));
-}
+/* ❌ REMOVED: .kit-roadmap::before (garis kuning vertikal) */
 
 .kit-roadmap-step{
     position:relative;
-    margin-bottom:40px;
-    padding-left:40px;
-}
-
-.kit-roadmap-step:last-child{
-    margin-bottom:0;
+    display:flex;
+    gap:20px;
+    align-items:flex-start;
 }
 
 .kit-roadmap-dot{
-    position:absolute;
-    left:-21px;
-    top:0;
-    width:40px;
-    height:40px;
+    width:44px;
+    height:44px;
     background:var(--grad-gold-shine);
     border-radius:50%;
     display:flex;
@@ -353,9 +278,10 @@
     color:var(--bg);
     font-weight:900;
     font-family:'Montserrat',sans-serif;
-    font-size:0.9rem;
-    box-shadow:0 4px 15px var(--gold-glow);
-    z-index:2;
+    font-size:1rem;
+    box-shadow:0 6px 20px var(--gold-glow);
+    flex-shrink:0;
+    margin-top:6px;
 }
 
 .kit-roadmap-card{
@@ -364,6 +290,7 @@
     border-radius:var(--radius-lg);
     padding:28px;
     transition:all 0.4s var(--ease);
+    flex:1;
 }
 
 .kit-roadmap-card:hover{
@@ -390,12 +317,18 @@
 }
 
 .kit-roadmap-badge.intermediate{
+    background:rgba(52,152,219,0.15);
+    color:#3498db;
+    border:1px solid rgba(52,152,219,0.3);
+}
+
+.kit-roadmap-badge.advanced{
     background:rgba(212,165,54,0.15);
     color:var(--gold);
     border:1px solid rgba(212,165,54,0.3);
 }
 
-.kit-roadmap-badge.advanced{
+.kit-roadmap-badge.expert{
     background:rgba(147,51,234,0.15);
     color:#9333ea;
     border:1px solid rgba(147,51,234,0.3);
@@ -419,7 +352,7 @@
 .kit-roadmap-checklist{
     list-style:none;
     padding:0;
-    margin:0;
+    margin:0 0 16px;
     display:flex;
     flex-direction:column;
     gap:8px;
@@ -441,10 +374,172 @@
     flex-shrink:0;
 }
 
+.kit-roadmap-time{
+    background:rgba(212,165,54,0.08);
+    border:1px solid rgba(212,165,54,0.2);
+    color:var(--gold);
+    padding:6px 12px;
+    border-radius:100px;
+    font-size:0.75rem;
+    font-weight:600;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+}
+
 
 /* ============================================
-   🎯 KNOWLEDGE CARDS (Materi Pembelajaran)
+   TIER DIVIDER
    ============================================ */
+.kit-tier-divider{
+    text-align:center;
+    margin:60px 0 30px;
+    padding:24px;
+    background:linear-gradient(145deg,rgba(212,165,54,0.05),transparent);
+    border-radius:16px;
+    border:1px solid rgba(212,165,54,0.15);
+}
+
+.kit-tier-divider-badge{
+    display:inline-block;
+    padding:6px 16px;
+    border-radius:100px;
+    font-size:0.7rem;
+    font-weight:800;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin-bottom:10px;
+}
+
+.kit-tier-divider-badge.pemula{background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);}
+.kit-tier-divider-badge.intermediate{background:rgba(52,152,219,0.15);color:#3498db;border:1px solid rgba(52,152,219,0.3);}
+.kit-tier-divider-badge.advanced{background:rgba(212,165,54,0.15);color:var(--gold);border:1px solid rgba(212,165,54,0.3);}
+.kit-tier-divider-badge.expert{background:rgba(147,51,234,0.15);color:#9333ea;border:1px solid rgba(147,51,234,0.3);}
+
+.kit-tier-divider h3{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.3rem;
+    font-weight:800;
+    color:var(--text);
+    margin-bottom:6px;
+}
+
+.kit-tier-divider p{
+    color:var(--text-muted);
+    font-size:0.9rem;
+    max-width:500px;
+    margin:0 auto;
+}
+
+
+/* ============================================
+   📋 SOP RESELLER
+   ============================================ */
+.kit-sop-section{
+    padding:80px 20px;
+    background:linear-gradient(180deg,rgba(15,30,51,0.5) 0%,var(--bg) 100%);
+}
+
+.kit-sop-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:20px;
+    max-width:1100px;
+    margin:0 auto;
+}
+
+.kit-sop-card{
+    background:var(--grad-card);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:28px;
+    transition:all 0.3s var(--ease);
+}
+
+.kit-sop-card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(212,165,54,0.3);
+    box-shadow:0 15px 40px rgba(0,0,0,0.4);
+}
+
+.kit-sop-card.danger{
+    border-color:rgba(231,76,60,0.3);
+    background:linear-gradient(145deg,rgba(231,76,60,0.05),var(--grad-card));
+}
+
+.kit-sop-card.success{
+    border-color:rgba(37,211,102,0.3);
+    background:linear-gradient(145deg,rgba(37,211,102,0.05),var(--grad-card));
+}
+
+.kit-sop-icon{
+    font-size:2.2rem;
+    margin-bottom:14px;
+    display:block;
+}
+
+.kit-sop-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.1rem;
+    font-weight:800;
+    color:var(--gold);
+    margin-bottom:18px;
+}
+
+.kit-sop-card.danger .kit-sop-title{color:#ff6b5b;}
+.kit-sop-card.success .kit-sop-title{color:#25d366;}
+
+.kit-sop-list{
+    list-style:none;
+    padding:0;
+    margin:0;
+    counter-reset:sop-counter;
+}
+
+.kit-sop-list li{
+    counter-increment:sop-counter;
+    padding:10px 0 10px 34px;
+    position:relative;
+    color:rgba(255,255,255,0.85);
+    font-size:0.88rem;
+    line-height:1.5;
+    border-bottom:1px dashed rgba(255,255,255,0.05);
+}
+
+.kit-sop-list li:last-child{border-bottom:none;}
+
+.kit-sop-list li::before{
+    content:counter(sop-counter);
+    position:absolute;
+    left:0;
+    top:10px;
+    width:24px;
+    height:24px;
+    background:rgba(212,165,54,0.15);
+    color:var(--gold);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:0.75rem;
+    border:1px solid rgba(212,165,54,0.3);
+}
+
+.kit-sop-card.danger .kit-sop-list li::before{
+    background:rgba(231,76,60,0.15);
+    color:#ff6b5b;
+    border-color:rgba(231,76,60,0.3);
+}
+
+.kit-sop-card.success .kit-sop-list li::before{
+    background:rgba(37,211,102,0.15);
+    color:#25d366;
+    border-color:rgba(37,211,102,0.3);
+}
+
+
+/* Knowledge Cards */
 .kit-knowledge-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -457,7 +552,6 @@
     border-radius:var(--radius-lg);
     overflow:hidden;
     transition:all 0.4s var(--ease);
-    position:relative;
     display:flex;
     flex-direction:column;
 }
@@ -502,17 +596,8 @@
     border:1px solid rgba(37,211,102,0.3);
 }
 
-.kit-knowledge-tag.important{
-    background:rgba(231,76,60,0.15);
-    color:#e74c3c;
-    border-color:rgba(231,76,60,0.3);
-}
-
-.kit-knowledge-tag.premium{
-    background:rgba(212,165,54,0.15);
-    color:var(--gold);
-    border-color:rgba(212,165,54,0.3);
-}
+.kit-knowledge-tag.important{background:rgba(231,76,60,0.15);color:#e74c3c;border-color:rgba(231,76,60,0.3);}
+.kit-knowledge-tag.premium{background:rgba(212,165,54,0.15);color:var(--gold);border-color:rgba(212,165,54,0.3);}
 
 .kit-knowledge-title{
     font-family:'Montserrat',sans-serif;
@@ -577,9 +662,7 @@
 }
 
 
-/* ============================================
-   💎 TIER BENEFITS COMPARISON
-   ============================================ */
+/* Tier Cards */
 .kit-tier-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -624,9 +707,7 @@
     text-align:center;
 }
 
-.kit-tier-card.featured{
-    padding-top:44px;
-}
+.kit-tier-card.featured{padding-top:44px;}
 
 .kit-tier-emoji{
     font-size:3rem;
@@ -687,9 +768,7 @@
 }
 
 
-/* ============================================
-   📝 SCRIPT TEMPLATES
-   ============================================ */
+/* Script Templates */
 .kit-script-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -738,9 +817,7 @@
     color:var(--text);
 }
 
-.kit-script-body{
-    padding:20px 24px;
-}
+.kit-script-body{padding:20px 24px;}
 
 .kit-script-text{
     background:#0D1829;
@@ -805,9 +882,7 @@
 }
 
 
-/* ============================================
-   ❓ FAQ ACCORDION
-   ============================================ */
+/* FAQ */
 .kit-faq-list{
     max-width:800px;
     margin:0 auto;
@@ -824,9 +899,7 @@
     transition:all 0.3s var(--ease);
 }
 
-.kit-faq-item.active{
-    border-color:rgba(212,165,54,0.3);
-}
+.kit-faq-item.active{border-color:rgba(212,165,54,0.3);}
 
 .kit-faq-q{
     display:flex;
@@ -845,9 +918,7 @@
     font-family:'Poppins',sans-serif;
 }
 
-.kit-faq-q:hover{
-    background:rgba(212,165,54,0.05);
-}
+.kit-faq-q:hover{background:rgba(212,165,54,0.05);}
 
 .kit-faq-q i{
     color:var(--gold);
@@ -857,9 +928,7 @@
     margin-left:auto;
 }
 
-.kit-faq-item.active .kit-faq-q i{
-    transform:rotate(45deg);
-}
+.kit-faq-item.active .kit-faq-q i{transform:rotate(45deg);}
 
 .kit-faq-a{
     max-height:0;
@@ -867,9 +936,7 @@
     transition:max-height 0.4s var(--ease);
 }
 
-.kit-faq-item.active .kit-faq-a{
-    max-height:500px;
-}
+.kit-faq-item.active .kit-faq-a{max-height:500px;}
 
 .kit-faq-a p{
     padding:0 20px 18px;
@@ -880,9 +947,7 @@
 }
 
 
-/* ============================================
-   🎯 CTA FINAL
-   ============================================ */
+/* CTA */
 .kit-cta{
     text-align:center;
     padding:80px 20px;
@@ -987,16 +1052,10 @@
 }
 
 
-/* ============================================
-   📱 RESPONSIVE
-   ============================================ */
+/* Responsive */
 @media (max-width:992px){
-    .kit-knowledge-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-    .kit-tier-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
+    .kit-knowledge-grid{grid-template-columns:repeat(2,1fr);}
+    .kit-tier-grid{grid-template-columns:repeat(2,1fr);}
     .kit-tier-card.featured{
         grid-column:1 / -1;
         max-width:400px;
@@ -1007,29 +1066,28 @@
 @media (max-width:768px){
     .kit-hero{padding:120px 20px 60px;}
     .kit-section{padding:60px 20px;}
+    .kit-sop-section{padding:60px 20px;}
+    
+    .kit-hero-logo{width:100px;height:100px;}
+    .kit-hero-logo img{padding:5px;border-width:2px;}
 
     .kit-knowledge-grid,
-    .kit-script-grid{
-        grid-template-columns:1fr;
-    }
+    .kit-script-grid{grid-template-columns:1fr;}
 
-    .kit-tier-grid{
-        grid-template-columns:1fr;
-    }
+    .kit-tier-grid{grid-template-columns:1fr;}
+    .kit-tier-card.featured{max-width:100%;}
 
-    .kit-tier-card.featured{
-        max-width:100%;
+    .kit-roadmap-step{
+        flex-direction:column;
+        gap:12px;
     }
-
-    .kit-roadmap{padding-left:30px;}
-    .kit-roadmap::before{left:14px;}
+    
     .kit-roadmap-dot{
-        left:-16px;
-        width:32px;
-        height:32px;
-        font-size:0.8rem;
+        width:40px;
+        height:40px;
+        font-size:0.9rem;
     }
-    .kit-roadmap-step{padding-left:30px;}
+    
     .kit-roadmap-card{padding:20px;}
 
     .kit-hero-stats{gap:20px;}
@@ -1045,6 +1103,13 @@
         padding:10px 16px;
         font-size:0.8rem;
     }
+    
+    .kit-tier-divider{padding:20px;margin:40px 0 24px;}
+    .kit-tier-divider h3{font-size:1.1rem;}
+}
+
+@media (max-width:400px){
+    .kit-hero-logo{width:90px;height:90px;}
 }
 </style>
 </head>
@@ -1058,7 +1123,6 @@
 
 <!-- ===== HERO ===== -->
 <section class="kit-hero">
-    <!-- 🎨 Logo -->
     <div class="kit-hero-logo">
         <img src="main-logo.jpg" alt="Ibaadurrahmaan Web Designer" onerror="this.parentElement.style.display='none'">
         <div class="kit-hero-logo-glow"></div>
@@ -1073,113 +1137,442 @@
         <span class="text-gold">Reseller Success</span>
     </h1>
     <p class="kit-hero-sub">
-        Semua yang kamu butuhkan untuk memulai, belajar, dan sukses sebagai reseller Ibaadurrahmaan Web Designer.
+        Panduan lengkap 30 hari + 15 modul pembelajaran + SOP resmi untuk sukses jadi reseller Ibaadurrahmaan Web Designer.
     </p>
     <div class="kit-hero-stats">
         <div class="kit-hero-stat">
-            <div class="kit-hero-stat-num">7</div>
+            <div class="kit-hero-stat-num">15</div>
             <div class="kit-hero-stat-label">Modul</div>
         </div>
         <div class="kit-hero-stat">
-            <div class="kit-hero-stat-num">15+</div>
-            <div class="kit-hero-stat-label">Template</div>
+            <div class="kit-hero-stat-num">6</div>
+            <div class="kit-hero-stat-label">SOP</div>
+        </div>
+        <div class="kit-hero-stat">
+            <div class="kit-hero-stat-num">30</div>
+            <div class="kit-hero-stat-label">Hari</div>
         </div>
         <div class="kit-hero-stat">
             <div class="kit-hero-stat-num">25%</div>
             <div class="kit-hero-stat-label">Max Komisi</div>
         </div>
-        <div class="kit-hero-stat">
-            <div class="kit-hero-stat-num">24/7</div>
-            <div class="kit-hero-stat-label">Support</div>
-        </div>
     </div>
 </section>
 
-<!-- ===== LEARNING PATH ===== -->
+
+<!-- ===== LEARNING PATH LENGKAP (15 MODUL) ===== -->
 <section class="kit-section">
     <div class="kit-container">
         <div class="kit-section-header">
-            <div class="kit-section-badge">📚 LEARNING PATH</div>
-            <h2 class="kit-section-title">Langkah Menuju <span class="text-gold">Reseller Sukses</span></h2>
-            <p class="kit-section-sub">Ikuti roadmap ini dari awal sampai kamu siap closing pertama!</p>
+            <div class="kit-section-badge">📚 CURRICULUM 30 HARI</div>
+            <h2 class="kit-section-title">15 Modul Menuju <span class="text-gold">Closing Pertama</span></h2>
+            <p class="kit-section-sub">Ikuti step-by-step dari foundation sampai jadi top performer!</p>
         </div>
         
         <div class="kit-roadmap">
             
+            <!-- ===== TIER 1: PEMULA (Week 1) ===== -->
+            <div class="kit-tier-divider">
+                <div class="kit-tier-divider-badge pemula">🌱 WEEK 1 - PEMULA</div>
+                <h3>Foundation: Kenali Produk & Market</h3>
+                <p>Mulai dari basic — pahami produk, target pasar, dan mindset seorang reseller sukses</p>
+            </div>
+            
+            <!-- Modul 1 -->
             <div class="kit-roadmap-step">
                 <div class="kit-roadmap-dot">1</div>
                 <div class="kit-roadmap-card">
                     <span class="kit-roadmap-badge beginner">Pemula</span>
                     <div class="kit-roadmap-title">Pahami Produk & Layanan</div>
-                    <div class="kit-roadmap-desc">Kenali apa yang kamu jual. Pahami setiap paket, fitur, dan value yang ditawarkan.</div>
+                    <div class="kit-roadmap-desc">Kenali detail 3 paket website yang kamu jual — dari harga, fitur, sampai value proposition.</div>
                     <ul class="kit-roadmap-checklist">
                         <li><i class="fas fa-check-circle"></i> <span>Pelajari 3 paket: Hemat, Reguler, Premium</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Pahami fitur & benefit setiap paket</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Lihat contoh portfolio website yang sudah dibuat</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Tahu perbedaan landing page vs website lengkap</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Hafal fitur & benefit setiap paket</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Studi 5+ contoh portfolio yang sudah dibuat</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Pahami perbedaan Landing Page vs Multi-page Website</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Kenali proses produksi (3-7 hari kerja)</span></li>
                     </ul>
+                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 2-3 hari</div>
                 </div>
             </div>
             
+            <!-- Modul 2 -->
             <div class="kit-roadmap-step">
                 <div class="kit-roadmap-dot">2</div>
                 <div class="kit-roadmap-card">
                     <span class="kit-roadmap-badge beginner">Pemula</span>
                     <div class="kit-roadmap-title">Kenali Target Market</div>
-                    <div class="kit-roadmap-desc">Siapa yang butuh website? Di mana mereka? Bagaimana cara menjangkau?</div>
+                    <div class="kit-roadmap-desc">Tanpa target yang jelas, kamu akan sulit closing. Kenali siapa yang benar-benar butuh website.</div>
                     <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>UMKM yang belum punya website</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Toko online yang mau tampil profesional</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Freelancer, coach, konsultan</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Bisnis baru yang butuh presence online</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Organisasi, yayasan, komunitas</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Identifikasi 5 kategori bisnis yang butuh website</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Pahami pain point mereka (kenapa butuh website)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Tentukan lokasi target market (kota/area)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Susun customer persona (usia, profesi, budget)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>List 20+ prospek awal dari lingkaran sendiri</span></li>
                     </ul>
+                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 2 hari</div>
                 </div>
             </div>
             
+            <!-- Modul 3 -->
             <div class="kit-roadmap-step">
                 <div class="kit-roadmap-dot">3</div>
                 <div class="kit-roadmap-card">
-                    <span class="kit-roadmap-badge intermediate">Menengah</span>
-                    <div class="kit-roadmap-title">Kuasai Teknik Pitching</div>
-                    <div class="kit-roadmap-desc">Belajar cara menawarkan jasa dengan cara yang menarik dan tidak memaksa.</div>
+                    <span class="kit-roadmap-badge beginner">Pemula</span>
+                    <div class="kit-roadmap-title">Mindset Reseller Sukses</div>
+                    <div class="kit-roadmap-desc">Modal utama bukan uang, tapi mindset. Bangun pola pikir seorang closer profesional.</div>
                     <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>Gunakan template pitching yang sudah disiapkan</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Fokus ke MASALAH yang bisa diselesaikan</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Tunjukkan portfolio sebagai bukti kualitas</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Jangan jual fitur, jual BENEFIT</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Reseller = solusi, bukan sekedar penjual</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Fokus pada value, bukan harga</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Handle penolakan sebagai pembelajaran</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Konsisten follow-up minimal 5x per prospek</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Set target harian: 10 prospek baru per hari</span></li>
                     </ul>
+                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 1 hari</div>
                 </div>
             </div>
             
+            
+            <!-- ===== TIER 2: INTERMEDIATE (Week 2) ===== -->
+            <div class="kit-tier-divider">
+                <div class="kit-tier-divider-badge intermediate">🚀 WEEK 2 - INTERMEDIATE</div>
+                <h3>Persiapan Marketing & Content</h3>
+                <p>Bekali diri dengan tools marketing yang profesional</p>
+            </div>
+            
+            <!-- Modul 4 -->
             <div class="kit-roadmap-step">
                 <div class="kit-roadmap-dot">4</div>
                 <div class="kit-roadmap-card">
                     <span class="kit-roadmap-badge intermediate">Menengah</span>
-                    <div class="kit-roadmap-title">Bangun Personal Branding</div>
-                    <div class="kit-roadmap-desc">Jadilah orang yang dipercaya dan direferensikan orang lain.</div>
+                    <div class="kit-roadmap-title">Setup Sosial Media Bisnis</div>
+                    <div class="kit-roadmap-desc">Sosial media = etalase digital kamu. Bikin yang profesional dan trust-worthy.</div>
                     <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>Share konten edukasi tentang website di sosmed</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Bangun reputasi "orang yang paham digital"</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Minta testimoni dari client yang puas</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Konsisten posting minimal 3x/minggu</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Buat akun Instagram bisnis (bukan personal)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Setup Facebook Page dengan CTA WhatsApp</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Aktifkan WhatsApp Business + katalog</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Bikin bio yang jelas: "Web Designer for UMKM"</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Upload logo, cover, dan foto profesional</span></li>
                     </ul>
+                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 1 hari</div>
                 </div>
             </div>
             
+            <!-- Modul 5 -->
             <div class="kit-roadmap-step">
                 <div class="kit-roadmap-dot">5</div>
                 <div class="kit-roadmap-card">
-                    <span class="kit-roadmap-badge advanced">Expert</span>
-                    <div class="kit-roadmap-title">Closing & Follow Up</div>
-                    <div class="kit-roadmap-desc">Teknik mengubah calon client menjadi client yang membayar.</div>
+                    <span class="kit-roadmap-badge intermediate">Menengah</span>
+                    <div class="kit-roadmap-title">Content Strategy 30 Hari</div>
+                    <div class="kit-roadmap-desc">Konten adalah magnet prospek. Buat konten yang mendidik & jual halus.</div>
                     <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>Follow up max 2×24 jam setelah interest</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Gunakan urgency (diskon terbatas, slot terbatas)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Tawarkan garansi & revisi gratis</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Serahkan ke tim teknis untuk konsultasi lanjut</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Rencana 30 konten (edukasi, portfolio, testimoni)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Formula 3-2-1: 3 edukasi, 2 portfolio, 1 jualan</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Gunakan template Canva yang sudah disediakan</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Jadwal posting: minimal 1x per hari</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Konsisten warna & style brand</span></li>
                     </ul>
+                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 3 hari (planning)</div>
                 </div>
+            </div>
+            
+            <!-- Modul 6 -->
+            <div class="kit-roadmap-step">
+                <div class="kit-roadmap-dot">6</div>
+                <div class="kit-roadmap-card">
+                    <span class="kit-roadmap-badge intermediate">Menengah</span>
+                    <div class="kit-roadmap-title">Copywriting untuk Sosial Media</div>
+                    <div class="kit-roadmap-desc">Kata-kata yang tepat = closing rate naik 5x. Belajar formula AIDA & PAS.</div>
+                    <ul class="kit-roadmap-checklist">
+                        <li><i class="fas fa-check-circle"></i> <span>Formula AIDA: Attention, Interest, Desire, Action</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Formula PAS: Problem, Agitate, Solution</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Hook 3 detik pertama yang menarik</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>CTA (Call to Action) yang jelas</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Bahasa yang relatable dengan target market</span></li>
+                    </ul>
+                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 2 hari</div>
+                </div>
+            </div>
+            
+            <!-- Modul 7 -->
+            <div class="kit-roadmap-step">
+                <div class="kit-roadmap-dot">7</div>
+                <div class="kit-roadmap-card">
+                    <span class="kit-roadmap-badge intermediate">Menengah</span>
+                    <div class="kit-roadmap-title">Prospecting: Cari Calon Client</div>
+                    <div class="kit-roadmap-desc">Prospecting = mining emas. Semakin banyak digali, semakin besar peluang closing.</div>
+                    <ul class="kit-roadmap-checklist">
+                        <li><i class="fas fa-check-circle"></i> <span>Prospek Warm Market: keluarga, teman, kolega</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Prospek Cold Market: DM Instagram, Facebook Group</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Cari di Google Maps: UMKM tanpa website</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Follow up influencer/tokoh lokal yang butuh personal branding</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Target: 10 prospek baru per hari (300/bulan)</span></li>
+                    </ul>
+                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Daily activity</div>
+                </div>
+            </div>
+            
+            
+            <!-- ===== TIER 3: ADVANCED (Week 3) ===== -->
+            <div class="kit-tier-divider">
+                <div class="kit-tier-divider-badge advanced">💎 WEEK 3 - ADVANCED</div>
+                <h3>Sales & Closing Mastery</h3>
+                <p>Belajar teknik closing profesional yang terbukti efektif</p>
+            </div>
+            
+            <!-- Modul 8 -->
+            <div class="kit-roadmap-step">
+                <div class="kit-roadmap-dot">8</div>
+                <div class="kit-roadmap-card">
+                    <span class="kit-roadmap-badge advanced">Advanced</span>
+                    <div class="kit-roadmap-title">Script WhatsApp Chat</div>
+                    <div class="kit-roadmap-desc">Script yang teruji untuk berbagai skenario chat — dari opening sampai closing.</div>
+                    <ul class="kit-roadmap-checklist">
+                        <li><i class="fas fa-check-circle"></i> <span>Script opening chat pertama (perkenalan)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Script menjawab "berapa harga?"</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Script handle "mahal" / "nggak jadi"</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Script follow-up 1, 3, 7, 14 hari</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Script closing dengan urgency & scarcity</span></li>
+                    </ul>
+                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 3 hari praktek</div>
+                </div>
+            </div>
+            
+            <!-- Modul 9 -->
+            <div class="kit-roadmap-step">
+                <div class="kit-roadmap-dot">9</div>
+                <div class="kit-roadmap-card">
+                    <span class="kit-roadmap-badge advanced">Advanced</span>
+                    <div class="kit-roadmap-title">Handling Objection (Keberatan)</div>
+                    <div class="kit-roadmap-desc">90% prospek akan menolak dulu. Kunci sukses = handling objection dengan smooth.</div>
+                    <ul class="kit-roadmap-checklist">
+                        <li><i class="fas fa-check-circle"></i> <span>"Mahal" → Jelaskan ROI & value jangka panjang</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>"Nanti dulu" → Ciptakan urgency dengan promo terbatas</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>"Saya pikir-pikir dulu" → Berikan garansi & testimoni</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>"Bisa diskon?" → Tawarkan paket yang lebih rendah</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>"Saya bikin sendiri saja" → Bandingkan waktu vs hasil</span></li>
+                    </ul>
+                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 2 hari</div>
+                </div>
+            </div>
+            
+            <!-- Modul 10 -->
+            <div class="kit-roadmap-step">
+                <div class="kit-roadmap-dot">10</div>
+                <div class="kit-roadmap-card">
+                    <span class="kit-roadmap-badge advanced">Advanced</span>
+                    <div class="kit-roadmap-title">Presentasi Produk yang Menjual</div>
+                    <div class="kit-roadmap-desc">Cara presentasi menentukan keputusan client. Belajar structure yang persuasif.</div>
+                    <ul class="kit-roadmap-checklist">
+                        <li><i class="fas fa-check-circle"></i> <span>Opening yang menarik (statistik/cerita)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Identifikasi masalah client dengan pertanyaan</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Tunjukkan solusi (paket yang cocok)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Beri social proof (portfolio + testimoni)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Closing dengan pertanyaan tertutup: "Mau paket A atau B?"</span></li>
+                    </ul>
+                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 2 hari</div>
+                </div>
+            </div>
+            
+            <!-- Modul 11 -->
+            <div class="kit-roadmap-step">
+                <div class="kit-roadmap-dot">11</div>
+                <div class="kit-roadmap-card">
+                    <span class="kit-roadmap-badge advanced">Advanced</span>
+                    <div class="kit-roadmap-title">Negosiasi & Deal Making</div>
+                    <div class="kit-roadmap-desc">Negosiasi bukan tawar-menawar, tapi win-win solution.</div>
+                    <ul class="kit-roadmap-checklist">
+                        <li><i class="fas fa-check-circle"></i> <span>Jangan langsung kasih diskon → tawarkan bonus</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Tunggu offer client dulu → jangan initiate diskon</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Gunakan teknik "anchor pricing" (mulai dari yang paling mahal)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Tawarkan payment plan untuk paket premium</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Selalu confirm deal dengan chat/email tertulis</span></li>
+                    </ul>
+                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 1 hari</div>
+                </div>
+            </div>
+            
+            
+            <!-- ===== TIER 4: EXPERT (Week 4) ===== -->
+            <div class="kit-tier-divider">
+                <div class="kit-tier-divider-badge expert">👑 WEEK 4 - EXPERT</div>
+                <h3>Scale Up & Long-Term Growth</h3>
+                <p>Naik level dari reseller pemula jadi top performer</p>
+            </div>
+            
+            <!-- Modul 12 -->
+            <div class="kit-roadmap-step">
+                <div class="kit-roadmap-dot">12</div>
+                <div class="kit-roadmap-card">
+                    <span class="kit-roadmap-badge expert">Expert</span>
+                    <div class="kit-roadmap-title">Manajemen Client & Follow-Up</div>
+                    <div class="kit-roadmap-desc">80% penjualan datang dari follow-up. Sistem yang rapi = income yang stabil.</div>
+                    <ul class="kit-roadmap-checklist">
+                        <li><i class="fas fa-check-circle"></i> <span>Simpan database prospek di Google Sheets</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Kategorikan: Hot, Warm, Cold, Dead lead</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Set reminder follow-up (1, 3, 7, 14, 30 hari)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Kirim edukasi setiap follow-up (bukan cuma jualan)</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Track conversion rate per bulan</span></li>
+                    </ul>
+                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 2 hari setup</div>
+                </div>
+            </div>
+            
+            <!-- Modul 13 -->
+            <div class="kit-roadmap-step">
+                <div class="kit-roadmap-dot">13</div>
+                <div class="kit-roadmap-card">
+                    <span class="kit-roadmap-badge expert">Expert</span>
+                    <div class="kit-roadmap-title">Personal Branding & Authority</div>
+                    <div class="kit-roadmap-desc">Bangun personal brand yang bikin client datang sendiri ke kamu.</div>
+                    <ul class="kit-roadmap-checklist">
+                        <li><i class="fas fa-check-circle"></i> <span>Tentukan niche: "Web Designer untuk Restoran" dll</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Share tips web design 2-3x per minggu</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Kolaborasi dengan reseller lain / influencer</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Muncul di podcast/live IG bahas topik terkait</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Build authority: jadi problem solver, bukan penjual</span></li>
+                    </ul>
+                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Ongoing</div>
+                </div>
+            </div>
+            
+            <!-- Modul 14 -->
+            <div class="kit-roadmap-step">
+                <div class="kit-roadmap-dot">14</div>
+                <div class="kit-roadmap-card">
+                    <span class="kit-roadmap-badge expert">Expert</span>
+                    <div class="kit-roadmap-title">Upselling & Repeat Order</div>
+                    <div class="kit-roadmap-desc">Client existing 5x lebih mudah untuk closing lagi dibanding prospek baru.</div>
+                    <ul class="kit-roadmap-checklist">
+                        <li><i class="fas fa-check-circle"></i> <span>Tawarkan maintenance bulanan setelah web jadi</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Upsell dari Landing Page → Multi-page Website</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Cross-sell: web + logo design + copywriting</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Referral program: kasih diskon kalau refer teman</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Follow up di anniversary bisnis client</span></li>
+                    </ul>
+                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 1 hari</div>
+                </div>
+            </div>
+            
+            <!-- Modul 15 -->
+            <div class="kit-roadmap-step">
+                <div class="kit-roadmap-dot">15</div>
+                <div class="kit-roadmap-card">
+                    <span class="kit-roadmap-badge expert">Expert</span>
+                    <div class="kit-roadmap-title">Naik Tier: Silver → Gold → Platinum</div>
+                    <div class="kit-roadmap-desc">Strategi consistent closing untuk naik tier dan bonus lebih besar.</div>
+                    <ul class="kit-roadmap-checklist">
+                        <li><i class="fas fa-check-circle"></i> <span>Tier Silver → Gold: 3-5 closing dalam 1 bulan</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Tier Gold → Platinum: 6+ closing dalam 1 bulan</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Fokus paket Premium untuk komisi lebih besar</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Build tim: rekrut sub-reseller di bawah kamu</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>Investasi ke iklan berbayar untuk scale up</span></li>
+                    </ul>
+                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Long-term goal</div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== SOP RESELLER ===== -->
+<section class="kit-sop-section">
+    <div class="kit-container">
+        <div class="kit-section-header">
+            <div class="kit-section-badge">📋 STANDARD OPERATING PROCEDURE</div>
+            <h2 class="kit-section-title">SOP Reseller <span class="text-gold">Resmi</span></h2>
+            <p class="kit-section-sub">Aturan main & workflow yang wajib diikuti semua reseller Ibaadurrahmaan</p>
+        </div>
+        
+        <div class="kit-sop-grid">
+            
+            <!-- SOP 1: Onboarding -->
+            <div class="kit-sop-card">
+                <span class="kit-sop-icon">🎯</span>
+                <h4 class="kit-sop-title">1. Onboarding Reseller Baru</h4>
+                <ol class="kit-sop-list">
+                    <li>Daftar via form registrasi reseller</li>
+                    <li>Verifikasi identitas (KTP + WhatsApp aktif)</li>
+                    <li>Tanda tangan MoU digital via halaman MoU</li>
+                    <li>Terima kode reseller unik (RSL-XXX)</li>
+                    <li>Akses starter kit & grup WhatsApp reseller</li>
+                    <li>Onboarding call 30 menit dengan owner</li>
+                </ol>
+            </div>
+            
+            <!-- SOP 2: Alur Closing -->
+            <div class="kit-sop-card">
+                <span class="kit-sop-icon">💼</span>
+                <h4 class="kit-sop-title">2. Alur Closing Client</h4>
+                <ol class="kit-sop-list">
+                    <li>Reseller ajak prospek untuk konsultasi</li>
+                    <li>Kirim proposal & portfolio</li>
+                    <li>Follow up sampai deal (max 14 hari)</li>
+                    <li>Client transfer DP 50% ke rekening owner</li>
+                    <li>Reseller lapor ke owner + bukti transfer</li>
+                    <li>Owner mulai produksi (3-7 hari kerja)</li>
+                    <li>Client pelunasan 50% sebelum web live</li>
+                    <li>Serah terima + garansi 30 hari</li>
+                </ol>
+            </div>
+            
+            <!-- SOP 3: Komisi -->
+            <div class="kit-sop-card">
+                <span class="kit-sop-icon">💰</span>
+                <h4 class="kit-sop-title">3. Sistem Komisi & Pembayaran</h4>
+                <ol class="kit-sop-list">
+                    <li>Komisi dihitung dari total pembayaran (setelah lunas)</li>
+                    <li>Silver: 15% | Gold: 20% + Rp 100rb | Platinum: 25% + Rp 200rb</li>
+                    <li>Payout tgl 1-5 bulan berikutnya</li>
+                    <li>Atau payout langsung per closing (opsional)</li>
+                    <li>Slip komisi dikirim via WhatsApp</li>
+                    <li>Semua transaksi tercatat resmi</li>
+                </ol>
+            </div>
+            
+            <!-- SOP 4: Komunikasi -->
+            <div class="kit-sop-card">
+                <span class="kit-sop-icon">💬</span>
+                <h4 class="kit-sop-title">4. Etika Komunikasi</h4>
+                <ol class="kit-sop-list">
+                    <li>Selalu ramah, profesional, no drama</li>
+                    <li>Balas chat prospek max 2 jam saat jam kerja</li>
+                    <li>Jangan janjikan hal di luar SOP</li>
+                    <li>Konsultasi ke owner untuk request khusus</li>
+                    <li>Dilarang perang harga sesama reseller</li>
+                    <li>Jaga nama baik brand Ibaadurrahmaan</li>
+                </ol>
+            </div>
+            
+            <!-- SOP 5: Larangan -->
+            <div class="kit-sop-card danger">
+                <span class="kit-sop-icon">⚠️</span>
+                <h4 class="kit-sop-title">5. Larangan Keras Reseller</h4>
+                <ol class="kit-sop-list">
+                    <li>Jual di bawah harga resmi</li>
+                    <li>Klaim portfolio orang lain sebagai milik sendiri</li>
+                    <li>Terima pembayaran ke rekening pribadi</li>
+                    <li>Janjikan revisi tak terbatas</li>
+                    <li>Cetak/edit MoU sepihak</li>
+                    <li>Rekrut reseller dengan cara MLM piramida</li>
+                    <li><b>Konsekuensi: MoU dibatalkan + blacklist</b></li>
+                </ol>
+            </div>
+            
+            <!-- SOP 6: Hak Reseller -->
+            <div class="kit-sop-card success">
+                <span class="kit-sop-icon">✅</span>
+                <h4 class="kit-sop-title">6. Hak Reseller</h4>
+                <ol class="kit-sop-list">
+                    <li>Dapat komisi sesuai tier & kesepakatan</li>
+                    <li>Akses starter kit lengkap (template, script, portfolio)</li>
+                    <li>Support 1-on-1 dari owner setiap saat</li>
+                    <li>Update materi & training gratis</li>
+                    <li>Naik tier otomatis sesuai performance</li>
+                    <li>Sertifikat resmi setelah 10 closing</li>
+                </ol>
             </div>
             
         </div>
@@ -1188,12 +1581,12 @@
 
 
 <!-- ===== KNOWLEDGE CARDS ===== -->
-<section class="kit-section alt">
+<section class="kit-section">
     <div class="kit-container">
         <div class="kit-section-header">
-            <div class="kit-section-badge">📖 MATERI PEMBELAJARAN</div>
-            <h2 class="kit-section-title">Modul yang Harus <span class="text-gold">Kamu Kuasai</span></h2>
-            <p class="kit-section-sub">Setiap modul dirancang untuk membantumu closing lebih banyak!</p>
+            <div class="kit-section-badge">📖 QUICK REFERENCE</div>
+            <h2 class="kit-section-title">Modul Referensi <span class="text-gold">Cepat</span></h2>
+            <p class="kit-section-sub">Ringkasan materi untuk kamu akses kapan saja!</p>
         </div>
         
         <div class="kit-knowledge-grid">
@@ -1322,7 +1715,7 @@
 
 
 <!-- ===== SCRIPT TEMPLATES ===== -->
-<section class="kit-section">
+<section class="kit-section alt">
     <div class="kit-container">
         <div class="kit-section-header">
             <div class="kit-section-badge">💬 TEMPLATE SIAP PAKAI</div>
@@ -1398,7 +1791,7 @@
 
 
 <!-- ===== TIER INFO ===== -->
-<section class="kit-section alt">
+<section class="kit-section">
     <div class="kit-container">
         <div class="kit-section-header">
             <div class="kit-section-badge">🏆 TIER RESELLER</div>
@@ -1459,7 +1852,7 @@
 
 
 <!-- ===== FAQ ===== -->
-<section class="kit-section">
+<section class="kit-section alt">
     <div class="kit-container">
         <div class="kit-section-header">
             <div class="kit-section-badge">❓ FAQ RESELLER</div>
@@ -1547,7 +1940,7 @@
 <section class="kit-cta">
     <div class="kit-cta-box">
         <h2>🚀 Siap Mulai Closing Pertamamu?</h2>
-        <p>Kamu sudah punya semua materi yang dibutuhkan. Saatnya ACTION! Daftar sekarang atau langsung mulai promosi.</p>
+        <p>Kamu sudah punya 15 modul, 6 SOP, dan semua materi yang dibutuhkan. Saatnya ACTION!</p>
         <div class="kit-cta-buttons">
             <a href="mou-reseller.html" class="kit-btn kit-btn-primary">
                 <i class="fas fa-file-signature"></i>
@@ -1559,7 +1952,7 @@
             </a>
             <a href="reseller.html" class="kit-btn kit-btn-secondary">
                 <i class="fas fa-arrow-left"></i>
-                <span>Kembali ke Reseller</span>
+                <span>Kembali</span>
             </a>
         </div>
     </div>
@@ -1577,13 +1970,11 @@ function copyScript(id, btn) {
     navigator.clipboard.writeText(text).then(() => {
         btn.classList.add('copied');
         btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-        
         setTimeout(() => {
             btn.classList.remove('copied');
             btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
         }, 2000);
     }).catch(() => {
-        // Fallback
         const textarea = document.createElement('textarea');
         textarea.value = text;
         document.body.appendChild(textarea);
@@ -1593,7 +1984,6 @@ function copyScript(id, btn) {
         
         btn.classList.add('copied');
         btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-        
         setTimeout(() => {
             btn.classList.remove('copied');
             btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
@@ -1608,13 +1998,9 @@ function copyScript(id, btn) {
 function toggleFaq(btn) {
     const item = btn.parentElement;
     const wasActive = item.classList.contains('active');
-    
-    // Close all
     document.querySelectorAll('.kit-faq-item').forEach(i => {
         i.classList.remove('active');
     });
-    
-    // Open clicked (if wasn't active)
     if (!wasActive) {
         item.classList.add('active');
     }
