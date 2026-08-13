@@ -79,7 +79,7 @@
 
 
 /* ============================================
-   PROGRESS STEPS (Sticky)
+   PROGRESS STEPS
    ============================================ */
 .mou-progress{
     background:rgba(15,30,51,0.95);
@@ -270,9 +270,7 @@
     gap:12px;
 }
 
-.mou-form-title i{
-    font-size:1.4rem;
-}
+.mou-form-title i{font-size:1.4rem;}
 
 .mou-form-subtitle{
     color:var(--text-muted);
@@ -297,9 +295,7 @@
     gap:8px;
 }
 
-.mou-form-group.full{
-    grid-column:1 / -1;
-}
+.mou-form-group.full{grid-column:1 / -1;}
 
 .mou-form-label{
     color:var(--gold);
@@ -361,6 +357,168 @@
     font-size:0.78rem;
     margin-top:2px;
     font-style:italic;
+}
+
+
+/* ============================================
+   💰 PAYMENT OPTIONS - Radio Card Style
+   ============================================ */
+.mou-payment-options{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-top:8px;
+}
+
+.mou-payment-option{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    background:#0D1829;
+    border:2px solid rgba(255,255,255,0.08);
+    border-radius:12px;
+    padding:18px 16px;
+    cursor:pointer;
+    transition:all 0.3s var(--ease);
+    position:relative;
+    overflow:hidden;
+}
+
+.mou-payment-option:hover{
+    background:#12233d;
+    border-color:rgba(212,165,54,0.3);
+    transform:translateY(-2px);
+}
+
+.mou-payment-option.selected{
+    background:linear-gradient(135deg,rgba(212,165,54,0.15),rgba(212,165,54,0.05));
+    border-color:var(--gold);
+    box-shadow:0 6px 20px rgba(212,165,54,0.2);
+}
+
+.mou-payment-option input[type="radio"]{
+    position:absolute;
+    opacity:0;
+    pointer-events:none;
+}
+
+.mou-payment-icon{
+    font-size:2rem;
+    flex-shrink:0;
+    line-height:1;
+    filter:grayscale(30%);
+    transition:filter 0.3s var(--ease);
+}
+
+.mou-payment-option.selected .mou-payment-icon{
+    filter:grayscale(0%);
+    animation:iconBounce 0.5s ease-out;
+}
+
+@keyframes iconBounce{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.2);}
+    100%{transform:scale(1);}
+}
+
+.mou-payment-content{
+    flex:1;
+    min-width:0;
+}
+
+.mou-payment-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:1rem;
+    font-weight:800;
+    color:var(--text);
+    margin-bottom:6px;
+    line-height:1.2;
+}
+
+.mou-payment-option.selected .mou-payment-title{
+    color:var(--gold);
+}
+
+.mou-payment-desc{
+    color:var(--text-muted);
+    font-size:0.82rem;
+    line-height:1.5;
+    margin-bottom:10px;
+}
+
+.mou-payment-desc strong{
+    color:var(--text);
+    font-weight:600;
+}
+
+.mou-payment-option.selected .mou-payment-desc strong{
+    color:var(--gold);
+}
+
+.mou-payment-badges{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+}
+
+.mou-payment-badge{
+    display:inline-block;
+    padding:3px 10px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:100px;
+    font-size:0.68rem;
+    font-weight:700;
+    color:var(--text-muted);
+    letter-spacing:0.3px;
+}
+
+.mou-payment-badge.fast{
+    background:rgba(37,211,102,0.15);
+    color:#25D366;
+    border-color:rgba(37,211,102,0.3);
+}
+
+.mou-payment-badge.recap{
+    background:rgba(212,165,54,0.15);
+    color:var(--gold);
+    border-color:rgba(212,165,54,0.3);
+}
+
+.mou-payment-option.selected .mou-payment-badge{
+    background:rgba(212,165,54,0.15);
+    color:var(--gold);
+    border-color:rgba(212,165,54,0.3);
+}
+
+.mou-payment-option.selected .mou-payment-badge.fast{
+    background:rgba(37,211,102,0.2);
+    color:#25D366;
+    border-color:rgba(37,211,102,0.4);
+}
+
+.mou-payment-check{
+    position:absolute;
+    top:12px;
+    right:12px;
+    width:24px;
+    height:24px;
+    background:var(--grad-gold-shine);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--bg);
+    font-size:0.75rem;
+    font-weight:800;
+    opacity:0;
+    transform:scale(0);
+    transition:all 0.3s var(--ease);
+}
+
+.mou-payment-option.selected .mou-payment-check{
+    opacity:1;
+    transform:scale(1);
 }
 
 
@@ -1026,10 +1184,7 @@
     padding:20px;
 }
 
-.mou-modal.active{
-    opacity:1;
-    visibility:visible;
-}
+.mou-modal.active{opacity:1;visibility:visible;}
 
 .mou-modal-content{
     background:var(--grad-card);
@@ -1087,82 +1242,90 @@
    ============================================ */
 @media (max-width:768px){
     .mou-header{padding:100px 20px 40px;}
-
+    
     .mou-progress-inner{gap:6px;}
     .mou-step-label{display:none;}
-
+    
     .mou-datetime-banner{
         top:68px;
         padding:12px 16px;
     }
-
+    
     .mou-datetime-inner{gap:16px;}
-
+    
     .mou-datetime-item i{
         width:36px;
         height:36px;
         font-size:1.15rem;
     }
-
+    
     .mou-datetime-label{font-size:0.65rem;}
     .mou-datetime-value{font-size:0.85rem;}
     .mou-datetime-divider{height:28px;}
-
+    
     .mou-form-card{padding:24px 20px;}
-    .mou-form-grid{
-        grid-template-columns:1fr;
-        gap:16px;
-    }
+    .mou-form-grid{grid-template-columns:1fr;gap:16px;}
     .mou-form-title{font-size:1.15rem;}
-
+    
+    .mou-payment-options{
+        grid-template-columns:1fr;
+        gap:12px;
+    }
+    
+    .mou-payment-option{padding:16px 14px;}
+    .mou-payment-icon{font-size:1.75rem;}
+    .mou-payment-title{font-size:0.95rem;}
+    .mou-payment-desc{font-size:0.78rem;}
+    .mou-payment-badge{
+        font-size:0.65rem;
+        padding:2px 8px;
+    }
+    
     #signaturePad{height:180px;}
-
+    
     .mou-sig-type-input{
         font-size:2rem;
         padding:24px 20px;
     }
-
+    
     .mou-dropdown-selected{
         padding:12px 14px;
         min-height:48px;
     }
-
+    
     .mou-dropdown-icon{font-size:1.2rem;}
     .mou-dropdown-text{font-size:0.9rem;}
-
+    
     .mou-dropdown-option{padding:10px 10px;}
     .mou-dropdown-option-icon{font-size:1.3rem;}
     .mou-dropdown-option-title{font-size:0.88rem;}
     .mou-dropdown-option-desc{font-size:0.72rem;}
     .mou-dropdown-options{max-height:300px;}
-
+    
     .mou-timestamp-box{padding:14px 16px;}
     .mou-timestamp-details{
         gap:12px;
         padding-left:20px;
     }
     .mou-timestamp-item{font-size:0.85rem;}
-
+    
     .mou-actions{flex-direction:column;}
     .mou-btn{width:100%;}
-
+    
     .mou-back{
         top:12px;
         left:12px;
         padding:10px 16px;
         font-size:0.8rem;
     }
-
+    
     .mou-modal-content{padding:32px 24px;}
 }
 
 @media (max-width:480px){
     .mou-datetime-inner{gap:12px;}
     .mou-datetime-divider{display:none;}
-    .mou-datetime-item{
-        flex:1;
-        min-width:0;
-    }
+    .mou-datetime-item{flex:1;min-width:0;}
 }
 </style>
 </head>
@@ -1289,13 +1452,13 @@
     </div>
 
 
-    <!-- FORM: Rekening dengan Custom Dropdown -->
+    <!-- FORM: Rekening + Payment Option -->
     <div class="mou-form-card" id="cardRekening">
         <div class="mou-form-title">
             <i class="fas fa-university"></i>
-            <span>Data Rekening Bank</span>
+            <span>Data Rekening & Pembayaran</span>
         </div>
-        <p class="mou-form-subtitle">Rekening untuk transfer komisi. Pastikan atas nama sendiri.</p>
+        <p class="mou-form-subtitle">Rekening untuk transfer komisi & pilih preferensi pembayaran.</p>
         
         <div class="mou-form-grid">
             <div class="mou-form-group">
@@ -1458,6 +1621,54 @@
                 <input type="text" class="mou-form-input" id="fieldAtasNama" placeholder="Sesuai buku tabungan" required>
                 <span class="mou-form-hint">⚠️ Harus atas nama sendiri, tidak boleh nama orang lain</span>
             </div>
+            
+            <!-- 💰 OPSI PEMBAYARAN KOMISI -->
+            <div class="mou-form-group full">
+                <label class="mou-form-label">
+                    <i class="fas fa-money-check-alt"></i> Opsi Pembayaran Komisi <span class="required">*</span>
+                </label>
+                <div class="mou-payment-options">
+                    
+                    <label class="mou-payment-option" data-value="per-closing">
+                        <input type="radio" name="paymentType" value="per-closing" onchange="selectPaymentOption(this)">
+                        <div class="mou-payment-icon">⚡</div>
+                        <div class="mou-payment-content">
+                            <div class="mou-payment-title">Per Closing</div>
+                            <div class="mou-payment-desc">
+                                Komisi cair <strong>langsung setelah closing</strong> (max 3 hari kerja setelah pelunasan client)
+                            </div>
+                            <div class="mou-payment-badges">
+                                <span class="mou-payment-badge fast">⚡ Cepat</span>
+                                <span class="mou-payment-badge">💵 Per Transaksi</span>
+                            </div>
+                        </div>
+                        <div class="mou-payment-check">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </label>
+                    
+                    <label class="mou-payment-option" data-value="per-bulan">
+                        <input type="radio" name="paymentType" value="per-bulan" onchange="selectPaymentOption(this)">
+                        <div class="mou-payment-icon">📅</div>
+                        <div class="mou-payment-content">
+                            <div class="mou-payment-title">Per Bulan (Tgl 1-5)</div>
+                            <div class="mou-payment-desc">
+                                Komisi <strong>direkap & dibayar sekaligus</strong> di awal bulan berikutnya (tanggal 1-5)
+                            </div>
+                            <div class="mou-payment-badges">
+                                <span class="mou-payment-badge recap">📊 Rekap Bulanan</span>
+                                <span class="mou-payment-badge">💼 Terjadwal</span>
+                            </div>
+                        </div>
+                        <div class="mou-payment-check">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </label>
+                    
+                </div>
+                <span class="mou-form-hint">💡 Pilihan bisa diubah nanti dengan pemberitahuan ke admin</span>
+                <input type="hidden" id="fieldPayment" value="" required>
+            </div>
         </div>
     </div>
 
@@ -1494,6 +1705,11 @@
             </ul>
             <p>2.2 Komisi dihitung dari nilai nett project (tidak termasuk domain/hosting).</p>
             <p>2.3 Pembayaran komisi maksimal <strong>3 hari kerja</strong> setelah client melunasi 100%.</p>
+            <p>2.4 <strong>Opsi Pembayaran:</strong></p>
+            <ul>
+                <li><strong>Per Closing:</strong> Komisi cair langsung setelah closing (max 3 hari kerja)</li>
+                <li><strong>Per Bulan (Tgl 1-5):</strong> Komisi direkap & dibayar di awal bulan berikutnya</li>
+            </ul>
             
             <h3>PASAL 3 - Hak & Kewajiban</h3>
             <p><strong>Hak Reseller:</strong> Komisi, materi promosi, training, support WA, akses grup, naik tier otomatis.</p>
@@ -1788,6 +2004,21 @@ function updateSigStatus() {
 
 
 // ====================================================
+// 💰 PAYMENT OPTION SELECTOR
+// ====================================================
+function selectPaymentOption(radio) {
+    document.querySelectorAll('.mou-payment-option').forEach(opt => {
+        opt.classList.remove('selected');
+    });
+    
+    radio.closest('.mou-payment-option').classList.add('selected');
+    document.getElementById('fieldPayment').value = radio.value;
+    
+    checkFormComplete();
+}
+
+
+// ====================================================
 // CUSTOM DROPDOWN BANK
 // ====================================================
 function toggleBankDropdown() {
@@ -1842,7 +2073,7 @@ document.addEventListener('click', (e) => {
 // FORM VALIDATION
 // ====================================================
 function isFormValid() {
-    const required = ['fieldNama', 'fieldKTP', 'fieldAlamat', 'fieldWA', 'fieldEmail', 'fieldBank', 'fieldNorek', 'fieldAtasNama'];
+    const required = ['fieldNama', 'fieldKTP', 'fieldAlamat', 'fieldWA', 'fieldEmail', 'fieldBank', 'fieldNorek', 'fieldAtasNama', 'fieldPayment'];
     
     for (const id of required) {
         const val = document.getElementById(id).value.trim();
@@ -1873,11 +2104,12 @@ function updateProgress() {
     const alamat = document.getElementById('fieldAlamat').value.trim();
     const bank = document.getElementById('fieldBank').value.trim();
     const norek = document.getElementById('fieldNorek').value.trim();
+    const payment = document.getElementById('fieldPayment').value.trim();
     
     const step1Complete = nama && document.getElementById('fieldKTP').value.trim() && alamat;
     document.getElementById('progressStep1').classList.toggle('completed', step1Complete);
     
-    const step2Complete = bank && norek;
+    const step2Complete = bank && norek && payment;
     document.getElementById('progressStep2').classList.toggle('completed', step2Complete);
     document.getElementById('progressStep2').classList.toggle('active', step1Complete);
     
@@ -1920,6 +2152,11 @@ function getFormData() {
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
     
+    const paymentValue = document.getElementById('fieldPayment').value;
+    const paymentLabel = paymentValue === 'per-closing' 
+        ? '⚡ Per Closing (max 3 hari kerja setelah pelunasan)'
+        : '📅 Per Bulan (tanggal 1-5 bulan berikutnya)';
+    
     return {
         nama: document.getElementById('fieldNama').value.trim(),
         ktp: document.getElementById('fieldKTP').value.trim(),
@@ -1931,6 +2168,8 @@ function getFormData() {
         bank: document.getElementById('fieldBank').value,
         norek: document.getElementById('fieldNorek').value.trim(),
         atasNama: document.getElementById('fieldAtasNama').value.trim(),
+        paymentType: paymentValue,
+        paymentLabel: paymentLabel,
         hari: day,
         tanggalAngka: date,
         bulan: month,
@@ -2035,7 +2274,8 @@ function generatePDFHTML(data, sig) {
             ${data.sosmed !== '-' ? `Sosial Media: ${data.sosmed}<br>` : ''}
             <br>
             <b>Rekening:</b> ${data.bank} - ${data.norek}<br>
-            <b>Atas Nama:</b> ${data.atasNama}
+            <b>Atas Nama:</b> ${data.atasNama}<br>
+            <b>Opsi Pembayaran:</b> ${data.paymentLabel}
         </div>
         
         <h3 style="color:#d4a536;border-bottom:1px solid #ddd;padding-bottom:5px;">PASAL 1 - LINGKUP KEMITRAAN</h3>
@@ -2043,10 +2283,12 @@ function generatePDFHTML(data, sig) {
         <p>1.2 Paket: Hemat (Rp 1.5jt), Reguler (Rp 2.5jt), Premium (Rp 5jt).</p>
         <p>1.3 PIHAK KEDUA mencari client, teknis oleh PIHAK PERTAMA.</p>
         
-        <h3 style="color:#d4a536;border-bottom:1px solid #ddd;padding-bottom:5px;">PASAL 2 - KOMISI</h3>
+        <h3 style="color:#d4a536;border-bottom:1px solid #ddd;padding-bottom:5px;">PASAL 2 - KOMISI & PEMBAYARAN</h3>
         <p>2.1 Tier: Silver 15% | Gold 20% + bonus Rp 100rb | Platinum 25% + bonus Rp 200rb</p>
         <p>2.2 Komisi dari nilai nett project.</p>
         <p>2.3 Pembayaran max 3 hari kerja setelah pelunasan.</p>
+        <p><b>2.4 Opsi pembayaran yang dipilih PIHAK KEDUA:</b><br>
+        <span style="background:#f9f4e6;padding:4px 10px;border-radius:4px;color:#d4a536;font-weight:bold;">${data.paymentLabel}</span></p>
         
         <h3 style="color:#d4a536;border-bottom:1px solid #ddd;padding-bottom:5px;">PASAL 3 - HAK & KEWAJIBAN</h3>
         <p><b>Reseller berhak:</b> Komisi, materi promosi, support, akses grup.</p>
@@ -2134,6 +2376,9 @@ ${data.sosmed !== '-' ? `• Sosmed: ${data.sosmed}` : ''}
 • Bank: ${data.bank}
 • No: ${data.norek}
 • A/n: ${data.atasNama}
+
+💰 *OPSI PEMBAYARAN KOMISI:*
+${data.paymentLabel}
 
 ✅ *Persetujuan MoU:*
 Saya telah membaca, memahami & menyetujui seluruh isi perjanjian kemitraan reseller.
