@@ -821,6 +821,154 @@
     transform:translateY(-3px);
 }
 
+/* ===== Custom Dropdown - Premium Dark Theme ===== */
+.custom-select-wrapper{
+    position:relative;
+    width:100%;
+    user-select:none;
+}
+
+.custom-select{
+    background:rgba(255,255,255,0.03);
+    border:1.5px solid rgba(212,165,54,0.3);
+    border-radius:12px;
+    padding:14px 18px;
+    color:#fff;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    transition:all 0.3s ease;
+    min-height:52px;
+    box-sizing:border-box;
+}
+
+.custom-select:hover{
+    border-color:rgba(212,165,54,0.6);
+    background:rgba(212,165,54,0.05);
+}
+
+.custom-select.active{
+    border-color:#d4a536;
+    background:rgba(212,165,54,0.08);
+    box-shadow:0 0 0 3px rgba(212,165,54,0.15);
+}
+
+.custom-select-value{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex:1;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.level-icon{
+    font-size:1.3rem;
+    flex-shrink:0;
+}
+
+.level-text{
+    color:#fff;
+    font-weight:600;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.custom-select-arrow{
+    color:#d4a536;
+    font-size:0.75rem;
+    transition:transform 0.3s ease;
+    flex-shrink:0;
+}
+
+.custom-select.active .custom-select-arrow{
+    transform:rotate(180deg);
+}
+
+.custom-select-options{
+    position:absolute;
+    top:calc(100% + 8px);
+    left:0;
+    right:0;
+    background:linear-gradient(180deg,#1a1a2e 0%,#16162a 100%);
+    border:1.5px solid rgba(212,165,54,0.4);
+    border-radius:12px;
+    box-shadow:0 12px 40px rgba(0,0,0,0.5),0 0 20px rgba(212,165,54,0.15);
+    overflow:hidden;
+    max-height:0;
+    opacity:0;
+    visibility:hidden;
+    transition:all 0.3s ease;
+    z-index:100;
+}
+
+.custom-select-options.show{
+    max-height:300px;
+    opacity:1;
+    visibility:visible;
+}
+
+.custom-option{
+    padding:14px 18px;
+    color:#fff;
+    font-size:1rem;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    transition:all 0.2s ease;
+    border-bottom:1px solid rgba(212,165,54,0.1);
+}
+
+.custom-option:last-child{
+    border-bottom:none;
+}
+
+.custom-option:hover{
+    background:rgba(212,165,54,0.15);
+    color:#d4a536;
+    padding-left:24px;
+}
+
+.custom-option.selected{
+    background:rgba(212,165,54,0.1);
+    color:#d4a536;
+    font-weight:700;
+    position:relative;
+}
+
+.custom-option.selected::after{
+    content:'✓';
+    position:absolute;
+    right:18px;
+    color:#d4a536;
+    font-weight:900;
+    font-size:1.1rem;
+}
+
+/* Mobile adjustments */
+@media (max-width:768px){
+    .custom-select{
+        padding:12px 16px;
+        font-size:0.95rem;
+        min-height:48px;
+    }
+    
+    .custom-option{
+        padding:12px 16px;
+        font-size:0.95rem;
+    }
+    
+    .level-icon{
+        font-size:1.2rem;
+    }
+}
 
 /* Responsive */
 @media (max-width:768px){
@@ -931,11 +1079,30 @@
                 <label class="slip-form-label">
                     <i class="fas fa-medal"></i> Tier Reseller
                 </label>
-                <select class="slip-form-select" id="fieldTier" onchange="updateAllClosings()">
-                    <option value="15">🥉 Silver (15%)</option>
-                    <option value="20" selected>🥈 Gold (20% + Rp 100rb)</option>
-                    <option value="25">🥇 Platinum (25% + Rp 200rb)</option>
-                </select>
+             <div class="custom-select-wrapper">
+    <div class="custom-select" id="levelSelect" onclick="toggleLevelDropdown()">
+        <div class="custom-select-value">
+            <span class="level-icon">🥈</span>
+            <span class="level-text">Gold (20% + Rp 100rb)</span>
+        </div>
+        <span class="custom-select-arrow">▼</span>
+    </div>
+    <div class="custom-select-options" id="levelOptions">
+        <div class="custom-option" data-value="silver" data-icon="🥉" data-text="Silver (15%)" onclick="selectLevel(this)">
+            <span class="level-icon">🥉</span>
+            <span class="level-text">Silver (15%)</span>
+        </div>
+        <div class="custom-option selected" data-value="gold" data-icon="🥈" data-text="Gold (20% + Rp 100rb)" onclick="selectLevel(this)">
+            <span class="level-icon">🥈</span>
+            <span class="level-text">Gold (20% + Rp 100rb)</span>
+        </div>
+        <div class="custom-option" data-value="platinum" data-icon="🥇" data-text="Platinum (25% + Rp 200rb)" onclick="selectLevel(this)">
+            <span class="level-icon">🥇</span>
+            <span class="level-text">Platinum (25% + Rp 200rb)</span>
+        </div>
+    </div>
+    <input type="hidden" id="resellerLevel" value="gold">
+</div>
             </div>
             
             <div class="slip-form-group">
@@ -1634,6 +1801,55 @@ window.addEventListener('load', () => {
         input.addEventListener('change', updatePreview);
     });
 });
+
+// Toggle dropdown
+function toggleLevelDropdown(){
+    const select = document.getElementById('levelSelect');
+    const options = document.getElementById('levelOptions');
+    
+    select.classList.toggle('active');
+    options.classList.toggle('show');
+}
+
+// Select option
+function selectLevel(element){
+    const value = element.dataset.value;
+    const icon = element.dataset.icon;
+    const text = element.dataset.text;
+    
+    // Update hidden input
+    document.getElementById('resellerLevel').value = value;
+    
+    // Update display
+    const select = document.getElementById('levelSelect');
+    select.querySelector('.level-icon').textContent = icon;
+    select.querySelector('.level-text').textContent = text;
+    
+    // Update selected state
+    document.querySelectorAll('.custom-option').forEach(opt => {
+        opt.classList.remove('selected');
+    });
+    element.classList.add('selected');
+    
+    // Close dropdown
+    select.classList.remove('active');
+    document.getElementById('levelOptions').classList.remove('show');
+    
+    // Trigger update function
+    updateLevel();
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e){
+    const wrapper = document.querySelector('.custom-select-wrapper');
+    if(wrapper && !wrapper.contains(e.target)){
+        document.getElementById('levelSelect')?.classList.remove('active');
+        document.getElementById('levelOptions')?.classList.remove('show');
+    }
+});
+
+// Update function - PASTIKAN function updateLevel() existing masih baca dari #resellerLevel
+// Karena kita pakai hidden input dengan id yang sama, function lama tetap jalan!
 </script>
 
 </body>
