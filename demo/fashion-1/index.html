@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="LUXE - Premium Fashion Store. Discover the latest trends in luxury fashion.">
+<title>LUXE - Premium Fashion Store</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ==================== DEMO BANNER ==================== -->
+<div class="demo-banner">
+  <div class="demo-banner-content">
+    <span class="demo-badge">🎨 DEMO TEMPLATE</span>
+    <p>Ini adalah template <b>Fashion Store</b> - Paket Premium</p>
+    <div class="demo-actions">
+      <a href="../../template.html" class="demo-btn-back">
+        <i class="fas fa-arrow-left"></i> Kembali ke Galeri
+      </a>
+      <a href="https://wa.me/6281401643188?text=Halo,%20saya%20tertarik%20template%20LUXE%20Fashion%20Store" class="demo-btn-order">
+        <i class="fab fa-whatsapp"></i> Pesan Template Ini
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TOP BAR ==================== -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <div class="topbar-left">
+      <span><i class="fas fa-truck"></i> Free shipping on orders over Rp 500K</span>
+    </div>
+    <div class="topbar-right">
+      <a href="#"><i class="fas fa-phone"></i> +62 814-0164-3188</a>
+      <a href="#"><i class="fas fa-envelope"></i> hello@luxe.com</a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-facebook"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="#home" class="brand">
+      <span class="brand-text">LUXE</span>
+      <span class="brand-tag">FASHION</span>
+    </a>
+    <ul class="nav-menu">
+      <li><a href="#home" class="nav-link active">Home</a></li>
+      <li><a href="#shop" class="nav-link">Shop</a></li>
+      <li class="nav-dropdown">
+        <a href="#" class="nav-link">Categories <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown-menu">
+          <a href="#" data-filter="dress"><span>👗</span> Dresses</a>
+          <a href="#" data-filter="bag"><span>👜</span> Bags</a>
+          <a href="#" data-filter="shoes"><span>👠</span> Shoes</a>
+          <a href="#" data-filter="accessories"><span>💍</span> Accessories</a>
+        </div>
+      </li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon" id="searchBtn" aria-label="Search">
+        <i class="fas fa-search"></i>
+      </button>
+      <button class="nav-icon" aria-label="Wishlist">
+        <i class="far fa-heart"></i>
+        <span class="badge" id="wishlistCount">0</span>
+      </button>
+      <button class="nav-icon" aria-label="Account">
+        <i class="far fa-user"></i>
+      </button>
+      <button class="nav-icon cart-btn" id="cartBtn" aria-label="Cart">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="badge" id="cartCount">0</span>
+      </button>
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== SEARCH OVERLAY ==================== -->
+<div class="search-overlay" id="searchOverlay">
+  <button class="search-close" id="searchClose"><i class="fas fa-times"></i></button>
+  <div class="search-content">
+    <h2>What are you looking for?</h2>
+    <div class="search-input-wrap">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Search products..." autofocus>
+    </div>
+    <div class="search-suggestions">
+      <p>Popular searches:</p>
+      <div class="search-tags">
+        <span>Summer Dress</span>
+        <span>Leather Bag</span>
+        <span>High Heels</span>
+        <span>Gold Necklace</span>
+        <span>Silk Scarf</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="home">
+  <div class="hero-slider">
+    <div class="hero-slide active">
+      <div class="container hero-content">
+        <div class="hero-text">
+          <span class="hero-tag">NEW COLLECTION 2025</span>
+          <h1 class="hero-title">
+            Elegance in<br>
+            <span class="italic">Every</span> Stitch
+          </h1>
+          <p class="hero-desc">
+            Discover our curated collection of premium fashion pieces designed for the modern connoisseur.
+          </p>
+          <div class="hero-actions">
+            <a href="#shop" class="btn-primary">
+              <span>Shop Collection</span>
+              <i class="fas fa-arrow-right"></i>
+            </a>
+            <a href="#about" class="btn-outline">Learn More</a>
+          </div>
+          <div class="hero-features">
+            <div class="hf-item">
+              <i class="fas fa-truck"></i>
+              <span>Free Shipping</span>
+            </div>
+            <div class="hf-item">
+              <i class="fas fa-undo"></i>
+              <span>30-Day Return</span>
+            </div>
+            <div class="hf-item">
+              <i class="fas fa-shield-alt"></i>
+              <span>Secure Payment</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-image">
+            <div class="hero-model">👗</div>
+            <div class="hero-badge-float">
+              <span class="hbf-label">Best Seller</span>
+              <span class="hbf-title">Summer Collection</span>
+              <span class="hbf-price">From Rp 250K</span>
+            </div>
+          </div>
+          <div class="hero-decor decor-1">✨</div>
+          <div class="hero-decor decor-2">💎</div>
+          <div class="hero-decor decor-3">🌸</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CATEGORIES ==================== -->
+<section class="categories">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">CATEGORIES</span>
+      <h2 class="section-title">Shop by <span class="italic">Category</span></h2>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card" data-filter="dress">
+        <div class="cat-icon">👗</div>
+        <h3>Dresses</h3>
+        <span>48 Items</span>
+      </div>
+      <div class="cat-card" data-filter="bag">
+        <div class="cat-icon">👜</div>
+        <h3>Bags</h3>
+        <span>36 Items</span>
+      </div>
+      <div class="cat-card" data-filter="shoes">
+        <div class="cat-icon">👠</div>
+        <h3>Shoes</h3>
+        <span>52 Items</span>
+      </div>
+      <div class="cat-card" data-filter="accessories">
+        <div class="cat-icon">💍</div>
+        <h3>Accessories</h3>
+        <span>28 Items</span>
+      </div>
+      <div class="cat-card" data-filter="outerwear">
+        <div class="cat-icon">🧥</div>
+        <h3>Outerwear</h3>
+        <span>19 Items</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SHOP ==================== -->
+<section class="shop" id="shop">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">OUR PRODUCTS</span>
+      <h2 class="section-title">Featured <span class="italic">Collection</span></h2>
+      <p class="section-desc">Handpicked premium pieces for the discerning fashion enthusiast</p>
+    </div>
+
+    <!-- Filter & Sort -->
+    <div class="shop-controls">
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">
+          All <span class="ft-count">15</span>
+        </button>
+        <button class="filter-tab" data-filter="dress">
+          <span>👗</span> Dresses
+        </button>
+        <button class="filter-tab" data-filter="bag">
+          <span>👜</span> Bags
+        </button>
+        <button class="filter-tab" data-filter="shoes">
+          <span>👠</span> Shoes
+        </button>
+        <button class="filter-tab" data-filter="accessories">
+          <span>💍</span> Accessories
+        </button>
+      </div>
+      <div class="sort-wrap">
+        <label>Sort by:</label>
+        <select id="sortSelect">
+          <option value="default">Featured</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="name">Name (A-Z)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="products-grid" id="productsGrid">
+      <!-- Product 1 -->
+      <div class="product-card" data-cat="dress" data-price="450000" data-name="Elegant Summer Dress">
+        <div class="product-image">
+          <div class="product-emoji">👗</div>
+          <div class="product-badges">
+            <span class="p-badge sale">-20%</span>
+            <span class="p-badge new">NEW</span>
+          </div>
+          <div class="product-actions">
+            <button class="pa-btn wishlist-btn" data-id="1" aria-label="Wishlist"><i class="far fa-heart"></i></button>
+            <button class="pa-btn" aria-label="Quick view"><i class="far fa-eye"></i></button>
+            <button class="pa-btn" aria-label="Compare"><i class="fas fa-arrows-alt-h"></i></button>
+          </div>
+          <button class="quick-add" data-id="1" data-name="Elegant Summer Dress" data-price="450000" data-emoji="👗">
+            <i class="fas fa-shopping-bag"></i> Quick Add
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Dresses</span>
+          <h3 class="product-name">Elegant Summer Dress</h3>
+          <div class="product-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <span>(48)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">Rp 450K</span>
+            <span class="price-old">Rp 560K</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card" data-cat="bag" data-price="680000" data-name="Luxury Leather Handbag">
+        <div class="product-image">
+          <div class="product-emoji">👜</div>
+          <div class="product-badges">
+            <span class="p-badge hot">HOT</span>
+          </div>
+          <div class="product-actions">
+            <button class="pa-btn wishlist-btn" data-id="2" aria-label="Wishlist"><i class="far fa-heart"></i></button>
+            <button class="pa-btn" aria-label="Quick view"><i class="far fa-eye"></i></button>
+            <button class="pa-btn" aria-label="Compare"><i class="fas fa-arrows-alt-h"></i></button>
+          </div>
+          <button class="quick-add" data-id="2" data-name="Luxury Leather Handbag" data-price="680000" data-emoji="👜">
+            <i class="fas fa-shopping-bag"></i> Quick Add
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Bags</span>
+          <h3 class="product-name">Luxury Leather Handbag</h3>
+          <div class="product-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <span>(72)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">Rp 680K</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card" data-cat="shoes" data-price="520000" data-name="Classic High Heels">
+        <div class="product-image">
+          <div class="product-emoji">👠</div>
+          <div class="product-actions">
+            <button class="pa-btn wishlist-btn" data-id="3" aria-label="Wishlist"><i class="far fa-heart"></i></button>
+            <button class="pa-btn" aria-label="Quick view"><i class="far fa-eye"></i></button>
+            <button class="pa-btn" aria-label="Compare"><i class="fas fa-arrows-alt-h"></i></button>
+          </div>
+          <button class="quick-add" data-id="3" data-name="Classic High Heels" data-price="520000" data-emoji="👠">
+            <i class="fas fa-shopping-bag"></i> Quick Add
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Shoes</span>
+          <h3 class="product-name">Classic High Heels</h3>
+          <div class="product-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+            <span>(34)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">Rp 520K</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card" data-cat="accessories" data-price="350000" data-name="Gold Statement Necklace">
+        <div class="product-image">
+          <div class="product-emoji">📿</div>
+          <div class="product-badges">
+            <span class="p-badge new">NEW</span>
+          </div>
+          <div class="product-actions">
+            <button class="pa-btn wishlist-btn" data-id="4" aria-label="Wishlist"><i class="far fa-heart"></i></button>
+            <button class="pa-btn" aria-label="Quick view"><i class="far fa-eye"></i></button>
+            <button class="pa-btn" aria-label="Compare"><i class="fas fa-arrows-alt-h"></i></button>
+          </div>
+          <button class="quick-add" data-id="4" data-name="Gold Statement Necklace" data-price="350000" data-emoji="📿">
+            <i class="fas fa-shopping-bag"></i> Quick Add
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Accessories</span>
+          <h3 class="product-name">Gold Statement Necklace</h3>
+          <div class="product-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <span>(56)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">Rp 350K</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="product-card" data-cat="dress" data-price="780000" data-name="Evening Gown Elegance">
+        <div class="product-image">
+          <div class="product-emoji">👗</div>
+          <div class="product-badges">
+            <span class="p-badge sale">-15%</span>
+          </div>
+          <div class="product-actions">
+            <button class="pa-btn wishlist-btn" data-id="5" aria-label="Wishlist"><i class="far fa-heart"></i></button>
+            <button class="pa-btn" aria-label="Quick view"><i class="far fa-eye"></i></button>
+            <button class="pa-btn" aria-label="Compare"><i class="fas fa-arrows-alt-h"></i></button>
+          </div>
+          <button class="quick-add" data-id="5" data-name="Evening Gown Elegance" data-price="780000" data-emoji="👗">
+            <i class="fas fa-shopping-bag"></i> Quick Add
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Dresses</span>
+          <h3 class="product-name">Evening Gown Elegance</h3>
+          <div class="product-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <span>(89)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">Rp 780K</span>
+            <span class="price-old">Rp 920K</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 6 -->
+      <div class="product-card" data-cat="bag" data-price="420000" data-name="Chic Crossbody Bag">
+        <div class="product-image">
+          <div class="product-emoji">👛</div>
+          <div class="product-actions">
+            <button class="pa-btn wishlist-btn" data-id="6" aria-label="Wishlist"><i class="far fa-heart"></i></button>
+            <button class="pa-btn" aria-label="Quick view"><i class="far fa-eye"></i></button>
+            <button class="pa-btn" aria-label="Compare"><i class="fas fa-arrows-alt-h"></i></button>
+          </div>
+          <button class="quick-add" data-id="6" data-name="Chic Crossbody Bag" data-price="420000" data-emoji="👛">
+            <i class="fas fa-shopping-bag"></i> Quick Add
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Bags</span>
+          <h3 class="product-name">Chic Crossbody Bag</h3>
+          <div class="product-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+            <span>(41)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">Rp 420K</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 7 -->
+      <div class="product-card" data-cat="shoes" data-price="650000" data-name="Designer Sneakers">
+        <div class="product-image">
+          <div class="product-emoji">👟</div>
+          <div class="product-badges">
+            <span class="p-badge hot">HOT</span>
+          </div>
+          <div class="product-actions">
+            <button class="pa-btn wishlist-btn" data-id="7" aria-label="Wishlist"><i class="far fa-heart"></i></button>
+            <button class="pa-btn" aria-label="Quick view"><i class="far fa-eye"></i></button>
+            <button class="pa-btn" aria-label="Compare"><i class="fas fa-arrows-alt-h"></i></button>
+          </div>
+          <button class="quick-add" data-id="7" data-name="Designer Sneakers" data-price="650000" data-emoji="👟">
+            <i class="fas fa-shopping-bag"></i> Quick Add
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Shoes</span>
+          <h3 class="product-name">Designer Sneakers</h3>
+          <div class="product-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <span>(127)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">Rp 650K</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 8 -->
+      <div class="product-card" data-cat="accessories" data-price="280000" data-name="Silk Scarf Collection">
+        <div class="product-image">
+          <div class="product-emoji">🧣</div>
+          <div class="product-actions">
+            <button class="pa-btn wishlist-btn" data-id="8" aria-label="Wishlist"><i class="far fa-heart"></i></button>
+            <button class="pa-btn" aria-label="Quick view"><i class="far fa-eye"></i></button>
+            <button class="pa-btn" aria-label="Compare"><i class="fas fa-arrows-alt-h"></i></button>
+          </div>
+          <button class="quick-add" data-id="8" data-name="Silk Scarf Collection" data-price="280000" data-emoji="🧣">
+            <i class="fas fa-shopping-bag"></i> Quick Add
+          </button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">Accessories</span>
+          <h3 class="product-name">Silk Scarf Collection</h3>
+          <div class="product-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+            <span>(23)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">Rp 280K</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="load-more">
+      <button class="btn-outline">
+        <span>Load More Products</span>
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BANNER PROMO ==================== -->
+<section class="promo-banner">
+  <div class="container">
+    <div class="promo-content">
+      <div class="promo-text">
+        <span class="promo-tag">LIMITED TIME OFFER</span>
+        <h2>Summer Sale <span class="italic">Up to 50% Off</span></h2>
+        <p>Discover incredible discounts on our most coveted pieces. Sale ends soon!</p>
+        <div class="promo-countdown">
+          <div class="cd-item">
+            <div class="cd-num">02</div>
+            <div class="cd-label">Days</div>
+          </div>
+          <div class="cd-sep">:</div>
+          <div class="cd-item">
+            <div class="cd-num">14</div>
+            <div class="cd-label">Hours</div>
+          </div>
+          <div class="cd-sep">:</div>
+          <div class="cd-item">
+            <div class="cd-num">36</div>
+            <div class="cd-label">Minutes</div>
+          </div>
+          <div class="cd-sep">:</div>
+          <div class="cd-item">
+            <div class="cd-num">45</div>
+            <div class="cd-label">Seconds</div>
+          </div>
+        </div>
+        <a href="#shop" class="btn-primary">
+          <span>Shop the Sale</span>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+      <div class="promo-visual">
+        <div class="promo-circle">
+          <div class="pc-inner">
+            <span class="pc-percent">50%</span>
+            <span class="pc-label">OFF</span>
+          </div>
+        </div>
+        <div class="promo-icon icon-1">💎</div>
+        <div class="promo-icon icon-2">✨</div>
+        <div class="promo-icon icon-3">🎁</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FEATURES ==================== -->
+<section class="features">
+  <div class="container">
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon">
+          <i class="fas fa-truck"></i>
+        </div>
+        <div>
+          <h4>Free Shipping</h4>
+          <p>On orders over Rp 500K</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <i class="fas fa-undo"></i>
+        </div>
+        <div>
+          <h4>Easy Returns</h4>
+          <p>30-day return policy</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <i class="fas fa-lock"></i>
+        </div>
+        <div>
+          <h4>Secure Payment</h4>
+          <p>100% secure transaction</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <i class="fas fa-headset"></i>
+        </div>
+        <div>
+          <h4>24/7 Support</h4>
+          <p>Always here to help</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ABOUT ==================== -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-wrap">
+      <div class="about-image">
+        <div class="about-main-img">
+          <div class="am-emoji">👗</div>
+        </div>
+        <div class="about-sub-img img-1">
+          <div class="asi-emoji">👜</div>
+        </div>
+        <div class="about-sub-img img-2">
+          <div class="asi-emoji">👠</div>
+        </div>
+        <div class="about-badge">
+          <div class="ab-num">15+</div>
+          <div class="ab-label">Years of<br>Excellence</div>
+        </div>
+      </div>
+      <div class="about-content">
+        <span class="section-tag">ABOUT LUXE</span>
+        <h2 class="section-title">Crafted with <span class="italic">Passion</span></h2>
+        <p class="about-desc">
+          Since 2010, LUXE has been at the forefront of luxury fashion, offering carefully curated 
+          collections that blend timeless elegance with contemporary style. Every piece in our 
+          collection tells a story of craftsmanship and sophistication.
+        </p>
+        <div class="about-stats">
+          <div class="as-item">
+            <div class="as-num">50K+</div>
+            <div class="as-label">Happy Customers</div>
+          </div>
+          <div class="as-item">
+            <div class="as-num">500+</div>
+            <div class="as-label">Premium Products</div>
+          </div>
+          <div class="as-item">
+            <div class="as-num">98%</div>
+            <div class="as-label">Satisfaction Rate</div>
+          </div>
+        </div>
+        <a href="#shop" class="btn-primary">
+          <span>Explore Collection</span>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TESTIMONIALS ==================== -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">TESTIMONIALS</span>
+      <h2 class="section-title">What Our <span class="italic">Customers</span> Say</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+        <p class="testi-text">
+          "Absolutely stunning quality! The dress fits perfectly and the material is luxurious. 
+          LUXE is now my go-to fashion destination."
+        </p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩</div>
+          <div>
+            <div class="testi-name">Amanda Johnson</div>
+            <div class="testi-role">Verified Customer</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card featured">
+        <div class="testi-stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+        <p class="testi-text">
+          "The customer service is exceptional! Fast delivery, beautiful packaging, and the 
+          products exceed expectations. Highly recommended!"
+        </p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩‍💼</div>
+          <div>
+            <div class="testi-name">Sophie Chen</div>
+            <div class="testi-role">Fashion Blogger</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+        <p class="testi-text">
+          "Love the variety and quality! The bags are especially amazing - genuine leather 
+          with impeccable craftsmanship. Worth every penny."
+        </p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩</div>
+          <div>
+            <div class="testi-name">Isabella Rodriguez</div>
+            <div class="testi-role">Style Influencer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== NEWSLETTER ==================== -->
+<section class="newsletter">
+  <div class="container">
+    <div class="newsletter-card">
+      <div class="newsletter-content">
+        <span class="section-tag">STAY UPDATED</span>
+        <h2>Get 10% Off Your <span class="italic">First Order</span></h2>
+        <p>Subscribe to our newsletter and be the first to know about new collections, exclusive offers, and fashion tips.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Demo - Successfully subscribed!');">
+          <input type="email" placeholder="Enter your email address" required>
+          <button type="submit">
+            <span>Subscribe</span>
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+      <div class="newsletter-visual">
+        <div class="nv-emoji">💌</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-col brand-col">
+        <a href="#home" class="brand">
+          <span class="brand-text">LUXE</span>
+          <span class="brand-tag">FASHION</span>
+        </a>
+        <p class="footer-desc">
+          Premium fashion for the modern connoisseur. Discover timeless elegance and contemporary style.
+        </p>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-pinterest"></i></a>
+          <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">Sale</a></li>
+          <li><a href="#">Collections</a></li>
+          <li><a href="#">Gift Cards</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Care</h4>
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Terms & Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Payment Methods</h4>
+        <div class="payment-methods">
+          <div class="pm-item">💳</div>
+          <div class="pm-item">🏦</div>
+          <div class="pm-item">📱</div>
+          <div class="pm-item">💰</div>
+        </div>
+        <h4 style="margin-top:20px;">Contact</h4>
+        <p class="footer-contact">
+          <i class="fas fa-map-marker-alt"></i> Jl. Sudirman No. 88, Jakarta<br>
+          <i class="fas fa-phone"></i> +62 814-0164-3188<br>
+          <i class="fas fa-envelope"></i> hello@luxe.com
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 LUXE Fashion Store. Template by <a href="../../index.html">Ibaadurrahmaan Web Designer</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== CART SIDEBAR ==================== -->
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3><i class="fas fa-shopping-bag"></i> Shopping Cart</h3>
+    <button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty" id="cartEmpty">
+      <div class="ce-icon">🛍️</div>
+      <h4>Your cart is empty</h4>
+      <p>Add some products to get started!</p>
+      <button class="btn-primary" onclick="closeCart()">
+        <span>Continue Shopping</span>
+      </button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-summary">
+      <div class="cs-row">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">Rp 0</span>
+      </div>
+      <div class="cs-row">
+        <span>Shipping</span>
+        <span class="cs-free">FREE</span>
+      </div>
+      <div class="cs-row cs-total">
+        <span>Total</span>
+        <span id="cartTotal">Rp 0</span>
+      </div>
+    </div>
+    <button class="btn-checkout" onclick="alert('Demo - Checkout page would open here!');">
+      <span>Proceed to Checkout</span>
+      <i class="fas fa-arrow-right"></i>
+    </button>
+    <button class="btn-view-cart" onclick="closeCart()">Continue Shopping</button>
+  </div>
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- Floating WA -->
+<a href="https://wa.me/6281401643188" class="fab-wa" aria-label="Chat WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast">
+  <i class="fas fa-check-circle"></i>
+  <span id="toastText">Added to cart!</span>
+</div>
+
+<script>
+// ============ CART SYSTEM ============
+let cart = [];
+let wishlist = [];
+
+function formatPrice(price){
+  return 'Rp ' + (price/1000).toFixed(0) + 'K';
+}
+
+function updateCartUI(){
+  const cartCount = document.getElementById('cartCount');
+  const cartItems = document.getElementById('cartItems');
+  const cartEmpty = document.getElementById('cartEmpty');
+  const cartFooter = document.getElementById('cartFooter');
+  
+  cartCount.textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+  
+  if(cart.length === 0){
+    cartEmpty.style.display = 'block';
+    cartFooter.style.display = 'none';
+    cartItems.innerHTML = '';
+    return;
+  }
+  
+  cartEmpty.style.display = 'none';
+  cartFooter.style.display = 'block';
+  
+  cartItems.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="ci-image">${item.emoji}</div>
+      <div class="ci-info">
+        <h4>${item.name}</h4>
+        <p class="ci-price">${formatPrice(item.price)}</p>
+        <div class="ci-qty">
+          <button onclick="changeQty(${item.id}, -1)">−</button>
+          <span>${item.qty}</span>
+          <button onclick="changeQty(${item.id}, 1)">+</button>
+        </div>
+      </div>
+      <button class="ci-remove" onclick="removeItem(${item.id})">
+        <i class="fas fa-trash"></i>
+      </button>
+    </div>
+  `).join('');
+  
+  const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+  document.getElementById('cartSubtotal').textContent = formatPrice(subtotal);
+  document.getElementById('cartTotal').textContent = formatPrice(subtotal);
+}
+
+function addToCart(id, name, price, emoji){
+  const existing = cart.find(item => item.id === id);
+  if(existing){
+    existing.qty++;
+  } else {
+    cart.push({id, name, price, emoji, qty: 1});
+  }
+  updateCartUI();
+  showToast('Added to cart!');
+  openCart();
+}
+
+function changeQty(id, delta){
+  const item = cart.find(i => i.id === id);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty <= 0){
+    cart = cart.filter(i => i.id !== id);
+  }
+  updateCartUI();
+}
+
+function removeItem(id){
+  cart = cart.filter(item => item.id !== id);
+  updateCartUI();
+  showToast('Removed from cart');
+}
+
+function openCart(){
+  document.getElementById('cartSidebar').classList.add('open');
+  document.getElementById('overlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCart(){
+  document.getElementById('cartSidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// ============ WISHLIST SYSTEM ============
+function toggleWishlist(id, btn){
+  const icon = btn.querySelector('i');
+  const idx = wishlist.indexOf(id);
+  if(idx > -1){
+    wishlist.splice(idx, 1);
+    icon.classList.replace('fas','far');
+    btn.classList.remove('active');
+    showToast('Removed from wishlist');
+  } else {
+    wishlist.push(id);
+    icon.classList.replace('far','fas');
+    btn.classList.add('active');
+    showToast('Added to wishlist!');
+  }
+  document.getElementById('wishlistCount').textContent = wishlist.length;
+}
+
+// ============ TOAST ============
+function showToast(text){
+  const toast = document.getElementById('toast');
+  document.getElementById('toastText').textContent = text;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ============ EVENT LISTENERS ============
+document.querySelectorAll('.quick-add').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    addToCart(
+      parseInt(btn.dataset.id),
+      btn.dataset.name,
+      parseInt(btn.dataset.price),
+      btn.dataset.emoji
+    );
+  });
+});
+
+document.querySelectorAll('.wishlist-btn').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    toggleWishlist(parseInt(btn.dataset.id), btn);
+  });
+});
+
+document.getElementById('cartBtn').addEventListener('click', openCart);
+document.getElementById('cartClose').addEventListener('click', closeCart);
+document.getElementById('overlay').addEventListener('click', () => {
+  closeCart();
+  closeSearch();
+});
+
+// ============ FILTER PRODUCTS ============
+document.querySelectorAll('.filter-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const filter = tab.dataset.filter;
+    document.querySelectorAll('.product-card').forEach(card => {
+      if(filter === 'all' || card.dataset.cat === filter){
+        card.style.display = 'block';
+        setTimeout(() => card.style.opacity = '1', 10);
+      } else {
+        card.style.opacity = '0';
+        setTimeout(() => card.style.display = 'none', 300);
+      }
+    });
+  });
+});
+
+// Category cards filter
+document.querySelectorAll('.cat-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const filter = card.dataset.filter;
+    const tab = document.querySelector(`.filter-tab[data-filter="${filter}"]`);
+    if(tab) tab.click();
+    document.getElementById('shop').scrollIntoView({behavior: 'smooth'});
+  });
+});
+
+// ============ SORT ============
+document.getElementById('sortSelect').addEventListener('change', e => {
+  const value = e.target.value;
+  const grid = document.getElementById('productsGrid');
+  const cards = Array.from(grid.children);
+  
+  cards.sort((a, b) => {
+    if(value === 'price-low') return parseInt(a.dataset.price) - parseInt(b.dataset.price);
+    if(value === 'price-high') return parseInt(b.dataset.price) - parseInt(a.dataset.price);
+    if(value === 'name') return a.dataset.name.localeCompare(b.dataset.name);
+    return 0;
+  });
+  
+  cards.forEach(card => grid.appendChild(card));
+});
+
+// ============ SEARCH ============
+document.getElementById('searchBtn').addEventListener('click', () => {
+  document.getElementById('searchOverlay').classList.add('open');
+  document.getElementById('overlay').classList.add('show');
+});
+
+document.getElementById('searchClose').addEventListener('click', closeSearch);
+
+function closeSearch(){
+  document.getElementById('searchOverlay').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// ============ NAVBAR ============
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if(window.scrollY > 50) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+document.getElementById('menuToggle')?.addEventListener('click', () => {
+  document.querySelector('.nav-menu').classList.toggle('open');
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if(target){
+      e.preventDefault();
+      target.scrollIntoView({behavior: 'smooth'});
+      document.querySelector('.nav-menu')?.classList.remove('open');
+    }
+  });
+});
+
+// Init
+updateCartUI();
+</script>
+
+</body>
+</html>
