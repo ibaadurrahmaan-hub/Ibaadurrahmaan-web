@@ -1237,6 +1237,53 @@
 
 
 <script>
+
+// ====================================================
+// AUTH GUARD - PALING ATAS SCRIPT!
+// ====================================================
+const CREDENTIALS = {
+    username: 'owner',
+    password: 'ibaadurrahmaan2024'
+};
+
+function simpleHash(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
+    }
+    return hash.toString(36) + str.length.toString(36);
+}
+
+function checkAuth() {
+    const session = localStorage.getItem('ibaad_session');
+    if (!session) {
+        window.location.href = 'dashboard-login.html';
+        return false;
+    }
+    try {
+        const data = JSON.parse(session);
+        if (Date.now() > data.expiry) {
+            localStorage.removeItem('ibaad_session');
+            window.location.href = 'dashboard-login.html';
+            return false;
+        }
+        const validToken = simpleHash(CREDENTIALS.username + CREDENTIALS.password);
+        if (data.token !== validToken) {
+            localStorage.removeItem('ibaad_session');
+            window.location.href = 'dashboard-login.html';
+            return false;
+        }
+        return data;
+    } catch(e) {
+        window.location.href = 'dashboard-login.html';
+        return false;
+    }
+}
+
+checkAuth();
+
 // ====================================================
 // SLIP KOMISI GENERATOR - FINAL VERSION
 // ====================================================
