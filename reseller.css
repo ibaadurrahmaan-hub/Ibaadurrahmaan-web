@@ -2007,61 +2007,65 @@ body{
 }
 
 /* ====================================================
-   🔧 v5.7 FIX: Floating WhatsApp Button (FAB)
-   Force perbesar dengan specificity tinggi
+   🔧 v5.8 FIX: Floating WhatsApp - Icon Only
+   Tanpa background bulat, cuma icon saja
    ==================================================== */
 
-/* FAB WhatsApp Container */
+/* FAB WhatsApp - HANYA ICON */
 a.fab-wa,
 .fab-wa{
     position:fixed !important;
     bottom:100px !important;
     right:20px !important;
-    width:64px !important;
-    height:64px !important;
-    background:#25D366 !important;
-    border-radius:50% !important;
-    display:flex !important;
+    width:auto !important;
+    height:auto !important;
+    background:transparent !important;
+    border:none !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    padding:0 !important;
+    display:inline-flex !important;
     align-items:center !important;
     justify-content:center !important;
-    box-shadow:0 6px 24px rgba(37,211,102,0.5) !important;
     z-index:998 !important;
     text-decoration:none !important;
-    transition:all 0.3s var(--ease) !important;
-    animation:fabPulse 2s ease-in-out infinite;
+    transition:transform 0.3s var(--ease) !important;
+    animation:fabFloat 2.5s ease-in-out infinite;
 }
 
 a.fab-wa:hover,
 .fab-wa:hover{
-    transform:scale(1.1) !important;
-    box-shadow:0 8px 30px rgba(37,211,102,0.7) !important;
+    transform:scale(1.15) !important;
+    background:transparent !important;
+    box-shadow:none !important;
 }
 
-/* 🔑 Icon WA di FAB - FORCE BESAR dengan specificity max */
+/* Icon WhatsApp - Force besar & warna hijau */
 a.fab-wa i,
 a.fab-wa .fa-whatsapp,
 a.fab-wa .fab.fa-whatsapp,
 .fab-wa i,
 .fab-wa .fa-whatsapp,
 .fab-wa .fab.fa-whatsapp{
-    font-size:2.5rem !important;
-    color:#fff !important;
+    font-size:4rem !important;
+    color:#25D366 !important;
     line-height:1 !important;
     margin:0 !important;
-    display:flex !important;
+    padding:0 !important;
+    background:transparent !important;
+    filter:drop-shadow(0 4px 12px rgba(37,211,102,0.5));
+    display:inline-flex !important;
     align-items:center !important;
     justify-content:center !important;
 }
 
-/* Pulse animation */
-@keyframes fabPulse{
+/* Float animation */
+@keyframes fabFloat{
     0%,100%{
-        box-shadow:0 6px 24px rgba(37,211,102,0.5),
-                   0 0 0 0 rgba(37,211,102,0.4);
+        transform:translateY(0);
     }
     50%{
-        box-shadow:0 6px 24px rgba(37,211,102,0.7),
-                   0 0 0 15px rgba(37,211,102,0);
+        transform:translateY(-8px);
     }
 }
 
@@ -2074,23 +2078,19 @@ a.fab-wa .fab.fa-whatsapp,
     .fab-wa{
         bottom:130px !important;
         right:16px !important;
-        width:60px !important;
-        height:60px !important;
     }
 
     a.fab-wa i,
     a.fab-wa .fa-whatsapp,
     .fab-wa i,
     .fab-wa .fa-whatsapp{
-        font-size:2.3rem !important;
+        font-size:3.5rem !important;
     }
 }
 
 @media (max-width:400px){
     a.fab-wa,
     .fab-wa{
-        width:56px !important;
-        height:56px !important;
         bottom:120px !important;
     }
 
@@ -2098,6 +2098,6 @@ a.fab-wa .fab.fa-whatsapp,
     a.fab-wa .fa-whatsapp,
     .fab-wa i,
     .fab-wa .fa-whatsapp{
-        font-size:2.1rem !important;
+        font-size:3rem !important;
     }
 }
