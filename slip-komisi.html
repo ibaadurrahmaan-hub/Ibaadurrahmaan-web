@@ -1715,7 +1715,7 @@ function generateSingleSlip() {
 
 
 // ====================================================
-// DOWNLOAD PDF - Via Native Browser Print (100% Reliable)
+// DOWNLOAD PDF - Via Native Browser Print (Enhanced UX)
 // ====================================================
 function downloadPDF() {
     const nama = document.getElementById('fieldNama').value.trim() || 'reseller';
@@ -1738,91 +1738,146 @@ function downloadPDF() {
         <html>
         <head>
             <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>${filename}</title>
             <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
             <style>
                 ${styles}
                 body { 
-                    background:#fff !important; 
+                    background:#f5f5f5 !important; 
                     padding:20px;
                     margin:0;
                     font-family:'Poppins',sans-serif;
                 }
                 .slip-preview {
-                    box-shadow:none !important;
+                    box-shadow:0 10px 40px rgba(0,0,0,0.15) !important;
                     max-width:800px;
                     margin:0 auto;
                 }
+                
+                /* Print Info Banner */
+                .print-info {
+                    max-width:800px;
+                    margin:0 auto 24px;
+                    padding:20px 24px;
+                    background:linear-gradient(135deg,#d4a536,#c19a2e);
+                    color:#fff;
+                    border-radius:16px;
+                    text-align:center;
+                    font-family:'Poppins',sans-serif;
+                    box-shadow:0 8px 25px rgba(212,165,54,0.4);
+                }
+                .print-info h3 {
+                    margin:0 0 16px;
+                    font-size:1.2rem;
+                    font-weight:800;
+                    letter-spacing:0.5px;
+                }
+                .print-steps {
+                    text-align:left;
+                    max-width:500px;
+                    margin:0 auto 20px;
+                    background:rgba(255,255,255,0.15);
+                    border-radius:12px;
+                    padding:16px;
+                }
+                .print-steps .step {
+                    display:flex;
+                    align-items:flex-start;
+                    gap:12px;
+                    padding:8px 0;
+                    font-size:0.88rem;
+                    line-height:1.5;
+                }
+                .print-steps .step-num {
+                    background:#fff;
+                    color:#d4a536;
+                    width:26px;
+                    height:26px;
+                    border-radius:50%;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    font-weight:900;
+                    flex-shrink:0;
+                    font-size:0.85rem;
+                }
+                .print-steps .step-text {
+                    flex:1;
+                    padding-top:3px;
+                }
+                .print-info button {
+                    padding:14px 32px;
+                    background:#fff;
+                    color:#d4a536;
+                    border:none;
+                    border-radius:100px;
+                    font-weight:800;
+                    cursor:pointer;
+                    font-size:1rem;
+                    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+                    display:inline-flex;
+                    align-items:center;
+                    gap:10px;
+                    font-family:'Poppins',sans-serif;
+                    transition:transform 0.2s ease;
+                }
+                .print-info button:active {
+                    transform:scale(0.96);
+                }
+                .print-info button i {
+                    font-size:1.1rem;
+                }
+                
                 @media print {
-                    body { padding:0; margin:0; }
+                    body { background:#fff !important; padding:0; margin:0; }
+                    .print-info { display:none !important; }
                     .slip-preview { 
                         padding:15mm !important; 
                         box-shadow:none !important;
                         border-radius:0 !important;
+                        max-width:100% !important;
                     }
                     @page {
                         size: A4;
                         margin: 0;
                     }
                 }
-                .print-info {
-                    max-width:800px;
-                    margin:0 auto 20px;
-                    padding:16px 20px;
-                    background:linear-gradient(135deg,#d4a536,#c19a2e);
-                    color:#fff;
-                    border-radius:12px;
-                    text-align:center;
-                    font-family:'Poppins',sans-serif;
-                    box-shadow:0 4px 15px rgba(212,165,54,0.3);
-                }
-                .print-info h3 {
-                    margin:0 0 8px;
-                    font-size:1.1rem;
-                    font-weight:800;
-                }
-                .print-info p {
-                    margin:4px 0;
-                    font-size:0.85rem;
-                    opacity:0.95;
-                }
-                .print-info button {
-                    margin-top:12px;
-                    padding:10px 24px;
-                    background:#fff;
-                    color:#d4a536;
-                    border:none;
-                    border-radius:100px;
-                    font-weight:700;
-                    cursor:pointer;
-                    font-size:0.9rem;
-                }
-                @media print {
-                    .print-info { display:none !important; }
-                }
             </style>
         </head>
         <body>
             <div class="print-info">
-                <h3>💾 Simpan sebagai PDF</h3>
-                <p>Di dialog print yang muncul, pilih tujuan <b>"Save as PDF"</b> atau <b>"Simpan sebagai PDF"</b></p>
-                <button onclick="window.print()">🖨️ Buka Dialog Print</button>
+                <h3>💾 Cara Simpan sebagai PDF</h3>
+                <div class="print-steps">
+                    <div class="step">
+                        <span class="step-num">1</span>
+                        <span class="step-text">Klik tombol <b>"Buka Dialog Print"</b> di bawah</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">2</span>
+                        <span class="step-text">Cari opsi <b>"Tujuan"</b> atau <b>"Destination"</b></span>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">3</span>
+                        <span class="step-text">Pilih <b>"Simpan sebagai PDF"</b> / <b>"Save as PDF"</b></span>
+                    </div>
+                    <div class="step">
+                        <span class="step-num">4</span>
+                        <span class="step-text">Klik <b>"Simpan"</b> → PDF tersimpan di Downloads! ✅</span>
+                    </div>
+                </div>
+                <button onclick="window.print()">
+                    <i class="fas fa-print"></i> Buka Dialog Print Sekarang
+                </button>
             </div>
             ${preview}
-            <script>
-                window.onload = function() {
-                    setTimeout(() => {
-                        window.print();
-                    }, 1000);
-                };
-            <\/script>
         </body>
         </html>
     `);
     win.document.close();
     
-    showToast('💡 Di dialog print, pilih "Save as PDF" untuk download', 'info');
+    showToast('💡 Ikuti instruksi di window baru untuk simpan PDF', 'info');
 }
 
 
