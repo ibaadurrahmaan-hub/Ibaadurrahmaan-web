@@ -2727,12 +2727,15 @@ a.fab-wa .fab.fa-whatsapp,
   
   .hero-title{font-size:42px;letter-spacing:-1px;}
   .hero-benefits li{font-size:14px;}
-  .hero-sub{
-  font-size:10px;
-  letter-spacing:1.3px;
-  padding:11px 20px;
-  white-space:nowrap;
-}
+    .hero-sub{
+    font-size:13px;
+    letter-spacing:1.5px;
+    padding:14px 24px;
+    white-space:normal;
+    max-width:280px;
+    line-height:1.5;
+    text-align:center;
+  }
   .cocok-grid{grid-template-columns:repeat(3,1fr);}
   
   .mockup-wrapper{padding-right:50px;}
