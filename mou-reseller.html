@@ -779,6 +779,242 @@
     max-height:80px;
 }
 
+/* ====================================================
+   ✨ CUSTOM DROPDOWN BANK
+   ==================================================== */
+.mou-custom-dropdown{
+    position:relative;
+    width:100%;
+    user-select:none;
+}
+
+.mou-dropdown-selected{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:#0D1829;
+    border:1px solid rgba(255,255,255,0.08);
+    color:var(--text);
+    padding:14px 16px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:all 0.25s var(--ease);
+    min-height:52px;
+    box-sizing:border-box;
+}
+
+.mou-dropdown-selected:hover{
+    background:#12233d;
+    border-color:rgba(212,165,54,0.3);
+}
+
+.mou-custom-dropdown.open .mou-dropdown-selected{
+    background:#12233d;
+    border-color:var(--gold);
+    border-radius:10px 10px 0 0;
+    border-bottom-color:transparent;
+    box-shadow:0 0 0 3px rgba(212,165,54,0.1);
+}
+
+.mou-dropdown-icon{
+    font-size:1.4rem;
+    flex-shrink:0;
+    line-height:1;
+}
+
+.mou-dropdown-text{
+    flex:1;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--text);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.mou-dropdown-text.placeholder{
+    color:var(--text-dim);
+    font-weight:400;
+}
+
+.mou-dropdown-arrow{
+    color:var(--gold);
+    font-size:0.85rem;
+    transition:transform 0.3s var(--ease);
+    flex-shrink:0;
+    opacity:0.7;
+}
+
+.mou-custom-dropdown.open .mou-dropdown-arrow{
+    transform:rotate(180deg);
+    opacity:1;
+}
+
+/* Options Panel */
+.mou-dropdown-options{
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    background:#12233d;
+    border:1px solid var(--gold);
+    border-top:none;
+    border-radius:0 0 10px 10px;
+    padding:8px;
+    z-index:100;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-8px);
+    transition:all 0.25s var(--ease);
+    max-height:340px;
+    overflow-y:auto;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.mou-custom-dropdown.open .mou-dropdown-options{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+/* Scrollbar */
+.mou-dropdown-options::-webkit-scrollbar{
+    width:6px;
+}
+.mou-dropdown-options::-webkit-scrollbar-track{
+    background:rgba(255,255,255,0.05);
+    border-radius:10px;
+}
+.mou-dropdown-options::-webkit-scrollbar-thumb{
+    background:rgba(212,165,54,0.4);
+    border-radius:10px;
+}
+.mou-dropdown-options::-webkit-scrollbar-thumb:hover{
+    background:rgba(212,165,54,0.6);
+}
+
+/* Category Label */
+.mou-dropdown-category{
+    padding:10px 12px 6px;
+    font-size:0.72rem;
+    font-weight:800;
+    color:var(--gold);
+    text-transform:uppercase;
+    letter-spacing:1.2px;
+    opacity:0.85;
+    border-bottom:1px solid rgba(212,165,54,0.15);
+    margin-bottom:4px;
+    background:rgba(212,165,54,0.05);
+    border-radius:6px 6px 0 0;
+    margin-top:8px;
+}
+
+.mou-dropdown-category:first-child{
+    margin-top:0;
+}
+
+/* Option Item */
+.mou-dropdown-option{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:10px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:all 0.2s var(--ease);
+    color:var(--text);
+    margin:2px 0;
+    border:1px solid transparent;
+}
+
+.mou-dropdown-option:hover{
+    background:rgba(212,165,54,0.1);
+    border-color:rgba(212,165,54,0.2);
+}
+
+.mou-dropdown-option.selected{
+    background:rgba(212,165,54,0.15);
+    border-color:rgba(212,165,54,0.3);
+}
+
+.mou-dropdown-option-icon{
+    font-size:1.5rem;
+    flex-shrink:0;
+    line-height:1;
+}
+
+.mou-dropdown-option-content{
+    flex:1;
+    min-width:0;
+}
+
+.mou-dropdown-option-title{
+    font-size:0.92rem;
+    font-weight:700;
+    color:var(--text);
+    line-height:1.2;
+    margin-bottom:2px;
+}
+
+.mou-dropdown-option-desc{
+    font-size:0.75rem;
+    color:var(--text-muted);
+    font-weight:500;
+    line-height:1.2;
+}
+
+.mou-dropdown-option.selected .mou-dropdown-option-title{
+    color:var(--gold);
+}
+
+.mou-dropdown-option-check{
+    color:var(--gold);
+    font-size:0.9rem;
+    flex-shrink:0;
+    animation:checkPop 0.3s ease-out;
+    margin-left:auto;
+}
+
+@keyframes checkPop{
+    from{transform:scale(0);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+/* Mobile */
+@media (max-width:768px){
+    .mou-dropdown-selected{
+        padding:12px 14px;
+        min-height:48px;
+    }
+
+    .mou-dropdown-icon{
+        font-size:1.2rem;
+    }
+
+    .mou-dropdown-text{
+        font-size:0.9rem;
+    }
+
+    .mou-dropdown-option{
+        padding:10px 10px;
+    }
+
+    .mou-dropdown-option-icon{
+        font-size:1.3rem;
+    }
+
+    .mou-dropdown-option-title{
+        font-size:0.88rem;
+    }
+
+    .mou-dropdown-option-desc{
+        font-size:0.72rem;
+    }
+
+    .mou-dropdown-options{
+        max-height:300px;
+    }
+}
 
 /* Responsive */
 @media (max-width:768px){
@@ -1276,6 +1512,69 @@
 
 
 <script>
+
+// ====================================================
+// CUSTOM DROPDOWN BANK
+// ====================================================
+function toggleBankDropdown() {
+    const dropdown = document.getElementById('bankDropdown');
+    const isOpen = dropdown.classList.contains('open');
+    
+    // Close all dropdowns first
+    document.querySelectorAll('.mou-custom-dropdown').forEach(d => {
+        d.classList.remove('open');
+    });
+    
+    if (!isOpen) {
+        dropdown.classList.add('open');
+    }
+}
+
+function selectBank(element) {
+    const dropdown = document.getElementById('bankDropdown');
+    const value = element.getAttribute('data-value');
+    const icon = element.getAttribute('data-icon');
+    const title = element.querySelector('.mou-dropdown-option-title').innerText;
+    const desc = element.querySelector('.mou-dropdown-option-desc').innerText;
+    
+    // Update selected display
+    dropdown.querySelector('.mou-dropdown-icon').innerText = icon;
+    dropdown.querySelector('.mou-dropdown-text').innerText = title + ' — ' + desc;
+    dropdown.querySelector('.mou-dropdown-text').classList.remove('placeholder');
+    
+    // Update hidden input value
+    document.getElementById('fieldBank').value = value;
+    
+    // Update selected state
+    dropdown.querySelectorAll('.mou-dropdown-option').forEach(opt => {
+        opt.classList.remove('selected');
+        const check = opt.querySelector('.mou-dropdown-option-check');
+        if (check) check.remove();
+    });
+    element.classList.add('selected');
+    
+    if (!element.querySelector('.mou-dropdown-option-check')) {
+        const check = document.createElement('i');
+        check.className = 'fas fa-check mou-dropdown-option-check';
+        element.appendChild(check);
+    }
+    
+    // Close dropdown
+    dropdown.classList.remove('open');
+    
+    // Trigger form validation
+    checkFormComplete();
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.mou-custom-dropdown')) {
+        document.querySelectorAll('.mou-custom-dropdown').forEach(d => {
+            d.classList.remove('open');
+        });
+    }
+});
+
 // ====================================================
 // SIGNATURE PAD
 // ====================================================
@@ -1368,6 +1667,7 @@ function isFormValid() {
         const val = document.getElementById(id).value.trim();
         if (!val) return false;
     }
+   
     
     // Check signature
     let hasSignature = false;
