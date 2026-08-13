@@ -2601,20 +2601,19 @@ a.fab-wa .fab.fa-whatsapp,
   .hf-box{padding:14px 12px;min-width:88px;}
   .hf-box i{font-size:24px;}
   .hf-box span{font-size:9px;}
-
 .hero-sub{
   font-size:15px;
   letter-spacing:2px;
-  padding:16px 28px;
+  padding:18px 24px;
   white-space:normal;
   text-align:center;
   display:block;
-  width:fit-content;
-  margin-left:auto;
-  margin-right:auto;
-  max-width:90%;
+  width:100%;
+  max-width:100%;
   line-height:1.5;
   font-weight:800;
+  margin-left:0;
+  margin-right:0;
 }
   
   .hero-title{font-size:56px;}
@@ -2738,13 +2737,15 @@ a.fab-wa .fab.fa-whatsapp,
   .hero-sub{
   font-size:14px;
   letter-spacing:1.8px;
-  padding:16px 26px;
+  padding:18px 20px;
   white-space:normal;
-  max-width:320px;
+  width:100%;
+  max-width:100%;
   line-height:1.5;
   text-align:center;
   font-weight:800;
-}
+  display:block;
+} 
   .cocok-grid{grid-template-columns:repeat(3,1fr);}
   
   .mockup-wrapper{padding-right:50px;}
@@ -2828,19 +2829,18 @@ a.fab-wa .fab.fa-whatsapp,
   .poster{padding:90px 16px 40px;}
   .container{padding:0 16px;}
   
-  .hero-title{font-size:36px;}
-.hero-sub{
+  .hero-title{font-size:36px;}. hero-img{height:85px;max-width:190px;}
+  .hero-sub{
   font-size:13px;
   letter-spacing:1.5px;
-  padding:14px 22px;
+  padding:16px 18px;
   white-space:normal;
-  max-width:280px;
+  width:100%;
+  max-width:100%;
   line-height:1.5;
   font-weight:800;
+  display:block;
 }
-  
-  .brand-logo-img{height:85px;max-width:190px;}
-  
   .header-features{gap:8px;}
   .hf-box{min-width:70px;padding:10px 8px;}
   .hf-box i{font-size:20px;}
