@@ -4,12 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#050B18">
-<title>Generator Slip Komisi Reseller | Ibaadurrahmaan Web Designer</title>
-<meta name="description" content="Generate slip pembayaran komisi reseller otomatis. Bulanan (tgl 1-5) atau per closing.">
+<title>Slip Komisi | Dashboard Ibaadurrahmaan</title>
+<meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/png" href="main-logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
+
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
 /* ====================================================
@@ -18,83 +22,197 @@
 .slip-page{
     background:var(--bg);
     min-height:100vh;
-}
-
-/* Back Button */
-.slip-back{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    color:var(--text-muted);
-    text-decoration:none;
-    font-size:0.9rem;
-    font-weight:600;
-    padding:12px 20px;
-    background:rgba(5,11,24,0.8);
-    backdrop-filter:blur(10px);
-    border-radius:100px;
-    border:1px solid var(--border);
-    position:fixed;
-    top:20px;
-    left:20px;
-    z-index:100;
-    transition:all 0.3s var(--ease);
-}
-
-.slip-back:hover{
-    color:var(--gold);
-    border-color:var(--gold);
+    padding-bottom:100px; /* Space for bottom nav */
 }
 
 
-/* Header */
-.slip-header{
+/* ==================== DASHBOARD HEADER ==================== */
+.dashboard-header{
     background:linear-gradient(135deg,#0F1E33 0%,#050B18 100%);
-    padding:120px 20px 60px;
-    text-align:center;
+    padding:32px 20px 40px;
+    border-bottom:2px solid var(--gold);
     position:relative;
     overflow:hidden;
-    border-bottom:2px solid var(--gold);
 }
 
-.slip-header::before{
+.dashboard-header::before{
     content:'';
     position:absolute;
     inset:0;
     background:radial-gradient(circle at center,rgba(212,165,54,0.1),transparent 70%);
 }
 
-.slip-header-badge{
-    display:inline-block;
-    padding:8px 20px;
-    background:var(--grad-gold-shine);
-    color:var(--bg);
-    border-radius:100px;
-    font-size:0.75rem;
-    font-weight:800;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    margin-bottom:20px;
+.header-container{
+    max-width:1200px;
+    margin:0 auto;
     position:relative;
     z-index:2;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
 }
 
-.slip-header h1{
+.header-brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.header-logo{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:#fff;
+    padding:4px;
+    box-shadow:0 4px 15px var(--gold-glow);
+    border:2px solid var(--gold);
+    box-sizing:border-box;
+    overflow:hidden;
+    flex-shrink:0;
+}
+
+.header-logo img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    border-radius:50%;
+}
+
+.header-title h1{
     font-family:'Montserrat',sans-serif;
-    font-size:clamp(1.5rem,4vw,2.5rem);
+    font-size:1.3rem;
+    font-weight:900;
+    background:linear-gradient(135deg,var(--gold),#e8bd52);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin-bottom:2px;
+}
+
+.header-title p{
+    color:var(--text-muted);
+    font-size:0.78rem;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+}
+
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.user-badge{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid var(--border);
+    padding:8px 14px 8px 8px;
+    border-radius:100px;
+}
+
+.user-avatar{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),#c19a2e);
+    color:var(--bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:0.85rem;
+    flex-shrink:0;
+}
+
+.user-name{
+    font-size:0.82rem;
+    font-weight:700;
+    color:var(--text);
+}
+
+.logout-btn{
+    background:rgba(231,76,60,0.15);
+    border:1px solid rgba(231,76,60,0.3);
+    color:#ff6b5b;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all 0.2s;
+    font-size:0.95rem;
+}
+
+.logout-btn:hover{
+    background:#e74c3c;
+    color:#fff;
+    transform:scale(1.05);
+}
+
+
+/* ==================== PAGE TITLE SECTION ==================== */
+.page-title-section{
+    max-width:1200px;
+    margin:0 auto;
+    padding:24px 20px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+}
+
+.page-title-content{
+    flex:1;
+    min-width:200px;
+}
+
+.page-title-content h2{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.5rem;
     font-weight:900;
     color:var(--text);
-    margin-bottom:12px;
-    position:relative;
-    z-index:2;
-    line-height:1.2;
+    margin-bottom:4px;
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
-.slip-header p{
+.page-title-content h2 i{
+    color:var(--gold);
+}
+
+.page-title-content p{
     color:var(--text-muted);
-    font-size:1rem;
-    position:relative;
-    z-index:2;
+    font-size:0.85rem;
+}
+
+.back-to-dashboard{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    color:var(--text-muted);
+    text-decoration:none;
+    font-size:0.85rem;
+    font-weight:600;
+    padding:10px 18px;
+    background:rgba(255,255,255,0.03);
+    backdrop-filter:blur(10px);
+    border-radius:100px;
+    border:1px solid var(--border);
+    transition:all 0.3s var(--ease);
+}
+
+.back-to-dashboard:hover{
+    color:var(--gold);
+    border-color:var(--gold);
+    background:rgba(212,165,54,0.08);
 }
 
 
@@ -102,7 +220,7 @@
 .slip-container{
     max-width:900px;
     margin:0 auto;
-    padding:40px 20px 80px;
+    padding:24px 20px 40px;
 }
 
 
@@ -261,7 +379,7 @@
 }
 
 
-/* Closing List (untuk mode bulanan) */
+/* Closing List */
 .slip-closing-list{
     display:flex;
     flex-direction:column;
@@ -427,7 +545,6 @@
     display:block;
 }
 
-/* Fallback jika logo tidak load */
 .slip-brand-logo.fallback{
     background:linear-gradient(135deg,#d4a536,#c19a2e);
     color:#fff;
@@ -435,15 +552,6 @@
     font-weight:900;
     padding:0;
     border:none;
-}
-
-
-/* Mobile - Logo lebih kecil */
-@media (max-width:768px){
-    .slip-brand-logo{
-        width:50px;
-        height:50px;
-    }
 }
 
 .slip-brand-text h2{
@@ -618,14 +726,9 @@
     color:#555;
 }
 
-.slip-summary-row:last-child{
-    border-bottom:none;
-}
+.slip-summary-row:last-child{border-bottom:none;}
 
-.slip-summary-row .label{
-    color:#666;
-    font-weight:500;
-}
+.slip-summary-row .label{color:#666;font-weight:500;}
 
 .slip-summary-row .value{
     font-family:'Montserrat',monospace;
@@ -718,9 +821,7 @@
     line-height:1.5;
 }
 
-.slip-footer-info strong{
-    color:#333;
-}
+.slip-footer-info strong{color:#333;}
 
 .slip-stamp{
     text-align:center;
@@ -790,11 +891,6 @@
     box-shadow:0 8px 30px var(--gold-glow);
 }
 
-.slip-btn-primary:disabled{
-    opacity:0.4;
-    cursor:not-allowed;
-}
-
 .slip-btn-wa{
     background:#25D366;
     color:#fff;
@@ -806,20 +902,8 @@
     transform:translateY(-3px);
 }
 
-.slip-btn-secondary{
-    background:rgba(255,255,255,0.05);
-    color:var(--text);
-    border:1px solid var(--border);
-}
 
-.slip-btn-secondary:hover{
-    background:rgba(255,255,255,0.1);
-    border-color:var(--gold);
-    color:var(--gold);
-    transform:translateY(-3px);
-}
-
-/* ===== Custom Dropdown - Premium Dark Theme ===== */
+/* ===== Custom Dropdown ===== */
 .custom-select-wrapper{
     position:relative;
     width:100%;
@@ -924,9 +1008,7 @@
     border-bottom:1px solid rgba(212,165,54,0.1);
 }
 
-.custom-option:last-child{
-    border-bottom:none;
-}
+.custom-option:last-child{border-bottom:none;}
 
 .custom-option:hover{
     background:rgba(212,165,54,0.15);
@@ -950,27 +1032,181 @@
     font-size:1.1rem;
 }
 
-/* Mobile adjustments */
-@media (max-width:768px){
-    .custom-select{
-        padding:12px 16px;
-        font-size:0.95rem;
-        min-height:48px;
-    }
-    
-    .custom-option{
-        padding:12px 16px;
-        font-size:0.95rem;
-    }
-    
-    .level-icon{
-        font-size:1.2rem;
-    }
+
+/* ==================== BOTTOM NAVBAR ==================== */
+.bottom-nav{
+    position:fixed;
+    bottom:16px;
+    left:50%;
+    transform:translateX(-50%);
+    background:rgba(15,30,51,0.95);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border:1px solid var(--border);
+    border-radius:100px;
+    padding:10px 14px;
+    display:flex;
+    gap:6px;
+    z-index:1000;
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.4),
+        0 0 30px rgba(212,165,54,0.15);
+    max-width:calc(100% - 32px);
+    overflow-x:auto;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
 }
 
-/* Responsive */
+.bottom-nav::-webkit-scrollbar{display:none;}
+
+.nav-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+    padding:8px 14px;
+    color:var(--text-muted);
+    text-decoration:none;
+    border-radius:100px;
+    font-size:0.68rem;
+    font-weight:700;
+    transition:all 0.3s ease;
+    min-width:64px;
+    cursor:pointer;
+    flex-shrink:0;
+    font-family:'Poppins',sans-serif;
+    border:none;
+    background:transparent;
+    letter-spacing:0.3px;
+}
+
+.nav-item i{
+    font-size:1.1rem;
+    transition:transform 0.3s ease;
+}
+
+.nav-item:hover{color:var(--gold);}
+.nav-item:hover i{transform:translateY(-2px);}
+
+.nav-item.active{
+    background:linear-gradient(135deg,var(--gold),#c19a2e);
+    color:var(--bg);
+    box-shadow:0 4px 12px var(--gold-glow);
+}
+
+.nav-item.active i{color:var(--bg);}
+
+
+/* ==================== SWEETALERT PREMIUM ==================== */
+.swal-premium{
+    background:linear-gradient(145deg,#0F1E33,#0A1626) !important;
+    border:1px solid rgba(212,165,54,0.3) !important;
+    border-radius:20px !important;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.6),
+        0 0 40px rgba(212,165,54,0.15) !important;
+    color:#fff !important;
+    font-family:'Poppins',sans-serif !important;
+}
+
+.swal-premium .swal2-title{
+    color:#d4a536 !important;
+    font-family:'Montserrat',sans-serif !important;
+    font-weight:800 !important;
+    font-size:1.4rem !important;
+}
+
+.swal-premium .swal2-html-container{
+    color:rgba(255,255,255,0.85) !important;
+    font-size:0.95rem !important;
+    line-height:1.6 !important;
+}
+
+.swal-premium .swal2-icon{
+    border-color:#d4a536 !important;
+    color:#d4a536 !important;
+}
+
+.swal-premium .swal2-icon.swal2-success{border-color:#25d366 !important;}
+.swal-premium .swal2-icon.swal2-success .swal2-success-line-tip,
+.swal-premium .swal2-icon.swal2-success .swal2-success-line-long{background-color:#25d366 !important;}
+.swal-premium .swal2-icon.swal2-success .swal2-success-ring{border-color:rgba(37,211,102,0.3) !important;}
+
+.swal-premium .swal2-icon.swal2-error{border-color:#e74c3c !important;color:#e74c3c !important;}
+.swal-premium .swal2-icon.swal2-error [class^=swal2-x-mark-line]{background-color:#e74c3c !important;}
+
+.swal-premium .swal2-icon.swal2-warning{border-color:#f39c12 !important;color:#f39c12 !important;}
+.swal-premium .swal2-icon.swal2-info{border-color:#3498db !important;color:#3498db !important;}
+.swal-premium .swal2-icon.swal2-question{border-color:#d4a536 !important;color:#d4a536 !important;}
+
+.swal-premium .swal2-confirm{
+    background:linear-gradient(135deg,#d4a536,#c19a2e) !important;
+    color:#050B18 !important;
+    border:none !important;
+    border-radius:100px !important;
+    padding:12px 30px !important;
+    font-weight:800 !important;
+    font-family:'Poppins',sans-serif !important;
+    font-size:0.9rem !important;
+    box-shadow:0 6px 20px rgba(212,165,54,0.4) !important;
+    text-transform:uppercase !important;
+    letter-spacing:0.5px !important;
+    transition:all 0.3s ease !important;
+}
+
+.swal-premium .swal2-confirm:hover{
+    transform:translateY(-2px) !important;
+    box-shadow:0 8px 25px rgba(212,165,54,0.5) !important;
+}
+
+.swal-premium .swal2-cancel{
+    background:rgba(255,255,255,0.08) !important;
+    color:#fff !important;
+    border:1px solid rgba(255,255,255,0.15) !important;
+    border-radius:100px !important;
+    padding:12px 30px !important;
+    font-weight:700 !important;
+    font-family:'Poppins',sans-serif !important;
+    font-size:0.9rem !important;
+    text-transform:uppercase !important;
+    letter-spacing:0.5px !important;
+    margin-right:12px !important;
+}
+
+.swal-premium .swal2-cancel:hover{
+    background:rgba(231,76,60,0.15) !important;
+    border-color:rgba(231,76,60,0.4) !important;
+    color:#ff6b5b !important;
+}
+
+.swal-premium .swal2-timer-progress-bar{
+    background:linear-gradient(90deg,#d4a536,#e8bd52) !important;
+    height:4px !important;
+}
+
+.swal-premium .swal2-close{
+    color:rgba(255,255,255,0.4) !important;
+    font-size:2rem !important;
+}
+
+.swal-premium .swal2-close:hover{
+    color:#d4a536 !important;
+    transform:rotate(90deg) !important;
+}
+
+
+/* ==================== RESPONSIVE ==================== */
 @media (max-width:768px){
-    .slip-header{padding:100px 20px 40px;}
+    .dashboard-header{padding:20px 16px 30px;}
+    .header-title h1{font-size:1.1rem;}
+    .header-title p{font-size:0.7rem;}
+    .user-badge .user-name{display:none;}
+    .user-badge{padding:4px;}
+    
+    .page-title-section{padding:20px 16px 0;}
+    .page-title-content h2{font-size:1.2rem;}
+    
+    .slip-container{padding:20px 16px 40px;}
     
     .slip-mode-selector{grid-template-columns:1fr;}
     
@@ -1009,40 +1245,91 @@
     .slip-actions{flex-direction:column;}
     .slip-btn{width:100%;}
     
-    .slip-back{
-        top:12px;
-        left:12px;
-        padding:10px 16px;
-        font-size:0.8rem;
+    .slip-brand-logo{
+        width:50px;
+        height:50px;
     }
+    
+    .custom-select{
+        padding:12px 16px;
+        font-size:0.95rem;
+        min-height:48px;
+    }
+    
+    .custom-option{
+        padding:12px 16px;
+        font-size:0.95rem;
+    }
+    
+    .level-icon{font-size:1.2rem;}
+    
+    .bottom-nav{
+        padding:8px 10px;
+        gap:2px;
+        bottom:12px;
+    }
+    
+    .nav-item{
+        padding:8px 10px;
+        font-size:0.6rem;
+        min-width:56px;
+    }
+    
+    .nav-item i{font-size:1rem;}
 }
 
-/* Toast Animations */
-@keyframes slideInRight {
-    from { transform: translateX(120%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
-
-@keyframes slideOutRight {
-    from { transform: translateX(0); opacity: 1; }
-    to { transform: translateX(120%); opacity: 0; }
+@media (max-width:400px){
+    .nav-item span{display:none;}
+    
+    .nav-item{
+        min-width:44px;
+        padding:10px 12px;
+    }
+    
+    .nav-item i{font-size:1.2rem;}
 }
 </style>
 </head>
 <body class="slip-page">
 
-<!-- Back Button -->
-<a href="dashboard.html" class="slip-back">
-    <i class="fas fa-arrow-left"></i>
-    <span>Kembali</span>
-</a>
-
-<!-- Header -->
-<header class="slip-header">
-    <div class="slip-header-badge">💰 SLIP KOMISI</div>
-    <h1>Generator Slip<br>Pembayaran Komisi</h1>
-    <p>Bulanan (tgl 1-5) atau langsung per closing</p>
+<!-- Dashboard Header -->
+<header class="dashboard-header">
+    <div class="header-container">
+        <div class="header-brand">
+            <div class="header-logo">
+                <img src="main-logo.jpg" alt="Logo" onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-weight:900;color:#d4a536;\'>I</div>'">
+            </div>
+            <div class="header-title">
+                <h1>Ibaadurrahmaan</h1>
+                <p>Owner Dashboard</p>
+            </div>
+        </div>
+        
+        <div class="header-actions">
+            <div class="user-badge">
+                <div class="user-avatar" id="userAvatar">O</div>
+                <span class="user-name" id="userName">Owner</span>
+            </div>
+            <button class="logout-btn" onclick="handleLogout()" title="Logout">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </div>
 </header>
+
+
+<!-- Page Title -->
+<section class="page-title-section">
+    <div class="page-title-content">
+        <h2><i class="fas fa-file-invoice-dollar"></i> Slip Komisi</h2>
+        <p>Generate slip pembayaran komisi reseller</p>
+    </div>
+    <a href="dashboard.html" class="back-to-dashboard">
+        <i class="fas fa-arrow-left"></i>
+        <span>Dashboard</span>
+    </a>
+</section>
+
 
 <!-- Container -->
 <div class="slip-container">
@@ -1154,9 +1441,7 @@
             </div>
         </div>
         
-        <div class="slip-closing-list" id="closingList">
-            <!-- Auto generated -->
-        </div>
+        <div class="slip-closing-list" id="closingList"></div>
         
         <button class="slip-btn-add" onclick="addClosing()">
             <i class="fas fa-plus"></i>
@@ -1215,9 +1500,7 @@
             <span>Preview Slip</span>
         </div>
         
-        <div class="slip-preview" id="slipPreview">
-            <!-- Auto generated -->
-        </div>
+        <div class="slip-preview" id="slipPreview"></div>
     </div>
 
 
@@ -1236,10 +1519,34 @@
 </div>
 
 
-<script>
+<!-- Bottom Navigation -->
+<nav class="bottom-nav">
+    <a href="dashboard.html" class="nav-item">
+        <i class="fas fa-th-large"></i>
+        <span>Overview</span>
+    </a>
+    <a href="dashboard-slip.html" class="nav-item active">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <span>Slip</span>
+    </a>
+    <button class="nav-item" onclick="showComingSoon('Reseller Management')">
+        <i class="fas fa-handshake"></i>
+        <span>Reseller</span>
+    </button>
+    <button class="nav-item" onclick="showComingSoon('Client Management')">
+        <i class="fas fa-users"></i>
+        <span>Client</span>
+    </button>
+    <button class="nav-item" onclick="showComingSoon('Laporan')">
+        <i class="fas fa-chart-line"></i>
+        <span>Laporan</span>
+    </button>
+</nav>
 
+
+<script>
 // ====================================================
-// AUTH GUARD - PALING ATAS SCRIPT!
+// AUTH GUARD
 // ====================================================
 const CREDENTIALS = {
     username: 'owner',
@@ -1266,7 +1573,16 @@ function checkAuth() {
         const data = JSON.parse(session);
         if (Date.now() > data.expiry) {
             localStorage.removeItem('ibaad_session');
-            window.location.href = 'dashboard-login.html';
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sesi Berakhir',
+                text: 'Silakan login kembali untuk melanjutkan',
+                customClass: { popup: 'swal-premium' },
+                confirmButtonText: 'Login Ulang',
+                allowOutsideClick: false
+            }).then(() => {
+                window.location.href = 'dashboard-login.html';
+            });
             return false;
         }
         const validToken = simpleHash(CREDENTIALS.username + CREDENTIALS.password);
@@ -1282,12 +1598,59 @@ function checkAuth() {
     }
 }
 
-checkAuth();
+const session = checkAuth();
+
 
 // ====================================================
-// SLIP KOMISI GENERATOR - FINAL VERSION
+// LOGOUT & COMING SOON
 // ====================================================
+function handleLogout() {
+    Swal.fire({
+        icon: 'question',
+        title: 'Keluar Dashboard?',
+        text: 'Kamu akan diarahkan ke halaman login',
+        showCancelButton: true,
+        confirmButtonText: '<i class="fas fa-sign-out-alt"></i> Ya, Keluar',
+        cancelButtonText: 'Batal',
+        customClass: { popup: 'swal-premium' },
+        reverseButtons: true,
+        focusCancel: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Sampai Jumpa! 👋',
+                text: 'Berhasil keluar dari dashboard',
+                customClass: { popup: 'swal-premium' },
+                timer: 1500,
+                showConfirmButton: false,
+                timerProgressBar: true
+            }).then(() => {
+                localStorage.removeItem('ibaad_session');
+                window.location.href = 'dashboard-login.html';
+            });
+        }
+    });
+}
 
+function showComingSoon(feature) {
+    Swal.fire({
+        icon: 'info',
+        title: '🚀 Coming Soon',
+        html: `Fitur <b style="color:#d4a536;">${feature}</b> sedang dalam pengembangan<br><br>
+               <div style="background:rgba(212,165,54,0.1);border:1px solid rgba(212,165,54,0.2);padding:12px 16px;border-radius:10px;font-size:0.85rem;">
+                   📅 <b>Target rilis:</b> Phase 2<br>
+                   🎯 <b>Fitur:</b> Full CRUD + Analytics
+               </div>`,
+        customClass: { popup: 'swal-premium' },
+        confirmButtonText: 'Oke, Mengerti'
+    });
+}
+
+
+// ====================================================
+// SLIP KOMISI GENERATOR
+// ====================================================
 const daysID = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 const monthsID = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
                   'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
@@ -1296,9 +1659,6 @@ let currentMode = 'monthly';
 let closingCount = 0;
 
 
-// ====================================================
-// TIER HELPER
-// ====================================================
 function getTierPercent(level) {
     if (level === 'silver') return 15;
     if (level === 'gold') return 20;
@@ -1307,32 +1667,20 @@ function getTierPercent(level) {
 }
 
 
-// ====================================================
-// MODE SWITCHER
-// ====================================================
 function selectMode(mode) {
     currentMode = mode;
-    
     document.querySelectorAll('.slip-mode-card').forEach(card => {
         card.classList.toggle('active', card.dataset.mode === mode);
     });
-    
     document.getElementById('cardMonthly').style.display = mode === 'monthly' ? 'block' : 'none';
     document.getElementById('cardSingle').style.display = mode === 'single' ? 'block' : 'none';
-    
     updatePreview();
 }
 
 
-// ====================================================
-// CUSTOM DROPDOWN
-// ====================================================
 function toggleLevelDropdown(){
-    const select = document.getElementById('levelSelect');
-    const options = document.getElementById('levelOptions');
-    
-    select.classList.toggle('active');
-    options.classList.toggle('show');
+    document.getElementById('levelSelect').classList.toggle('active');
+    document.getElementById('levelOptions').classList.toggle('show');
 }
 
 function selectLevel(element){
@@ -1346,9 +1694,7 @@ function selectLevel(element){
     select.querySelector('.level-icon').textContent = icon;
     select.querySelector('.level-text').textContent = text;
     
-    document.querySelectorAll('.custom-option').forEach(opt => {
-        opt.classList.remove('selected');
-    });
+    document.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
     element.classList.add('selected');
     
     select.classList.remove('active');
@@ -1366,9 +1712,6 @@ document.addEventListener('click', function(e){
 });
 
 
-// ====================================================
-// CLOSING LIST
-// ====================================================
 function addClosing() {
     closingCount++;
     const list = document.getElementById('closingList');
@@ -1393,9 +1736,23 @@ function addClosing() {
 }
 
 function removeClosing(id) {
-    const item = document.querySelector(`.slip-closing-item[data-id="${id}"]`);
-    if (item) item.remove();
-    updatePreview();
+    Swal.fire({
+        icon: 'warning',
+        title: 'Hapus Closing?',
+        text: 'Closing ini akan dihapus dari daftar',
+        showCancelButton: true,
+        confirmButtonText: '<i class="fas fa-trash"></i> Ya, Hapus',
+        cancelButtonText: 'Batal',
+        customClass: { popup: 'swal-premium' },
+        reverseButtons: true,
+        focusCancel: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const item = document.querySelector(`.slip-closing-item[data-id="${id}"]`);
+            if (item) item.remove();
+            updatePreview();
+        }
+    });
 }
 
 function getClosings() {
@@ -1409,12 +1766,7 @@ function getClosings() {
 }
 
 
-// ====================================================
-// FORMAT HELPERS
-// ====================================================
-function formatRp(num) {
-    return 'Rp ' + num.toLocaleString('id-ID');
-}
+function formatRp(num) { return 'Rp ' + num.toLocaleString('id-ID'); }
 
 function formatDate(dateStr) {
     if (!dateStr) return '-';
@@ -1445,19 +1797,12 @@ function generateSlipNo(mode) {
 }
 
 
-// ====================================================
-// GENERATE PREVIEW
-// ====================================================
 function updatePreview() {
-    if (currentMode === 'monthly') {
-        generateMonthlySlip();
-    } else {
-        generateSingleSlip();
-    }
+    if (currentMode === 'monthly') generateMonthlySlip();
+    else generateSingleSlip();
 }
 
 
-// Monthly Slip
 function generateMonthlySlip() {
     const data = {
         nama: document.getElementById('fieldNama').value.trim() || 'Nama Reseller',
@@ -1473,15 +1818,12 @@ function generateMonthlySlip() {
     const tierInfo = getTierName(data.tier);
     const slipNo = generateSlipNo('monthly');
     
-    let totalKomisi = 0;
-    let totalBonus = 0;
-    
+    let totalKomisi = 0, totalBonus = 0;
     const rowsHTML = data.closings.map(c => {
         const komisi = (c.paket * data.tier) / 100;
         const bonus = tierInfo.bonus;
         totalKomisi += komisi;
         totalBonus += bonus;
-        
         return `
             <tr>
                 <td class="center">${c.no}</td>
@@ -1491,8 +1833,7 @@ function generateMonthlySlip() {
                 <td class="center">${data.tier}%</td>
                 <td class="right">${formatRp(komisi)}</td>
                 <td class="right">${formatRp(bonus)}</td>
-            </tr>
-        `;
+            </tr>`;
     }).join('');
     
     const grandTotal = totalKomisi + totalBonus;
@@ -1550,7 +1891,7 @@ function generateMonthlySlip() {
                 </tr>
             </thead>
             <tbody>
-                ${rowsHTML || '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px;">Belum ada closing. Tambahkan closing di atas.</td></tr>'}
+                ${rowsHTML || '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px;">Belum ada closing.</td></tr>'}
             </tbody>
         </table>
         
@@ -1579,22 +1920,10 @@ function generateMonthlySlip() {
                 <i class="fas fa-university"></i> Transfer ke Rekening
             </div>
             <div class="slip-payment-detail">
-                <div>
-                    <strong>Bank</strong>
-                    ${data.bank}
-                </div>
-                <div>
-                    <strong>No. Rekening</strong>
-                    ${data.norek}
-                </div>
-                <div>
-                    <strong>A/n</strong>
-                    ${data.nama}
-                </div>
-                <div>
-                    <strong>Jumlah</strong>
-                    ${formatRp(grandTotal)}
-                </div>
+                <div><strong>Bank</strong>${data.bank}</div>
+                <div><strong>No. Rekening</strong>${data.norek}</div>
+                <div><strong>A/n</strong>${data.nama}</div>
+                <div><strong>Jumlah</strong>${formatRp(grandTotal)}</div>
             </div>
         </div>
         
@@ -1615,7 +1944,6 @@ function generateMonthlySlip() {
 }
 
 
-// Single Closing Slip
 function generateSingleSlip() {
     const data = {
         nama: document.getElementById('fieldNama').value.trim() || 'Nama Reseller',
@@ -1632,7 +1960,6 @@ function generateSingleSlip() {
     
     const tierInfo = getTierName(data.tier);
     const slipNo = generateSlipNo('single');
-    
     const komisi = (data.paket * data.tier) / 100;
     const bonus = tierInfo.bonus;
     const total = komisi + bonus;
@@ -1725,22 +2052,10 @@ function generateSingleSlip() {
                 <i class="fas fa-university"></i> Transfer ke Rekening
             </div>
             <div class="slip-payment-detail">
-                <div>
-                    <strong>Bank</strong>
-                    ${data.bank}
-                </div>
-                <div>
-                    <strong>No. Rekening</strong>
-                    ${data.norek}
-                </div>
-                <div>
-                    <strong>A/n</strong>
-                    ${data.nama}
-                </div>
-                <div>
-                    <strong>Jumlah</strong>
-                    ${formatRp(total)}
-                </div>
+                <div><strong>Bank</strong>${data.bank}</div>
+                <div><strong>No. Rekening</strong>${data.norek}</div>
+                <div><strong>A/n</strong>${data.nama}</div>
+                <div><strong>Jumlah</strong>${formatRp(total)}</div>
             </div>
         </div>
         
@@ -1762,10 +2077,22 @@ function generateSingleSlip() {
 
 
 // ====================================================
-// DOWNLOAD PDF - Via Native Browser Print (Mobile Optimized)
+// DOWNLOAD PDF
 // ====================================================
 function downloadPDF() {
-    const nama = document.getElementById('fieldNama').value.trim() || 'reseller';
+    const nama = document.getElementById('fieldNama').value.trim();
+    
+    if (!nama) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Data Belum Lengkap',
+            text: 'Silakan isi nama reseller terlebih dahulu',
+            customClass: { popup: 'swal-premium' },
+            confirmButtonText: 'Oke'
+        });
+        return;
+    }
+    
     const now = new Date();
     const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
     const filename = `Slip-Komisi-${nama.replace(/\s+/g, '-')}-${dateStr}`;
@@ -1776,7 +2103,13 @@ function downloadPDF() {
     const win = window.open('', '_blank', 'width=900,height=1000');
     
     if (!win) {
-        showToast('❌ Popup diblokir! Izinkan popup untuk website ini.', 'error');
+        Swal.fire({
+            icon: 'error',
+            title: 'Popup Diblokir',
+            text: 'Izinkan popup untuk website ini agar bisa download PDF',
+            customClass: { popup: 'swal-premium' },
+            confirmButtonText: 'Mengerti'
+        });
         return;
     }
     
@@ -1791,9 +2124,7 @@ function downloadPDF() {
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
             <style>
                 ${styles}
-                
                 * { box-sizing:border-box; }
-                
                 html, body {
                     background:#f5f5f5 !important; 
                     padding:0;
@@ -1802,12 +2133,7 @@ function downloadPDF() {
                     font-family:'Poppins',sans-serif;
                     -webkit-text-size-adjust:100%;
                 }
-                
-                body {
-                    padding:16px;
-                }
-                
-                /* Print Info Banner */
+                body { padding:16px; }
                 .print-info {
                     max-width:800px;
                     width:100%;
@@ -1820,199 +2146,63 @@ function downloadPDF() {
                     font-family:'Poppins',sans-serif;
                     box-shadow:0 8px 25px rgba(212,165,54,0.4);
                 }
-                .print-info h3 {
-                    margin:0 0 16px;
-                    font-size:1.2rem;
-                    font-weight:800;
-                    letter-spacing:0.5px;
-                }
+                .print-info h3 { margin:0 0 16px; font-size:1.2rem; font-weight:800; letter-spacing:0.5px; }
                 .print-steps {
-                    text-align:left;
-                    max-width:500px;
-                    margin:0 auto 20px;
-                    background:rgba(255,255,255,0.15);
-                    border-radius:12px;
-                    padding:16px;
+                    text-align:left; max-width:500px; margin:0 auto 20px;
+                    background:rgba(255,255,255,0.15); border-radius:12px; padding:16px;
                 }
                 .print-steps .step {
-                    display:flex;
-                    align-items:flex-start;
-                    gap:12px;
-                    padding:8px 0;
-                    font-size:0.88rem;
-                    line-height:1.5;
+                    display:flex; align-items:flex-start; gap:12px;
+                    padding:8px 0; font-size:0.88rem; line-height:1.5;
                 }
                 .print-steps .step-num {
-                    background:#fff;
-                    color:#d4a536;
-                    width:26px;
-                    height:26px;
-                    border-radius:50%;
-                    display:flex;
-                    align-items:center;
-                    justify-content:center;
-                    font-weight:900;
-                    flex-shrink:0;
-                    font-size:0.85rem;
+                    background:#fff; color:#d4a536; width:26px; height:26px;
+                    border-radius:50%; display:flex; align-items:center; justify-content:center;
+                    font-weight:900; flex-shrink:0; font-size:0.85rem;
                 }
-                .print-steps .step-text {
-                    flex:1;
-                    padding-top:3px;
-                }
+                .print-steps .step-text { flex:1; padding-top:3px; }
                 .print-info button {
-                    padding:14px 32px;
-                    background:#fff;
-                    color:#d4a536;
-                    border:none;
-                    border-radius:100px;
-                    font-weight:800;
-                    cursor:pointer;
-                    font-size:1rem;
+                    padding:14px 32px; background:#fff; color:#d4a536;
+                    border:none; border-radius:100px; font-weight:800;
+                    cursor:pointer; font-size:1rem;
                     box-shadow:0 4px 15px rgba(0,0,0,0.2);
-                    display:inline-flex;
-                    align-items:center;
-                    justify-content:center;
-                    gap:10px;
+                    display:inline-flex; align-items:center; justify-content:center; gap:10px;
                     font-family:'Poppins',sans-serif;
-                    transition:transform 0.2s ease;
                 }
-                .print-info button:active {
-                    transform:scale(0.96);
-                }
-                .print-info button i {
-                    font-size:1.1rem;
-                }
-                
-                /* Slip Preview - responsive */
+                .print-info button:active { transform:scale(0.96); }
                 .slip-preview {
                     box-shadow:0 10px 40px rgba(0,0,0,0.15) !important;
-                    max-width:800px;
-                    width:100%;
-                    margin:0 auto;
+                    max-width:800px; width:100%; margin:0 auto;
                     padding:30px 24px !important;
                 }
-                
-                /* Mobile Responsive */
                 @media (max-width:768px) {
                     body { padding:12px; }
-                    
-                    .slip-preview {
-                        padding:20px 14px !important;
-                        border-radius:10px !important;
-                    }
-                    
-                    .print-info {
-                        padding:16px;
-                        margin-bottom:16px;
-                    }
-                    
-                    .print-info h3 {
-                        font-size:1rem !important;
-                    }
-                    
-                    .print-steps {
-                        padding:12px !important;
-                    }
-                    
-                    .print-steps .step {
-                        font-size:0.8rem !important;
-                        gap:10px !important;
-                    }
-                    
-                    .print-steps .step-num {
-                        width:22px !important;
-                        height:22px !important;
-                        font-size:0.75rem !important;
-                    }
-                    
-                    .print-info button {
-                        padding:12px 20px !important;
-                        font-size:0.9rem !important;
-                        width:100%;
-                    }
-                    
-                    /* Slip inner mobile */
-                    .slip-doc-header {
-                        flex-direction:column !important;
-                        text-align:center !important;
-                        gap:12px !important;
-                        align-items:center !important;
-                    }
-                    
-                    .slip-brand {
-                        justify-content:center !important;
-                    }
-                    
-                    .slip-doc-info {
-                        text-align:center !important;
-                        width:100% !important;
-                    }
-                    
-                    .slip-doc-info h3 {
-                        font-size:1rem !important;
-                    }
-                    
-                    .slip-parties {
-                        grid-template-columns:1fr !important;
-                        gap:10px !important;
-                    }
-                    
-                    .slip-table {
-                        font-size:0.68rem !important;
-                    }
-                    
-                    .slip-table th,
-                    .slip-table td {
-                        padding:6px 3px !important;
-                    }
-                    
-                    .slip-table th {
-                        font-size:0.62rem !important;
-                    }
-                    
-                    .slip-summary-total .value {
-                        font-size:1.1rem !important;
-                    }
-                    
-                    .slip-summary-total .label {
-                        font-size:0.75rem !important;
-                    }
-                    
-                    .slip-payment-detail {
-                        grid-template-columns:1fr !important;
-                    }
-                    
-                    .slip-footer {
-                        flex-direction:column !important;
-                        gap:12px !important;
-                        text-align:center !important;
-                    }
-                    
-                    .slip-stamp {
-                        min-width:120px !important;
-                        margin:0 auto !important;
-                    }
+                    .slip-preview { padding:20px 14px !important; border-radius:10px !important; }
+                    .print-info { padding:16px; margin-bottom:16px; }
+                    .print-info h3 { font-size:1rem !important; }
+                    .print-steps { padding:12px !important; }
+                    .print-steps .step { font-size:0.8rem !important; gap:10px !important; }
+                    .print-steps .step-num { width:22px !important; height:22px !important; font-size:0.75rem !important; }
+                    .print-info button { padding:12px 20px !important; font-size:0.9rem !important; width:100%; }
+                    .slip-doc-header { flex-direction:column !important; text-align:center !important; gap:12px !important; align-items:center !important; }
+                    .slip-brand { justify-content:center !important; }
+                    .slip-doc-info { text-align:center !important; width:100% !important; }
+                    .slip-doc-info h3 { font-size:1rem !important; }
+                    .slip-parties { grid-template-columns:1fr !important; gap:10px !important; }
+                    .slip-table { font-size:0.68rem !important; }
+                    .slip-table th, .slip-table td { padding:6px 3px !important; }
+                    .slip-table th { font-size:0.62rem !important; }
+                    .slip-summary-total .value { font-size:1.1rem !important; }
+                    .slip-summary-total .label { font-size:0.75rem !important; }
+                    .slip-payment-detail { grid-template-columns:1fr !important; }
+                    .slip-footer { flex-direction:column !important; gap:12px !important; text-align:center !important; }
+                    .slip-stamp { min-width:120px !important; margin:0 auto !important; }
                 }
-                
-                /* Print Styles */
                 @media print {
-                    html, body { 
-                        background:#fff !important; 
-                        padding:0 !important; 
-                        margin:0 !important; 
-                    }
+                    html, body { background:#fff !important; padding:0 !important; margin:0 !important; }
                     .print-info { display:none !important; }
-                    .slip-preview { 
-                        padding:15mm !important; 
-                        box-shadow:none !important;
-                        border-radius:0 !important;
-                        max-width:100% !important;
-                        width:100% !important;
-                    }
-                    @page {
-                        size: A4;
-                        margin: 0;
-                    }
+                    .slip-preview { padding:15mm !important; box-shadow:none !important; border-radius:0 !important; max-width:100% !important; width:100% !important; }
+                    @page { size: A4; margin: 0; }
                 }
             </style>
         </head>
@@ -2047,43 +2237,17 @@ function downloadPDF() {
     `);
     win.document.close();
     
-    showToast('💡 Ikuti instruksi di window baru untuk simpan PDF', 'info');
-}
-
-// ====================================================
-// HELPER: Toast Notification
-// ====================================================
-function showToast(message, type = 'info') {
-    const existing = document.querySelector('.slip-toast');
-    if (existing) existing.remove();
-    
-    const toast = document.createElement('div');
-    toast.className = `slip-toast slip-toast-${type}`;
-    toast.textContent = message;
-    toast.style.cssText = `
-        position:fixed;
-        top:20px;
-        right:20px;
-        padding:16px 24px;
-        border-radius:12px;
-        color:#fff;
-        font-weight:600;
-        font-size:0.9rem;
-        z-index:9999;
-        box-shadow:0 8px 30px rgba(0,0,0,0.3);
-        animation:slideInRight 0.3s ease;
-        max-width:calc(100% - 40px);
-        ${type === 'success' ? 'background:linear-gradient(135deg,#25d366,#128c7e);' : ''}
-        ${type === 'error' ? 'background:linear-gradient(135deg,#e74c3c,#c0392b);' : ''}
-        ${type === 'info' ? 'background:linear-gradient(135deg,#3498db,#2980b9);' : ''}
-    `;
-    
-    document.body.appendChild(toast);
-    
-    setTimeout(() => {
-        toast.style.animation = 'slideOutRight 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
-    }, 4000);
+    Swal.fire({
+        icon: 'info',
+        title: '📄 PDF Siap Disimpan',
+        text: 'Ikuti instruksi di window baru untuk simpan sebagai PDF',
+        customClass: { popup: 'swal-premium' },
+        timer: 3000,
+        showConfirmButton: false,
+        timerProgressBar: true,
+        toast: true,
+        position: 'top-end'
+    });
 }
 
 
@@ -2091,7 +2255,19 @@ function showToast(message, type = 'info') {
 // SEND TO WHATSAPP
 // ====================================================
 function sendToWA() {
-    const nama = document.getElementById('fieldNama').value.trim() || 'Reseller';
+    const nama = document.getElementById('fieldNama').value.trim();
+    
+    if (!nama) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Data Belum Lengkap',
+            text: 'Silakan isi nama reseller terlebih dahulu',
+            customClass: { popup: 'swal-premium' },
+            confirmButtonText: 'Oke'
+        });
+        return;
+    }
+    
     const tier = getTierPercent(document.getElementById('resellerLevel').value);
     const tierInfo = getTierName(tier);
     
@@ -2159,6 +2335,18 @@ Terus semangat closing ya! 🚀
     }
     
     window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+    
+    Swal.fire({
+        icon: 'success',
+        title: '📱 WhatsApp Dibuka',
+        text: 'Pilih kontak reseller untuk kirim slip',
+        customClass: { popup: 'swal-premium' },
+        timer: 2000,
+        showConfirmButton: false,
+        timerProgressBar: true,
+        toast: true,
+        position: 'top-end'
+    });
 }
 
 
@@ -2181,6 +2369,14 @@ window.addEventListener('load', () => {
         input.addEventListener('input', updatePreview);
         input.addEventListener('change', updatePreview);
     });
+    
+    // Set user info dari session
+    if (session) {
+        const username = session.username || 'Owner';
+        const displayName = username.charAt(0).toUpperCase() + username.slice(1);
+        document.getElementById('userName').textContent = displayName;
+        document.getElementById('userAvatar').textContent = displayName.charAt(0);
+    }
 });
 </script>
 
