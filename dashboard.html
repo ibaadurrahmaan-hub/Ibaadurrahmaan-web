@@ -10,6 +10,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <style>
 :root{
     --bg:#050B18;
@@ -32,61 +36,71 @@ body{
     color:var(--text);
     font-family:'Poppins',sans-serif;
     min-height:100vh;
+    padding-bottom:100px;
+    background-image:
+        radial-gradient(circle at 10% 10%,rgba(212,165,54,0.08),transparent 40%),
+        radial-gradient(circle at 90% 90%,rgba(212,165,54,0.05),transparent 40%);
+}
+
+
+/* ==================== HEADER ==================== */
+.dashboard-header{
+    background:linear-gradient(135deg,#0F1E33 0%,#050B18 100%);
+    padding:32px 20px 40px;
+    border-bottom:2px solid var(--gold);
+    position:relative;
+    overflow:hidden;
+}
+
+.dashboard-header::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at center,rgba(212,165,54,0.1),transparent 70%);
+}
+
+.header-container{
+    max-width:1200px;
+    margin:0 auto;
+    position:relative;
+    z-index:2;
     display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
 }
 
-/* ==================== SIDEBAR ==================== */
-.sidebar{
-    width:260px;
-    background:linear-gradient(180deg,#0F1E33 0%,#0A1626 100%);
-    border-right:1px solid var(--border);
-    padding:24px 0;
-    position:fixed;
-    height:100vh;
-    left:0;
-    top:0;
-    display:flex;
-    flex-direction:column;
-    z-index:100;
-    transition:transform 0.3s ease;
-}
-
-.sidebar-header{
-    padding:0 24px 24px;
-    border-bottom:1px solid var(--border);
-    margin-bottom:16px;
-}
-
-.sidebar-brand{
+.header-brand{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:14px;
 }
 
-.sidebar-logo{
-    width:44px;
-    height:44px;
+.header-logo{
+    width:52px;
+    height:52px;
     border-radius:50%;
     background:#fff;
-    padding:3px;
-    box-shadow:0 4px 12px var(--gold-glow);
+    padding:4px;
+    box-shadow:0 4px 15px var(--gold-glow);
     border:2px solid var(--gold);
     box-sizing:border-box;
     overflow:hidden;
     flex-shrink:0;
 }
 
-.sidebar-logo img{
+.header-logo img{
     width:100%;
     height:100%;
     object-fit:contain;
     border-radius:50%;
 }
 
-.sidebar-brand-text h3{
+.header-title h1{
     font-family:'Montserrat',sans-serif;
-    font-size:0.95rem;
-    font-weight:800;
+    font-size:1.3rem;
+    font-weight:900;
     background:linear-gradient(135deg,var(--gold),#e8bd52);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
@@ -94,148 +108,79 @@ body{
     margin-bottom:2px;
 }
 
-.sidebar-brand-text p{
-    font-size:0.7rem;
+.header-title p{
     color:var(--text-muted);
+    font-size:0.78rem;
     letter-spacing:0.5px;
     text-transform:uppercase;
 }
 
-.sidebar-nav{
-    flex:1;
-    padding:0 12px;
-    overflow-y:auto;
-}
-
-.nav-item{
+.header-actions{
     display:flex;
     align-items:center;
     gap:12px;
-    padding:12px 16px;
-    color:var(--text-muted);
-    text-decoration:none;
-    border-radius:10px;
-    font-size:0.9rem;
-    font-weight:600;
-    margin-bottom:4px;
-    transition:all 0.2s ease;
 }
 
-.nav-item:hover{
-    background:rgba(212,165,54,0.08);
-    color:var(--gold);
-}
-
-.nav-item.active{
-    background:linear-gradient(135deg,rgba(212,165,54,0.15),rgba(212,165,54,0.05));
-    color:var(--gold);
-    box-shadow:inset 3px 0 0 var(--gold);
-}
-
-.nav-item i{
-    font-size:1.1rem;
-    width:20px;
-    text-align:center;
-}
-
-.nav-section{
-    color:var(--text-muted);
-    font-size:0.7rem;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:1.5px;
-    padding:16px 16px 8px;
-}
-
-.sidebar-footer{
-    padding:16px 24px;
-    border-top:1px solid var(--border);
-}
-
-.user-info{
+.user-badge{
     display:flex;
     align-items:center;
     gap:10px;
-    padding:12px;
-    background:rgba(255,255,255,0.03);
-    border-radius:10px;
-    margin-bottom:8px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid var(--border);
+    padding:8px 14px 8px 8px;
+    border-radius:100px;
 }
 
 .user-avatar{
-    width:36px;
-    height:36px;
+    width:32px;
+    height:32px;
     border-radius:50%;
     background:linear-gradient(135deg,var(--gold),#c19a2e);
+    color:var(--bg);
     display:flex;
     align-items:center;
     justify-content:center;
-    color:var(--bg);
     font-weight:800;
-    font-size:0.9rem;
+    font-size:0.85rem;
     flex-shrink:0;
 }
 
-.user-details{
-    flex:1;
-    overflow:hidden;
-}
-
 .user-name{
-    font-size:0.85rem;
+    font-size:0.82rem;
     font-weight:700;
-    color:var(--text);
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.user-role{
-    font-size:0.7rem;
-    color:var(--gold);
-    text-transform:uppercase;
-    letter-spacing:0.5px;
 }
 
 .logout-btn{
-    width:100%;
-    background:rgba(231,76,60,0.1);
-    border:1px solid rgba(231,76,60,0.2);
+    background:rgba(231,76,60,0.15);
+    border:1px solid rgba(231,76,60,0.3);
     color:#ff6b5b;
-    padding:10px;
-    border-radius:8px;
-    font-size:0.85rem;
-    font-weight:600;
+    width:40px;
+    height:40px;
+    border-radius:50%;
     cursor:pointer;
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:8px;
     transition:all 0.2s;
-    font-family:'Poppins',sans-serif;
+    font-size:0.95rem;
 }
 
 .logout-btn:hover{
-    background:rgba(231,76,60,0.2);
-    border-color:rgba(231,76,60,0.4);
+    background:#e74c3c;
+    color:#fff;
+    transform:scale(1.05);
 }
 
 
 /* ==================== MAIN CONTENT ==================== */
 .main{
-    flex:1;
-    margin-left:260px;
-    padding:24px 32px;
-    min-height:100vh;
+    max-width:1200px;
+    margin:0 auto;
+    padding:32px 20px;
 }
 
-.topbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.page-title-section{
     margin-bottom:32px;
-    flex-wrap:wrap;
-    gap:16px;
 }
 
 .page-title{
@@ -243,6 +188,7 @@ body{
     font-size:1.75rem;
     font-weight:900;
     color:var(--text);
+    margin-bottom:6px;
 }
 
 .page-title span{
@@ -255,32 +201,64 @@ body{
 .page-subtitle{
     color:var(--text-muted);
     font-size:0.9rem;
-    margin-top:4px;
-}
-
-.date-badge{
-    background:rgba(212,165,54,0.1);
-    border:1px solid rgba(212,165,54,0.2);
-    color:var(--gold);
-    padding:10px 18px;
-    border-radius:100px;
-    font-size:0.85rem;
-    font-weight:600;
     display:flex;
     align-items:center;
     gap:8px;
 }
 
-.mobile-menu-btn{
-    display:none;
+.date-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
     background:rgba(212,165,54,0.1);
-    border:1px solid rgba(212,165,54,0.3);
+    border:1px solid rgba(212,165,54,0.2);
     color:var(--gold);
-    width:44px;
-    height:44px;
+    padding:6px 14px;
+    border-radius:100px;
+    font-size:0.78rem;
+    font-weight:600;
+    margin-top:10px;
+}
+
+
+/* ==================== INFO CARD ==================== */
+.info-card{
+    background:linear-gradient(135deg,rgba(212,165,54,0.1),rgba(212,165,54,0.02));
+    border:1px solid rgba(212,165,54,0.2);
+    border-radius:16px;
+    padding:20px 24px;
+    display:flex;
+    gap:16px;
+    align-items:center;
+    margin-bottom:32px;
+}
+
+.info-icon{
+    width:48px;
+    height:48px;
     border-radius:12px;
-    cursor:pointer;
-    font-size:1.2rem;
+    background:rgba(212,165,54,0.15);
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.4rem;
+    flex-shrink:0;
+}
+
+.info-content{flex:1;}
+
+.info-title{
+    font-weight:800;
+    color:var(--gold);
+    margin-bottom:4px;
+    font-size:0.95rem;
+}
+
+.info-text{
+    color:var(--text-muted);
+    font-size:0.83rem;
+    line-height:1.5;
 }
 
 
@@ -288,7 +266,7 @@ body{
 .stats-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
+    gap:16px;
     margin-bottom:32px;
 }
 
@@ -296,7 +274,7 @@ body{
     background:linear-gradient(145deg,var(--bg-card),#0A1626);
     border:1px solid var(--border);
     border-radius:16px;
-    padding:24px;
+    padding:20px;
     position:relative;
     overflow:hidden;
     transition:transform 0.3s ease;
@@ -326,23 +304,23 @@ body{
 .stat-card.purple{--stat-color:#9b59b6;}
 
 .stat-icon{
-    width:48px;
-    height:48px;
+    width:44px;
+    height:44px;
     border-radius:12px;
     background:var(--stat-color);
     color:#fff;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:1.4rem;
-    margin-bottom:16px;
+    font-size:1.3rem;
+    margin-bottom:14px;
     box-shadow:0 4px 12px var(--stat-color);
     opacity:0.9;
 }
 
 .stat-label{
     color:var(--text-muted);
-    font-size:0.82rem;
+    font-size:0.78rem;
     font-weight:600;
     text-transform:uppercase;
     letter-spacing:0.5px;
@@ -351,7 +329,7 @@ body{
 
 .stat-value{
     font-family:'Montserrat',sans-serif;
-    font-size:1.75rem;
+    font-size:1.6rem;
     font-weight:900;
     color:var(--text);
     line-height:1.2;
@@ -362,7 +340,7 @@ body{
     display:inline-flex;
     align-items:center;
     gap:4px;
-    font-size:0.78rem;
+    font-size:0.75rem;
     font-weight:700;
     padding:4px 10px;
     border-radius:100px;
@@ -371,11 +349,6 @@ body{
 .stat-trend.up{
     background:rgba(37,211,102,0.15);
     color:#25d366;
-}
-
-.stat-trend.down{
-    background:rgba(231,76,60,0.15);
-    color:#e74c3c;
 }
 
 
@@ -391,9 +364,7 @@ body{
     gap:10px;
 }
 
-.section-title i{
-    color:var(--gold);
-}
+.section-title i{color:var(--gold);}
 
 .actions-grid{
     display:grid;
@@ -406,15 +377,14 @@ body{
     background:linear-gradient(145deg,var(--bg-card),#0A1626);
     border:1px solid var(--border);
     border-radius:16px;
-    padding:24px;
+    padding:20px;
     text-decoration:none;
     color:var(--text);
     display:flex;
     align-items:center;
-    gap:16px;
+    gap:14px;
     transition:all 0.3s ease;
-    position:relative;
-    overflow:hidden;
+    cursor:pointer;
 }
 
 .action-card:hover{
@@ -424,22 +394,20 @@ body{
 }
 
 .action-icon{
-    width:56px;
-    height:56px;
+    width:52px;
+    height:52px;
     border-radius:14px;
     background:linear-gradient(135deg,var(--gold),#c19a2e);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:1.5rem;
+    font-size:1.4rem;
     color:var(--bg);
     flex-shrink:0;
     box-shadow:0 6px 16px var(--gold-glow);
 }
 
-.action-content{
-    flex:1;
-}
+.action-content{flex:1;}
 
 .action-title{
     font-family:'Montserrat',sans-serif;
@@ -450,13 +418,13 @@ body{
 
 .action-desc{
     color:var(--text-muted);
-    font-size:0.82rem;
+    font-size:0.8rem;
     line-height:1.4;
 }
 
 .action-arrow{
     color:var(--gold);
-    font-size:1.1rem;
+    font-size:1rem;
     opacity:0;
     transform:translateX(-8px);
     transition:all 0.3s ease;
@@ -468,192 +436,365 @@ body{
 }
 
 
-/* ==================== INFO CARD ==================== */
-.info-card{
-    background:linear-gradient(135deg,rgba(212,165,54,0.1),rgba(212,165,54,0.02));
-    border:1px solid rgba(212,165,54,0.2);
-    border-radius:16px;
-    padding:24px;
+/* ==================== BOTTOM NAVBAR ==================== */
+.bottom-nav{
+    position:fixed;
+    bottom:16px;
+    left:50%;
+    transform:translateX(-50%);
+    background:rgba(15,30,51,0.95);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border:1px solid var(--border);
+    border-radius:100px;
+    padding:10px 14px;
     display:flex;
-    gap:20px;
-    align-items:center;
-    margin-bottom:32px;
+    gap:6px;
+    z-index:1000;
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.4),
+        0 0 30px rgba(212,165,54,0.15);
+    max-width:calc(100% - 32px);
+    overflow-x:auto;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
 }
 
-.info-icon{
-    width:56px;
-    height:56px;
-    border-radius:14px;
-    background:rgba(212,165,54,0.15);
-    color:var(--gold);
+.bottom-nav::-webkit-scrollbar{display:none;}
+
+.nav-item{
     display:flex;
+    flex-direction:column;
     align-items:center;
-    justify-content:center;
-    font-size:1.6rem;
-    flex-shrink:0;
-}
-
-.info-content{
-    flex:1;
-}
-
-.info-title{
-    font-weight:800;
-    color:var(--gold);
-    margin-bottom:6px;
-    font-size:0.95rem;
-}
-
-.info-text{
+    gap:2px;
+    padding:8px 14px;
     color:var(--text-muted);
-    font-size:0.85rem;
-    line-height:1.5;
+    text-decoration:none;
+    border-radius:100px;
+    font-size:0.68rem;
+    font-weight:700;
+    transition:all 0.3s ease;
+    min-width:64px;
+    cursor:pointer;
+    flex-shrink:0;
+    font-family:'Poppins',sans-serif;
+    border:none;
+    background:transparent;
+    letter-spacing:0.3px;
+}
+
+.nav-item i{
+    font-size:1.1rem;
+    transition:transform 0.3s ease;
+}
+
+.nav-item:hover{
+    color:var(--gold);
+}
+
+.nav-item:hover i{
+    transform:translateY(-2px);
+}
+
+.nav-item.active{
+    background:linear-gradient(135deg,var(--gold),#c19a2e);
+    color:var(--bg);
+    box-shadow:0 4px 12px var(--gold-glow);
+}
+
+.nav-item.active i{
+    color:var(--bg);
+}
+
+
+/* ==================== SWEETALERT PREMIUM ==================== */
+.swal-premium{
+    background:linear-gradient(145deg,#0F1E33,#0A1626) !important;
+    border:1px solid rgba(212,165,54,0.3) !important;
+    border-radius:20px !important;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.6),
+        0 0 40px rgba(212,165,54,0.15) !important;
+    color:#fff !important;
+    font-family:'Poppins',sans-serif !important;
+}
+
+.swal-premium .swal2-title{
+    color:#d4a536 !important;
+    font-family:'Montserrat',sans-serif !important;
+    font-weight:800 !important;
+    font-size:1.4rem !important;
+}
+
+.swal-premium .swal2-html-container{
+    color:rgba(255,255,255,0.85) !important;
+    font-size:0.95rem !important;
+    line-height:1.6 !important;
+}
+
+.swal-premium .swal2-icon{
+    border-color:#d4a536 !important;
+    color:#d4a536 !important;
+}
+
+.swal-premium .swal2-icon.swal2-success{
+    border-color:#25d366 !important;
+}
+
+.swal-premium .swal2-icon.swal2-success .swal2-success-line-tip,
+.swal-premium .swal2-icon.swal2-success .swal2-success-line-long{
+    background-color:#25d366 !important;
+}
+
+.swal-premium .swal2-icon.swal2-success .swal2-success-ring{
+    border-color:rgba(37,211,102,0.3) !important;
+}
+
+.swal-premium .swal2-icon.swal2-error{
+    border-color:#e74c3c !important;
+    color:#e74c3c !important;
+}
+
+.swal-premium .swal2-icon.swal2-error [class^=swal2-x-mark-line]{
+    background-color:#e74c3c !important;
+}
+
+.swal-premium .swal2-icon.swal2-warning{
+    border-color:#f39c12 !important;
+    color:#f39c12 !important;
+}
+
+.swal-premium .swal2-icon.swal2-info{
+    border-color:#3498db !important;
+    color:#3498db !important;
+}
+
+.swal-premium .swal2-icon.swal2-question{
+    border-color:#d4a536 !important;
+    color:#d4a536 !important;
+}
+
+.swal-premium .swal2-confirm{
+    background:linear-gradient(135deg,#d4a536,#c19a2e) !important;
+    color:#050B18 !important;
+    border:none !important;
+    border-radius:100px !important;
+    padding:12px 30px !important;
+    font-weight:800 !important;
+    font-family:'Poppins',sans-serif !important;
+    font-size:0.9rem !important;
+    box-shadow:0 6px 20px rgba(212,165,54,0.4) !important;
+    text-transform:uppercase !important;
+    letter-spacing:0.5px !important;
+    transition:all 0.3s ease !important;
+}
+
+.swal-premium .swal2-confirm:hover{
+    transform:translateY(-2px) !important;
+    box-shadow:0 8px 25px rgba(212,165,54,0.5) !important;
+}
+
+.swal-premium .swal2-confirm:focus{
+    box-shadow:0 6px 20px rgba(212,165,54,0.4), 0 0 0 3px rgba(212,165,54,0.3) !important;
+}
+
+.swal-premium .swal2-cancel{
+    background:rgba(255,255,255,0.08) !important;
+    color:#fff !important;
+    border:1px solid rgba(255,255,255,0.15) !important;
+    border-radius:100px !important;
+    padding:12px 30px !important;
+    font-weight:700 !important;
+    font-family:'Poppins',sans-serif !important;
+    font-size:0.9rem !important;
+    text-transform:uppercase !important;
+    letter-spacing:0.5px !important;
+    margin-right:12px !important;
+    transition:all 0.3s ease !important;
+}
+
+.swal-premium .swal2-cancel:hover{
+    background:rgba(231,76,60,0.15) !important;
+    border-color:rgba(231,76,60,0.4) !important;
+    color:#ff6b5b !important;
+}
+
+.swal-premium .swal2-deny{
+    background:linear-gradient(135deg,#e74c3c,#c0392b) !important;
+    color:#fff !important;
+    border:none !important;
+    border-radius:100px !important;
+    padding:12px 30px !important;
+    font-weight:700 !important;
+    font-family:'Poppins',sans-serif !important;
+    text-transform:uppercase !important;
+    letter-spacing:0.5px !important;
+}
+
+.swal-premium .swal2-timer-progress-bar{
+    background:linear-gradient(90deg,#d4a536,#e8bd52) !important;
+    height:4px !important;
+}
+
+.swal-premium .swal2-close{
+    color:rgba(255,255,255,0.4) !important;
+    font-size:2rem !important;
+    transition:all 0.2s !important;
+}
+
+.swal-premium .swal2-close:hover{
+    color:#d4a536 !important;
+    transform:rotate(90deg) !important;
+}
+
+.swal-premium .swal2-input,
+.swal-premium .swal2-textarea{
+    background:#0D1829 !important;
+    border:1.5px solid rgba(212,165,54,0.2) !important;
+    color:#fff !important;
+    border-radius:10px !important;
+    padding:12px 16px !important;
+    font-family:'Poppins',sans-serif !important;
+}
+
+.swal-premium .swal2-input:focus,
+.swal-premium .swal2-textarea:focus{
+    border-color:#d4a536 !important;
+    box-shadow:0 0 0 3px rgba(212,165,54,0.15) !important;
 }
 
 
 /* ==================== MOBILE ==================== */
-@media (max-width:1024px){
-    .sidebar{
-        transform:translateX(-100%);
-        box-shadow:0 0 40px rgba(0,0,0,0.5);
+@media (max-width:768px){
+    .dashboard-header{
+        padding:20px 16px 30px;
     }
     
-    .sidebar.open{
-        transform:translateX(0);
+    .header-container{
+        gap:12px;
+    }
+    
+    .header-title h1{
+        font-size:1.1rem;
+    }
+    
+    .header-title p{
+        font-size:0.7rem;
+    }
+    
+    .user-badge .user-name{
+        display:none;
+    }
+    
+    .user-badge{
+        padding:4px;
     }
     
     .main{
-        margin-left:0;
-        padding:20px 16px;
-    }
-    
-    .mobile-menu-btn{
-        display:flex;
-        align-items:center;
-        justify-content:center;
+        padding:24px 16px;
     }
     
     .page-title{
-        font-size:1.35rem;
-    }
-    
-    .stat-value{
         font-size:1.4rem;
-    }
-    
-    .stat-card{
-        padding:20px;
-    }
-    
-    .action-card{
-        padding:20px;
     }
     
     .info-card{
         flex-direction:column;
         text-align:center;
-        padding:20px;
+        padding:16px;
+    }
+    
+    .stat-value{
+        font-size:1.3rem;
+    }
+    
+    .stat-card{
+        padding:16px;
+    }
+    
+    .action-card{
+        padding:16px;
+    }
+    
+    .action-icon{
+        width:46px;
+        height:46px;
+        font-size:1.2rem;
+    }
+    
+    .bottom-nav{
+        padding:8px 10px;
+        gap:2px;
+        bottom:12px;
+    }
+    
+    .nav-item{
+        padding:8px 10px;
+        font-size:0.6rem;
+        min-width:56px;
+    }
+    
+    .nav-item i{
+        font-size:1rem;
     }
 }
 
-.sidebar-overlay{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.6);
-    z-index:99;
-    backdrop-filter:blur(4px);
-}
-
-.sidebar-overlay.show{
-    display:block;
+@media (max-width:400px){
+    .nav-item span{
+        display:none;
+    }
+    
+    .nav-item{
+        min-width:44px;
+        padding:10px 12px;
+    }
+    
+    .nav-item i{
+        font-size:1.2rem;
+    }
 }
 </style>
 </head>
 <body>
 
-<!-- Sidebar -->
-<aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-        <div class="sidebar-brand">
-            <div class="sidebar-logo">
+<!-- Header -->
+<header class="dashboard-header">
+    <div class="header-container">
+        <div class="header-brand">
+            <div class="header-logo">
                 <img src="main-logo.jpg" alt="Logo" onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-weight:900;color:#d4a536;\'>I</div>'">
             </div>
-            <div class="sidebar-brand-text">
-                <h3>Ibaadurrahmaan</h3>
+            <div class="header-title">
+                <h1>Ibaadurrahmaan</h1>
                 <p>Owner Dashboard</p>
             </div>
         </div>
-    </div>
-    
-    <nav class="sidebar-nav">
-        <div class="nav-section">Main</div>
-        <a href="dashboard.html" class="nav-item active">
-            <i class="fas fa-th-large"></i>
-            <span>Overview</span>
-        </a>
-        <a href="dashboard-slip.html" class="nav-item">
-            <i class="fas fa-file-invoice-dollar"></i>
-            <span>Slip Komisi</span>
-        </a>
         
-        <div class="nav-section">Management</div>
-        <a href="#" class="nav-item" onclick="showComingSoon('Reseller Management')">
-            <i class="fas fa-handshake"></i>
-            <span>Reseller</span>
-        </a>
-        <a href="#" class="nav-item" onclick="showComingSoon('Client Management')">
-            <i class="fas fa-users"></i>
-            <span>Client</span>
-        </a>
-        <a href="#" class="nav-item" onclick="showComingSoon('Laporan Bulanan')">
-            <i class="fas fa-chart-line"></i>
-            <span>Laporan</span>
-        </a>
-        
-        <div class="nav-section">Website</div>
-        <a href="index.html" class="nav-item" target="_blank">
-            <i class="fas fa-external-link-alt"></i>
-            <span>Lihat Website</span>
-        </a>
-    </nav>
-    
-    <div class="sidebar-footer">
-        <div class="user-info">
-            <div class="user-avatar" id="userAvatar">I</div>
-            <div class="user-details">
-                <div class="user-name" id="userName">Owner</div>
-                <div class="user-role">Administrator</div>
+        <div class="header-actions">
+            <div class="user-badge">
+                <div class="user-avatar" id="userAvatar">O</div>
+                <span class="user-name" id="userName">Owner</span>
             </div>
+            <button class="logout-btn" onclick="handleLogout()" title="Logout">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
         </div>
-        <button class="logout-btn" onclick="handleLogout()">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Keluar</span>
-        </button>
     </div>
-</aside>
+</header>
 
-<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
 <!-- Main Content -->
 <main class="main">
-    <div class="topbar">
-        <div>
-            <div style="display:flex;align-items:center;gap:12px;">
-                <button class="mobile-menu-btn" onclick="toggleSidebar()">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div>
-                    <h1 class="page-title">Selamat Datang, <span>Owner</span> 👋</h1>
-                    <p class="page-subtitle">Ini ringkasan bisnis kamu hari ini</p>
-                </div>
-            </div>
-        </div>
+    
+    <div class="page-title-section">
+        <h1 class="page-title">Selamat Datang, <span>Owner</span> 👋</h1>
+        <p class="page-subtitle">Ini ringkasan bisnis kamu hari ini</p>
         <div class="date-badge">
             <i class="fas fa-calendar"></i>
             <span id="todayDate">Loading...</span>
         </div>
     </div>
+    
     
     <!-- Info Card -->
     <div class="info-card">
@@ -663,11 +804,12 @@ body{
         <div class="info-content">
             <div class="info-title">🚀 Dashboard MVP - Phase 1</div>
             <div class="info-text">
-                Data statistik di bawah masih dummy/manual. Di update selanjutnya, akan otomatis terhubung dengan database reseller & client.
+                Data statistik di bawah masih dummy/manual. Di update selanjutnya, akan otomatis terhubung dengan database.
                 Untuk sekarang, kamu bisa fokus pakai <b>Slip Komisi</b> yang sudah siap digunakan.
             </div>
         </div>
     </div>
+    
     
     <!-- Stats -->
     <div class="stats-grid">
@@ -678,7 +820,7 @@ body{
             <div class="stat-label">Omzet Bulan Ini</div>
             <div class="stat-value">Rp 0</div>
             <span class="stat-trend up">
-                <i class="fas fa-arrow-up"></i> Update segera
+                <i class="fas fa-arrow-up"></i> Segera
             </span>
         </div>
         
@@ -689,7 +831,7 @@ body{
             <div class="stat-label">Profit Bulan Ini</div>
             <div class="stat-value">Rp 0</div>
             <span class="stat-trend up">
-                <i class="fas fa-arrow-up"></i> Update segera
+                <i class="fas fa-arrow-up"></i> Segera
             </span>
         </div>
         
@@ -715,6 +857,7 @@ body{
             </span>
         </div>
     </div>
+    
     
     <!-- Quick Actions -->
     <h2 class="section-title">
@@ -745,7 +888,7 @@ body{
             <i class="fas fa-arrow-right action-arrow"></i>
         </a>
         
-        <a href="#" onclick="showComingSoon('Reseller Management')" class="action-card">
+        <div class="action-card" onclick="showComingSoon('Reseller Management')">
             <div class="action-icon">
                 <i class="fas fa-user-plus"></i>
             </div>
@@ -754,9 +897,9 @@ body{
                 <div class="action-desc">Coming soon - Kelola data reseller</div>
             </div>
             <i class="fas fa-arrow-right action-arrow"></i>
-        </a>
+        </div>
         
-        <a href="#" onclick="showComingSoon('Client Management')" class="action-card">
+        <div class="action-card" onclick="showComingSoon('Client Management')">
             <div class="action-icon">
                 <i class="fas fa-briefcase"></i>
             </div>
@@ -765,14 +908,40 @@ body{
                 <div class="action-desc">Coming soon - Kelola data client</div>
             </div>
             <i class="fas fa-arrow-right action-arrow"></i>
-        </a>
+        </div>
     </div>
+    
 </main>
+
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav">
+    <a href="dashboard.html" class="nav-item active">
+        <i class="fas fa-th-large"></i>
+        <span>Overview</span>
+    </a>
+    <a href="dashboard-slip.html" class="nav-item">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <span>Slip</span>
+    </a>
+    <button class="nav-item" onclick="showComingSoon('Reseller Management')">
+        <i class="fas fa-handshake"></i>
+        <span>Reseller</span>
+    </button>
+    <button class="nav-item" onclick="showComingSoon('Client Management')">
+        <i class="fas fa-users"></i>
+        <span>Client</span>
+    </button>
+    <button class="nav-item" onclick="showComingSoon('Laporan')">
+        <i class="fas fa-chart-line"></i>
+        <span>Laporan</span>
+    </button>
+</nav>
 
 
 <script>
 // ====================================================
-// AUTH GUARD - Cek login
+// AUTH GUARD
 // ====================================================
 const CREDENTIALS = {
     username: 'owner',
@@ -795,25 +964,28 @@ function checkAuth() {
         window.location.href = 'dashboard-login.html';
         return false;
     }
-    
     try {
         const data = JSON.parse(session);
-        const now = Date.now();
-        
-        if (now > data.expiry) {
+        if (Date.now() > data.expiry) {
             localStorage.removeItem('ibaad_session');
-            alert('Sesi kamu sudah habis. Silakan login kembali.');
-            window.location.href = 'dashboard-login.html';
+            Swal.fire({
+                icon: 'warning',
+                title: 'Sesi Berakhir',
+                text: 'Silakan login kembali untuk melanjutkan',
+                customClass: { popup: 'swal-premium' },
+                confirmButtonText: 'Login Ulang',
+                allowOutsideClick: false
+            }).then(() => {
+                window.location.href = 'dashboard-login.html';
+            });
             return false;
         }
-        
         const validToken = simpleHash(CREDENTIALS.username + CREDENTIALS.password);
         if (data.token !== validToken) {
             localStorage.removeItem('ibaad_session');
             window.location.href = 'dashboard-login.html';
             return false;
         }
-        
         return data;
     } catch(e) {
         window.location.href = 'dashboard-login.html';
@@ -823,30 +995,60 @@ function checkAuth() {
 
 const session = checkAuth();
 
+
 // ====================================================
-// LOGOUT
+// LOGOUT dengan SweetAlert
 // ====================================================
 function handleLogout() {
-    if (confirm('Yakin mau keluar dari dashboard?')) {
-        localStorage.removeItem('ibaad_session');
-        window.location.href = 'dashboard-login.html';
-    }
+    Swal.fire({
+        icon: 'question',
+        title: 'Keluar Dashboard?',
+        text: 'Kamu akan diarahkan ke halaman login',
+        showCancelButton: true,
+        confirmButtonText: '<i class="fas fa-sign-out-alt"></i> Ya, Keluar',
+        cancelButtonText: 'Batal',
+        customClass: { popup: 'swal-premium' },
+        reverseButtons: true,
+        focusCancel: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Sampai Jumpa! 👋',
+                text: 'Berhasil keluar dari dashboard',
+                customClass: { popup: 'swal-premium' },
+                timer: 1500,
+                showConfirmButton: false,
+                timerProgressBar: true
+            }).then(() => {
+                localStorage.removeItem('ibaad_session');
+                window.location.href = 'dashboard-login.html';
+            });
+        }
+    });
 }
 
-// ====================================================
-// SIDEBAR TOGGLE (Mobile)
-// ====================================================
-function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('open');
-    document.getElementById('sidebarOverlay').classList.toggle('show');
-}
 
 // ====================================================
-// COMING SOON
+// COMING SOON dengan SweetAlert
 // ====================================================
 function showComingSoon(feature) {
-    alert(`🚀 "${feature}" akan segera hadir!\n\nFitur ini sedang dalam pengembangan Phase 2.`);
+    Swal.fire({
+        icon: 'info',
+        title: '🚀 Coming Soon',
+        html: `Fitur <b style="color:#d4a536;">${feature}</b> sedang dalam pengembangan<br><br>
+               <div style="background:rgba(212,165,54,0.1);border:1px solid rgba(212,165,54,0.2);padding:12px 16px;border-radius:10px;font-size:0.85rem;">
+                   📅 <b>Target rilis:</b> Phase 2<br>
+                   🎯 <b>Fitur:</b> Full CRUD + Analytics
+               </div>`,
+        customClass: { popup: 'swal-premium' },
+        confirmButtonText: 'Oke, Mengerti',
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown animate__faster'
+        }
+    });
 }
+
 
 // ====================================================
 // SET TODAY DATE
@@ -866,11 +1068,34 @@ function updateDate() {
 // Set user info
 if (session) {
     const username = session.username || 'Owner';
-    document.getElementById('userName').textContent = username.charAt(0).toUpperCase() + username.slice(1);
-    document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
+    const displayName = username.charAt(0).toUpperCase() + username.slice(1);
+    document.getElementById('userName').textContent = displayName;
+    document.getElementById('userAvatar').textContent = displayName.charAt(0);
 }
 
 updateDate();
+
+
+// ====================================================
+// WELCOME TOAST (First time in session)
+// ====================================================
+if (!sessionStorage.getItem('welcomed')) {
+    setTimeout(() => {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            customClass: { popup: 'swal-premium' }
+        });
+        Toast.fire({
+            icon: 'success',
+            title: `Selamat datang kembali! 👋`
+        });
+        sessionStorage.setItem('welcomed', 'true');
+    }, 500);
+}
 </script>
 
 </body>
