@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050B18">
+<title>Dashboard | Ibaadurrahmaan Web Designer</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="main-logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+    --bg:#050B18;
+    --bg-card:#0F1E33;
+    --gold:#d4a536;
+    --gold-glow:rgba(212,165,54,0.3);
+    --text:#fff;
+    --text-muted:#8a94a6;
+    --border:rgba(255,255,255,0.08);
+    --success:#25d366;
+    --danger:#e74c3c;
+    --info:#3498db;
+    --warning:#f39c12;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Poppins',sans-serif;
+    min-height:100vh;
+    display:flex;
+}
+
+/* ==================== SIDEBAR ==================== */
+.sidebar{
+    width:260px;
+    background:linear-gradient(180deg,#0F1E33 0%,#0A1626 100%);
+    border-right:1px solid var(--border);
+    padding:24px 0;
+    position:fixed;
+    height:100vh;
+    left:0;
+    top:0;
+    display:flex;
+    flex-direction:column;
+    z-index:100;
+    transition:transform 0.3s ease;
+}
+
+.sidebar-header{
+    padding:0 24px 24px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:16px;
+}
+
+.sidebar-brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.sidebar-logo{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:#fff;
+    padding:3px;
+    box-shadow:0 4px 12px var(--gold-glow);
+    border:2px solid var(--gold);
+    box-sizing:border-box;
+    overflow:hidden;
+    flex-shrink:0;
+}
+
+.sidebar-logo img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    border-radius:50%;
+}
+
+.sidebar-brand-text h3{
+    font-family:'Montserrat',sans-serif;
+    font-size:0.95rem;
+    font-weight:800;
+    background:linear-gradient(135deg,var(--gold),#e8bd52);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin-bottom:2px;
+}
+
+.sidebar-brand-text p{
+    font-size:0.7rem;
+    color:var(--text-muted);
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+}
+
+.sidebar-nav{
+    flex:1;
+    padding:0 12px;
+    overflow-y:auto;
+}
+
+.nav-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 16px;
+    color:var(--text-muted);
+    text-decoration:none;
+    border-radius:10px;
+    font-size:0.9rem;
+    font-weight:600;
+    margin-bottom:4px;
+    transition:all 0.2s ease;
+}
+
+.nav-item:hover{
+    background:rgba(212,165,54,0.08);
+    color:var(--gold);
+}
+
+.nav-item.active{
+    background:linear-gradient(135deg,rgba(212,165,54,0.15),rgba(212,165,54,0.05));
+    color:var(--gold);
+    box-shadow:inset 3px 0 0 var(--gold);
+}
+
+.nav-item i{
+    font-size:1.1rem;
+    width:20px;
+    text-align:center;
+}
+
+.nav-section{
+    color:var(--text-muted);
+    font-size:0.7rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    padding:16px 16px 8px;
+}
+
+.sidebar-footer{
+    padding:16px 24px;
+    border-top:1px solid var(--border);
+}
+
+.user-info{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px;
+    background:rgba(255,255,255,0.03);
+    border-radius:10px;
+    margin-bottom:8px;
+}
+
+.user-avatar{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),#c19a2e);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--bg);
+    font-weight:800;
+    font-size:0.9rem;
+    flex-shrink:0;
+}
+
+.user-details{
+    flex:1;
+    overflow:hidden;
+}
+
+.user-name{
+    font-size:0.85rem;
+    font-weight:700;
+    color:var(--text);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.user-role{
+    font-size:0.7rem;
+    color:var(--gold);
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+}
+
+.logout-btn{
+    width:100%;
+    background:rgba(231,76,60,0.1);
+    border:1px solid rgba(231,76,60,0.2);
+    color:#ff6b5b;
+    padding:10px;
+    border-radius:8px;
+    font-size:0.85rem;
+    font-weight:600;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:all 0.2s;
+    font-family:'Poppins',sans-serif;
+}
+
+.logout-btn:hover{
+    background:rgba(231,76,60,0.2);
+    border-color:rgba(231,76,60,0.4);
+}
+
+
+/* ==================== MAIN CONTENT ==================== */
+.main{
+    flex:1;
+    margin-left:260px;
+    padding:24px 32px;
+    min-height:100vh;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:32px;
+    flex-wrap:wrap;
+    gap:16px;
+}
+
+.page-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.75rem;
+    font-weight:900;
+    color:var(--text);
+}
+
+.page-title span{
+    background:linear-gradient(135deg,var(--gold),#e8bd52);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+}
+
+.page-subtitle{
+    color:var(--text-muted);
+    font-size:0.9rem;
+    margin-top:4px;
+}
+
+.date-badge{
+    background:rgba(212,165,54,0.1);
+    border:1px solid rgba(212,165,54,0.2);
+    color:var(--gold);
+    padding:10px 18px;
+    border-radius:100px;
+    font-size:0.85rem;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.mobile-menu-btn{
+    display:none;
+    background:rgba(212,165,54,0.1);
+    border:1px solid rgba(212,165,54,0.3);
+    color:var(--gold);
+    width:44px;
+    height:44px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:1.2rem;
+}
+
+
+/* ==================== STAT CARDS ==================== */
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:32px;
+}
+
+.stat-card{
+    background:linear-gradient(145deg,var(--bg-card),#0A1626);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:24px;
+    position:relative;
+    overflow:hidden;
+    transition:transform 0.3s ease;
+}
+
+.stat-card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(212,165,54,0.3);
+}
+
+.stat-card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    width:100px;
+    height:100px;
+    background:radial-gradient(circle,var(--stat-color) 0%,transparent 70%);
+    opacity:0.15;
+    border-radius:50%;
+    transform:translate(30%,-30%);
+}
+
+.stat-card.gold{--stat-color:#d4a536;}
+.stat-card.green{--stat-color:#25d366;}
+.stat-card.blue{--stat-color:#3498db;}
+.stat-card.purple{--stat-color:#9b59b6;}
+
+.stat-icon{
+    width:48px;
+    height:48px;
+    border-radius:12px;
+    background:var(--stat-color);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.4rem;
+    margin-bottom:16px;
+    box-shadow:0 4px 12px var(--stat-color);
+    opacity:0.9;
+}
+
+.stat-label{
+    color:var(--text-muted);
+    font-size:0.82rem;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin-bottom:8px;
+}
+
+.stat-value{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.75rem;
+    font-weight:900;
+    color:var(--text);
+    line-height:1.2;
+    margin-bottom:8px;
+}
+
+.stat-trend{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    font-size:0.78rem;
+    font-weight:700;
+    padding:4px 10px;
+    border-radius:100px;
+}
+
+.stat-trend.up{
+    background:rgba(37,211,102,0.15);
+    color:#25d366;
+}
+
+.stat-trend.down{
+    background:rgba(231,76,60,0.15);
+    color:#e74c3c;
+}
+
+
+/* ==================== QUICK ACTIONS ==================== */
+.section-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.15rem;
+    font-weight:800;
+    color:var(--text);
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.section-title i{
+    color:var(--gold);
+}
+
+.actions-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:16px;
+    margin-bottom:32px;
+}
+
+.action-card{
+    background:linear-gradient(145deg,var(--bg-card),#0A1626);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:24px;
+    text-decoration:none;
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    gap:16px;
+    transition:all 0.3s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.action-card:hover{
+    transform:translateY(-3px);
+    border-color:var(--gold);
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+.action-icon{
+    width:56px;
+    height:56px;
+    border-radius:14px;
+    background:linear-gradient(135deg,var(--gold),#c19a2e);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.5rem;
+    color:var(--bg);
+    flex-shrink:0;
+    box-shadow:0 6px 16px var(--gold-glow);
+}
+
+.action-content{
+    flex:1;
+}
+
+.action-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:1rem;
+    font-weight:800;
+    margin-bottom:4px;
+}
+
+.action-desc{
+    color:var(--text-muted);
+    font-size:0.82rem;
+    line-height:1.4;
+}
+
+.action-arrow{
+    color:var(--gold);
+    font-size:1.1rem;
+    opacity:0;
+    transform:translateX(-8px);
+    transition:all 0.3s ease;
+}
+
+.action-card:hover .action-arrow{
+    opacity:1;
+    transform:translateX(0);
+}
+
+
+/* ==================== INFO CARD ==================== */
+.info-card{
+    background:linear-gradient(135deg,rgba(212,165,54,0.1),rgba(212,165,54,0.02));
+    border:1px solid rgba(212,165,54,0.2);
+    border-radius:16px;
+    padding:24px;
+    display:flex;
+    gap:20px;
+    align-items:center;
+    margin-bottom:32px;
+}
+
+.info-icon{
+    width:56px;
+    height:56px;
+    border-radius:14px;
+    background:rgba(212,165,54,0.15);
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.6rem;
+    flex-shrink:0;
+}
+
+.info-content{
+    flex:1;
+}
+
+.info-title{
+    font-weight:800;
+    color:var(--gold);
+    margin-bottom:6px;
+    font-size:0.95rem;
+}
+
+.info-text{
+    color:var(--text-muted);
+    font-size:0.85rem;
+    line-height:1.5;
+}
+
+
+/* ==================== MOBILE ==================== */
+@media (max-width:1024px){
+    .sidebar{
+        transform:translateX(-100%);
+        box-shadow:0 0 40px rgba(0,0,0,0.5);
+    }
+    
+    .sidebar.open{
+        transform:translateX(0);
+    }
+    
+    .main{
+        margin-left:0;
+        padding:20px 16px;
+    }
+    
+    .mobile-menu-btn{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+    
+    .page-title{
+        font-size:1.35rem;
+    }
+    
+    .stat-value{
+        font-size:1.4rem;
+    }
+    
+    .stat-card{
+        padding:20px;
+    }
+    
+    .action-card{
+        padding:20px;
+    }
+    
+    .info-card{
+        flex-direction:column;
+        text-align:center;
+        padding:20px;
+    }
+}
+
+.sidebar-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+    z-index:99;
+    backdrop-filter:blur(4px);
+}
+
+.sidebar-overlay.show{
+    display:block;
+}
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-brand">
+            <div class="sidebar-logo">
+                <img src="main-logo.jpg" alt="Logo" onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-weight:900;color:#d4a536;\'>I</div>'">
+            </div>
+            <div class="sidebar-brand-text">
+                <h3>Ibaadurrahmaan</h3>
+                <p>Owner Dashboard</p>
+            </div>
+        </div>
+    </div>
+    
+    <nav class="sidebar-nav">
+        <div class="nav-section">Main</div>
+        <a href="dashboard.html" class="nav-item active">
+            <i class="fas fa-th-large"></i>
+            <span>Overview</span>
+        </a>
+        <a href="dashboard-slip.html" class="nav-item">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <span>Slip Komisi</span>
+        </a>
+        
+        <div class="nav-section">Management</div>
+        <a href="#" class="nav-item" onclick="showComingSoon('Reseller Management')">
+            <i class="fas fa-handshake"></i>
+            <span>Reseller</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showComingSoon('Client Management')">
+            <i class="fas fa-users"></i>
+            <span>Client</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showComingSoon('Laporan Bulanan')">
+            <i class="fas fa-chart-line"></i>
+            <span>Laporan</span>
+        </a>
+        
+        <div class="nav-section">Website</div>
+        <a href="index.html" class="nav-item" target="_blank">
+            <i class="fas fa-external-link-alt"></i>
+            <span>Lihat Website</span>
+        </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+        <div class="user-info">
+            <div class="user-avatar" id="userAvatar">I</div>
+            <div class="user-details">
+                <div class="user-name" id="userName">Owner</div>
+                <div class="user-role">Administrator</div>
+            </div>
+        </div>
+        <button class="logout-btn" onclick="handleLogout()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Keluar</span>
+        </button>
+    </div>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- Main Content -->
+<main class="main">
+    <div class="topbar">
+        <div>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div>
+                    <h1 class="page-title">Selamat Datang, <span>Owner</span> 👋</h1>
+                    <p class="page-subtitle">Ini ringkasan bisnis kamu hari ini</p>
+                </div>
+            </div>
+        </div>
+        <div class="date-badge">
+            <i class="fas fa-calendar"></i>
+            <span id="todayDate">Loading...</span>
+        </div>
+    </div>
+    
+    <!-- Info Card -->
+    <div class="info-card">
+        <div class="info-icon">
+            <i class="fas fa-info-circle"></i>
+        </div>
+        <div class="info-content">
+            <div class="info-title">🚀 Dashboard MVP - Phase 1</div>
+            <div class="info-text">
+                Data statistik di bawah masih dummy/manual. Di update selanjutnya, akan otomatis terhubung dengan database reseller & client.
+                Untuk sekarang, kamu bisa fokus pakai <b>Slip Komisi</b> yang sudah siap digunakan.
+            </div>
+        </div>
+    </div>
+    
+    <!-- Stats -->
+    <div class="stats-grid">
+        <div class="stat-card gold">
+            <div class="stat-icon">
+                <i class="fas fa-sack-dollar"></i>
+            </div>
+            <div class="stat-label">Omzet Bulan Ini</div>
+            <div class="stat-value">Rp 0</div>
+            <span class="stat-trend up">
+                <i class="fas fa-arrow-up"></i> Update segera
+            </span>
+        </div>
+        
+        <div class="stat-card green">
+            <div class="stat-icon">
+                <i class="fas fa-coins"></i>
+            </div>
+            <div class="stat-label">Profit Bulan Ini</div>
+            <div class="stat-value">Rp 0</div>
+            <span class="stat-trend up">
+                <i class="fas fa-arrow-up"></i> Update segera
+            </span>
+        </div>
+        
+        <div class="stat-card blue">
+            <div class="stat-icon">
+                <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="stat-label">Total Client</div>
+            <div class="stat-value">0</div>
+            <span class="stat-trend up">
+                <i class="fas fa-plus"></i> Baru
+            </span>
+        </div>
+        
+        <div class="stat-card purple">
+            <div class="stat-icon">
+                <i class="fas fa-handshake"></i>
+            </div>
+            <div class="stat-label">Total Reseller</div>
+            <div class="stat-value">0</div>
+            <span class="stat-trend up">
+                <i class="fas fa-plus"></i> Baru
+            </span>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <h2 class="section-title">
+        <i class="fas fa-bolt"></i>
+        <span>Aksi Cepat</span>
+    </h2>
+    
+    <div class="actions-grid">
+        <a href="dashboard-slip.html" class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-file-invoice-dollar"></i>
+            </div>
+            <div class="action-content">
+                <div class="action-title">Generate Slip Komisi</div>
+                <div class="action-desc">Bikin slip pembayaran komisi reseller</div>
+            </div>
+            <i class="fas fa-arrow-right action-arrow"></i>
+        </a>
+        
+        <a href="index.html" target="_blank" class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-globe"></i>
+            </div>
+            <div class="action-content">
+                <div class="action-title">Lihat Website</div>
+                <div class="action-desc">Buka website di tab baru</div>
+            </div>
+            <i class="fas fa-arrow-right action-arrow"></i>
+        </a>
+        
+        <a href="#" onclick="showComingSoon('Reseller Management')" class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <div class="action-content">
+                <div class="action-title">Tambah Reseller Baru</div>
+                <div class="action-desc">Coming soon - Kelola data reseller</div>
+            </div>
+            <i class="fas fa-arrow-right action-arrow"></i>
+        </a>
+        
+        <a href="#" onclick="showComingSoon('Client Management')" class="action-card">
+            <div class="action-icon">
+                <i class="fas fa-briefcase"></i>
+            </div>
+            <div class="action-content">
+                <div class="action-title">Tambah Client Baru</div>
+                <div class="action-desc">Coming soon - Kelola data client</div>
+            </div>
+            <i class="fas fa-arrow-right action-arrow"></i>
+        </a>
+    </div>
+</main>
+
+
+<script>
+// ====================================================
+// AUTH GUARD - Cek login
+// ====================================================
+const CREDENTIALS = {
+    username: 'owner',
+    password: 'ibaadurrahmaan2024'
+};
+
+function simpleHash(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
+    }
+    return hash.toString(36) + str.length.toString(36);
+}
+
+function checkAuth() {
+    const session = localStorage.getItem('ibaad_session');
+    if (!session) {
+        window.location.href = 'dashboard-login.html';
+        return false;
+    }
+    
+    try {
+        const data = JSON.parse(session);
+        const now = Date.now();
+        
+        if (now > data.expiry) {
+            localStorage.removeItem('ibaad_session');
+            alert('Sesi kamu sudah habis. Silakan login kembali.');
+            window.location.href = 'dashboard-login.html';
+            return false;
+        }
+        
+        const validToken = simpleHash(CREDENTIALS.username + CREDENTIALS.password);
+        if (data.token !== validToken) {
+            localStorage.removeItem('ibaad_session');
+            window.location.href = 'dashboard-login.html';
+            return false;
+        }
+        
+        return data;
+    } catch(e) {
+        window.location.href = 'dashboard-login.html';
+        return false;
+    }
+}
+
+const session = checkAuth();
+
+// ====================================================
+// LOGOUT
+// ====================================================
+function handleLogout() {
+    if (confirm('Yakin mau keluar dari dashboard?')) {
+        localStorage.removeItem('ibaad_session');
+        window.location.href = 'dashboard-login.html';
+    }
+}
+
+// ====================================================
+// SIDEBAR TOGGLE (Mobile)
+// ====================================================
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('show');
+}
+
+// ====================================================
+// COMING SOON
+// ====================================================
+function showComingSoon(feature) {
+    alert(`🚀 "${feature}" akan segera hadir!\n\nFitur ini sedang dalam pengembangan Phase 2.`);
+}
+
+// ====================================================
+// SET TODAY DATE
+// ====================================================
+const monthsID = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const daysID = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+
+function updateDate() {
+    const now = new Date();
+    const dayName = daysID[now.getDay()];
+    const date = now.getDate();
+    const month = monthsID[now.getMonth()];
+    const year = now.getFullYear();
+    document.getElementById('todayDate').textContent = `${dayName}, ${date} ${month} ${year}`;
+}
+
+// Set user info
+if (session) {
+    const username = session.username || 'Owner';
+    document.getElementById('userName').textContent = username.charAt(0).toUpperCase() + username.slice(1);
+    document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
+}
+
+updateDate();
+</script>
+
+</body>
+</html>
