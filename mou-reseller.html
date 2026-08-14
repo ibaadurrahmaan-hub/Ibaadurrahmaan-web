@@ -19,8 +19,8 @@
 
 <style>
 /* ====================================================
-   📄 MoU DIGITAL INTERACTIVE - FULL STYLES v2.0
-   Fixed: Action Buttons Layout
+   📄 MoU DIGITAL INTERACTIVE - FULL STYLES v3.0
+   Fixed: Equal Width Buttons (Print & Submit)
    ==================================================== */
 
 .mou-page{
@@ -1057,7 +1057,7 @@
 
 
 /* ============================================
-   🎯 ACTION BUTTONS - FIXED LAYOUT
+   🎯 ACTION BUTTONS - EQUAL WIDTH FIXED
    ============================================ */
 .mou-actions-sticky{
     position:sticky;
@@ -1068,39 +1068,47 @@
     z-index:50;
 }
 
+/* Container - Flex Column, All Buttons Same Width */
 .mou-actions{
     display:flex;
+    flex-direction:column;
     gap:12px;
     justify-content:center;
-    flex-wrap:wrap;
-    max-width:600px;
+    align-items:stretch;
+    max-width:500px;
     margin:0 auto;
+    padding:0;
+    width:100%;
+    box-sizing:border-box;
 }
 
-/* ==================== BASE BUTTON ==================== */
+
+/* ==================== BASE BUTTON - Equal Sizing ==================== */
 .mou-btn{
-    display:inline-flex;
+    display:flex;
     align-items:center;
     justify-content:center;
     gap:10px;
-    padding:15px 24px;
+    padding:16px 24px;
     border-radius:100px;
     font-size:0.95rem;
     font-weight:700;
     text-decoration:none;
     cursor:pointer;
     transition:all 0.3s var(--ease);
-    border:none;
+    border:2px solid transparent;
     line-height:1;
     font-family:'Poppins',sans-serif;
     white-space:nowrap;
-    flex:1 1 auto;
-    min-width:140px;
-    max-width:260px;
+    width:100%;
+    box-sizing:border-box;
+    min-height:54px;
+    max-width:100%;
+    flex:none;
 }
 
 .mou-btn i{
-    font-size:1.05rem;
+    font-size:1.1rem;
     flex-shrink:0;
     line-height:1;
 }
@@ -1110,7 +1118,74 @@
 }
 
 
-/* ==================== PRIMARY GOLD (unused - reserve) ==================== */
+/* ==================== 🖨️ CETAK - Outline Gold ==================== */
+#btnPrint,
+.mou-btn-secondary{
+    background:transparent !important;
+    color:#d4a536 !important;
+    border:2px solid #d4a536 !important;
+}
+
+#btnPrint:hover:not(:disabled),
+.mou-btn-secondary:hover:not(:disabled){
+    background:#d4a536 !important;
+    color:#fff !important;
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(212,165,54,0.3);
+}
+
+#btnPrint:disabled,
+.mou-btn-secondary:disabled{
+    opacity:0.4;
+    cursor:not-allowed;
+    transform:none;
+}
+
+
+/* ==================== 💬 KIRIM WA - Solid Green ==================== */
+.mou-btn-wa,
+#btnSubmit,
+#btnKirim{
+    background:#25D366 !important;
+    color:#fff !important;
+    border:2px solid #25D366 !important;
+    box-shadow:0 6px 20px rgba(37,211,102,0.3);
+    padding:16px 24px !important;
+    font-size:0.95rem !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-height:54px !important;
+    flex:none !important;
+}
+
+.mou-btn-wa:hover:not(:disabled),
+#btnSubmit:hover:not(:disabled),
+#btnKirim:hover:not(:disabled){
+    background:#20BA5A !important;
+    border-color:#20BA5A !important;
+    transform:translateY(-3px);
+    box-shadow:0 10px 28px rgba(37,211,102,0.5);
+}
+
+.mou-btn-wa:disabled,
+#btnSubmit:disabled,
+#btnKirim:disabled{
+    background:#333 !important;
+    border-color:#444 !important;
+    color:#666 !important;
+    cursor:not-allowed;
+    box-shadow:none;
+    transform:none;
+}
+
+.mou-btn-wa i,
+#btnSubmit i,
+#btnKirim i{
+    font-size:1.15rem;
+}
+
+
+/* ==================== PRIMARY GOLD (Reserve) ==================== */
 .mou-btn-primary{
     background:var(--grad-gold-shine);
     color:var(--bg);
@@ -1126,96 +1201,6 @@
     opacity:0.4;
     cursor:not-allowed;
     transform:none;
-}
-
-
-/* ==================== WHATSAPP - Full Width Priority ==================== */
-.mou-btn-wa,
-#btnKirim{
-    background:#25D366 !important;
-    color:#fff !important;
-    flex:1 1 100% !important;
-    max-width:100% !important;
-    order:3;
-    padding:16px 28px !important;
-    font-size:1rem !important;
-    box-shadow:0 6px 20px rgba(37,211,102,0.3);
-}
-
-.mou-btn-wa:hover:not(:disabled),
-#btnKirim:hover:not(:disabled){
-    background:#20BA5A !important;
-    transform:translateY(-3px);
-    box-shadow:0 10px 28px rgba(37,211,102,0.5);
-}
-
-.mou-btn-wa:disabled,
-#btnKirim:disabled{
-    background:#333 !important;
-    color:#666 !important;
-    cursor:not-allowed;
-    box-shadow:none;
-    transform:none;
-}
-
-
-/* ==================== SECONDARY ==================== */
-.mou-btn-secondary{
-    background:rgba(255,255,255,0.05);
-    color:var(--text);
-    border:1px solid var(--border);
-}
-
-.mou-btn-secondary:hover:not(:disabled){
-    background:rgba(255,255,255,0.1);
-    border-color:var(--gold);
-    color:var(--gold);
-    transform:translateY(-3px);
-}
-
-
-/* ==================== PRINT BUTTON - Outline Gold ==================== */
-#btnPrint{
-    background:transparent !important;
-    color:#d4a536 !important;
-    border:2px solid #d4a536 !important;
-    flex:1 1 calc(50% - 6px);
-    min-width:140px;
-    max-width:260px;
-}
-
-#btnPrint:hover:not(:disabled){
-    background:#d4a536 !important;
-    color:#fff !important;
-    transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(212,165,54,0.3);
-}
-
-#btnPrint:disabled{
-    opacity:0.4;
-    cursor:not-allowed;
-}
-
-
-/* ==================== DOWNLOAD BUTTON - Solid Gold ==================== */
-#btnDownload{
-    background:linear-gradient(135deg,#F5D77A 0%,#D4A536 50%,#8B6914 100%) !important;
-    color:#fff !important;
-    border:none !important;
-    flex:1 1 calc(50% - 6px);
-    min-width:140px;
-    max-width:260px;
-}
-
-#btnDownload:hover:not(:disabled){
-    transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(212,165,54,0.4);
-}
-
-#btnDownload:disabled{
-    opacity:0.4;
-    cursor:not-allowed;
-    background:#555 !important;
 }
 
 
@@ -1320,7 +1305,7 @@
 
 
 /* ====================================================
-   🏦 BANK LOGO - Warna Khas Brand
+   🏦 BANK LOGO
    ==================================================== */
 .mou-bank-logo{
     width:64px;
@@ -1348,7 +1333,6 @@
     color:#fff;
 }
 
-/* Default & Other (icon fallback) */
 .mou-bank-logo.default,
 .mou-bank-logo.other{
     width:44px;
@@ -1357,154 +1341,66 @@
     font-size:1.4rem;
 }
 
+/* Bank Colors */
+.mou-bank-logo.bank-bca{background:linear-gradient(135deg,#0060af,#003d7a);}
+.mou-bank-logo.bank-bca .bank-text{color:#fff;font-size:1rem;}
 
-/* ==================== WARNA KHAS BANK ==================== */
+.mou-bank-logo.bank-bni{background:linear-gradient(135deg,#f05a22,#c94515);}
+.mou-bank-logo.bank-bni .bank-text{color:#fff;font-size:1rem;}
 
-.mou-bank-logo.bank-bca{
-    background:linear-gradient(135deg,#0060af,#003d7a);
-}
-.mou-bank-logo.bank-bca .bank-text{
-    color:#fff;
-    font-size:1rem;
-}
+.mou-bank-logo.bank-bri{background:linear-gradient(135deg,#00529c,#003366);}
+.mou-bank-logo.bank-bri .bank-text{color:#fff;font-size:1rem;}
 
-.mou-bank-logo.bank-bni{
-    background:linear-gradient(135deg,#f05a22,#c94515);
-}
-.mou-bank-logo.bank-bni .bank-text{
-    color:#fff;
-    font-size:1rem;
-}
+.mou-bank-logo.bank-mandiri{background:linear-gradient(135deg,#003d79,#001f3d);}
+.mou-bank-logo.bank-mandiri .bank-text{color:#ffcc00;font-size:0.75rem;}
 
-.mou-bank-logo.bank-bri{
-    background:linear-gradient(135deg,#00529c,#003366);
-}
-.mou-bank-logo.bank-bri .bank-text{
-    color:#fff;
-    font-size:1rem;
-}
+.mou-bank-logo.bank-cimb{background:linear-gradient(135deg,#8b0304,#5a0102);}
+.mou-bank-logo.bank-cimb .bank-text{color:#fff;font-size:0.85rem;}
 
-.mou-bank-logo.bank-mandiri{
-    background:linear-gradient(135deg,#003d79,#001f3d);
-}
-.mou-bank-logo.bank-mandiri .bank-text{
-    color:#ffcc00;
-    font-size:0.75rem;
-}
+.mou-bank-logo.bank-permata{background:linear-gradient(135deg,#006d3b,#004225);}
+.mou-bank-logo.bank-permata .bank-text{color:#fff;font-size:0.72rem;}
 
-.mou-bank-logo.bank-cimb{
-    background:linear-gradient(135deg,#8b0304,#5a0102);
-}
-.mou-bank-logo.bank-cimb .bank-text{
-    color:#fff;
-    font-size:0.85rem;
-}
+.mou-bank-logo.bank-danamon{background:linear-gradient(135deg,#ed7203,#b95500);}
+.mou-bank-logo.bank-danamon .bank-text{color:#fff;font-size:0.72rem;}
 
-.mou-bank-logo.bank-permata{
-    background:linear-gradient(135deg,#006d3b,#004225);
-}
-.mou-bank-logo.bank-permata .bank-text{
-    color:#fff;
-    font-size:0.72rem;
-}
+.mou-bank-logo.bank-btn{background:linear-gradient(135deg,#003d7a,#00264d);}
+.mou-bank-logo.bank-btn .bank-text{color:#fff;font-size:1rem;}
 
-.mou-bank-logo.bank-danamon{
-    background:linear-gradient(135deg,#ed7203,#b95500);
-}
-.mou-bank-logo.bank-danamon .bank-text{
-    color:#fff;
-    font-size:0.72rem;
-}
+.mou-bank-logo.bank-bsi{background:linear-gradient(135deg,#00a651,#007a3d);}
+.mou-bank-logo.bank-bsi .bank-text{color:#fff;font-size:1rem;}
 
-.mou-bank-logo.bank-btn{
-    background:linear-gradient(135deg,#003d7a,#00264d);
-}
-.mou-bank-logo.bank-btn .bank-text{
-    color:#fff;
-    font-size:1rem;
-}
+.mou-bank-logo.bank-jenius{background:linear-gradient(135deg,#1c9dd9,#0e6a95);}
+.mou-bank-logo.bank-jenius .bank-text{color:#fff;font-size:0.85rem;font-style:italic;}
 
-.mou-bank-logo.bank-bsi{
-    background:linear-gradient(135deg,#00a651,#007a3d);
-}
-.mou-bank-logo.bank-bsi .bank-text{
-    color:#fff;
-    font-size:1rem;
-}
+.mou-bank-logo.bank-seabank{background:linear-gradient(135deg,#ee4d2d,#c73a1e);}
+.mou-bank-logo.bank-seabank .bank-text{color:#fff;font-size:0.7rem;}
 
-.mou-bank-logo.bank-jenius{
-    background:linear-gradient(135deg,#1c9dd9,#0e6a95);
-}
-.mou-bank-logo.bank-jenius .bank-text{
-    color:#fff;
-    font-size:0.85rem;
-    font-style:italic;
-}
+.mou-bank-logo.bank-blu{background:linear-gradient(135deg,#0084ff,#0057ab);}
+.mou-bank-logo.bank-blu .bank-text{color:#fff;font-size:1.2rem;font-weight:300;letter-spacing:1px;}
 
-.mou-bank-logo.bank-seabank{
-    background:linear-gradient(135deg,#ee4d2d,#c73a1e);
-}
-.mou-bank-logo.bank-seabank .bank-text{
-    color:#fff;
-    font-size:0.7rem;
-}
+.mou-bank-logo.bank-dana{background:linear-gradient(135deg,#118eea,#0a5da3);}
+.mou-bank-logo.bank-dana .bank-text{color:#fff;font-size:1rem;}
 
-.mou-bank-logo.bank-blu{
-    background:linear-gradient(135deg,#0084ff,#0057ab);
-}
-.mou-bank-logo.bank-blu .bank-text{
-    color:#fff;
-    font-size:1.2rem;
-    font-weight:300;
-    letter-spacing:1px;
-}
+.mou-bank-logo.bank-ovo{background:linear-gradient(135deg,#4c2a86,#301a56);}
+.mou-bank-logo.bank-ovo .bank-text{color:#fff;font-size:1.1rem;}
 
-.mou-bank-logo.bank-dana{
-    background:linear-gradient(135deg,#118eea,#0a5da3);
-}
-.mou-bank-logo.bank-dana .bank-text{
-    color:#fff;
-    font-size:1rem;
-}
+.mou-bank-logo.bank-gopay{background:linear-gradient(135deg,#00aed6,#007a99);}
+.mou-bank-logo.bank-gopay .bank-text{color:#fff;font-size:0.8rem;}
 
-.mou-bank-logo.bank-ovo{
-    background:linear-gradient(135deg,#4c2a86,#301a56);
-}
-.mou-bank-logo.bank-ovo .bank-text{
-    color:#fff;
-    font-size:1.1rem;
-}
-
-.mou-bank-logo.bank-gopay{
-    background:linear-gradient(135deg,#00aed6,#007a99);
-}
-.mou-bank-logo.bank-gopay .bank-text{
-    color:#fff;
-    font-size:0.8rem;
-}
-
-.mou-bank-logo.bank-shopeepay{
-    background:linear-gradient(135deg,#ee4d2d,#c73a1e);
-}
-.mou-bank-logo.bank-shopeepay .bank-text{
-    color:#fff;
-    font-size:0.68rem;
-}
+.mou-bank-logo.bank-shopeepay{background:linear-gradient(135deg,#ee4d2d,#c73a1e);}
+.mou-bank-logo.bank-shopeepay .bank-text{color:#fff;font-size:0.68rem;}
 
 
-/* Hover effect */
 .mou-dropdown-option:hover .mou-bank-logo{
     transform:scale(1.08);
     box-shadow:0 4px 12px rgba(212,165,54,0.25);
 }
 
-/* Selected state */
 .mou-dropdown-option.selected .mou-bank-logo{
     box-shadow:0 4px 15px rgba(212,165,54,0.4);
     transform:scale(1.05);
 }
 
-/* Logo di dropdown-selected */
 .mou-dropdown-selected .mou-bank-logo{
     width:58px;
     height:40px;
@@ -1522,10 +1418,8 @@
 
 
 /* ============================================
-   📱 RESPONSIVE
+   📱 RESPONSIVE - TABLET
    ============================================ */
-
-/* ==================== TABLET ==================== */
 @media (max-width:768px){
     .mou-header{padding:100px 20px 40px;}
     
@@ -1630,137 +1524,36 @@
     }
 
     .mou-dropdown-selected .mou-bank-logo.default{width:34px;}
-
-/* ==================== ACTION BUTTONS - 2 TOMBOL ==================== */
-
-/* Container Actions */
-.mou-actions{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    justify-content:center;
-    align-items:stretch;      /* ✅ Semua tombol full width sama */
-    max-width:500px;
-    margin:0 auto;
-    padding:0 4px;
-    width:100%;
-    box-sizing:border-box;
-}
-
-/* Base Button - Full Width Sama */
-.mou-btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    padding:16px 24px;       /* ✅ Padding sama untuk semua */
-    border-radius:100px;
-    font-size:0.95rem;
-    font-weight:700;
-    text-decoration:none;
-    cursor:pointer;
-    transition:all 0.3s var(--ease);
-    border:2px solid transparent; /* ✅ Border reserve space */
-    line-height:1;
-    font-family:'Poppins',sans-serif;
-    white-space:nowrap;
-    width:100%;              /* ✅ Full width */
-    box-sizing:border-box;   /* ✅ Include border & padding */
-    min-height:52px;         /* ✅ Height minimum sama */
-}
-
-.mou-btn i{
-    font-size:1.1rem;
-    flex-shrink:0;
-    line-height:1;
-}
-
-.mou-btn span{
-    line-height:1;
+    
+    .mou-back{
+        top:12px;
+        left:12px;
+        padding:10px 16px;
+        font-size:0.8rem;
+    }
+    
+    .mou-modal-content{padding:32px 24px;}
 }
 
 
 /* ============================================
-   🖨️ CETAK DOKUMEN - Outline Gold
-   ============================================ */
-#btnPrint,
-.mou-btn-secondary{
-    background:transparent !important;
-    color:#d4a536 !important;
-    border:2px solid #d4a536 !important;
-}
-
-#btnPrint:hover:not(:disabled),
-.mou-btn-secondary:hover:not(:disabled){
-    background:#d4a536 !important;
-    color:#fff !important;
-    transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(212,165,54,0.3);
-}
-
-#btnPrint:disabled,
-.mou-btn-secondary:disabled{
-    opacity:0.4;
-    cursor:not-allowed;
-    transform:none;
-}
-
-
-/* ============================================
-   💬 KIRIM & DAFTAR - Solid Green
-   ============================================ */
-.mou-btn-wa,
-#btnSubmit,
-#btnKirim{
-    background:#25D366 !important;
-    color:#fff !important;
-    border:2px solid #25D366 !important;   /* ✅ Border tebal sama dengan Print */
-    box-shadow:0 6px 20px rgba(37,211,102,0.3);
-    padding:16px 24px !important;         /* ✅ Padding sama dengan Print */
-    font-size:0.95rem !important;         /* ✅ Font size sama */
-}
-
-.mou-btn-wa:hover:not(:disabled),
-#btnSubmit:hover:not(:disabled),
-#btnKirim:hover:not(:disabled){
-    background:#20BA5A !important;
-    border-color:#20BA5A !important;
-    transform:translateY(-3px);
-    box-shadow:0 10px 28px rgba(37,211,102,0.5);
-}
-
-.mou-btn-wa:disabled,
-#btnSubmit:disabled,
-#btnKirim:disabled{
-    background:#333 !important;
-    border-color:#444 !important;
-    color:#666 !important;
-    cursor:not-allowed;
-    box-shadow:none;
-    transform:none;
-}
-
-.mou-btn-wa i,
-#btnSubmit i,
-#btnKirim i{
-    font-size:1.15rem;
-}
-
-
-/* ============================================
-   📱 RESPONSIVE - Tablet
+   📱 RESPONSIVE - MOBILE (<640px)
    ============================================ */
 @media (max-width:640px){
+    .mou-actions-sticky{
+        padding:24px 12px 16px;
+    }
+    
     .mou-actions{
         gap:10px;
-        padding:0 8px;
+        padding:0;
         max-width:100%;
     }
     
     .mou-btn{
         padding:15px 20px;
         font-size:0.9rem;
-        min-height:50px;
+        min-height:52px;
     }
     
     .mou-btn-wa,
@@ -1768,37 +1561,10 @@
     #btnKirim{
         padding:15px 20px !important;
         font-size:0.9rem !important;
-    }
-}
-
-
-/* ============================================
-   📱 HP KECIL (<380px)
-   ============================================ */
-@media (max-width:380px){
-    .mou-actions{
-        gap:8px;
-        padding:0 4px;
+        min-height:52px !important;
     }
     
-    .mou-btn{
-        padding:14px 18px;
-        font-size:0.85rem;
-        gap:8px;
-        min-height:48px;
-    }
-    
-    .mou-btn i{
-        font-size:1rem;
-    }
-    
-    .mou-btn-wa,
-    #btnSubmit,
-    #btnKirim{
-        padding:14px 18px !important;
-        font-size:0.85rem !important;
-    }
-    
+    .mou-btn i,
     .mou-btn-wa i,
     #btnSubmit i,
     #btnKirim i{
@@ -1806,59 +1572,59 @@
     }
 }
 
+
 /* ============================================
-   📱 RESPONSIVE - Mobile
+   📱 RESPONSIVE - HP KECIL (<380px)
    ============================================ */
-@media (max-width:640px){
+@media (max-width:380px){
+    .mou-actions-sticky{
+        padding:20px 10px 14px;
+    }
+    
     .mou-actions{
-        gap:10px;
-        padding:0 8px;
+        gap:8px;
     }
     
     .mou-btn{
-        padding:14px 20px;
-        font-size:0.9rem;
+        padding:14px 18px;
+        font-size:0.85rem;
+        gap:8px;
+        min-height:50px;
     }
     
     .mou-btn-wa,
     #btnSubmit,
     #btnKirim{
-        padding:15px 24px !important;
-        font-size:0.95rem !important;
+        padding:14px 18px !important;
+        font-size:0.85rem !important;
+        min-height:50px !important;
+    }
+    
+    .mou-btn i,
+    .mou-btn-wa i,
+    #btnSubmit i,
+    #btnKirim i{
+        font-size:1rem;
     }
 }
 
 
 /* ============================================
-   📱 HP KECIL (<380px)
+   📱 EXTRA SMALL (<360px)
    ============================================ */
-@media (max-width:380px){
-    .mou-actions{
-        gap:8px;
-        padding:0 4px;
-    }
+@media (max-width:360px){
+    .mou-actions{gap:6px;}
     
     .mou-btn{
-        padding:13px 18px;
-        font-size:0.85rem;
-        gap:8px;
-    }
-    
-    .mou-btn i{
-        font-size:1rem;
+        padding:13px 14px;
+        font-size:0.8rem;
     }
     
     .mou-btn-wa,
     #btnSubmit,
     #btnKirim{
-        padding:14px 22px !important;
-        font-size:0.9rem !important;
-    }
-    
-    .mou-btn-wa i,
-    #btnSubmit i,
-    #btnKirim i{
-        font-size:1.1rem;
+        padding:13px 14px !important;
+        font-size:0.8rem !important;
     }
 }
 </style>
