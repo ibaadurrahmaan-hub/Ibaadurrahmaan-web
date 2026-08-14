@@ -1,6 +1,6 @@
 /* ====================================================
    IBAADURRAHMAAN — Modern Premium Web Design
-   Version 8.1 · Full Redesign + Paket Detail
+   Version 8.2 · Elegant Borders + Bug Fix
    ==================================================== */
 
 :root{
@@ -236,7 +236,9 @@ body{
 }
 
 
-/* Feature Boxes */
+/* ==================================================
+   FEATURE BOXES
+   ================================================== */
 .header-features{
   display:flex;
   gap:14px;
@@ -245,7 +247,7 @@ body{
 
 .hf-box{
   background:var(--grad-card);
-  border:1px solid var(--border);
+  border:1px solid rgba(212,165,54,0.1);
   border-radius:var(--radius-md);
   padding:18px 16px;
   text-align:center;
@@ -254,6 +256,7 @@ body{
   position:relative;
   overflow:hidden;
   cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
 }
 
 .hf-box::before{
@@ -280,8 +283,8 @@ body{
 
 .hf-box:hover{
   transform:translateY(-6px);
-  border-color:var(--gold);
-  box-shadow:var(--shadow-gold);
+  border-color:rgba(212,165,54,0.35);
+  box-shadow:0 12px 30px rgba(0,0,0,0.25),0 0 20px rgba(212,165,54,0.08);
 }
 
 .hf-box:hover::before{opacity:1;}
@@ -310,7 +313,9 @@ body{
 }
 
 
-/* Hero Grid */
+/* ==================================================
+   HERO GRID
+   ================================================== */
 .hero{
   display:grid;
   grid-template-columns:1fr 1.1fr;
@@ -379,14 +384,11 @@ body{
   mask-composite:exclude;
   pointer-events:none;
 }
-  background:linear-gradient(135deg,rgba(212,165,54,0.5),transparent 50%,rgba(212,165,54,0.3));
-  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
-  -webkit-mask-composite:xor;
-  mask-composite:exclude;
-  pointer-events:none;
-}
 
-/* Benefits List */
+
+/* ==================================================
+   BENEFITS LIST
+   ================================================== */
 .hero-benefits{
   list-style:none;
   margin-bottom:28px;
@@ -435,7 +437,9 @@ body{
 }
 
 
-/* Action Buttons */
+/* ==================================================
+   ACTION BUTTONS
+   ================================================== */
 .hero-actions{
   display:flex;
   gap:14px;
@@ -485,9 +489,7 @@ body{
   flex-shrink:0;
 }
 
-.btn-primary span{
-  line-height:1;
-}
+.btn-primary span{line-height:1;}
 
 .btn-secondary{
   display:inline-flex;
@@ -520,9 +522,7 @@ body{
   flex-shrink:0;
 }
 
-.btn-secondary span{
-  line-height:1;
-}
+.btn-secondary span{line-height:1;}
 
 
 /* ==================================================
@@ -733,7 +733,9 @@ body{
 }
 
 
-/* Phone Mockup */
+/* ==================================================
+   PHONE MOCKUP
+   ================================================== */
 .phone{
   position:absolute;
   right:-15px;
@@ -900,29 +902,54 @@ body{
 
 .info-box{
   background:var(--grad-card);
-  border:1px solid var(--border);
+  border:1px solid rgba(212,165,54,0.12);
   border-radius:var(--radius-lg);
   padding:32px;
   position:relative;
   transition:all 0.4s var(--ease);
   overflow:hidden;
+  box-shadow:0 8px 24px rgba(0,0,0,0.15),inset 0 1px 0 rgba(255,255,255,0.02);
 }
 
 .info-box::before{
   content:'';
   position:absolute;
   top:0;
-  left:0;
-  right:0;
-  height:3px;
-  background:var(--grad-gold-shine);
+  left:20%;
+  right:20%;
+  height:2px;
+  background:linear-gradient(90deg,transparent,rgba(212,165,54,0.6),transparent);
+  border-radius:2px;
+}
+
+.info-box::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:var(--radius-lg);
+  padding:1px;
+  background:linear-gradient(
+    135deg,
+    rgba(212,165,54,0.3),
+    transparent 40%,
+    transparent 60%,
+    rgba(212,165,54,0.15)
+  );
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
+  opacity:0.5;
+  transition:opacity 0.4s var(--ease);
 }
 
 .info-box:hover{
   transform:translateY(-5px);
-  border-color:var(--gold);
-  box-shadow:var(--shadow-gold);
+  border-color:rgba(212,165,54,0.3);
+  box-shadow:0 15px 40px rgba(0,0,0,0.3),0 0 30px rgba(212,165,54,0.08);
 }
+
+.info-box:hover::after{opacity:1;}
 
 .info-title{
   font-family:'Montserrat',sans-serif;
@@ -977,6 +1004,7 @@ body{
   font-family:"Font Awesome 6 Free","Font Awesome 5 Free",FontAwesome;
   font-weight:900;
 }
+
 .layanan-item:hover i{
   background:var(--gold);
   color:var(--bg);
@@ -1029,7 +1057,7 @@ body{
 
 
 /* ==================================================
-   ⭐ PAKET DETAIL SECTION (NEW - LENGKAP)
+   PAKET DETAIL SECTION
    ================================================== */
 .paket-detail-section{
   padding:80px 20px;
@@ -1117,14 +1145,8 @@ body{
   line-height:1;
 }
 
-.paket-guide-btn i{
-  font-size:1.2rem;
-  line-height:1;
-}
-
-.paket-guide-btn span{
-  line-height:1;
-}
+.paket-guide-btn i{font-size:1.2rem;line-height:1;}
+.paket-guide-btn span{line-height:1;}
 
 .paket-guide-btn:hover{
   background:#20BA5A;
@@ -1132,7 +1154,9 @@ body{
 }
 
 
-/* PAKET GRID */
+/* ==================================================
+   PAKET GRID
+   ================================================== */
 .paket-detail-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -1145,31 +1169,44 @@ body{
 
 .paket-detail-card{
   background:var(--grad-card);
-  border:1px solid var(--border);
+  border:1px solid rgba(212,165,54,0.15);
   border-radius:20px;
   padding:32px 28px;
   position:relative;
   display:flex;
   flex-direction:column;
   transition:all 0.4s var(--ease);
+  box-shadow:0 8px 24px rgba(0,0,0,0.15),inset 0 1px 0 rgba(255,255,255,0.02);
 }
 
 .paket-detail-card:hover{
   transform:translateY(-6px);
-  border-color:rgba(212,165,54,0.3);
-  box-shadow:0 20px 50px rgba(0,0,0,0.4);
+  border-color:rgba(212,165,54,0.35);
+  box-shadow:0 20px 50px rgba(0,0,0,0.4),0 0 30px rgba(212,165,54,0.1);
 }
 
 .paket-detail-card.featured{
-  border-color:var(--gold);
-  background:linear-gradient(145deg,rgba(212,165,54,0.08),var(--grad-card));
-  box-shadow:0 10px 40px rgba(212,165,54,0.15);
+  border:1.5px solid transparent;
+  background:
+    linear-gradient(145deg,rgba(212,165,54,0.08),var(--bg-card)) padding-box,
+    linear-gradient(
+      135deg,
+      rgba(212,165,54,0.6),
+      rgba(212,165,54,0.2) 40%,
+      rgba(212,165,54,0.2) 60%,
+      rgba(212,165,54,0.6)
+    ) border-box;
+  box-shadow:
+    0 15px 45px rgba(212,165,54,0.15),
+    0 0 40px rgba(212,165,54,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.05);
   transform:scale(1.02);
 }
 
 .paket-detail-card.premium{
-  border-color:rgba(155,89,182,0.4);
+  border:1px solid rgba(155,89,182,0.3);
   background:linear-gradient(145deg,rgba(155,89,182,0.05),var(--grad-card));
+  box-shadow:0 8px 24px rgba(0,0,0,0.15),0 0 30px rgba(155,89,182,0.08);
 }
 
 
@@ -1238,9 +1275,7 @@ body{
   letter-spacing:2px;
 }
 
-.paket-detail-card.featured .paket-detail-name{
-  color:var(--gold);
-}
+.paket-detail-card.featured .paket-detail-name{color:var(--gold);}
 
 .paket-detail-tagline{
   color:var(--text-muted);
@@ -1268,9 +1303,7 @@ body{
   font-weight:900;
 }
 
-.price-value .rp{
-  font-size:1rem;
-}
+.price-value .rp{font-size:1rem;}
 
 .price-value .amount{
   font-size:2.8rem;
@@ -1303,9 +1336,7 @@ body{
   margin:0;
 }
 
-.paket-detail-desc b{
-  color:var(--gold);
-}
+.paket-detail-desc b{color:var(--gold);}
 
 
 /* Section Title in Card */
@@ -1322,9 +1353,7 @@ body{
   gap:8px;
 }
 
-.paket-detail-section-title i{
-  font-size:0.9rem;
-}
+.paket-detail-section-title i{font-size:0.9rem;}
 
 
 /* Features & Benefits List */
@@ -1345,14 +1374,10 @@ body{
 }
 
 .paket-detail-features li:last-child,
-.paket-detail-benefits li:last-child{
-  border-bottom:none;
-}
+.paket-detail-benefits li:last-child{border-bottom:none;}
 
 .paket-detail-features b,
-.paket-detail-benefits b{
-  color:var(--gold);
-}
+.paket-detail-benefits b{color:var(--gold);}
 
 
 /* Not Include Box */
@@ -1425,55 +1450,96 @@ body{
 }
 
 
-/* CTA Button */
-.paket-detail-cta{
+/* ==================================================
+   PAKET CTA GROUP
+   ================================================== */
+.paket-cta-group{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
   margin-top:auto;
   padding-top:24px;
-  display:flex;
+  width:100%;
+}
+
+.paket-detail-cta{
+  display:flex !important;
   align-items:center;
   justify-content:center;
   gap:12px;
-  padding:16px 24px;
-  background:var(--wa);
-  color:#fff;
-  text-decoration:none;
+  padding:16px 28px;
   border-radius:100px;
-  font-weight:800;
+  font-weight:700;
   font-size:0.95rem;
-  box-shadow:0 6px 20px rgba(37,211,102,0.3);
+  text-decoration:none;
   transition:all 0.3s var(--ease);
-  text-transform:uppercase;
-  letter-spacing:0.5px;
   line-height:1;
+  position:relative;
+  overflow:hidden;
+  width:100%;
+  margin:0 !important;
+  border:none !important;
+  font-family:'Poppins',sans-serif;
+  cursor:pointer;
 }
 
-.paket-detail-cta i{
-  font-size:1.3rem;
-  line-height:1;
-}
-
-.paket-detail-cta span{
-  line-height:1;
-}
-
-.paket-detail-cta:hover{
-  background:#20BA5A;
-  transform:translateY(-3px);
-  box-shadow:0 10px 30px rgba(37,211,102,0.5);
-}
-
-.paket-detail-card.featured .paket-detail-cta{
-  background:var(--grad-gold-shine);
-  color:var(--bg);
+.paket-detail-cta.primary{
+  background:var(--grad-gold-shine) !important;
+  color:var(--bg) !important;
   box-shadow:0 6px 20px var(--gold-glow);
 }
 
-.paket-detail-card.featured .paket-detail-cta:hover{
-  box-shadow:0 10px 30px rgba(212,165,54,0.5);
+.paket-detail-cta.primary:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(212,165,54,0.5);
+}
+
+.paket-detail-cta.primary i,
+.paket-detail-cta.primary span{
+  color:var(--bg) !important;
+  line-height:1;
+}
+
+.paket-detail-cta.primary i{font-size:1.3rem;}
+
+.paket-detail-cta.wa{
+  background:#25D366 !important;
+  color:#ffffff !important;
+  box-shadow:0 6px 20px rgba(37,211,102,0.35);
+}
+
+.paket-detail-cta.wa:hover{
+  background:#20BA5A !important;
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(37,211,102,0.5);
+}
+
+.paket-detail-cta.wa i,
+.paket-detail-cta.wa span{
+  color:#ffffff !important;
+  line-height:1;
+}
+
+.paket-detail-cta.wa i{font-size:1.3rem;}
+
+.paket-detail-cta span{
+  font-weight:700;
+  line-height:1;
+}
+
+.paket-detail-card.featured .paket-detail-cta.primary{
+  background:var(--grad-gold-shine) !important;
+  box-shadow:0 8px 25px var(--gold-glow);
+}
+
+.paket-detail-card.featured .paket-detail-cta.primary:hover{
+  box-shadow:0 14px 36px rgba(212,165,54,0.6);
 }
 
 
-/* COMPARISON TABLE */
+/* ==================================================
+   COMPARISON TABLE
+   ================================================== */
 .paket-compare-wrap{
   max-width:1100px;
   margin:0 auto 60px;
@@ -1492,9 +1558,7 @@ body{
   gap:12px;
 }
 
-.paket-compare-title i{
-  color:var(--gold);
-}
+.paket-compare-title i{color:var(--gold);}
 
 .paket-compare-table-wrap{
   overflow-x:auto;
@@ -1522,9 +1586,7 @@ body{
   border-bottom:2px solid rgba(212,165,54,0.3);
 }
 
-.paket-compare-table thead th:first-child{
-  text-align:left;
-}
+.paket-compare-table thead th:first-child{text-align:left;}
 
 .paket-compare-table thead th.col-reguler{
   background:rgba(212,165,54,0.1);
@@ -1545,24 +1607,12 @@ body{
   font-weight:600;
 }
 
-.paket-compare-table tbody tr:hover td{
-  background:rgba(255,255,255,0.02);
-}
+.paket-compare-table tbody tr:hover td{background:rgba(255,255,255,0.02);}
 
-.paket-compare-table td.col-reguler{
-  background:rgba(212,165,54,0.05);
-}
+.paket-compare-table td.col-reguler{background:rgba(212,165,54,0.05);}
 
-.paket-compare-table i.yes{
-  color:#25d366;
-  font-size:1.1rem;
-}
-
-.paket-compare-table i.no{
-  color:#e74c3c;
-  font-size:1rem;
-  opacity:0.6;
-}
+.paket-compare-table i.yes{color:#25d366;font-size:1.1rem;}
+.paket-compare-table i.no{color:#e74c3c;font-size:1rem;opacity:0.6;}
 
 
 /* Bonus Info */
@@ -1634,33 +1684,48 @@ body{
   margin-right:auto;
 }
 
+.cta-bottom-actions{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
 .cta-bottom-btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
   gap:12px;
   padding:16px 32px;
-  background:var(--wa);
-  color:#fff;
-  text-decoration:none;
   border-radius:100px;
   font-weight:800;
   font-size:1rem;
-  box-shadow:0 6px 20px rgba(37,211,102,0.4);
+  text-decoration:none;
   transition:all 0.3s var(--ease);
   line-height:1;
 }
 
-.cta-bottom-btn i{
-  font-size:1.3rem;
-  line-height:1;
+.cta-bottom-btn i{font-size:1.3rem;line-height:1;}
+.cta-bottom-btn span{line-height:1;}
+
+.cta-bottom-btn.primary{
+  background:var(--grad-gold-shine);
+  color:var(--bg);
+  box-shadow:0 6px 20px var(--gold-glow);
 }
 
-.cta-bottom-btn span{
-  line-height:1;
+.cta-bottom-btn.primary:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(212,165,54,0.5);
 }
 
-.cta-bottom-btn:hover{
+.cta-bottom-btn.wa{
+  background:var(--wa);
+  color:#fff;
+  box-shadow:0 6px 20px rgba(37,211,102,0.4);
+}
+
+.cta-bottom-btn.wa:hover{
   background:#20BA5A;
   transform:translateY(-3px);
   box-shadow:0 10px 30px rgba(37,211,102,0.5);
@@ -1780,9 +1845,9 @@ body{
 }
 
 .value-tag:hover{
-  border-color:var(--gold);
+  border-color:rgba(212,165,54,0.4);
   transform:translateY(-3px);
-  box-shadow:var(--shadow-gold);
+  box-shadow:0 8px 20px rgba(0,0,0,0.2),0 0 15px rgba(212,165,54,0.08);
 }
 
 .value-tag i{color:var(--gold);}
@@ -1803,7 +1868,7 @@ body{
   background:var(--grad-card);
   padding:36px 28px;
   border-radius:var(--radius-lg);
-  border:1px solid var(--border);
+  border:1px solid rgba(212,165,54,0.1);
   text-align:center;
   transition:all 0.4s var(--ease);
   position:relative;
@@ -1825,8 +1890,8 @@ body{
 
 .proses-card:hover{
   transform:translateY(-8px);
-  border-color:var(--gold);
-  box-shadow:var(--shadow-gold);
+  border-color:rgba(212,165,54,0.35);
+  box-shadow:0 15px 40px rgba(0,0,0,0.3),0 0 25px rgba(212,165,54,0.1);
 }
 
 .proses-card:hover::before{transform:scaleX(1);}
@@ -1887,14 +1952,12 @@ body{
   transition:all 0.3s var(--ease);
 }
 
-.faq-item:hover{
-  border-color:var(--border-hover);
-}
+.faq-item:hover{border-color:var(--border-hover);}
 
 .faq-item.active{
-  border-color:var(--gold);
+  border-color:rgba(212,165,54,0.4);
   background:linear-gradient(145deg,var(--bg-3),rgba(212,165,54,0.05));
-  box-shadow:var(--shadow-gold);
+  box-shadow:0 10px 30px rgba(0,0,0,0.25),0 0 20px rgba(212,165,54,0.08);
 }
 
 .faq-q{
@@ -2047,47 +2110,42 @@ body{
 }
 
 .footer-copy{text-align:right;}
-.footer-copy p{
-  color:var(--text-dim);
-  font-size:0.85rem;
-}
+.footer-copy p{color:var(--text-dim);font-size:0.85rem;}
 
 
-/* Admin Access Link - Discreet */
-.footer-admin {
-    text-align: center;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    grid-column: 1 / -1;
+/* Admin Access Link */
+.footer-admin{
+  text-align:center;
+  margin-top:20px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,0.05);
+  grid-column:1 / -1;
 }
 
-.footer-admin a {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: rgba(255,255,255,0.25);
-    font-size: 0.72rem;
-    font-weight: 500;
-    text-decoration: none;
-    padding: 6px 14px;
-    border-radius: 100px;
-    border: 1px solid rgba(255,255,255,0.05);
-    transition: all 0.3s ease;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    background: rgba(255,255,255,0.02);
+.footer-admin a{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  color:rgba(255,255,255,0.25);
+  font-size:0.72rem;
+  font-weight:500;
+  text-decoration:none;
+  padding:6px 14px;
+  border-radius:100px;
+  border:1px solid rgba(255,255,255,0.05);
+  transition:all 0.3s ease;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  background:rgba(255,255,255,0.02);
 }
 
-.footer-admin a:hover {
-    color: var(--gold);
-    border-color: rgba(212,165,54,0.2);
-    background: rgba(212,165,54,0.05);
+.footer-admin a:hover{
+  color:var(--gold);
+  border-color:rgba(212,165,54,0.2);
+  background:rgba(212,165,54,0.05);
 }
 
-.footer-admin a i {
-    font-size: 0.7rem;
-}
+.footer-admin a i{font-size:0.7rem;}
 
 
 /* ==================================================
@@ -2155,35 +2213,35 @@ body{
 .mnav-item.active span{opacity:1;font-weight:700;}
 
 
-/* ====================================================
-   🔧 Floating WhatsApp - Icon Only
-   ==================================================== */
+/* ==================================================
+   FLOATING WHATSAPP
+   ================================================== */
 a.fab-wa,
 .fab-wa{
-    position:fixed !important;
-    bottom:100px !important;
-    right:20px !important;
-    width:auto !important;
-    height:auto !important;
-    background:transparent !important;
-    border:none !important;
-    border-radius:0 !important;
-    box-shadow:none !important;
-    padding:0 !important;
-    display:inline-flex !important;
-    align-items:center !important;
-    justify-content:center !important;
-    z-index:998 !important;
-    text-decoration:none !important;
-    transition:transform 0.3s var(--ease) !important;
-    animation:fabFloat 2.5s ease-in-out infinite;
+  position:fixed !important;
+  bottom:100px !important;
+  right:20px !important;
+  width:auto !important;
+  height:auto !important;
+  background:transparent !important;
+  border:none !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  padding:0 !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  z-index:998 !important;
+  text-decoration:none !important;
+  transition:transform 0.3s var(--ease) !important;
+  animation:fabFloat 2.5s ease-in-out infinite;
 }
 
 a.fab-wa:hover,
 .fab-wa:hover{
-    transform:scale(1.15) !important;
-    background:transparent !important;
-    box-shadow:none !important;
+  transform:scale(1.15) !important;
+  background:transparent !important;
+  box-shadow:none !important;
 }
 
 a.fab-wa i,
@@ -2192,21 +2250,21 @@ a.fab-wa .fab.fa-whatsapp,
 .fab-wa i,
 .fab-wa .fa-whatsapp,
 .fab-wa .fab.fa-whatsapp{
-    font-size:4rem !important;
-    color:#25D366 !important;
-    line-height:1 !important;
-    margin:0 !important;
-    padding:0 !important;
-    background:transparent !important;
-    filter:drop-shadow(0 4px 12px rgba(37,211,102,0.5));
-    display:inline-flex !important;
-    align-items:center !important;
-    justify-content:center !important;
+  font-size:4rem !important;
+  color:#25D366 !important;
+  line-height:1 !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:transparent !important;
+  filter:drop-shadow(0 4px 12px rgba(37,211,102,0.5));
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
 }
 
 @keyframes fabFloat{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-8px);}
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
 }
 
 
@@ -2219,10 +2277,7 @@ a.fab-wa .fab.fa-whatsapp,
   transition:all 0.8s cubic-bezier(0.2,0.7,0.3,1);
 }
 
-.fade-in.visible{
-  opacity:1;
-  transform:translateY(0);
-}
+.fade-in.visible{opacity:1;transform:translateY(0);}
 
 .fade-left{
   opacity:0;
@@ -2230,10 +2285,7 @@ a.fab-wa .fab.fa-whatsapp,
   transition:all 0.8s cubic-bezier(0.2,0.7,0.3,1);
 }
 
-.fade-left.visible{
-  opacity:1;
-  transform:translateX(0);
-}
+.fade-left.visible{opacity:1;transform:translateX(0);}
 
 .fade-right{
   opacity:0;
@@ -2241,10 +2293,7 @@ a.fab-wa .fab.fa-whatsapp,
   transition:all 0.8s cubic-bezier(0.2,0.7,0.3,1);
 }
 
-.fade-right.visible{
-  opacity:1;
-  transform:translateX(0);
-}
+.fade-right.visible{opacity:1;transform:translateX(0);}
 
 
 /* ==================================================
@@ -2268,27 +2317,40 @@ a.fab-wa .fab.fa-whatsapp,
 }
 
 .reseller-banner{
-  background:var(--grad-card);
-  border:2px solid var(--gold);
+  position:relative;
+  overflow:hidden;
   border-radius:var(--radius-xl);
   padding:50px 40px;
   display:grid;
   grid-template-columns:1.5fr 1fr;
   gap:40px;
   align-items:center;
-  position:relative;
-  overflow:hidden;
-  box-shadow:0 20px 50px rgba(212,165,54,0.2);
+  background:
+    linear-gradient(var(--bg-card),var(--bg-card)) padding-box,
+    linear-gradient(
+      135deg,
+      rgba(212,165,54,0.5),
+      rgba(212,165,54,0.1) 40%,
+      rgba(212,165,54,0.1) 60%,
+      rgba(212,165,54,0.5)
+    ) border-box;
+  border:1.5px solid transparent;
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.3),
+    0 0 40px rgba(212,165,54,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.03);
 }
 
 .reseller-banner::before{
   content:'';
   position:absolute;
   top:0;
-  left:0;
-  right:0;
-  height:5px;
-  background:var(--grad-gold-shine);
+  left:25%;
+  right:25%;
+  height:3px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  border-radius:3px;
+  box-shadow:0 2px 15px rgba(212,165,54,0.4);
 }
 
 .reseller-banner::after{
@@ -2298,7 +2360,7 @@ a.fab-wa .fab.fa-whatsapp,
   right:-100px;
   width:300px;
   height:300px;
-  background:radial-gradient(circle, rgba(212,165,54,0.2), transparent 70%);
+  background:radial-gradient(circle,rgba(212,165,54,0.15),transparent 70%);
   pointer-events:none;
 }
 
@@ -2454,7 +2516,7 @@ a.fab-wa .fab.fa-whatsapp,
 
 
 /* ==================================================
-   NAV LINK HIGHLIGHT (Reseller Badge)
+   NAV LINK HIGHLIGHT
    ================================================== */
 .nav-link-highlight{
   background:var(--grad-gold-shine);
@@ -2511,7 +2573,7 @@ a.fab-wa .fab.fa-whatsapp,
 
 
 /* ==================================================
-   RESPONSIVE - GENERAL
+   RESPONSIVE
    ================================================== */
 @media (max-width:992px){
   .hero{grid-template-columns:1fr;gap:50px;}
@@ -2522,35 +2584,31 @@ a.fab-wa .fab.fa-whatsapp,
   .proses-grid{grid-template-columns:repeat(2,1fr);}
   .info-grid{grid-template-columns:1fr;}
   .hero-title{font-size:64px;}
-  
-  /* Paket Detail */
+
   .paket-detail-grid{
     grid-template-columns:1fr;
     max-width:500px;
     margin:0 auto 60px;
   }
-  
-  .paket-detail-card.featured{
-    transform:none;
-  }
-  
-  /* Reseller Banner */
+
+  .paket-detail-card.featured{transform:none;}
+
   .reseller-banner{
     grid-template-columns:1fr;
     gap:30px;
     padding:40px 30px;
     text-align:center;
   }
-  
+
   .reseller-banner-desc{max-width:100%;}
   .reseller-banner-stats{max-width:100%;}
   .reseller-banner-actions{justify-content:center;}
-  
+
   .reseller-banner-visual{
     order:-1;
     min-height:200px;
   }
-  
+
   .reseller-icon-large{
     width:140px;
     height:140px;
@@ -2564,25 +2622,25 @@ a.fab-wa .fab.fa-whatsapp,
   .mobile-nav{display:flex;}
   .fab-wa{display:flex;}
   body{padding-bottom:110px;}
-  
+
   .navbar{
     top:12px;
     width:calc(100% - 20px);
     padding:12px 22px;
   }
-  
+
   .nav-inner{justify-content:center;}
-  
+
   .nav-brand-text{
     align-items:center;
     text-align:center;
   }
-  
+
   .brand-name-nav{font-size:1.05rem;}
   .brand-sub-nav{font-size:0.6rem;letter-spacing:1.8px;}
-  
+
   .poster{padding:100px 20px 50px;}
-  
+
   .header{
     flex-direction:column;
     align-items:center;
@@ -2590,36 +2648,37 @@ a.fab-wa .fab.fa-whatsapp,
     gap:36px;
     margin-bottom:50px;
   }
-  
+
   .brand-logo-img{height:110px;max-width:250px;}
-  
+
   .header-features{
     justify-content:center;
     gap:10px;
   }
-  
+
   .hf-box{padding:14px 12px;min-width:88px;}
   .hf-box i{font-size:24px;}
   .hf-box span{font-size:9px;}
-.hero-sub{
-  font-size:15px;
-  letter-spacing:2px;
-  padding:18px 24px;
-  white-space:normal;
-  text-align:center;
-  display:block;
-  width:100%;
-  max-width:100%;
-  line-height:1.5;
-  font-weight:800;
-  margin-left:0;
-  margin-right:0;
-}
-  
+
+  .hero-sub{
+    font-size:15px;
+    letter-spacing:2px;
+    padding:18px 24px;
+    white-space:normal;
+    text-align:center;
+    display:block;
+    width:100%;
+    max-width:100%;
+    line-height:1.5;
+    font-weight:800;
+    margin-left:0;
+    margin-right:0;
+  }
+
   .hero-title{font-size:56px;}
   .hero-benefits li{font-size:15px;gap:12px;}
   .hero-desc{font-size:14px;}
-  
+
   .mockup-wrapper{
     display:flex;
     justify-content:center;
@@ -2627,396 +2686,224 @@ a.fab-wa .fab.fa-whatsapp,
     position:relative;
     max-width:100%;
   }
-  
+
   .laptop{max-width:100%;}
-  
+
   .phone{
     width:130px;
     right:-10px;
     top:auto;
     bottom:30px;
   }
-  
+
   .info-box{padding:26px;}
   .cocok-grid{grid-template-columns:repeat(5,1fr);}
   .cocok-item i{font-size:28px;}
   .cocok-item span{font-size:9px;}
-  
+
   .layanan-grid{grid-template-columns:1fr;}
-  
+
   .section{padding:70px 0;}
-  
   .proses-grid{grid-template-columns:1fr;}
-  
+
   .footer-features{
     grid-template-columns:1fr 1fr;
     gap:16px;
   }
-  
+
   .footer-bottom{
     grid-template-columns:1fr;
     text-align:center;
     gap:24px;
   }
-  
+
   .footer-brand{display:flex;justify-content:center;}
   .footer-copy{text-align:center;}
-  
+
   a.fab-wa,
   .fab-wa{
-      bottom:130px !important;
-      right:16px !important;
+    bottom:130px !important;
+    right:16px !important;
   }
 
   a.fab-wa i,
   a.fab-wa .fa-whatsapp,
   .fab-wa i,
   .fab-wa .fa-whatsapp{
-      font-size:3.5rem !important;
+    font-size:3.5rem !important;
   }
-  
-  /* Paket Detail Mobile */
-  .paket-detail-section{
-    padding:60px 16px;
-  }
-  
-  .paket-detail-card{
-    padding:24px 20px;
-  }
-  
-  .paket-detail-name{
-    font-size:1.4rem;
-  }
-  
-  .price-value .amount{
-    font-size:2.4rem;
-  }
-  
+
+  .paket-detail-section{padding:60px 16px;}
+  .paket-detail-card{padding:24px 20px;}
+  .paket-detail-name{font-size:1.4rem;}
+  .price-value .amount{font-size:2.4rem;}
+
   .paket-guide{
     flex-direction:column;
     text-align:center;
     padding:20px;
   }
-  
+
   .paket-guide-btn{
     width:100%;
     justify-content:center;
   }
-  
+
   .paket-bonus-info{
     flex-direction:column;
     text-align:center;
     padding:24px;
   }
-  
-  .paket-cta-bottom{
-    padding:30px 20px;
-  }
-  
-  .cta-bottom-btn{
-    width:100%;
-  }
-  
+
+  .paket-cta-bottom{padding:30px 20px;}
+
+  .cta-bottom-btn{width:100%;}
+
   .paket-compare-table thead th,
   .paket-compare-table tbody td{
     padding:10px 6px;
     font-size:0.75rem;
   }
+
+  .paket-cta-group{
+    gap:10px;
+    padding-top:20px;
+  }
+
+  .paket-detail-cta{
+    padding:15px 24px;
+    font-size:0.9rem;
+  }
+
+  .paket-detail-cta.primary i,
+  .paket-detail-cta.wa i{font-size:1.2rem;}
 }
 
 
 @media (max-width:640px){
   .brand-logo-img{height:95px;max-width:220px;}
-  
+
   .hf-box{padding:12px 10px;min-width:76px;}
   .hf-box i{font-size:22px;}
   .hf-box span{font-size:8px;}
-  
+
   .hero-title{font-size:42px;letter-spacing:-1px;}
   .hero-benefits li{font-size:14px;}
+
   .hero-sub{
-  font-size:14px;
-  letter-spacing:1.8px;
-  padding:18px 20px;
-  white-space:normal;
-  width:100%;
-  max-width:100%;
-  line-height:1.5;
-  text-align:center;
-  font-weight:800;
-  display:block;
-} 
+    font-size:14px;
+    letter-spacing:1.8px;
+    padding:18px 20px;
+    white-space:normal;
+    width:100%;
+    max-width:100%;
+    line-height:1.5;
+    text-align:center;
+    font-weight:800;
+    display:block;
+  }
+
   .cocok-grid{grid-template-columns:repeat(3,1fr);}
-  
+
   .mockup-wrapper{padding-right:50px;}
   .phone{width:110px;bottom:20px;right:-5px;}
   .laptop-hero h2{font-size:18px;}
-  
+
   .hero-actions{flex-direction:column;}
   .btn-primary,.btn-secondary{
     width:100%;
     justify-content:center;
   }
-  
+
   a.fab-wa,
-  .fab-wa{
-      bottom:120px !important;
-  }
+  .fab-wa{bottom:120px !important;}
 
   a.fab-wa i,
   a.fab-wa .fa-whatsapp,
   .fab-wa i,
-  .fab-wa .fa-whatsapp{
-      font-size:3rem !important;
-  }
-  
+  .fab-wa .fa-whatsapp{font-size:3rem !important;}
+
   .info-title{font-size:16px;letter-spacing:2px;}
-  
-  /* Reseller Banner */
-  .reseller-banner{
-    padding:30px 20px;
-  }
-  
-  .reseller-banner-title{
-    font-size:1.5rem;
-  }
-  
-  .reseller-banner-desc{
-    font-size:0.9rem;
-  }
-  
+
+  .reseller-banner{padding:30px 20px;}
+  .reseller-banner-title{font-size:1.5rem;}
+  .reseller-banner-desc{font-size:0.9rem;}
+
   .reseller-banner-stats{
     grid-template-columns:repeat(3,1fr);
     gap:10px;
   }
-  
-  .reseller-stat{
-    padding:12px 8px;
-  }
-  
-  .reseller-stat-num{
-    font-size:1.4rem;
-  }
-  
-  .reseller-stat-label{
-    font-size:0.65rem;
-  }
-  
+
+  .reseller-stat{padding:12px 8px;}
+  .reseller-stat-num{font-size:1.4rem;}
+  .reseller-stat-label{font-size:0.65rem;}
+
   .reseller-icon-large{
     width:120px;
     height:120px;
     font-size:3.5rem;
   }
-  
-  .reseller-banner-actions{
-    flex-direction:column;
-  }
-  
+
+  .reseller-banner-actions{flex-direction:column;}
+
   .reseller-banner-actions .btn-primary,
   .reseller-banner-actions .btn-secondary{
     width:100%;
     justify-content:center;
   }
+
+  .cta-bottom-actions{
+    flex-direction:column;
+    width:100%;
+  }
+
+  .cta-bottom-btn{width:100%;}
 }
 
 
 @media (max-width:480px){
   .navbar{padding:10px 18px;}
-  
   .brand-name-nav{font-size:0.98rem;}
   .brand-sub-nav{font-size:0.55rem;letter-spacing:1.2px;}
-  
+
   .poster{padding:90px 16px 40px;}
   .container{padding:0 16px;}
-  
-  .hero-title{font-size:36px;}. hero-img{height:85px;max-width:190px;}
+
+  .hero-title{font-size:36px;}
+  .brand-logo-img{height:85px;max-width:190px;}
+
   .hero-sub{
-  font-size:13px;
-  letter-spacing:1.5px;
-  padding:16px 18px;
-  white-space:normal;
-  width:100%;
-  max-width:100%;
-  line-height:1.5;
-  font-weight:800;
-  display:block;
-}
+    font-size:13px;
+    letter-spacing:1.5px;
+    padding:16px 18px;
+    white-space:normal;
+    width:100%;
+    max-width:100%;
+    line-height:1.5;
+    font-weight:800;
+    display:block;
+  }
+
   .header-features{gap:8px;}
   .hf-box{min-width:70px;padding:10px 8px;}
   .hf-box i{font-size:20px;}
   .hf-box span{font-size:7px;}
-  
+
   .footer-features{grid-template-columns:1fr 1fr;}
-  
+
   .mnav-item{min-width:62px;padding:8px 10px;}
   .mnav-item span{font-size:0.62rem;}
   .mnav-item i{font-size:1.05rem;}
-  
+
   .section{padding:60px 0;}
   .section-header{margin-bottom:40px;}
-}
 
-/* ==================================================
-   PAKET CTA - Match Bottom CTA Style
-   ================================================== */
-
-/* Group Container */
-.paket-cta-group{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  margin-top:auto;
-  padding-top:24px;
-  width:100%;
-}
-
-/* Base Button Style */
-.paket-detail-cta{
-  display:flex !important;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
-  padding:16px 28px;
-  border-radius:100px;
-  font-weight:700;
-  font-size:0.95rem;
-  text-decoration:none;
-  transition:all 0.3s var(--ease);
-  line-height:1;
-  position:relative;
-  overflow:hidden;
-  width:100%;
-  margin:0 !important;
-  border:none !important;
-  font-family:'Poppins',sans-serif;
-  cursor:pointer;
-}
-
-/* ==================== PRIMARY (ORDER SEKARANG) ==================== */
-.paket-detail-cta.primary{
-  background:var(--grad-gold-shine) !important;
-  color:var(--bg) !important;
-  box-shadow:0 6px 20px var(--gold-glow);
-}
-
-.paket-detail-cta.primary:hover{
-  transform:translateY(-3px);
-  box-shadow:0 12px 30px rgba(212,165,54,0.5);
-}
-
-.paket-detail-cta.primary i,
-.paket-detail-cta.primary span{
-  color:var(--bg) !important;
-  line-height:1;
-}
-
-.paket-detail-cta.primary i{
-  font-size:1.3rem;
-}
-
-/* ==================== WHATSAPP (CHAT VIA WA) ==================== */
-.paket-detail-cta.wa{
-  background:#25D366 !important;
-  color:#ffffff !important;
-  box-shadow:0 6px 20px rgba(37,211,102,0.35);
-}
-
-.paket-detail-cta.wa:hover{
-  background:#20BA5A !important;
-  transform:translateY(-3px);
-  box-shadow:0 12px 30px rgba(37,211,102,0.5);
-}
-
-.paket-detail-cta.wa i,
-.paket-detail-cta.wa span{
-  color:#ffffff !important;
-  line-height:1;
-}
-
-.paket-detail-cta.wa i{
-  font-size:1.3rem;
-}
-
-/* ==================== TEXT SPAN ==================== */
-.paket-detail-cta span{
-  font-weight:700;
-  line-height:1;
-}
-
-/* ==================== FEATURED CARD ==================== */
-.paket-detail-card.featured .paket-detail-cta.primary{
-  background:var(--grad-gold-shine) !important;
-  box-shadow:0 8px 25px var(--gold-glow);
-}
-
-.paket-detail-card.featured .paket-detail-cta.primary:hover{
-  box-shadow:0 14px 36px rgba(212,165,54,0.6);
-}
-
-/* ==================== RESPONSIVE ==================== */
-@media (max-width:768px){
-  .paket-cta-group{
-    gap:10px;
-    padding-top:20px;
-  }
-  
-  .paket-detail-cta{
-    padding:15px 24px;
-    font-size:0.9rem;
-  }
-  
-  .paket-detail-cta.primary i,
-  .paket-detail-cta.wa i{
-    font-size:1.2rem;
-  }
-}
-
-@media (max-width:480px){
   .paket-detail-cta{
     padding:14px 20px;
     font-size:0.85rem;
     gap:10px;
   }
-  
+
   .paket-detail-cta.primary i,
-  .paket-detail-cta.wa i{
-    font-size:1.15rem;
-  }
-}
-
-.cta-bottom-actions{
-  display:flex;
-  gap:12px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-
-.cta-bottom-btn.primary{
-  background:var(--grad-gold-shine);
-  color:var(--bg);
-  box-shadow:0 6px 20px var(--gold-glow);
-}
-
-.cta-bottom-btn.primary:hover{
-  box-shadow:0 12px 30px rgba(212,165,54,0.5);
-}
-
-.cta-bottom-btn.wa{
-  background:var(--wa);
-  color:white;
-}
-
-.cta-bottom-btn.wa:hover{
-  background:#20BA5A;
-}
-
-@media (max-width:640px){
-  .cta-bottom-actions{
-    flex-direction:column;
-    width:100%;
-  }
-  
-  .cta-bottom-btn{
-    width:100%;
-  }
+  .paket-detail-cta.wa i{font-size:1.15rem;}
 }
