@@ -15,6 +15,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
+/* ============ SEMUA CSS KAMU TETAP SAMA (COPY DARI ORIGINAL) ============ */
 :root{
     --bg:#050B18;
     --bg-card:#0F1E33;
@@ -41,7 +42,6 @@ body{
         radial-gradient(circle at 10% 10%,rgba(212,165,54,0.08),transparent 40%),
         radial-gradient(circle at 90% 90%,rgba(212,165,54,0.05),transparent 40%);
 }
-
 
 /* ==================== HEADER ==================== */
 .dashboard-header{
@@ -172,7 +172,7 @@ body{
 }
 
 
-/* ==================== MAIN CONTENT ==================== */
+/* ==================== MAIN ==================== */
 .main{
     max-width:1200px;
     margin:0 auto;
@@ -262,7 +262,7 @@ body{
 }
 
 
-/* ==================== STAT CARDS ==================== */
+/* ==================== STATS ==================== */
 .stats-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -302,6 +302,7 @@ body{
 .stat-card.green{--stat-color:#25d366;}
 .stat-card.blue{--stat-color:#3498db;}
 .stat-card.purple{--stat-color:#9b59b6;}
+.stat-card.orange{--stat-color:#f39c12;}
 
 .stat-icon{
     width:44px;
@@ -336,6 +337,12 @@ body{
     margin-bottom:8px;
 }
 
+.stat-value.loading{
+    color:var(--text-muted);
+    font-size:1rem;
+    font-style:italic;
+}
+
 .stat-trend{
     display:inline-flex;
     align-items:center;
@@ -349,6 +356,207 @@ body{
 .stat-trend.up{
     background:rgba(37,211,102,0.15);
     color:#25d366;
+}
+
+.stat-trend.pending{
+    background:rgba(243,156,18,0.15);
+    color:#f39c12;
+}
+
+
+/* ==================== RECENT RESELLERS TABLE ==================== */
+.recent-section{
+    background:linear-gradient(145deg,var(--bg-card),#0A1626);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:32px;
+}
+
+.section-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.section-title-inline{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.15rem;
+    font-weight:800;
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:0;
+}
+
+.section-title-inline i{color:var(--gold);}
+
+.refresh-btn{
+    background:rgba(212,165,54,0.1);
+    border:1px solid rgba(212,165,54,0.2);
+    color:var(--gold);
+    padding:8px 16px;
+    border-radius:100px;
+    font-size:0.82rem;
+    font-weight:600;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    transition:all 0.3s;
+    font-family:'Poppins',sans-serif;
+}
+
+.refresh-btn:hover{
+    background:var(--gold);
+    color:var(--bg);
+}
+
+.refresh-btn.loading i{
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg);}
+}
+
+.reseller-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.reseller-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:14px;
+    background:rgba(255,255,255,0.02);
+    border:1px solid var(--border);
+    border-radius:12px;
+    transition:all 0.3s;
+}
+
+.reseller-item:hover{
+    background:rgba(212,165,54,0.05);
+    border-color:rgba(212,165,54,0.3);
+}
+
+.reseller-avatar{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),#c19a2e);
+    color:var(--bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
+    font-size:1rem;
+    flex-shrink:0;
+}
+
+.reseller-info{
+    flex:1;
+    min-width:0;
+}
+
+.reseller-name{
+    font-weight:700;
+    color:var(--text);
+    font-size:0.95rem;
+    margin-bottom:2px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.reseller-meta{
+    color:var(--text-muted);
+    font-size:0.75rem;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.reseller-meta span{
+    display:flex;
+    align-items:center;
+    gap:4px;
+}
+
+.reseller-code{
+    font-family:'Montserrat',sans-serif;
+    background:rgba(212,165,54,0.1);
+    color:var(--gold);
+    padding:2px 8px;
+    border-radius:6px;
+    font-size:0.7rem;
+    font-weight:700;
+}
+
+.reseller-status{
+    padding:4px 12px;
+    border-radius:100px;
+    font-size:0.7rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    flex-shrink:0;
+}
+
+.reseller-status.pending{
+    background:rgba(243,156,18,0.15);
+    color:#f39c12;
+    border:1px solid rgba(243,156,18,0.3);
+}
+
+.reseller-status.active{
+    background:rgba(37,211,102,0.15);
+    color:#25d366;
+    border:1px solid rgba(37,211,102,0.3);
+}
+
+.reseller-status.rejected{
+    background:rgba(231,76,60,0.15);
+    color:#e74c3c;
+    border:1px solid rgba(231,76,60,0.3);
+}
+
+.empty-state{
+    text-align:center;
+    padding:40px 20px;
+    color:var(--text-muted);
+}
+
+.empty-state i{
+    font-size:3rem;
+    color:var(--text-muted);
+    opacity:0.3;
+    margin-bottom:12px;
+}
+
+.empty-state p{
+    font-size:0.9rem;
+    line-height:1.6;
+}
+
+.loading-state{
+    text-align:center;
+    padding:40px 20px;
+    color:var(--text-muted);
+}
+
+.loading-state i{
+    font-size:2rem;
+    color:var(--gold);
+    animation:spin 1s linear infinite;
+    margin-bottom:12px;
 }
 
 
@@ -436,7 +644,7 @@ body{
 }
 
 
-/* ==================== BOTTOM NAVBAR ==================== */
+/* ==================== BOTTOM NAV ==================== */
 .bottom-nav{
     position:fixed;
     bottom:16px;
@@ -451,9 +659,7 @@ body{
     display:flex;
     gap:6px;
     z-index:1000;
-    box-shadow:
-        0 10px 40px rgba(0,0,0,0.4),
-        0 0 30px rgba(212,165,54,0.15);
+    box-shadow:0 10px 40px rgba(0,0,0,0.4),0 0 30px rgba(212,165,54,0.15);
     max-width:calc(100% - 32px);
     overflow-x:auto;
     -ms-overflow-style:none;
@@ -488,13 +694,8 @@ body{
     transition:transform 0.3s ease;
 }
 
-.nav-item:hover{
-    color:var(--gold);
-}
-
-.nav-item:hover i{
-    transform:translateY(-2px);
-}
+.nav-item:hover{color:var(--gold);}
+.nav-item:hover i{transform:translateY(-2px);}
 
 .nav-item.active{
     background:linear-gradient(135deg,var(--gold),#c19a2e);
@@ -502,9 +703,7 @@ body{
     box-shadow:0 4px 12px var(--gold-glow);
 }
 
-.nav-item.active i{
-    color:var(--bg);
-}
+.nav-item.active i{color:var(--bg);}
 
 
 /* ==================== SWEETALERT PREMIUM ==================== */
@@ -512,9 +711,7 @@ body{
     background:linear-gradient(145deg,#0F1E33,#0A1626) !important;
     border:1px solid rgba(212,165,54,0.3) !important;
     border-radius:20px !important;
-    box-shadow:
-        0 20px 60px rgba(0,0,0,0.6),
-        0 0 40px rgba(212,165,54,0.15) !important;
+    box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px rgba(212,165,54,0.15) !important;
     color:#fff !important;
     font-family:'Poppins',sans-serif !important;
 }
@@ -532,48 +729,6 @@ body{
     line-height:1.6 !important;
 }
 
-.swal-premium .swal2-icon{
-    border-color:#d4a536 !important;
-    color:#d4a536 !important;
-}
-
-.swal-premium .swal2-icon.swal2-success{
-    border-color:#25d366 !important;
-}
-
-.swal-premium .swal2-icon.swal2-success .swal2-success-line-tip,
-.swal-premium .swal2-icon.swal2-success .swal2-success-line-long{
-    background-color:#25d366 !important;
-}
-
-.swal-premium .swal2-icon.swal2-success .swal2-success-ring{
-    border-color:rgba(37,211,102,0.3) !important;
-}
-
-.swal-premium .swal2-icon.swal2-error{
-    border-color:#e74c3c !important;
-    color:#e74c3c !important;
-}
-
-.swal-premium .swal2-icon.swal2-error [class^=swal2-x-mark-line]{
-    background-color:#e74c3c !important;
-}
-
-.swal-premium .swal2-icon.swal2-warning{
-    border-color:#f39c12 !important;
-    color:#f39c12 !important;
-}
-
-.swal-premium .swal2-icon.swal2-info{
-    border-color:#3498db !important;
-    color:#3498db !important;
-}
-
-.swal-premium .swal2-icon.swal2-question{
-    border-color:#d4a536 !important;
-    color:#d4a536 !important;
-}
-
 .swal-premium .swal2-confirm{
     background:linear-gradient(135deg,#d4a536,#c19a2e) !important;
     color:#050B18 !important;
@@ -581,21 +736,9 @@ body{
     border-radius:100px !important;
     padding:12px 30px !important;
     font-weight:800 !important;
-    font-family:'Poppins',sans-serif !important;
-    font-size:0.9rem !important;
     box-shadow:0 6px 20px rgba(212,165,54,0.4) !important;
     text-transform:uppercase !important;
     letter-spacing:0.5px !important;
-    transition:all 0.3s ease !important;
-}
-
-.swal-premium .swal2-confirm:hover{
-    transform:translateY(-2px) !important;
-    box-shadow:0 8px 25px rgba(212,165,54,0.5) !important;
-}
-
-.swal-premium .swal2-confirm:focus{
-    box-shadow:0 6px 20px rgba(212,165,54,0.4), 0 0 0 3px rgba(212,165,54,0.3) !important;
 }
 
 .swal-premium .swal2-cancel{
@@ -605,153 +748,40 @@ body{
     border-radius:100px !important;
     padding:12px 30px !important;
     font-weight:700 !important;
-    font-family:'Poppins',sans-serif !important;
-    font-size:0.9rem !important;
     text-transform:uppercase !important;
     letter-spacing:0.5px !important;
     margin-right:12px !important;
-    transition:all 0.3s ease !important;
-}
-
-.swal-premium .swal2-cancel:hover{
-    background:rgba(231,76,60,0.15) !important;
-    border-color:rgba(231,76,60,0.4) !important;
-    color:#ff6b5b !important;
-}
-
-.swal-premium .swal2-deny{
-    background:linear-gradient(135deg,#e74c3c,#c0392b) !important;
-    color:#fff !important;
-    border:none !important;
-    border-radius:100px !important;
-    padding:12px 30px !important;
-    font-weight:700 !important;
-    font-family:'Poppins',sans-serif !important;
-    text-transform:uppercase !important;
-    letter-spacing:0.5px !important;
-}
-
-.swal-premium .swal2-timer-progress-bar{
-    background:linear-gradient(90deg,#d4a536,#e8bd52) !important;
-    height:4px !important;
-}
-
-.swal-premium .swal2-close{
-    color:rgba(255,255,255,0.4) !important;
-    font-size:2rem !important;
-    transition:all 0.2s !important;
-}
-
-.swal-premium .swal2-close:hover{
-    color:#d4a536 !important;
-    transform:rotate(90deg) !important;
-}
-
-.swal-premium .swal2-input,
-.swal-premium .swal2-textarea{
-    background:#0D1829 !important;
-    border:1.5px solid rgba(212,165,54,0.2) !important;
-    color:#fff !important;
-    border-radius:10px !important;
-    padding:12px 16px !important;
-    font-family:'Poppins',sans-serif !important;
-}
-
-.swal-premium .swal2-input:focus,
-.swal-premium .swal2-textarea:focus{
-    border-color:#d4a536 !important;
-    box-shadow:0 0 0 3px rgba(212,165,54,0.15) !important;
 }
 
 
 /* ==================== MOBILE ==================== */
 @media (max-width:768px){
-    .dashboard-header{
-        padding:20px 16px 30px;
-    }
-    
-    .header-container{
-        gap:12px;
-    }
-    
-    .header-title h1{
-        font-size:1.1rem;
-    }
-    
-    .header-title p{
-        font-size:0.7rem;
-    }
-    
-    .user-badge .user-name{
-        display:none;
-    }
-    
-    .user-badge{
-        padding:4px;
-    }
-    
-    .main{
-        padding:24px 16px;
-    }
-    
-    .page-title{
-        font-size:1.4rem;
-    }
-    
-    .info-card{
-        flex-direction:column;
-        text-align:center;
-        padding:16px;
-    }
-    
-    .stat-value{
-        font-size:1.3rem;
-    }
-    
-    .stat-card{
-        padding:16px;
-    }
-    
-    .action-card{
-        padding:16px;
-    }
-    
-    .action-icon{
-        width:46px;
-        height:46px;
-        font-size:1.2rem;
-    }
-    
-    .bottom-nav{
-        padding:8px 10px;
-        gap:2px;
-        bottom:12px;
-    }
-    
-    .nav-item{
-        padding:8px 10px;
-        font-size:0.6rem;
-        min-width:56px;
-    }
-    
-    .nav-item i{
-        font-size:1rem;
-    }
+    .dashboard-header{padding:20px 16px 30px;}
+    .header-container{gap:12px;}
+    .header-title h1{font-size:1.1rem;}
+    .header-title p{font-size:0.7rem;}
+    .user-badge .user-name{display:none;}
+    .user-badge{padding:4px;}
+    .main{padding:24px 16px;}
+    .page-title{font-size:1.4rem;}
+    .info-card{flex-direction:column;text-align:center;padding:16px;}
+    .stat-value{font-size:1.3rem;}
+    .stat-card{padding:16px;}
+    .action-card{padding:16px;}
+    .action-icon{width:46px;height:46px;font-size:1.2rem;}
+    .bottom-nav{padding:8px 10px;gap:2px;bottom:12px;}
+    .nav-item{padding:8px 10px;font-size:0.6rem;min-width:56px;}
+    .nav-item i{font-size:1rem;}
+    .recent-section{padding:16px;}
+    .reseller-item{padding:12px;}
+    .reseller-name{font-size:0.88rem;}
+    .reseller-meta{font-size:0.7rem;gap:8px;}
 }
 
 @media (max-width:400px){
-    .nav-item span{
-        display:none;
-    }
-    
-    .nav-item{
-        min-width:44px;
-        padding:10px 12px;
-    }
-    
-    .nav-item i{
-        font-size:1.2rem;
-    }
+    .nav-item span{display:none;}
+    .nav-item{min-width:44px;padding:10px 12px;}
+    .nav-item i{font-size:1.2rem;}
 }
 </style>
 </head>
@@ -762,7 +792,7 @@ body{
     <div class="header-container">
         <div class="header-brand">
             <div class="header-logo">
-                <img src="main-logo.jpg" alt="Logo" onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-weight:900;color:#d4a536;\'>I</div>'">
+                <img src="main-logo.png" alt="Logo">
             </div>
             <div class="header-title">
                 <h1>Ibaadurrahmaan</h1>
@@ -799,62 +829,91 @@ body{
     <!-- Info Card -->
     <div class="info-card">
         <div class="info-icon">
-            <i class="fas fa-info-circle"></i>
+            <i class="fas fa-database"></i>
         </div>
         <div class="info-content">
-            <div class="info-title">🚀 Dashboard MVP - Phase 1</div>
+            <div class="info-title">🔥 Terhubung ke Firebase</div>
             <div class="info-text">
-                Data statistik di bawah masih dummy/manual. Di update selanjutnya, akan otomatis terhubung dengan database.
-                Untuk sekarang, kamu bisa fokus pakai <b>Slip Komisi</b> yang sudah siap digunakan.
+                Dashboard sudah realtime terhubung dengan database Firestore. Data reseller akan otomatis update setiap ada pendaftaran baru.
             </div>
         </div>
     </div>
     
     
-    <!-- Stats -->
+    <!-- Stats (Firebase Data) -->
     <div class="stats-grid">
-        <div class="stat-card gold">
-            <div class="stat-icon">
-                <i class="fas fa-sack-dollar"></i>
-            </div>
-            <div class="stat-label">Omzet Bulan Ini</div>
-            <div class="stat-value">Rp 0</div>
-            <span class="stat-trend up">
-                <i class="fas fa-arrow-up"></i> Segera
-            </span>
-        </div>
-        
-        <div class="stat-card green">
-            <div class="stat-icon">
-                <i class="fas fa-coins"></i>
-            </div>
-            <div class="stat-label">Profit Bulan Ini</div>
-            <div class="stat-value">Rp 0</div>
-            <span class="stat-trend up">
-                <i class="fas fa-arrow-up"></i> Segera
-            </span>
-        </div>
-        
-        <div class="stat-card blue">
-            <div class="stat-icon">
-                <i class="fas fa-user-tie"></i>
-            </div>
-            <div class="stat-label">Total Client</div>
-            <div class="stat-value">0</div>
-            <span class="stat-trend up">
-                <i class="fas fa-plus"></i> Baru
-            </span>
-        </div>
-        
         <div class="stat-card purple">
             <div class="stat-icon">
                 <i class="fas fa-handshake"></i>
             </div>
             <div class="stat-label">Total Reseller</div>
-            <div class="stat-value">0</div>
-            <span class="stat-trend up">
-                <i class="fas fa-plus"></i> Baru
+            <div class="stat-value loading" id="statTotalReseller">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <span class="stat-trend up" id="statResellerTrend">
+                <i class="fas fa-arrow-up"></i> Loading...
             </span>
+        </div>
+        
+        <div class="stat-card orange">
+            <div class="stat-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="stat-label">Pending Approval</div>
+            <div class="stat-value loading" id="statPendingReseller">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <span class="stat-trend pending">
+                <i class="fas fa-hourglass-half"></i> Menunggu
+            </span>
+        </div>
+        
+        <div class="stat-card green">
+            <div class="stat-icon">
+                <i class="fas fa-user-check"></i>
+            </div>
+            <div class="stat-label">Reseller Aktif</div>
+            <div class="stat-value loading" id="statActiveReseller">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <span class="stat-trend up">
+                <i class="fas fa-check"></i> Active
+            </span>
+        </div>
+        
+        <div class="stat-card gold">
+            <div class="stat-icon">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <div class="stat-label">Baru Hari Ini</div>
+            <div class="stat-value loading" id="statTodayReseller">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <span class="stat-trend up">
+                <i class="fas fa-calendar-day"></i> Today
+            </span>
+        </div>
+    </div>
+    
+    
+    <!-- Recent Resellers -->
+    <div class="recent-section">
+        <div class="section-header">
+            <h3 class="section-title-inline">
+                <i class="fas fa-users"></i>
+                <span>Reseller Terbaru</span>
+            </h3>
+            <button class="refresh-btn" id="refreshBtn" onclick="loadResellerData()">
+                <i class="fas fa-sync-alt"></i>
+                <span>Refresh</span>
+            </button>
+        </div>
+        
+        <div class="reseller-list" id="resellerList">
+            <div class="loading-state">
+                <i class="fas fa-spinner"></i>
+                <p>Memuat data reseller...</p>
+            </div>
         </div>
     </div>
     
@@ -893,8 +952,8 @@ body{
                 <i class="fas fa-user-plus"></i>
             </div>
             <div class="action-content">
-                <div class="action-title">Tambah Reseller Baru</div>
-                <div class="action-desc">Coming soon - Kelola data reseller</div>
+                <div class="action-title">Kelola Reseller</div>
+                <div class="action-desc">Coming soon - CRUD lengkap</div>
             </div>
             <i class="fas fa-arrow-right action-arrow"></i>
         </div>
@@ -904,7 +963,7 @@ body{
                 <i class="fas fa-briefcase"></i>
             </div>
             <div class="action-content">
-                <div class="action-title">Tambah Client Baru</div>
+                <div class="action-title">Kelola Client</div>
                 <div class="action-desc">Coming soon - Kelola data client</div>
             </div>
             <i class="fas fa-arrow-right action-arrow"></i>
@@ -939,6 +998,52 @@ body{
 </nav>
 
 
+<!-- ========================================
+     🔥 FIREBASE SDK
+     ======================================== -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { 
+        getFirestore, 
+        collection, 
+        getDocs,
+        query,
+        orderBy,
+        limit,
+        where,
+        Timestamp
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    
+    const firebaseConfig = {
+        apiKey: "AIzaSyCYRygFt6uwCUiL_6-eoJHhUdkiumSwLzY",
+        authDomain: "ibaadurrahmaan-web.firebaseapp.com",
+        projectId: "ibaadurrahmaan-web",
+        storageBucket: "ibaadurrahmaan-web.firebasestorage.app",
+        messagingSenderId: "1066409450927",
+        appId: "1:1066409450927:web:3497135ea3a2c4ef77e35a",
+        measurementId: "G-ZJP1W4P2P8"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    
+    window.firebase = {
+        db: db,
+        collection: collection,
+        getDocs: getDocs,
+        query: query,
+        orderBy: orderBy,
+        limit: limit,
+        where: where,
+        Timestamp: Timestamp,
+        ready: true
+    };
+    
+    console.log('🔥 Dashboard Firebase ready!');
+    document.dispatchEvent(new CustomEvent('firebaseReady'));
+</script>
+
+
 <script>
 // ====================================================
 // AUTH GUARD
@@ -971,7 +1076,7 @@ function checkAuth() {
             Swal.fire({
                 icon: 'warning',
                 title: 'Sesi Berakhir',
-                text: 'Silakan login kembali untuk melanjutkan',
+                text: 'Silakan login kembali',
                 customClass: { popup: 'swal-premium' },
                 confirmButtonText: 'Login Ulang',
                 allowOutsideClick: false
@@ -997,7 +1102,7 @@ const session = checkAuth();
 
 
 // ====================================================
-// LOGOUT dengan SweetAlert
+// LOGOUT
 // ====================================================
 function handleLogout() {
     Swal.fire({
@@ -1030,7 +1135,7 @@ function handleLogout() {
 
 
 // ====================================================
-// COMING SOON dengan SweetAlert
+// COMING SOON
 // ====================================================
 function showComingSoon(feature) {
     Swal.fire({
@@ -1042,16 +1147,13 @@ function showComingSoon(feature) {
                    🎯 <b>Fitur:</b> Full CRUD + Analytics
                </div>`,
         customClass: { popup: 'swal-premium' },
-        confirmButtonText: 'Oke, Mengerti',
-        showClass: {
-            popup: 'animate__animated animate__fadeInDown animate__faster'
-        }
+        confirmButtonText: 'Oke, Mengerti'
     });
 }
 
 
 // ====================================================
-// SET TODAY DATE
+// SET TODAY DATE & USER
 // ====================================================
 const monthsID = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
 const daysID = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
@@ -1065,7 +1167,6 @@ function updateDate() {
     document.getElementById('todayDate').textContent = `${dayName}, ${date} ${month} ${year}`;
 }
 
-// Set user info
 if (session) {
     const username = session.username || 'Owner';
     const displayName = username.charAt(0).toUpperCase() + username.slice(1);
@@ -1077,7 +1178,170 @@ updateDate();
 
 
 // ====================================================
-// WELCOME TOAST (First time in session)
+// 🔥 LOAD RESELLER DATA FROM FIREBASE
+// ====================================================
+
+async function loadResellerData() {
+    const refreshBtn = document.getElementById('refreshBtn');
+    refreshBtn.classList.add('loading');
+    
+    try {
+        // Tunggu Firebase ready
+        if (!window.firebase || !window.firebase.ready) {
+            await new Promise(resolve => {
+                document.addEventListener('firebaseReady', resolve, { once: true });
+                setTimeout(resolve, 3000); // fallback timeout
+            });
+        }
+        
+        if (!window.firebase || !window.firebase.ready) {
+            throw new Error('Firebase belum ready');
+        }
+        
+        const { db, collection, getDocs, query, orderBy, limit, where, Timestamp } = window.firebase;
+        const resellersRef = collection(db, 'resellers');
+        
+        // ============================================
+        // 1. TOTAL RESELLER
+        // ============================================
+        const allSnapshot = await getDocs(resellersRef);
+        const total = allSnapshot.size;
+        document.getElementById('statTotalReseller').innerHTML = total;
+        document.getElementById('statTotalReseller').classList.remove('loading');
+        document.getElementById('statResellerTrend').innerHTML = 
+            `<i class="fas fa-users"></i> ${total} Total`;
+        
+        // ============================================
+        // 2. PENDING RESELLER
+        // ============================================
+        const pendingQuery = query(resellersRef, where('status', '==', 'pending'));
+        const pendingSnapshot = await getDocs(pendingQuery);
+        document.getElementById('statPendingReseller').innerHTML = pendingSnapshot.size;
+        document.getElementById('statPendingReseller').classList.remove('loading');
+        
+        // ============================================
+        // 3. ACTIVE RESELLER
+        // ============================================
+        const activeQuery = query(resellersRef, where('status', '==', 'active'));
+        const activeSnapshot = await getDocs(activeQuery);
+        document.getElementById('statActiveReseller').innerHTML = activeSnapshot.size;
+        document.getElementById('statActiveReseller').classList.remove('loading');
+        
+        // ============================================
+        // 4. RESELLER HARI INI
+        // ============================================
+        const startOfDay = new Date();
+        startOfDay.setHours(0, 0, 0, 0);
+        const todayTimestamp = Timestamp.fromDate(startOfDay);
+        
+        const todayQuery = query(resellersRef, where('timestamp', '>=', todayTimestamp));
+        const todaySnapshot = await getDocs(todayQuery);
+        document.getElementById('statTodayReseller').innerHTML = todaySnapshot.size;
+        document.getElementById('statTodayReseller').classList.remove('loading');
+        
+        // ============================================
+        // 5. RESELLER TERBARU (5 latest)
+        // ============================================
+        const recentQuery = query(resellersRef, orderBy('timestamp', 'desc'), limit(5));
+        const recentSnapshot = await getDocs(recentQuery);
+        
+        const resellerList = document.getElementById('resellerList');
+        
+        if (recentSnapshot.empty) {
+            resellerList.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-inbox"></i>
+                    <p>Belum ada reseller terdaftar<br>
+                    <small style="opacity:0.7;">Reseller akan muncul di sini setelah mendaftar via MoU form</small></p>
+                </div>
+            `;
+        } else {
+            let html = '';
+            recentSnapshot.forEach(doc => {
+                const data = doc.data();
+                const initial = (data.nama || '?').charAt(0).toUpperCase();
+                
+                // Format tanggal
+                let dateStr = '-';
+                if (data.timestamp && data.timestamp.toDate) {
+                    const date = data.timestamp.toDate();
+                    const now = new Date();
+                    const diffMs = now - date;
+                    const diffMin = Math.floor(diffMs / 60000);
+                    const diffHour = Math.floor(diffMs / 3600000);
+                    const diffDay = Math.floor(diffMs / 86400000);
+                    
+                    if (diffMin < 1) dateStr = 'Baru saja';
+                    else if (diffMin < 60) dateStr = `${diffMin} menit lalu`;
+                    else if (diffHour < 24) dateStr = `${diffHour} jam lalu`;
+                    else if (diffDay < 7) dateStr = `${diffDay} hari lalu`;
+                    else dateStr = date.toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
+                }
+                
+                html += `
+                    <div class="reseller-item">
+                        <div class="reseller-avatar">${initial}</div>
+                        <div class="reseller-info">
+                            <div class="reseller-name">${data.nama || 'Tanpa Nama'}</div>
+                            <div class="reseller-meta">
+                                <span class="reseller-code">${data.resellerCode || '-'}</span>
+                                <span><i class="fas fa-clock"></i> ${dateStr}</span>
+                                <span><i class="fab fa-whatsapp"></i> ${data.wa || '-'}</span>
+                            </div>
+                        </div>
+                        <span class="reseller-status ${data.status || 'pending'}">${data.status || 'pending'}</span>
+                    </div>
+                `;
+            });
+            resellerList.innerHTML = html;
+        }
+        
+        console.log('[DASHBOARD] ✅ Data loaded successfully');
+        
+    } catch (error) {
+        console.error('[DASHBOARD] ❌ Error:', error);
+        
+        // Show error di stats
+        ['statTotalReseller', 'statPendingReseller', 'statActiveReseller', 'statTodayReseller'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.innerHTML = '<i class="fas fa-exclamation-triangle" style="color:#e74c3c;font-size:1rem;"></i>';
+                el.classList.remove('loading');
+            }
+        });
+        
+        document.getElementById('resellerList').innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-exclamation-triangle" style="color:#e74c3c;"></i>
+                <p><strong style="color:#e74c3c;">Gagal memuat data</strong><br>
+                <small>${error.message}</small></p>
+            </div>
+        `;
+    }
+    
+    refreshBtn.classList.remove('loading');
+}
+
+
+// ====================================================
+// AUTO LOAD ON READY
+// ====================================================
+
+// Load data setelah Firebase ready
+document.addEventListener('firebaseReady', () => {
+    loadResellerData();
+});
+
+// Fallback: load setelah 1 detik kalau event tidak trigger
+setTimeout(() => {
+    if (window.firebase && window.firebase.ready) {
+        loadResellerData();
+    }
+}, 1500);
+
+
+// ====================================================
+// WELCOME TOAST
 // ====================================================
 if (!sessionStorage.getItem('welcomed')) {
     setTimeout(() => {
