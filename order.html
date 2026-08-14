@@ -286,28 +286,66 @@
             <div class="form-row">
               <div class="form-group">
                 <label>Jenis Bisnis *</label>
-                <select id="businessType" required>
-                  <option value="">Pilih jenis bisnis</option>
-                  <option>UMKM / Toko Online</option>
-                  <option>Restoran / Cafe / F&B</option>
-                  <option>Salon / Beauty / Spa</option>
-                  <option>Klinik / Kesehatan</option>
-                  <option>Sekolah / Pendidikan</option>
-                  <option>Property / Real Estate</option>
-                  <option>Konsultan / Jasa Profesional</option>
-                  <option>Corporate / Perusahaan</option>
-                  <option>Event Organizer</option>
-                  <option>Lainnya</option>
-                </select>
+                <div class="custom-select" data-name="businessType">
+                  <button type="button" class="cs-trigger" onclick="toggleDropdown(this)">
+                    <span class="cs-value">Pilih jenis bisnis</span>
+                    <i class="fas fa-chevron-down cs-arrow"></i>
+                  </button>
+                  <div class="cs-menu">
+                    <div class="cs-option" data-value="UMKM / Toko Online" onclick="selectOption(this)">
+                      <i class="fas fa-store"></i> UMKM / Toko Online
+                    </div>
+                    <div class="cs-option" data-value="Restoran / Cafe / F&B" onclick="selectOption(this)">
+                      <i class="fas fa-utensils"></i> Restoran / Cafe / F&B
+                    </div>
+                    <div class="cs-option" data-value="Salon / Beauty / Spa" onclick="selectOption(this)">
+                      <i class="fas fa-spa"></i> Salon / Beauty / Spa
+                    </div>
+                    <div class="cs-option" data-value="Klinik / Kesehatan" onclick="selectOption(this)">
+                      <i class="fas fa-heartbeat"></i> Klinik / Kesehatan
+                    </div>
+                    <div class="cs-option" data-value="Sekolah / Pendidikan" onclick="selectOption(this)">
+                      <i class="fas fa-graduation-cap"></i> Sekolah / Pendidikan
+                    </div>
+                    <div class="cs-option" data-value="Property / Real Estate" onclick="selectOption(this)">
+                      <i class="fas fa-home"></i> Property / Real Estate
+                    </div>
+                    <div class="cs-option" data-value="Konsultan / Jasa Profesional" onclick="selectOption(this)">
+                      <i class="fas fa-briefcase"></i> Konsultan / Jasa Profesional
+                    </div>
+                    <div class="cs-option" data-value="Corporate / Perusahaan" onclick="selectOption(this)">
+                      <i class="fas fa-building"></i> Corporate / Perusahaan
+                    </div>
+                    <div class="cs-option" data-value="Event Organizer" onclick="selectOption(this)">
+                      <i class="fas fa-calendar-alt"></i> Event Organizer
+                    </div>
+                    <div class="cs-option" data-value="Lainnya" onclick="selectOption(this)">
+                      <i class="fas fa-ellipsis-h"></i> Lainnya
+                    </div>
+                  </div>
+                  <input type="hidden" id="businessType" required>
+                </div>
               </div>
               <div class="form-group">
                 <label>Website Sudah Ada?</label>
-                <select id="hasWebsite">
-                  <option value="">Pilih opsi</option>
-                  <option>Belum, ini pertama kali</option>
-                  <option>Sudah, ingin redesign</option>
-                  <option>Sudah, ingin tambah fitur</option>
-                </select>
+                <div class="custom-select" data-name="hasWebsite">
+                  <button type="button" class="cs-trigger" onclick="toggleDropdown(this)">
+                    <span class="cs-value">Pilih opsi</span>
+                    <i class="fas fa-chevron-down cs-arrow"></i>
+                  </button>
+                  <div class="cs-menu">
+                    <div class="cs-option" data-value="Belum, ini pertama kali" onclick="selectOption(this)">
+                      <i class="fas fa-star"></i> Belum, ini pertama kali
+                    </div>
+                    <div class="cs-option" data-value="Sudah, ingin redesign" onclick="selectOption(this)">
+                      <i class="fas fa-paint-brush"></i> Sudah, ingin redesign
+                    </div>
+                    <div class="cs-option" data-value="Sudah, ingin tambah fitur" onclick="selectOption(this)">
+                      <i class="fas fa-plus-circle"></i> Sudah, ingin tambah fitur
+                    </div>
+                  </div>
+                  <input type="hidden" id="hasWebsite">
+                </div>
               </div>
             </div>
             <div class="form-group">
@@ -327,7 +365,7 @@
               <h2><i class="fas fa-calendar-alt"></i> Timeline</h2>
             </div>
             <div class="deadline-options">
-              <label class="deadline-option">
+              <label class="deadline-option active">
                 <input type="radio" name="deadline" value="standard" checked>
                 <div class="do-radio"></div>
                 <div class="do-info">
@@ -893,9 +931,59 @@ let couponDiscount = 0;
 let couponCode = '';
 let deadlineFee = 0;
 let selectedDeadline = 'Standard (7-14 hari)';
-let paymentType = 'full'; // full or dp
+let paymentType = 'full';
 let selectedBank = {name:'BCA', account:'1234567890', holder:'a.n. Ibaadurrahmaan'};
 let selectedPayment = 'Transfer Bank';
+
+// ============ CUSTOM DROPDOWN ============
+function toggleDropdown(trigger){
+  const select = trigger.closest('.custom-select');
+  const isOpen = select.classList.contains('open');
+  
+  document.querySelectorAll('.custom-select.open').forEach(s => {
+    if(s !== select) s.classList.remove('open');
+  });
+  
+  select.classList.toggle('open', !isOpen);
+}
+
+function selectOption(option){
+  const select = option.closest('.custom-select');
+  const trigger = select.querySelector('.cs-trigger');
+  const valueEl = trigger.querySelector('.cs-value');
+  const hiddenInput = select.querySelector('input[type="hidden"]');
+  const value = option.dataset.value;
+  const label = option.textContent.trim();
+  
+  valueEl.textContent = label;
+  valueEl.classList.add('has-value');
+  
+  if(hiddenInput) hiddenInput.value = value;
+  
+  select.querySelectorAll('.cs-option').forEach(o => o.classList.remove('selected'));
+  option.classList.add('selected');
+  
+  select.classList.remove('open');
+  
+  if(hiddenInput){
+    const event = new Event('change', {bubbles: true});
+    hiddenInput.dispatchEvent(event);
+  }
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+  if(!e.target.closest('.custom-select')){
+    document.querySelectorAll('.custom-select.open').forEach(s => s.classList.remove('open'));
+  }
+});
+
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape'){
+    document.querySelectorAll('.custom-select.open').forEach(s => s.classList.remove('open'));
+  }
+});
 
 // ============ FORMAT ============
 function formatRp(n){
@@ -969,7 +1057,6 @@ function renderSummary(){
     if(dcr) dcr.style.display = c.couponAmt > 0 ? 'flex' : 'none';
   }
   
-  // Step 3 specifics
   const fpr = document.getElementById('fullpayRow');
   const fpd = document.getElementById('fullpayDisc');
   if(fpr && fpd){
@@ -1105,7 +1192,14 @@ function goToStep(n){
       const el = document.getElementById(id);
       if(el && !el.value.trim()){
         showToast('Lengkapi semua data yang wajib diisi!');
-        el.focus();
+        
+        const customSelect = el.closest('.custom-select');
+        if(customSelect){
+          customSelect.querySelector('.cs-trigger').focus();
+          customSelect.classList.add('open');
+        } else {
+          el.focus();
+        }
         return;
       }
     }
@@ -1171,7 +1265,6 @@ function generateInvoice(){
   document.getElementById('invEstimate').textContent = estimate.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
   document.getElementById('invPayment').textContent = selectedPayment + ' (' + selectedBank.name + ')';
   
-  // Table
   let tableHtml = `
     <tr>
       <td><b>${selectedPkg.dataset.name}</b></td>
@@ -1199,7 +1292,6 @@ function generateInvoice(){
   
   document.getElementById('invTableBody').innerHTML = tableHtml;
   
-  // Totals
   document.getElementById('invSubtotal').textContent = formatRp(c.subtotal);
   document.getElementById('invTotal').textContent = formatRp(c.total);
   document.getElementById('invPayNow').textContent = formatRp(c.payNow);
@@ -1232,7 +1324,6 @@ function generateInvoice(){
   
   document.getElementById('trackTime1').textContent = now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}) + ' WIB';
   
-  // WA Link
   const waText = `Halo, saya sudah melakukan pemesanan di Ibaadurrahmaan Web Designer.%0A%0A📋 *Detail Pesanan:*%0AInvoice: ${orderId}%0ANama: ${name}${company ? '%0APerusahaan: '+company : ''}%0APaket: ${selectedPkg.dataset.name}%0ATotal: ${formatRp(c.total)}%0ABayar Sekarang: ${formatRp(c.payNow)}%0AMetode: ${selectedPayment} (${selectedBank.name})%0A%0AMohon informasinya untuk langkah selanjutnya. Terima kasih!`;
   document.getElementById('waConfirm').href = `https://wa.me/6281401643188?text=${waText}`;
 }
