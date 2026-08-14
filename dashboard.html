@@ -1259,20 +1259,21 @@ updateDate();
 
 
 // ====================================================
-// 🔥 LOAD RESELLER DATA FROM FIREBASE
+// 🔥 LOAD RESELLER DATA FROM FIREBASE (WITH APPROVE/REJECT)
 // ====================================================
 
 async function loadResellerData() {
     const refreshBtn = document.getElementById('refreshBtn');
-    refreshBtn.classList.add('loading');
+    if (refreshBtn) refreshBtn.classList.add('loading');
+    
+    console.log('[DASHBOARD] Loading data...');
     
     try {
         // Tunggu Firebase ready
-        if (!window.firebase || !window.firebase.ready) {
-            await new Promise(resolve => {
-                document.addEventListener('firebaseReady', resolve, { once: true });
-                setTimeout(resolve, 3000); // fallback timeout
-            });
+        let attempts = 0;
+        while ((!window.firebase || !window.firebase.ready) && attempts < 20) {
+            await new Promise(resolve => setTimeout(resolve, 200));
+            attempts++;
         }
         
         if (!window.firebase || !window.firebase.ready) {
@@ -1283,99 +1284,60 @@ async function loadResellerData() {
         const resellersRef = collection(db, 'resellers');
         
         // ============================================
-        // 1. TOTAL RESELLER
+        // AMBIL SEMUA DATA
         // ============================================
+        console.log('[DASHBOARD] Fetching resellers...');
         const allSnapshot = await getDocs(resellersRef);
-        const total = allSnapshot.size;
-        document.getElementById('statTotalReseller').innerHTML = total;
-        document.getElementById('statTotalReseller').classList.remove('loading');
-        document.getElementById('statResellerTrend').innerHTML = 
-            `<i class="fas fa-users"></i> ${total} Total`;
+        console.log('[DASHBOARD] ✅ Docs found:', allSnapshot.size);
+        
+        // Convert ke array
+        const allResellers = [];
+        allSnapshot.forEach(docSnap => {
+            allResellers.push({ id: docSnap.id, ...docSnap.data() });
+        });
         
         // ============================================
-        // 2. PENDING RESELLER
+        // HITUNG STATS
         // ============================================
-        const pendingQuery = query(resellersRef, where('status', '==', 'pending'));
-        const pendingSnapshot = await getDocs(pendingQuery);
-        document.getElementById('statPendingReseller').innerHTML = pendingSnapshot.size;
-        document.getElementById('statPendingReseller').classList.remove('loading');
+        const total = allResellers.length;
+        const pending = allResellers.filter(r => r.status === 'pending').length;
+        const active = allResellers.filter(r => r.status === 'active').length;
         
-        // ============================================
-        // 3. ACTIVE RESELLER
-        // ============================================
-        const activeQuery = query(resellersRef, where('status', '==', 'active'));
-        const activeSnapshot = await getDocs(activeQuery);
-        document.getElementById('statActiveReseller').innerHTML = activeSnapshot.size;
-        document.getElementById('statActiveReseller').classList.remove('loading');
-        
-        // ============================================
-        // 4. RESELLER HARI INI
-        // ============================================
+        // Reseller hari ini
         const startOfDay = new Date();
         startOfDay.setHours(0, 0, 0, 0);
-        const todayTimestamp = Timestamp.fromDate(startOfDay);
+        const startTs = startOfDay.getTime();
         
-        const todayQuery = query(resellersRef, where('timestamp', '>=', todayTimestamp));
-        const todaySnapshot = await getDocs(todayQuery);
-        document.getElementById('statTodayReseller').innerHTML = todaySnapshot.size;
-        document.getElementById('statTodayReseller').classList.remove('loading');
+        const today = allResellers.filter(r => {
+            if (!r.timestamp) return false;
+            const ts = r.timestamp.toDate ? r.timestamp.toDate().getTime() : 0;
+            return ts >= startTs;
+        }).length;
         
-        // ============================================
-        // 5. RESELLER TERBARU (5 latest)
-        // ============================================
-        const recentQuery = query(resellersRef, orderBy('timestamp', 'desc'), limit(5));
-        const recentSnapshot = await getDocs(recentQuery);
+        // Update Stats UI
+        updateStat('statTotalReseller', total);
+        updateStat('statPendingReseller', pending);
+        updateStat('statActiveReseller', active);
+        updateStat('statTodayReseller', today);
         
-        const resellerList = document.getElementById('resellerList');
-        
-        if (recentSnapshot.empty) {
-            resellerList.innerHTML = `
-                <div class="empty-state">
-                    <i class="fas fa-inbox"></i>
-                    <p>Belum ada reseller terdaftar<br>
-                    <small style="opacity:0.7;">Reseller akan muncul di sini setelah mendaftar via MoU form</small></p>
-                </div>
-            `;
-        } else {
-            let html = '';
-            recentSnapshot.forEach(doc => {
-                const data = doc.data();
-                const initial = (data.nama || '?').charAt(0).toUpperCase();
-                
-                // Format tanggal
-                let dateStr = '-';
-                if (data.timestamp && data.timestamp.toDate) {
-                    const date = data.timestamp.toDate();
-                    const now = new Date();
-                    const diffMs = now - date;
-                    const diffMin = Math.floor(diffMs / 60000);
-                    const diffHour = Math.floor(diffMs / 3600000);
-                    const diffDay = Math.floor(diffMs / 86400000);
-                    
-                    if (diffMin < 1) dateStr = 'Baru saja';
-                    else if (diffMin < 60) dateStr = `${diffMin} menit lalu`;
-                    else if (diffHour < 24) dateStr = `${diffHour} jam lalu`;
-                    else if (diffDay < 7) dateStr = `${diffDay} hari lalu`;
-                    else dateStr = date.toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
-                }
-                
-                html += `
-                    <div class="reseller-item">
-                        <div class="reseller-avatar">${initial}</div>
-                        <div class="reseller-info">
-                            <div class="reseller-name">${data.nama || 'Tanpa Nama'}</div>
-                            <div class="reseller-meta">
-                                <span class="reseller-code">${data.resellerCode || '-'}</span>
-                                <span><i class="fas fa-clock"></i> ${dateStr}</span>
-                                <span><i class="fab fa-whatsapp"></i> ${data.wa || '-'}</span>
-                            </div>
-                        </div>
-                        <span class="reseller-status ${data.status || 'pending'}">${data.status || 'pending'}</span>
-                    </div>
-                `;
-            });
-            resellerList.innerHTML = html;
+        const trendEl = document.getElementById('statResellerTrend');
+        if (trendEl) {
+            trendEl.innerHTML = `<i class="fas fa-users"></i> ${total} Total`;
         }
+        
+        // ============================================
+        // RESELLER TERBARU (5 terbaru)
+        // ============================================
+        const sortedResellers = allResellers
+            .filter(r => r.timestamp)
+            .sort((a, b) => {
+                const timeA = a.timestamp.toDate ? a.timestamp.toDate().getTime() : 0;
+                const timeB = b.timestamp.toDate ? b.timestamp.toDate().getTime() : 0;
+                return timeB - timeA;
+            })
+            .slice(0, 5);
+        
+        renderResellerList(sortedResellers);
         
         console.log('[DASHBOARD] ✅ Data loaded successfully');
         
@@ -1386,25 +1348,51 @@ async function loadResellerData() {
         ['statTotalReseller', 'statPendingReseller', 'statActiveReseller', 'statTodayReseller'].forEach(id => {
             const el = document.getElementById(id);
             if (el) {
-                el.innerHTML = '<i class="fas fa-exclamation-triangle" style="color:#e74c3c;font-size:1rem;"></i>';
+                el.innerHTML = '<i class="fas fa-times-circle" style="color:#e74c3c;font-size:1rem;"></i>';
                 el.classList.remove('loading');
             }
         });
         
-        document.getElementById('resellerList').innerHTML = `
-            <div class="empty-state">
-                <i class="fas fa-exclamation-triangle" style="color:#e74c3c;"></i>
-                <p><strong style="color:#e74c3c;">Gagal memuat data</strong><br>
-                <small>${error.message}</small></p>
-            </div>
-        `;
+        const listEl = document.getElementById('resellerList');
+        if (listEl) {
+            let errorMsg = error.message;
+            let solution = 'Coba refresh halaman';
+            
+            if (error.code === 'permission-denied' || error.message.includes('permission')) {
+                errorMsg = 'Akses ditolak oleh Firestore Rules';
+                solution = 'Update Firestore Rules → allow read: if true;';
+            }
+            
+            listEl.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-exclamation-triangle" style="color:#e74c3c;"></i>
+                    <p><strong style="color:#e74c3c;">Gagal memuat data</strong><br>
+                    <small style="opacity:0.8;">${errorMsg}</small><br><br>
+                    <small style="color:#f39c12;">💡 ${solution}</small>
+                    </p>
+                </div>
+            `;
+        }
+    } finally {
+        if (refreshBtn) refreshBtn.classList.remove('loading');
     }
-    
-    refreshBtn.classList.remove('loading');
 }
 
+
 /**
- * Helper: Render reseller list DENGAN tombol Approve/Reject
+ * Helper: Update stat value
+ */
+function updateStat(id, value) {
+    const el = document.getElementById(id);
+    if (el) {
+        el.innerHTML = value;
+        el.classList.remove('loading');
+    }
+}
+
+
+/**
+ * Helper: Render reseller list DENGAN tombol Approve/Reject/Detail
  */
 function renderResellerList(resellers) {
     const listEl = document.getElementById('resellerList');
@@ -1444,11 +1432,11 @@ function renderResellerList(resellers) {
         
         const status = data.status || 'pending';
         
-        // Escape data untuk onclick
+        // Escape data untuk onclick (encode double-quote)
         const dataStr = JSON.stringify({
             id: data.id,
-            nama: data.nama,
-            wa: data.wa
+            nama: data.nama || 'Tanpa Nama',
+            wa: data.wa || ''
         }).replace(/"/g, '&quot;');
         
         // Tombol action berdasarkan status
@@ -1498,7 +1486,7 @@ function renderResellerList(resellers) {
 
 
 // ====================================================
-// 🎯 APPROVE / REJECT RESELLER
+// 🎯 APPROVE / REJECT / DETAIL RESELLER
 // ====================================================
 
 async function handleApprove(data) {
@@ -1522,7 +1510,6 @@ async function handleApprove(data) {
     
     if (!result.isConfirmed) return;
     
-    // Show loading
     Swal.fire({
         title: 'Memproses...',
         html: 'Mengupdate status reseller',
@@ -1534,7 +1521,8 @@ async function handleApprove(data) {
     try {
         await updateResellerStatus(data.id, 'active');
         
-        // Kirim notifikasi WA ke reseller
+        // Build WA URL
+        const waNumber = data.wa.replace(/[^0-9]/g, '').replace(/^0/, '62');
         const waMsg = encodeURIComponent(
             `Assalamu'alaikum ${data.nama},\n\n` +
             `🎉 *SELAMAT!*\n\n` +
@@ -1547,7 +1535,7 @@ async function handleApprove(data) {
             `Silakan mulai memasarkan jasa website kami.\n\n` +
             `Barakallahu fiik 🙏`
         );
-        const waUrl = `https://wa.me/${data.wa.replace(/^0/, '62')}?text=${waMsg}`;
+        const waUrl = `https://wa.me/${waNumber}?text=${waMsg}`;
         
         await Swal.fire({
             icon: 'success',
@@ -1569,7 +1557,6 @@ async function handleApprove(data) {
             }
         });
         
-        // Reload data
         loadResellerData();
         
     } catch (error) {
@@ -1666,8 +1653,9 @@ async function updateResellerStatus(docId, newStatus, reason = '') {
         throw new Error('Firebase belum ready');
     }
     
-    // Import updateDoc & doc
-    const { doc, updateDoc } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+    // Import updateDoc & doc dari Firestore module
+    const firestoreModule = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+    const { doc, updateDoc } = firestoreModule;
     
     const { db } = window.firebase;
     const docRef = doc(db, 'resellers', docId);
@@ -1680,7 +1668,7 @@ async function updateResellerStatus(docId, newStatus, reason = '') {
     
     if (newStatus === 'active') {
         updateData.activatedAt = new Date();
-        updateData.tier = 'silver'; // default tier
+        updateData.tier = 'silver';
     }
     
     if (newStatus === 'rejected' && reason) {
@@ -1692,18 +1680,19 @@ async function updateResellerStatus(docId, newStatus, reason = '') {
     console.log('[FIREBASE] ✅ Status updated:', docId, '→', newStatus);
 }
 
+
 // ====================================================
 // AUTO LOAD ON READY
 // ====================================================
 
-// Load data setelah Firebase ready
 document.addEventListener('firebaseReady', () => {
+    console.log('[DASHBOARD] Firebase ready event triggered');
     loadResellerData();
 });
 
-// Fallback: load setelah 1 detik kalau event tidak trigger
 setTimeout(() => {
     if (window.firebase && window.firebase.ready) {
+        console.log('[DASHBOARD] Auto-loading...');
         loadResellerData();
     }
 }, 1500);
