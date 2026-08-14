@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050B18">
+<title>Penawaran Website | Ibaadurrahmaan Web Designer</title>
+<meta name="description" content="Proposal penawaran pembuatan website profesional dari Ibaadurrahmaan Web Designer">
+<link rel="icon" type="image/png" href="main-logo.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+    --bg:#050B18;
+    --bg-card:#0F1E33;
+    --gold:#d4a536;
+    --gold-light:#e8bd52;
+    --gold-glow:rgba(212,165,54,0.3);
+    --text:#fff;
+    --text-muted:#8a94a6;
+    --border:rgba(255,255,255,0.08);
+    --success:#25d366;
+    --danger:#e74c3c;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Poppins',sans-serif;
+    min-height:100vh;
+    padding-bottom:120px;
+    background-image:
+        radial-gradient(circle at 10% 10%,rgba(212,165,54,0.1),transparent 40%),
+        radial-gradient(circle at 90% 90%,rgba(212,165,54,0.05),transparent 40%);
+}
+
+
+/* ==================== HEADER ==================== */
+.hero-header{
+    background:linear-gradient(135deg,#0F1E33 0%,#050B18 100%);
+    padding:80px 20px 60px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    border-bottom:2px solid var(--gold);
+}
+
+.hero-header::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at center,rgba(212,165,54,0.15),transparent 70%);
+}
+
+.hero-badge{
+    display:inline-block;
+    padding:8px 20px;
+    background:var(--gold);
+    color:var(--bg);
+    border-radius:100px;
+    font-size:0.75rem;
+    font-weight:800;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:20px;
+    position:relative;
+    z-index:2;
+    box-shadow:0 6px 20px var(--gold-glow);
+}
+
+.hero-logo{
+    width:80px;
+    height:80px;
+    margin:0 auto 20px;
+    background:#fff;
+    padding:8px;
+    border-radius:50%;
+    border:3px solid var(--gold);
+    box-shadow:0 10px 30px var(--gold-glow);
+    position:relative;
+    z-index:2;
+    box-sizing:border-box;
+}
+
+.hero-logo img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    border-radius:50%;
+}
+
+.hero-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:clamp(1.5rem,4vw,2.5rem);
+    font-weight:900;
+    color:var(--text);
+    margin-bottom:12px;
+    position:relative;
+    z-index:2;
+    line-height:1.2;
+}
+
+.hero-title span{
+    background:linear-gradient(135deg,var(--gold),var(--gold-light));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+}
+
+.hero-subtitle{
+    color:var(--text-muted);
+    font-size:1rem;
+    max-width:500px;
+    margin:0 auto;
+    line-height:1.6;
+    position:relative;
+    z-index:2;
+}
+
+
+/* ==================== CONTAINER ==================== */
+.container{
+    max-width:800px;
+    margin:0 auto;
+    padding:40px 20px;
+}
+
+
+/* ==================== CLIENT INFO CARD ==================== */
+.client-card{
+    background:linear-gradient(135deg,rgba(212,165,54,0.15),rgba(212,165,54,0.05));
+    border:2px solid rgba(212,165,54,0.3);
+    border-radius:20px;
+    padding:24px;
+    margin-bottom:32px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    box-shadow:0 10px 30px rgba(212,165,54,0.1);
+}
+
+.client-avatar{
+    width:64px;
+    height:64px;
+    background:linear-gradient(135deg,var(--gold),#c19a2e);
+    color:var(--bg);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.8rem;
+    font-weight:900;
+    flex-shrink:0;
+    box-shadow:0 6px 20px var(--gold-glow);
+}
+
+.client-info{flex:1;}
+
+.client-label{
+    color:var(--gold);
+    font-size:0.75rem;
+    font-weight:700;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin-bottom:4px;
+}
+
+.client-name{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.4rem;
+    font-weight:900;
+    color:var(--text);
+    margin-bottom:2px;
+}
+
+.client-meta{
+    color:var(--text-muted);
+    font-size:0.85rem;
+}
+
+
+/* ==================== SECTION TITLE ==================== */
+.section{
+    margin-bottom:32px;
+}
+
+.section-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.3rem;
+    font-weight:800;
+    color:var(--text);
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding-bottom:12px;
+    border-bottom:2px solid var(--gold);
+}
+
+.section-title i{
+    color:var(--gold);
+    font-size:1.4rem;
+}
+
+
+/* ==================== PACKAGE CARD ==================== */
+.package-card{
+    background:linear-gradient(145deg,var(--bg-card),#0A1626);
+    border:2px solid var(--gold);
+    border-radius:24px;
+    padding:32px 24px;
+    margin-bottom:24px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 20px 50px rgba(0,0,0,0.4);
+}
+
+.package-card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    width:200px;
+    height:200px;
+    background:radial-gradient(circle,var(--gold-glow),transparent 70%);
+    opacity:0.2;
+    border-radius:50%;
+    transform:translate(30%,-30%);
+}
+
+.package-badge{
+    display:inline-block;
+    background:linear-gradient(135deg,var(--gold),var(--gold-light));
+    color:var(--bg);
+    padding:6px 16px;
+    border-radius:100px;
+    font-size:0.72rem;
+    font-weight:800;
+    letter-spacing:1px;
+    margin-bottom:14px;
+    text-transform:uppercase;
+}
+
+.package-name{
+    font-family:'Montserrat',sans-serif;
+    font-size:2rem;
+    font-weight:900;
+    background:linear-gradient(135deg,var(--gold),var(--gold-light));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin-bottom:8px;
+}
+
+.package-desc{
+    color:var(--text-muted);
+    font-size:0.95rem;
+    line-height:1.6;
+    margin-bottom:24px;
+}
+
+.package-price{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    margin-bottom:24px;
+    padding:20px;
+    background:rgba(212,165,54,0.08);
+    border-radius:14px;
+    border:1px solid rgba(212,165,54,0.2);
+}
+
+.price-currency{
+    color:var(--gold);
+    font-size:1.2rem;
+    font-weight:700;
+}
+
+.price-amount{
+    font-family:'Montserrat',sans-serif;
+    font-size:2.5rem;
+    font-weight:900;
+    color:var(--gold);
+    line-height:1;
+}
+
+.price-unit{
+    color:var(--text-muted);
+    font-size:0.9rem;
+    font-weight:600;
+}
+
+
+/* ==================== FEATURES LIST ==================== */
+.feature-title{
+    color:var(--gold);
+    font-weight:700;
+    font-size:0.85rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin:20px 0 12px;
+}
+
+.feature-list{
+    list-style:none;
+    padding:0;
+}
+
+.feature-list li{
+    padding:10px 0 10px 32px;
+    color:rgba(255,255,255,0.9);
+    font-size:0.9rem;
+    line-height:1.5;
+    position:relative;
+    border-bottom:1px dashed rgba(255,255,255,0.05);
+}
+
+.feature-list li:last-child{border-bottom:none;}
+
+.feature-list li::before{
+    content:'✓';
+    position:absolute;
+    left:0;
+    top:10px;
+    color:var(--success);
+    font-weight:900;
+    width:22px;
+    height:22px;
+    background:rgba(37,211,102,0.15);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:0.7rem;
+    border:1px solid rgba(37,211,102,0.3);
+}
+
+.feature-list li b{
+    color:var(--gold);
+    font-weight:700;
+}
+
+
+/* ==================== TIMELINE ==================== */
+.timeline-card{
+    background:linear-gradient(145deg,var(--bg-card),#0A1626);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:24px;
+}
+
+.timeline-list{
+    list-style:none;
+    padding:0;
+    position:relative;
+}
+
+.timeline-list::before{
+    content:'';
+    position:absolute;
+    left:18px;
+    top:20px;
+    bottom:20px;
+    width:2px;
+    background:linear-gradient(180deg,var(--gold),transparent);
+}
+
+.timeline-item{
+    display:flex;
+    align-items:flex-start;
+    gap:16px;
+    padding:12px 0;
+    position:relative;
+}
+
+.timeline-number{
+    width:36px;
+    height:36px;
+    background:linear-gradient(135deg,var(--gold),#c19a2e);
+    color:var(--bg);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
+    font-size:0.9rem;
+    flex-shrink:0;
+    box-shadow:0 4px 12px var(--gold-glow);
+    z-index:1;
+}
+
+.timeline-content{flex:1;padding-top:6px;}
+
+.timeline-title{
+    color:var(--text);
+    font-weight:700;
+    font-size:0.95rem;
+    margin-bottom:4px;
+}
+
+.timeline-desc{
+    color:var(--text-muted);
+    font-size:0.85rem;
+    line-height:1.5;
+}
+
+.timeline-duration{
+    display:inline-block;
+    margin-top:6px;
+    padding:3px 10px;
+    background:rgba(212,165,54,0.1);
+    color:var(--gold);
+    border-radius:100px;
+    font-size:0.72rem;
+    font-weight:700;
+}
+
+
+/* ==================== PRICE BREAKDOWN ==================== */
+.price-breakdown{
+    background:linear-gradient(145deg,var(--bg-card),#0A1626);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:24px;
+}
+
+.price-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 0;
+    border-bottom:1px dashed rgba(255,255,255,0.08);
+    color:rgba(255,255,255,0.85);
+    font-size:0.9rem;
+}
+
+.price-row:last-child{border-bottom:none;}
+
+.price-row.discount{color:#25d366;}
+
+.price-row.total{
+    padding-top:16px;
+    margin-top:8px;
+    border-top:2px solid var(--gold);
+    border-bottom:none;
+    font-family:'Montserrat',sans-serif;
+    font-size:1.15rem;
+    font-weight:900;
+    color:var(--text);
+}
+
+.price-row.total span:last-child{
+    color:var(--gold);
+    font-size:1.4rem;
+}
+
+
+/* ==================== PAYMENT INFO ==================== */
+.payment-info{
+    background:rgba(37,211,102,0.08);
+    border:1px solid rgba(37,211,102,0.25);
+    border-radius:16px;
+    padding:20px;
+    margin-top:20px;
+}
+
+.payment-title{
+    color:var(--success);
+    font-weight:800;
+    font-size:1rem;
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.payment-detail{
+    display:flex;
+    justify-content:space-between;
+    padding:8px 0;
+    color:rgba(255,255,255,0.85);
+    font-size:0.9rem;
+}
+
+.payment-detail b{color:var(--success);}
+
+
+/* ==================== TERMS ==================== */
+.terms{
+    background:rgba(52,152,219,0.05);
+    border:1px solid rgba(52,152,219,0.2);
+    border-radius:12px;
+    padding:20px;
+    font-size:0.85rem;
+    line-height:1.7;
+    color:rgba(255,255,255,0.8);
+}
+
+.terms h4{
+    color:#3498db;
+    font-family:'Montserrat',sans-serif;
+    font-size:0.95rem;
+    margin-bottom:10px;
+    font-weight:800;
+}
+
+.terms ul{
+    list-style:none;
+    padding:0;
+}
+
+.terms ul li{
+    padding:6px 0 6px 20px;
+    position:relative;
+}
+
+.terms ul li::before{
+    content:'•';
+    position:absolute;
+    left:6px;
+    color:#3498db;
+    font-weight:900;
+}
+
+
+/* ==================== VALIDITY BADGE ==================== */
+.validity-badge{
+    background:linear-gradient(135deg,rgba(243,156,18,0.15),rgba(243,156,18,0.05));
+    border:1px solid rgba(243,156,18,0.3);
+    border-radius:12px;
+    padding:14px 20px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:24px;
+    font-size:0.9rem;
+}
+
+.validity-badge i{
+    color:#f39c12;
+    font-size:1.3rem;
+    flex-shrink:0;
+}
+
+.validity-badge b{color:#f39c12;}
+
+
+/* ==================== ACTIONS (STICKY BOTTOM) ==================== */
+.actions-sticky{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    background:linear-gradient(180deg,transparent 0%,var(--bg) 30%);
+    padding:24px 16px 16px;
+    z-index:100;
+}
+
+.actions-container{
+    max-width:800px;
+    margin:0 auto;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.btn-action{
+    flex:1;
+    min-width:120px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:16px 20px;
+    border:none;
+    border-radius:100px;
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:0.92rem;
+    cursor:pointer;
+    text-decoration:none;
+    transition:all 0.3s ease;
+    line-height:1;
+    white-space:nowrap;
+    box-shadow:0 8px 24px rgba(0,0,0,0.3);
+}
+
+.btn-accept{
+    background:linear-gradient(135deg,var(--success),#20BA5A);
+    color:#fff;
+    flex:2;
+}
+
+.btn-accept:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 30px rgba(37,211,102,0.5);
+}
+
+.btn-nego{
+    background:rgba(212,165,54,0.15);
+    color:var(--gold);
+    border:2px solid var(--gold);
+}
+
+.btn-nego:hover{
+    background:var(--gold);
+    color:var(--bg);
+    transform:translateY(-3px);
+}
+
+.btn-ask{
+    background:rgba(255,255,255,0.05);
+    color:var(--text);
+    border:1px solid var(--border);
+}
+
+.btn-ask:hover{
+    background:rgba(255,255,255,0.1);
+    border-color:var(--text);
+    transform:translateY(-3px);
+}
+
+
+/* ==================== FOOTER ==================== */
+.footer-info{
+    text-align:center;
+    padding:20px;
+    color:var(--text-muted);
+    font-size:0.8rem;
+    margin-top:30px;
+}
+
+.footer-info p{margin-bottom:6px;}
+
+.footer-info b{color:var(--gold);}
+
+
+/* ==================== MOBILE ==================== */
+@media (max-width:640px){
+    .hero-header{padding:60px 16px 40px;}
+    .container{padding:24px 16px;}
+    .client-card{
+        flex-direction:column;
+        text-align:center;
+        gap:16px;
+        padding:20px;
+    }
+    .package-card{padding:24px 20px;}
+    .package-name{font-size:1.6rem;}
+    .price-amount{font-size:2rem;}
+    .actions-container{flex-direction:column;}
+    .btn-action{width:100%;}
+}
+</style>
+</head>
+<body>
+
+
+<!-- ==================== HEADER ==================== -->
+<header class="hero-header">
+    <div class="hero-badge">📋 Proposal Penawaran</div>
+    
+    <div class="hero-logo">
+        <img src="main-logo.png" alt="Ibaadurrahmaan Logo">
+    </div>
+    
+    <h1 class="hero-title">Penawaran <span>Website Profesional</span></h1>
+    <p class="hero-subtitle">Solusi digital yang tepat untuk kebutuhan bisnis Anda</p>
+</header>
+
+
+<!-- ==================== MAIN CONTENT ==================== -->
+<div class="container">
+    
+    <!-- Client Info -->
+    <div class="client-card">
+        <div class="client-avatar" id="clientAvatar">?</div>
+        <div class="client-info">
+            <div class="client-label">Ditujukan Untuk</div>
+            <div class="client-name" id="clientName">Client</div>
+            <div class="client-meta" id="clientDate">Berlaku: <b id="validDate">-</b></div>
+        </div>
+    </div>
+    
+    
+    <!-- Validity Warning -->
+    <div class="validity-badge">
+        <i class="fas fa-clock"></i>
+        <div>
+            <b>Penawaran ini berlaku 7 hari</b><br>
+            <small>Setelah tanggal expired, harga & bonus bisa berubah</small>
+        </div>
+    </div>
+    
+    
+    <!-- ============ PAKET ============ -->
+    <div class="section">
+        <h2 class="section-title">
+            <i class="fas fa-box-open"></i>
+            <span>Paket Rekomendasi</span>
+        </h2>
+        
+        <div class="package-card">
+            <div class="package-badge" id="pkgBadge">⭐ POPULER</div>
+            <div class="package-name" id="pkgName">Paket REGULER</div>
+            <p class="package-desc" id="pkgDesc">Website multi-halaman lengkap untuk bisnis yang serius berkembang. Cocok untuk company profile, katalog produk, dan portofolio.</p>
+            
+            <div class="package-price">
+                <span class="price-currency">Rp</span>
+                <span class="price-amount" id="pkgPrice">2.500.000</span>
+                <span class="price-unit">/ project</span>
+            </div>
+            
+            <div class="feature-title">✅ Yang Anda Dapatkan</div>
+            <ul class="feature-list" id="pkgFeatures">
+                <li><b>5-7 Halaman Website</b> (Home, About, Services, Portfolio, Contact, Blog)</li>
+                <li><b>Design custom</b> sesuai brand Anda</li>
+                <li><b>Mobile-friendly</b> & responsive semua device</li>
+                <li><b>Integrasi WhatsApp</b> untuk komunikasi cepat</li>
+                <li><b>Blog/Artikel</b> dengan sistem kategori</li>
+                <li><b>Galeri foto</b> / portfolio showcase</li>
+                <li><b>Form kontak</b> dengan email notification</li>
+                <li><b>SEO optimasi lanjutan</b> (rank di Google)</li>
+                <li><b>Google Analytics</b> integration</li>
+                <li><b>Testimoni & Client showcase</b></li>
+                <li><b>Revisi 4x</b> sampai puas</li>
+                <li><b>Support 3 bulan</b> setelah launch</li>
+                <li><b>Setup domain & hosting</b> (gratis bantuan)</li>
+            </ul>
+            
+            <div class="feature-title">🎁 Bonus Eksklusif</div>
+            <ul class="feature-list">
+                <li><b>Free konsultasi</b> sebelum & setelah project</li>
+                <li><b>Training singkat</b> cara update konten</li>
+                <li><b>File design & source code</b> jadi milik Anda 100%</li>
+                <li><b>Garansi revisi</b> sampai puas</li>
+            </ul>
+        </div>
+    </div>
+    
+    
+    <!-- ============ TIMELINE ============ -->
+    <div class="section">
+        <h2 class="section-title">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Timeline Pengerjaan</span>
+        </h2>
+        
+        <div class="timeline-card">
+            <ul class="timeline-list">
+                <li class="timeline-item">
+                    <div class="timeline-number">1</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Kick-off & Briefing</div>
+                        <div class="timeline-desc">Diskusi kebutuhan detail, brand identity, referensi design</div>
+                        <span class="timeline-duration">📅 Hari 1-2</span>
+                    </div>
+                </li>
+                <li class="timeline-item">
+                    <div class="timeline-number">2</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Design & Wireframe</div>
+                        <div class="timeline-desc">Mockup design semua halaman + preview</div>
+                        <span class="timeline-duration">📅 Hari 3-5</span>
+                    </div>
+                </li>
+                <li class="timeline-item">
+                    <div class="timeline-number">3</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Development</div>
+                        <div class="timeline-desc">Coding, integrasi, testing di berbagai device</div>
+                        <span class="timeline-duration">📅 Hari 6-10</span>
+                    </div>
+                </li>
+                <li class="timeline-item">
+                    <div class="timeline-number">4</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Revisi & Finalisasi</div>
+                        <div class="timeline-desc">Review bersama Anda, revisi, polishing</div>
+                        <span class="timeline-duration">📅 Hari 11-12</span>
+                    </div>
+                </li>
+                <li class="timeline-item">
+                    <div class="timeline-number">5</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Launch & Handover</div>
+                        <div class="timeline-desc">Setup domain, hosting, deploy ke live server</div>
+                        <span class="timeline-duration">📅 Hari 13-14</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    
+    <!-- ============ RINCIAN HARGA ============ -->
+    <div class="section">
+        <h2 class="section-title">
+            <i class="fas fa-money-check-alt"></i>
+            <span>Rincian Investasi</span>
+        </h2>
+        
+        <div class="price-breakdown">
+            <div class="price-row">
+                <span>Paket REGULER</span>
+                <span>Rp 2.500.000</span>
+            </div>
+            <div class="price-row discount">
+                <span>💰 Diskon Spesial (10%)</span>
+                <span>-Rp 250.000</span>
+            </div>
+            <div class="price-row">
+                <span>🎁 Bonus SEO Setup</span>
+                <span>FREE</span>
+            </div>
+            <div class="price-row">
+                <span>🎁 Bonus Training</span>
+                <span>FREE</span>
+            </div>
+            <div class="price-row total">
+                <span>TOTAL INVESTASI</span>
+                <span>Rp 2.250.000</span>
+            </div>
+        </div>
+        
+        <!-- Payment Info -->
+        <div class="payment-info">
+            <div class="payment-title">
+                <i class="fas fa-hand-holding-usd"></i>
+                Sistem Pembayaran
+            </div>
+            <div class="payment-detail">
+                <span>DP di Awal (50%)</span>
+                <b>Rp 1.125.000</b>
+            </div>
+            <div class="payment-detail">
+                <span>Pelunasan Setelah Selesai (50%)</span>
+                <b>Rp 1.125.000</b>
+            </div>
+            <div class="payment-detail" style="border-top:1px dashed rgba(37,211,102,0.3);padding-top:12px;margin-top:6px;">
+                <span>Transfer via:</span>
+                <b>BCA / Mandiri / DANA / OVO</b>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- ============ TERMS ============ -->
+    <div class="section">
+        <h2 class="section-title">
+            <i class="fas fa-file-contract"></i>
+            <span>Syarat & Ketentuan</span>
+        </h2>
+        
+        <div class="terms">
+            <h4>📌 Yang Termasuk:</h4>
+            <ul>
+                <li>Design custom sesuai brand & preferensi</li>
+                <li>Development sesuai timeline yang disepakati</li>
+                <li>Revisi sesuai batas paket</li>
+                <li>Support & maintenance 3 bulan setelah launch</li>
+                <li>Training singkat penggunaan (via video call)</li>
+            </ul>
+            
+            <h4 style="margin-top:20px;">⚠️ Yang Tidak Termasuk:</h4>
+            <ul>
+                <li>Biaya domain (~Rp 180.000/tahun) - dibayar terpisah</li>
+                <li>Biaya hosting (~Rp 500.000/tahun) - dibayar terpisah</li>
+                <li>Foto profesional / video production</li>
+                <li>Copywriting konten (jika perlu, kami bantu dengan biaya tambahan)</li>
+            </ul>
+            
+            <h4 style="margin-top:20px;">📝 Ketentuan Kerja:</h4>
+            <ul>
+                <li>DP 50% untuk memulai project (non-refundable setelah design)</li>
+                <li>Pelunasan 50% sebelum website di-deploy ke live server</li>
+                <li>Timeline dihitung dari tanggal DP diterima & brief lengkap</li>
+                <li>Setiap penundaan client memperpanjang timeline</li>
+                <li>File source code diserahkan setelah pelunasan</li>
+            </ul>
+        </div>
+    </div>
+    
+    
+    <!-- Footer Info -->
+    <div class="footer-info">
+        <p><b>Ibaadurrahmaan Web Designer</b></p>
+        <p>📱 WhatsApp: +62 814-0164-3188</p>
+        <p>📧 Email: hello@ibaadurrahmaan.com</p>
+        <p style="margin-top:12px;font-size:0.72rem;opacity:0.6;">
+            Proposal ini bersifat rahasia. Mohon tidak dibagikan tanpa izin.
+        </p>
+    </div>
+    
+</div>
+
+
+<!-- ==================== ACTIONS (STICKY) ==================== -->
+<div class="actions-sticky">
+    <div class="actions-container">
+        <button class="btn-action btn-ask" onclick="askQuestion()">
+            <i class="fas fa-question-circle"></i>
+            <span>Tanya</span>
+        </button>
+        <button class="btn-action btn-nego" onclick="negoPrice()">
+            <i class="fas fa-handshake"></i>
+            <span>Nego</span>
+        </button>
+        <button class="btn-action btn-accept" onclick="acceptOffer()">
+            <i class="fas fa-check-circle"></i>
+            <span>Terima Penawaran</span>
+        </button>
+    </div>
+</div>
+
+
+<script>
+// ====================================================
+// AMBIL PARAMETER DARI URL
+// Contoh: penawaran.html?client=Budi&pkg=reguler
+// ====================================================
+const urlParams = new URLSearchParams(window.location.search);
+const clientName = urlParams.get('client') || 'Calon Client';
+const pkgType = (urlParams.get('pkg') || 'reguler').toLowerCase();
+const customPrice = urlParams.get('price');
+const customDiscount = urlParams.get('discount');
+
+
+// ====================================================
+// SET CLIENT INFO
+// ====================================================
+document.getElementById('clientName').textContent = clientName;
+document.getElementById('clientAvatar').textContent = clientName.charAt(0).toUpperCase();
+
+// Set validity (7 hari dari sekarang)
+const today = new Date();
+const validUntil = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+const monthsID = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Nov','Des'];
+const validStr = `${validUntil.getDate()} ${monthsID[validUntil.getMonth()]} ${validUntil.getFullYear()}`;
+document.getElementById('validDate').textContent = validStr;
+
+
+// ====================================================
+// PACKAGE DATA
+// ====================================================
+const packages = {
+    hemat: {
+        badge: '💰 STARTER',
+        name: 'Paket HEMAT',
+        desc: 'Landing page profesional untuk memulai kehadiran online bisnis Anda. Simple, cepat, dan efektif.',
+        price: 1500000,
+        features: [
+            '<b>1 Halaman Landing Page</b> profesional',
+            '<b>Design modern</b> & mobile-friendly',
+            '<b>Tombol WhatsApp</b> langsung',
+            '<b>Section:</b> Hero, About, Layanan, Kontak',
+            '<b>Google Maps</b> embedded',
+            '<b>Loading super cepat</b>',
+            '<b>SEO dasar</b> (meta tags)',
+            '<b>Revisi 2x</b>',
+            '<b>Setup domain & hosting</b> (gratis bantuan)',
+            '<b>Support 1 bulan</b>'
+        ]
+    },
+    reguler: {
+        badge: '⭐ POPULER',
+        name: 'Paket REGULER',
+        desc: 'Website multi-halaman lengkap untuk bisnis yang serius berkembang. Cocok untuk company profile.',
+        price: 2500000,
+        features: [
+            '<b>5-7 Halaman Website</b> (Home, About, Services, Portfolio, Contact, Blog)',
+            '<b>Design custom</b> sesuai brand Anda',
+            '<b>Mobile-friendly</b> & responsive',
+            '<b>Integrasi WhatsApp</b>',
+            '<b>Blog/Artikel</b> dengan kategori',
+            '<b>Galeri foto</b> / portfolio',
+            '<b>Form kontak</b> + email notification',
+            '<b>SEO optimasi lanjutan</b>',
+            '<b>Google Analytics</b>',
+            '<b>Testimoni & Client showcase</b>',
+            '<b>Revisi 4x</b>',
+            '<b>Support 3 bulan</b>'
+        ]
+    },
+    premium: {
+        badge: '👑 PREMIUM',
+        name: 'Paket PREMIUM',
+        desc: 'Website skala besar dengan e-commerce, admin panel, dan fitur lengkap. Untuk bisnis serius.',
+        price: 5000000,
+        features: [
+            '<b>Semua fitur Paket REGULER</b>',
+            '🛒 <b>E-commerce / Toko Online</b> (unlimited produk)',
+            '💳 <b>Payment Gateway</b> (Midtrans/Xendit)',
+            '📦 <b>Sistem Order</b> & tracking',
+            '⚙️ <b>Admin Panel</b> - Edit sendiri',
+            '👥 <b>Multi-user</b> (Admin + Staff)',
+            '📊 <b>Dashboard laporan</b> penjualan',
+            '📅 <b>Booking system</b> (opsional)',
+            '<b>Integrasi WhatsApp API</b>',
+            '<b>Email marketing</b> integration',
+            '<b>SEO advance</b> + Schema markup',
+            '<b>Security & backup</b> automatic',
+            '<b>SSL certificate</b>',
+            '<b>Revisi unlimited</b>',
+            '<b>Support 6 bulan</b> + training'
+        ]
+    }
+};
+
+
+// ====================================================
+// LOAD PACKAGE
+// ====================================================
+const pkg = packages[pkgType] || packages.reguler;
+document.getElementById('pkgBadge').textContent = pkg.badge;
+document.getElementById('pkgName').textContent = pkg.name;
+document.getElementById('pkgDesc').textContent = pkg.desc;
+
+// Set price (bisa custom via URL)
+const finalPrice = customPrice ? parseInt(customPrice) : pkg.price;
+const discountPercent = customDiscount ? parseInt(customDiscount) : 10;
+const discount = Math.round(finalPrice * discountPercent / 100);
+const total = finalPrice - discount;
+const dp = Math.round(total / 2);
+
+document.getElementById('pkgPrice').textContent = formatRp(finalPrice);
+
+// Update price breakdown
+document.querySelector('.price-breakdown').innerHTML = `
+    <div class="price-row">
+        <span>${pkg.name}</span>
+        <span>Rp ${formatRp(finalPrice)}</span>
+    </div>
+    <div class="price-row discount">
+        <span>💰 Diskon Spesial (${discountPercent}%)</span>
+        <span>-Rp ${formatRp(discount)}</span>
+    </div>
+    <div class="price-row">
+        <span>🎁 Bonus SEO Setup</span>
+        <span>FREE</span>
+    </div>
+    <div class="price-row">
+        <span>🎁 Bonus Training</span>
+        <span>FREE</span>
+    </div>
+    <div class="price-row total">
+        <span>TOTAL INVESTASI</span>
+        <span>Rp ${formatRp(total)}</span>
+    </div>
+`;
+
+// Update payment info
+document.querySelector('.payment-info').innerHTML = `
+    <div class="payment-title">
+        <i class="fas fa-hand-holding-usd"></i>
+        Sistem Pembayaran
+    </div>
+    <div class="payment-detail">
+        <span>DP di Awal (50%)</span>
+        <b>Rp ${formatRp(dp)}</b>
+    </div>
+    <div class="payment-detail">
+        <span>Pelunasan Setelah Selesai (50%)</span>
+        <b>Rp ${formatRp(total - dp)}</b>
+    </div>
+    <div class="payment-detail" style="border-top:1px dashed rgba(37,211,102,0.3);padding-top:12px;margin-top:6px;">
+        <span>Transfer via:</span>
+        <b>BCA / Mandiri / DANA / OVO</b>
+    </div>
+`;
+
+// Load features
+const featuresList = document.getElementById('pkgFeatures');
+featuresList.innerHTML = pkg.features.map(f => `<li>${f}</li>`).join('');
+
+
+// ====================================================
+// FORMAT RUPIAH
+// ====================================================
+function formatRp(n) {
+    return n.toLocaleString('id-ID');
+}
+
+
+// ====================================================
+// ACTION BUTTONS
+// ====================================================
+function acceptOffer() {
+    const waMsg = encodeURIComponent(
+        `Assalamu'alaikum Ibaadurrahmaan,\n\n` +
+        `Saya *${clientName}* setuju dengan penawaran ${pkg.name}.\n\n` +
+        `📦 Paket: *${pkg.name}*\n` +
+        `💰 Total: *Rp ${formatRp(total)}*\n` +
+        `💳 DP: *Rp ${formatRp(dp)}*\n\n` +
+        `Silakan info nomor rekening untuk saya transfer DP.\n\n` +
+        `Terima kasih! 🙏`
+    );
+    window.open(`https://wa.me/6281401643188?text=${waMsg}`, '_blank');
+}
+
+function negoPrice() {
+    const waMsg = encodeURIComponent(
+        `Assalamu'alaikum Ibaadurrahmaan,\n\n` +
+        `Saya *${clientName}* tertarik dengan ${pkg.name}, tapi ingin diskusi lebih lanjut tentang harga.\n\n` +
+        `📦 Paket: *${pkg.name}*\n` +
+        `💰 Harga tercantum: *Rp ${formatRp(total)}*\n\n` +
+        `Apakah masih bisa dinegosiasi? Terima kasih! 🙏`
+    );
+    window.open(`https://wa.me/6281401643188?text=${waMsg}`, '_blank');
+}
+
+function askQuestion() {
+    const waMsg = encodeURIComponent(
+        `Assalamu'alaikum Ibaadurrahmaan,\n\n` +
+        `Saya *${clientName}* ingin bertanya tentang penawaran ${pkg.name}.\n\n` +
+        `Pertanyaan saya: [tulis pertanyaan di sini]\n\n` +
+        `Terima kasih! 🙏`
+    );
+    window.open(`https://wa.me/6281401643188?text=${waMsg}`, '_blank');
+}
+</script>
+
+</body>
+</html>
