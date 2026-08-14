@@ -404,6 +404,25 @@
             </div>
           </div>
 
+          <!-- ========== ORDER VIA WHATSAPP SECTION ========== -->
+          <div class="section-card wa-order-card">
+            <div class="sc-header">
+              <h2><i class="fab fa-whatsapp"></i> Atau Order via WhatsApp</h2>
+            </div>
+            <p class="wa-order-desc">Tidak ingin melalui proses checkout? Kirim semua data pesanan langsung ke WhatsApp kami dengan satu klik!</p>
+            <div class="wa-order-features">
+              <div class="wa-feat"><i class="fas fa-check-circle"></i> Data & paket otomatis terisi</div>
+              <div class="wa-feat"><i class="fas fa-check-circle"></i> Biodata lengkap disertakan</div>
+              <div class="wa-feat"><i class="fas fa-check-circle"></i> Respon admin lebih cepat</div>
+              <div class="wa-feat"><i class="fas fa-check-circle"></i> Bisa langsung konsultasi</div>
+            </div>
+            <button class="btn-wa-order" onclick="orderViaWA()">
+              <i class="fab fa-whatsapp"></i>
+              <span>Order Langsung via WhatsApp</span>
+            </button>
+            <p class="wa-order-hint"><i class="fas fa-info-circle"></i> Semua data yang sudah Anda isi di atas akan otomatis dikirim</p>
+          </div>
+
           <div class="step-nav">
             <button class="btn-outline" onclick="goToStep(1)">
               <i class="fas fa-arrow-left"></i> Kembali
@@ -443,6 +462,13 @@
               <i class="fas fa-info-circle"></i>
               <span>Harga sudah termasuk konsultasi & revisi</span>
             </div>
+            
+            <!-- WA Quick Order in Sidebar -->
+            <div class="summary-divider"></div>
+            <button class="summary-wa-btn" onclick="orderViaWA()">
+              <i class="fab fa-whatsapp"></i>
+              <span>Order via WhatsApp</span>
+            </button>
           </div>
         </div>
       </div>
@@ -978,14 +1004,12 @@ function selectOption(option){
   }
 }
 
-// Close dropdown when clicking outside
 document.addEventListener('click', (e) => {
   if(!e.target.closest('.custom-select')){
     document.querySelectorAll('.custom-select.open').forEach(s => s.classList.remove('open'));
   }
 });
 
-// Close on Escape key
 document.addEventListener('keydown', (e) => {
   if(e.key === 'Escape'){
     document.querySelectorAll('.custom-select.open').forEach(s => s.classList.remove('open'));
@@ -1243,6 +1267,145 @@ function placeOrder(){
     generateInvoice();
     goToStep(4);
   }, 2500);
+}
+
+// ============ ORDER VIA WHATSAPP ============
+function orderViaWA(){
+  // Validasi minimal: paket harus dipilih
+  if(!selectedPkg){
+    showToast('Pilih paket terlebih dahulu di Step 1!');
+    return;
+  }
+  
+  // Ambil data biodata
+  const name     = document.getElementById('fullName').value.trim();
+  const company  = document.getElementById('companyName').value.trim();
+  const email    = document.getElementById('email').value.trim();
+  const phone    = document.getElementById('phone').value.trim();
+  const bizType  = document.getElementById('businessType').value.trim();
+  const hasWeb   = document.getElementById('hasWebsite').value.trim();
+  const desc     = document.getElementById('description').value.trim();
+  const ref      = document.getElementById('reference').value.trim();
+  
+  // Validasi data wajib
+  const missing = [];
+  if(!name)    missing.push('Nama Lengkap');
+  if(!email)   missing.push('Email');
+  if(!phone)   missing.push('Nomor WhatsApp');
+  if(!bizType) missing.push('Jenis Bisnis');
+  if(!desc)    missing.push('Deskripsi Kebutuhan');
+  
+  if(missing.length > 0){
+    showToast('Lengkapi dulu: ' + missing.join(', '));
+    // Focus ke field pertama yg kosong
+    const firstMissing = missing[0];
+    const fieldMap = {
+      'Nama Lengkap': 'fullName',
+      'Email': 'email',
+      'Nomor WhatsApp': 'phone',
+      'Jenis Bisnis': 'businessType',
+      'Deskripsi Kebutuhan': 'description'
+    };
+    const el = document.getElementById(fieldMap[firstMissing]);
+    if(el){
+      const cs = el.closest('.custom-select');
+      if(cs){
+        cs.querySelector('.cs-trigger').focus();
+        cs.classList.add('open');
+      } else {
+        el.focus();
+      }
+    }
+    return;
+  }
+  
+  // Hitung harga
+  const c = calculate();
+  const now = new Date();
+  const orderId = generateOrderId();
+  
+  // Build add-ons text
+  let addonsText = '';
+  if(selectedAddons.length > 0){
+    addonsText = selectedAddons.map(a => {
+      const p = parseInt(a.dataset.price);
+      return `  • ${a.dataset.name} — ${p > 0 ? formatRp(p) : 'FREE'}`;
+    }).join('%0A');
+  }
+  
+  // Build pesan WA lengkap
+  let waMsg = '';
+  waMsg += `Assalamu'alaikum,%0A`;
+  waMsg += `Saya ingin memesan website di Ibaadurrahmaan Web Designer.%0A`;
+  waMsg += `%0A`;
+  
+  // ===== BIODATA =====
+  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
+  waMsg += `👤 *DATA PEMESAN*%0A`;
+  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
+  waMsg += `Nama: *${name}*%0A`;
+  if(company) waMsg += `Perusahaan: ${company}%0A`;
+  waMsg += `Email: ${email}%0A`;
+  waMsg += `WhatsApp: +62${phone}%0A`;
+  waMsg += `%0A`;
+  
+  // ===== BISNIS =====
+  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
+  waMsg += `💼 *INFORMASI BISNIS*%0A`;
+  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
+  waMsg += `Jenis Bisnis: ${bizType}%0A`;
+  if(hasWeb) waMsg += `Website Ada: ${hasWeb}%0A`;
+  waMsg += `Kebutuhan: ${desc}%0A`;
+  if(ref) waMsg += `Referensi: ${ref}%0A`;
+  waMsg += `%0A`;
+  
+  // ===== PAKET =====
+  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
+  waMsg += `📦 *DETAIL PESANAN*%0A`;
+  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
+  waMsg += `ID Order: ${orderId}%0A`;
+  waMsg += `Paket: *${selectedPkg.dataset.name}*%0A`;
+  waMsg += `Harga Paket: ${formatRp(c.pkgPrice)}%0A`;
+  
+  if(selectedAddons.length > 0){
+    waMsg += `%0A📎 *Add-ons:*%0A`;
+    waMsg += addonsText + '%0A';
+  }
+  
+  waMsg += `%0ATimeline: ${selectedDeadline}%0A`;
+  if(deadlineFee > 0){
+    waMsg += `Biaya Fast Delivery: ${formatRp(deadlineFee)}%0A`;
+  }
+  waMsg += `%0A`;
+  
+  // ===== HARGA =====
+  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
+  waMsg += `💰 *RINCIAN HARGA*%0A`;
+  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
+  waMsg += `Subtotal: ${formatRp(c.subtotal)}%0A`;
+  if(deadlineFee > 0){
+    waMsg += `Fast Delivery: ${formatRp(deadlineFee)}%0A`;
+  }
+  if(c.couponAmt > 0){
+    waMsg += `Diskon Voucher (${couponCode}): -${formatRp(c.couponAmt)}%0A`;
+  }
+  if(c.fullpayDisc > 0){
+    waMsg += `Diskon Bayar Lunas 5%: -${formatRp(c.fullpayDisc)}%0A`;
+  }
+  waMsg += `%0A*TOTAL: ${formatRp(c.total)}*%0A`;
+  waMsg += `%0A`;
+  
+  // ===== CATATAN =====
+  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
+  waMsg += `Saya ingin konsultasi lebih lanjut dan melanjutkan order ini.%0A`;
+  waMsg += `Mohon informasinya untuk langkah selanjutnya.%0A`;
+  waMsg += `%0AJazaakumullahu khairan 🙏`;
+  
+  // Open WhatsApp
+  const waUrl = `https://wa.me/6281401643188?text=${waMsg}`;
+  window.open(waUrl, '_blank');
+  
+  showToast('Membuka WhatsApp...');
 }
 
 // ============ INVOICE ============
