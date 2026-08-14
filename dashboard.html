@@ -643,6 +643,87 @@ body{
     transform:translateX(0);
 }
 
+/* ==================== RESELLER ACTIONS ==================== */
+.reseller-right{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:8px;
+    flex-shrink:0;
+}
+
+.reseller-actions{
+    display:flex;
+    gap:6px;
+}
+
+.btn-action{
+    width:36px;
+    height:36px;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:0.9rem;
+    transition:all 0.2s;
+}
+
+.btn-approve{
+    background:rgba(37,211,102,0.15);
+    color:#25d366;
+    border:1px solid rgba(37,211,102,0.3);
+}
+
+.btn-approve:hover{
+    background:#25d366;
+    color:#fff;
+    transform:scale(1.1);
+    box-shadow:0 4px 12px rgba(37,211,102,0.4);
+}
+
+.btn-reject{
+    background:rgba(231,76,60,0.15);
+    color:#e74c3c;
+    border:1px solid rgba(231,76,60,0.3);
+}
+
+.btn-reject:hover{
+    background:#e74c3c;
+    color:#fff;
+    transform:scale(1.1);
+    box-shadow:0 4px 12px rgba(231,76,60,0.4);
+}
+
+.btn-detail{
+    background:rgba(52,152,219,0.15);
+    color:#3498db;
+    border:1px solid rgba(52,152,219,0.3);
+}
+
+.btn-detail:hover{
+    background:#3498db;
+    color:#fff;
+    transform:scale(1.1);
+}
+
+/* Mobile adjustments */
+@media (max-width:480px){
+    .reseller-right{
+        gap:6px;
+    }
+    
+    .btn-action{
+        width:32px;
+        height:32px;
+        font-size:0.82rem;
+    }
+    
+    .reseller-actions{
+        gap:4px;
+    }
+}
 
 /* ==================== BOTTOM NAV ==================== */
 .bottom-nav{
@@ -1322,6 +1403,294 @@ async function loadResellerData() {
     refreshBtn.classList.remove('loading');
 }
 
+/**
+ * Helper: Render reseller list DENGAN tombol Approve/Reject
+ */
+function renderResellerList(resellers) {
+    const listEl = document.getElementById('resellerList');
+    if (!listEl) return;
+    
+    if (!resellers || resellers.length === 0) {
+        listEl.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-inbox"></i>
+                <p>Belum ada reseller terdaftar<br>
+                <small style="opacity:0.7;">Reseller akan muncul di sini setelah mendaftar via MoU form</small></p>
+            </div>
+        `;
+        return;
+    }
+    
+    let html = '';
+    resellers.forEach(data => {
+        const initial = (data.nama || '?').charAt(0).toUpperCase();
+        
+        // Format tanggal relatif
+        let dateStr = '-';
+        if (data.timestamp && data.timestamp.toDate) {
+            const date = data.timestamp.toDate();
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMin = Math.floor(diffMs / 60000);
+            const diffHour = Math.floor(diffMs / 3600000);
+            const diffDay = Math.floor(diffMs / 86400000);
+            
+            if (diffMin < 1) dateStr = 'Baru saja';
+            else if (diffMin < 60) dateStr = `${diffMin} menit lalu`;
+            else if (diffHour < 24) dateStr = `${diffHour} jam lalu`;
+            else if (diffDay < 7) dateStr = `${diffDay} hari lalu`;
+            else dateStr = date.toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
+        }
+        
+        const status = data.status || 'pending';
+        
+        // Escape data untuk onclick
+        const dataStr = JSON.stringify({
+            id: data.id,
+            nama: data.nama,
+            wa: data.wa
+        }).replace(/"/g, '&quot;');
+        
+        // Tombol action berdasarkan status
+        let actionButtons = '';
+        if (status === 'pending') {
+            actionButtons = `
+                <div class="reseller-actions">
+                    <button class="btn-action btn-approve" onclick='handleApprove(${dataStr})' title="Approve">
+                        <i class="fas fa-check"></i>
+                    </button>
+                    <button class="btn-action btn-reject" onclick='handleReject(${dataStr})' title="Reject">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+        } else if (status === 'active') {
+            actionButtons = `
+                <div class="reseller-actions">
+                    <button class="btn-action btn-detail" onclick='handleDetail(${dataStr})' title="Detail">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            `;
+        }
+        
+        html += `
+            <div class="reseller-item">
+                <div class="reseller-avatar">${initial}</div>
+                <div class="reseller-info">
+                    <div class="reseller-name">${data.nama || 'Tanpa Nama'}</div>
+                    <div class="reseller-meta">
+                        <span class="reseller-code">${data.resellerCode || '-'}</span>
+                        <span><i class="fas fa-clock"></i> ${dateStr}</span>
+                        <span><i class="fab fa-whatsapp"></i> ${data.wa || '-'}</span>
+                    </div>
+                </div>
+                <div class="reseller-right">
+                    <span class="reseller-status ${status}">${status}</span>
+                    ${actionButtons}
+                </div>
+            </div>
+        `;
+    });
+    
+    listEl.innerHTML = html;
+}
+
+
+// ====================================================
+// 🎯 APPROVE / REJECT RESELLER
+// ====================================================
+
+async function handleApprove(data) {
+    const result = await Swal.fire({
+        icon: 'question',
+        title: '✅ Approve Reseller?',
+        html: `
+            Approve <b style="color:#25d366;">${data.nama}</b> sebagai reseller aktif?<br><br>
+            <div style="background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.2);padding:12px 16px;border-radius:10px;font-size:0.85rem;text-align:left;">
+                ✅ Status: <b>pending</b> → <b style="color:#25d366;">active</b><br>
+                🎫 Tier default: <b>Silver (15%)</b><br>
+                📱 Reseller: ${data.wa}
+            </div>
+        `,
+        showCancelButton: true,
+        confirmButtonText: '<i class="fas fa-check"></i> Ya, Approve!',
+        cancelButtonText: 'Batal',
+        customClass: { popup: 'swal-premium' },
+        reverseButtons: true
+    });
+    
+    if (!result.isConfirmed) return;
+    
+    // Show loading
+    Swal.fire({
+        title: 'Memproses...',
+        html: 'Mengupdate status reseller',
+        allowOutsideClick: false,
+        customClass: { popup: 'swal-premium' },
+        didOpen: () => Swal.showLoading()
+    });
+    
+    try {
+        await updateResellerStatus(data.id, 'active');
+        
+        // Kirim notifikasi WA ke reseller
+        const waMsg = encodeURIComponent(
+            `Assalamu'alaikum ${data.nama},\n\n` +
+            `🎉 *SELAMAT!*\n\n` +
+            `Pendaftaran reseller Anda telah *DISETUJUI*.\n\n` +
+            `Anda sekarang resmi menjadi *Reseller Ibaadurrahmaan Web Designer* dengan tier *Silver (Komisi 15%)*.\n\n` +
+            `Langkah selanjutnya:\n` +
+            `1. Kami akan kirim welcome pack via WA\n` +
+            `2. Akses grup reseller khusus\n` +
+            `3. Materi promosi lengkap\n\n` +
+            `Silakan mulai memasarkan jasa website kami.\n\n` +
+            `Barakallahu fiik 🙏`
+        );
+        const waUrl = `https://wa.me/${data.wa.replace(/^0/, '62')}?text=${waMsg}`;
+        
+        await Swal.fire({
+            icon: 'success',
+            title: '🎉 Reseller Aktif!',
+            html: `
+                <b style="color:#25d366;">${data.nama}</b> berhasil di-approve<br><br>
+                <div style="background:rgba(37,211,102,0.1);padding:12px;border-radius:10px;font-size:0.85rem;">
+                    ✅ Status: <b>ACTIVE</b><br>
+                    🎫 Tier: <b>Silver</b>
+                </div>
+            `,
+            showCancelButton: true,
+            confirmButtonText: '<i class="fab fa-whatsapp"></i> Notif via WA',
+            cancelButtonText: 'Nanti',
+            customClass: { popup: 'swal-premium' }
+        }).then(res => {
+            if (res.isConfirmed) {
+                window.open(waUrl, '_blank');
+            }
+        });
+        
+        // Reload data
+        loadResellerData();
+        
+    } catch (error) {
+        console.error('[APPROVE] Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal Approve',
+            text: error.message,
+            customClass: { popup: 'swal-premium' }
+        });
+    }
+}
+
+
+async function handleReject(data) {
+    const result = await Swal.fire({
+        icon: 'warning',
+        title: '❌ Reject Reseller?',
+        html: `
+            Yakin ingin reject <b style="color:#e74c3c;">${data.nama}</b>?<br><br>
+            <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.2);padding:12px 16px;border-radius:10px;font-size:0.85rem;text-align:left;">
+                ⚠️ Status: <b>pending</b> → <b style="color:#e74c3c;">rejected</b><br>
+                🚫 Reseller tidak bisa aktifasi lagi
+            </div>
+        `,
+        input: 'text',
+        inputPlaceholder: 'Alasan reject (opsional)',
+        showCancelButton: true,
+        confirmButtonText: '<i class="fas fa-times"></i> Ya, Reject',
+        cancelButtonText: 'Batal',
+        customClass: { popup: 'swal-premium' },
+        reverseButtons: true
+    });
+    
+    if (!result.isConfirmed) return;
+    
+    const reason = result.value || 'Tidak memenuhi syarat';
+    
+    Swal.fire({
+        title: 'Memproses...',
+        allowOutsideClick: false,
+        customClass: { popup: 'swal-premium' },
+        didOpen: () => Swal.showLoading()
+    });
+    
+    try {
+        await updateResellerStatus(data.id, 'rejected', reason);
+        
+        await Swal.fire({
+            icon: 'success',
+            title: 'Reseller Di-reject',
+            text: `${data.nama} telah di-reject`,
+            customClass: { popup: 'swal-premium' },
+            timer: 2000
+        });
+        
+        loadResellerData();
+        
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal Reject',
+            text: error.message,
+            customClass: { popup: 'swal-premium' }
+        });
+    }
+}
+
+
+async function handleDetail(data) {
+    Swal.fire({
+        icon: 'info',
+        title: `Detail: ${data.nama}`,
+        html: `
+            <div style="text-align:left;font-size:0.9rem;">
+                <p>📱 <b>WhatsApp:</b> ${data.wa}</p>
+                <p>🆔 <b>ID:</b> ${data.id}</p>
+                <br>
+                <p style="opacity:0.7;font-size:0.8rem;">Fitur detail lengkap coming soon</p>
+            </div>
+        `,
+        customClass: { popup: 'swal-premium' },
+        confirmButtonText: 'Tutup'
+    });
+}
+
+
+// ====================================================
+// 🔥 UPDATE STATUS DI FIRESTORE
+// ====================================================
+
+async function updateResellerStatus(docId, newStatus, reason = '') {
+    if (!window.firebase || !window.firebase.ready) {
+        throw new Error('Firebase belum ready');
+    }
+    
+    // Import updateDoc & doc
+    const { doc, updateDoc } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+    
+    const { db } = window.firebase;
+    const docRef = doc(db, 'resellers', docId);
+    
+    const updateData = {
+        status: newStatus,
+        updatedAt: new Date(),
+        updatedBy: 'admin'
+    };
+    
+    if (newStatus === 'active') {
+        updateData.activatedAt = new Date();
+        updateData.tier = 'silver'; // default tier
+    }
+    
+    if (newStatus === 'rejected' && reason) {
+        updateData.rejectReason = reason;
+        updateData.rejectedAt = new Date();
+    }
+    
+    await updateDoc(docRef, updateData);
+    console.log('[FIREBASE] ✅ Status updated:', docId, '→', newStatus);
+}
 
 // ====================================================
 // AUTO LOAD ON READY
