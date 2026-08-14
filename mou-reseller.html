@@ -3208,52 +3208,170 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ====================================================
-// SEND TO WHATSAPP
+// 💬 SEND TO WHATSAPP + SAVE FIREBASE
 // ====================================================
-function sendToWhatsApp() {
+
+async function sendToWhatsApp() {
     if (!isFormValid()) {
         alert('⚠️ Lengkapi semua data & tanda tangan dulu!');
         return;
     }
     
+    // Disable tombol supaya tidak double submit
+    const btnSubmit = document.getElementById('btnSubmit');
+    const originalHTML = btnSubmit.innerHTML;
+    btnSubmit.disabled = true;
+    btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Memproses...</span>';
+    
     const data = getFormData();
+    const sig = getSignatureData();
+    data.signature = sig;
     
-    const message = `Halo, saya *${data.nama}* mendaftar sebagai *RESELLER* Ibaadurrahmaan Web Designer.
-
-📋 *DATA DIRI:*
-• Nama: ${data.nama}
-• KTP: ${data.ktp}
-• WA: ${data.wa}
-• Email: ${data.email}
-• Alamat: ${data.alamat}
-${data.sosmed !== '-' ? `• Sosmed: ${data.sosmed}` : ''}
-
-🏦 *REKENING:*
-• Bank: ${data.bank}
-• No: ${data.norek}
-• A/n: ${data.atasNama}
-
-💰 *OPSI PEMBAYARAN KOMISI:*
-${data.paymentLabel}
-
-✅ *Persetujuan MoU:*
-Saya telah membaca, memahami & menyetujui seluruh isi perjanjian kemitraan reseller.
-
-📅 Tanggal: ${data.tanggal}
-🕐 Waktu TTD: ${data.waktu}
-
-Mohon proses pendaftaran saya. Terima kasih! 🙏`;
+    // ============================================
+    // 1. ✅ CEK DUPLIKAT DULU
+    // ============================================
+    showToast('🔍 Memeriksa data...', 2000);
     
-    document.getElementById('successModal').classList.add('active');
+    const duplicateCheck = await checkDuplicate(data.wa, data.ktp);
     
-    localStorage.setItem('resellerRegistration', JSON.stringify({
-        ...data,
-        signedAt: new Date().toISOString()
-    }));
+    if (duplicateCheck.exists) {
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = originalHTML;
+        
+        alert(
+            `⚠️ ${duplicateCheck.message}\n\n` +
+            `Jika Anda adalah reseller lama, silakan hubungi admin via WhatsApp untuk aktivasi ulang.`
+        );
+        return;
+    }
     
+    // ============================================
+    // 2. 🔥 SAVE KE FIREBASE
+    // ============================================
+    showToast('⏳ Menyimpan ke database...', 3000);
+    
+    const saveResult = await saveToFirebase(data);
+    
+    let resellerID = '';
+    let resellerCode = '';
+    
+    if (saveResult.success) {
+        resellerID = saveResult.id;
+        resellerCode = saveResult.resellerCode;
+        console.log('[SUCCESS] ID:', resellerID);
+        console.log('[SUCCESS] Code:', resellerCode);
+        showToast('✅ Data tersimpan!', 2000);
+    } else {
+        console.warn('[WARNING] Firebase save failed:', saveResult.error);
+        
+        // Konfirmasi user: lanjut tanpa simpan atau batal?
+        const proceed = confirm(
+            `⚠️ Gagal menyimpan ke database:\n${saveResult.error}\n\n` +
+            `Lanjutkan kirim ke WhatsApp saja?`
+        );
+        
+        if (!proceed) {
+            btnSubmit.disabled = false;
+            btnSubmit.innerHTML = originalHTML;
+            return;
+        }
+    }
+    
+    // ============================================
+    // 3. 💬 BUILD PESAN WHATSAPP
+    // ============================================
+    const waLines = [];
+    waLines.push("Assalamu'alaikum Ibaadurrahmaan,");
+    waLines.push("");
+    waLines.push("Saya telah *menandatangani MoU Reseller* dan mendaftar sebagai reseller Ibaadurrahmaan Web Designer.");
+    waLines.push("");
+    
+    if (resellerCode) {
+        waLines.push("🎫 *KODE RESELLER:* " + resellerCode);
+        waLines.push("");
+    }
+    
+    waLines.push("━━━━━━━━━━━━━━━━━━━━");
+    waLines.push("👤 *DATA DIRI*");
+    waLines.push("━━━━━━━━━━━━━━━━━━━━");
+    waLines.push("Nama         : *" + data.nama + "*");
+    waLines.push("No. KTP      : " + data.ktp);
+    if (data.tgllahir) waLines.push("Tgl Lahir    : " + data.tgllahir);
+    waLines.push("Alamat       : " + data.alamat);
+    waLines.push("WhatsApp     : " + data.wa);
+    waLines.push("Email        : " + data.email);
+    if (data.sosmed !== '-') waLines.push("Sosmed       : " + data.sosmed);
+    waLines.push("");
+    
+    waLines.push("━━━━━━━━━━━━━━━━━━━━");
+    waLines.push("🏦 *DATA REKENING*");
+    waLines.push("━━━━━━━━━━━━━━━━━━━━");
+    waLines.push("Bank         : " + data.bank);
+    waLines.push("No. Rekening : " + data.norek);
+    waLines.push("Atas Nama    : " + data.atasNama);
+    waLines.push("Pembayaran   : " + data.paymentLabel);
+    waLines.push("");
+    
+    waLines.push("━━━━━━━━━━━━━━━━━━━━");
+    waLines.push("📅 *WAKTU TANDA TANGAN*");
+    waLines.push("━━━━━━━━━━━━━━━━━━━━");
+    waLines.push(data.tanggalWaktuLengkap);
+    waLines.push("");
+    
+    if (saveResult.success) {
+        waLines.push("✅ *Data sudah tersimpan di database sistem*");
+        waLines.push("Status: Menunggu aktivasi admin");
+    } else {
+        waLines.push("⚠️ *Data belum tersimpan otomatis*");
+        waLines.push("Mohon disimpan manual oleh admin");
+    }
+    
+    waLines.push("");
+    waLines.push("Mohon proses selanjutnya untuk aktivasi akun reseller saya.");
+    waLines.push("");
+    waLines.push("Jazaakumullahu khairan 🙏");
+    
+    const waText = encodeURIComponent(waLines.join('\n'));
+    const waUrl = `https://wa.me/6281401643188?text=${waText}`;
+    
+    // ============================================
+    // 4. 🎉 SUCCESS + BUKA WA
+    // ============================================
     setTimeout(() => {
-        window.open(`https://wa.me/6281401643188?text=${encodeURIComponent(message)}`, '_blank');
+        // Restore tombol
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = originalHTML;
+        
+        // Buka WhatsApp di tab baru
+        window.open(waUrl, '_blank');
+        
+        // Tampilkan success modal
+        setTimeout(() => {
+            const modal = document.getElementById('successModal');
+            if (modal) {
+                // Update pesan dengan reseller code kalau ada
+                if (resellerCode) {
+                    const modalContent = modal.querySelector('.mou-modal-content p');
+                    if (modalContent) {
+                        modalContent.innerHTML = `
+                            Terima kasih telah bergabung sebagai reseller!<br><br>
+                            🎫 <strong>Kode Reseller Anda:</strong><br>
+                            <span style="font-family:monospace;background:rgba(212,165,54,0.15);padding:6px 14px;border-radius:8px;color:#d4a536;font-size:1.1rem;display:inline-block;margin-top:6px;">${resellerCode}</span><br><br>
+                            Kami akan menghubungi kamu via WhatsApp maksimal <strong>1×24 jam</strong>.
+                        `;
+                    }
+                }
+                modal.classList.add('active');
+            }
+        }, 500);
+        
     }, 1500);
+}
+
+
+function closeModal() {
+    const modal = document.getElementById('successModal');
+    if (modal) modal.classList.remove('active');
 }
 
 
