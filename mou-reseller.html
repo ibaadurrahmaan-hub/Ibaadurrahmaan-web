@@ -3287,6 +3287,57 @@ window.addEventListener('resize', () => {
     }
 });
 </script>
+<!-- ================================================
+     🔥 FIREBASE SDK - CDN Version
+     ================================================ -->
+<script type="module">
+    // Import Firebase SDK dari CDN
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+    import { 
+        getFirestore, 
+        collection, 
+        addDoc, 
+        query,
+        where,
+        getDocs,
+        serverTimestamp 
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    
+    // ✅ FIREBASE CONFIG - Ibaadurrahmaan Web
+    const firebaseConfig = {
+        apiKey: "AIzaSyCYRygFt6uwCUiL_6-eoJHhUdkiumSwLzY",
+        authDomain: "ibaadurrahmaan-web.firebaseapp.com",
+        projectId: "ibaadurrahmaan-web",
+        storageBucket: "ibaadurrahmaan-web.firebasestorage.app",
+        messagingSenderId: "1066409450927",
+        appId: "1:1066409450927:web:3497135ea3a2c4ef77e35a",
+        measurementId: "G-ZJP1W4P2P8"
+    };
+    
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
+    
+    // ✅ Expose ke window supaya bisa diakses script lain
+    window.firebase = {
+        db: db,
+        collection: collection,
+        addDoc: addDoc,
+        query: query,
+        where: where,
+        getDocs: getDocs,
+        serverTimestamp: serverTimestamp,
+        ready: true
+    };
+    
+    console.log('🔥 Firebase initialized successfully!');
+    console.log('📊 Project:', firebaseConfig.projectId);
+    
+    // Trigger event kalau Firebase sudah ready
+    document.dispatchEvent(new CustomEvent('firebaseReady'));
+</script>
 
 </body>
 </html>
