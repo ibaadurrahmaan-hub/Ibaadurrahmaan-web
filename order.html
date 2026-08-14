@@ -404,25 +404,6 @@
             </div>
           </div>
 
-          <!-- ========== ORDER VIA WHATSAPP SECTION ========== -->
-          <div class="section-card wa-order-card">
-            <div class="sc-header">
-              <h2><i class="fab fa-whatsapp"></i> Atau Order via WhatsApp</h2>
-            </div>
-            <p class="wa-order-desc">Tidak ingin melalui proses checkout? Kirim semua data pesanan langsung ke WhatsApp kami dengan satu klik!</p>
-            <div class="wa-order-features">
-              <div class="wa-feat"><i class="fas fa-check-circle"></i> Data & paket otomatis terisi</div>
-              <div class="wa-feat"><i class="fas fa-check-circle"></i> Biodata lengkap disertakan</div>
-              <div class="wa-feat"><i class="fas fa-check-circle"></i> Respon admin lebih cepat</div>
-              <div class="wa-feat"><i class="fas fa-check-circle"></i> Bisa langsung konsultasi</div>
-            </div>
-            <button class="btn-wa-order" onclick="orderViaWA()">
-              <i class="fab fa-whatsapp"></i>
-              <span>Order via WhatsApp</span>
-            </button>
-            <p class="wa-order-hint"><i class="fas fa-info-circle"></i> Semua data yang sudah Anda isi di atas akan otomatis dikirim</p>
-          </div>
-
           <div class="step-nav">
             <button class="btn-outline" onclick="goToStep(1)">
               <i class="fas fa-arrow-left"></i> Kembali
@@ -462,13 +443,6 @@
               <i class="fas fa-info-circle"></i>
               <span>Harga sudah termasuk konsultasi & revisi</span>
             </div>
-            
-            <!-- WA Quick Order in Sidebar -->
-            <div class="summary-divider"></div>
-            <button class="summary-wa-btn" onclick="orderViaWA()">
-              <i class="fab fa-whatsapp"></i>
-              <span>Order via WhatsApp</span>
-            </button>
           </div>
         </div>
       </div>
@@ -711,8 +685,9 @@
           </div>
         </div>
         <h1 class="success-title">Pesanan Berhasil Dibuat!</h1>
-        <p class="success-desc">Terima kasih atas kepercayaan Anda. Tim kami akan segera menghubungi Anda via WhatsApp.</p>
+        <p class="success-desc">Terima kasih atas kepercayaan Anda. Silakan lakukan pembayaran & konfirmasi via WhatsApp untuk mempercepat proses.</p>
 
+        <!-- Invoice Card -->
         <div class="invoice-card" id="invoiceCard">
           <div class="invoice-header">
             <div class="inv-brand">
@@ -853,6 +828,7 @@
           </div>
         </div>
 
+        <!-- Action Buttons -->
         <div class="success-actions">
           <button class="btn-primary" onclick="downloadInvoice()">
             <i class="fas fa-download"></i>
@@ -868,6 +844,7 @@
           </a>
         </div>
 
+        <!-- Order Timeline -->
         <div class="tracking-card">
           <h3><i class="fas fa-tasks"></i> Progress Pesanan Anda</h3>
           <div class="tracking-timeline">
@@ -948,56 +925,6 @@
   </div>
 </div>
 
-<!-- ======================================================
-     PREVIEW MODAL - Lihat pesan WA sebelum kirim
-     ====================================================== -->
-<div class="wa-preview-overlay" id="waPreviewOverlay">
-  <div class="wa-preview-modal">
-    <div class="wpm-header">
-      <div class="wpm-header-left">
-        <i class="fab fa-whatsapp"></i>
-        <div>
-          <h3>Preview Pesan WhatsApp</h3>
-          <p>Periksa data sebelum mengirim ke admin</p>
-        </div>
-      </div>
-      <button class="wpm-close" onclick="closeWAPreview()">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    
-    <div class="wpm-body">
-      <!-- WhatsApp Chat Bubble -->
-      <div class="wpm-chat-area">
-        <div class="wpm-chat-header">
-          <div class="wpm-avatar">
-            <i class="fas fa-user"></i>
-          </div>
-          <div class="wpm-chat-info">
-            <span class="wpm-chat-name">Anda</span>
-            <span class="wpm-chat-status">Mengirim ke +62 814-0164-3188</span>
-          </div>
-        </div>
-        <div class="wpm-chat-body" id="waPreviewContent">
-          <!-- Chat bubble akan diisi JavaScript -->
-        </div>
-      </div>
-    </div>
-    
-    <div class="wpm-footer">
-      <button class="wpm-btn-edit" onclick="closeWAPreview()">
-        <i class="fas fa-edit"></i>
-        <span>Edit Data</span>
-      </button>
-      <button class="wpm-btn-send" id="wpmSendBtn">
-        <i class="fab fa-whatsapp"></i>
-        <span>Kirim via WhatsApp</span>
-      </button>
-    </div>
-  </div>
-</div>
-
-
 <script>
 // ============ STATE ============
 let selectedPkg = null;
@@ -1050,7 +977,6 @@ document.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if(e.key === 'Escape'){
     document.querySelectorAll('.custom-select.open').forEach(s => s.classList.remove('open'));
-    closeWAPreview();
   }
 });
 
@@ -1257,186 +1183,6 @@ function placeOrder(){
   }, 2500);
 }
 
-
-// ============================================================
-//  ORDER VIA WHATSAPP — Build message + Preview + Send
-// ============================================================
-function buildWAMessage(){
-  const name    = document.getElementById('fullName').value.trim();
-  const company = document.getElementById('companyName').value.trim();
-  const email   = document.getElementById('email').value.trim();
-  const phone   = document.getElementById('phone').value.trim();
-  const bizType = document.getElementById('businessType').value.trim();
-  const hasWeb  = document.getElementById('hasWebsite').value.trim();
-  const desc    = document.getElementById('description').value.trim();
-  const ref     = document.getElementById('reference').value.trim();
-  const c       = calculate();
-  const orderId = generateOrderId();
-  const now     = new Date();
-  const tanggal = now.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
-  const jam     = now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
-
-  // Build lines array
-  const L = [];
-  L.push("Assalamu'alaikum,");
-  L.push("Saya ingin memesan website di Ibaadurrahmaan Web Designer.");
-  L.push("");
-  L.push("━━━━━━━━━━━━━━━━━━━━");
-  L.push("👤 *DATA PEMESAN*");
-  L.push("━━━━━━━━━━━━━━━━━━━━");
-  L.push("Nama      : *" + name + "*");
-  if(company) L.push("Perusahaan: " + company);
-  L.push("Email     : " + email);
-  L.push("WhatsApp  : +62" + phone);
-  L.push("");
-
-  L.push("━━━━━━━━━━━━━━━━━━━━");
-  L.push("💼 *INFORMASI BISNIS*");
-  L.push("━━━━━━━━━━━━━━━━━━━━");
-  L.push("Jenis Bisnis  : " + bizType);
-  if(hasWeb) L.push("Website Ada   : " + hasWeb);
-  L.push("Kebutuhan     : " + desc);
-  if(ref) L.push("Referensi     : " + ref);
-  L.push("");
-
-  L.push("━━━━━━━━━━━━━━━━━━━━");
-  L.push("📦 *DETAIL PESANAN*");
-  L.push("━━━━━━━━━━━━━━━━━━━━");
-  L.push("ID Order    : " + orderId);
-  L.push("Tanggal     : " + tanggal + " " + jam);
-  L.push("Paket       : *" + selectedPkg.dataset.name + "*");
-  L.push("Harga Paket : " + formatRp(c.pkgPrice));
-
-  if(selectedAddons.length > 0){
-    L.push("");
-    L.push("📎 *Add-ons:*");
-    selectedAddons.forEach(a => {
-      const p = parseInt(a.dataset.price);
-      L.push("  • " + a.dataset.name + " — " + (p > 0 ? formatRp(p) : "FREE"));
-    });
-  }
-
-  L.push("");
-  L.push("Timeline : " + selectedDeadline);
-  if(deadlineFee > 0) L.push("Biaya Fast Delivery : " + formatRp(deadlineFee));
-  L.push("");
-
-  L.push("━━━━━━━━━━━━━━━━━━━━");
-  L.push("💰 *RINCIAN HARGA*");
-  L.push("━━━━━━━━━━━━━━━━━━━━");
-  L.push("Subtotal      : " + formatRp(c.subtotal));
-  if(deadlineFee > 0) L.push("Fast Delivery : " + formatRp(deadlineFee));
-  if(c.couponAmt > 0) L.push("Diskon (" + couponCode + ")  : -" + formatRp(c.couponAmt));
-  if(c.fullpayDisc > 0) L.push("Diskon Lunas 5% : -" + formatRp(c.fullpayDisc));
-  L.push("");
-  L.push("*TOTAL : " + formatRp(c.total) + "*");
-  L.push("");
-
-  L.push("━━━━━━━━━━━━━━━━━━━━");
-  L.push("Saya ingin konsultasi lebih lanjut dan melanjutkan order ini.");
-  L.push("Mohon informasinya untuk langkah selanjutnya.");
-  L.push("");
-  L.push("Jazaakumullahu khairan 🙏");
-
-  return { lines: L, text: L.join('\n'), orderId, tanggal, jam };
-}
-
-function orderViaWA(){
-  // Validasi paket
-  if(!selectedPkg){
-    showToast('Pilih paket terlebih dahulu di Step 1!');
-    return;
-  }
-
-  // Validasi data wajib
-  const fields = [
-    {id:'fullName',   label:'Nama Lengkap'},
-    {id:'email',      label:'Email'},
-    {id:'phone',      label:'Nomor WhatsApp'},
-    {id:'businessType',label:'Jenis Bisnis'},
-    {id:'description', label:'Deskripsi Kebutuhan'}
-  ];
-
-  for(const f of fields){
-    const el = document.getElementById(f.id);
-    if(!el || !el.value.trim()){
-      showToast('Lengkapi dulu: ' + f.label);
-      const cs = el ? el.closest('.custom-select') : null;
-      if(cs){ cs.querySelector('.cs-trigger').focus(); cs.classList.add('open'); }
-      else if(el){ el.focus(); }
-      return;
-    }
-  }
-
-  // Build message & show preview
-  const msg = buildWAMessage();
-  showWAPreview(msg);
-}
-
-// ============ WA PREVIEW MODAL ============
-function showWAPreview(msg){
-  const container = document.getElementById('waPreviewContent');
-  
-  // Format lines into a chat bubble with sections highlighted
-  let html = '<div class="wpm-bubble">';
-  
-  msg.lines.forEach(line => {
-    if(line === '') {
-      html += '<div class="wpm-line wpm-spacer"></div>';
-    } else if(line.includes('━━━')) {
-      html += '<div class="wpm-line wpm-divider"></div>';
-    } else if(line.startsWith('👤') || line.startsWith('💼') || line.startsWith('📦') || line.startsWith('💰')) {
-      // Section headers
-      const clean = line.replace(/\*/g, '');
-      html += '<div class="wpm-line wpm-section-header">' + clean + '</div>';
-    } else {
-      // Replace *text* with <b>text</b>
-      let formatted = line.replace(/\*([^*]+)\*/g, '<b>$1</b>');
-      // Detect labels (Nama:, Email:, etc)
-      if(formatted.includes(' : ')){
-        const parts = formatted.split(' : ');
-        html += '<div class="wpm-line wpm-data-row"><span class="wpm-label">' + parts[0].trim() + '</span><span class="wpm-value">' + parts.slice(1).join(' : ').trim() + '</span></div>';
-      } else {
-        html += '<div class="wpm-line">' + formatted + '</div>';
-      }
-    }
-  });
-  
-  // Timestamp
-  const now = new Date();
-  const time = now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
-  html += '<div class="wpm-time">' + time + ' <i class="fas fa-check-double"></i></div>';
-  html += '</div>';
-  
-  container.innerHTML = html;
-  
-  // Set send button
-  const encoded = encodeURIComponent(msg.text);
-  const waUrl = 'https://wa.me/6281401643188?text=' + encoded;
-  
-  const sendBtn = document.getElementById('wpmSendBtn');
-  sendBtn.onclick = function(){
-    window.open(waUrl, '_blank');
-    closeWAPreview();
-    showToast('Membuka WhatsApp...');
-  };
-  
-  // Show modal
-  document.getElementById('waPreviewOverlay').classList.add('show');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeWAPreview(){
-  document.getElementById('waPreviewOverlay').classList.remove('show');
-  document.body.style.overflow = '';
-}
-
-// Close modal on overlay click
-document.getElementById('waPreviewOverlay').addEventListener('click', function(e){
-  if(e.target === this) closeWAPreview();
-});
-
-
 // ============ INVOICE ============
 function generateInvoice(){
   const orderId = generateOrderId();
@@ -1450,6 +1196,8 @@ function generateInvoice(){
   const company = document.getElementById('companyName').value;
   const email = document.getElementById('email').value;
   const phone = document.getElementById('phone').value;
+  const bizType = document.getElementById('businessType').value;
+  const desc = document.getElementById('description').value;
 
   document.getElementById('invNumber').textContent = orderId;
   document.getElementById('invName').textContent = name;
@@ -1485,7 +1233,73 @@ function generateInvoice(){
   document.getElementById('invDeadline').textContent = deadline.toLocaleString('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
   document.getElementById('trackTime1').textContent = now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}) + ' WIB';
 
-  const waText = encodeURIComponent(`Halo, saya sudah melakukan pemesanan di Ibaadurrahmaan Web Designer.\n\n📋 *Detail Pesanan:*\nInvoice: ${orderId}\nNama: ${name}${company ? '\nPerusahaan: '+company : ''}\nPaket: ${selectedPkg.dataset.name}\nTotal: ${formatRp(c.total)}\nBayar Sekarang: ${formatRp(c.payNow)}\nMetode: ${selectedPayment} (${selectedBank.name})\n\nMohon informasinya untuk langkah selanjutnya. Terima kasih!`);
+  // Build detailed WA confirmation message
+  const waLines = [];
+  waLines.push("Assalamu'alaikum Ibaadurrahmaan,");
+  waLines.push("");
+  waLines.push("Saya sudah membuat pesanan melalui website. Berikut detailnya:");
+  waLines.push("");
+  waLines.push("━━━━━━━━━━━━━━━━━━━━");
+  waLines.push("📋 *INVOICE*");
+  waLines.push("━━━━━━━━━━━━━━━━━━━━");
+  waLines.push("No. Invoice : " + orderId);
+  waLines.push("Tanggal     : " + now.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}));
+  waLines.push("");
+  waLines.push("━━━━━━━━━━━━━━━━━━━━");
+  waLines.push("👤 *DATA PEMESAN*");
+  waLines.push("━━━━━━━━━━━━━━━━━━━━");
+  waLines.push("Nama      : " + name);
+  if(company) waLines.push("Perusahaan: " + company);
+  waLines.push("Email     : " + email);
+  waLines.push("WhatsApp  : +62" + phone);
+  if(bizType) waLines.push("Bisnis    : " + bizType);
+  waLines.push("");
+  waLines.push("━━━━━━━━━━━━━━━━━━━━");
+  waLines.push("📦 *DETAIL PESANAN*");
+  waLines.push("━━━━━━━━━━━━━━━━━━━━");
+  waLines.push("Paket    : *" + selectedPkg.dataset.name + "*");
+  waLines.push("Harga    : " + formatRp(c.pkgPrice));
+  if(selectedAddons.length > 0){
+    waLines.push("");
+    waLines.push("📎 Add-ons:");
+    selectedAddons.forEach(a => {
+      const p = parseInt(a.dataset.price);
+      waLines.push("  • " + a.dataset.name + " — " + (p > 0 ? formatRp(p) : "FREE"));
+    });
+  }
+  waLines.push("");
+  waLines.push("Timeline : " + selectedDeadline);
+  if(desc){
+    waLines.push("");
+    waLines.push("📝 Kebutuhan:");
+    waLines.push(desc);
+  }
+  waLines.push("");
+  waLines.push("━━━━━━━━━━━━━━━━━━━━");
+  waLines.push("💰 *RINCIAN HARGA*");
+  waLines.push("━━━━━━━━━━━━━━━━━━━━");
+  waLines.push("Subtotal      : " + formatRp(c.subtotal));
+  if(deadlineFee > 0) waLines.push("Fast Delivery : " + formatRp(deadlineFee));
+  if(c.couponAmt > 0) waLines.push("Diskon (" + couponCode + ") : -" + formatRp(c.couponAmt));
+  if(c.fullpayDisc > 0) waLines.push("Diskon Lunas 5%: -" + formatRp(c.fullpayDisc));
+  waLines.push("");
+  waLines.push("*TOTAL : " + formatRp(c.total) + "*");
+  waLines.push("*Bayar Sekarang : " + formatRp(c.payNow) + "*");
+  if(c.remaining > 0) waLines.push("Sisa Pelunasan : " + formatRp(c.remaining));
+  waLines.push("");
+  waLines.push("━━━━━━━━━━━━━━━━━━━━");
+  waLines.push("💳 *PEMBAYARAN*");
+  waLines.push("━━━━━━━━━━━━━━━━━━━━");
+  waLines.push("Metode : " + selectedPayment);
+  waLines.push("Bank   : " + selectedBank.name);
+  waLines.push("Rek.   : " + selectedBank.account);
+  waLines.push("a.n.   : " + selectedBank.holder);
+  waLines.push("");
+  waLines.push("Saya akan segera melakukan transfer & mengirim bukti pembayaran.");
+  waLines.push("");
+  waLines.push("Jazaakumullahu khairan 🙏");
+
+  const waText = encodeURIComponent(waLines.join('\n'));
   document.getElementById('waConfirm').href = 'https://wa.me/6281401643188?text=' + waText;
 }
 
