@@ -2855,3 +2855,164 @@ a.fab-wa .fab.fa-whatsapp,
   .section{padding:60px 0;}
   .section-header{margin-bottom:40px;}
 }
+
+/* ==================================================
+   PAKET CTA - Dual Button Group
+   ================================================== */
+.paket-cta-group{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:auto;
+  padding-top:24px;
+}
+
+/* Reset existing .paket-detail-cta - Override with .primary & .wa */
+.paket-detail-cta{
+  margin-top:0 !important;
+  padding-top:0 !important;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:14px 22px;
+  border-radius:100px;
+  font-weight:700;
+  font-size:0.9rem;
+  text-decoration:none;
+  transition:all 0.3s var(--ease);
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  line-height:1;
+  position:relative;
+  overflow:hidden;
+}
+
+/* Primary Button - Gold (Order Sekarang) */
+.paket-detail-cta.primary{
+  background:var(--grad-gold-shine);
+  color:var(--bg);
+  box-shadow:0 6px 20px var(--gold-glow);
+}
+
+.paket-detail-cta.primary::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);
+  transition:left 0.6s var(--ease);
+}
+
+.paket-detail-cta.primary:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 30px rgba(212,165,54,0.5);
+}
+
+.paket-detail-cta.primary:hover::before{left:100%;}
+
+/* WhatsApp Button - Green Outline */
+.paket-detail-cta.wa{
+  background:transparent;
+  color:var(--wa);
+  border:1.5px solid var(--wa);
+}
+
+.paket-detail-cta.wa:hover{
+  background:var(--wa);
+  color:white;
+  transform:translateY(-3px);
+  box-shadow:0 8px 24px rgba(37,211,102,0.3);
+}
+
+.paket-detail-cta i{
+  font-size:1.1rem;
+  line-height:1;
+  flex-shrink:0;
+}
+
+.paket-detail-cta span{
+  line-height:1;
+}
+
+/* Featured Card - Special styling */
+.paket-detail-card.featured .paket-detail-cta.primary{
+  background:var(--grad-gold-shine);
+  color:var(--bg);
+  box-shadow:0 8px 24px var(--gold-glow);
+}
+
+.paket-detail-card.featured .paket-detail-cta.primary:hover{
+  box-shadow:0 12px 32px rgba(212,165,54,0.6);
+}
+
+
+/* ==================================================
+   Alternative: Compact Layout (Side-by-side on Desktop)
+   ================================================== */
+/* Uncomment kalau mau tombol berdampingan di desktop */
+/*
+@media (min-width:768px){
+  .paket-cta-group{
+    flex-direction:row;
+    gap:8px;
+  }
+  
+  .paket-detail-cta{
+    flex:1;
+    padding:14px 12px;
+    font-size:0.82rem;
+  }
+  
+  .paket-detail-cta span{
+    display:none;
+  }
+  
+  .paket-detail-cta.primary::after{
+    content:'Order';
+  }
+  
+  .paket-detail-cta.wa::after{
+    content:'Chat';
+  }
+}
+*/
+
+.cta-bottom-actions{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.cta-bottom-btn.primary{
+  background:var(--grad-gold-shine);
+  color:var(--bg);
+  box-shadow:0 6px 20px var(--gold-glow);
+}
+
+.cta-bottom-btn.primary:hover{
+  box-shadow:0 12px 30px rgba(212,165,54,0.5);
+}
+
+.cta-bottom-btn.wa{
+  background:var(--wa);
+  color:white;
+}
+
+.cta-bottom-btn.wa:hover{
+  background:#20BA5A;
+}
+
+@media (max-width:640px){
+  .cta-bottom-actions{
+    flex-direction:column;
+    width:100%;
+  }
+  
+  .cta-bottom-btn{
+    width:100%;
+  }
+}
