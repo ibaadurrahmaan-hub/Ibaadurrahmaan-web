@@ -1630,118 +1630,169 @@
     }
 
     .mou-dropdown-selected .mou-bank-logo.default{width:34px;}
-    
-    /* Action Buttons Tablet */
+
+    /* ==================== ACTION BUTTONS - 2 TOMBOL ==================== */
+
+/* Container Actions */
+.mou-actions{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    justify-content:center;
+    max-width:500px;
+    margin:0 auto;
+    padding:0 4px;
+}
+
+/* Base Button - Full Width */
+.mou-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:15px 24px;
+    border-radius:100px;
+    font-size:0.95rem;
+    font-weight:700;
+    text-decoration:none;
+    cursor:pointer;
+    transition:all 0.3s var(--ease);
+    border:none;
+    line-height:1;
+    font-family:'Poppins',sans-serif;
+    white-space:nowrap;
+    width:100%;
+    box-sizing:border-box;
+}
+
+.mou-btn i{
+    font-size:1.1rem;
+    flex-shrink:0;
+    line-height:1;
+}
+
+.mou-btn span{
+    line-height:1;
+}
+
+
+/* ============================================
+   🖨️ CETAK DOKUMEN - Outline Gold
+   ============================================ */
+#btnPrint,
+.mou-btn-secondary{
+    background:transparent !important;
+    color:#d4a536 !important;
+    border:2px solid #d4a536 !important;
+}
+
+#btnPrint:hover:not(:disabled),
+.mou-btn-secondary:hover:not(:disabled){
+    background:#d4a536 !important;
+    color:#fff !important;
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(212,165,54,0.3);
+}
+
+#btnPrint:disabled,
+.mou-btn-secondary:disabled{
+    opacity:0.4;
+    cursor:not-allowed;
+    transform:none;
+}
+
+
+/* ============================================
+   💬 KIRIM & DAFTAR - Solid Green (CTA Utama)
+   ============================================ */
+.mou-btn-wa,
+#btnSubmit,
+#btnKirim{
+    background:#25D366 !important;
+    color:#fff !important;
+    box-shadow:0 6px 20px rgba(37,211,102,0.3);
+    padding:16px 28px !important;
+    font-size:1rem !important;
+}
+
+.mou-btn-wa:hover:not(:disabled),
+#btnSubmit:hover:not(:disabled),
+#btnKirim:hover:not(:disabled){
+    background:#20BA5A !important;
+    transform:translateY(-3px);
+    box-shadow:0 10px 28px rgba(37,211,102,0.5);
+}
+
+.mou-btn-wa:disabled,
+#btnSubmit:disabled,
+#btnKirim:disabled{
+    background:#333 !important;
+    color:#666 !important;
+    cursor:not-allowed;
+    box-shadow:none;
+    transform:none;
+}
+
+.mou-btn-wa i,
+#btnSubmit i,
+#btnKirim i{
+    font-size:1.2rem;
+}
+
+
+/* ============================================
+   📱 RESPONSIVE - Mobile
+   ============================================ */
+@media (max-width:640px){
     .mou-actions{
         gap:10px;
+        padding:0 8px;
+    }
+    
+    .mou-btn{
+        padding:14px 20px;
+        font-size:0.9rem;
+    }
+    
+    .mou-btn-wa,
+    #btnSubmit,
+    #btnKirim{
+        padding:15px 24px !important;
+        font-size:0.95rem !important;
+    }
+}
+
+
+/* ============================================
+   📱 HP KECIL (<380px)
+   ============================================ */
+@media (max-width:380px){
+    .mou-actions{
+        gap:8px;
+        padding:0 4px;
     }
     
     .mou-btn{
         padding:13px 18px;
-        font-size:0.88rem;
-        gap:8px;
-        min-width:0;
-    }
-    
-    .mou-btn i{font-size:1rem;}
-    
-    #btnPrint,
-    #btnDownload{
-        flex:1 1 calc(50% - 5px);
-        padding:13px 14px;
         font-size:0.85rem;
-    }
-    
-    .mou-btn-wa,
-    #btnKirim{
-        flex:1 1 100% !important;
-        padding:15px 24px !important;
-        font-size:0.95rem !important;
-    }
-    
-    .mou-back{
-        top:12px;
-        left:12px;
-        padding:10px 16px;
-        font-size:0.8rem;
-    }
-    
-    .mou-modal-content{padding:32px 24px;}
-}
-
-
-/* ==================== MOBILE ==================== */
-@media (max-width:480px){
-    .mou-datetime-inner{gap:12px;}
-    .mou-datetime-divider{display:none;}
-    .mou-datetime-item{flex:1;min-width:0;}
-    
-    /* Actions container */
-    .mou-actions-sticky{
-        padding:20px 12px 16px;
-    }
-    
-    .mou-actions{
         gap:8px;
     }
     
-    /* Print & PDF tetap sejajar 50-50 */
-    #btnPrint,
-    #btnDownload{
-        flex:1 1 calc(50% - 4px);
-        padding:12px 10px;
-        font-size:0.78rem;
-        gap:6px;
-        min-width:0;
+    .mou-btn i{
+        font-size:1rem;
     }
     
-    #btnPrint i,
-    #btnDownload i{
-        font-size:0.9rem;
-        margin:0;
-    }
-    
-    /* WA button dominan */
     .mou-btn-wa,
+    #btnSubmit,
     #btnKirim{
+        padding:14px 22px !important;
         font-size:0.9rem !important;
-        padding:14px 20px !important;
     }
     
     .mou-btn-wa i,
+    #btnSubmit i,
     #btnKirim i{
-        font-size:1.15rem;
-    }
-}
-
-
-/* ==================== HP KECIL (<360px) ==================== */
-@media (max-width:360px){
-    .mou-actions{
-        gap:6px;
-    }
-    
-    #btnPrint,
-    #btnDownload{
-        padding:11px 8px;
-        font-size:0.72rem;
-        gap:5px;
-    }
-    
-    #btnPrint span,
-    #btnDownload span{
-        line-height:1.1;
-    }
-    
-    #btnPrint i,
-    #btnDownload i{
-        font-size:0.85rem;
-    }
-    
-    .mou-btn-wa,
-    #btnKirim{
-        font-size:0.85rem !important;
-        padding:13px 18px !important;
+        font-size:1.1rem;
     }
 }
 </style>
