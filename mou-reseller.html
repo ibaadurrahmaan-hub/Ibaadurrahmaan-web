@@ -2240,6 +2240,143 @@ let signaturePad;
 let signatureType = 'draw';
 let signatureTimestamp = null;
 
+// ====================================================
+// 🔥 FIREBASE FIRESTORE INTEGRATION
+// ====================================================
+
+/**
+ * ✅ Save Data Reseller ke Firestore
+ */
+async function saveToFirebase(data) {
+    try {
+        console.log('[FIREBASE] Saving data...');
+        
+        // Cek apakah Firebase sudah ready
+        if (!window.firebase || !window.firebase.ready) {
+            console.error('[FIREBASE] ❌ Firebase not initialized!');
+            return { 
+                success: false, 
+                error: 'Firebase belum di-load. Refresh halaman & coba lagi.' 
+            };
+        }
+        
+        const { db, collection, addDoc, serverTimestamp } = window.firebase;
+        
+        // Reference ke koleksi 'resellers'
+        const resellersRef = collection(db, 'resellers');
+        
+        // Generate reseller code
+        const now = new Date();
+        const year = now.getFullYear();
+        const timestamp = Date.now();
+        const resellerCode = `RSL-${year}-${String(timestamp).slice(-6)}`;
+        
+        // Data yang akan disimpan
+        const resellerData = {
+            // ID & Code
+            resellerCode: resellerCode,
+            
+            // Data Diri
+            nama: data.nama,
+            ktp: data.ktp,
+            tgllahir: data.tgllahir || null,
+            alamat: data.alamat,
+            wa: data.wa,
+            email: data.email,
+            sosmed: data.sosmed !== '-' ? data.sosmed : null,
+            
+            // Data Rekening
+            bank: data.bank,
+            norek: data.norek,
+            atasNama: data.atasNama,
+            paymentType: data.payment,
+            paymentLabel: data.paymentLabel,
+            
+            // Signature (base64 image)
+            signature: data.signature,
+            
+            // Status Reseller
+            status: 'pending', // pending, active, suspended, rejected
+            tier: 'silver', // silver, gold, platinum
+            totalClosing: 0,
+            totalKomisi: 0,
+            
+            // Metadata
+            timestamp: serverTimestamp(),
+            signedAt: data.tanggalWaktuLengkap,
+            createdDate: now.toLocaleDateString('id-ID'),
+            createdTime: now.toLocaleTimeString('id-ID'),
+            
+            // Source Tracking
+            source: 'mou-form',
+            userAgent: navigator.userAgent,
+            referrer: document.referrer || 'direct'
+        };
+        
+        // Simpan ke Firestore
+        const docRef = await addDoc(resellersRef, resellerData);
+        
+        console.log('[FIREBASE] ✅ Saved with ID:', docRef.id);
+        console.log('[FIREBASE] 🎫 Reseller Code:', resellerCode);
+        
+        return { 
+            success: true, 
+            id: docRef.id,
+            resellerCode: resellerCode
+        };
+        
+    } catch (error) {
+        console.error('[FIREBASE] ❌ Error:', error);
+        return { 
+            success: false, 
+            error: error.message || 'Gagal menyimpan data'
+        };
+    }
+}
+
+
+/**
+ * ✅ Cek Duplicate (WhatsApp / KTP sudah terdaftar?)
+ */
+async function checkDuplicate(wa, ktp) {
+    try {
+        if (!window.firebase || !window.firebase.ready) return { exists: false };
+        
+        const { db, collection, query, where, getDocs } = window.firebase;
+        const resellersRef = collection(db, 'resellers');
+        
+        // Cek WA duplicate
+        const waQuery = query(resellersRef, where('wa', '==', wa));
+        const waSnapshot = await getDocs(waQuery);
+        
+        if (!waSnapshot.empty) {
+            return { 
+                exists: true, 
+                field: 'WhatsApp',
+                message: 'Nomor WhatsApp ini sudah terdaftar sebagai reseller'
+            };
+        }
+        
+        // Cek KTP duplicate
+        const ktpQuery = query(resellersRef, where('ktp', '==', ktp));
+        const ktpSnapshot = await getDocs(ktpQuery);
+        
+        if (!ktpSnapshot.empty) {
+            return { 
+                exists: true, 
+                field: 'KTP',
+                message: 'Nomor KTP ini sudah terdaftar sebagai reseller'
+            };
+        }
+        
+        return { exists: false };
+        
+    } catch (error) {
+        console.error('[FIREBASE] Check duplicate error:', error);
+        return { exists: false }; // Kalau error, tetap lanjut
+    }
+}
+    
 
 // ====================================================
 // 🕐 LIVE DATE & TIME
@@ -3299,143 +3436,7 @@ window.addEventListener('resize', () => {
         serverTimestamp 
     } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// ====================================================
-// 🔥 FIREBASE FIRESTORE INTEGRATION
-// ====================================================
 
-/**
- * ✅ Save Data Reseller ke Firestore
- */
-async function saveToFirebase(data) {
-    try {
-        console.log('[FIREBASE] Saving data...');
-        
-        // Cek apakah Firebase sudah ready
-        if (!window.firebase || !window.firebase.ready) {
-            console.error('[FIREBASE] ❌ Firebase not initialized!');
-            return { 
-                success: false, 
-                error: 'Firebase belum di-load. Refresh halaman & coba lagi.' 
-            };
-        }
-        
-        const { db, collection, addDoc, serverTimestamp } = window.firebase;
-        
-        // Reference ke koleksi 'resellers'
-        const resellersRef = collection(db, 'resellers');
-        
-        // Generate reseller code
-        const now = new Date();
-        const year = now.getFullYear();
-        const timestamp = Date.now();
-        const resellerCode = `RSL-${year}-${String(timestamp).slice(-6)}`;
-        
-        // Data yang akan disimpan
-        const resellerData = {
-            // ID & Code
-            resellerCode: resellerCode,
-            
-            // Data Diri
-            nama: data.nama,
-            ktp: data.ktp,
-            tgllahir: data.tgllahir || null,
-            alamat: data.alamat,
-            wa: data.wa,
-            email: data.email,
-            sosmed: data.sosmed !== '-' ? data.sosmed : null,
-            
-            // Data Rekening
-            bank: data.bank,
-            norek: data.norek,
-            atasNama: data.atasNama,
-            paymentType: data.payment,
-            paymentLabel: data.paymentLabel,
-            
-            // Signature (base64 image)
-            signature: data.signature,
-            
-            // Status Reseller
-            status: 'pending', // pending, active, suspended, rejected
-            tier: 'silver', // silver, gold, platinum
-            totalClosing: 0,
-            totalKomisi: 0,
-            
-            // Metadata
-            timestamp: serverTimestamp(),
-            signedAt: data.tanggalWaktuLengkap,
-            createdDate: now.toLocaleDateString('id-ID'),
-            createdTime: now.toLocaleTimeString('id-ID'),
-            
-            // Source Tracking
-            source: 'mou-form',
-            userAgent: navigator.userAgent,
-            referrer: document.referrer || 'direct'
-        };
-        
-        // Simpan ke Firestore
-        const docRef = await addDoc(resellersRef, resellerData);
-        
-        console.log('[FIREBASE] ✅ Saved with ID:', docRef.id);
-        console.log('[FIREBASE] 🎫 Reseller Code:', resellerCode);
-        
-        return { 
-            success: true, 
-            id: docRef.id,
-            resellerCode: resellerCode
-        };
-        
-    } catch (error) {
-        console.error('[FIREBASE] ❌ Error:', error);
-        return { 
-            success: false, 
-            error: error.message || 'Gagal menyimpan data'
-        };
-    }
-}
-
-
-/**
- * ✅ Cek Duplicate (WhatsApp / KTP sudah terdaftar?)
- */
-async function checkDuplicate(wa, ktp) {
-    try {
-        if (!window.firebase || !window.firebase.ready) return { exists: false };
-        
-        const { db, collection, query, where, getDocs } = window.firebase;
-        const resellersRef = collection(db, 'resellers');
-        
-        // Cek WA duplicate
-        const waQuery = query(resellersRef, where('wa', '==', wa));
-        const waSnapshot = await getDocs(waQuery);
-        
-        if (!waSnapshot.empty) {
-            return { 
-                exists: true, 
-                field: 'WhatsApp',
-                message: 'Nomor WhatsApp ini sudah terdaftar sebagai reseller'
-            };
-        }
-        
-        // Cek KTP duplicate
-        const ktpQuery = query(resellersRef, where('ktp', '==', ktp));
-        const ktpSnapshot = await getDocs(ktpQuery);
-        
-        if (!ktpSnapshot.empty) {
-            return { 
-                exists: true, 
-                field: 'KTP',
-                message: 'Nomor KTP ini sudah terdaftar sebagai reseller'
-            };
-        }
-        
-        return { exists: false };
-        
-    } catch (error) {
-        console.error('[FIREBASE] Check duplicate error:', error);
-        return { exists: false }; // Kalau error, tetap lanjut
-    }
-}
-    
     // ✅ FIREBASE CONFIG - Ibaadurrahmaan Web
     const firebaseConfig = {
         apiKey: "AIzaSyCYRygFt6uwCUiL_6-eoJHhUdkiumSwLzY",
