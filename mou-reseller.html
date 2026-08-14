@@ -1808,7 +1808,7 @@
 <!-- Container -->
 <div class="mou-container">
 
-    <!-- FORM: Data Diri -->
+    <!-- ============ FORM: DATA DIRI ============ -->
     <div class="mou-form-card" id="cardData">
         <div class="mou-form-title">
             <i class="fas fa-user-circle"></i>
@@ -1870,222 +1870,227 @@
     </div>
 
 
-    <!-- FORM: Rekening + Payment Option -->
+    <!-- ============ FORM: REKENING + PAYMENT ============ -->
     <div class="mou-form-card" id="cardRekening">
         <div class="mou-form-title">
             <i class="fas fa-university"></i>
             <span>Data Rekening & Pembayaran</span>
         </div>
         <p class="mou-form-subtitle">Rekening untuk transfer komisi & pilih preferensi pembayaran.</p>
-        <div class="mou-form-group">
-    <label class="mou-form-label">
-        <i class="fas fa-landmark"></i> Nama Bank <span class="required">*</span>
-    </label>
-    <div class="mou-custom-dropdown" id="bankDropdown">
-        <div class="mou-dropdown-selected" onclick="toggleBankDropdown()">
-            <div class="mou-bank-logo default">
-                <i class="fas fa-landmark"></i>
+        
+        <div class="mou-form-grid">
+            
+            <!-- Nama Bank / E-Wallet -->
+            <div class="mou-form-group full">
+                <label class="mou-form-label">
+                    <i class="fas fa-landmark"></i> Nama Bank <span class="required">*</span>
+                </label>
+                <div class="mou-custom-dropdown" id="bankDropdown">
+                    <div class="mou-dropdown-selected" onclick="toggleBankDropdown()">
+                        <div class="mou-bank-logo default">
+                            <i class="fas fa-landmark"></i>
+                        </div>
+                        <span class="mou-dropdown-text">Pilih bank / e-wallet</span>
+                        <i class="fas fa-chevron-down mou-dropdown-arrow"></i>
+                    </div>
+                    
+                    <div class="mou-dropdown-options">
+                        
+                        <!-- ==================== BANK KONVENSIONAL ==================== -->
+                        <div class="mou-dropdown-category">🏦 Bank Konvensional</div>
+                        
+                        <div class="mou-dropdown-option" data-value="BCA" onclick="selectBank(this)">
+                            <div class="mou-bank-logo bank-bca">
+                                <span class="bank-text">BCA</span>
+                            </div>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">BCA</div>
+                                <div class="mou-dropdown-option-desc">Bank Central Asia</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mou-dropdown-option" data-value="BNI" onclick="selectBank(this)">
+                            <div class="mou-bank-logo bank-bni">
+                                <span class="bank-text">BNI</span>
+                            </div>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">BNI</div>
+                                <div class="mou-dropdown-option-desc">Bank Negara Indonesia</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mou-dropdown-option" data-value="BRI" onclick="selectBank(this)">
+                            <div class="mou-bank-logo bank-bri">
+                                <span class="bank-text">BRI</span>
+                            </div>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">BRI</div>
+                                <div class="mou-dropdown-option-desc">Bank Rakyat Indonesia</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mou-dropdown-option" data-value="Mandiri" onclick="selectBank(this)">
+                            <div class="mou-bank-logo bank-mandiri">
+                                <span class="bank-text">Mandiri</span>
+                            </div>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">Mandiri</div>
+                                <div class="mou-dropdown-option-desc">Bank Mandiri</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mou-dropdown-option" data-value="CIMB Niaga" onclick="selectBank(this)">
+                            <div class="mou-bank-logo bank-cimb">
+                                <span class="bank-text">CIMB</span>
+                            </div>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">CIMB Niaga</div>
+                                <div class="mou-dropdown-option-desc">Bank CIMB Niaga</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mou-dropdown-option" data-value="Permata" onclick="selectBank(this)">
+                            <div class="mou-bank-logo bank-permata">
+                                <span class="bank-text">Permata</span>
+                            </div>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">Permata</div>
+                                <div class="mou-dropdown-option-desc">Permata Bank</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mou-dropdown-option" data-value="Danamon" onclick="selectBank(this)">
+                            <div class="mou-bank-logo bank-danamon">
+                                <span class="bank-text">Danamon</span>
+                            </div>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">Danamon</div>
+                                <div class="mou-dropdown-option-desc">Bank Danamon</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mou-dropdown-option" data-value="BTN" onclick="selectBank(this)">
+                            <div class="mou-bank-logo bank-btn">
+                                <span class="bank-text">BTN</span>
+                            </div>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">BTN</div>
+                                <div class="mou-dropdown-option-desc">Bank Tabungan Negara</div>
+                            </div>
+                        </div>
+                        
+                        
+                        <!-- ==================== BANK SYARIAH ==================== -->
+                        <div class="mou-dropdown-category">🕌 Bank Syariah</div>
+                        
+                        <div class="mou-dropdown-option" data-value="BSI" onclick="selectBank(this)">
+                            <div class="mou-bank-logo bank-bsi">
+                                <span class="bank-text">BSI</span>
+                            </div>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">BSI</div>
+                                <div class="mou-dropdown-option-desc">Bank Syariah Indonesia</div>
+                            </div>
+                        </div>
+                        
+                        
+                        <!-- ==================== BANK DIGITAL ==================== -->
+                        <div class="mou-dropdown-category">📱 Bank Digital</div>
+                        
+                        <div class="mou-dropdown-option" data-value="Jenius" onclick="selectBank(this)">
+                            <div class="mou-bank-logo bank-jenius">
+                                <span class="bank-text">Jenius</span>
+                            </div>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">Jenius</div>
+                                <div class="mou-dropdown-option-desc">Bank BTPN Jenius</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mou-dropdown-option" data-value="Seabank" onclick="selectBank(this)">
+                            <div class="mou-bank-logo bank-seabank">
+                                <span class="bank-text">SeaBank</span>
+                            </div>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">Seabank</div>
+                                <div class="mou-dropdown-option-desc">SeaBank Indonesia</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mou-dropdown-option" data-value="Blu BCA" onclick="selectBank(this)">
+                            <div class="mou-bank-logo bank-blu">
+                                <span class="bank-text">blu</span>
+                            </div>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">Blu BCA</div>
+                                <div class="mou-dropdown-option-desc">Blu by BCA Digital</div>
+                            </div>
+                        </div>
+                        
+                        
+                        <!-- ==================== E-WALLET ==================== -->
+                        <div class="mou-dropdown-category">💰 E-Wallet</div>
+                        
+                        <div class="mou-dropdown-option" data-value="DANA" onclick="selectBank(this)">
+                            <div class="mou-bank-logo bank-dana">
+                                <span class="bank-text">DANA</span>
+                            </div>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">DANA</div>
+                                <div class="mou-dropdown-option-desc">E-Wallet DANA</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mou-dropdown-option" data-value="OVO" onclick="selectBank(this)">
+                            <div class="mou-bank-logo bank-ovo">
+                                <span class="bank-text">OVO</span>
+                            </div>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">OVO</div>
+                                <div class="mou-dropdown-option-desc">E-Wallet OVO</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mou-dropdown-option" data-value="GoPay" onclick="selectBank(this)">
+                            <div class="mou-bank-logo bank-gopay">
+                                <span class="bank-text">GoPay</span>
+                            </div>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">GoPay</div>
+                                <div class="mou-dropdown-option-desc">E-Wallet GoPay by Gojek</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mou-dropdown-option" data-value="ShopeePay" onclick="selectBank(this)">
+                            <div class="mou-bank-logo bank-shopeepay">
+                                <span class="bank-text">ShopeePay</span>
+                            </div>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">ShopeePay</div>
+                                <div class="mou-dropdown-option-desc">E-Wallet ShopeePay</div>
+                            </div>
+                        </div>
+                        
+                        
+                        <!-- ==================== LAINNYA ==================== -->
+                        <div class="mou-dropdown-category">📝 Lainnya</div>
+                        
+                        <div class="mou-dropdown-option" data-value="Lainnya" onclick="selectBank(this)">
+                            <div class="mou-bank-logo other">
+                                <i class="fas fa-landmark"></i>
+                            </div>
+                            <div class="mou-dropdown-option-content">
+                                <div class="mou-dropdown-option-title">Bank Lainnya</div>
+                                <div class="mou-dropdown-option-desc">Sebutkan di chat WA</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <input type="hidden" id="fieldBank" value="" required>
             </div>
-            <span class="mou-dropdown-text">Pilih bank / e-wallet</span>
-            <i class="fas fa-chevron-down mou-dropdown-arrow"></i>
-        </div><div class="mou-dropdown-options">
-    
-    <!-- ==================== BANK KONVENSIONAL ==================== -->
-    <div class="mou-dropdown-category">🏦 Bank Konvensional</div>
-    
-    <div class="mou-dropdown-option" data-value="BCA" onclick="selectBank(this)">
-        <div class="mou-bank-logo bank-bca">
-            <span class="bank-text">BCA</span>
-        </div>
-        <div class="mou-dropdown-option-content">
-            <div class="mou-dropdown-option-title">BCA</div>
-            <div class="mou-dropdown-option-desc">Bank Central Asia</div>
-        </div>
-    </div>
-    
-    <div class="mou-dropdown-option" data-value="BNI" onclick="selectBank(this)">
-        <div class="mou-bank-logo bank-bni">
-            <span class="bank-text">BNI</span>
-        </div>
-        <div class="mou-dropdown-option-content">
-            <div class="mou-dropdown-option-title">BNI</div>
-            <div class="mou-dropdown-option-desc">Bank Negara Indonesia</div>
-        </div>
-    </div>
-    
-    <div class="mou-dropdown-option" data-value="BRI" onclick="selectBank(this)">
-        <div class="mou-bank-logo bank-bri">
-            <span class="bank-text">BRI</span>
-        </div>
-        <div class="mou-dropdown-option-content">
-            <div class="mou-dropdown-option-title">BRI</div>
-            <div class="mou-dropdown-option-desc">Bank Rakyat Indonesia</div>
-        </div>
-    </div>
-    
-    <div class="mou-dropdown-option" data-value="Mandiri" onclick="selectBank(this)">
-        <div class="mou-bank-logo bank-mandiri">
-            <span class="bank-text">Mandiri</span>
-        </div>
-        <div class="mou-dropdown-option-content">
-            <div class="mou-dropdown-option-title">Mandiri</div>
-            <div class="mou-dropdown-option-desc">Bank Mandiri</div>
-        </div>
-    </div>
-    
-    <div class="mou-dropdown-option" data-value="CIMB Niaga" onclick="selectBank(this)">
-        <div class="mou-bank-logo bank-cimb">
-            <span class="bank-text">CIMB</span>
-        </div>
-        <div class="mou-dropdown-option-content">
-            <div class="mou-dropdown-option-title">CIMB Niaga</div>
-            <div class="mou-dropdown-option-desc">Bank CIMB Niaga</div>
-        </div>
-    </div>
-    
-    <div class="mou-dropdown-option" data-value="Permata" onclick="selectBank(this)">
-        <div class="mou-bank-logo bank-permata">
-            <span class="bank-text">Permata</span>
-        </div>
-        <div class="mou-dropdown-option-content">
-            <div class="mou-dropdown-option-title">Permata</div>
-            <div class="mou-dropdown-option-desc">Permata Bank</div>
-        </div>
-    </div>
-    
-    <div class="mou-dropdown-option" data-value="Danamon" onclick="selectBank(this)">
-        <div class="mou-bank-logo bank-danamon">
-            <span class="bank-text">Danamon</span>
-        </div>
-        <div class="mou-dropdown-option-content">
-            <div class="mou-dropdown-option-title">Danamon</div>
-            <div class="mou-dropdown-option-desc">Bank Danamon</div>
-        </div>
-    </div>
-    
-    <div class="mou-dropdown-option" data-value="BTN" onclick="selectBank(this)">
-        <div class="mou-bank-logo bank-btn">
-            <span class="bank-text">BTN</span>
-        </div>
-        <div class="mou-dropdown-option-content">
-            <div class="mou-dropdown-option-title">BTN</div>
-            <div class="mou-dropdown-option-desc">Bank Tabungan Negara</div>
-        </div>
-    </div>
-    
-    
-    <!-- ==================== BANK SYARIAH ==================== -->
-    <div class="mou-dropdown-category">🕌 Bank Syariah</div>
-    
-    <div class="mou-dropdown-option" data-value="BSI" onclick="selectBank(this)">
-        <div class="mou-bank-logo bank-bsi">
-            <span class="bank-text">BSI</span>
-        </div>
-        <div class="mou-dropdown-option-content">
-            <div class="mou-dropdown-option-title">BSI</div>
-            <div class="mou-dropdown-option-desc">Bank Syariah Indonesia</div>
-        </div>
-    </div>
-    
-    
-    <!-- ==================== BANK DIGITAL ==================== -->
-    <div class="mou-dropdown-category">📱 Bank Digital</div>
-    
-    <div class="mou-dropdown-option" data-value="Jenius" onclick="selectBank(this)">
-        <div class="mou-bank-logo bank-jenius">
-            <span class="bank-text">Jenius</span>
-        </div>
-        <div class="mou-dropdown-option-content">
-            <div class="mou-dropdown-option-title">Jenius</div>
-            <div class="mou-dropdown-option-desc">Bank BTPN Jenius</div>
-        </div>
-    </div>
-    
-    <div class="mou-dropdown-option" data-value="Seabank" onclick="selectBank(this)">
-        <div class="mou-bank-logo bank-seabank">
-            <span class="bank-text">SeaBank</span>
-        </div>
-        <div class="mou-dropdown-option-content">
-            <div class="mou-dropdown-option-title">Seabank</div>
-            <div class="mou-dropdown-option-desc">SeaBank Indonesia</div>
-        </div>
-    </div>
-    
-    <div class="mou-dropdown-option" data-value="Blu BCA" onclick="selectBank(this)">
-        <div class="mou-bank-logo bank-blu">
-            <span class="bank-text">blu</span>
-        </div>
-        <div class="mou-dropdown-option-content">
-            <div class="mou-dropdown-option-title">Blu BCA</div>
-            <div class="mou-dropdown-option-desc">Blu by BCA Digital</div>
-        </div>
-    </div>
-    
-    
-    <!-- ==================== E-WALLET ==================== -->
-    <div class="mou-dropdown-category">💰 E-Wallet</div>
-    
-    <div class="mou-dropdown-option" data-value="DANA" onclick="selectBank(this)">
-        <div class="mou-bank-logo bank-dana">
-            <span class="bank-text">DANA</span>
-        </div>
-        <div class="mou-dropdown-option-content">
-            <div class="mou-dropdown-option-title">DANA</div>
-            <div class="mou-dropdown-option-desc">E-Wallet DANA</div>
-        </div>
-    </div>
-    
-    <div class="mou-dropdown-option" data-value="OVO" onclick="selectBank(this)">
-        <div class="mou-bank-logo bank-ovo">
-            <span class="bank-text">OVO</span>
-        </div>
-        <div class="mou-dropdown-option-content">
-            <div class="mou-dropdown-option-title">OVO</div>
-            <div class="mou-dropdown-option-desc">E-Wallet OVO</div>
-        </div>
-    </div>
-    
-    <div class="mou-dropdown-option" data-value="GoPay" onclick="selectBank(this)">
-        <div class="mou-bank-logo bank-gopay">
-            <span class="bank-text">GoPay</span>
-        </div>
-        <div class="mou-dropdown-option-content">
-            <div class="mou-dropdown-option-title">GoPay</div>
-            <div class="mou-dropdown-option-desc">E-Wallet GoPay by Gojek</div>
-        </div>
-    </div>
-    
-    <div class="mou-dropdown-option" data-value="ShopeePay" onclick="selectBank(this)">
-        <div class="mou-bank-logo bank-shopeepay">
-            <span class="bank-text">ShopeePay</span>
-        </div>
-        <div class="mou-dropdown-option-content">
-            <div class="mou-dropdown-option-title">ShopeePay</div>
-            <div class="mou-dropdown-option-desc">E-Wallet ShopeePay</div>
-        </div>
-    </div>
-    
-    
-    <!-- ==================== LAINNYA ==================== -->
-    <div class="mou-dropdown-category">📝 Lainnya</div>
-    
-    <div class="mou-dropdown-option" data-value="Lainnya" onclick="selectBank(this)">
-        <div class="mou-bank-logo other">
-            <i class="fas fa-landmark"></i>
-        </div>
-        <div class="mou-dropdown-option-content">
-            <div class="mou-dropdown-option-title">Bank Lainnya</div>
-            <div class="mou-dropdown-option-desc">Sebutkan di chat WA</div>
-        </div>
-    </div>
-    
-</div>
             
-        </div>
-        <input type="hidden" id="fieldBank" value="" required>
-    </div>
-</div>
-            
+            <!-- No. Rekening -->
             <div class="mou-form-group">
                 <label class="mou-form-label">
                     <i class="fas fa-credit-card"></i> No. Rekening <span class="required">*</span>
@@ -2093,7 +2098,8 @@
                 <input type="text" class="mou-form-input" id="fieldNorek" placeholder="Nomor rekening" required>
             </div>
             
-            <div class="mou-form-group full">
+            <!-- Nama Pemilik -->
+            <div class="mou-form-group">
                 <label class="mou-form-label">
                     <i class="fas fa-user"></i> Nama Pemilik Rekening <span class="required">*</span>
                 </label>
@@ -2148,6 +2154,7 @@
                 <span class="mou-form-hint">💡 Pilihan bisa diubah nanti dengan pemberitahuan ke admin</span>
                 <input type="hidden" id="fieldPayment" value="" required>
             </div>
+            
         </div>
     </div>
 
@@ -2213,7 +2220,7 @@
     </div>
 
 
-    <!-- FORM: Signature -->
+    <!-- ============ FORM: SIGNATURE ============ -->
     <div class="mou-form-card" id="cardSignature">
         <div class="mou-form-title">
             <i class="fas fa-signature"></i>
@@ -2292,22 +2299,28 @@
     </div>
 
 
-    <!-- Action Buttons -->
+    <!-- ============ ACTION BUTTONS (FIXED LAYOUT) ============ -->
     <div class="mou-actions-sticky">
         <div class="mou-actions">
-          <button class="mou-btn mou-btn-secondary" onclick="printMoU()" id="btnPrint" disabled>
-    <i class="fas fa-print"></i>
-    <span>Cetak Dokumen</span>
-</button>
-
-<button class="mou-btn mou-btn-secondary" onclick="downloadPDF()" id="btnDownload" disabled>
-    <i class="fas fa-file-pdf"></i>
-    <span>Simpan PDF</span>
-</button>
+            
+            <!-- 🖨️ Cetak Dokumen -->
+            <button class="mou-btn" onclick="printMoU()" id="btnPrint" disabled>
+                <i class="fas fa-print"></i>
+                <span>Cetak Dokumen</span>
+            </button>
+            
+            <!-- 💾 Simpan PDF -->
+            <button class="mou-btn" onclick="downloadPDF()" id="btnDownload" disabled>
+                <i class="fas fa-download"></i>
+                <span>Simpan PDF</span>
+            </button>
+            
+            <!-- 💬 Kirim WhatsApp (Full Width - Priority CTA) -->
             <button class="mou-btn mou-btn-wa" onclick="sendToWhatsApp()" id="btnSubmit" disabled>
                 <i class="fab fa-whatsapp"></i>
                 <span>Kirim & Daftar</span>
             </button>
+            
         </div>
     </div>
 
@@ -2337,7 +2350,6 @@
         </div>
     </div>
 </div>
-
 
 <script>
 // ====================================================
