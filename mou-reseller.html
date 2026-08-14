@@ -177,10 +177,10 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:24px;
-    flex-wrap:wrap;
+    gap:16px;
+    flex-wrap:nowrap;      /* ✅ Paksa tidak wrap */
+    width:100%;
 }
-
 .mou-datetime-item{
     display:flex;
     align-items:center;
@@ -1425,24 +1425,56 @@
     
     .mou-progress-inner{gap:6px;}
     .mou-step-label{display:none;}
-    
     .mou-datetime-banner{
-        top:68px;
-        padding:12px 16px;
-    }
-    
-    .mou-datetime-inner{gap:16px;}
-    
-    .mou-datetime-item i{
-        width:36px;
-        height:36px;
-        font-size:1.15rem;
-    }
-    
-    .mou-datetime-label{font-size:0.65rem;}
-    .mou-datetime-value{font-size:0.85rem;}
-    .mou-datetime-divider{height:28px;}
-    
+    top:68px;
+    padding:12px 10px;
+}
+
+.mou-datetime-inner{
+    gap:10px;
+    flex-wrap:nowrap;      /* ✅ Tetap sejajar di mobile */
+    justify-content:space-between;
+    padding:0 4px;
+}
+
+.mou-datetime-item{
+    gap:8px;
+    flex:1;
+    min-width:0;
+    justify-content:flex-start;
+}
+
+.mou-datetime-item i{
+    width:32px;
+    height:32px;
+    font-size:1rem;
+    flex-shrink:0;
+}
+
+.mou-datetime-content{
+    min-width:0;
+    overflow:hidden;
+}
+
+.mou-datetime-label{
+    font-size:0.6rem;
+    letter-spacing:0.5px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.mou-datetime-value{
+    font-size:0.8rem;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.mou-datetime-divider{
+    height:24px;
+    flex-shrink:0;
+}
     .mou-form-card{padding:24px 20px;}
     .mou-form-grid{grid-template-columns:1fr;gap:16px;}
     .mou-form-title{font-size:1.15rem;}
@@ -1625,6 +1657,79 @@
     #btnKirim{
         padding:13px 14px !important;
         font-size:0.8rem !important;
+    }
+}
+
+/* ============================================
+   📱 DATETIME BANNER - HP KECIL
+   ============================================ */
+@media (max-width:480px){
+    .mou-datetime-banner{
+        padding:10px 8px;
+    }
+    
+    .mou-datetime-inner{
+        gap:8px;
+    }
+    
+    .mou-datetime-item{
+        gap:6px;
+    }
+    
+    .mou-datetime-item i{
+        width:28px;
+        height:28px;
+        font-size:0.9rem;
+    }
+    
+    .mou-datetime-label{
+        font-size:0.55rem;
+        letter-spacing:0.3px;
+    }
+    
+    .mou-datetime-value{
+        font-size:0.72rem;
+    }
+    
+    .mou-datetime-divider{
+        height:22px;
+    }
+    
+    /* Kecilkan format tanggal biar muat */
+    .mou-datetime-value#liveDate{
+        font-size:0.7rem;
+    }
+    
+    .mou-datetime-value#liveTime{
+        font-size:0.72rem;
+    }
+    
+    .mou-datetime-value#liveTime::before{
+        margin-right:3px;
+    }
+}
+
+
+/* ============================================
+   📱 HP SANGAT KECIL (<360px)
+   ============================================ */
+@media (max-width:360px){
+    .mou-datetime-item i{
+        width:26px;
+        height:26px;
+        font-size:0.85rem;
+    }
+    
+    .mou-datetime-label{
+        font-size:0.5rem;
+    }
+    
+    .mou-datetime-value{
+        font-size:0.65rem;
+    }
+    
+    .mou-datetime-divider{
+        display:none;    /* Hilangkan divider di HP super kecil */
     }
 }
 </style>
@@ -2831,12 +2936,15 @@ function generatePDFHTML(data, sig) {
     
     return `
     <div style="max-width:720px;margin:0 auto;font-size:12px;line-height:1.6;color:#000;">
-        
+
         <!-- HEADER -->
-        <div style="text-align:center;border-bottom:3px double #d4a536;padding-bottom:20px;margin-bottom:25px;">
-            <div style="width:60px;height:60px;margin:0 auto 12px;background:linear-gradient(135deg,#d4a536,#8b6914);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:900;">
-                IR
-            </div>
+<div style="text-align:center;border-bottom:3px double #d4a536;padding-bottom:20px;margin-bottom:25px;">
+    <div style="width:80px;height:80px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;">
+        <img src="https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/main-logo.png" 
+             alt="Ibaadurrahmaan Logo" 
+             style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(212,165,54,0.4));"
+             crossorigin="anonymous">
+    </div>
             <h1 style="color:#d4a536;margin:0 0 5px;font-size:20px;">SURAT PERJANJIAN KEMITRAAN RESELLER</h1>
             <h2 style="margin:0;font-size:14px;color:#333;">Ibaadurrahmaan Web Designer</h2>
             <p style="margin:10px 0 0;font-size:11px;color:#666;">
