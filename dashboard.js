@@ -1303,3 +1303,24 @@ setTimeout(() => {
         loadResellerData();
     }
 }, 1500);
+
+// ====================================================
+// 🎯 AUTO-SET ACTIVE NAV ITEM
+// ====================================================
+function setActiveNav() {
+    const currentPage = window.location.pathname.split('/').pop() || 'dashboard.html';
+    
+    document.querySelectorAll('.bottom-nav .nav-item').forEach(item => {
+        item.classList.remove('active');
+        
+        const href = item.getAttribute('href');
+        if (href && href === currentPage) {
+            item.classList.add('active');
+        }
+    });
+    
+    console.log('[NAV] Active page:', currentPage);
+}
+
+// Auto-run saat page load
+setActiveNav();
