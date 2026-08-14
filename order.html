@@ -701,7 +701,6 @@
     <!-- ============ STEP 4: ORDER COMPLETE / INVOICE ============ -->
     <section class="order-step hidden" id="step4">
       <div class="success-section">
-        <!-- Success Animation -->
         <div class="success-icon">
           <div class="success-circle">
             <i class="fas fa-check"></i>
@@ -714,7 +713,6 @@
         <h1 class="success-title">Pesanan Berhasil Dibuat!</h1>
         <p class="success-desc">Terima kasih atas kepercayaan Anda. Tim kami akan segera menghubungi Anda via WhatsApp.</p>
 
-        <!-- Invoice Card -->
         <div class="invoice-card" id="invoiceCard">
           <div class="invoice-header">
             <div class="inv-brand">
@@ -764,7 +762,6 @@
             </div>
           </div>
 
-          <!-- Invoice Table -->
           <div class="invoice-table-wrap">
             <table class="invoice-table">
               <thead>
@@ -778,7 +775,6 @@
             </table>
           </div>
 
-          <!-- Invoice Totals -->
           <div class="invoice-totals">
             <div class="inv-total-row">
               <span>Subtotal</span>
@@ -810,7 +806,6 @@
             </div>
           </div>
 
-          <!-- Payment Info Box -->
           <div class="invoice-payment-box" id="invPaymentBox">
             <div class="ipb-header">
               <i class="fas fa-university"></i>
@@ -840,7 +835,6 @@
             </div>
           </div>
 
-          <!-- Next Steps -->
           <div class="invoice-nextsteps">
             <h4><i class="fas fa-list-check"></i> Langkah Selanjutnya</h4>
             <ol>
@@ -859,7 +853,6 @@
           </div>
         </div>
 
-        <!-- Action Buttons -->
         <div class="success-actions">
           <button class="btn-primary" onclick="downloadInvoice()">
             <i class="fas fa-download"></i>
@@ -875,7 +868,6 @@
           </a>
         </div>
 
-        <!-- Order Timeline -->
         <div class="tracking-card">
           <h3><i class="fas fa-tasks"></i> Progress Pesanan Anda</h3>
           <div class="tracking-timeline">
@@ -956,6 +948,56 @@
   </div>
 </div>
 
+<!-- ======================================================
+     PREVIEW MODAL - Lihat pesan WA sebelum kirim
+     ====================================================== -->
+<div class="wa-preview-overlay" id="waPreviewOverlay">
+  <div class="wa-preview-modal">
+    <div class="wpm-header">
+      <div class="wpm-header-left">
+        <i class="fab fa-whatsapp"></i>
+        <div>
+          <h3>Preview Pesan WhatsApp</h3>
+          <p>Periksa data sebelum mengirim ke admin</p>
+        </div>
+      </div>
+      <button class="wpm-close" onclick="closeWAPreview()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="wpm-body">
+      <!-- WhatsApp Chat Bubble -->
+      <div class="wpm-chat-area">
+        <div class="wpm-chat-header">
+          <div class="wpm-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="wpm-chat-info">
+            <span class="wpm-chat-name">Anda</span>
+            <span class="wpm-chat-status">Mengirim ke +62 814-0164-3188</span>
+          </div>
+        </div>
+        <div class="wpm-chat-body" id="waPreviewContent">
+          <!-- Chat bubble akan diisi JavaScript -->
+        </div>
+      </div>
+    </div>
+    
+    <div class="wpm-footer">
+      <button class="wpm-btn-edit" onclick="closeWAPreview()">
+        <i class="fas fa-edit"></i>
+        <span>Edit Data</span>
+      </button>
+      <button class="wpm-btn-send" id="wpmSendBtn">
+        <i class="fab fa-whatsapp"></i>
+        <span>Kirim via WhatsApp</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
 <script>
 // ============ STATE ============
 let selectedPkg = null;
@@ -972,11 +1014,9 @@ let selectedPayment = 'Transfer Bank';
 function toggleDropdown(trigger){
   const select = trigger.closest('.custom-select');
   const isOpen = select.classList.contains('open');
-  
   document.querySelectorAll('.custom-select.open').forEach(s => {
     if(s !== select) s.classList.remove('open');
   });
-  
   select.classList.toggle('open', !isOpen);
 }
 
@@ -990,17 +1030,14 @@ function selectOption(option){
   
   valueEl.textContent = label;
   valueEl.classList.add('has-value');
-  
   if(hiddenInput) hiddenInput.value = value;
   
   select.querySelectorAll('.cs-option').forEach(o => o.classList.remove('selected'));
   option.classList.add('selected');
-  
   select.classList.remove('open');
   
   if(hiddenInput){
-    const event = new Event('change', {bubbles: true});
-    hiddenInput.dispatchEvent(event);
+    hiddenInput.dispatchEvent(new Event('change', {bubbles: true}));
   }
 }
 
@@ -1013,6 +1050,7 @@ document.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if(e.key === 'Escape'){
     document.querySelectorAll('.custom-select.open').forEach(s => s.classList.remove('open'));
+    closeWAPreview();
   }
 });
 
@@ -1042,18 +1080,15 @@ function calculate(){
   const total = afterCoupon - fullpayDisc;
   const payNow = paymentType === 'full' ? total : Math.round(total * 0.5);
   const remaining = paymentType === 'dp' ? total - payNow : 0;
-  
   return {pkgPrice, addonsPrice, subtotal, couponAmt, fullpayDisc, total, payNow, remaining};
 }
 
 // ============ RENDER SUMMARY ============
 function renderSummary(){
   const c = calculate();
-  
   for(let i = 2; i <= 3; i++){
     const pkgEl = document.getElementById('summaryPackage'+i);
     const addonEl = document.getElementById('summaryAddons'+i);
-    
     if(pkgEl && selectedPkg){
       pkgEl.innerHTML = `
         <div class="si-package">
@@ -1061,58 +1096,39 @@ function renderSummary(){
           <div class="si-pkg-price">${formatRp(c.pkgPrice)}</div>
         </div>`;
     }
-    
     if(addonEl){
       if(selectedAddons.length > 0){
         addonEl.innerHTML = '<div class="si-addons-title">Add-ons:</div>' + selectedAddons.map(a => `
           <div class="si-addon">
             <span>+ ${a.dataset.name}</span>
             <span>${parseInt(a.dataset.price) > 0 ? formatRp(parseInt(a.dataset.price)) : 'FREE'}</span>
-          </div>
-        `).join('');
-      } else {
-        addonEl.innerHTML = '';
-      }
+          </div>`).join('');
+      } else { addonEl.innerHTML = ''; }
     }
-    
     const el = id => document.getElementById(id + i);
     if(el('subtotal')) el('subtotal').textContent = formatRp(c.subtotal);
     if(el('total')) el('total').textContent = formatRp(c.total);
     if(el('deadlineFee')) el('deadlineFee').textContent = formatRp(deadlineFee);
     if(el('discountAmt')) el('discountAmt').textContent = '-' + formatRp(c.couponAmt);
-    
     const dlr = document.getElementById('deadlineRow'+i);
     if(dlr) dlr.style.display = deadlineFee > 0 ? 'flex' : 'none';
-    
     const dcr = document.getElementById('discountRow'+i);
     if(dcr) dcr.style.display = c.couponAmt > 0 ? 'flex' : 'none';
   }
-  
   const fpr = document.getElementById('fullpayRow');
   const fpd = document.getElementById('fullpayDisc');
   if(fpr && fpd){
-    if(c.fullpayDisc > 0){
-      fpr.style.display = 'flex';
-      fpd.textContent = '-' + formatRp(c.fullpayDisc);
-    } else {
-      fpr.style.display = 'none';
-    }
+    fpr.style.display = c.fullpayDisc > 0 ? 'flex' : 'none';
+    fpd.textContent = '-' + formatRp(c.fullpayDisc);
   }
-  
   const pna = document.getElementById('payNowAmt');
   if(pna) pna.textContent = formatRp(c.payNow);
-  
   const rr = document.getElementById('remainingRow');
   const ra = document.getElementById('remainingAmt');
   if(rr && ra){
-    if(c.remaining > 0){
-      rr.style.display = 'flex';
-      ra.textContent = formatRp(c.remaining);
-    } else {
-      rr.style.display = 'none';
-    }
+    rr.style.display = c.remaining > 0 ? 'flex' : 'none';
+    ra.textContent = formatRp(c.remaining);
   }
-  
   const pa = document.getElementById('payAmount');
   if(pa) pa.textContent = formatRp(c.payNow);
 }
@@ -1132,13 +1148,8 @@ function selectPackage(btn){
 document.querySelectorAll('.addon-card input').forEach(cb => {
   cb.addEventListener('change', () => {
     const card = cb.closest('.addon-card');
-    if(cb.checked){
-      card.classList.add('checked');
-      selectedAddons.push(cb);
-    } else {
-      card.classList.remove('checked');
-      selectedAddons = selectedAddons.filter(a => a !== cb);
-    }
+    if(cb.checked){ card.classList.add('checked'); selectedAddons.push(cb); }
+    else { card.classList.remove('checked'); selectedAddons = selectedAddons.filter(a => a !== cb); }
     renderSummary();
   });
 });
@@ -1160,22 +1171,19 @@ document.querySelectorAll('input[name="deadline"]').forEach(r => {
 function applyCoupon(){
   const code = document.getElementById('couponInput').value.trim().toUpperCase();
   const result = document.getElementById('couponResult');
-  
   const coupons = {
     'HEMAT10': {discount: 10, label: 'Diskon 10%'},
     'NEWCLIENT': {discount: 15, label: 'Diskon 15% untuk client baru'},
     'RESELLER': {discount: 20, label: 'Diskon reseller 20%'},
     'IBAAD25': {discount: 25, label: 'Diskon 25% spesial!'}
   };
-  
   if(coupons[code]){
     couponDiscount = coupons[code].discount;
     couponCode = code;
     result.innerHTML = `<div class="coupon-success"><i class="fas fa-check-circle"></i> Kode <b>${code}</b> berhasil! ${coupons[code].label}</div>`;
     showToast('Voucher berhasil digunakan!');
   } else {
-    couponDiscount = 0;
-    couponCode = '';
+    couponDiscount = 0; couponCode = '';
     result.innerHTML = `<div class="coupon-error"><i class="fas fa-times-circle"></i> Kode voucher tidak valid</div>`;
   }
   renderSummary();
@@ -1192,12 +1200,7 @@ function selectPaymentType(radio){
 function selectPayment(radio){
   document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('active'));
   radio.closest('.payment-option').classList.add('active');
-  const names = {
-    bank_transfer: 'Transfer Bank',
-    ewallet: 'E-Wallet',
-    qris: 'QRIS',
-    cc: 'Kartu Kredit'
-  };
+  const names = { bank_transfer:'Transfer Bank', ewallet:'E-Wallet', qris:'QRIS', cc:'Kartu Kredit' };
   selectedPayment = names[radio.value] || 'Transfer Bank';
   document.getElementById('paymentDetail').style.display = radio.value === 'bank_transfer' ? 'block' : 'none';
 }
@@ -1213,43 +1216,30 @@ function selectBank(el, name, account, holder){
 
 // ============ NAVIGATION ============
 function goToStep(n){
-  if(n === 2 && !selectedPkg){
-    showToast('Pilih paket terlebih dahulu!');
-    return;
-  }
-  
+  if(n === 2 && !selectedPkg){ showToast('Pilih paket terlebih dahulu!'); return; }
   if(n === 3){
     const req = ['fullName','email','phone','businessType','description'];
     for(let id of req){
       const el = document.getElementById(id);
       if(el && !el.value.trim()){
         showToast('Lengkapi semua data yang wajib diisi!');
-        
-        const customSelect = el.closest('.custom-select');
-        if(customSelect){
-          customSelect.querySelector('.cs-trigger').focus();
-          customSelect.classList.add('open');
-        } else {
-          el.focus();
-        }
+        const cs = el.closest('.custom-select');
+        if(cs){ cs.querySelector('.cs-trigger').focus(); cs.classList.add('open'); }
+        else { el.focus(); }
         return;
       }
     }
   }
-  
   document.querySelectorAll('.order-step').forEach(s => s.classList.add('hidden'));
   document.getElementById('step'+n).classList.remove('hidden');
-  
   document.querySelectorAll('.step').forEach(s => {
     const sn = parseInt(s.dataset.step);
     s.classList.toggle('active', sn <= n);
     s.classList.toggle('done', sn < n);
   });
-  
   document.querySelectorAll('.step-line').forEach((l,i) => {
     l.classList.toggle('active', i < n - 1);
   });
-  
   window.scrollTo({top: 0, behavior: 'smooth'});
   renderSummary();
 }
@@ -1257,10 +1247,8 @@ function goToStep(n){
 // ============ PLACE ORDER ============
 function placeOrder(){
   if(!document.getElementById('agreeTerms').checked){
-    showToast('Setujui Syarat & Ketentuan terlebih dahulu');
-    return;
+    showToast('Setujui Syarat & Ketentuan terlebih dahulu'); return;
   }
-  
   document.getElementById('processingOverlay').classList.add('show');
   setTimeout(() => {
     document.getElementById('processingOverlay').classList.remove('show');
@@ -1269,163 +1257,200 @@ function placeOrder(){
   }, 2500);
 }
 
-// ============ ORDER VIA WHATSAPP ============
+
+// ============================================================
+//  ORDER VIA WHATSAPP — Build message + Preview + Send
+// ============================================================
+function buildWAMessage(){
+  const name    = document.getElementById('fullName').value.trim();
+  const company = document.getElementById('companyName').value.trim();
+  const email   = document.getElementById('email').value.trim();
+  const phone   = document.getElementById('phone').value.trim();
+  const bizType = document.getElementById('businessType').value.trim();
+  const hasWeb  = document.getElementById('hasWebsite').value.trim();
+  const desc    = document.getElementById('description').value.trim();
+  const ref     = document.getElementById('reference').value.trim();
+  const c       = calculate();
+  const orderId = generateOrderId();
+  const now     = new Date();
+  const tanggal = now.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+  const jam     = now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+
+  // Build lines array
+  const L = [];
+  L.push("Assalamu'alaikum,");
+  L.push("Saya ingin memesan website di Ibaadurrahmaan Web Designer.");
+  L.push("");
+  L.push("━━━━━━━━━━━━━━━━━━━━");
+  L.push("👤 *DATA PEMESAN*");
+  L.push("━━━━━━━━━━━━━━━━━━━━");
+  L.push("Nama      : *" + name + "*");
+  if(company) L.push("Perusahaan: " + company);
+  L.push("Email     : " + email);
+  L.push("WhatsApp  : +62" + phone);
+  L.push("");
+
+  L.push("━━━━━━━━━━━━━━━━━━━━");
+  L.push("💼 *INFORMASI BISNIS*");
+  L.push("━━━━━━━━━━━━━━━━━━━━");
+  L.push("Jenis Bisnis  : " + bizType);
+  if(hasWeb) L.push("Website Ada   : " + hasWeb);
+  L.push("Kebutuhan     : " + desc);
+  if(ref) L.push("Referensi     : " + ref);
+  L.push("");
+
+  L.push("━━━━━━━━━━━━━━━━━━━━");
+  L.push("📦 *DETAIL PESANAN*");
+  L.push("━━━━━━━━━━━━━━━━━━━━");
+  L.push("ID Order    : " + orderId);
+  L.push("Tanggal     : " + tanggal + " " + jam);
+  L.push("Paket       : *" + selectedPkg.dataset.name + "*");
+  L.push("Harga Paket : " + formatRp(c.pkgPrice));
+
+  if(selectedAddons.length > 0){
+    L.push("");
+    L.push("📎 *Add-ons:*");
+    selectedAddons.forEach(a => {
+      const p = parseInt(a.dataset.price);
+      L.push("  • " + a.dataset.name + " — " + (p > 0 ? formatRp(p) : "FREE"));
+    });
+  }
+
+  L.push("");
+  L.push("Timeline : " + selectedDeadline);
+  if(deadlineFee > 0) L.push("Biaya Fast Delivery : " + formatRp(deadlineFee));
+  L.push("");
+
+  L.push("━━━━━━━━━━━━━━━━━━━━");
+  L.push("💰 *RINCIAN HARGA*");
+  L.push("━━━━━━━━━━━━━━━━━━━━");
+  L.push("Subtotal      : " + formatRp(c.subtotal));
+  if(deadlineFee > 0) L.push("Fast Delivery : " + formatRp(deadlineFee));
+  if(c.couponAmt > 0) L.push("Diskon (" + couponCode + ")  : -" + formatRp(c.couponAmt));
+  if(c.fullpayDisc > 0) L.push("Diskon Lunas 5% : -" + formatRp(c.fullpayDisc));
+  L.push("");
+  L.push("*TOTAL : " + formatRp(c.total) + "*");
+  L.push("");
+
+  L.push("━━━━━━━━━━━━━━━━━━━━");
+  L.push("Saya ingin konsultasi lebih lanjut dan melanjutkan order ini.");
+  L.push("Mohon informasinya untuk langkah selanjutnya.");
+  L.push("");
+  L.push("Jazaakumullahu khairan 🙏");
+
+  return { lines: L, text: L.join('\n'), orderId, tanggal, jam };
+}
+
 function orderViaWA(){
-  // Validasi minimal: paket harus dipilih
+  // Validasi paket
   if(!selectedPkg){
     showToast('Pilih paket terlebih dahulu di Step 1!');
     return;
   }
-  
-  // Ambil data biodata
-  const name     = document.getElementById('fullName').value.trim();
-  const company  = document.getElementById('companyName').value.trim();
-  const email    = document.getElementById('email').value.trim();
-  const phone    = document.getElementById('phone').value.trim();
-  const bizType  = document.getElementById('businessType').value.trim();
-  const hasWeb   = document.getElementById('hasWebsite').value.trim();
-  const desc     = document.getElementById('description').value.trim();
-  const ref      = document.getElementById('reference').value.trim();
-  
+
   // Validasi data wajib
-  const missing = [];
-  if(!name)    missing.push('Nama Lengkap');
-  if(!email)   missing.push('Email');
-  if(!phone)   missing.push('Nomor WhatsApp');
-  if(!bizType) missing.push('Jenis Bisnis');
-  if(!desc)    missing.push('Deskripsi Kebutuhan');
+  const fields = [
+    {id:'fullName',   label:'Nama Lengkap'},
+    {id:'email',      label:'Email'},
+    {id:'phone',      label:'Nomor WhatsApp'},
+    {id:'businessType',label:'Jenis Bisnis'},
+    {id:'description', label:'Deskripsi Kebutuhan'}
+  ];
+
+  for(const f of fields){
+    const el = document.getElementById(f.id);
+    if(!el || !el.value.trim()){
+      showToast('Lengkapi dulu: ' + f.label);
+      const cs = el ? el.closest('.custom-select') : null;
+      if(cs){ cs.querySelector('.cs-trigger').focus(); cs.classList.add('open'); }
+      else if(el){ el.focus(); }
+      return;
+    }
+  }
+
+  // Build message & show preview
+  const msg = buildWAMessage();
+  showWAPreview(msg);
+}
+
+// ============ WA PREVIEW MODAL ============
+function showWAPreview(msg){
+  const container = document.getElementById('waPreviewContent');
   
-  if(missing.length > 0){
-    showToast('Lengkapi dulu: ' + missing.join(', '));
-    // Focus ke field pertama yg kosong
-    const firstMissing = missing[0];
-    const fieldMap = {
-      'Nama Lengkap': 'fullName',
-      'Email': 'email',
-      'Nomor WhatsApp': 'phone',
-      'Jenis Bisnis': 'businessType',
-      'Deskripsi Kebutuhan': 'description'
-    };
-    const el = document.getElementById(fieldMap[firstMissing]);
-    if(el){
-      const cs = el.closest('.custom-select');
-      if(cs){
-        cs.querySelector('.cs-trigger').focus();
-        cs.classList.add('open');
+  // Format lines into a chat bubble with sections highlighted
+  let html = '<div class="wpm-bubble">';
+  
+  msg.lines.forEach(line => {
+    if(line === '') {
+      html += '<div class="wpm-line wpm-spacer"></div>';
+    } else if(line.includes('━━━')) {
+      html += '<div class="wpm-line wpm-divider"></div>';
+    } else if(line.startsWith('👤') || line.startsWith('💼') || line.startsWith('📦') || line.startsWith('💰')) {
+      // Section headers
+      const clean = line.replace(/\*/g, '');
+      html += '<div class="wpm-line wpm-section-header">' + clean + '</div>';
+    } else {
+      // Replace *text* with <b>text</b>
+      let formatted = line.replace(/\*([^*]+)\*/g, '<b>$1</b>');
+      // Detect labels (Nama:, Email:, etc)
+      if(formatted.includes(' : ')){
+        const parts = formatted.split(' : ');
+        html += '<div class="wpm-line wpm-data-row"><span class="wpm-label">' + parts[0].trim() + '</span><span class="wpm-value">' + parts.slice(1).join(' : ').trim() + '</span></div>';
       } else {
-        el.focus();
+        html += '<div class="wpm-line">' + formatted + '</div>';
       }
     }
-    return;
-  }
+  });
   
-  // Hitung harga
-  const c = calculate();
+  // Timestamp
   const now = new Date();
-  const orderId = generateOrderId();
+  const time = now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+  html += '<div class="wpm-time">' + time + ' <i class="fas fa-check-double"></i></div>';
+  html += '</div>';
   
-  // Build add-ons text
-  let addonsText = '';
-  if(selectedAddons.length > 0){
-    addonsText = selectedAddons.map(a => {
-      const p = parseInt(a.dataset.price);
-      return `  • ${a.dataset.name} — ${p > 0 ? formatRp(p) : 'FREE'}`;
-    }).join('%0A');
-  }
+  container.innerHTML = html;
   
-  // Build pesan WA lengkap
-  let waMsg = '';
-  waMsg += `Assalamu'alaikum,%0A`;
-  waMsg += `Saya ingin memesan website di Ibaadurrahmaan Web Designer.%0A`;
-  waMsg += `%0A`;
+  // Set send button
+  const encoded = encodeURIComponent(msg.text);
+  const waUrl = 'https://wa.me/6281401643188?text=' + encoded;
   
-  // ===== BIODATA =====
-  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
-  waMsg += `👤 *DATA PEMESAN*%0A`;
-  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
-  waMsg += `Nama: *${name}*%0A`;
-  if(company) waMsg += `Perusahaan: ${company}%0A`;
-  waMsg += `Email: ${email}%0A`;
-  waMsg += `WhatsApp: +62${phone}%0A`;
-  waMsg += `%0A`;
+  const sendBtn = document.getElementById('wpmSendBtn');
+  sendBtn.onclick = function(){
+    window.open(waUrl, '_blank');
+    closeWAPreview();
+    showToast('Membuka WhatsApp...');
+  };
   
-  // ===== BISNIS =====
-  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
-  waMsg += `💼 *INFORMASI BISNIS*%0A`;
-  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
-  waMsg += `Jenis Bisnis: ${bizType}%0A`;
-  if(hasWeb) waMsg += `Website Ada: ${hasWeb}%0A`;
-  waMsg += `Kebutuhan: ${desc}%0A`;
-  if(ref) waMsg += `Referensi: ${ref}%0A`;
-  waMsg += `%0A`;
-  
-  // ===== PAKET =====
-  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
-  waMsg += `📦 *DETAIL PESANAN*%0A`;
-  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
-  waMsg += `ID Order: ${orderId}%0A`;
-  waMsg += `Paket: *${selectedPkg.dataset.name}*%0A`;
-  waMsg += `Harga Paket: ${formatRp(c.pkgPrice)}%0A`;
-  
-  if(selectedAddons.length > 0){
-    waMsg += `%0A📎 *Add-ons:*%0A`;
-    waMsg += addonsText + '%0A';
-  }
-  
-  waMsg += `%0ATimeline: ${selectedDeadline}%0A`;
-  if(deadlineFee > 0){
-    waMsg += `Biaya Fast Delivery: ${formatRp(deadlineFee)}%0A`;
-  }
-  waMsg += `%0A`;
-  
-  // ===== HARGA =====
-  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
-  waMsg += `💰 *RINCIAN HARGA*%0A`;
-  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
-  waMsg += `Subtotal: ${formatRp(c.subtotal)}%0A`;
-  if(deadlineFee > 0){
-    waMsg += `Fast Delivery: ${formatRp(deadlineFee)}%0A`;
-  }
-  if(c.couponAmt > 0){
-    waMsg += `Diskon Voucher (${couponCode}): -${formatRp(c.couponAmt)}%0A`;
-  }
-  if(c.fullpayDisc > 0){
-    waMsg += `Diskon Bayar Lunas 5%: -${formatRp(c.fullpayDisc)}%0A`;
-  }
-  waMsg += `%0A*TOTAL: ${formatRp(c.total)}*%0A`;
-  waMsg += `%0A`;
-  
-  // ===== CATATAN =====
-  waMsg += `━━━━━━━━━━━━━━━━━━━━%0A`;
-  waMsg += `Saya ingin konsultasi lebih lanjut dan melanjutkan order ini.%0A`;
-  waMsg += `Mohon informasinya untuk langkah selanjutnya.%0A`;
-  waMsg += `%0AJazaakumullahu khairan 🙏`;
-  
-  // Open WhatsApp
-  const waUrl = `https://wa.me/6281401643188?text=${waMsg}`;
-  window.open(waUrl, '_blank');
-  
-  showToast('Membuka WhatsApp...');
+  // Show modal
+  document.getElementById('waPreviewOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
 }
+
+function closeWAPreview(){
+  document.getElementById('waPreviewOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// Close modal on overlay click
+document.getElementById('waPreviewOverlay').addEventListener('click', function(e){
+  if(e.target === this) closeWAPreview();
+});
+
 
 // ============ INVOICE ============
 function generateInvoice(){
   const orderId = generateOrderId();
   const now = new Date();
   const deadline = new Date(now.getTime() + 24*60*60*1000);
-  
-  const timelineDays = {
-    'standard': 14, 'fast': 5, 'express': 2
-  };
+  const timelineDays = { standard: 14, fast: 5, express: 2 };
   const dlValue = document.querySelector('input[name="deadline"]:checked')?.value || 'standard';
   const estimate = new Date(now.getTime() + timelineDays[dlValue]*24*60*60*1000);
-  
   const c = calculate();
   const name = document.getElementById('fullName').value;
   const company = document.getElementById('companyName').value;
   const email = document.getElementById('email').value;
   const phone = document.getElementById('phone').value;
-  
+
   document.getElementById('invNumber').textContent = orderId;
   document.getElementById('invName').textContent = name;
   document.getElementById('invCompany').textContent = company || '-';
@@ -1435,77 +1460,37 @@ function generateInvoice(){
   document.getElementById('invTimeline').textContent = selectedDeadline;
   document.getElementById('invEstimate').textContent = estimate.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
   document.getElementById('invPayment').textContent = selectedPayment + ' (' + selectedBank.name + ')';
-  
-  let tableHtml = `
-    <tr>
-      <td><b>${selectedPkg.dataset.name}</b></td>
-      <td>Website ${selectedPkg.dataset.pkg} package</td>
-      <td style="text-align:right"><b>${formatRp(c.pkgPrice)}</b></td>
-    </tr>`;
-  
+
+  let tableHtml = `<tr><td><b>${selectedPkg.dataset.name}</b></td><td>Website ${selectedPkg.dataset.pkg} package</td><td style="text-align:right"><b>${formatRp(c.pkgPrice)}</b></td></tr>`;
   selectedAddons.forEach(a => {
-    tableHtml += `
-      <tr>
-        <td>+ ${a.dataset.name}</td>
-        <td>Add-on service</td>
-        <td style="text-align:right">${parseInt(a.dataset.price) > 0 ? formatRp(parseInt(a.dataset.price)) : 'FREE'}</td>
-      </tr>`;
+    tableHtml += `<tr><td>+ ${a.dataset.name}</td><td>Add-on service</td><td style="text-align:right">${parseInt(a.dataset.price) > 0 ? formatRp(parseInt(a.dataset.price)) : 'FREE'}</td></tr>`;
   });
-  
   if(deadlineFee > 0){
-    tableHtml += `
-      <tr>
-        <td>+ ${selectedDeadline}</td>
-        <td>Prioritas pengerjaan</td>
-        <td style="text-align:right">${formatRp(deadlineFee)}</td>
-      </tr>`;
+    tableHtml += `<tr><td>+ ${selectedDeadline}</td><td>Prioritas pengerjaan</td><td style="text-align:right">${formatRp(deadlineFee)}</td></tr>`;
   }
-  
   document.getElementById('invTableBody').innerHTML = tableHtml;
-  
   document.getElementById('invSubtotal').textContent = formatRp(c.subtotal);
   document.getElementById('invTotal').textContent = formatRp(c.total);
   document.getElementById('invPayNow').textContent = formatRp(c.payNow);
   document.getElementById('invPayTotal').textContent = formatRp(c.payNow);
-  
-  if(deadlineFee > 0){
-    document.getElementById('invDeadlineRow').style.display = 'flex';
-    document.getElementById('invDeadlineFee').textContent = formatRp(deadlineFee);
-  }
-  
-  if(c.couponAmt > 0){
-    document.getElementById('invDiscountRow').style.display = 'flex';
-    document.getElementById('invDiscount').textContent = '-' + formatRp(c.couponAmt);
-  }
-  
-  if(c.fullpayDisc > 0){
-    document.getElementById('invFullpayRow').style.display = 'flex';
-    document.getElementById('invFullpay').textContent = '-' + formatRp(c.fullpayDisc);
-  }
-  
-  if(c.remaining > 0){
-    document.getElementById('invRemainingRow').style.display = 'flex';
-    document.getElementById('invRemaining').textContent = formatRp(c.remaining);
-  }
-  
+
+  if(deadlineFee > 0){ document.getElementById('invDeadlineRow').style.display = 'flex'; document.getElementById('invDeadlineFee').textContent = formatRp(deadlineFee); }
+  if(c.couponAmt > 0){ document.getElementById('invDiscountRow').style.display = 'flex'; document.getElementById('invDiscount').textContent = '-' + formatRp(c.couponAmt); }
+  if(c.fullpayDisc > 0){ document.getElementById('invFullpayRow').style.display = 'flex'; document.getElementById('invFullpay').textContent = '-' + formatRp(c.fullpayDisc); }
+  if(c.remaining > 0){ document.getElementById('invRemainingRow').style.display = 'flex'; document.getElementById('invRemaining').textContent = formatRp(c.remaining); }
+
   document.getElementById('invBankName').textContent = selectedBank.name;
   document.getElementById('invBankAcc').textContent = selectedBank.account;
   document.getElementById('invBankHolder').textContent = selectedBank.holder;
   document.getElementById('invDeadline').textContent = deadline.toLocaleString('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
-  
   document.getElementById('trackTime1').textContent = now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}) + ' WIB';
-  
-  const waText = `Halo, saya sudah melakukan pemesanan di Ibaadurrahmaan Web Designer.%0A%0A📋 *Detail Pesanan:*%0AInvoice: ${orderId}%0ANama: ${name}${company ? '%0APerusahaan: '+company : ''}%0APaket: ${selectedPkg.dataset.name}%0ATotal: ${formatRp(c.total)}%0ABayar Sekarang: ${formatRp(c.payNow)}%0AMetode: ${selectedPayment} (${selectedBank.name})%0A%0AMohon informasinya untuk langkah selanjutnya. Terima kasih!`;
-  document.getElementById('waConfirm').href = `https://wa.me/6281401643188?text=${waText}`;
+
+  const waText = encodeURIComponent(`Halo, saya sudah melakukan pemesanan di Ibaadurrahmaan Web Designer.\n\n📋 *Detail Pesanan:*\nInvoice: ${orderId}\nNama: ${name}${company ? '\nPerusahaan: '+company : ''}\nPaket: ${selectedPkg.dataset.name}\nTotal: ${formatRp(c.total)}\nBayar Sekarang: ${formatRp(c.payNow)}\nMetode: ${selectedPayment} (${selectedBank.name})\n\nMohon informasinya untuk langkah selanjutnya. Terima kasih!`);
+  document.getElementById('waConfirm').href = 'https://wa.me/6281401643188?text=' + waText;
 }
 
-function downloadInvoice(){
-  showToast('Fitur download - Simulasi demo!');
-}
-
-function printInvoice(){
-  window.print();
-}
+function downloadInvoice(){ showToast('Fitur download - Simulasi demo!'); }
+function printInvoice(){ window.print(); }
 
 // ============ UTILS ============
 function copyText(id){
@@ -1513,9 +1498,7 @@ function copyText(id){
   const cleaned = text.replace(/[^0-9]/g,'');
   navigator.clipboard.writeText(cleaned || text).then(() => {
     showToast('Berhasil disalin!');
-  }).catch(() => {
-    showToast('Copy: ' + text);
-  });
+  }).catch(() => { showToast('Copy: ' + text); });
 }
 
 function showToast(text){
@@ -1528,7 +1511,7 @@ function showToast(text){
 // Init
 renderSummary();
 
-// URL param - auto select package
+// URL param auto select
 const urlParams = new URLSearchParams(window.location.search);
 const pkgParam = urlParams.get('pkg');
 if(pkgParam){
