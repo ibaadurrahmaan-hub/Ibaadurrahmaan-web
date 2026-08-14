@@ -2620,3 +2620,120 @@ body{background:var(--bg);}
 .custom-select select{
   display:none !important;
 }
+
+/* ===== WA ORDER SECTION ===== */
+.wa-order-card{
+  background:linear-gradient(135deg,rgba(37,211,102,0.08),rgba(37,211,102,0.02));
+  border:1px solid rgba(37,211,102,0.25) !important;
+}
+
+.wa-order-card .sc-header h2{
+  color:#25D366;
+}
+
+.wa-order-desc{
+  color:var(--text-muted);
+  font-size:0.9rem;
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+.wa-order-features{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:24px;
+}
+
+.wa-feat{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:0.85rem;
+  color:var(--text);
+}
+
+.wa-feat i{
+  color:#25D366;
+  font-size:0.9rem;
+}
+
+.btn-wa-order{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  padding:16px 28px;
+  background:#25D366;
+  color:#fff;
+  border:none;
+  border-radius:100px;
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:1rem;
+  cursor:pointer;
+  transition:all 0.3s var(--ease);
+  box-shadow:0 6px 20px rgba(37,211,102,0.35);
+}
+
+.btn-wa-order:hover{
+  background:#20BA5A;
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(37,211,102,0.5);
+}
+
+.btn-wa-order i{
+  font-size:1.3rem;
+}
+
+.wa-order-hint{
+  margin-top:14px;
+  font-size:0.78rem;
+  color:var(--text-dim);
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.wa-order-hint i{
+  color:var(--gold);
+  font-size:0.75rem;
+}
+
+/* Summary WA Button */
+.summary-wa-btn{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:12px 20px;
+  background:rgba(37,211,102,0.15);
+  color:#25D366;
+  border:1px solid rgba(37,211,102,0.3);
+  border-radius:100px;
+  font-family:'Poppins',sans-serif;
+  font-weight:600;
+  font-size:0.85rem;
+  cursor:pointer;
+  transition:all 0.3s var(--ease);
+}
+
+.summary-wa-btn:hover{
+  background:#25D366;
+  color:#fff;
+  border-color:#25D366;
+  transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(37,211,102,0.3);
+}
+
+.summary-wa-btn i{
+  font-size:1.1rem;
+}
+
+@media(max-width:640px){
+  .wa-order-features{
+    grid-template-columns:1fr;
+  }
+}
