@@ -2707,176 +2707,432 @@ function getSignatureData() {
 
 
 // ====================================================
-// PRINT & DOWNLOAD PDF - Dual Function
+// 🖨️ PRINT & 💾 DOWNLOAD PDF - FIXED VERSION
 // ====================================================
 
 /**
- * Generate PDF Content Element (shared)
+ * ✅ Validasi Form Lengkap
  */
-function createPDFElement() {
+function isFormValid() {
+    const nama = document.getElementById('fieldNama')?.value.trim();
+    const ktp = document.getElementById('fieldKTP')?.value.trim();
+    const alamat = document.getElementById('fieldAlamat')?.value.trim();
+    const wa = document.getElementById('fieldWA')?.value.trim();
+    const email = document.getElementById('fieldEmail')?.value.trim();
+    const bank = document.getElementById('fieldBank')?.value.trim();
+    const norek = document.getElementById('fieldNorek')?.value.trim();
+    const atasNama = document.getElementById('fieldAtasNama')?.value.trim();
+    const payment = document.getElementById('fieldPayment')?.value.trim();
+    const agreement = document.getElementById('agreementCheck')?.checked;
+    
+    const sig = getSignatureData();
+    
+    return !!(nama && ktp && alamat && wa && email && bank && norek && 
+              atasNama && payment && agreement && sig);
+}
+
+
+/**
+ * ✅ Ambil Semua Data Form
+ */
+function getFormData() {
+    const now = new Date();
+    const hariList = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    const bulanList = ['Januari','Februari','Maret','April','Mei','Juni',
+                       'Juli','Agustus','September','Oktober','November','Desember'];
+    
+    const paymentType = document.getElementById('fieldPayment')?.value || '';
+    const paymentLabel = paymentType === 'per-closing' 
+        ? '⚡ Per Closing (max 3 hari kerja)' 
+        : paymentType === 'per-bulan' 
+        ? '📅 Per Bulan (Tanggal 1-5)' 
+        : '-';
+    
+    return {
+        nama: document.getElementById('fieldNama')?.value.trim() || '-',
+        ktp: document.getElementById('fieldKTP')?.value.trim() || '-',
+        tgllahir: document.getElementById('fieldTgllahir')?.value || '',
+        alamat: document.getElementById('fieldAlamat')?.value.trim() || '-',
+        wa: document.getElementById('fieldWA')?.value.trim() || '-',
+        email: document.getElementById('fieldEmail')?.value.trim() || '-',
+        sosmed: document.getElementById('fieldSosmed')?.value.trim() || '-',
+        bank: document.getElementById('fieldBank')?.value.trim() || '-',
+        norek: document.getElementById('fieldNorek')?.value.trim() || '-',
+        atasNama: document.getElementById('fieldAtasNama')?.value.trim() || '-',
+        payment: paymentType,
+        paymentLabel: paymentLabel,
+        hari: hariList[now.getDay()],
+        tanggal: now.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' }),
+        tanggalAngka: now.getDate(),
+        bulan: bulanList[now.getMonth()],
+        tahun: now.getFullYear(),
+        waktu: now.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' }) + ' WIB',
+        tanggalWaktuLengkap: hariList[now.getDay()] + ', ' + 
+                             now.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' }) + 
+                             ' pukul ' + now.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' }) + ' WIB'
+    };
+}
+
+
+/**
+ * ✅ Ambil Signature Data (base64)
+ */
+function getSignatureData() {
+    const activeTab = document.querySelector('.mou-sig-tab.active')?.dataset.tab;
+    
+    if (activeTab === 'type') {
+        // Tanda tangan ketik → convert ke image
+        const typedName = document.getElementById('sigTypeInput')?.value.trim();
+        if (!typedName) return null;
+        
+        const canvas = document.createElement('canvas');
+        canvas.width = 400;
+        canvas.height = 100;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, 400, 100);
+        ctx.fillStyle = '#000';
+        ctx.font = 'italic 48px "Dancing Script", cursive';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(typedName, 200, 55);
+        return canvas.toDataURL('image/png');
+    } else {
+        // Tanda tangan gambar
+        if (typeof signaturePad === 'undefined' || !signaturePad || signaturePad.isEmpty()) {
+            return null;
+        }
+        return signaturePad.toDataURL('image/png');
+    }
+}
+
+
+/**
+ * ✅ Generate PDF HTML Content
+ */
+function generatePDFHTML(data, sig) {
+    const tgllahirFormatted = data.tgllahir 
+        ? new Date(data.tgllahir).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' }) 
+        : '-';
+    
+    return `
+    <div style="max-width:720px;margin:0 auto;font-size:12px;line-height:1.6;color:#000;">
+        
+        <!-- HEADER -->
+        <div style="text-align:center;border-bottom:3px double #d4a536;padding-bottom:20px;margin-bottom:25px;">
+            <div style="width:60px;height:60px;margin:0 auto 12px;background:linear-gradient(135deg,#d4a536,#8b6914);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:900;">
+                IR
+            </div>
+            <h1 style="color:#d4a536;margin:0 0 5px;font-size:20px;">SURAT PERJANJIAN KEMITRAAN RESELLER</h1>
+            <h2 style="margin:0;font-size:14px;color:#333;">Ibaadurrahmaan Web Designer</h2>
+            <p style="margin:10px 0 0;font-size:11px;color:#666;">
+                No: RSL/${new Date().getFullYear()}/${String(Date.now()).slice(-4)}
+            </p>
+        </div>
+        
+        <!-- OPENING -->
+        <div style="background:#f9f4e6;border-left:4px solid #d4a536;padding:12px 16px;margin:15px 0;border-radius:4px;">
+            <p style="margin:0;font-size:12px;">
+                Pada hari <b>${data.hari}</b>, tanggal <b>${data.tanggalAngka} ${data.bulan} ${data.tahun}</b>, 
+                pukul <b>${data.waktu}</b>, telah dibuat dan disepakati perjanjian antara:
+            </p>
+        </div>
+        
+        <!-- PIHAK PERTAMA -->
+        <div style="background:#faf5e6;padding:15px;border-left:4px solid #d4a536;margin:15px 0;">
+            <b style="color:#d4a536;">PIHAK PERTAMA (Pemilik Jasa):</b><br>
+            Nama: <b>Ibaadurrahmaan</b><br>
+            WhatsApp: 0814-0164-3188<br>
+            Email: ibadurrohman1428@gmail.com
+        </div>
+        
+        <!-- PIHAK KEDUA -->
+        <div style="background:#e6f9ee;padding:15px;border-left:4px solid #25d366;margin:15px 0;">
+            <b style="color:#128c7e;">PIHAK KEDUA (Reseller):</b><br>
+            Nama: <b>${data.nama}</b><br>
+            No. KTP: ${data.ktp}<br>
+            ${data.tgllahir ? `Tanggal Lahir: ${tgllahirFormatted}<br>` : ''}
+            Alamat: ${data.alamat}<br>
+            WhatsApp: ${data.wa}<br>
+            Email: ${data.email}<br>
+            ${data.sosmed !== '-' ? `Sosial Media: ${data.sosmed}<br>` : ''}
+            <br>
+            <b>Rekening:</b> ${data.bank} - ${data.norek}<br>
+            <b>Atas Nama:</b> ${data.atasNama}<br>
+            <b>Opsi Pembayaran:</b> ${data.paymentLabel}
+        </div>
+        
+        <!-- PASAL-PASAL -->
+        <h3 style="color:#d4a536;border-bottom:1px solid #ddd;padding-bottom:5px;margin-top:20px;">PASAL 1 - LINGKUP KEMITRAAN</h3>
+        <p style="margin:8px 0;">1.1 PIHAK PERTAMA memberikan hak kepada PIHAK KEDUA memasarkan jasa "Ibaadurrahmaan Web Designer".</p>
+        <p style="margin:8px 0;">1.2 Paket: Hemat (Rp 1.5jt), Reguler (Rp 2.5jt), Premium (Rp 5jt).</p>
+        <p style="margin:8px 0;">1.3 PIHAK KEDUA mencari client, teknis oleh PIHAK PERTAMA.</p>
+        
+        <h3 style="color:#d4a536;border-bottom:1px solid #ddd;padding-bottom:5px;margin-top:20px;">PASAL 2 - KOMISI & PEMBAYARAN</h3>
+        <p style="margin:8px 0;">2.1 Tier: Silver 15% | Gold 20% + bonus Rp 100rb | Platinum 25% + bonus Rp 200rb</p>
+        <p style="margin:8px 0;">2.2 Komisi dari nilai nett project.</p>
+        <p style="margin:8px 0;">2.3 Pembayaran max 3 hari kerja setelah pelunasan.</p>
+        <p style="margin:8px 0;"><b>2.4 Opsi pembayaran yang dipilih PIHAK KEDUA:</b><br>
+        <span style="background:#f9f4e6;padding:4px 10px;border-radius:4px;color:#d4a536;font-weight:bold;display:inline-block;margin-top:4px;">${data.paymentLabel}</span></p>
+        
+        <h3 style="color:#d4a536;border-bottom:1px solid #ddd;padding-bottom:5px;margin-top:20px;">PASAL 3 - HAK & KEWAJIBAN</h3>
+        <p style="margin:8px 0;"><b>Reseller berhak:</b> Komisi, materi promosi, support, akses grup.</p>
+        <p style="margin:8px 0;"><b>Reseller wajib:</b> Memasarkan sesuai etika, tidak menaikkan harga, menjaga rahasia data.</p>
+        
+        <h3 style="color:#d4a536;border-bottom:1px solid #ddd;padding-bottom:5px;margin-top:20px;">PASAL 4 - KETENTUAN KHUSUS</h3>
+        <p style="margin:8px 0;">4.1 Lead reseller = asset 3 bulan.</p>
+        <p style="margin:8px 0;">4.2 Repeat order tetap dapat komisi.</p>
+        <p style="margin:8px 0;">4.3 Larangan: Website tandingan, jual jasa serupa, bocor strategi harga.</p>
+        
+        <h3 style="color:#d4a536;border-bottom:1px solid #ddd;padding-bottom:5px;margin-top:20px;">PASAL 5 - MASA BERLAKU</h3>
+        <p style="margin:8px 0;">Berlaku 1 tahun, otomatis diperpanjang. Bisa diakhiri dengan pemberitahuan 14 hari.</p>
+        
+        <h3 style="color:#d4a536;border-bottom:1px solid #ddd;padding-bottom:5px;margin-top:20px;">PASAL 6 - PENYELESAIAN SENGKETA</h3>
+        <p style="margin:8px 0;">Musyawarah kekeluargaan, jika tidak tercapai sesuai hukum Indonesia.</p>
+        
+        <!-- SIGNATURE SECTION -->
+        <div style="margin-top:40px;padding-top:20px;border-top:2px solid #ddd;">
+            <p style="text-align:center;font-size:11px;margin-bottom:20px;">
+                Dengan menandatangani dokumen ini, kedua pihak menyatakan setuju & bersedia terikat pada perjanjian di atas.
+            </p>
+            
+            <table style="width:100%;margin-top:30px;border-collapse:collapse;">
+                <tr>
+                    <td style="width:50%;text-align:center;vertical-align:top;padding:20px;">
+                        <b style="color:#d4a536;">PIHAK PERTAMA</b><br>
+                        <span style="font-size:10px;color:#666;">Pemilik Jasa</span>
+                        <div style="height:80px;margin:20px 0;display:flex;align-items:center;justify-content:center;">
+                            <span style="font-family:'Dancing Script',cursive;font-size:28px;color:#333;font-style:italic;">Ibaadurrahmaan</span>
+                        </div>
+                        <div style="border-top:1px solid #333;padding-top:5px;">
+                            <b>Ibaadurrahmaan</b>
+                        </div>
+                    </td>
+                    <td style="width:50%;text-align:center;vertical-align:top;padding:20px;">
+                        <b style="color:#25d366;">PIHAK KEDUA</b><br>
+                        <span style="font-size:10px;color:#666;">Reseller</span>
+                        <div style="height:80px;margin:20px 0;display:flex;align-items:center;justify-content:center;">
+                            <img src="${sig}" style="max-height:80px;max-width:200px;" alt="TTD">
+                        </div>
+                        <div style="border-top:1px solid #333;padding-top:5px;">
+                            <b>${data.nama}</b>
+                            <div style="font-size:9px;color:#666;margin-top:4px;">
+                                Ditandatangani: ${data.waktu}<br>
+                                ${data.tanggal}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- FOOTER -->
+        <div style="margin-top:30px;text-align:center;font-size:10px;color:#666;border-top:1px solid #ddd;padding-top:15px;">
+            <p style="margin:4px 0;">Dokumen digital ini sah dan mengikat secara hukum.</p>
+            <p style="margin:4px 0;"><b>Ditandatangani secara elektronik pada:</b></p>
+            <p style="margin:4px 0;color:#d4a536;font-weight:bold;">${data.tanggalWaktuLengkap}</p>
+            <p style="margin:4px 0;">Verifikasi: WA 0814-0164-3188</p>
+        </div>
+    </div>
+    `;
+}
+
+
+/**
+ * 🖨️ PRINT — Buka dialog print browser
+ */
+function printMoU() {
+    console.log('[PRINT] Function called');
+    
     if (!isFormValid()) {
         alert('⚠️ Lengkapi semua data & tanda tangan dulu!');
-        return null;
+        return;
     }
     
     const data = getFormData();
     const sig = getSignatureData();
     
-    const pdfContent = document.createElement('div');
-    pdfContent.id = 'pdfContentPrint';
-    pdfContent.innerHTML = generatePDFHTML(data, sig);
-    pdfContent.style.padding = '40px';
-    pdfContent.style.fontFamily = 'Arial, sans-serif';
-    pdfContent.style.color = '#000';
-    pdfContent.style.background = '#fff';
-    pdfContent.style.width = '800px';
+    if (!sig) {
+        alert('⚠️ Tanda tangan tidak terdeteksi!');
+        return;
+    }
     
-    return { element: pdfContent, data: data };
-}
-
-
-/**
- * 🖨️ PRINT — Buka dialog print browser (bisa langsung print / save as PDF)
- */
-function printMoU() {
-    const result = createPDFElement();
-    if (!result) return;
-    
-    const { element, data } = result;
+    console.log('[PRINT] Data valid, opening print window...');
     
     // Buka jendela print baru
     const printWindow = window.open('', '_blank', 'width=900,height=700');
     
     if (!printWindow) {
-        alert('⚠️ Popup diblokir! Izinkan popup untuk mencetak dokumen.');
+        alert('⚠️ Popup diblokir! Izinkan popup untuk mencetak dokumen.\n\nCara: klik ikon di address bar → izinkan popup.');
         return;
     }
     
-    printWindow.document.write(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>MoU Reseller - ${data.nama}</title>
-            <meta charset="UTF-8">
-            <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-            <style>
-                * { margin: 0; padding: 0; box-sizing: border-box; }
-                body {
-                    font-family: Arial, sans-serif;
-                    color: #000;
-                    background: #fff;
-                    padding: 20px;
-                    line-height: 1.6;
-                }
-                @media print {
-                    body { padding: 0; }
-                    @page {
-                        margin: 15mm;
-                        size: A4 portrait;
-                    }
-                    .no-print { display: none !important; }
-                }
-                .print-actions {
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    z-index: 1000;
-                    display: flex;
-                    gap: 10px;
-                    background: #fff;
-                    padding: 12px;
-                    border-radius: 12px;
-                    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-                }
-                .print-btn {
-                    padding: 10px 20px;
-                    border: none;
-                    border-radius: 8px;
-                    font-size: 14px;
-                    font-weight: 700;
-                    cursor: pointer;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 8px;
-                    transition: transform 0.2s;
-                }
-                .print-btn:hover { transform: translateY(-2px); }
-                .print-btn.primary {
-                    background: #d4a536;
-                    color: #fff;
-                }
-                .print-btn.secondary {
-                    background: #f0f0f0;
-                    color: #333;
-                }
-            </style>
-        </head>
-        <body>
-            <div class="print-actions no-print">
-                <button class="print-btn primary" onclick="window.print()">
-                    🖨️ Cetak Sekarang
-                </button>
-                <button class="print-btn secondary" onclick="window.close()">
-                    ✖ Tutup
-                </button>
-            </div>
-            ${element.outerHTML}
-            <script>
-                // Auto-open print dialog after page load
-                window.onload = function() {
-                    setTimeout(function() {
-                        window.print();
-                    }, 500);
-                };
-            <\/script>
-        </body>
-        </html>
-    `);
+    const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MoU Reseller - ${data.nama}</title>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            color: #000;
+            background: #fff;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        @media print {
+            body { padding: 0; }
+            @page {
+                margin: 15mm;
+                size: A4 portrait;
+            }
+            .no-print { display: none !important; }
+        }
+        .print-actions {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            background: #fff;
+            padding: 12px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        .print-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .print-btn.primary { background: #d4a536; color: #fff; }
+        .print-btn.secondary { background: #f0f0f0; color: #333; }
+    </style>
+</head>
+<body>
+    <div class="print-actions no-print">
+        <button class="print-btn primary" onclick="window.print()">🖨️ Cetak</button>
+        <button class="print-btn secondary" onclick="window.close()">✖ Tutup</button>
+    </div>
+    ${generatePDFHTML(data, sig)}
+    <scr` + `ipt>
+        window.onload = function() {
+            setTimeout(function() { window.print(); }, 800);
+        };
+    </scr` + `ipt>
+</body>
+</html>
+    `;
     
+    printWindow.document.open();
+    printWindow.document.write(htmlContent);
     printWindow.document.close();
+    
+    console.log('[PRINT] Print window loaded');
 }
 
 
 /**
- * 💾 DOWNLOAD PDF — Simpan sebagai file PDF ke device
+ * 💾 DOWNLOAD PDF
  */
 function downloadPDF() {
-    const result = createPDFElement();
-    if (!result) return;
+    console.log('[DOWNLOAD] Function called');
     
-    const { element, data } = result;
+    // Cek library
+    if (typeof html2pdf === 'undefined') {
+        alert('❌ Library PDF belum di-load!\n\nPastikan script html2pdf.js sudah ditambahkan di HTML.');
+        console.error('[DOWNLOAD] html2pdf library NOT FOUND');
+        return;
+    }
+    
+    if (!isFormValid()) {
+        alert('⚠️ Lengkapi semua data & tanda tangan dulu!');
+        return;
+    }
+    
+    const data = getFormData();
+    const sig = getSignatureData();
+    
+    if (!sig) {
+        alert('⚠️ Tanda tangan tidak terdeteksi!');
+        return;
+    }
+    
+    console.log('[DOWNLOAD] Creating PDF element...');
+    
+    // Buat element untuk PDF
+    const element = document.createElement('div');
+    element.id = 'pdfContent-' + Date.now();
+    element.innerHTML = generatePDFHTML(data, sig);
+    element.style.cssText = `
+        padding: 40px;
+        font-family: Arial, sans-serif;
+        color: #000;
+        background: #fff;
+        width: 800px;
+        position: absolute;
+        left: -9999px;
+        top: 0;
+    `;
     
     document.body.appendChild(element);
     
+    const filename = `MoU-Reseller-${data.nama.replace(/\s+/g, '-')}-${Date.now()}.pdf`;
+    
     const opt = {
-        margin: 10,
-        filename: `MoU-Reseller-${data.nama.replace(/\s+/g, '-')}-${new Date().getTime()}.pdf`,
+        margin: [10, 10, 10, 10],
+        filename: filename,
         image: { type: 'jpeg', quality: 0.95 },
-        html2canvas: { scale: 2, useCORS: true, logging: false },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        html2canvas: { 
+            scale: 2, 
+            useCORS: true, 
+            logging: false,
+            allowTaint: true,
+            backgroundColor: '#ffffff'
+        },
+        jsPDF: { 
+            unit: 'mm', 
+            format: 'a4', 
+            orientation: 'portrait',
+            compress: true
+        }
     };
     
-    // Show loading feedback
-    showToast('⏳ Sedang membuat PDF...', 3000);
+    showToast('⏳ Sedang membuat PDF...', 5000);
     
-    html2pdf().from(element).set(opt).save().then(() => {
-        document.body.removeChild(element);
-        showToast('✅ PDF berhasil didownload!');
-    }).catch((err) => {
-        console.error('PDF Error:', err);
-        if (document.body.contains(element)) {
-            document.body.removeChild(element);
-        }
-        alert('❌ Gagal membuat PDF. Coba lagi atau gunakan tombol Cetak.');
-    });
+    console.log('[DOWNLOAD] Starting html2pdf process...');
+    
+    html2pdf()
+        .from(element)
+        .set(opt)
+        .save()
+        .then(() => {
+            console.log('[DOWNLOAD] PDF saved successfully!');
+            if (document.body.contains(element)) {
+                document.body.removeChild(element);
+            }
+            showToast('✅ PDF berhasil didownload!');
+        })
+        .catch((err) => {
+            console.error('[DOWNLOAD] PDF Error:', err);
+            if (document.body.contains(element)) {
+                document.body.removeChild(element);
+            }
+            alert('❌ Gagal membuat PDF!\n\nError: ' + err.message + '\n\nCoba gunakan tombol Cetak sebagai alternatif.');
+        });
 }
 
 
 /**
- * Simple Toast Notification
+ * 🔔 Toast Notification
  */
 function showToast(message, duration = 2500) {
-    // Remove existing toast
     const existing = document.getElementById('mouToast');
     if (existing) existing.remove();
     
@@ -2898,6 +3154,8 @@ function showToast(message, duration = 2500) {
         z-index: 99999;
         transition: transform 0.3s ease;
         border: 1px solid #d4a536;
+        max-width: 90%;
+        text-align: center;
     `;
     
     document.body.appendChild(toast);
@@ -2911,6 +3169,43 @@ function showToast(message, duration = 2500) {
         setTimeout(() => toast.remove(), 300);
     }, duration);
 }
+
+
+/**
+ * ✅ Update Status Tombol (Enable/Disable)
+ * Panggil fungsi ini setiap kali ada perubahan form
+ */
+function updateButtonsState() {
+    const isValid = isFormValid();
+    
+    const btnPrint = document.getElementById('btnPrint');
+    const btnDownload = document.getElementById('btnDownload');
+    const btnSubmit = document.getElementById('btnSubmit');
+    
+    if (btnPrint) btnPrint.disabled = !isValid;
+    if (btnDownload) btnDownload.disabled = !isValid;
+    if (btnSubmit) btnSubmit.disabled = !isValid;
+    
+    console.log('[BUTTONS] State updated. Valid:', isValid);
+}
+
+
+/**
+ * ✅ Auto-listen input changes untuk update tombol
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('[MoU] Ready');
+    
+    // Listen semua input
+    const inputs = document.querySelectorAll('input, textarea, select');
+    inputs.forEach(input => {
+        input.addEventListener('input', updateButtonsState);
+        input.addEventListener('change', updateButtonsState);
+    });
+    
+    // Initial check
+    setTimeout(updateButtonsState, 100);
+});
 
 // ====================================================
 // SEND TO WHATSAPP
