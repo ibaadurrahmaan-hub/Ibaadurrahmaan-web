@@ -1631,7 +1631,7 @@
 
     .mou-dropdown-selected .mou-bank-logo.default{width:34px;}
 
-    /* ==================== ACTION BUTTONS - 2 TOMBOL ==================== */
+/* ==================== ACTION BUTTONS - 2 TOMBOL ==================== */
 
 /* Container Actions */
 .mou-actions{
@@ -1639,30 +1639,34 @@
     flex-direction:column;
     gap:12px;
     justify-content:center;
+    align-items:stretch;      /* ✅ Semua tombol full width sama */
     max-width:500px;
     margin:0 auto;
     padding:0 4px;
+    width:100%;
+    box-sizing:border-box;
 }
 
-/* Base Button - Full Width */
+/* Base Button - Full Width Sama */
 .mou-btn{
     display:inline-flex;
     align-items:center;
     justify-content:center;
     gap:10px;
-    padding:15px 24px;
+    padding:16px 24px;       /* ✅ Padding sama untuk semua */
     border-radius:100px;
     font-size:0.95rem;
     font-weight:700;
     text-decoration:none;
     cursor:pointer;
     transition:all 0.3s var(--ease);
-    border:none;
+    border:2px solid transparent; /* ✅ Border reserve space */
     line-height:1;
     font-family:'Poppins',sans-serif;
     white-space:nowrap;
-    width:100%;
-    box-sizing:border-box;
+    width:100%;              /* ✅ Full width */
+    box-sizing:border-box;   /* ✅ Include border & padding */
+    min-height:52px;         /* ✅ Height minimum sama */
 }
 
 .mou-btn i{
@@ -1703,22 +1707,24 @@
 
 
 /* ============================================
-   💬 KIRIM & DAFTAR - Solid Green (CTA Utama)
+   💬 KIRIM & DAFTAR - Solid Green
    ============================================ */
 .mou-btn-wa,
 #btnSubmit,
 #btnKirim{
     background:#25D366 !important;
     color:#fff !important;
+    border:2px solid #25D366 !important;   /* ✅ Border tebal sama dengan Print */
     box-shadow:0 6px 20px rgba(37,211,102,0.3);
-    padding:16px 28px !important;
-    font-size:1rem !important;
+    padding:16px 24px !important;         /* ✅ Padding sama dengan Print */
+    font-size:0.95rem !important;         /* ✅ Font size sama */
 }
 
 .mou-btn-wa:hover:not(:disabled),
 #btnSubmit:hover:not(:disabled),
 #btnKirim:hover:not(:disabled){
     background:#20BA5A !important;
+    border-color:#20BA5A !important;
     transform:translateY(-3px);
     box-shadow:0 10px 28px rgba(37,211,102,0.5);
 }
@@ -1727,6 +1733,7 @@
 #btnSubmit:disabled,
 #btnKirim:disabled{
     background:#333 !important;
+    border-color:#444 !important;
     color:#666 !important;
     cursor:not-allowed;
     box-shadow:none;
@@ -1736,9 +1743,68 @@
 .mou-btn-wa i,
 #btnSubmit i,
 #btnKirim i{
-    font-size:1.2rem;
+    font-size:1.15rem;
 }
 
+
+/* ============================================
+   📱 RESPONSIVE - Tablet
+   ============================================ */
+@media (max-width:640px){
+    .mou-actions{
+        gap:10px;
+        padding:0 8px;
+        max-width:100%;
+    }
+    
+    .mou-btn{
+        padding:15px 20px;
+        font-size:0.9rem;
+        min-height:50px;
+    }
+    
+    .mou-btn-wa,
+    #btnSubmit,
+    #btnKirim{
+        padding:15px 20px !important;
+        font-size:0.9rem !important;
+    }
+}
+
+
+/* ============================================
+   📱 HP KECIL (<380px)
+   ============================================ */
+@media (max-width:380px){
+    .mou-actions{
+        gap:8px;
+        padding:0 4px;
+    }
+    
+    .mou-btn{
+        padding:14px 18px;
+        font-size:0.85rem;
+        gap:8px;
+        min-height:48px;
+    }
+    
+    .mou-btn i{
+        font-size:1rem;
+    }
+    
+    .mou-btn-wa,
+    #btnSubmit,
+    #btnKirim{
+        padding:14px 18px !important;
+        font-size:0.85rem !important;
+    }
+    
+    .mou-btn-wa i,
+    #btnSubmit i,
+    #btnKirim i{
+        font-size:1.05rem;
+    }
+}
 
 /* ============================================
    📱 RESPONSIVE - Mobile
