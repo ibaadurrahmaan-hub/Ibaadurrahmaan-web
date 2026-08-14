@@ -708,6 +708,61 @@ body{
     transform:scale(1.1);
 }
 
+/* Deactivate (Non-Aktifkan) - Orange */
+.btn-deactivate{
+    background:rgba(243,156,18,0.15);
+    color:#f39c12;
+    border:1px solid rgba(243,156,18,0.3);
+}
+
+.btn-deactivate:hover{
+    background:#f39c12;
+    color:#fff;
+    transform:scale(1.1);
+    box-shadow:0 4px 12px rgba(243,156,18,0.4);
+}
+
+/* Reactivate (Aktifkan Kembali) - Green */
+.btn-reactivate{
+    background:rgba(37,211,102,0.15);
+    color:#25d366;
+    border:1px solid rgba(37,211,102,0.3);
+}
+
+.btn-reactivate:hover{
+    background:#25d366;
+    color:#fff;
+    transform:scale(1.1);
+    box-shadow:0 4px 12px rgba(37,211,102,0.4);
+}
+
+/* Delete Permanent - Dark Red */
+.btn-delete{
+    background:rgba(150,40,27,0.2);
+    color:#c0392b;
+    border:1px solid rgba(150,40,27,0.4);
+}
+
+.btn-delete:hover{
+    background:#c0392b;
+    color:#fff;
+    transform:scale(1.1);
+    box-shadow:0 4px 12px rgba(150,40,27,0.5);
+    animation:shake 0.4s ease-in-out;
+}
+
+@keyframes shake{
+    0%,100%{transform:scale(1.1) translateX(0);}
+    25%{transform:scale(1.1) translateX(-2px);}
+    75%{transform:scale(1.1) translateX(2px);}
+}
+
+/* Status: Inactive */
+.reseller-status.inactive{
+    background:rgba(243,156,18,0.15);
+    color:#f39c12;
+    border:1px solid rgba(243,156,18,0.3);
+}
 /* Mobile adjustments */
 @media (max-width:480px){
     .reseller-right{
@@ -1392,7 +1447,7 @@ function updateStat(id, value) {
 
 
 /**
- * Helper: Render reseller list DENGAN tombol Approve/Reject/Detail
+ * Helper: Render reseller list DENGAN aksi berdasarkan status
  */
 function renderResellerList(resellers) {
     const listEl = document.getElementById('resellerList');
@@ -1432,16 +1487,19 @@ function renderResellerList(resellers) {
         
         const status = data.status || 'pending';
         
-        // Escape data untuk onclick (encode double-quote)
+        // Escape data untuk onclick
         const dataStr = JSON.stringify({
             id: data.id,
             nama: data.nama || 'Tanpa Nama',
-            wa: data.wa || ''
+            wa: data.wa || '',
+            resellerCode: data.resellerCode || '-'
         }).replace(/"/g, '&quot;');
         
         // Tombol action berdasarkan status
         let actionButtons = '';
+        
         if (status === 'pending') {
+            // PENDING: Approve, Reject, Delete
             actionButtons = `
                 <div class="reseller-actions">
                     <button class="btn-action btn-approve" onclick='handleApprove(${dataStr})' title="Approve">
@@ -1453,10 +1511,35 @@ function renderResellerList(resellers) {
                 </div>
             `;
         } else if (status === 'active') {
+            // ACTIVE: Detail, Deactivate
             actionButtons = `
                 <div class="reseller-actions">
                     <button class="btn-action btn-detail" onclick='handleDetail(${dataStr})' title="Detail">
                         <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn-action btn-deactivate" onclick='handleDeactivate(${dataStr})' title="Non-Aktifkan">
+                        <i class="fas fa-user-slash"></i>
+                    </button>
+                </div>
+            `;
+        } else if (status === 'inactive') {
+            // INACTIVE: Reactivate, Delete Permanent
+            actionButtons = `
+                <div class="reseller-actions">
+                    <button class="btn-action btn-reactivate" onclick='handleReactivate(${dataStr})' title="Aktifkan Kembali">
+                        <i class="fas fa-user-check"></i>
+                    </button>
+                    <button class="btn-action btn-delete" onclick='handleDelete(${dataStr})' title="Hapus Permanen">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            `;
+        } else if (status === 'rejected') {
+            // REJECTED: Delete Permanent only
+            actionButtons = `
+                <div class="reseller-actions">
+                    <button class="btn-action btn-delete" onclick='handleDelete(${dataStr})' title="Hapus Permanen">
+                        <i class="fas fa-trash-alt"></i>
                     </button>
                 </div>
             `;
@@ -1643,17 +1726,267 @@ async function handleDetail(data) {
     });
 }
 
+// ====================================================
+// 🚫 NON-AKTIFKAN RESELLER (Soft Delete)
+// ====================================================
+
+async function handleDeactivate(data) {
+    const result = await Swal.fire({
+        icon: 'warning',
+        title: '🚫 Non-Aktifkan Reseller?',
+        html: `
+            Yakin ingin non-aktifkan <b style="color:#f39c12;">${data.nama}</b>?<br><br>
+            <div style="background:rgba(243,156,18,0.1);border:1px solid rgba(243,156,18,0.2);padding:12px 16px;border-radius:10px;font-size:0.85rem;text-align:left;">
+                ⚠️ Status: <b>active</b> → <b style="color:#f39c12;">inactive</b><br>
+                🚫 Reseller tidak bisa terima komisi baru<br>
+                💾 Data <b>TIDAK dihapus</b>, bisa diaktifkan lagi<br>
+                📊 Data komisi lama tetap tersimpan
+            </div>
+        `,
+        input: 'text',
+        inputPlaceholder: 'Alasan non-aktifkan (opsional)',
+        showCancelButton: true,
+        confirmButtonText: '<i class="fas fa-user-slash"></i> Ya, Non-Aktifkan',
+        cancelButtonText: 'Batal',
+        customClass: { popup: 'swal-premium' },
+        reverseButtons: true
+    });
+    
+    if (!result.isConfirmed) return;
+    
+    const reason = result.value || 'Tidak disebutkan';
+    
+    Swal.fire({
+        title: 'Memproses...',
+        allowOutsideClick: false,
+        customClass: { popup: 'swal-premium' },
+        didOpen: () => Swal.showLoading()
+    });
+    
+    try {
+        await updateResellerStatus(data.id, 'inactive', reason);
+        
+        await Swal.fire({
+            icon: 'success',
+            title: '🚫 Reseller Non-Aktif',
+            html: `
+                <b>${data.nama}</b> berhasil di-non-aktifkan.<br><br>
+                <small style="opacity:0.8;">Data tetap tersimpan. Bisa diaktifkan kembali kapan saja.</small>
+            `,
+            customClass: { popup: 'swal-premium' },
+            timer: 2500
+        });
+        
+        loadResellerData();
+        
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal Non-Aktifkan',
+            text: error.message,
+            customClass: { popup: 'swal-premium' }
+        });
+    }
+}
+
+
+// ====================================================
+// ✅ AKTIFKAN KEMBALI RESELLER
+// ====================================================
+
+async function handleReactivate(data) {
+    const result = await Swal.fire({
+        icon: 'question',
+        title: '✅ Aktifkan Kembali?',
+        html: `
+            Aktifkan kembali <b style="color:#25d366;">${data.nama}</b>?<br><br>
+            <div style="background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.2);padding:12px 16px;border-radius:10px;font-size:0.85rem;text-align:left;">
+                ✅ Status: <b>inactive</b> → <b style="color:#25d366;">active</b><br>
+                🎫 Kembali bisa terima komisi<br>
+                📱 Notifikasi akan dikirim ke reseller
+            </div>
+        `,
+        showCancelButton: true,
+        confirmButtonText: '<i class="fas fa-user-check"></i> Ya, Aktifkan',
+        cancelButtonText: 'Batal',
+        customClass: { popup: 'swal-premium' },
+        reverseButtons: true
+    });
+    
+    if (!result.isConfirmed) return;
+    
+    Swal.fire({
+        title: 'Memproses...',
+        allowOutsideClick: false,
+        customClass: { popup: 'swal-premium' },
+        didOpen: () => Swal.showLoading()
+    });
+    
+    try {
+        await updateResellerStatus(data.id, 'active');
+        
+        const waNumber = data.wa.replace(/[^0-9]/g, '').replace(/^0/, '62');
+        const waMsg = encodeURIComponent(
+            `Assalamu'alaikum ${data.nama},\n\n` +
+            `🎉 *AKUN RESELLER AKTIF KEMBALI!*\n\n` +
+            `Akun reseller Anda telah *DIAKTIFKAN KEMBALI*.\n\n` +
+            `Silakan mulai memasarkan jasa website kami kembali.\n\n` +
+            `Terima kasih atas kesediaannya bergabung kembali.\n\n` +
+            `Barakallahu fiik 🙏`
+        );
+        const waUrl = `https://wa.me/${waNumber}?text=${waMsg}`;
+        
+        await Swal.fire({
+            icon: 'success',
+            title: '🎉 Reseller Aktif Kembali!',
+            html: `<b>${data.nama}</b> berhasil diaktifkan kembali`,
+            showCancelButton: true,
+            confirmButtonText: '<i class="fab fa-whatsapp"></i> Notif via WA',
+            cancelButtonText: 'Nanti',
+            customClass: { popup: 'swal-premium' }
+        }).then(res => {
+            if (res.isConfirmed) {
+                window.open(waUrl, '_blank');
+            }
+        });
+        
+        loadResellerData();
+        
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal Aktifkan',
+            text: error.message,
+            customClass: { popup: 'swal-premium' }
+        });
+    }
+}
+
+
+// ====================================================
+// 🗑️ HAPUS PERMANEN (Hard Delete)
+// ====================================================
+
+async function handleDelete(data) {
+    // Konfirmasi 2 langkah untuk keamanan
+    const step1 = await Swal.fire({
+        icon: 'warning',
+        title: '⚠️ HAPUS PERMANEN?',
+        html: `
+            <div style="background:rgba(231,76,60,0.1);border:2px solid rgba(231,76,60,0.4);padding:16px;border-radius:10px;text-align:left;">
+                <p style="color:#e74c3c;font-weight:800;margin-bottom:8px;">🚨 PERHATIAN!</p>
+                <p style="font-size:0.9rem;line-height:1.6;margin-bottom:8px;">
+                    Anda akan menghapus <b style="color:#e74c3c;">${data.nama}</b> secara <b>PERMANEN</b>.
+                </p>
+                <p style="font-size:0.85rem;opacity:0.9;">
+                    ❌ Semua data akan dihapus<br>
+                    ❌ Tidak bisa di-restore<br>
+                    ❌ Data komisi & history hilang<br>
+                    ❌ Aksi ini <b>TIDAK BISA DI-UNDO</b>
+                </p>
+            </div>
+        `,
+        showCancelButton: true,
+        confirmButtonText: '<i class="fas fa-exclamation-triangle"></i> Ya, Lanjutkan',
+        cancelButtonText: 'Batal',
+        customClass: { popup: 'swal-premium' },
+        reverseButtons: true,
+        focusCancel: true
+    });
+    
+    if (!step1.isConfirmed) return;
+    
+    // Step 2: Konfirmasi dengan ketik nama
+    const step2 = await Swal.fire({
+        icon: 'error',
+        title: '⛔ KONFIRMASI AKHIR',
+        html: `
+            Untuk konfirmasi, ketik nama reseller di bawah:<br><br>
+            <b style="color:#e74c3c;font-size:1.1rem;font-family:monospace;">${data.nama}</b>
+        `,
+        input: 'text',
+        inputPlaceholder: `Ketik: ${data.nama}`,
+        inputValidator: (value) => {
+            if (!value) return 'Nama harus diisi!';
+            if (value.trim() !== data.nama.trim()) {
+                return `Nama tidak cocok. Harus persis: "${data.nama}"`;
+            }
+        },
+        showCancelButton: true,
+        confirmButtonText: '<i class="fas fa-trash-alt"></i> HAPUS PERMANEN',
+        cancelButtonText: 'Batal',
+        customClass: { popup: 'swal-premium' },
+        reverseButtons: true,
+        focusCancel: true
+    });
+    
+    if (!step2.isConfirmed) return;
+    
+    // Show loading
+    Swal.fire({
+        title: 'Menghapus...',
+        html: 'Menghapus data reseller secara permanen',
+        allowOutsideClick: false,
+        customClass: { popup: 'swal-premium' },
+        didOpen: () => Swal.showLoading()
+    });
+    
+    try {
+        await deleteReseller(data.id);
+        
+        await Swal.fire({
+            icon: 'success',
+            title: '🗑️ Berhasil Dihapus',
+            html: `
+                <b>${data.nama}</b> telah dihapus permanen dari database.<br><br>
+                <small style="opacity:0.7;">ID: ${data.id}</small>
+            `,
+            customClass: { popup: 'swal-premium' },
+            timer: 3000
+        });
+        
+        loadResellerData();
+        
+    } catch (error) {
+        console.error('[DELETE] Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal Hapus',
+            text: error.message,
+            customClass: { popup: 'swal-premium' }
+        });
+    }
+}
+
+
+// ====================================================
+// 🔥 HARD DELETE DARI FIRESTORE
+// ====================================================
+
+async function deleteReseller(docId) {
+    if (!window.firebase || !window.firebase.ready) {
+        throw new Error('Firebase belum ready');
+    }
+    
+    const firestoreModule = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+    const { doc, deleteDoc } = firestoreModule;
+    
+    const { db } = window.firebase;
+    const docRef = doc(db, 'resellers', docId);
+    
+    await deleteDoc(docRef);
+    console.log('[FIREBASE] 🗑️ Deleted:', docId);
+}
+
 
 // ====================================================
 // 🔥 UPDATE STATUS DI FIRESTORE
 // ====================================================
-
 async function updateResellerStatus(docId, newStatus, reason = '') {
     if (!window.firebase || !window.firebase.ready) {
         throw new Error('Firebase belum ready');
     }
     
-    // Import updateDoc & doc dari Firestore module
     const firestoreModule = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
     const { doc, updateDoc } = firestoreModule;
     
@@ -1669,11 +2002,19 @@ async function updateResellerStatus(docId, newStatus, reason = '') {
     if (newStatus === 'active') {
         updateData.activatedAt = new Date();
         updateData.tier = 'silver';
+        // Clear alasan reject/inactive kalau ada
+        updateData.rejectReason = null;
+        updateData.deactivateReason = null;
     }
     
     if (newStatus === 'rejected' && reason) {
         updateData.rejectReason = reason;
         updateData.rejectedAt = new Date();
+    }
+    
+    if (newStatus === 'inactive' && reason) {
+        updateData.deactivateReason = reason;
+        updateData.deactivatedAt = new Date();
     }
     
     await updateDoc(docRef, updateData);
