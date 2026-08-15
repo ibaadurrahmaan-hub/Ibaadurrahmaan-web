@@ -645,7 +645,7 @@ Rata-rata paket Reguler = *Rp 1.125.000/bulan*
 ━━━━━━━━━━━━━━━━━━━━━
 
 ✅ *WAJIB:* Client yang Anda bawa harus mencantumkan Kode Reseller Anda saat order:
-🔗 https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/order.html
+🔗 https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/penawaran.html
 
 📖 Baca MoU lengkap:
 🔗 https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/mou-reseller.html
