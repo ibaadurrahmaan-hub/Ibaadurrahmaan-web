@@ -1249,6 +1249,103 @@
     transform:translateX(-50%) translateY(0);
 }
 
+/* ============================================
+   🔗 LINK CARDS (NEW!)
+   ============================================ */
+.kit-links-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:16px;
+}
+
+.kit-link-card{
+    background:var(--grad-card);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:20px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    transition:all 0.3s var(--ease);
+}
+
+.kit-link-card:hover{
+    border-color:rgba(212,165,54,0.4);
+    transform:translateY(-3px);
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+.kit-link-icon{
+    width:48px;
+    height:48px;
+    background:rgba(212,165,54,0.15);
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--gold);
+    font-size:1.3rem;
+    flex-shrink:0;
+}
+
+.kit-link-info{
+    flex:1;
+    min-width:0;
+}
+
+.kit-link-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:0.95rem;
+    font-weight:800;
+    color:var(--text);
+    margin-bottom:4px;
+}
+
+.kit-link-url{
+    color:var(--text-dim);
+    font-size:0.75rem;
+    font-family:monospace;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.kit-link-copy{
+    padding:8px 14px;
+    background:rgba(212,165,54,0.1);
+    border:1px solid rgba(212,165,54,0.3);
+    border-radius:100px;
+    color:var(--gold);
+    font-size:0.78rem;
+    font-weight:700;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    transition:all 0.3s;
+    font-family:'Poppins',sans-serif;
+    flex-shrink:0;
+}
+
+.kit-link-copy:hover{
+    background:var(--gold);
+    color:var(--bg);
+    transform:scale(1.05);
+}
+
+.kit-link-copy.copied{
+    background:#25d366;
+    border-color:#25d366;
+    color:#fff;
+}
+
+@media (max-width:640px){
+    .kit-link-card{
+        flex-direction:column;
+        text-align:center;
+    }
+    .kit-link-copy{width:100%;justify-content:center;}
+}
 
 /* ============================================
    RESPONSIVE
@@ -2117,6 +2214,68 @@
     </div>
 </section>
 
+<!-- ===== LINK WEBSITE SIAP SHARE ===== -->
+<section class="kit-section">
+    <div class="kit-container">
+        <div class="kit-section-header">
+            <div class="kit-section-badge">🔗 QUICK LINKS</div>
+            <h2 class="kit-section-title">Link Website <span class="text-gold">Siap Share</span></h2>
+            <p class="kit-section-sub">Copy link ini untuk dibagikan ke calon client!</p>
+        </div>
+        
+        <div class="kit-links-grid">
+            
+            <div class="kit-link-card">
+                <div class="kit-link-icon"><i class="fas fa-home"></i></div>
+                <div class="kit-link-info">
+                    <div class="kit-link-title">Beranda Website</div>
+                    <div class="kit-link-url">ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/</div>
+                </div>
+                <button class="kit-link-copy" onclick="copyLink('https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/', this)">
+                    <i class="fas fa-copy"></i>
+                    <span>Copy</span>
+                </button>
+            </div>
+            
+            <div class="kit-link-card">
+                <div class="kit-link-icon"><i class="fas fa-palette"></i></div>
+                <div class="kit-link-info">
+                    <div class="kit-link-title">Portfolio</div>
+                    <div class="kit-link-url">.../portfolio.html</div>
+                </div>
+                <button class="kit-link-copy" onclick="copyLink('https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/portfolio.html', this)">
+                    <i class="fas fa-copy"></i>
+                    <span>Copy</span>
+                </button>
+            </div>
+            
+            <div class="kit-link-card">
+                <div class="kit-link-icon"><i class="fas fa-tag"></i></div>
+                <div class="kit-link-info">
+                    <div class="kit-link-title">Halaman Paket</div>
+                    <div class="kit-link-url">.../#paket</div>
+                </div>
+                <button class="kit-link-copy" onclick="copyLink('https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/#paket', this)">
+                    <i class="fas fa-copy"></i>
+                    <span>Copy</span>
+                </button>
+            </div>
+            
+            <div class="kit-link-card">
+                <div class="kit-link-icon"><i class="fas fa-shopping-cart"></i></div>
+                <div class="kit-link-info">
+                    <div class="kit-link-title">Halaman Order</div>
+                    <div class="kit-link-url">.../order.html</div>
+                </div>
+                <button class="kit-link-copy" onclick="copyLink('https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/order.html', this)">
+                    <i class="fas fa-copy"></i>
+                    <span>Copy</span>
+                </button>
+            </div>
+            
+        </div>
+    </div>
+</section>
 
 <!-- ===== TIER INFO ===== -->
 <section class="kit-section">
@@ -2381,6 +2540,29 @@ function copyScript(id, btn) {
     });
 }
 
+// ====================================================
+// 🔗 COPY LINK (BARU!)
+// ====================================================
+function copyLink(url, btn) {
+    navigator.clipboard.writeText(url).then(() => {
+        btn.classList.add('copied');
+        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        showKitToast('🔗 Link tercopy! Siap paste ke chat client.');
+        setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.innerHTML = '<i class="fas fa-copy"></i> <span>Copy</span>';
+        }, 2000);
+    }).catch(() => {
+        // Fallback
+        const textarea = document.createElement('textarea');
+        textarea.value = url;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showKitToast('🔗 Link tercopy!');
+    });
+}
 
 // ====================================================
 // ❓ FAQ TOGGLE
