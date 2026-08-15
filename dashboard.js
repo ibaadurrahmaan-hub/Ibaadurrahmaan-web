@@ -341,6 +341,17 @@ async function loadResellerData() {
         
         updateStat('statTotalReseller', total);
         updateStat('statPendingReseller', pending);
+
+// Update badge pending di action card
+const badge = document.getElementById('pendingBadge');
+if (badge) {
+    if (pending > 0) {
+        badge.textContent = pending > 99 ? '99+' : pending;
+        badge.style.display = 'flex';
+    } else {
+        badge.style.display = 'none';
+    }
+}
         updateStat('statActiveReseller', active);
         updateStat('statTodayReseller', today);
         
