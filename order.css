@@ -2450,3 +2450,323 @@ body{background:var(--bg);}
   .cs-trigger{padding:12px 36px 12px 12px;font-size:0.85rem;}
   .cs-option{padding:12px 10px;font-size:0.82rem;}
 }
+
+/* ============================================
+   REFERRAL / RESELLER CODE SECTION
+   ============================================ */
+.referral-card {
+  border: 1px dashed rgba(212, 165, 54, 0.3) !important;
+  background: linear-gradient(135deg, rgba(212, 165, 54, 0.03), rgba(212, 165, 54, 0.01)) !important;
+}
+
+.referral-desc {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.referral-input-wrap {
+  margin-bottom: 20px;
+}
+
+.referral-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+  transition: all 0.3s var(--ease);
+}
+
+.referral-input-group:focus-within {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212, 165, 54, 0.1);
+}
+
+.referral-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  min-width: 52px;
+  height: 52px;
+  background: rgba(212, 165, 54, 0.08);
+  color: var(--gold);
+  font-size: 1rem;
+  border-right: 1px solid var(--border);
+}
+
+.referral-input-group input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 14px 16px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  outline: none;
+}
+
+.referral-input-group input::placeholder {
+  text-transform: none;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 0;
+  font-size: 0.85rem;
+}
+
+.btn-verify-reseller {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 20px;
+  background: var(--grad-gold-shine);
+  color: var(--bg);
+  border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.3s var(--ease);
+  margin: 4px;
+  border-radius: 10px;
+}
+
+.btn-verify-reseller:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 15px var(--gold-glow);
+}
+
+.btn-verify-reseller:active {
+  transform: scale(0.97);
+}
+
+.btn-verify-reseller.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.btn-verify-reseller.loading i {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Result States */
+.referral-result {
+  margin-top: 10px;
+  min-height: 0;
+  transition: all 0.3s var(--ease);
+}
+
+.reseller-success {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(37, 211, 102, 0.08);
+  border: 1px solid rgba(37, 211, 102, 0.25);
+  border-radius: 12px;
+  color: #25d366;
+  font-size: 0.88rem;
+  font-weight: 600;
+  animation: slideDown 0.3s var(--ease);
+}
+
+.reseller-success i {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.reseller-success .rs-info {
+  flex: 1;
+}
+
+.reseller-success .rs-name {
+  font-weight: 800;
+  color: #2ecc71;
+  font-size: 0.95rem;
+}
+
+.reseller-success .rs-detail {
+  font-size: 0.78rem;
+  color: rgba(37, 211, 102, 0.7);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.reseller-success .btn-remove-reseller {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  color: #25d366;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+
+.reseller-success .btn-remove-reseller:hover {
+  background: rgba(231, 76, 60, 0.2);
+  border-color: rgba(231, 76, 60, 0.4);
+  color: #e74c3c;
+}
+
+.reseller-error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: rgba(231, 76, 60, 0.08);
+  border: 1px solid rgba(231, 76, 60, 0.25);
+  border-radius: 12px;
+  color: #e74c3c;
+  font-size: 0.85rem;
+  font-weight: 600;
+  animation: slideDown 0.3s var(--ease);
+}
+
+.reseller-error i {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.reseller-hint {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: rgba(212, 165, 54, 0.06);
+  border: 1px solid rgba(212, 165, 54, 0.15);
+  border-radius: 12px;
+  color: var(--gold);
+  font-size: 0.82rem;
+  font-weight: 500;
+  animation: slideDown 0.3s var(--ease);
+}
+
+.reseller-hint i {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.reseller-hint a {
+  color: var(--gold);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Benefits */
+.referral-benefits {
+  padding: 16px 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.rb-title {
+  color: var(--gold);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rb-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.rb-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.rb-list li i {
+  color: #25d366;
+  font-size: 0.7rem;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(37, 211, 102, 0.12);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Verified Badge in Summary */
+.si-reseller {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(37, 211, 102, 0.08);
+  border: 1px solid rgba(37, 211, 102, 0.2);
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 0.78rem;
+  color: #25d366;
+  font-weight: 600;
+}
+
+.si-reseller i {
+  font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .referral-input-group {
+    flex-wrap: wrap;
+    border-radius: 12px;
+  }
+
+  .referral-icon {
+    display: none;
+  }
+
+  .referral-input-group input {
+    width: 100%;
+    min-width: 0;
+    padding: 14px 14px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .btn-verify-reseller {
+    width: calc(100% - 8px);
+    justify-content: center;
+    padding: 12px;
+    margin: 4px;
+  }
+}
