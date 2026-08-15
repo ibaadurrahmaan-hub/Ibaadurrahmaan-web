@@ -1595,11 +1595,12 @@ async function placeOrder() {
   // 📱 KIRIM KE WHATSAPP (Modal Konfirmasi)
   // ══════════════════════════════════════════════
   // Tunggu 1.5 detik → tampilkan modal konfirmasi WA
-  setTimeout(() => {
-    showWhatsAppConfirmModal(orderId, name, savedToFirebase);
-  }, 1500);
-}
-
+  // 📱 AUTO-OPEN WHATSAPP setelah 2 detik
+setTimeout(() => {
+  const waUrl = document.getElementById('waConfirm').href;
+  window.open(waUrl, '_blank');
+  showToast('WhatsApp dibuka otomatis 📱');
+}, 2000);
 
 // ============================================
 // 📱 MODAL KONFIRMASI KIRIM WA
