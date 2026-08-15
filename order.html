@@ -1451,7 +1451,7 @@ function goToStep(n) {
 
 
 // ============================================
-// 🔥 PLACE ORDER → FIREBASE
+// 🔥 PLACE ORDER → FIREBASE + AUTO WA
 // ============================================
 async function placeOrder() {
   // Validasi terms
@@ -1460,18 +1460,18 @@ async function placeOrder() {
     return;
   }
 
-  // Tampilkan overlay loading
-  const overlay     = document.getElementById('processingOverlay');
-  const titleEl     = document.getElementById('processingTitle');
-  const descEl      = document.getElementById('processingDesc');
+  // Overlay loading
+  const overlay = document.getElementById('processingOverlay');
+  const titleEl = document.getElementById('processingTitle');
+  const descEl  = document.getElementById('processingDesc');
 
   overlay.classList.add('show');
   titleEl.textContent = 'Menyimpan Pesanan...';
   descEl.textContent  = 'Mengirim data ke database, mohon tunggu';
 
-  // Generate order ID sekarang → supaya konsisten antara Firestore & Invoice
+  // Generate order ID (konsisten antara Firestore & Invoice)
   const orderId = generateOrderId();
-  _currentOrderId   = orderId;
+  _currentOrderId = orderId;
 
   // Kumpulkan data form
   const c          = calculate();
@@ -1485,49 +1485,36 @@ async function placeOrder() {
   const hasWebsite = document.getElementById('hasWebsite').value.trim();
   const dlValue    = document.querySelector('input[name="deadline"]:checked')?.value || 'standard';
 
-  // Normalisasi nomor telepon
-  const phoneNorm  = phone.startsWith('0') ? phone : '0' + phone;
-  const phoneRaw   = '+62' + phone.replace(/^0/, '');
+  const phoneNorm = phone.startsWith('0') ? phone : '0' + phone;
+  const phoneRaw  = '+62' + phone.replace(/^0/, '');
 
-  // Addons sebagai array
-  const addonsArr  = selectedAddons.map(a => ({
+  const addonsArr = selectedAddons.map(a => ({
     name : a.dataset.name,
     price: parseInt(a.dataset.price)
   }));
 
-  // ── Firestore payload ──────────────────────────────
+  // ── Firestore payload ──────────────────────
   const clientData = {
-    // Identitas
-    orderId     : orderId,
-    name        : name,
-    company     : company || '',
-    phone       : phoneNorm,
-    phoneRaw    : phoneRaw,
-    email       : email,
-
-    // Project
-    project     : selectedPkg.dataset.name,
-    paketKey    : selectedPkg.dataset.pkg,
-    value       : 'Rp ' + c.pkgPrice.toLocaleString('id-ID'),
+    orderId, name,
+    company : company || '',
+    phone   : phoneNorm,
+    phoneRaw, email,
+    project : selectedPkg.dataset.name,
+    paketKey: selectedPkg.dataset.pkg,
+    value   : 'Rp ' + c.pkgPrice.toLocaleString('id-ID'),
     description : desc,
     reference   : reference || '',
     businessType: bizType   || '',
     hasWebsite  : hasWebsite|| '',
-
-    // Add-ons
     addons      : addonsArr,
-
-    // Timeline
     deadline    : selectedDeadline,
     deadlineKey : dlValue,
-
-    // Harga
     priceDetail : {
       basePrice   : c.pkgPrice,
       addonsTotal : c.addonsPrice,
       subtotal    : c.subtotal,
       deadlineFee : deadlineFee,
-      couponCode  : couponCode  || '',
+      couponCode  : couponCode || '',
       couponDisc  : c.couponAmt,
       fullpayDisc : c.fullpayDisc,
       total       : c.total,
@@ -1535,33 +1522,24 @@ async function placeOrder() {
       remaining   : c.remaining,
       paymentType : paymentType
     },
-
-    // Pembayaran
     paymentMethod : selectedPayment,
     bankName      : selectedBank.name,
     bankAccount   : selectedBank.account,
     bankHolder    : selectedBank.holder,
-
-    // Referral
     referralCode  : verifiedReseller ? verifiedReseller.code : '',
     referralName  : verifiedReseller ? verifiedReseller.name : '',
     referralTier  : verifiedReseller ? verifiedReseller.tier : '',
-
-    // Voucher
     voucherCode   : couponCode || '',
-
-    // Status & Source
     status  : 'pending',
     source  : 'order_form_website',
     notes   : '[Website Order] ' + (desc || 'Order via order.html'),
-
-    // Timestamps
     createdAt : window.fbOrder?.serverTimestamp() || new Date().toISOString(),
     updatedAt : window.fbOrder?.serverTimestamp() || new Date().toISOString()
   };
 
-  // ── Kirim ke Firestore ────────────────────────────
+  // ── Kirim ke Firestore ─────────────────────
   let savedToFirebase = false;
+  let firebaseDocId = null;
 
   if (window.fbOrder && window.fbOrder.ready) {
     try {
@@ -1574,48 +1552,121 @@ async function placeOrder() {
       );
 
       savedToFirebase = true;
+      firebaseDocId = docRef.id;
       console.log('✅ Firebase OK! Doc ID:', docRef.id, '| Order ID:', orderId);
 
     } catch (fbErr) {
       console.error('❌ Firebase error:', fbErr);
       savedToFirebase = false;
-      // Tetap lanjut ke invoice, jangan block user
     }
-  } else {
-    console.warn('⚠️ Firebase belum ready, skip save ke Firestore');
   }
 
-  // ── Proses Invoice ────────────────────────────────
+  // ── Generate Invoice ───────────────────────
   titleEl.textContent = 'Membuat Invoice...';
   descEl.textContent  = 'Hampir selesai!';
 
-  // Sedikit delay supaya UX lebih smooth
-  await new Promise(resolve => setTimeout(resolve, 800));
-
+  await new Promise(r => setTimeout(r, 600));
   overlay.classList.remove('show');
 
-  // Tampilkan invoice & step 4
   generateInvoice(orderId);
   goToStep(4);
 
-  // Tampilkan status Firebase di halaman sukses
+  // ── Firebase status badge ──────────────────
   const statusEl   = document.getElementById('firebaseStatus');
   const statusText = document.getElementById('firebaseStatusText');
   if (statusEl && statusText) {
     statusEl.style.display = 'inline-flex';
     if (savedToFirebase) {
-      statusEl.style.background = 'rgba(37,211,102,0.12)';
+      statusEl.style.background  = 'rgba(37,211,102,0.12)';
       statusEl.style.borderColor = 'rgba(37,211,102,0.3)';
       statusEl.style.color = '#25d366';
       statusEl.querySelector('i').style.color = '#25d366';
       statusText.textContent = 'Pesanan tersimpan di database ✓';
     } else {
-      statusEl.style.background = 'rgba(243,156,18,0.12)';
+      statusEl.style.background  = 'rgba(243,156,18,0.12)';
       statusEl.style.borderColor = 'rgba(243,156,18,0.3)';
       statusEl.style.color = '#f39c12';
       statusEl.querySelector('i').style.color = '#f39c12';
       statusText.textContent = 'Pesanan diproses (konfirmasi via WhatsApp)';
     }
+  }
+
+  // ══════════════════════════════════════════════
+  // 📱 KIRIM KE WHATSAPP (Modal Konfirmasi)
+  // ══════════════════════════════════════════════
+  // Tunggu 1.5 detik → tampilkan modal konfirmasi WA
+  setTimeout(() => {
+    showWhatsAppConfirmModal(orderId, name, savedToFirebase);
+  }, 1500);
+}
+
+
+// ============================================
+// 📱 MODAL KONFIRMASI KIRIM WA
+// ============================================
+function showWhatsAppConfirmModal(orderId, customerName, savedOK) {
+  // Ambil URL WA yang sudah di-set di generateInvoice()
+  const waUrl = document.getElementById('waConfirm').href;
+  
+  // Bikin modal (kalau belum ada, langsung inject)
+  let modal = document.getElementById('waConfirmModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'waConfirmModal';
+    modal.className = 'wa-modal-overlay';
+    modal.innerHTML = `
+      <div class="wa-modal-box">
+        <div class="wa-modal-icon">
+          <i class="fab fa-whatsapp"></i>
+        </div>
+        <h3 class="wa-modal-title">Order Berhasil Dibuat! 🎉</h3>
+        <p class="wa-modal-desc">
+          Untuk mempercepat proses, kirim konfirmasi order ke Admin via WhatsApp.
+          <br><br>
+          <strong>Pesan sudah kami siapkan otomatis</strong> — kamu tinggal klik <b>Send</b> di WhatsApp!
+        </p>
+        <div class="wa-modal-order-id" id="waModalOrderId">-</div>
+        <div class="wa-modal-actions">
+          <button class="wa-modal-btn wa-btn-later" onclick="closeWaModal()">
+            <i class="fas fa-clock"></i> Nanti Saja
+          </button>
+          <button class="wa-modal-btn wa-btn-send" onclick="sendToWhatsApp()">
+            <i class="fab fa-whatsapp"></i> Kirim Sekarang
+          </button>
+        </div>
+        <p class="wa-modal-note">
+          <i class="fas fa-info-circle"></i>
+          Admin akan merespons dalam 1×24 jam
+        </p>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+
+  // Update order ID di modal
+  document.getElementById('waModalOrderId').textContent = orderId;
+
+  // Show modal
+  requestAnimationFrame(() => modal.classList.add('show'));
+  document.body.style.overflow = 'hidden';
+}
+
+// Kirim ke WA (buka tab baru)
+function sendToWhatsApp() {
+  const waUrl = document.getElementById('waConfirm').href;
+  window.open(waUrl, '_blank');
+  closeWaModal();
+  showToast('WhatsApp dibuka di tab baru 📱');
+}
+
+// Tutup modal
+function closeWaModal() {
+  const modal = document.getElementById('waConfirmModal');
+  if (modal) {
+    modal.classList.remove('show');
+    setTimeout(() => {
+      document.body.style.overflow = '';
+    }, 300);
   }
 }
 
