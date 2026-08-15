@@ -44,7 +44,7 @@ body{
 }
 
 
-/* ==================== DASHBOARD HEADER (SAMA DENGAN dashboard-slip.html) ==================== */
+/* ==================== DASHBOARD HEADER ==================== */
 .dashboard-header{
     background:linear-gradient(135deg,#0F1E33 0%,#050B18 100%);
     padding:32px 20px 40px;
@@ -174,7 +174,7 @@ body{
 }
 
 
-/* ==================== PAGE TITLE SECTION (SAMA DENGAN dashboard-slip.html) ==================== */
+/* ==================== PAGE TITLE SECTION ==================== */
 .page-title-section{
     max-width:1200px;
     margin:0 auto;
@@ -613,7 +613,7 @@ body{
 }
 
 
-/* ==================== BOTTOM NAVBAR (SAMA DENGAN dashboard-slip.html) ==================== */
+/* ==================== BOTTOM NAVBAR ==================== */
 .bottom-nav{
     position:fixed;
     bottom:16px;
@@ -702,6 +702,23 @@ body{
     line-height:1.6 !important;
 }
 
+.swal-premium .swal2-input,
+.swal-premium .swal2-textarea,
+.swal-premium .swal2-select{
+    background:#0D1829 !important;
+    border:1.5px solid rgba(212,165,54,0.2) !important;
+    color:#fff !important;
+    border-radius:10px !important;
+    font-family:'Poppins',sans-serif !important;
+}
+
+.swal-premium .swal2-input:focus,
+.swal-premium .swal2-textarea:focus,
+.swal-premium .swal2-select:focus{
+    border-color:#d4a536 !important;
+    box-shadow:0 0 0 3px rgba(212,165,54,0.1) !important;
+}
+
 .swal-premium .swal2-icon{
     border-color:#d4a536 !important;
     color:#d4a536 !important;
@@ -774,6 +791,12 @@ body{
     transform:rotate(90deg) !important;
 }
 
+.swal-premium .swal2-validation-message{
+    background:rgba(231,76,60,0.1) !important;
+    color:#ff6b5b !important;
+    border-radius:8px !important;
+}
+
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width:768px){
@@ -824,7 +847,7 @@ body{
 </head>
 <body>
 
-<!-- Dashboard Header (SAMA DENGAN dashboard-slip.html) -->
+<!-- Dashboard Header -->
 <header class="dashboard-header">
     <div class="header-container">
         <div class="header-brand">
@@ -850,7 +873,7 @@ body{
 </header>
 
 
-<!-- Page Title (SAMA DENGAN dashboard-slip.html) -->
+<!-- Page Title -->
 <section class="page-title-section">
     <div class="page-title-content">
         <h2><i class="fas fa-handshake"></i> Kelola Reseller</h2>
@@ -926,7 +949,8 @@ body{
     
 </main>
 
-<!-- Bottom Nav (SAMA DENGAN dashboard-slip.html) -->
+
+<!-- Bottom Nav -->
 <nav class="bottom-nav">
     <a href="dashboard.html" class="nav-item">
         <i class="fas fa-th-large"></i>
@@ -951,7 +975,7 @@ body{
 </nav>
 
 
-<!-- Firebase -->
+<!-- ==================== FIREBASE MODULE ==================== -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { 
@@ -976,130 +1000,34 @@ body{
     };
     
     document.dispatchEvent(new CustomEvent('firebaseReady'));
+    console.log('[FIREBASE] ✅ Ready');
 </script>
 
 
+<!-- ==================== SHARED DASHBOARD LOGIC ==================== -->
+<script src="dashboard.js"></script>
+
+
+<!-- ==================== PAGE-SPECIFIC LOGIC ==================== -->
 <script>
-// ====================================================
-// AUTH GUARD (SAMA DENGAN dashboard-slip.html)
-// ====================================================
-const CREDENTIALS = {
-    username: 'owner',
-    password: 'ibaadurrahmaan2024'
-};
+// ============================================================
+// 📋 RESELLER MANAGEMENT PAGE - Specific Logic
+// ============================================================
 
-function simpleHash(str) {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-        const char = str.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash;
-    }
-    return hash.toString(36) + str.length.toString(36);
-}
-
-function checkAuth() {
-    const session = localStorage.getItem('ibaad_session');
-    if (!session) {
-        window.location.href = 'dashboard-login.html';
-        return false;
-    }
-    try {
-        const data = JSON.parse(session);
-        if (Date.now() > data.expiry) {
-            localStorage.removeItem('ibaad_session');
-            Swal.fire({
-                icon: 'warning',
-                title: 'Sesi Berakhir',
-                text: 'Silakan login kembali untuk melanjutkan',
-                customClass: { popup: 'swal-premium' },
-                confirmButtonText: 'Login Ulang',
-                allowOutsideClick: false
-            }).then(() => {
-                window.location.href = 'dashboard-login.html';
-            });
-            return false;
-        }
-        const validToken = simpleHash(CREDENTIALS.username + CREDENTIALS.password);
-        if (data.token !== validToken) {
-            localStorage.removeItem('ibaad_session');
-            window.location.href = 'dashboard-login.html';
-            return false;
-        }
-        return data;
-    } catch(e) {
-        window.location.href = 'dashboard-login.html';
-        return false;
-    }
-}
-
-const session = checkAuth();
-
-
-// ====================================================
-// LOGOUT & COMING SOON (SAMA DENGAN dashboard-slip.html)
-// ====================================================
-function handleLogout() {
-    Swal.fire({
-        icon: 'question',
-        title: 'Keluar Dashboard?',
-        text: 'Kamu akan diarahkan ke halaman login',
-        showCancelButton: true,
-        confirmButtonText: '<i class="fas fa-sign-out-alt"></i> Ya, Keluar',
-        cancelButtonText: 'Batal',
-        customClass: { popup: 'swal-premium' },
-        reverseButtons: true,
-        focusCancel: true
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Sampai Jumpa! 👋',
-                text: 'Berhasil keluar dari dashboard',
-                customClass: { popup: 'swal-premium' },
-                timer: 1500,
-                showConfirmButton: false,
-                timerProgressBar: true
-            }).then(() => {
-                localStorage.removeItem('ibaad_session');
-                window.location.href = 'dashboard-login.html';
-            });
-        }
-    });
-}
-
-function showComingSoon(feature) {
-    Swal.fire({
-        icon: 'info',
-        title: '🚀 Coming Soon',
-        html: `Fitur <b style="color:#d4a536;">${feature}</b> sedang dalam pengembangan<br><br>
-               <div style="background:rgba(212,165,54,0.1);border:1px solid rgba(212,165,54,0.2);padding:12px 16px;border-radius:10px;font-size:0.85rem;">
-                   📅 <b>Target rilis:</b> Phase 2<br>
-                   🎯 <b>Fitur:</b> Full CRUD + Analytics
-               </div>`,
-        customClass: { popup: 'swal-premium' },
-        confirmButtonText: 'Oke, Mengerti'
-    });
-}
-
-
-// ====================================================
-// RESELLER MANAGEMENT
-// ====================================================
 let allResellers = [];
 let filteredResellers = [];
 let currentFilter = 'all';
 let searchQuery = '';
 
 
-// Load Data
+// ============================================================
+// 🔄 LOAD RESELLERS (Full List)
+// ============================================================
 async function loadResellers() {
     try {
-        let attempts = 0;
-        while ((!window.firebase || !window.firebase.ready) && attempts < 20) {
-            await new Promise(r => setTimeout(r, 200));
-            attempts++;
-        }
+        await waitForFirebase();
+        
+        console.log('[RESELLER PAGE] Loading resellers...');
         
         const { db, collection, getDocs } = window.firebase;
         const snapshot = await getDocs(collection(db, 'resellers'));
@@ -1109,6 +1037,7 @@ async function loadResellers() {
             allResellers.push({ id: docSnap.id, ...docSnap.data() });
         });
         
+        // Sort by timestamp DESC (terbaru dulu)
         allResellers.sort((a, b) => {
             const t1 = a.timestamp?.toDate?.().getTime() || 0;
             const t2 = b.timestamp?.toDate?.().getTime() || 0;
@@ -1118,19 +1047,34 @@ async function loadResellers() {
         updateCounts();
         applyFilters();
         
+        console.log('[RESELLER PAGE] ✅ Loaded:', allResellers.length, 'resellers');
+        
     } catch (error) {
-        console.error('Load error:', error);
+        console.error('[RESELLER PAGE] ❌ Error:', error);
+        
+        let errorMsg = error.message;
+        let solution = 'Coba refresh halaman';
+        
+        if (error.code === 'permission-denied' || error.message.includes('permission')) {
+            errorMsg = 'Akses ditolak oleh Firestore Rules';
+            solution = 'Update Firestore Rules → allow read: if true;';
+        }
+        
         document.getElementById('resellerGrid').innerHTML = `
             <div class="empty-state">
                 <i class="fas fa-exclamation-triangle" style="color:#e74c3c;"></i>
                 <h3>Gagal Memuat Data</h3>
-                <p>${error.message}</p>
+                <p><strong style="color:#e74c3c;">${errorMsg}</strong><br><br>
+                <small style="color:#f39c12;">💡 ${solution}</small></p>
             </div>
         `;
     }
 }
 
 
+// ============================================================
+// 🔢 UPDATE COUNTS (Filter Tabs)
+// ============================================================
 function updateCounts() {
     document.getElementById('countAll').textContent = allResellers.length;
     document.getElementById('countPending').textContent = allResellers.filter(r => r.status === 'pending').length;
@@ -1141,6 +1085,9 @@ function updateCounts() {
 }
 
 
+// ============================================================
+// 🔍 APPLY FILTERS (Search + Status Tab)
+// ============================================================
 function applyFilters() {
     let result = currentFilter === 'all' 
         ? [...allResellers] 
@@ -1162,6 +1109,9 @@ function applyFilters() {
 }
 
 
+// ============================================================
+// 🎨 RENDER RESELLER CARDS
+// ============================================================
 function renderResellers(resellers) {
     const grid = document.getElementById('resellerGrid');
     
@@ -1187,6 +1137,7 @@ function renderResellers(resellers) {
             dateStr = date.toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
         }
         
+        // Escape data untuk onclick
         const dataStr = JSON.stringify({
             id: data.id,
             nama: data.nama || 'Tanpa Nama',
@@ -1194,28 +1145,52 @@ function renderResellers(resellers) {
             resellerCode: data.resellerCode || '-'
         }).replace(/"/g, '&quot;');
         
+        // Buttons berdasarkan status
         let buttons = '';
         if (status === 'pending') {
             buttons = `
-                <button class="card-btn approve" onclick='handleApprove(${dataStr})'><i class="fas fa-check"></i>Approve</button>
-                <button class="card-btn edit" onclick='handleEdit(${dataStr})'><i class="fas fa-edit"></i>Edit</button>
-                <button class="card-btn reject" onclick='handleReject(${dataStr})'><i class="fas fa-times"></i>Reject</button>
+                <button class="card-btn approve" onclick='handleApprove(${dataStr})'>
+                    <i class="fas fa-check"></i>Approve
+                </button>
+                <button class="card-btn edit" onclick='handleEdit(${dataStr})'>
+                    <i class="fas fa-edit"></i>Edit
+                </button>
+                <button class="card-btn reject" onclick='handleReject(${dataStr})'>
+                    <i class="fas fa-times"></i>Reject
+                </button>
             `;
         } else if (status === 'active') {
             buttons = `
-                <button class="card-btn detail" onclick='handleDetail(${dataStr})'><i class="fas fa-eye"></i>Detail</button>
-                <button class="card-btn edit" onclick='handleEdit(${dataStr})'><i class="fas fa-edit"></i>Edit</button>
-                <button class="card-btn deactivate" onclick='handleDeactivate(${dataStr})'><i class="fas fa-user-slash"></i>Non-Aktif</button>
+                <button class="card-btn detail" onclick='handleDetail(${dataStr})'>
+                    <i class="fas fa-eye"></i>Detail
+                </button>
+                <button class="card-btn edit" onclick='handleEdit(${dataStr})'>
+                    <i class="fas fa-edit"></i>Edit
+                </button>
+                <button class="card-btn deactivate" onclick='handleDeactivate(${dataStr})'>
+                    <i class="fas fa-user-slash"></i>Non-Aktif
+                </button>
             `;
         } else if (status === 'inactive') {
             buttons = `
-                <button class="card-btn reactivate" onclick='handleReactivate(${dataStr})'><i class="fas fa-user-check"></i>Aktifkan</button>
-                <button class="card-btn edit" onclick='handleEdit(${dataStr})'><i class="fas fa-edit"></i>Edit</button>
-                <button class="card-btn delete" onclick='handleDelete(${dataStr})'><i class="fas fa-trash-alt"></i>Hapus</button>
+                <button class="card-btn reactivate" onclick='handleReactivate(${dataStr})'>
+                    <i class="fas fa-user-check"></i>Aktifkan
+                </button>
+                <button class="card-btn edit" onclick='handleEdit(${dataStr})'>
+                    <i class="fas fa-edit"></i>Edit
+                </button>
+                <button class="card-btn delete" onclick='handleDelete(${dataStr})'>
+                    <i class="fas fa-trash-alt"></i>Hapus
+                </button>
             `;
         } else if (status === 'rejected') {
             buttons = `
-                <button class="card-btn delete" onclick='handleDelete(${dataStr})'><i class="fas fa-trash-alt"></i>Hapus Permanen</button>
+                <button class="card-btn detail" onclick='handleDetail(${dataStr})'>
+                    <i class="fas fa-eye"></i>Detail
+                </button>
+                <button class="card-btn delete" onclick='handleDelete(${dataStr})'>
+                    <i class="fas fa-trash-alt"></i>Hapus Permanen
+                </button>
             `;
         }
         
@@ -1258,12 +1233,15 @@ function renderResellers(resellers) {
 }
 
 
-// Search
+// ============================================================
+// 🔍 SEARCH INPUT HANDLER
+// ============================================================
 document.getElementById('searchInput').addEventListener('input', (e) => {
     searchQuery = e.target.value.trim();
     document.getElementById('searchClear').classList.toggle('show', searchQuery.length > 0);
     applyFilters();
 });
+
 
 function clearSearch() {
     document.getElementById('searchInput').value = '';
@@ -1273,7 +1251,9 @@ function clearSearch() {
 }
 
 
-// Filter Tabs
+// ============================================================
+// 🎯 FILTER TABS HANDLER
+// ============================================================
 document.querySelectorAll('.filter-tab').forEach(tab => {
     tab.addEventListener('click', () => {
         document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
@@ -1284,37 +1264,20 @@ document.querySelectorAll('.filter-tab').forEach(tab => {
 });
 
 
-// ==== ACTIONS ====
-// Copy semua function berikut DARI dashboard.html:
-// - handleApprove()
-// - handleReject()
-// - handleDetail()
-// - handleEdit()
-// - handleDeactivate()
-// - handleReactivate()
-// - handleDelete()
-// - updateResellerStatus()
-// - deleteReseller()
-// PASTIKAN untuk mengganti panggilan loadResellerData() dengan loadResellers()
-
-
-// ====================================================
-// INIT
-// ====================================================
-window.addEventListener('load', () => {
-    // Set user info dari session
-    if (session) {
-        const username = session.username || 'Owner';
-        const displayName = username.charAt(0).toUpperCase() + username.slice(1);
-        document.getElementById('userName').textContent = displayName;
-        document.getElementById('userAvatar').textContent = displayName.charAt(0);
-    }
+// ============================================================
+// 🚀 AUTO LOAD
+// ============================================================
+document.addEventListener('firebaseReady', () => {
+    console.log('[RESELLER PAGE] Firebase ready → load data');
+    loadResellers();
 });
 
-// Auto load
-document.addEventListener('firebaseReady', loadResellers);
+// Fallback: kalau firebaseReady event kelewat
 setTimeout(() => {
-    if (window.firebase?.ready) loadResellers();
+    if (window.firebase?.ready && allResellers.length === 0) {
+        console.log('[RESELLER PAGE] Fallback load...');
+        loadResellers();
+    }
 }, 1500);
 </script>
 
