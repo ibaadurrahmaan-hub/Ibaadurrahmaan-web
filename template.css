@@ -905,3 +905,25 @@
     font-size:0.75rem;
   }
 }
+
+.nav-brand-text {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    text-decoration: none;
+}
+
+.nav-brand-logo {
+    height: 44px;
+    width: auto;
+    order: -1;  /* Logo di kiri */
+    filter: drop-shadow(0 4px 12px rgba(212, 165, 54, 0.25));
+    transition: all 0.3s;
+}
+
+.brand-text-wrap {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
