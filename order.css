@@ -3010,3 +3010,147 @@ body{background:var(--bg);}
     width: 100%;
   }
 }
+
+/* ==========================================
+   🎨 HEADER BRAND WITH LOGO
+   ========================================== */
+.order-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.order-brand:hover {
+  transform: translateY(-2px);
+}
+
+/* Logo Circle */
+.brand-logo-wrap {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #fff;
+  padding: 3px;
+  box-shadow: 
+    0 4px 15px rgba(212, 165, 54, 0.3),
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid #d4a536;
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.order-brand:hover .brand-logo-wrap {
+  box-shadow: 
+    0 6px 20px rgba(212, 165, 54, 0.5),
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: rotate(-5deg);
+}
+
+.brand-logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  display: block;
+}
+
+/* Fallback jika logo gagal load */
+.brand-logo-fallback {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #d4a536, #c19a2e);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 1.3rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Text Wrap */
+.brand-text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand-name-nav {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  background: linear-gradient(135deg, #d4a536, #e8bd52);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.brand-sub-nav {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .brand-logo-wrap {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .brand-name-nav {
+    font-size: 0.95rem;
+  }
+  
+  .brand-sub-nav {
+    font-size: 0.62rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-brand {
+    gap: 8px;
+  }
+  
+  .brand-logo-wrap {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .brand-name-nav {
+    font-size: 0.88rem;
+  }
+  
+  .brand-text-wrap {
+    display: none; /* Hide text di HP kecil, cuma tampil logo */
+  }
+  
+  /* Kalau mau tetap tampil, comment display:none di atas */
+}
+
+/* Alternative: kalau mau tetap tampil text di HP super kecil,
+   ganti @media (max-width: 480px) di atas dengan ini: */
+/*
+@media (max-width: 480px) {
+  .brand-sub-nav {
+    display: none;
+  }
+  .brand-name-nav {
+    font-size: 0.85rem;
+  }
+}
+*/
