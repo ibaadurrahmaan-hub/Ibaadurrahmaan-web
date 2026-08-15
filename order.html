@@ -26,7 +26,7 @@
 <meta name="distribution" content="global">
 
 <!-- ============================================
-     GEO LOCATION (Indonesia)
+     GEO LOCATION
      ============================================ -->
 <meta name="geo.region" content="ID">
 <meta name="geo.country" content="Indonesia">
@@ -39,7 +39,7 @@
 <link rel="canonical" href="https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/order.html">
 
 <!-- ============================================
-     OPEN GRAPH (Facebook, LinkedIn, WhatsApp)
+     OPEN GRAPH
      ============================================ -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ibaadurrahmaan Web Designer">
@@ -85,14 +85,14 @@
 <meta name="format-detection" content="telephone=yes">
 
 <!-- ============================================
-     SECURITY HEADERS
+     SECURITY
      ============================================ -->
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 
 <!-- ============================================
-     PRECONNECT & DNS PREFETCH (Performance)
+     PRECONNECT
      ============================================ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -108,7 +108,7 @@
 <link rel="stylesheet" href="order.css">
 
 <!-- ============================================
-     SCHEMA.ORG - WEB PAGE
+     SCHEMA.ORG
      ============================================ -->
 <script type="application/ld+json">
 {
@@ -125,18 +125,8 @@
   "breadcrumb": {
     "@type": "BreadcrumbList",
     "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Beranda",
-        "item": "https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Order Website",
-        "item": "https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/order.html"
-      }
+      { "@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/" },
+      { "@type": "ListItem", "position": 2, "name": "Order Website", "item": "https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/order.html" }
     ]
   }
 }
@@ -181,6 +171,7 @@
     </div>
   </div>
 </header>
+
 
 <!-- ==================== MAIN CONTENT ==================== -->
 <main class="order-main">
@@ -302,7 +293,6 @@
             </div>
             <div class="addon-price">+Rp 150K</div>
           </label>
-          
           <label class="addon-card">
             <input type="checkbox" data-addon="hosting" data-price="500000" data-name="Hosting Premium (1 tahun)">
             <div class="addon-check"><i class="fas fa-check"></i></div>
@@ -313,7 +303,6 @@
             </div>
             <div class="addon-price">+Rp 500K</div>
           </label>
-          
           <label class="addon-card">
             <input type="checkbox" data-addon="ssl" data-price="0" data-name="SSL Certificate">
             <div class="addon-check"><i class="fas fa-check"></i></div>
@@ -324,7 +313,6 @@
             </div>
             <div class="addon-price free">FREE</div>
           </label>
-          
           <label class="addon-card">
             <input type="checkbox" data-addon="seo" data-price="750000" data-name="SEO Optimization Advanced">
             <div class="addon-check"><i class="fas fa-check"></i></div>
@@ -335,7 +323,6 @@
             </div>
             <div class="addon-price">+Rp 750K</div>
           </label>
-          
           <label class="addon-card">
             <input type="checkbox" data-addon="maintenance" data-price="500000" data-name="Maintenance (3 bulan)">
             <div class="addon-check"><i class="fas fa-check"></i></div>
@@ -346,7 +333,6 @@
             </div>
             <div class="addon-price">+Rp 500K</div>
           </label>
-          
           <label class="addon-card">
             <input type="checkbox" data-addon="wa" data-price="350000" data-name="WhatsApp Integration Bot">
             <div class="addon-check"><i class="fas fa-check"></i></div>
@@ -370,6 +356,7 @@
         </button>
       </div>
     </section>
+
 
     <!-- ============ STEP 2: DATA CUSTOMER ============ -->
     <section class="order-step hidden" id="step2">
@@ -425,36 +412,16 @@
                     <i class="fas fa-chevron-down cs-arrow"></i>
                   </button>
                   <div class="cs-menu">
-                    <div class="cs-option" data-value="UMKM / Toko Online" onclick="selectOption(this)">
-                      <i class="fas fa-store"></i> UMKM / Toko Online
-                    </div>
-                    <div class="cs-option" data-value="Restoran / Cafe / F&B" onclick="selectOption(this)">
-                      <i class="fas fa-utensils"></i> Restoran / Cafe / F&B
-                    </div>
-                    <div class="cs-option" data-value="Salon / Beauty / Spa" onclick="selectOption(this)">
-                      <i class="fas fa-spa"></i> Salon / Beauty / Spa
-                    </div>
-                    <div class="cs-option" data-value="Klinik / Kesehatan" onclick="selectOption(this)">
-                      <i class="fas fa-heartbeat"></i> Klinik / Kesehatan
-                    </div>
-                    <div class="cs-option" data-value="Sekolah / Pendidikan" onclick="selectOption(this)">
-                      <i class="fas fa-graduation-cap"></i> Sekolah / Pendidikan
-                    </div>
-                    <div class="cs-option" data-value="Property / Real Estate" onclick="selectOption(this)">
-                      <i class="fas fa-home"></i> Property / Real Estate
-                    </div>
-                    <div class="cs-option" data-value="Konsultan / Jasa Profesional" onclick="selectOption(this)">
-                      <i class="fas fa-briefcase"></i> Konsultan / Jasa Profesional
-                    </div>
-                    <div class="cs-option" data-value="Corporate / Perusahaan" onclick="selectOption(this)">
-                      <i class="fas fa-building"></i> Corporate / Perusahaan
-                    </div>
-                    <div class="cs-option" data-value="Event Organizer" onclick="selectOption(this)">
-                      <i class="fas fa-calendar-alt"></i> Event Organizer
-                    </div>
-                    <div class="cs-option" data-value="Lainnya" onclick="selectOption(this)">
-                      <i class="fas fa-ellipsis-h"></i> Lainnya
-                    </div>
+                    <div class="cs-option" data-value="UMKM / Toko Online" onclick="selectOption(this)"><i class="fas fa-store"></i> UMKM / Toko Online</div>
+                    <div class="cs-option" data-value="Restoran / Cafe / F&B" onclick="selectOption(this)"><i class="fas fa-utensils"></i> Restoran / Cafe / F&B</div>
+                    <div class="cs-option" data-value="Salon / Beauty / Spa" onclick="selectOption(this)"><i class="fas fa-spa"></i> Salon / Beauty / Spa</div>
+                    <div class="cs-option" data-value="Klinik / Kesehatan" onclick="selectOption(this)"><i class="fas fa-heartbeat"></i> Klinik / Kesehatan</div>
+                    <div class="cs-option" data-value="Sekolah / Pendidikan" onclick="selectOption(this)"><i class="fas fa-graduation-cap"></i> Sekolah / Pendidikan</div>
+                    <div class="cs-option" data-value="Property / Real Estate" onclick="selectOption(this)"><i class="fas fa-home"></i> Property / Real Estate</div>
+                    <div class="cs-option" data-value="Konsultan / Jasa Profesional" onclick="selectOption(this)"><i class="fas fa-briefcase"></i> Konsultan / Jasa Profesional</div>
+                    <div class="cs-option" data-value="Corporate / Perusahaan" onclick="selectOption(this)"><i class="fas fa-building"></i> Corporate / Perusahaan</div>
+                    <div class="cs-option" data-value="Event Organizer" onclick="selectOption(this)"><i class="fas fa-calendar-alt"></i> Event Organizer</div>
+                    <div class="cs-option" data-value="Lainnya" onclick="selectOption(this)"><i class="fas fa-ellipsis-h"></i> Lainnya</div>
                   </div>
                   <input type="hidden" id="businessType" required>
                 </div>
@@ -467,15 +434,9 @@
                     <i class="fas fa-chevron-down cs-arrow"></i>
                   </button>
                   <div class="cs-menu">
-                    <div class="cs-option" data-value="Belum, ini pertama kali" onclick="selectOption(this)">
-                      <i class="fas fa-star"></i> Belum, ini pertama kali
-                    </div>
-                    <div class="cs-option" data-value="Sudah, ingin redesign" onclick="selectOption(this)">
-                      <i class="fas fa-paint-brush"></i> Sudah, ingin redesign
-                    </div>
-                    <div class="cs-option" data-value="Sudah, ingin tambah fitur" onclick="selectOption(this)">
-                      <i class="fas fa-plus-circle"></i> Sudah, ingin tambah fitur
-                    </div>
+                    <div class="cs-option" data-value="Belum, ini pertama kali" onclick="selectOption(this)"><i class="fas fa-star"></i> Belum, ini pertama kali</div>
+                    <div class="cs-option" data-value="Sudah, ingin redesign" onclick="selectOption(this)"><i class="fas fa-paint-brush"></i> Sudah, ingin redesign</div>
+                    <div class="cs-option" data-value="Sudah, ingin tambah fitur" onclick="selectOption(this)"><i class="fas fa-plus-circle"></i> Sudah, ingin tambah fitur</div>
                   </div>
                   <input type="hidden" id="hasWebsite">
                 </div>
@@ -611,6 +572,7 @@
       </div>
     </section>
 
+
     <!-- ============ STEP 3: PAYMENT ============ -->
     <section class="order-step hidden" id="step3">
       <div class="order-grid">
@@ -711,7 +673,7 @@
             </div>
           </div>
 
-          <!-- Payment Detail (Bank Transfer) -->
+          <!-- Payment Detail -->
           <div class="section-card payment-detail" id="paymentDetail">
             <h3><i class="fas fa-info-circle"></i> Detail Pembayaran</h3>
             <div class="bank-options">
@@ -741,9 +703,7 @@
                 <span class="bd-label">Nomor Rekening</span>
                 <div class="bd-copy">
                   <span class="bd-value" id="bankAccount">1234567890</span>
-                  <button class="btn-copy" onclick="copyText('bankAccount')">
-                    <i class="fas fa-copy"></i> Salin
-                  </button>
+                  <button class="btn-copy" onclick="copyText('bankAccount')"><i class="fas fa-copy"></i> Salin</button>
                 </div>
               </div>
               <div class="bd-item">
@@ -754,9 +714,7 @@
                 <span class="bd-label">Jumlah Transfer</span>
                 <div class="bd-copy">
                   <span class="bd-value bd-amount" id="payAmount">Rp 0</span>
-                  <button class="btn-copy" onclick="copyText('payAmount')">
-                    <i class="fas fa-copy"></i> Salin
-                  </button>
+                  <button class="btn-copy" onclick="copyText('payAmount')"><i class="fas fa-copy"></i> Salin</button>
                 </div>
               </div>
             </div>
@@ -794,7 +752,7 @@
           </div>
         </div>
 
-        <!-- Summary Sidebar -->
+        <!-- Summary Sidebar Step 3 -->
         <div class="order-right">
           <div class="summary-card sticky">
             <h3><i class="fas fa-receipt"></i> Ringkasan Order</h3>
@@ -835,7 +793,8 @@
       </div>
     </section>
 
-    <!-- ============ STEP 4: ORDER COMPLETE / INVOICE ============ -->
+
+    <!-- ============ STEP 4: SUCCESS / INVOICE ============ -->
     <section class="order-step hidden" id="step4">
       <div class="success-section">
         <div class="success-icon">
@@ -850,13 +809,17 @@
         <h1 class="success-title">Pesanan Berhasil Dibuat!</h1>
         <p class="success-desc">Terima kasih atas kepercayaan Anda. Silakan lakukan pembayaran & konfirmasi via WhatsApp untuk mempercepat proses.</p>
 
+        <!-- Firebase Status Badge -->
+        <div class="firebase-status" id="firebaseStatus" style="display:none">
+          <i class="fas fa-database"></i>
+          <span id="firebaseStatusText">Data tersimpan di database</span>
+        </div>
+
         <!-- Invoice Card -->
         <div class="invoice-card" id="invoiceCard">
           <div class="invoice-header">
             <div class="inv-brand">
-              <div class="inv-logo">
-                <i class="fas fa-code"></i>
-              </div>
+              <div class="inv-logo"><i class="fas fa-code"></i></div>
               <div class="inv-brand-info">
                 <span class="inv-brand-name">Ibaadurrahmaan</span>
                 <span class="inv-brand-tag">WEB DESIGNER</span>
@@ -881,25 +844,12 @@
             </div>
             <div class="inv-info-col">
               <h4><i class="fas fa-file-invoice"></i> Detail Pesanan</h4>
-              <div class="inv-detail-row">
-                <span>Tanggal Order</span>
-                <span id="invDate">-</span>
-              </div>
-              <div class="inv-detail-row">
-                <span>Timeline</span>
-                <span id="invTimeline">-</span>
-              </div>
-              <div class="inv-detail-row">
-                <span>Estimasi Selesai</span>
-                <span id="invEstimate">-</span>
-              </div>
-              <div class="inv-detail-row">
-                <span>Metode Bayar</span>
-                <span id="invPayment">-</span>
-              </div>
+              <div class="inv-detail-row"><span>Tanggal Order</span><span id="invDate">-</span></div>
+              <div class="inv-detail-row"><span>Timeline</span><span id="invTimeline">-</span></div>
+              <div class="inv-detail-row"><span>Estimasi Selesai</span><span id="invEstimate">-</span></div>
+              <div class="inv-detail-row"><span>Metode Bayar</span><span id="invPayment">-</span></div>
               <div class="inv-detail-row" id="invResellerRow" style="display:none">
-                <span>Kode Reseller</span>
-                <span id="invReseller">-</span>
+                <span>Kode Reseller</span><span id="invReseller">-</span>
               </div>
             </div>
           </div>
@@ -918,33 +868,22 @@
           </div>
 
           <div class="invoice-totals">
-            <div class="inv-total-row">
-              <span>Subtotal</span>
-              <span id="invSubtotal">Rp 0</span>
-            </div>
+            <div class="inv-total-row"><span>Subtotal</span><span id="invSubtotal">Rp 0</span></div>
             <div class="inv-total-row" id="invDeadlineRow" style="display:none">
-              <span>Fast Delivery</span>
-              <span id="invDeadlineFee">Rp 0</span>
+              <span>Fast Delivery</span><span id="invDeadlineFee">Rp 0</span>
             </div>
             <div class="inv-total-row" id="invDiscountRow" style="display:none">
-              <span>Diskon Voucher</span>
-              <span class="discount" id="invDiscount">-Rp 0</span>
+              <span>Diskon Voucher</span><span class="discount" id="invDiscount">-Rp 0</span>
             </div>
             <div class="inv-total-row" id="invFullpayRow" style="display:none">
-              <span>Diskon Bayar Lunas</span>
-              <span class="discount" id="invFullpay">-Rp 0</span>
+              <span>Diskon Bayar Lunas</span><span class="discount" id="invFullpay">-Rp 0</span>
             </div>
-            <div class="inv-total-row grand-total">
-              <span>TOTAL</span>
-              <span id="invTotal">Rp 0</span>
-            </div>
+            <div class="inv-total-row grand-total"><span>TOTAL</span><span id="invTotal">Rp 0</span></div>
             <div class="inv-total-row payment-now-row">
-              <span><b>Bayar Sekarang</b></span>
-              <span class="inv-paynow" id="invPayNow">Rp 0</span>
+              <span><b>Bayar Sekarang</b></span><span class="inv-paynow" id="invPayNow">Rp 0</span>
             </div>
             <div class="inv-total-row" id="invRemainingRow" style="display:none">
-              <span>Sisa Pelunasan</span>
-              <span id="invRemaining">Rp 0</span>
+              <span>Sisa Pelunasan</span><span id="invRemaining">Rp 0</span>
             </div>
           </div>
 
@@ -954,18 +893,9 @@
               <h4>Instruksi Pembayaran</h4>
             </div>
             <div class="ipb-grid">
-              <div class="ipb-item">
-                <span class="ipb-label">Bank</span>
-                <span class="ipb-value" id="invBankName">BCA</span>
-              </div>
-              <div class="ipb-item">
-                <span class="ipb-label">No. Rekening</span>
-                <span class="ipb-value" id="invBankAcc">1234567890</span>
-              </div>
-              <div class="ipb-item">
-                <span class="ipb-label">Atas Nama</span>
-                <span class="ipb-value" id="invBankHolder">a.n. Ibaadurrahmaan</span>
-              </div>
+              <div class="ipb-item"><span class="ipb-label">Bank</span><span class="ipb-value" id="invBankName">BCA</span></div>
+              <div class="ipb-item"><span class="ipb-label">No. Rekening</span><span class="ipb-value" id="invBankAcc">1234567890</span></div>
+              <div class="ipb-item"><span class="ipb-label">Atas Nama</span><span class="ipb-value" id="invBankHolder">a.n. Ibaadurrahmaan</span></div>
               <div class="ipb-item highlight">
                 <span class="ipb-label">Jumlah Transfer</span>
                 <span class="ipb-value ipb-amount" id="invPayTotal">Rp 0</span>
@@ -1011,7 +941,7 @@
           </a>
         </div>
 
-        <!-- Order Timeline -->
+        <!-- Order Tracking -->
         <div class="tracking-card">
           <h3><i class="fas fa-tasks"></i> Progress Pesanan Anda</h3>
           <div class="tracking-timeline">
@@ -1077,6 +1007,7 @@
   </div>
 </main>
 
+
 <!-- Toast -->
 <div class="toast" id="toast">
   <i class="fas fa-check-circle"></i>
@@ -1087,40 +1018,74 @@
 <div class="processing-overlay" id="processingOverlay">
   <div class="processing-content">
     <div class="processing-spinner"></div>
-    <h3>Memproses Pesanan...</h3>
-    <p>Mohon tunggu sebentar</p>
+    <h3 id="processingTitle">Memproses Pesanan...</h3>
+    <p id="processingDesc">Mohon tunggu sebentar</p>
   </div>
 </div>
 
+
+<!-- ==========================================
+     🔥 FIREBASE SDK
+     ========================================== -->
+<script type="module">
+import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp }
+    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey:            "AIzaSyCYRygFt6uwCUiL_6-eoJHhUdkiumSwLzY",
+    authDomain:        "ibaadurrahmaan-web.firebaseapp.com",
+    projectId:         "ibaadurrahmaan-web",
+    storageBucket:     "ibaadurrahmaan-web.firebasestorage.app",
+    messagingSenderId: "1066409450927",
+    appId:             "1:1066409450927:web:3497135ea3a2c4ef77e35a",
+    measurementId:     "G-ZJP1W4P2P8"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+
+window.fbOrder = { db, collection, addDoc, serverTimestamp, ready: true };
+console.log('🔥 Firebase Order ready!');
+document.dispatchEvent(new CustomEvent('fbOrderReady'));
+</script>
+
+
+<!-- ==========================================
+     MAIN SCRIPT
+     ========================================== -->
 <script>
 // ============================================
 // STATE
 // ============================================
-let selectedPkg = null;
-let selectedAddons = [];
-let couponDiscount = 0;
-let couponCode = '';
-let deadlineFee = 0;
+let selectedPkg      = null;
+let selectedAddons   = [];
+let couponDiscount   = 0;
+let couponCode       = '';
+let deadlineFee      = 0;
 let selectedDeadline = 'Standard (7-14 hari)';
-let paymentType = 'full';
-let selectedBank = { name: 'BCA', account: '1234567890', holder: 'a.n. Ibaadurrahmaan' };
-let selectedPayment = 'Transfer Bank';
+let paymentType      = 'full';
+let selectedBank     = { name:'BCA', account:'1234567890', holder:'a.n. Ibaadurrahmaan' };
+let selectedPayment  = 'Transfer Bank';
 let verifiedReseller = null;
+let _currentOrderId  = null;   // ID yang sama antara Firebase & Invoice
+
 
 // ============================================
-// RESELLER DATABASE
+// RESELLER DATABASE (local verify)
 // ============================================
 const resellerDatabase = {
-  'RSL-AHMAD':   { name: 'Ahmad Fauzi',     tier: 'Gold Reseller',   since: '2025' },
-  'RSL-BUDI':    { name: 'Budi Santoso',     tier: 'Silver Reseller', since: '2025' },
-  'RSL-SARI':    { name: 'Sari Wulandari',   tier: 'Gold Reseller',   since: '2024' },
-  'RSL-DIAN':    { name: 'Dian Pratama',      tier: 'Silver Reseller', since: '2025' },
-  'RSL-RIZKY':   { name: 'Rizky Hidayat',    tier: 'Bronze Reseller', since: '2025' },
-  'RSL-NISA':    { name: 'Nisa Amelia',       tier: 'Gold Reseller',   since: '2024' },
-  'RSL-FIKRI':   { name: 'Fikri Rahman',      tier: 'Silver Reseller', since: '2025' },
-  'RSL-PUTRI':   { name: 'Putri Maharani',    tier: 'Bronze Reseller', since: '2025' },
-  'RESELLER123': { name: 'Demo Reseller',     tier: 'Demo',            since: '2025' },
+  'RSL-AHMAD':   { name:'Ahmad Fauzi',    tier:'Gold Reseller',   since:'2025' },
+  'RSL-BUDI':    { name:'Budi Santoso',   tier:'Silver Reseller', since:'2025' },
+  'RSL-SARI':    { name:'Sari Wulandari', tier:'Gold Reseller',   since:'2024' },
+  'RSL-DIAN':    { name:'Dian Pratama',   tier:'Silver Reseller', since:'2025' },
+  'RSL-RIZKY':   { name:'Rizky Hidayat', tier:'Bronze Reseller', since:'2025' },
+  'RSL-NISA':    { name:'Nisa Amelia',    tier:'Gold Reseller',   since:'2024' },
+  'RSL-FIKRI':   { name:'Fikri Rahman',   tier:'Silver Reseller', since:'2025' },
+  'RSL-PUTRI':   { name:'Putri Maharani', tier:'Bronze Reseller', since:'2025' },
+  'RESELLER123': { name:'Demo Reseller',  tier:'Demo',            since:'2025' },
 };
+
 
 // ============================================
 // CUSTOM DROPDOWN
@@ -1135,37 +1100,33 @@ function toggleDropdown(trigger) {
 }
 
 function selectOption(option) {
-  const select = option.closest('.custom-select');
-  const trigger = select.querySelector('.cs-trigger');
-  const valueEl = trigger.querySelector('.cs-value');
-  const hiddenInput = select.querySelector('input[type="hidden"]');
-  const value = option.dataset.value;
-  const label = option.textContent.trim();
+  const select     = option.closest('.custom-select');
+  const trigger    = select.querySelector('.cs-trigger');
+  const valueEl    = trigger.querySelector('.cs-value');
+  const hidden     = select.querySelector('input[type="hidden"]');
+  const value      = option.dataset.value;
+  const label      = option.textContent.trim();
 
   valueEl.textContent = label;
   valueEl.classList.add('has-value');
-  if (hiddenInput) hiddenInput.value = value;
+  if (hidden) hidden.value = value;
 
   select.querySelectorAll('.cs-option').forEach(o => o.classList.remove('selected'));
   option.classList.add('selected');
   select.classList.remove('open');
-
-  if (hiddenInput) {
-    hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
-  }
+  if (hidden) hidden.dispatchEvent(new Event('change', { bubbles: true }));
 }
 
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('.custom-select')) {
+document.addEventListener('click', e => {
+  if (!e.target.closest('.custom-select'))
     document.querySelectorAll('.custom-select.open').forEach(s => s.classList.remove('open'));
-  }
 });
 
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape')
     document.querySelectorAll('.custom-select.open').forEach(s => s.classList.remove('open'));
-  }
 });
+
 
 // ============================================
 // FORMAT HELPERS
@@ -1175,39 +1136,43 @@ function formatRp(n) {
 }
 
 function generateOrderId() {
-  const d = new Date();
+  const d    = new Date();
   const date = d.getFullYear().toString() +
-    String(d.getMonth() + 1).padStart(2, '0') +
-    String(d.getDate()).padStart(2, '0');
+               String(d.getMonth() + 1).padStart(2, '0') +
+               String(d.getDate()).padStart(2, '0');
   const rand = Math.floor(1000 + Math.random() * 9000);
   return 'INV-' + date + '-' + rand;
 }
+
 
 // ============================================
 // CALCULATIONS
 // ============================================
 function calculate() {
-  const pkgPrice = selectedPkg ? parseInt(selectedPkg.dataset.price) : 0;
-  const addonsPrice = selectedAddons.reduce((s, a) => s + parseInt(a.dataset.price), 0);
-  const subtotal = pkgPrice + addonsPrice;
-  const withDeadline = subtotal + deadlineFee;
-  const couponAmt = couponDiscount > 0 ? Math.round(withDeadline * couponDiscount / 100) : 0;
-  const afterCoupon = withDeadline - couponAmt;
+  const pkgPrice   = selectedPkg ? parseInt(selectedPkg.dataset.price) : 0;
+  const addonsTotal = selectedAddons.reduce((s, a) => s + parseInt(a.dataset.price), 0);
+  const subtotal    = pkgPrice + addonsTotal;
+  const withDl      = subtotal + deadlineFee;
+  const couponAmt   = couponDiscount > 0 ? Math.round(withDl * couponDiscount / 100) : 0;
+  const afterCoupon = withDl - couponAmt;
   const fullpayDisc = paymentType === 'full' ? Math.round(afterCoupon * 0.05) : 0;
-  const total = afterCoupon - fullpayDisc;
-  const payNow = paymentType === 'full' ? total : Math.round(total * 0.5);
-  const remaining = paymentType === 'dp' ? total - payNow : 0;
-  return { pkgPrice, addonsPrice, subtotal, couponAmt, fullpayDisc, total, payNow, remaining };
+  const total       = afterCoupon - fullpayDisc;
+  const payNow      = paymentType === 'full' ? total : Math.round(total * 0.5);
+  const remaining   = paymentType === 'dp'   ? total - payNow : 0;
+  return { pkgPrice, addonsPrice: addonsTotal, subtotal, couponAmt, fullpayDisc, total, payNow, remaining };
 }
+
 
 // ============================================
 // RENDER SUMMARY
 // ============================================
 function renderSummary() {
   const c = calculate();
+
   for (let i = 2; i <= 3; i++) {
-    const pkgEl = document.getElementById('summaryPackage' + i);
+    const pkgEl   = document.getElementById('summaryPackage' + i);
     const addonEl = document.getElementById('summaryAddons' + i);
+
     if (pkgEl && selectedPkg) {
       pkgEl.innerHTML = `
         <div class="si-package">
@@ -1215,14 +1180,16 @@ function renderSummary() {
           <div class="si-pkg-price">${formatRp(c.pkgPrice)}</div>
         </div>`;
     }
+
     if (addonEl) {
       let html = '';
       if (selectedAddons.length > 0) {
-        html += '<div class="si-addons-title">Add-ons:</div>' + selectedAddons.map(a => `
-          <div class="si-addon">
-            <span>+ ${a.dataset.name}</span>
-            <span>${parseInt(a.dataset.price) > 0 ? formatRp(parseInt(a.dataset.price)) : 'FREE'}</span>
-          </div>`).join('');
+        html += '<div class="si-addons-title">Add-ons:</div>' +
+          selectedAddons.map(a => `
+            <div class="si-addon">
+              <span>+ ${a.dataset.name}</span>
+              <span>${parseInt(a.dataset.price) > 0 ? formatRp(parseInt(a.dataset.price)) : 'FREE'}</span>
+            </div>`).join('');
       }
       if (verifiedReseller) {
         html += `
@@ -1233,33 +1200,40 @@ function renderSummary() {
       }
       addonEl.innerHTML = html;
     }
+
     const el = id => document.getElementById(id + i);
-    if (el('subtotal')) el('subtotal').textContent = formatRp(c.subtotal);
-    if (el('total')) el('total').textContent = formatRp(c.total);
+    if (el('subtotal'))    el('subtotal').textContent    = formatRp(c.subtotal);
+    if (el('total'))       el('total').textContent       = formatRp(c.total);
     if (el('deadlineFee')) el('deadlineFee').textContent = formatRp(deadlineFee);
     if (el('discountAmt')) el('discountAmt').textContent = '-' + formatRp(c.couponAmt);
+
     const dlr = document.getElementById('deadlineRow' + i);
     if (dlr) dlr.style.display = deadlineFee > 0 ? 'flex' : 'none';
     const dcr = document.getElementById('discountRow' + i);
     if (dcr) dcr.style.display = c.couponAmt > 0 ? 'flex' : 'none';
   }
+
   const fpr = document.getElementById('fullpayRow');
   const fpd = document.getElementById('fullpayDisc');
   if (fpr && fpd) {
     fpr.style.display = c.fullpayDisc > 0 ? 'flex' : 'none';
-    fpd.textContent = '-' + formatRp(c.fullpayDisc);
+    fpd.textContent   = '-' + formatRp(c.fullpayDisc);
   }
+
   const pna = document.getElementById('payNowAmt');
   if (pna) pna.textContent = formatRp(c.payNow);
+
   const rr = document.getElementById('remainingRow');
   const ra = document.getElementById('remainingAmt');
   if (rr && ra) {
     rr.style.display = c.remaining > 0 ? 'flex' : 'none';
-    ra.textContent = formatRp(c.remaining);
+    ra.textContent   = formatRp(c.remaining);
   }
+
   const pa = document.getElementById('payAmount');
   if (pa) pa.textContent = formatRp(c.payNow);
 }
+
 
 // ============================================
 // PACKAGE SELECTION
@@ -1274,26 +1248,33 @@ function selectPackage(btn) {
   renderSummary();
 }
 
+
 // ============================================
 // ADDONS
 // ============================================
 document.querySelectorAll('.addon-card input').forEach(cb => {
   cb.addEventListener('change', () => {
     const card = cb.closest('.addon-card');
-    if (cb.checked) { card.classList.add('checked'); selectedAddons.push(cb); }
-    else { card.classList.remove('checked'); selectedAddons = selectedAddons.filter(a => a !== cb); }
+    if (cb.checked) {
+      card.classList.add('checked');
+      selectedAddons.push(cb);
+    } else {
+      card.classList.remove('checked');
+      selectedAddons = selectedAddons.filter(a => a !== cb);
+    }
     renderSummary();
   });
 });
+
 
 // ============================================
 // DEADLINE
 // ============================================
 document.querySelectorAll('input[name="deadline"]').forEach(r => {
   r.addEventListener('change', () => {
-    const fees = { standard: 0, fast: 500000, express: 1000000 };
-    const names = { standard: 'Standard (7-14 hari)', fast: 'Fast Track (3-5 hari)', express: 'Express (24-48 jam)' };
-    deadlineFee = fees[r.value] || 0;
+    const fees  = { standard:0, fast:500000, express:1000000 };
+    const names = { standard:'Standard (7-14 hari)', fast:'Fast Track (3-5 hari)', express:'Express (24-48 jam)' };
+    deadlineFee      = fees[r.value]  || 0;
     selectedDeadline = names[r.value] || 'Standard';
     document.querySelectorAll('.deadline-option').forEach(o => o.classList.remove('active'));
     r.closest('.deadline-option').classList.add('active');
@@ -1301,14 +1282,15 @@ document.querySelectorAll('input[name="deadline"]').forEach(r => {
   });
 });
 
+
 // ============================================
 // RESELLER VERIFICATION
 // ============================================
 function verifyReseller() {
-  const input = document.getElementById('resellerCode');
+  const input  = document.getElementById('resellerCode');
   const result = document.getElementById('resellerResult');
-  const btn = document.getElementById('verifyResellerBtn');
-  const code = input.value.trim().toUpperCase();
+  const btn    = document.getElementById('verifyResellerBtn');
+  const code   = input.value.trim().toUpperCase();
 
   if (!code) {
     result.innerHTML = `
@@ -1320,7 +1302,7 @@ function verifyReseller() {
   }
 
   btn.classList.add('loading');
-  btn.querySelector('i').className = 'fas fa-spinner';
+  btn.querySelector('i').className = 'fas fa-spinner fa-spin';
   btn.querySelector('span').textContent = 'Checking...';
 
   setTimeout(() => {
@@ -1329,10 +1311,10 @@ function verifyReseller() {
     btn.querySelector('span').textContent = 'Verifikasi';
 
     if (resellerDatabase[code]) {
-      const reseller = resellerDatabase[code];
-      verifiedReseller = { code: code, ...reseller };
-      input.value = code;
-      input.readOnly = true;
+      const reseller    = resellerDatabase[code];
+      verifiedReseller  = { code, ...reseller };
+      input.value       = code;
+      input.readOnly    = true;
       input.style.opacity = '0.7';
 
       result.innerHTML = `
@@ -1356,45 +1338,48 @@ function verifyReseller() {
           <span>Kode "<b>${code}</b>" tidak ditemukan. Periksa kembali atau <a href="reseller.html" target="_blank" style="color:#e74c3c;text-decoration:underline;">daftar jadi reseller</a>.</span>
         </div>`;
     }
-
     renderSummary();
   }, 1200);
 }
 
 function removeReseller() {
   verifiedReseller = null;
-  const input = document.getElementById('resellerCode');
-  input.value = '';
-  input.readOnly = false;
+  const input      = document.getElementById('resellerCode');
+  input.value      = '';
+  input.readOnly   = false;
   input.style.opacity = '1';
   document.getElementById('resellerResult').innerHTML = '';
   showToast('Kode reseller dihapus');
   renderSummary();
 }
 
+
 // ============================================
 // COUPON
 // ============================================
 function applyCoupon() {
-  const code = document.getElementById('couponInput').value.trim().toUpperCase();
+  const code   = document.getElementById('couponInput').value.trim().toUpperCase();
   const result = document.getElementById('couponResult');
   const coupons = {
-    'HEMAT10':   { discount: 10, label: 'Diskon 10%' },
-    'NEWCLIENT': { discount: 15, label: 'Diskon 15% untuk client baru' },
-    'RESELLER':  { discount: 20, label: 'Diskon reseller 20%' },
-    'IBAAD25':   { discount: 25, label: 'Diskon 25% spesial!' }
+    'HEMAT10':   { discount:10, label:'Diskon 10%' },
+    'NEWCLIENT': { discount:15, label:'Diskon 15% untuk client baru' },
+    'RESELLER':  { discount:20, label:'Diskon reseller 20%' },
+    'IBAAD25':   { discount:25, label:'Diskon 25% spesial!' }
   };
+
   if (coupons[code]) {
     couponDiscount = coupons[code].discount;
-    couponCode = code;
+    couponCode     = code;
     result.innerHTML = `<div class="coupon-success"><i class="fas fa-check-circle"></i> Kode <b>${code}</b> berhasil! ${coupons[code].label}</div>`;
     showToast('Voucher berhasil digunakan!');
   } else {
-    couponDiscount = 0; couponCode = '';
+    couponDiscount = 0;
+    couponCode     = '';
     result.innerHTML = `<div class="coupon-error"><i class="fas fa-times-circle"></i> Kode voucher tidak valid</div>`;
   }
   renderSummary();
 }
+
 
 // ============================================
 // PAYMENT
@@ -1409,7 +1394,7 @@ function selectPaymentType(radio) {
 function selectPayment(radio) {
   document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('active'));
   radio.closest('.payment-option').classList.add('active');
-  const names = { bank_transfer: 'Transfer Bank', ewallet: 'E-Wallet', qris: 'QRIS', cc: 'Kartu Kredit' };
+  const names = { bank_transfer:'Transfer Bank', ewallet:'E-Wallet', qris:'QRIS', cc:'Kartu Kredit' };
   selectedPayment = names[radio.value] || 'Transfer Bank';
   document.getElementById('paymentDetail').style.display = radio.value === 'bank_transfer' ? 'block' : 'none';
 }
@@ -1418,19 +1403,24 @@ function selectBank(el, name, account, holder) {
   document.querySelectorAll('.bank-option').forEach(o => o.classList.remove('active'));
   el.classList.add('active');
   selectedBank = { name, account, holder };
-  document.getElementById('bankName').textContent = name;
+  document.getElementById('bankName').textContent    = name;
   document.getElementById('bankAccount').textContent = account;
-  document.getElementById('bankHolder').textContent = holder;
+  document.getElementById('bankHolder').textContent  = holder;
 }
+
 
 // ============================================
 // STEP NAVIGATION
 // ============================================
 function goToStep(n) {
-  if (n === 2 && !selectedPkg) { showToast('Pilih paket terlebih dahulu!'); return; }
+  if (n === 2 && !selectedPkg) {
+    showToast('Pilih paket terlebih dahulu!');
+    return;
+  }
+
   if (n === 3) {
-    const req = ['fullName', 'email', 'phone', 'businessType', 'description'];
-    for (let id of req) {
+    const required = ['fullName', 'email', 'phone', 'businessType', 'description'];
+    for (let id of required) {
       const el = document.getElementById(id);
       if (el && !el.value.trim()) {
         showToast('Lengkapi semua data yang wajib diisi!');
@@ -1441,110 +1431,306 @@ function goToStep(n) {
       }
     }
   }
+
   document.querySelectorAll('.order-step').forEach(s => s.classList.add('hidden'));
   document.getElementById('step' + n).classList.remove('hidden');
+
   document.querySelectorAll('.step').forEach(s => {
     const sn = parseInt(s.dataset.step);
     s.classList.toggle('active', sn <= n);
-    s.classList.toggle('done', sn < n);
+    s.classList.toggle('done',   sn <  n);
   });
+
   document.querySelectorAll('.step-line').forEach((l, i) => {
     l.classList.toggle('active', i < n - 1);
   });
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
   renderSummary();
 }
 
+
 // ============================================
-// PLACE ORDER
+// 🔥 PLACE ORDER → FIREBASE
 // ============================================
-function placeOrder() {
+async function placeOrder() {
+  // Validasi terms
   if (!document.getElementById('agreeTerms').checked) {
-    showToast('Setujui Syarat & Ketentuan terlebih dahulu'); return;
+    showToast('Setujui Syarat & Ketentuan terlebih dahulu');
+    return;
   }
-  document.getElementById('processingOverlay').classList.add('show');
-  setTimeout(() => {
-    document.getElementById('processingOverlay').classList.remove('show');
-    generateInvoice();
-    goToStep(4);
-  }, 2500);
+
+  // Tampilkan overlay loading
+  const overlay     = document.getElementById('processingOverlay');
+  const titleEl     = document.getElementById('processingTitle');
+  const descEl      = document.getElementById('processingDesc');
+
+  overlay.classList.add('show');
+  titleEl.textContent = 'Menyimpan Pesanan...';
+  descEl.textContent  = 'Mengirim data ke database, mohon tunggu';
+
+  // Generate order ID sekarang → supaya konsisten antara Firestore & Invoice
+  const orderId = generateOrderId();
+  _currentOrderId   = orderId;
+
+  // Kumpulkan data form
+  const c          = calculate();
+  const name       = document.getElementById('fullName').value.trim();
+  const company    = document.getElementById('companyName').value.trim();
+  const email      = document.getElementById('email').value.trim();
+  const phone      = document.getElementById('phone').value.trim();
+  const bizType    = document.getElementById('businessType').value.trim();
+  const desc       = document.getElementById('description').value.trim();
+  const reference  = document.getElementById('reference').value.trim();
+  const hasWebsite = document.getElementById('hasWebsite').value.trim();
+  const dlValue    = document.querySelector('input[name="deadline"]:checked')?.value || 'standard';
+
+  // Normalisasi nomor telepon
+  const phoneNorm  = phone.startsWith('0') ? phone : '0' + phone;
+  const phoneRaw   = '+62' + phone.replace(/^0/, '');
+
+  // Addons sebagai array
+  const addonsArr  = selectedAddons.map(a => ({
+    name : a.dataset.name,
+    price: parseInt(a.dataset.price)
+  }));
+
+  // ── Firestore payload ──────────────────────────────
+  const clientData = {
+    // Identitas
+    orderId     : orderId,
+    name        : name,
+    company     : company || '',
+    phone       : phoneNorm,
+    phoneRaw    : phoneRaw,
+    email       : email,
+
+    // Project
+    project     : selectedPkg.dataset.name,
+    paketKey    : selectedPkg.dataset.pkg,
+    value       : 'Rp ' + c.pkgPrice.toLocaleString('id-ID'),
+    description : desc,
+    reference   : reference || '',
+    businessType: bizType   || '',
+    hasWebsite  : hasWebsite|| '',
+
+    // Add-ons
+    addons      : addonsArr,
+
+    // Timeline
+    deadline    : selectedDeadline,
+    deadlineKey : dlValue,
+
+    // Harga
+    priceDetail : {
+      basePrice   : c.pkgPrice,
+      addonsTotal : c.addonsPrice,
+      subtotal    : c.subtotal,
+      deadlineFee : deadlineFee,
+      couponCode  : couponCode  || '',
+      couponDisc  : c.couponAmt,
+      fullpayDisc : c.fullpayDisc,
+      total       : c.total,
+      payNow      : c.payNow,
+      remaining   : c.remaining,
+      paymentType : paymentType
+    },
+
+    // Pembayaran
+    paymentMethod : selectedPayment,
+    bankName      : selectedBank.name,
+    bankAccount   : selectedBank.account,
+    bankHolder    : selectedBank.holder,
+
+    // Referral
+    referralCode  : verifiedReseller ? verifiedReseller.code : '',
+    referralName  : verifiedReseller ? verifiedReseller.name : '',
+    referralTier  : verifiedReseller ? verifiedReseller.tier : '',
+
+    // Voucher
+    voucherCode   : couponCode || '',
+
+    // Status & Source
+    status  : 'pending',
+    source  : 'order_form_website',
+    notes   : '[Website Order] ' + (desc || 'Order via order.html'),
+
+    // Timestamps
+    createdAt : window.fbOrder?.serverTimestamp() || new Date().toISOString(),
+    updatedAt : window.fbOrder?.serverTimestamp() || new Date().toISOString()
+  };
+
+  // ── Kirim ke Firestore ────────────────────────────
+  let savedToFirebase = false;
+
+  if (window.fbOrder && window.fbOrder.ready) {
+    try {
+      titleEl.textContent = 'Menyimpan ke Database...';
+      descEl.textContent  = 'Mohon jangan tutup halaman ini';
+
+      const docRef = await window.fbOrder.addDoc(
+        window.fbOrder.collection(window.fbOrder.db, 'clients'),
+        clientData
+      );
+
+      savedToFirebase = true;
+      console.log('✅ Firebase OK! Doc ID:', docRef.id, '| Order ID:', orderId);
+
+    } catch (fbErr) {
+      console.error('❌ Firebase error:', fbErr);
+      savedToFirebase = false;
+      // Tetap lanjut ke invoice, jangan block user
+    }
+  } else {
+    console.warn('⚠️ Firebase belum ready, skip save ke Firestore');
+  }
+
+  // ── Proses Invoice ────────────────────────────────
+  titleEl.textContent = 'Membuat Invoice...';
+  descEl.textContent  = 'Hampir selesai!';
+
+  // Sedikit delay supaya UX lebih smooth
+  await new Promise(resolve => setTimeout(resolve, 800));
+
+  overlay.classList.remove('show');
+
+  // Tampilkan invoice & step 4
+  generateInvoice(orderId);
+  goToStep(4);
+
+  // Tampilkan status Firebase di halaman sukses
+  const statusEl   = document.getElementById('firebaseStatus');
+  const statusText = document.getElementById('firebaseStatusText');
+  if (statusEl && statusText) {
+    statusEl.style.display = 'inline-flex';
+    if (savedToFirebase) {
+      statusEl.style.background = 'rgba(37,211,102,0.12)';
+      statusEl.style.borderColor = 'rgba(37,211,102,0.3)';
+      statusEl.style.color = '#25d366';
+      statusEl.querySelector('i').style.color = '#25d366';
+      statusText.textContent = 'Pesanan tersimpan di database ✓';
+    } else {
+      statusEl.style.background = 'rgba(243,156,18,0.12)';
+      statusEl.style.borderColor = 'rgba(243,156,18,0.3)';
+      statusEl.style.color = '#f39c12';
+      statusEl.querySelector('i').style.color = '#f39c12';
+      statusText.textContent = 'Pesanan diproses (konfirmasi via WhatsApp)';
+    }
+  }
 }
+
 
 // ============================================
 // GENERATE INVOICE
 // ============================================
-function generateInvoice() {
-  const orderId = generateOrderId();
-  const now = new Date();
-  const deadline = new Date(now.getTime() + 24 * 60 * 60 * 1000);
-  const timelineDays = { standard: 14, fast: 5, express: 2 };
-  const dlValue = document.querySelector('input[name="deadline"]:checked')?.value || 'standard';
-  const estimate = new Date(now.getTime() + timelineDays[dlValue] * 24 * 60 * 60 * 1000);
-  const c = calculate();
+function generateInvoice(orderId) {
+  // Pakai orderId yang sudah dibuat di placeOrder()
+  if (!orderId) orderId = _currentOrderId || generateOrderId();
 
-  const name = document.getElementById('fullName').value;
-  const company = document.getElementById('companyName').value;
-  const email = document.getElementById('email').value;
-  const phone = document.getElementById('phone').value;
-  const bizType = document.getElementById('businessType').value;
-  const desc = document.getElementById('description').value;
+  const now       = new Date();
+  const deadline  = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+  const tlDays    = { standard:14, fast:5, express:2 };
+  const dlVal     = document.querySelector('input[name="deadline"]:checked')?.value || 'standard';
+  const estimate  = new Date(now.getTime() + (tlDays[dlVal] || 14) * 24 * 60 * 60 * 1000);
+  const c         = calculate();
+
+  const name      = document.getElementById('fullName').value;
+  const company   = document.getElementById('companyName').value;
+  const email     = document.getElementById('email').value;
+  const phone     = document.getElementById('phone').value;
+  const bizType   = document.getElementById('businessType').value;
+  const desc      = document.getElementById('description').value;
   const resellerInfo = verifiedReseller
     ? `${verifiedReseller.name} (${verifiedReseller.code})`
     : null;
 
-  // Fill invoice header
-  document.getElementById('invNumber').textContent = orderId;
-  document.getElementById('invName').textContent = name;
+  // ── Fill invoice ──────────────────────────────────
+  document.getElementById('invNumber').textContent  = orderId;
+  document.getElementById('invName').textContent    = name;
   document.getElementById('invCompany').textContent = company || '-';
-  document.getElementById('invEmail').textContent = email;
-  document.getElementById('invPhone').textContent = '+62 ' + phone;
-  document.getElementById('invDate').textContent = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-  document.getElementById('invTimeline').textContent = selectedDeadline;
-  document.getElementById('invEstimate').textContent = estimate.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-  document.getElementById('invPayment').textContent = selectedPayment + ' (' + selectedBank.name + ')';
+  document.getElementById('invEmail').textContent   = email;
+  document.getElementById('invPhone').textContent   = '+62 ' + phone;
+  document.getElementById('invDate').textContent    = now.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
+  document.getElementById('invTimeline').textContent  = selectedDeadline;
+  document.getElementById('invEstimate').textContent  = estimate.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
+  document.getElementById('invPayment').textContent   = selectedPayment + ' (' + selectedBank.name + ')';
 
-  // Reseller info in invoice
+  // Reseller row
   if (resellerInfo) {
     document.getElementById('invResellerRow').style.display = 'flex';
-    document.getElementById('invReseller').textContent = resellerInfo;
+    document.getElementById('invReseller').textContent      = resellerInfo;
   } else {
     document.getElementById('invResellerRow').style.display = 'none';
   }
 
-  // Invoice table
-  let tableHtml = `<tr><td><b>${selectedPkg.dataset.name}</b></td><td>Website ${selectedPkg.dataset.pkg} package</td><td style="text-align:right"><b>${formatRp(c.pkgPrice)}</b></td></tr>`;
+  // ── Invoice table ─────────────────────────────────
+  let tableHtml = `
+    <tr>
+      <td><b>${selectedPkg.dataset.name}</b></td>
+      <td>Website ${selectedPkg.dataset.pkg} package</td>
+      <td style="text-align:right"><b>${formatRp(c.pkgPrice)}</b></td>
+    </tr>`;
+
   selectedAddons.forEach(a => {
-    tableHtml += `<tr><td>+ ${a.dataset.name}</td><td>Add-on service</td><td style="text-align:right">${parseInt(a.dataset.price) > 0 ? formatRp(parseInt(a.dataset.price)) : 'FREE'}</td></tr>`;
+    tableHtml += `
+      <tr>
+        <td>+ ${a.dataset.name}</td>
+        <td>Add-on service</td>
+        <td style="text-align:right">${parseInt(a.dataset.price) > 0 ? formatRp(parseInt(a.dataset.price)) : 'FREE'}</td>
+      </tr>`;
   });
+
   if (deadlineFee > 0) {
-    tableHtml += `<tr><td>+ ${selectedDeadline}</td><td>Prioritas pengerjaan</td><td style="text-align:right">${formatRp(deadlineFee)}</td></tr>`;
+    tableHtml += `
+      <tr>
+        <td>+ ${selectedDeadline}</td>
+        <td>Prioritas pengerjaan</td>
+        <td style="text-align:right">${formatRp(deadlineFee)}</td>
+      </tr>`;
   }
+
   if (resellerInfo) {
-    tableHtml += `<tr><td><i class="fas fa-user-tag" style="color:var(--gold);margin-right:6px"></i> Kode Reseller</td><td>${verifiedReseller.code} — ${verifiedReseller.name} (${verifiedReseller.tier})</td><td style="text-align:right;color:#25d366;">Verified ✓</td></tr>`;
+    tableHtml += `
+      <tr>
+        <td><i class="fas fa-user-tag" style="color:#d4a536;margin-right:6px"></i>Kode Reseller</td>
+        <td>${verifiedReseller.code} — ${verifiedReseller.name} (${verifiedReseller.tier})</td>
+        <td style="text-align:right;color:#25d366;">Verified ✓</td>
+      </tr>`;
   }
+
   document.getElementById('invTableBody').innerHTML = tableHtml;
 
-  // Invoice totals
+  // ── Totals ────────────────────────────────────────
   document.getElementById('invSubtotal').textContent = formatRp(c.subtotal);
-  document.getElementById('invTotal').textContent = formatRp(c.total);
-  document.getElementById('invPayNow').textContent = formatRp(c.payNow);
+  document.getElementById('invTotal').textContent    = formatRp(c.total);
+  document.getElementById('invPayNow').textContent   = formatRp(c.payNow);
   document.getElementById('invPayTotal').textContent = formatRp(c.payNow);
 
-  if (deadlineFee > 0) { document.getElementById('invDeadlineRow').style.display = 'flex'; document.getElementById('invDeadlineFee').textContent = formatRp(deadlineFee); }
-  if (c.couponAmt > 0) { document.getElementById('invDiscountRow').style.display = 'flex'; document.getElementById('invDiscount').textContent = '-' + formatRp(c.couponAmt); }
-  if (c.fullpayDisc > 0) { document.getElementById('invFullpayRow').style.display = 'flex'; document.getElementById('invFullpay').textContent = '-' + formatRp(c.fullpayDisc); }
-  if (c.remaining > 0) { document.getElementById('invRemainingRow').style.display = 'flex'; document.getElementById('invRemaining').textContent = formatRp(c.remaining); }
+  if (deadlineFee > 0) {
+    document.getElementById('invDeadlineRow').style.display = 'flex';
+    document.getElementById('invDeadlineFee').textContent   = formatRp(deadlineFee);
+  }
+  if (c.couponAmt > 0) {
+    document.getElementById('invDiscountRow').style.display = 'flex';
+    document.getElementById('invDiscount').textContent      = '-' + formatRp(c.couponAmt);
+  }
+  if (c.fullpayDisc > 0) {
+    document.getElementById('invFullpayRow').style.display  = 'flex';
+    document.getElementById('invFullpay').textContent       = '-' + formatRp(c.fullpayDisc);
+  }
+  if (c.remaining > 0) {
+    document.getElementById('invRemainingRow').style.display = 'flex';
+    document.getElementById('invRemaining').textContent      = formatRp(c.remaining);
+  }
 
-  // Bank info
-  document.getElementById('invBankName').textContent = selectedBank.name;
-  document.getElementById('invBankAcc').textContent = selectedBank.account;
+  // ── Bank ─────────────────────────────────────────
+  document.getElementById('invBankName').textContent   = selectedBank.name;
+  document.getElementById('invBankAcc').textContent    = selectedBank.account;
   document.getElementById('invBankHolder').textContent = selectedBank.holder;
-  document.getElementById('invDeadline').textContent = deadline.toLocaleString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-  document.getElementById('trackTime1').textContent = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' WIB';
+  document.getElementById('invDeadline').textContent   = deadline.toLocaleString('id-ID', { day:'numeric', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  document.getElementById('trackTime1').textContent    = now.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' }) + ' WIB';
 
-  // ============================================
-  // BUILD WHATSAPP MESSAGE
-  // ============================================
+  // ── WhatsApp Message ──────────────────────────────
   const waLines = [];
   waLines.push("Assalamu'alaikum Ibaadurrahmaan,");
   waLines.push("");
@@ -1554,7 +1740,7 @@ function generateInvoice() {
   waLines.push("📋 *INVOICE*");
   waLines.push("━━━━━━━━━━━━━━━━━━━━");
   waLines.push("No. Invoice : " + orderId);
-  waLines.push("Tanggal     : " + now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }));
+  waLines.push("Tanggal     : " + now.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' }));
   waLines.push("");
   waLines.push("━━━━━━━━━━━━━━━━━━━━");
   waLines.push("👤 *DATA PEMESAN*");
@@ -1566,7 +1752,6 @@ function generateInvoice() {
   if (bizType) waLines.push("Bisnis    : " + bizType);
   waLines.push("");
 
-  // Reseller info in WA message
   if (verifiedReseller) {
     waLines.push("━━━━━━━━━━━━━━━━━━━━");
     waLines.push("🤝 *KODE RESELLER*");
@@ -1582,31 +1767,35 @@ function generateInvoice() {
   waLines.push("━━━━━━━━━━━━━━━━━━━━");
   waLines.push("Paket    : *" + selectedPkg.dataset.name + "*");
   waLines.push("Harga    : " + formatRp(c.pkgPrice));
+
   if (selectedAddons.length > 0) {
     waLines.push("");
     waLines.push("📎 Add-ons:");
     selectedAddons.forEach(a => {
       const p = parseInt(a.dataset.price);
-      waLines.push("  • " + a.dataset.name + " — " + (p > 0 ? formatRp(p) : "FREE"));
+      waLines.push("  • " + a.dataset.name + " — " + (p > 0 ? formatRp(p) : 'FREE'));
     });
   }
+
   waLines.push("");
   waLines.push("Timeline : " + selectedDeadline);
+
   if (desc) {
     waLines.push("");
     waLines.push("📝 Kebutuhan:");
     waLines.push(desc);
   }
+
   waLines.push("");
   waLines.push("━━━━━━━━━━━━━━━━━━━━");
   waLines.push("💰 *RINCIAN HARGA*");
   waLines.push("━━━━━━━━━━━━━━━━━━━━");
   waLines.push("Subtotal      : " + formatRp(c.subtotal));
   if (deadlineFee > 0) waLines.push("Fast Delivery : " + formatRp(deadlineFee));
-  if (c.couponAmt > 0) waLines.push("Diskon (" + couponCode + ") : -" + formatRp(c.couponAmt));
+  if (c.couponAmt > 0) waLines.push("Diskon (" + couponCode + ")  : -" + formatRp(c.couponAmt));
   if (c.fullpayDisc > 0) waLines.push("Diskon Lunas 5%: -" + formatRp(c.fullpayDisc));
   waLines.push("");
-  waLines.push("*TOTAL : " + formatRp(c.total) + "*");
+  waLines.push("*TOTAL          : " + formatRp(c.total) + "*");
   waLines.push("*Bayar Sekarang : " + formatRp(c.payNow) + "*");
   if (c.remaining > 0) waLines.push("Sisa Pelunasan : " + formatRp(c.remaining));
   waLines.push("");
@@ -1626,21 +1815,28 @@ function generateInvoice() {
   document.getElementById('waConfirm').href = 'https://wa.me/6281401643188?text=' + waText;
 }
 
+
 // ============================================
-// DOWNLOAD & PRINT INVOICE
+// DOWNLOAD & PRINT
 // ============================================
-function downloadInvoice() { showToast('Fitur download - Simulasi demo!'); }
-function printInvoice() { window.print(); }
+function downloadInvoice() {
+  showToast('Fitur download PDF segera hadir!');
+}
+
+function printInvoice() {
+  window.print();
+}
+
 
 // ============================================
 // UTILS
 // ============================================
 function copyText(id) {
-  const text = document.getElementById(id).textContent;
+  const text    = document.getElementById(id).textContent;
   const cleaned = text.replace(/[^0-9]/g, '');
-  navigator.clipboard.writeText(cleaned || text).then(() => {
-    showToast('Berhasil disalin!');
-  }).catch(() => { showToast('Copy: ' + text); });
+  navigator.clipboard.writeText(cleaned || text)
+    .then(() => showToast('Berhasil disalin!'))
+    .catch(() => showToast('Copy: ' + text));
 }
 
 function showToast(text) {
@@ -1650,20 +1846,18 @@ function showToast(text) {
   setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
+
 // ============================================
 // INIT
 // ============================================
 renderSummary();
 
-// Reseller input: Enter key + auto uppercase
 document.addEventListener('DOMContentLoaded', () => {
+  // Reseller input: Enter key
   const resellerInput = document.getElementById('resellerCode');
   if (resellerInput) {
-    resellerInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        verifyReseller();
-      }
+    resellerInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); verifyReseller(); }
     });
     resellerInput.addEventListener('input', () => {
       resellerInput.value = resellerInput.value.toUpperCase();
@@ -1672,8 +1866,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // URL param: auto select package
-const urlParams = new URLSearchParams(window.location.search);
-const pkgParam = urlParams.get('pkg');
+const urlParams  = new URLSearchParams(window.location.search);
+const pkgParam   = urlParams.get('pkg');
 if (pkgParam) {
   setTimeout(() => {
     const card = document.querySelector(`.package-card[data-pkg="${pkgParam}"]`);
@@ -1690,8 +1884,13 @@ if (resellerParam) {
       input.value = resellerParam.toUpperCase();
       verifyReseller();
     }
-  }, 500);
+  }, 600);
 }
+
+// Firebase ready fallback log
+document.addEventListener('fbOrderReady', () => {
+  console.log('✅ Firebase siap menerima order!');
+});
 </script>
 
 </body>
