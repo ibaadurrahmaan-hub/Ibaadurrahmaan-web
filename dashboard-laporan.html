@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050B18">
+<title>Laporan & Analytics | Dashboard Ibaadurrahmaan</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="main-logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<style>
+/* ====================================================
+   📊 LAPORAN & ANALYTICS STYLES
+   ==================================================== */
+.laporan-page{
+    background:var(--bg);
+    min-height:100vh;
+    padding-bottom:100px;
+}
+
+
+/* ==================== DASHBOARD HEADER ==================== */
+.dashboard-header{
+    background:linear-gradient(135deg,#0F1E33 0%,#050B18 100%);
+    padding:32px 20px 40px;
+    border-bottom:2px solid var(--gold);
+    position:relative;
+    overflow:hidden;
+}
+
+.dashboard-header::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at center,rgba(212,165,54,0.1),transparent 70%);
+}
+
+.header-container{
+    max-width:1200px;
+    margin:0 auto;
+    position:relative;
+    z-index:2;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.header-brand{display:flex;align-items:center;gap:14px;}
+
+.header-logo{
+    width:52px;height:52px;
+    border-radius:50%;
+    background:#fff;
+    padding:4px;
+    box-shadow:0 4px 15px var(--gold-glow);
+    border:2px solid var(--gold);
+    box-sizing:border-box;
+    overflow:hidden;
+    flex-shrink:0;
+}
+
+.header-logo img{width:100%;height:100%;object-fit:contain;border-radius:50%;}
+
+.header-title h1{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.3rem;
+    font-weight:900;
+    background:linear-gradient(135deg,var(--gold),#e8bd52);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin-bottom:2px;
+}
+
+.header-title p{
+    color:var(--text-muted);
+    font-size:0.78rem;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+}
+
+.header-actions{display:flex;align-items:center;gap:12px;}
+
+.user-badge{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid var(--border);
+    padding:8px 14px 8px 8px;
+    border-radius:100px;
+}
+
+.user-avatar{
+    width:32px;height:32px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),#c19a2e);
+    color:var(--bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:0.85rem;
+}
+
+.user-name{font-size:0.82rem;font-weight:700;color:var(--text);}
+
+.logout-btn{
+    background:rgba(231,76,60,0.15);
+    border:1px solid rgba(231,76,60,0.3);
+    color:#ff6b5b;
+    width:40px;height:40px;
+    border-radius:50%;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all 0.2s;
+    font-size:0.95rem;
+}
+
+.logout-btn:hover{background:#e74c3c;color:#fff;transform:scale(1.05);}
+
+
+/* ==================== PAGE TITLE ==================== */
+.page-title-section{
+    max-width:1200px;
+    margin:0 auto;
+    padding:24px 20px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+}
+
+.page-title-content{flex:1;min-width:200px;}
+
+.page-title-content h2{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.5rem;
+    font-weight:900;
+    color:var(--text);
+    margin-bottom:4px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.page-title-content h2 i{color:var(--gold);}
+
+.page-title-content p{color:var(--text-muted);font-size:0.85rem;}
+
+.back-to-dashboard{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    color:var(--text-muted);
+    text-decoration:none;
+    font-size:0.85rem;
+    font-weight:600;
+    padding:10px 18px;
+    background:rgba(255,255,255,0.03);
+    backdrop-filter:blur(10px);
+    border-radius:100px;
+    border:1px solid var(--border);
+    transition:all 0.3s var(--ease);
+}
+
+.back-to-dashboard:hover{
+    color:var(--gold);
+    border-color:var(--gold);
+    background:rgba(212,165,54,0.08);
+}
+
+
+/* ==================== CONTAINER ==================== */
+.laporan-container{
+    max-width:1200px;
+    margin:0 auto;
+    padding:24px 20px 40px;
+}
+
+
+/* ==================== PERIODE FILTER TABS ==================== */
+.periode-filter{
+    background:var(--grad-card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:16px;
+    margin-bottom:24px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.periode-label{
+    color:var(--text-muted);
+    font-size:0.82rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.periode-label i{color:var(--gold);}
+
+.periode-tabs{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    flex:1;
+}
+
+.periode-tab{
+    padding:8px 16px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid var(--border);
+    color:var(--text-muted);
+    border-radius:100px;
+    font-size:0.8rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.3s;
+    font-family:'Poppins',sans-serif;
+}
+
+.periode-tab:hover{
+    background:rgba(212,165,54,0.08);
+    color:var(--gold);
+    border-color:rgba(212,165,54,0.3);
+}
+
+.periode-tab.active{
+    background:linear-gradient(135deg,var(--gold),#c19a2e);
+    color:var(--bg);
+    border-color:var(--gold);
+    box-shadow:0 4px 12px var(--gold-glow);
+}
+
+.btn-refresh-laporan{
+    padding:10px 16px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid var(--border);
+    border-radius:100px;
+    color:var(--text-muted);
+    font-size:0.8rem;
+    font-weight:600;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    transition:all 0.3s var(--ease);
+    font-family:'Poppins',sans-serif;
+}
+
+.btn-refresh-laporan:hover{
+    border-color:var(--gold);
+    color:var(--gold);
+    background:rgba(212,165,54,0.05);
+}
+
+.btn-refresh-laporan.spinning i{animation:spin 0.8s linear infinite;}
+
+@keyframes spin{to{transform:rotate(360deg);}}
+
+
+/* ==================== KPI STATS GRID ==================== */
+.kpi-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+    margin-bottom:28px;
+}
+
+.kpi-card{
+    background:var(--grad-card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:20px;
+    transition:all 0.3s var(--ease);
+    position:relative;
+    overflow:hidden;
+}
+
+.kpi-card::before{
+    content:'';
+    position:absolute;
+    top:0;left:0;right:0;
+    height:3px;
+}
+
+.kpi-card.k-revenue::before{background:linear-gradient(90deg,var(--gold),#e8bd52);}
+.kpi-card.k-clients::before{background:linear-gradient(90deg,#3498db,#2980b9);}
+.kpi-card.k-orders::before{background:linear-gradient(90deg,#25d366,#1eb85a);}
+.kpi-card.k-reseller::before{background:linear-gradient(90deg,#9b59b6,#8e44ad);}
+
+.kpi-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 24px rgba(0,0,0,0.3);
+}
+
+.kpi-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+}
+
+.kpi-icon{
+    width:42px;height:42px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.15rem;
+}
+
+.k-revenue .kpi-icon{background:rgba(212,165,54,0.15);color:var(--gold);}
+.k-clients .kpi-icon{background:rgba(52,152,219,0.15);color:#3498db;}
+.k-orders .kpi-icon{background:rgba(37,211,102,0.15);color:#25d366;}
+.k-reseller .kpi-icon{background:rgba(155,89,182,0.15);color:#9b59b6;}
+
+.kpi-trend{
+    padding:4px 10px;
+    border-radius:100px;
+    font-size:0.7rem;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:4px;
+}
+
+.kpi-trend.up{
+    background:rgba(37,211,102,0.15);
+    color:#25d366;
+    border:1px solid rgba(37,211,102,0.3);
+}
+
+.kpi-trend.down{
+    background:rgba(231,76,60,0.15);
+    color:#e74c3c;
+    border:1px solid rgba(231,76,60,0.3);
+}
+
+.kpi-trend.neutral{
+    background:rgba(243,156,18,0.15);
+    color:#f39c12;
+    border:1px solid rgba(243,156,18,0.3);
+}
+
+.kpi-value{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.6rem;
+    font-weight:900;
+    line-height:1;
+    margin-bottom:4px;
+    word-break:break-all;
+}
+
+.k-revenue .kpi-value{color:var(--gold);}
+.k-clients .kpi-value{color:#3498db;}
+.k-orders .kpi-value{color:#25d366;}
+.k-reseller .kpi-value{color:#9b59b6;}
+
+.kpi-label{
+    color:var(--text-muted);
+    font-size:0.75rem;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+}
+
+.kpi-sub{
+    color:var(--text-muted);
+    font-size:0.72rem;
+    margin-top:6px;
+    display:flex;
+    align-items:center;
+    gap:4px;
+}
+
+
+/* ==================== CHART SECTIONS ==================== */
+.chart-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:16px;
+    margin-bottom:24px;
+}
+
+.chart-card{
+    background:var(--grad-card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:24px;
+    overflow:hidden;
+}
+
+.chart-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.chart-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:1rem;
+    font-weight:800;
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.chart-title i{color:var(--gold);}
+
+.chart-badge{
+    padding:4px 12px;
+    background:rgba(212,165,54,0.1);
+    border:1px solid rgba(212,165,54,0.3);
+    color:var(--gold);
+    border-radius:100px;
+    font-size:0.7rem;
+    font-weight:700;
+}
+
+.chart-container{
+    position:relative;
+    height:280px;
+    width:100%;
+}
+
+.chart-container-pie{
+    position:relative;
+    height:280px;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+
+/* ==================== TOP LIST SECTION ==================== */
+.top-lists-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-bottom:24px;
+}
+
+.top-list-card{
+    background:var(--grad-card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:20px;
+}
+
+.top-list-card .chart-header{margin-bottom:16px;}
+
+.top-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.top-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    background:rgba(0,0,0,0.2);
+    border-radius:10px;
+    border:1px solid transparent;
+    transition:all 0.3s;
+}
+
+.top-item:hover{
+    border-color:rgba(212,165,54,0.2);
+    background:rgba(212,165,54,0.05);
+}
+
+.top-rank{
+    width:32px;height:32px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Montserrat',sans-serif;
+    font-weight:900;
+    font-size:0.85rem;
+    flex-shrink:0;
+}
+
+.top-rank.rank-1{
+    background:linear-gradient(135deg,#FFD700,#FFA500);
+    color:#fff;
+    box-shadow:0 4px 12px rgba(255,215,0,0.4);
+}
+
+.top-rank.rank-2{
+    background:linear-gradient(135deg,#C0C0C0,#909090);
+    color:#fff;
+    box-shadow:0 4px 12px rgba(192,192,192,0.4);
+}
+
+.top-rank.rank-3{
+    background:linear-gradient(135deg,#CD7F32,#8B4513);
+    color:#fff;
+    box-shadow:0 4px 12px rgba(205,127,50,0.4);
+}
+
+.top-rank.rank-other{
+    background:rgba(212,165,54,0.15);
+    color:var(--gold);
+    border:1px solid rgba(212,165,54,0.3);
+}
+
+.top-info{
+    flex:1;
+    min-width:0;
+}
+
+.top-name{
+    font-family:'Montserrat',sans-serif;
+    font-size:0.9rem;
+    font-weight:800;
+    color:var(--text);
+    margin-bottom:2px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.top-meta{
+    color:var(--text-muted);
+    font-size:0.75rem;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.top-value{
+    font-family:'Montserrat',monospace;
+    font-size:0.9rem;
+    font-weight:800;
+    color:var(--gold);
+    flex-shrink:0;
+    text-align:right;
+}
+
+
+/* ==================== SUMMARY CARD ==================== */
+.summary-card{
+    background:linear-gradient(135deg,rgba(212,165,54,0.1),rgba(212,165,54,0.03));
+    border:1px solid rgba(212,165,54,0.3);
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:24px;
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:20px;
+}
+
+.summary-item{text-align:center;}
+
+.summary-item-label{
+    color:var(--text-muted);
+    font-size:0.72rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.8px;
+    margin-bottom:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+}
+
+.summary-item-label i{color:var(--gold);font-size:0.8rem;}
+
+.summary-item-value{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.4rem;
+    font-weight:900;
+    color:var(--gold);
+    line-height:1;
+    margin-bottom:4px;
+}
+
+.summary-item-desc{
+    color:var(--text-muted);
+    font-size:0.72rem;
+}
+
+
+/* ==================== EXPORT BUTTONS ==================== */
+.export-section{
+    display:flex;
+    gap:12px;
+    justify-content:flex-end;
+    margin-bottom:24px;
+    flex-wrap:wrap;
+}
+
+.btn-export{
+    padding:10px 18px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:rgba(255,255,255,0.04);
+    color:var(--text-muted);
+    font-size:0.82rem;
+    font-weight:600;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    transition:all 0.3s var(--ease);
+    font-family:'Poppins',sans-serif;
+}
+
+.btn-export:hover{
+    border-color:var(--gold);
+    color:var(--gold);
+    background:rgba(212,165,54,0.05);
+}
+
+.btn-export.btn-print{border-color:rgba(52,152,219,0.3);color:#3498db;}
+.btn-export.btn-print:hover{background:rgba(52,152,219,0.1);border-color:#3498db;}
+
+.btn-export.btn-csv{border-color:rgba(37,211,102,0.3);color:#25d366;}
+.btn-export.btn-csv:hover{background:rgba(37,211,102,0.1);border-color:#25d366;}
+
+
+/* ==================== EMPTY & LOADING STATE ==================== */
+.loading-state{
+    text-align:center;
+    padding:60px 20px;
+    color:var(--text-muted);
+}
+
+.loading-state i{
+    font-size:2.5rem;
+    margin-bottom:16px;
+    display:block;
+    animation:spin 1s linear infinite;
+    color:var(--gold);
+}
+
+.empty-chart{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    height:200px;
+    color:var(--text-muted);
+    text-align:center;
+}
+
+.empty-chart i{
+    font-size:3rem;
+    opacity:0.3;
+    margin-bottom:12px;
+    color:var(--gold);
+}
+
+.empty-chart p{font-size:0.85rem;}
+
+
+/* ==================== BOTTOM NAV ==================== */
+.bottom-nav{
+    position:fixed;
+    bottom:16px;left:50%;transform:translateX(-50%);
+    background:rgba(15,30,51,0.95);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border:1px solid var(--border);
+    border-radius:100px;
+    padding:10px 14px;
+    display:flex;gap:6px;
+    z-index:1000;
+    box-shadow:0 10px 40px rgba(0,0,0,0.4),0 0 30px rgba(212,165,54,0.15);
+    max-width:calc(100% - 32px);
+    overflow-x:auto;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+}
+
+.bottom-nav::-webkit-scrollbar{display:none;}
+
+.nav-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+    padding:8px 14px;
+    color:var(--text-muted);
+    text-decoration:none;
+    border-radius:100px;
+    font-size:0.68rem;
+    font-weight:700;
+    transition:all 0.3s ease;
+    min-width:64px;
+    cursor:pointer;
+    flex-shrink:0;
+    font-family:'Poppins',sans-serif;
+    border:none;
+    background:transparent;
+    letter-spacing:0.3px;
+}
+
+.nav-item i{font-size:1.1rem;transition:transform 0.3s ease;}
+.nav-item:hover{color:var(--gold);}
+.nav-item:hover i{transform:translateY(-2px);}
+
+.nav-item.active{
+    background:linear-gradient(135deg,var(--gold),#c19a2e);
+    color:var(--bg);
+    box-shadow:0 4px 12px var(--gold-glow);
+}
+
+.nav-item.active i{color:var(--bg);}
+
+
+/* ==================== SWEETALERT ==================== */
+.swal-premium{
+    background:linear-gradient(145deg,#0F1E33,#0A1626) !important;
+    border:1px solid rgba(212,165,54,0.3) !important;
+    border-radius:20px !important;
+    box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px rgba(212,165,54,0.15) !important;
+    color:#fff !important;
+    font-family:'Poppins',sans-serif !important;
+}
+
+.swal-premium .swal2-title{
+    color:#d4a536 !important;
+    font-family:'Montserrat',sans-serif !important;
+    font-weight:800 !important;
+    font-size:1.4rem !important;
+}
+
+.swal-premium .swal2-confirm{
+    background:linear-gradient(135deg,#d4a536,#c19a2e) !important;
+    color:#050B18 !important;
+    border:none !important;
+    border-radius:100px !important;
+    padding:12px 30px !important;
+    font-weight:800 !important;
+    font-family:'Poppins',sans-serif !important;
+    font-size:0.9rem !important;
+    box-shadow:0 6px 20px rgba(212,165,54,0.4) !important;
+    text-transform:uppercase !important;
+}
+
+
+/* ==================== RESPONSIVE ==================== */
+@media(max-width:1000px){
+    .chart-grid{grid-template-columns:1fr;}
+    .top-lists-grid{grid-template-columns:1fr;}
+    .kpi-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+@media(max-width:768px){
+    .dashboard-header{padding:20px 16px 30px;}
+    .header-title h1{font-size:1.1rem;}
+    .header-title p{font-size:0.7rem;}
+    .user-badge .user-name{display:none;}
+    .user-badge{padding:4px;}
+    .page-title-section{padding:20px 16px 0;}
+    .page-title-content h2{font-size:1.2rem;}
+    .laporan-container{padding:20px 16px 40px;}
+    .kpi-value{font-size:1.3rem;}
+    .summary-card{grid-template-columns:1fr;gap:16px;}
+    .summary-item-value{font-size:1.2rem;}
+    .chart-container,.chart-container-pie{height:240px;}
+    .export-section{justify-content:stretch;}
+    .btn-export{flex:1;justify-content:center;}
+    .bottom-nav{padding:8px 10px;gap:2px;bottom:12px;}
+    .nav-item{padding:8px 10px;font-size:0.6rem;min-width:56px;}
+    .nav-item i{font-size:1rem;}
+}
+
+@media(max-width:600px){
+    .kpi-grid{grid-template-columns:1fr 1fr;gap:10px;}
+    .kpi-card{padding:16px;}
+    .kpi-value{font-size:1.15rem;}
+    .kpi-icon{width:36px;height:36px;font-size:1rem;}
+    .chart-card{padding:16px;}
+}
+
+@media(max-width:400px){
+    .nav-item span{display:none;}
+    .nav-item{min-width:44px;padding:10px 12px;}
+    .nav-item i{font-size:1.2rem;}
+    .kpi-grid{grid-template-columns:1fr;}
+}
+
+
+/* Print styling */
+@media print{
+    .bottom-nav,.dashboard-header,.back-to-dashboard,
+    .export-section,.periode-filter,.btn-refresh-laporan{display:none !important;}
+    body{background:#fff !important;color:#000;}
+    .chart-card,.top-list-card,.kpi-card,.summary-card{
+        border:1px solid #ddd !important;
+        background:#fff !important;
+        page-break-inside:avoid;
+    }
+}
+</style>
+</head>
+<body class="laporan-page">
+
+<!-- ==================== HEADER ==================== -->
+<header class="dashboard-header">
+    <div class="header-container">
+        <div class="header-brand">
+            <div class="header-logo">
+                <img src="main-logo.jpg" alt="Logo"
+                     onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-weight:900;color:#d4a536;\'>I</div>'">
+            </div>
+            <div class="header-title">
+                <h1>Ibaadurrahmaan</h1>
+                <p>Owner Dashboard</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <div class="user-badge">
+                <div class="user-avatar" id="userAvatar">O</div>
+                <span class="user-name" id="userName">Owner</span>
+            </div>
+            <button class="logout-btn" onclick="handleLogout()" title="Logout">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+
+<!-- ==================== PAGE TITLE ==================== -->
+<section class="page-title-section">
+    <div class="page-title-content">
+        <h2><i class="fas fa-chart-line"></i> Laporan & Analytics</h2>
+        <p>Analisa bisnis real-time dari database Firebase</p>
+    </div>
+    <a href="dashboard.html" class="back-to-dashboard">
+        <i class="fas fa-arrow-left"></i>
+        <span>Dashboard</span>
+    </a>
+</section>
+
+
+<!-- ==================== MAIN CONTAINER ==================== -->
+<div class="laporan-container">
+
+    <!-- Periode Filter -->
+    <div class="periode-filter">
+        <div class="periode-label">
+            <i class="fas fa-filter"></i>
+            <span>Periode:</span>
+        </div>
+        <div class="periode-tabs" id="periodeTabs">
+            <button class="periode-tab" data-period="today">Hari Ini</button>
+            <button class="periode-tab" data-period="week">7 Hari</button>
+            <button class="periode-tab active" data-period="month">30 Hari</button>
+            <button class="periode-tab" data-period="3month">3 Bulan</button>
+            <button class="periode-tab" data-period="year">1 Tahun</button>
+            <button class="periode-tab" data-period="all">Semua</button>
+        </div>
+        <button class="btn-refresh-laporan" id="btnRefreshLaporan" onclick="loadLaporan()">
+            <i class="fas fa-sync-alt"></i>
+            <span>Refresh</span>
+        </button>
+    </div>
+
+    <!-- KPI Grid -->
+    <div class="kpi-grid">
+        <div class="kpi-card k-revenue">
+            <div class="kpi-top">
+                <div class="kpi-icon"><i class="fas fa-money-bill-wave"></i></div>
+                <span class="kpi-trend up" id="trendRevenue">
+                    <i class="fas fa-arrow-up"></i> 0%
+                </span>
+            </div>
+            <div class="kpi-value" id="kpiRevenue">Rp 0</div>
+            <div class="kpi-label">Total Revenue</div>
+            <div class="kpi-sub">
+                <i class="fas fa-info-circle"></i>
+                <span id="kpiRevenueSub">Dari semua order</span>
+            </div>
+        </div>
+
+        <div class="kpi-card k-clients">
+            <div class="kpi-top">
+                <div class="kpi-icon"><i class="fas fa-users"></i></div>
+                <span class="kpi-trend up" id="trendClients">
+                    <i class="fas fa-arrow-up"></i> 0%
+                </span>
+            </div>
+            <div class="kpi-value" id="kpiClients">0</div>
+            <div class="kpi-label">Total Client</div>
+            <div class="kpi-sub">
+                <i class="fas fa-user-plus"></i>
+                <span id="kpiClientsSub">0 client baru</span>
+            </div>
+        </div>
+
+        <div class="kpi-card k-orders">
+            <div class="kpi-top">
+                <div class="kpi-icon"><i class="fas fa-shopping-cart"></i></div>
+                <span class="kpi-trend up" id="trendOrders">
+                    <i class="fas fa-arrow-up"></i> 0%
+                </span>
+            </div>
+            <div class="kpi-value" id="kpiOrders">0</div>
+            <div class="kpi-label">Total Order</div>
+            <div class="kpi-sub">
+                <i class="fas fa-clock"></i>
+                <span id="kpiOrdersSub">0 pending</span>
+            </div>
+        </div>
+
+        <div class="kpi-card k-reseller">
+            <div class="kpi-top">
+                <div class="kpi-icon"><i class="fas fa-handshake"></i></div>
+                <span class="kpi-trend up" id="trendReseller">
+                    <i class="fas fa-arrow-up"></i> 0%
+                </span>
+            </div>
+            <div class="kpi-value" id="kpiReseller">0</div>
+            <div class="kpi-label">Total Reseller</div>
+            <div class="kpi-sub">
+                <i class="fas fa-check-circle"></i>
+                <span id="kpiResellerSub">0 aktif</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Highlight -->
+    <div class="summary-card">
+        <div class="summary-item">
+            <div class="summary-item-label">
+                <i class="fas fa-trophy"></i>
+                Avg Order Value
+            </div>
+            <div class="summary-item-value" id="sumAvgOrder">Rp 0</div>
+            <div class="summary-item-desc">Rata-rata nilai per order</div>
+        </div>
+        <div class="summary-item">
+            <div class="summary-item-label">
+                <i class="fas fa-percentage"></i>
+                Conversion Rate
+            </div>
+            <div class="summary-item-value" id="sumConversion">0%</div>
+            <div class="summary-item-desc">Order aktif / total client</div>
+        </div>
+        <div class="summary-item">
+            <div class="summary-item-label">
+                <i class="fas fa-fire"></i>
+                Growth Rate
+            </div>
+            <div class="summary-item-value" id="sumGrowth">+0%</div>
+            <div class="summary-item-desc">Vs periode sebelumnya</div>
+        </div>
+    </div>
+
+    <!-- Charts Grid -->
+    <div class="chart-grid">
+        <!-- Revenue Chart (Line) -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <div class="chart-title">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Trend Revenue</span>
+                </div>
+                <span class="chart-badge" id="chartPeriodBadge">30 Hari Terakhir</span>
+            </div>
+            <div class="chart-container">
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Status Pie -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <div class="chart-title">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Status Order</span>
+                </div>
+            </div>
+            <div class="chart-container-pie">
+                <canvas id="statusChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Package Distribution + Reseller Performance -->
+    <div class="chart-grid">
+        <div class="chart-card">
+            <div class="chart-header">
+                <div class="chart-title">
+                    <i class="fas fa-box"></i>
+                    <span>Distribusi Paket</span>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="packageChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <div class="chart-title">
+                    <i class="fas fa-medal"></i>
+                    <span>Tier Reseller</span>
+                </div>
+            </div>
+            <div class="chart-container-pie">
+                <canvas id="tierChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Lists -->
+    <div class="top-lists-grid">
+        <div class="top-list-card">
+            <div class="chart-header">
+                <div class="chart-title">
+                    <i class="fas fa-crown"></i>
+                    <span>Top Client (Nilai)</span>
+                </div>
+                <span class="chart-badge">TOP 5</span>
+            </div>
+            <div class="top-list" id="topClientsList">
+                <div class="loading-state">
+                    <i class="fas fa-spinner"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="top-list-card">
+            <div class="chart-header">
+                <div class="chart-title">
+                    <i class="fas fa-fire"></i>
+                    <span>Top Reseller (Referral)</span>
+                </div>
+                <span class="chart-badge">TOP 5</span>
+            </div>
+            <div class="top-list" id="topResellersList">
+                <div class="loading-state">
+                    <i class="fas fa-spinner"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Buttons -->
+    <div class="export-section">
+        <button class="btn-export btn-print" onclick="printLaporan()">
+            <i class="fas fa-print"></i>
+            <span>Print</span>
+        </button>
+        <button class="btn-export btn-csv" onclick="exportCSV()">
+            <i class="fas fa-file-csv"></i>
+            <span>Export CSV</span>
+        </button>
+    </div>
+
+</div>
+
+
+<!-- ==================== BOTTOM NAV ==================== -->
+<nav class="bottom-nav">
+    <a href="dashboard.html" class="nav-item">
+        <i class="fas fa-th-large"></i>
+        <span>Overview</span>
+    </a>
+    <a href="dashboard-slip.html" class="nav-item">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <span>Slip</span>
+    </a>
+    <a href="dashboard-reseller.html" class="nav-item">
+        <i class="fas fa-handshake"></i>
+        <span>Reseller</span>
+    </a>
+    <a href="dashboard-client.html" class="nav-item">
+        <i class="fas fa-briefcase"></i>
+        <span>Client</span>
+    </a>
+    <a href="dashboard-laporan.html" class="nav-item active">
+        <i class="fas fa-chart-line"></i>
+        <span>Laporan</span>
+    </a>
+</nav>
+
+
+<!-- ==========================================
+     🔥 FIREBASE SDK
+     ========================================== -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCYRygFt6uwCUiL_6-eoJHhUdkiumSwLzY",
+    authDomain: "ibaadurrahmaan-web.firebaseapp.com",
+    projectId: "ibaadurrahmaan-web",
+    storageBucket: "ibaadurrahmaan-web.firebasestorage.app",
+    messagingSenderId: "1066409450927",
+    appId: "1:1066409450927:web:3497135ea3a2c4ef77e35a"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+
+window.fbLaporan = { db, collection, getDocs, ready: true };
+console.log('🔥 Laporan Firebase ready!');
+document.dispatchEvent(new CustomEvent('firebaseReady'));
+</script>
+
+
+<!-- ==========================================
+     🧠 MAIN SCRIPT
+     ========================================== -->
+<script>
+// ====================================================
+// AUTH GUARD
+// ====================================================
+const CREDENTIALS = { username:'owner', password:'ibaadurrahmaan2024' };
+
+function simpleHash(str){
+    let hash=0;
+    for(let i=0;i<str.length;i++){
+        const char=str.charCodeAt(i);
+        hash=((hash<<5)-hash)+char;
+        hash=hash&hash;
+    }
+    return hash.toString(36)+str.length.toString(36);
+}
+
+function checkAuth(){
+    const s=localStorage.getItem('ibaad_session');
+    if(!s){window.location.href='dashboard-login.html';return false;}
+    try{
+        const d=JSON.parse(s);
+        if(Date.now()>d.expiry){
+            localStorage.removeItem('ibaad_session');
+            Swal.fire({icon:'warning',title:'Sesi Berakhir',
+                text:'Silakan login kembali',
+                customClass:{popup:'swal-premium'},
+                confirmButtonText:'Login Ulang',allowOutsideClick:false
+            }).then(()=>{window.location.href='dashboard-login.html';});
+            return false;
+        }
+        const valid=simpleHash(CREDENTIALS.username+CREDENTIALS.password);
+        if(d.token!==valid){
+            localStorage.removeItem('ibaad_session');
+            window.location.href='dashboard-login.html';
+            return false;
+        }
+        return d;
+    }catch(e){
+        window.location.href='dashboard-login.html';
+        return false;
+    }
+}
+
+const session = checkAuth();
+
+
+// ====================================================
+// LOGOUT
+// ====================================================
+function handleLogout(){
+    Swal.fire({
+        icon:'question',title:'Keluar Dashboard?',
+        text:'Kamu akan diarahkan ke halaman login',
+        showCancelButton:true,
+        confirmButtonText:'<i class="fas fa-sign-out-alt"></i> Ya, Keluar',
+        cancelButtonText:'Batal',
+        customClass:{popup:'swal-premium'},
+        reverseButtons:true,focusCancel:true
+    }).then(r=>{
+        if(r.isConfirmed){
+            localStorage.removeItem('ibaad_session');
+            window.location.href='dashboard-login.html';
+        }
+    });
+}
+
+
+// ====================================================
+// STATE & CONSTANTS
+// ====================================================
+let allClients   = [];
+let allResellers = [];
+let currentPeriod = 'month';
+let charts = {};   // simpan instance chart
+
+const PERIOD_MAP = {
+    today:  { days: 1,   label: 'Hari Ini' },
+    week:   { days: 7,   label: '7 Hari Terakhir' },
+    month:  { days: 30,  label: '30 Hari Terakhir' },
+    '3month':{ days: 90, label: '3 Bulan Terakhir' },
+    year:   { days: 365, label: '1 Tahun Terakhir' },
+    all:    { days: 9999,label: 'Semua Waktu' }
+};
+
+// Chart theme
+const CHART_COLORS = {
+    gold:    '#d4a536',
+    green:   '#25d366',
+    blue:    '#3498db',
+    purple:  '#9b59b6',
+    orange:  '#f39c12',
+    red:     '#e74c3c',
+    cyan:    '#1abc9c',
+    pink:    '#e91e8c'
+};
+
+
+// ====================================================
+// HELPERS
+// ====================================================
+function parseValue(v){
+    if(!v) return 0;
+    if(typeof v === 'number') return v;
+    // "Rp 2.500.000" → 2500000
+    return parseInt(String(v).replace(/[^0-9]/g,'')) || 0;
+}
+
+function formatRp(n){
+    return 'Rp ' + n.toLocaleString('id-ID');
+}
+
+function formatRpShort(n){
+    if(n >= 1_000_000_000) return 'Rp ' + (n/1_000_000_000).toFixed(1) + 'M';
+    if(n >= 1_000_000)     return 'Rp ' + (n/1_000_000).toFixed(1) + 'jt';
+    if(n >= 1_000)         return 'Rp ' + (n/1_000).toFixed(0) + 'rb';
+    return 'Rp ' + n;
+}
+
+function getTimestamp(item){
+    // Try multiple field names
+    const t = item.createdAt || item.timestamp;
+    if(!t) return null;
+    if(t.toDate) return t.toDate();
+    if(t.seconds) return new Date(t.seconds * 1000);
+    return new Date(t);
+}
+
+function isInPeriod(item, days){
+    if(days >= 9999) return true;
+    const t = getTimestamp(item);
+    if(!t) return false;
+    const now = new Date();
+    const cutoff = new Date(now.getTime() - days*24*60*60*1000);
+    return t >= cutoff;
+}
+
+function getDateKey(d, groupBy='day'){
+    const yr = d.getFullYear();
+    const mo = String(d.getMonth()+1).padStart(2,'0');
+    const dy = String(d.getDate()).padStart(2,'0');
+    if(groupBy === 'day')   return `${yr}-${mo}-${dy}`;
+    if(groupBy === 'month') return `${yr}-${mo}`;
+    return `${yr}`;
+}
+
+
+// ====================================================
+// 🔥 LOAD DATA FROM FIRESTORE
+// ====================================================
+async function loadLaporan(){
+    if(!window.fbLaporan || !window.fbLaporan.ready){
+        console.log('⏳ Firebase belum ready...');
+        return;
+    }
+
+    const btn = document.getElementById('btnRefreshLaporan');
+    btn.classList.add('spinning');
+
+    try {
+        const fb = window.fbLaporan;
+
+        // Load clients
+        const clientsSnap = await fb.getDocs(fb.collection(fb.db, 'clients'));
+        allClients = [];
+        clientsSnap.forEach(d => allClients.push({id:d.id, ...d.data()}));
+
+        // Load resellers
+        const resellersSnap = await fb.getDocs(fb.collection(fb.db, 'resellers'));
+        allResellers = [];
+        resellersSnap.forEach(d => allResellers.push({id:d.id, ...d.data()}));
+
+        console.log(`✅ Loaded ${allClients.length} clients & ${allResellers.length} resellers`);
+        renderLaporan();
+
+    } catch(err) {
+        console.error('❌ Load error:', err);
+        Swal.fire({
+            icon:'error', title:'Gagal Memuat Data',
+            html:`Error: <code>${err.message}</code>`,
+            customClass:{popup:'swal-premium'},
+            confirmButtonText:'Coba Lagi'
+        }).then(()=> loadLaporan());
+    } finally {
+        btn.classList.remove('spinning');
+    }
+}
+
+
+// ====================================================
+// RENDER LAPORAN
+// ====================================================
+function renderLaporan(){
+    const periodConfig = PERIOD_MAP[currentPeriod];
+    const days = periodConfig.days;
+
+    // Filter data by period
+    const filteredClients = allClients.filter(c => isInPeriod(c, days));
+    
+    // Update period badge
+    document.getElementById('chartPeriodBadge').textContent = periodConfig.label;
+
+    // ═══ KPI CALCULATIONS ═══
+    const totalRevenue = filteredClients.reduce((s,c) => s + parseValue(c.value || c.priceDetail?.total), 0);
+    const totalClients = filteredClients.length;
+    const totalOrders  = filteredClients.filter(c => c.orderId).length;
+    const pendingOrders = filteredClients.filter(c => c.status === 'pending').length;
+    const totalReseller = allResellers.length;
+    const activeReseller = allResellers.filter(r => r.status === 'active').length;
+
+    // Previous period untuk trend
+    const prevClients = allClients.filter(c => {
+        const t = getTimestamp(c);
+        if(!t) return false;
+        const now = new Date();
+        const start = new Date(now.getTime() - (days*2)*24*60*60*1000);
+        const end   = new Date(now.getTime() - days*24*60*60*1000);
+        return t >= start && t < end;
+    });
+    const prevRevenue = prevClients.reduce((s,c) => s + parseValue(c.value || c.priceDetail?.total), 0);
+    const revTrend = prevRevenue > 0 ? Math.round((totalRevenue - prevRevenue) / prevRevenue * 100) : (totalRevenue > 0 ? 100 : 0);
+
+    // ═══ UPDATE KPI DOM ═══
+    document.getElementById('kpiRevenue').textContent  = formatRpShort(totalRevenue);
+    document.getElementById('kpiRevenue').title        = formatRp(totalRevenue);
+    document.getElementById('kpiClients').textContent  = totalClients;
+    document.getElementById('kpiOrders').textContent   = totalOrders;
+    document.getElementById('kpiReseller').textContent = totalReseller;
+
+    document.getElementById('kpiRevenueSub').textContent  = `${filteredClients.length} order tercatat`;
+    document.getElementById('kpiClientsSub').textContent  = `+${filteredClients.filter(c=>c.source==='order_form_website').length} dari website`;
+    document.getElementById('kpiOrdersSub').textContent   = `${pendingOrders} pending`;
+    document.getElementById('kpiResellerSub').textContent = `${activeReseller} aktif`;
+
+    updateTrendBadge('trendRevenue', revTrend);
+    updateTrendBadge('trendClients', totalClients > 0 ? Math.min(100, totalClients * 10) : 0);
+    updateTrendBadge('trendOrders',  totalOrders > 0 ? Math.min(100, totalOrders * 10) : 0);
+    updateTrendBadge('trendReseller', activeReseller > 0 ? Math.min(100, activeReseller * 20) : 0);
+
+    // ═══ SUMMARY CARD ═══
+    const avgOrder = totalOrders > 0 ? Math.round(totalRevenue / totalOrders) : 0;
+    const conversionRate = totalClients > 0 ? Math.round(filteredClients.filter(c=>c.status==='active'||c.status==='done').length / totalClients * 100) : 0;
+
+    document.getElementById('sumAvgOrder').textContent = formatRpShort(avgOrder);
+    document.getElementById('sumConversion').textContent = conversionRate + '%';
+    document.getElementById('sumGrowth').textContent = (revTrend >= 0 ? '+' : '') + revTrend + '%';
+
+    // ═══ RENDER CHARTS ═══
+    renderRevenueChart(filteredClients, days);
+    renderStatusChart(filteredClients);
+    renderPackageChart(filteredClients);
+    renderTierChart();
+
+    // ═══ TOP LISTS ═══
+    renderTopClients(filteredClients);
+    renderTopResellers(filteredClients);
+}
+
+
+// ====================================================
+// UPDATE TREND BADGE
+// ====================================================
+function updateTrendBadge(id, percent){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.classList.remove('up','down','neutral');
+    if(percent > 0){
+        el.classList.add('up');
+        el.innerHTML = `<i class="fas fa-arrow-up"></i> ${Math.abs(percent)}%`;
+    } else if(percent < 0){
+        el.classList.add('down');
+        el.innerHTML = `<i class="fas fa-arrow-down"></i> ${Math.abs(percent)}%`;
+    } else {
+        el.classList.add('neutral');
+        el.innerHTML = `<i class="fas fa-minus"></i> 0%`;
+    }
+}
+
+
+// ====================================================
+// 📊 REVENUE CHART (LINE)
+// ====================================================
+function renderRevenueChart(clients, days){
+    const ctx = document.getElementById('revenueChart').getContext('2d');
+    
+    // Determine grouping
+    let groupBy = 'day';
+    let bucketCount = days;
+    if(days > 90) { groupBy = 'month'; bucketCount = 12; }
+    else if(days > 30) { groupBy = 'day'; bucketCount = days; }
+    else { groupBy = 'day'; bucketCount = days; }
+
+    // Build buckets
+    const buckets = {};
+    const now = new Date();
+    for(let i = bucketCount-1; i >= 0; i--){
+        const d = new Date(now.getTime() - i*24*60*60*1000);
+        const key = getDateKey(d, groupBy);
+        buckets[key] = { revenue: 0, count: 0, label: formatBucketLabel(d, groupBy) };
+    }
+
+    // Fill buckets
+    clients.forEach(c => {
+        const t = getTimestamp(c);
+        if(!t) return;
+        const key = getDateKey(t, groupBy);
+        if(buckets[key]){
+            buckets[key].revenue += parseValue(c.value || c.priceDetail?.total);
+            buckets[key].count++;
+        }
+    });
+
+    const labels = Object.values(buckets).map(b => b.label);
+    const data   = Object.values(buckets).map(b => b.revenue);
+
+    if(charts.revenue) charts.revenue.destroy();
+
+    charts.revenue = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Revenue',
+                data: data,
+                borderColor: CHART_COLORS.gold,
+                backgroundColor: 'rgba(212,165,54,0.12)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: CHART_COLORS.gold,
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                pointRadius: 4,
+                pointHoverRadius: 7
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: 'rgba(15,30,51,0.95)',
+                    borderColor: '#d4a536',
+                    borderWidth: 1,
+                    titleColor: '#d4a536',
+                    bodyColor: '#fff',
+                    padding: 12,
+                    displayColors: false,
+                    callbacks: {
+                        label: (ctx) => formatRp(ctx.parsed.y)
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { color: 'rgba(255,255,255,0.05)' },
+                    ticks: { color: '#8a94a6', font: {size: 10} }
+                },
+                y: {
+                    grid: { color: 'rgba(255,255,255,0.05)' },
+                    ticks: {
+                        color: '#8a94a6',
+                        font: {size: 10},
+                        callback: v => formatRpShort(v)
+                    }
+                }
+            }
+        }
+    });
+}
+
+function formatBucketLabel(d, groupBy){
+    const monthsShort = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+    if(groupBy === 'month') return `${monthsShort[d.getMonth()]} ${d.getFullYear()}`;
+    return `${d.getDate()} ${monthsShort[d.getMonth()]}`;
+}
+
+
+// ====================================================
+// 📊 STATUS PIE CHART
+// ====================================================
+function renderStatusChart(clients){
+    const ctx = document.getElementById('statusChart').getContext('2d');
+    
+    const statusCount = {
+        pending:  clients.filter(c=>c.status==='pending').length,
+        progress: clients.filter(c=>c.status==='progress').length,
+        active:   clients.filter(c=>c.status==='active').length,
+        done:     clients.filter(c=>c.status==='done').length
+    };
+
+    if(charts.status) charts.status.destroy();
+
+    charts.status = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Pending', 'In Progress', 'Aktif', 'Selesai'],
+            datasets: [{
+                data: [statusCount.pending, statusCount.progress, statusCount.active, statusCount.done],
+                backgroundColor: [
+                    CHART_COLORS.orange,
+                    CHART_COLORS.blue,
+                    CHART_COLORS.green,
+                    CHART_COLORS.purple
+                ],
+                borderColor: '#0F1E33',
+                borderWidth: 3,
+                hoverOffset: 12
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '65%',
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#8a94a6',
+                        padding: 12,
+                        font: { size: 11 },
+                        usePointStyle: true,
+                        pointStyle: 'circle'
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(15,30,51,0.95)',
+                    borderColor: '#d4a536',
+                    borderWidth: 1,
+                    titleColor: '#d4a536',
+                    bodyColor: '#fff',
+                    padding: 12
+                }
+            }
+        }
+    });
+}
+
+
+// ====================================================
+// 📊 PACKAGE DISTRIBUTION (BAR)
+// ====================================================
+function renderPackageChart(clients){
+    const ctx = document.getElementById('packageChart').getContext('2d');
+    
+    // Group by paketKey or extract from project name
+    const packages = {};
+    clients.forEach(c => {
+        let key = c.paketKey || 'other';
+        if(!c.paketKey && c.project){
+            if(c.project.toLowerCase().includes('hemat'))    key = 'hemat';
+            else if(c.project.toLowerCase().includes('regul')) key = 'reguler';
+            else if(c.project.toLowerCase().includes('prem')) key = 'premium';
+            else key = 'custom';
+        }
+        packages[key] = (packages[key] || 0) + 1;
+    });
+
+    const labels = Object.keys(packages).map(k => k.toUpperCase());
+    const data   = Object.values(packages);
+
+    if(charts.package) charts.package.destroy();
+
+    charts.package = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Jumlah Order',
+                data: data,
+                backgroundColor: [
+                    CHART_COLORS.blue,
+                    CHART_COLORS.gold,
+                    CHART_COLORS.purple,
+                    CHART_COLORS.cyan,
+                    CHART_COLORS.pink
+                ],
+                borderRadius: 8,
+                borderSkipped: false
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: 'rgba(15,30,51,0.95)',
+                    borderColor: '#d4a536',
+                    borderWidth: 1,
+                    titleColor: '#d4a536',
+                    bodyColor: '#fff',
+                    padding: 12
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#8a94a6', font: {size: 11, weight: 700} }
+                },
+                y: {
+                    grid: { color: 'rgba(255,255,255,0.05)' },
+                    ticks: { color: '#8a94a6', font: {size: 10}, stepSize: 1 },
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+
+// ====================================================
+// 📊 TIER RESELLER CHART (PIE)
+// ====================================================
+function renderTierChart(){
+    const ctx = document.getElementById('tierChart').getContext('2d');
+    
+    const tiers = { gold: 0, silver: 0, bronze: 0, other: 0 };
+    allResellers.forEach(r => {
+        const tier = (r.tier || 'other').toLowerCase();
+        if(tier.includes('gold'))   tiers.gold++;
+        else if(tier.includes('silver')) tiers.silver++;
+        else if(tier.includes('bronze')) tiers.bronze++;
+        else tiers.other++;
+    });
+
+    if(charts.tier) charts.tier.destroy();
+
+    charts.tier = new Chart(ctx, {
+        type: 'polarArea',
+        data: {
+            labels: ['Gold', 'Silver', 'Bronze', 'Other'],
+            datasets: [{
+                data: [tiers.gold, tiers.silver, tiers.bronze, tiers.other],
+                backgroundColor: [
+                    'rgba(212,165,54,0.7)',
+                    'rgba(192,192,192,0.7)',
+                    'rgba(205,127,50,0.7)',
+                    'rgba(155,89,182,0.7)'
+                ],
+                borderColor: [
+                    CHART_COLORS.gold,
+                    '#c0c0c0',
+                    '#CD7F32',
+                    CHART_COLORS.purple
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#8a94a6',
+                        padding: 12,
+                        font: { size: 11 },
+                        usePointStyle: true
+                    }
+                }
+            },
+            scales: {
+                r: {
+                    grid: { color: 'rgba(255,255,255,0.08)' },
+                    ticks: {
+                        color: '#8a94a6',
+                        font: { size: 10 },
+                        backdropColor: 'transparent',
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+}
+
+
+// ====================================================
+// 🏆 TOP CLIENTS LIST
+// ====================================================
+function renderTopClients(clients){
+    const list = document.getElementById('topClientsList');
+    
+    const sorted = [...clients]
+        .filter(c => parseValue(c.value || c.priceDetail?.total) > 0)
+        .sort((a,b) => parseValue(b.value || b.priceDetail?.total) - parseValue(a.value || a.priceDetail?.total))
+        .slice(0, 5);
+
+    if(!sorted.length){
+        list.innerHTML = `
+            <div class="empty-chart">
+                <i class="fas fa-inbox"></i>
+                <p>Belum ada data client</p>
+            </div>`;
+        return;
+    }
+
+    list.innerHTML = sorted.map((c, idx) => {
+        const rank = idx + 1;
+        const rankCls = rank <= 3 ? `rank-${rank}` : 'rank-other';
+        const value = parseValue(c.value || c.priceDetail?.total);
+        
+        return `
+        <div class="top-item">
+            <div class="top-rank ${rankCls}">${rank}</div>
+            <div class="top-info">
+                <div class="top-name">${escHtml(c.name || 'Anonymous')}</div>
+                <div class="top-meta">
+                    <span>${escHtml(c.project || c.company || '-')}</span>
+                </div>
+            </div>
+            <div class="top-value">${formatRpShort(value)}</div>
+        </div>`;
+    }).join('');
+}
+
+
+// ====================================================
+// 🏆 TOP RESELLERS LIST
+// ====================================================
+function renderTopResellers(clients){
+    const list = document.getElementById('topResellersList');
+    
+    // Hitung referral per reseller code
+    const resellerStats = {};
+    clients.forEach(c => {
+        if(c.referralCode){
+            if(!resellerStats[c.referralCode]){
+                resellerStats[c.referralCode] = {
+                    code: c.referralCode,
+                    name: c.referralName || c.referralCode,
+                    tier: c.referralTier || '',
+                    count: 0,
+                    revenue: 0
+                };
+            }
+            resellerStats[c.referralCode].count++;
+            resellerStats[c.referralCode].revenue += parseValue(c.value || c.priceDetail?.total);
+        }
+    });
+
+    const sorted = Object.values(resellerStats)
+        .sort((a,b) => b.count - a.count)
+        .slice(0, 5);
+
+    if(!sorted.length){
+        list.innerHTML = `
+            <div class="empty-chart">
+                <i class="fas fa-user-tag"></i>
+                <p>Belum ada referral reseller</p>
+            </div>`;
+        return;
+    }
+
+    list.innerHTML = sorted.map((r, idx) => {
+        const rank = idx + 1;
+        const rankCls = rank <= 3 ? `rank-${rank}` : 'rank-other';
+        
+        return `
+        <div class="top-item">
+            <div class="top-rank ${rankCls}">${rank}</div>
+            <div class="top-info">
+                <div class="top-name">${escHtml(r.name)}</div>
+                <div class="top-meta">
+                    <span>${escHtml(r.code)}</span>
+                    ${r.tier ? `<span>•</span><span>${escHtml(r.tier)}</span>` : ''}
+                </div>
+            </div>
+            <div class="top-value">${r.count} order</div>
+        </div>`;
+    }).join('');
+}
+
+
+// ====================================================
+// PERIODE TABS HANDLER
+// ====================================================
+document.querySelectorAll('.periode-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.periode-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentPeriod = tab.dataset.period;
+        renderLaporan();
+    });
+});
+
+
+// ====================================================
+// EXPORT & PRINT
+// ====================================================
+function printLaporan(){
+    window.print();
+}
+
+function exportCSV(){
+    if(!allClients.length){
+        Swal.fire({
+            icon:'warning', title:'Belum Ada Data',
+            text:'Tidak ada data untuk di-export',
+            customClass:{popup:'swal-premium'},
+            confirmButtonText:'Oke'
+        });
+        return;
+    }
+
+    // Build CSV
+    const headers = ['Order ID','Nama','Perusahaan','WhatsApp','Email','Project','Nilai','Status','Reseller','Tanggal'];
+    const rows = allClients.map(c => {
+        const t = getTimestamp(c);
+        const tanggal = t ? t.toLocaleDateString('id-ID') : '-';
+        return [
+            c.orderId || c.id,
+            c.name || '',
+            c.company || '',
+            c.phone || '',
+            c.email || '',
+            c.project || '',
+            parseValue(c.value || c.priceDetail?.total),
+            c.status || '',
+            c.referralName || c.referralCode || '',
+            tanggal
+        ].map(v => `"${String(v).replace(/"/g,'""')}"`).join(',');
+    });
+
+    const csv = '\uFEFF' + [headers.join(','), ...rows].join('\n');
+    const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `laporan-ibaadurrahmaan-${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+
+    Swal.fire({
+        icon:'success', title:'✅ Export Berhasil',
+        text:`${allClients.length} data client berhasil di-export ke CSV`,
+        customClass:{popup:'swal-premium'},
+        timer:2500, showConfirmButton:false, timerProgressBar:true,
+        toast:true, position:'top-end'
+    });
+}
+
+
+// ====================================================
+// UTIL
+// ====================================================
+function escHtml(str){
+    if(!str) return '';
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+}
+
+
+// ====================================================
+// INIT
+// ====================================================
+document.addEventListener('firebaseReady', ()=>{
+    console.log('🚀 Firebase ready, loading laporan...');
+    loadLaporan();
+});
+
+if(window.fbLaporan && window.fbLaporan.ready){
+    loadLaporan();
+}
+
+// User info
+if(session){
+    const un = session.username || 'Owner';
+    const disp = un.charAt(0).toUpperCase() + un.slice(1);
+    document.getElementById('userName').textContent = disp;
+    document.getElementById('userAvatar').textContent = disp.charAt(0);
+}
+</script>
+
+</body>
+</html>
