@@ -2907,3 +2907,76 @@ a.fab-wa .fab.fa-whatsapp,
   .paket-detail-cta.primary i,
   .paket-detail-cta.wa i{font-size:1.15rem;}
 }
+
+/* ==========================================
+   ⭐ FEATURED GOLD (Simulasi Penghasilan)
+   ========================================== */
+
+/* Desktop Dropdown */
+.dropdown-link.featured-gold{
+    background:linear-gradient(90deg,rgba(212,165,54,0.12),rgba(212,165,54,0.03));
+    border:1px solid rgba(212,165,54,0.3);
+    position:relative;
+    overflow:hidden;
+}
+
+.dropdown-link.featured-gold::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(90deg,
+        transparent,
+        rgba(212,165,54,0.2),
+        transparent);
+    animation:shine 3s ease-in-out infinite;
+}
+
+.dropdown-link.featured-gold:hover{
+    background:linear-gradient(90deg,rgba(212,165,54,0.2),rgba(212,165,54,0.05));
+    transform:translateX(4px);
+    border-color:rgba(212,165,54,0.5);
+}
+
+@keyframes shine{
+    0%,100%{left:-100%;}
+    50%{left:100%;}
+}
+
+/* Gold Badge with Pulse */
+.dd-badge-gold{
+    background:linear-gradient(135deg,var(--gold),#c19a2e) !important;
+    color:var(--bg) !important;
+    box-shadow:0 2px 8px rgba(212,165,54,0.4);
+    animation:pulseBadge 2s ease-in-out infinite;
+}
+
+@keyframes pulseBadge{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.08);}
+}
+
+
+/* Mobile Sheet */
+.sheet-link.featured-gold{
+    background:linear-gradient(90deg,rgba(212,165,54,0.12),rgba(212,165,54,0.03));
+    border-color:rgba(212,165,54,0.3);
+    position:relative;
+    overflow:hidden;
+}
+
+.sheet-link.featured-gold::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(90deg,
+        transparent,
+        rgba(212,165,54,0.15),
+        transparent);
+    animation:shine 3s ease-in-out infinite;
+}
