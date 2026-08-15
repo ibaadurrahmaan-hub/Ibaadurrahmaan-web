@@ -13,6 +13,7 @@
  * ✅ Detail View (Complete Info dengan Kode Reseller)
  * ✅ Delete Permanent (2-step confirmation)
  * ✅ Toast & Modal Notifications
+ * ✅ Premium Pill-Shaped Action Buttons dengan Label
  * ============================================================
  */
 
@@ -413,6 +414,7 @@ function updateStat(id, value) {
 
 /**
  * Helper: Render reseller list DENGAN aksi berdasarkan status
+ * ✨ VERSI BARU: Pill buttons dengan label icon+text
  */
 function renderResellerList(resellers) {
     const listEl = document.getElementById('resellerList');
@@ -460,20 +462,20 @@ function renderResellerList(resellers) {
             resellerCode: data.resellerCode || '-'
         }).replace(/"/g, '&quot;');
         
-        // Tombol action berdasarkan status
+        // ✨ Tombol action berdasarkan status (PILL DENGAN LABEL)
         let actionButtons = '';
         
         if (status === 'pending') {
             actionButtons = `
                 <div class="reseller-actions">
                     <button class="btn-action btn-approve" onclick='handleApprove(${dataStr})' title="Approve">
-                        <i class="fas fa-check"></i>
+                        <i class="fas fa-check"></i><span>Approve</span>
                     </button>
                     <button class="btn-action btn-edit" onclick='handleEdit(${dataStr})' title="Edit">
-                        <i class="fas fa-edit"></i>
+                        <i class="fas fa-edit"></i><span>Edit</span>
                     </button>
                     <button class="btn-action btn-reject" onclick='handleReject(${dataStr})' title="Reject">
-                        <i class="fas fa-times"></i>
+                        <i class="fas fa-times"></i><span>Reject</span>
                     </button>
                 </div>
             `;
@@ -481,13 +483,13 @@ function renderResellerList(resellers) {
             actionButtons = `
                 <div class="reseller-actions">
                     <button class="btn-action btn-detail" onclick='handleDetail(${dataStr})' title="Detail">
-                        <i class="fas fa-eye"></i>
+                        <i class="fas fa-eye"></i><span>Detail</span>
                     </button>
                     <button class="btn-action btn-edit" onclick='handleEdit(${dataStr})' title="Edit">
-                        <i class="fas fa-edit"></i>
+                        <i class="fas fa-edit"></i><span>Edit</span>
                     </button>
                     <button class="btn-action btn-deactivate" onclick='handleDeactivate(${dataStr})' title="Non-Aktifkan">
-                        <i class="fas fa-user-slash"></i>
+                        <i class="fas fa-user-slash"></i><span>Non-Aktif</span>
                     </button>
                 </div>
             `;
@@ -495,21 +497,24 @@ function renderResellerList(resellers) {
             actionButtons = `
                 <div class="reseller-actions">
                     <button class="btn-action btn-reactivate" onclick='handleReactivate(${dataStr})' title="Aktifkan Kembali">
-                        <i class="fas fa-user-check"></i>
+                        <i class="fas fa-user-check"></i><span>Aktifkan</span>
                     </button>
                     <button class="btn-action btn-edit" onclick='handleEdit(${dataStr})' title="Edit">
-                        <i class="fas fa-edit"></i>
+                        <i class="fas fa-edit"></i><span>Edit</span>
                     </button>
                     <button class="btn-action btn-delete" onclick='handleDelete(${dataStr})' title="Hapus Permanen">
-                        <i class="fas fa-trash-alt"></i>
+                        <i class="fas fa-trash-alt"></i><span>Hapus</span>
                     </button>
                 </div>
             `;
         } else if (status === 'rejected') {
             actionButtons = `
                 <div class="reseller-actions">
+                    <button class="btn-action btn-detail" onclick='handleDetail(${dataStr})' title="Detail">
+                        <i class="fas fa-eye"></i><span>Detail</span>
+                    </button>
                     <button class="btn-action btn-delete" onclick='handleDelete(${dataStr})' title="Hapus Permanen">
-                        <i class="fas fa-trash-alt"></i>
+                        <i class="fas fa-trash-alt"></i><span>Hapus</span>
                     </button>
                 </div>
             `;
@@ -580,7 +585,6 @@ async function handleApprove(data) {
         // ============================================
         // 📝 BUILD PESAN WA LENGKAP
         // ============================================
-
 const waMessage = 
 `Assalamu'alaikum Kak *${data.nama}*,
 
@@ -759,6 +763,7 @@ _"Solusi Digital untuk Bisnis Anda"_`;
         });
     }
 }
+
 
 // ============================================================
 // ❌ REJECT RESELLER
@@ -1438,6 +1443,7 @@ setTimeout(() => {
         loadResellerData();
     }
 }, 1500);
+
 
 // ====================================================
 // 🎯 AUTO-SET ACTIVE NAV ITEM
