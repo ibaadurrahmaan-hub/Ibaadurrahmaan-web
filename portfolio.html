@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050B18">
+<title>Portfolio | Ibaadurrahmaan Web Designer</title>
+<meta name="description" content="Portofolio karya website terbaik dari Ibaadurrahmaan Web Designer. UMKM, company profile, e-commerce, dan lebih banyak lagi.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* ============================================
+   PORTFOLIO PAGE STYLES
+   ============================================ */
+
+.portfolio-hero{
+    background:linear-gradient(135deg,#0F1E33 0%,#050B18 100%);
+    padding:120px 20px 60px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    border-bottom:2px solid var(--gold);
+}
+
+.portfolio-hero::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at 20% 30%,rgba(212,165,54,0.15),transparent 40%),
+        radial-gradient(circle at 80% 70%,rgba(212,165,54,0.1),transparent 40%);
+    pointer-events:none;
+}
+
+.hero-badge{
+    display:inline-block;
+    padding:8px 20px;
+    background:var(--grad-gold-shine);
+    color:var(--bg);
+    border-radius:100px;
+    font-size:0.75rem;
+    font-weight:800;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:20px;
+    position:relative;
+    z-index:2;
+    box-shadow:0 6px 20px var(--gold-glow);
+}
+
+.portfolio-hero h1{
+    font-family:'Montserrat',sans-serif;
+    font-size:clamp(2rem,5vw,3.5rem);
+    font-weight:900;
+    color:var(--text);
+    margin-bottom:16px;
+    line-height:1.1;
+    position:relative;
+    z-index:2;
+}
+
+.portfolio-hero h1 span{
+    background:var(--grad-gold-shine);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+}
+
+.portfolio-hero p{
+    color:var(--text-muted);
+    font-size:1.05rem;
+    max-width:600px;
+    margin:0 auto 30px;
+    line-height:1.7;
+    position:relative;
+    z-index:2;
+}
+
+.portfolio-stats{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    flex-wrap:wrap;
+    margin-top:30px;
+    position:relative;
+    z-index:2;
+}
+
+.stat{
+    text-align:center;
+}
+
+.stat-num{
+    font-family:'Montserrat',sans-serif;
+    font-size:2.5rem;
+    font-weight:900;
+    background:var(--grad-gold-shine);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    line-height:1;
+    margin-bottom:6px;
+}
+
+.stat-label{
+    color:var(--text-muted);
+    font-size:0.85rem;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+
+/* ============================================
+   FILTER TABS
+   ============================================ */
+.portfolio-filter{
+    max-width:1200px;
+    margin:0 auto;
+    padding:40px 20px 20px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.filter-btn{
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--border);
+    color:var(--text-muted);
+    padding:10px 22px;
+    border-radius:100px;
+    font-family:'Poppins',sans-serif;
+    font-size:0.85rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.3s var(--ease);
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    white-space:nowrap;
+}
+
+.filter-btn:hover{
+    color:var(--gold);
+    border-color:rgba(212,165,54,0.3);
+}
+
+.filter-btn.active{
+    background:var(--grad-gold-shine);
+    color:var(--bg);
+    border-color:var(--gold);
+    box-shadow:0 4px 15px var(--gold-glow);
+}
+
+.filter-btn i{
+    font-size:0.9rem;
+}
+
+
+/* ============================================
+   PORTFOLIO GRID
+   ============================================ */
+.portfolio-container{
+    max-width:1200px;
+    margin:0 auto;
+    padding:20px 20px 80px;
+}
+
+.portfolio-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    gap:24px;
+}
+
+.portfolio-item{
+    background:var(--grad-card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    overflow:hidden;
+    transition:all 0.4s var(--ease);
+    cursor:pointer;
+    position:relative;
+    opacity:0;
+    animation:fadeInUp 0.6s var(--ease) forwards;
+}
+
+@keyframes fadeInUp{
+    from{opacity:0;transform:translateY(30px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+.portfolio-item:nth-child(1){animation-delay:0.1s;}
+.portfolio-item:nth-child(2){animation-delay:0.2s;}
+.portfolio-item:nth-child(3){animation-delay:0.3s;}
+.portfolio-item:nth-child(4){animation-delay:0.4s;}
+.portfolio-item:nth-child(5){animation-delay:0.5s;}
+.portfolio-item:nth-child(6){animation-delay:0.6s;}
+.portfolio-item:nth-child(7){animation-delay:0.7s;}
+.portfolio-item:nth-child(8){animation-delay:0.8s;}
+.portfolio-item:nth-child(9){animation-delay:0.9s;}
+
+.portfolio-item:hover{
+    transform:translateY(-8px);
+    border-color:var(--gold);
+    box-shadow:0 20px 50px rgba(0,0,0,0.4),0 0 40px rgba(212,165,54,0.15);
+}
+
+.portfolio-item.hidden{
+    display:none;
+}
+
+
+/* Thumbnail */
+.portfolio-thumb{
+    position:relative;
+    width:100%;
+    padding-top:65%;
+    overflow:hidden;
+    background:linear-gradient(135deg,#0a1a2e,#1a3a5c);
+}
+
+.portfolio-thumb img{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform 0.6s var(--ease);
+}
+
+.portfolio-item:hover .portfolio-thumb img{
+    transform:scale(1.1);
+}
+
+/* Category Badge on Thumb */
+.thumb-badge{
+    position:absolute;
+    top:14px;
+    left:14px;
+    padding:5px 12px;
+    background:rgba(5,11,24,0.85);
+    backdrop-filter:blur(10px);
+    color:var(--gold);
+    border-radius:100px;
+    font-size:0.7rem;
+    font-weight:700;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    border:1px solid rgba(212,165,54,0.3);
+    z-index:2;
+}
+
+.thumb-year{
+    position:absolute;
+    top:14px;
+    right:14px;
+    padding:5px 12px;
+    background:rgba(212,165,54,0.15);
+    backdrop-filter:blur(10px);
+    color:var(--gold);
+    border-radius:100px;
+    font-size:0.7rem;
+    font-weight:800;
+    letter-spacing:0.5px;
+    border:1px solid rgba(212,165,54,0.3);
+    z-index:2;
+}
+
+/* Overlay on hover */
+.portfolio-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg,transparent 40%,rgba(5,11,24,0.95) 100%);
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    padding:20px;
+    opacity:0;
+    transition:opacity 0.4s var(--ease);
+    z-index:1;
+}
+
+.portfolio-item:hover .portfolio-overlay{
+    opacity:1;
+}
+
+.overlay-content{
+    text-align:center;
+    transform:translateY(20px);
+    transition:transform 0.4s var(--ease);
+}
+
+.portfolio-item:hover .overlay-content{
+    transform:translateY(0);
+}
+
+.view-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 24px;
+    background:var(--grad-gold-shine);
+    color:var(--bg);
+    border-radius:100px;
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:0.85rem;
+    text-decoration:none;
+    box-shadow:0 6px 20px var(--gold-glow);
+    transition:transform 0.3s;
+}
+
+.view-btn:hover{
+    transform:scale(1.05);
+}
+
+
+/* Info Section */
+.portfolio-info{
+    padding:22px;
+}
+
+.portfolio-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.15rem;
+    font-weight:800;
+    color:var(--text);
+    margin-bottom:6px;
+    line-height:1.3;
+}
+
+.portfolio-client{
+    color:var(--gold);
+    font-size:0.82rem;
+    font-weight:600;
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.portfolio-client i{
+    font-size:0.75rem;
+}
+
+.portfolio-desc{
+    color:var(--text-muted);
+    font-size:0.85rem;
+    line-height:1.6;
+    margin-bottom:14px;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+
+.portfolio-tech{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    padding-top:14px;
+    border-top:1px dashed rgba(255,255,255,0.05);
+}
+
+.tech-tag{
+    padding:3px 10px;
+    background:rgba(212,165,54,0.08);
+    color:var(--gold);
+    border-radius:100px;
+    font-size:0.7rem;
+    font-weight:600;
+    border:1px solid rgba(212,165,54,0.15);
+}
+
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+.empty-state{
+    text-align:center;
+    padding:60px 20px;
+    color:var(--text-muted);
+    grid-column:1 / -1;
+}
+
+.empty-state i{
+    font-size:3rem;
+    color:var(--gold);
+    opacity:0.3;
+    margin-bottom:16px;
+}
+
+.empty-state h3{
+    font-family:'Montserrat',sans-serif;
+    color:var(--text);
+    margin-bottom:8px;
+    font-size:1.2rem;
+}
+
+.empty-state p{
+    font-size:0.95rem;
+    line-height:1.6;
+}
+
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+.portfolio-cta{
+    max-width:1000px;
+    margin:60px auto 40px;
+    padding:0 20px;
+}
+
+.cta-box{
+    background:linear-gradient(135deg,rgba(212,165,54,0.12),rgba(212,165,54,0.03));
+    border:1px solid rgba(212,165,54,0.3);
+    border-radius:24px;
+    padding:50px 40px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.cta-box::before{
+    content:'';
+    position:absolute;
+    top:-100px;
+    right:-100px;
+    width:300px;
+    height:300px;
+    background:radial-gradient(circle,var(--gold-glow),transparent 70%);
+    opacity:0.3;
+    border-radius:50%;
+}
+
+.cta-box h2{
+    font-family:'Montserrat',sans-serif;
+    font-size:clamp(1.5rem,3vw,2.2rem);
+    font-weight:900;
+    color:var(--text);
+    margin-bottom:12px;
+    position:relative;
+    z-index:2;
+}
+
+.cta-box h2 span{
+    background:var(--grad-gold-shine);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+}
+
+.cta-box p{
+    color:var(--text-muted);
+    font-size:1rem;
+    max-width:500px;
+    margin:0 auto 30px;
+    line-height:1.6;
+    position:relative;
+    z-index:2;
+}
+
+.cta-buttons{
+    display:flex;
+    gap:14px;
+    justify-content:center;
+    flex-wrap:wrap;
+    position:relative;
+    z-index:2;
+}
+
+.cta-buttons a{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 28px;
+    border-radius:100px;
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:0.95rem;
+    text-decoration:none;
+    transition:all 0.3s var(--ease);
+    line-height:1;
+}
+
+.btn-primary-cta{
+    background:var(--grad-gold-shine);
+    color:var(--bg);
+    box-shadow:0 8px 24px var(--gold-glow);
+}
+
+.btn-primary-cta:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 32px rgba(212,165,54,0.5);
+}
+
+.btn-wa-cta{
+    background:#25D366;
+    color:#fff;
+    box-shadow:0 8px 24px rgba(37,211,102,0.3);
+}
+
+.btn-wa-cta:hover{
+    background:#20BA5A;
+    transform:translateY(-3px);
+    box-shadow:0 12px 32px rgba(37,211,102,0.5);
+}
+
+
+/* ============================================
+   MODAL DETAIL
+   ============================================ */
+.portfolio-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(5,11,24,0.95);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    z-index:9999;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    overflow-y:auto;
+}
+
+.portfolio-modal.active{
+    display:flex;
+    animation:modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+.modal-content{
+    background:var(--grad-card);
+    border:1px solid var(--gold);
+    border-radius:20px;
+    max-width:900px;
+    width:100%;
+    max-height:90vh;
+    overflow-y:auto;
+    position:relative;
+    box-shadow:0 30px 80px rgba(0,0,0,0.5),0 0 40px rgba(212,165,54,0.15);
+    animation:modalSlideUp 0.4s var(--ease);
+}
+
+@keyframes modalSlideUp{
+    from{opacity:0;transform:translateY(30px) scale(0.95);}
+    to{opacity:1;transform:translateY(0) scale(1);}
+}
+
+.modal-close{
+    position:absolute;
+    top:16px;
+    right:16px;
+    width:44px;
+    height:44px;
+    background:rgba(5,11,24,0.85);
+    backdrop-filter:blur(10px);
+    color:#fff;
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:50%;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:10;
+    transition:all 0.3s;
+    font-size:1rem;
+}
+
+.modal-close:hover{
+    background:#e74c3c;
+    border-color:#e74c3c;
+    transform:rotate(90deg);
+}
+
+.modal-image{
+    width:100%;
+    max-height:400px;
+    object-fit:cover;
+    border-radius:20px 20px 0 0;
+}
+
+.modal-body{
+    padding:32px;
+}
+
+.modal-badge{
+    display:inline-block;
+    padding:5px 14px;
+    background:rgba(212,165,54,0.15);
+    color:var(--gold);
+    border-radius:100px;
+    font-size:0.7rem;
+    font-weight:700;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin-bottom:14px;
+    border:1px solid rgba(212,165,54,0.3);
+}
+
+.modal-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.8rem;
+    font-weight:900;
+    color:var(--text);
+    margin-bottom:8px;
+    line-height:1.2;
+}
+
+.modal-client{
+    color:var(--gold);
+    font-size:1rem;
+    font-weight:600;
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.modal-desc{
+    color:var(--text-muted);
+    font-size:0.95rem;
+    line-height:1.8;
+    margin-bottom:24px;
+}
+
+.modal-info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:14px;
+    margin-bottom:24px;
+    padding:20px;
+    background:rgba(255,255,255,0.02);
+    border-radius:12px;
+    border:1px solid var(--border);
+}
+
+.info-item{
+    text-align:center;
+}
+
+.info-label{
+    color:var(--text-muted);
+    font-size:0.72rem;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:4px;
+}
+
+.info-value{
+    color:var(--gold);
+    font-family:'Montserrat',sans-serif;
+    font-weight:800;
+    font-size:1rem;
+}
+
+.modal-features{
+    margin-bottom:24px;
+}
+
+.modal-features h4{
+    color:var(--gold);
+    font-family:'Montserrat',sans-serif;
+    font-size:0.9rem;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.modal-features ul{
+    list-style:none;
+    padding:0;
+}
+
+.modal-features li{
+    padding:6px 0 6px 26px;
+    color:rgba(255,255,255,0.9);
+    font-size:0.9rem;
+    line-height:1.6;
+    position:relative;
+}
+
+.modal-features li::before{
+    content:'✓';
+    position:absolute;
+    left:0;
+    color:#25d366;
+    font-weight:900;
+    width:18px;
+    height:18px;
+    background:rgba(37,211,102,0.15);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:0.7rem;
+    top:8px;
+}
+
+.modal-tech-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:24px;
+    padding-top:20px;
+    border-top:1px dashed var(--border);
+}
+
+.modal-actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.modal-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:14px 24px;
+    border-radius:100px;
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:0.9rem;
+    text-decoration:none;
+    transition:all 0.3s var(--ease);
+    flex:1;
+    justify-content:center;
+    min-width:150px;
+    border:none;
+    cursor:pointer;
+    line-height:1;
+}
+
+.modal-btn-visit{
+    background:var(--grad-gold-shine);
+    color:var(--bg);
+    box-shadow:0 6px 20px var(--gold-glow);
+}
+
+.modal-btn-visit:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 28px rgba(212,165,54,0.5);
+}
+
+.modal-btn-wa{
+    background:#25D366;
+    color:#fff;
+    box-shadow:0 6px 20px rgba(37,211,102,0.3);
+}
+
+.modal-btn-wa:hover{
+    background:#20BA5A;
+    transform:translateY(-2px);
+    box-shadow:0 10px 28px rgba(37,211,102,0.5);
+}
+
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width:768px){
+    .portfolio-hero{
+        padding:100px 16px 40px;
+    }
+    
+    .portfolio-hero h1{
+        font-size:2rem;
+    }
+    
+    .portfolio-stats{
+        gap:24px;
+    }
+    
+    .stat-num{
+        font-size:2rem;
+    }
+    
+    .portfolio-grid{
+        grid-template-columns:1fr;
+        gap:18px;
+    }
+    
+    .portfolio-filter{
+        padding:24px 16px 16px;
+        gap:8px;
+    }
+    
+    .filter-btn{
+        padding:8px 16px;
+        font-size:0.78rem;
+    }
+    
+    .cta-box{
+        padding:36px 24px;
+    }
+    
+    .cta-buttons{
+        flex-direction:column;
+    }
+    
+    .cta-buttons a{
+        width:100%;
+        justify-content:center;
+    }
+    
+    .modal-content{
+        max-height:95vh;
+    }
+    
+    .modal-image{
+        max-height:250px;
+    }
+    
+    .modal-body{
+        padding:24px 20px;
+    }
+    
+    .modal-title{
+        font-size:1.4rem;
+    }
+    
+    .modal-info-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+        padding:14px;
+    }
+    
+    .modal-actions{
+        flex-direction:column;
+    }
+    
+    .modal-btn{
+        width:100%;
+    }
+}
+
+@media (max-width:480px){
+    .portfolio-hero h1{
+        font-size:1.7rem;
+    }
+    
+    .portfolio-hero p{
+        font-size:0.9rem;
+    }
+    
+    .portfolio-stats{
+        gap:16px;
+    }
+    
+    .stat-num{
+        font-size:1.6rem;
+    }
+    
+    .stat-label{
+        font-size:0.72rem;
+    }
+    
+    .filter-btn span{
+        display:none;
+    }
+    
+    .filter-btn i{
+        font-size:1rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-brand-text">
+            <span class="brand-name-nav">Ibaadurrahmaan</span>
+            <span class="brand-sub-nav">Web Designer</span>
+        </a>
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">Beranda</a>
+            <a href="index.html#layanan" class="nav-link">Layanan</a>
+            <a href="index.html#paket" class="nav-link">Paket</a>
+            <a href="portfolio.html" class="nav-link active">Portfolio</a>
+            <a href="reseller.html" class="nav-link nav-link-highlight">
+                <i class="fas fa-fire"></i> Reseller
+            </a>
+            <a href="index.html#faq" class="nav-link">FAQ</a>
+        </div>
+    </div>
+</nav>
+
+
+<!-- ===== HERO ===== -->
+<section class="portfolio-hero">
+    <div class="hero-badge">🎨 KARYA TERBAIK</div>
+    <h1>
+        Portfolio <span>Website</span><br>
+        Ibaadurrahmaan Web Designer
+    </h1>
+    <p>
+        Kumpulan project website terbaik untuk UMKM, company profile, e-commerce, 
+        dan personal branding dari berbagai bidang bisnis di Indonesia.
+    </p>
+    
+    <div class="portfolio-stats">
+        <div class="stat">
+            <div class="stat-num" id="statTotal">50+</div>
+            <div class="stat-label">Project Selesai</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Client Puas</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">15+</div>
+            <div class="stat-label">Industri</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">3+</div>
+            <div class="stat-label">Tahun</div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== FILTER TABS ===== -->
+<div class="portfolio-filter">
+    <button class="filter-btn active" data-filter="all">
+        <i class="fas fa-th"></i>
+        <span>Semua</span>
+    </button>
+    <button class="filter-btn" data-filter="umkm">
+        <i class="fas fa-store"></i>
+        <span>UMKM</span>
+    </button>
+    <button class="filter-btn" data-filter="company">
+        <i class="fas fa-building"></i>
+        <span>Company Profile</span>
+    </button>
+    <button class="filter-btn" data-filter="ecommerce">
+        <i class="fas fa-shopping-cart"></i>
+        <span>E-Commerce</span>
+    </button>
+    <button class="filter-btn" data-filter="landing">
+        <i class="fas fa-tv"></i>
+        <span>Landing Page</span>
+    </button>
+    <button class="filter-btn" data-filter="personal">
+        <i class="fas fa-user-tie"></i>
+        <span>Personal Brand</span>
+    </button>
+</div>
+
+
+<!-- ===== PORTFOLIO GRID ===== -->
+<div class="portfolio-container">
+    <div class="portfolio-grid" id="portfolioGrid">
+        <!-- Portfolio items akan di-render via JavaScript -->
+    </div>
+</div>
+
+
+<!-- ===== CTA SECTION ===== -->
+<div class="portfolio-cta">
+    <div class="cta-box">
+        <h2>Siap Bikin <span>Website Impian</span> Anda?</h2>
+        <p>Chat langsung untuk konsultasi gratis. Kami bantu wujudkan website profesional yang meningkatkan kredibilitas bisnis Anda.</p>
+        
+        <div class="cta-buttons">
+            <a href="order.html" class="btn-primary-cta">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Order Sekarang</span>
+            </a>
+            <a href="https://wa.me/6281401643188?text=Assalamu'alaikum,%20saya%20tertarik%20lihat%20portfolio%20Ibaadurrahmaan.%20Mohon%20info%20lebih%20lanjut." class="btn-wa-cta">
+                <i class="fab fa-whatsapp"></i>
+                <span>Konsultasi Gratis</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<!-- ===== MODAL DETAIL ===== -->
+<div class="portfolio-modal" id="portfolioModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <img src="" alt="" class="modal-image" id="modalImage">
+        
+        <div class="modal-body">
+            <span class="modal-badge" id="modalCategory">CATEGORY</span>
+            <h2 class="modal-title" id="modalTitle">Project Title</h2>
+            <p class="modal-client">
+                <i class="fas fa-building"></i>
+                <span id="modalClient">Client Name</span>
+            </p>
+            
+            <p class="modal-desc" id="modalDesc">Description</p>
+            
+            <div class="modal-info-grid">
+                <div class="info-item">
+                    <div class="info-label">Paket</div>
+                    <div class="info-value" id="modalPackage">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Durasi</div>
+                    <div class="info-value" id="modalDuration">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Tahun</div>
+                    <div class="info-value" id="modalYear">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Status</div>
+                    <div class="info-value" id="modalStatus">LIVE</div>
+                </div>
+            </div>
+            
+            <div class="modal-features">
+                <h4><i class="fas fa-star"></i> Fitur Utama</h4>
+                <ul id="modalFeatures"></ul>
+            </div>
+            
+            <div class="modal-tech-tags" id="modalTech"></div>
+            
+            <div class="modal-actions">
+                <a href="#" id="modalVisit" target="_blank" class="modal-btn modal-btn-visit">
+                    <i class="fas fa-external-link-alt"></i>
+                    <span>Kunjungi Website</span>
+                </a>
+                <a href="#" id="modalWA" class="modal-btn modal-btn-wa">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>Mau Seperti Ini</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ===== FOOTER (Simple) ===== -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-bottom">
+            <div class="footer-brand">
+                <img src="main-logo.png" alt="Ibaadurrahmaan" style="height:70px;">
+            </div>
+            <div class="footer-social">
+                <a href="https://wa.me/6281401643188" title="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="index.html" title="Beranda">
+                    <i class="fas fa-home"></i>
+                </a>
+                <a href="reseller.html" title="Reseller">
+                    <i class="fas fa-handshake"></i>
+                </a>
+            </div>
+            <div class="footer-copy">
+                <p>© 2026 Ibaadurrahmaan. Portfolio Web Designer Indonesia.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- ===== MOBILE NAV ===== -->
+<nav class="mobile-nav" id="mobileNav">
+    <a href="index.html" class="mnav-item">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+    </a>
+    <a href="index.html#layanan" class="mnav-item">
+        <i class="fas fa-briefcase"></i>
+        <span>Layanan</span>
+    </a>
+    <a href="portfolio.html" class="mnav-item active">
+        <i class="fas fa-palette"></i>
+        <span>Portfolio</span>
+    </a>
+    <a href="index.html#paket" class="mnav-item">
+        <i class="fas fa-tag"></i>
+        <span>Paket</span>
+    </a>
+    <a href="reseller.html" class="mnav-item mnav-highlight">
+        <i class="fas fa-fire"></i>
+        <span>Reseller</span>
+    </a>
+</nav>
+
+
+<!-- ===== FLOATING WA ===== -->
+<a href="https://wa.me/6281401643188" class="fab-wa">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+
+<script>
+// ============================================
+// 📊 DATA PORTFOLIO (Edit di sini!)
+// ============================================
+const portfolioData = [
+    {
+        id: 1,
+        title: "Toko Bunga Melati",
+        client: "Ibu Sari - Bandung",
+        category: "umkm",
+        categoryLabel: "UMKM",
+        description: "Website toko bunga online dengan katalog produk lengkap, sistem order via WhatsApp, dan galeri portfolio karangan bunga.",
+        image: "https://via.placeholder.com/600x400/0F1E33/D4A536?text=Toko+Bunga+Melati",
+        url: "#",
+        package: "Reguler",
+        duration: "10 hari",
+        year: "2026",
+        status: "LIVE",
+        features: [
+            "Katalog produk 50+ varian bunga",
+            "Galeri portfolio karangan bunga",
+            "Order langsung via WhatsApp",
+            "Peta lokasi toko (Google Maps)",
+            "Testimoni customer",
+            "Mobile responsive"
+        ],
+        tech: ["HTML5", "CSS3", "JavaScript", "WhatsApp API"]
+    },
+    {
+        id: 2,
+        title: "CV Digital Kreatif",
+        client: "PT Digital Kreatif Nusantara",
+        category: "company",
+        categoryLabel: "COMPANY PROFILE",
+        description: "Company profile modern untuk agensi digital marketing dengan portfolio interaktif, tim showcase, dan blog artikel.",
+        image: "https://via.placeholder.com/600x400/0F1E33/D4A536?text=CV+Digital+Kreatif",
+        url: "#",
+        package: "Reguler",
+        duration: "14 hari",
+        year: "2026",
+        status: "LIVE",
+        features: [
+            "Multi-halaman (Home, About, Services, Portfolio, Blog, Contact)",
+            "Portfolio filterable by category",
+            "Blog dengan sistem kategori & search",
+            "Team showcase dengan profile",
+            "Testimoni carousel",
+            "Contact form + email notification",
+            "Google Analytics integration"
+        ],
+        tech: ["HTML5", "CSS3", "JavaScript", "SEO Optimized"]
+    },
+    {
+        id: 3,
+        title: "Warung Kopi Nusantara",
+        client: "Pak Budi - Jakarta",
+        category: "umkm",
+        categoryLabel: "UMKM",
+        description: "Landing page menarik untuk warung kopi dengan menu digital, info promo harian, dan reservasi meja via WhatsApp.",
+        image: "https://via.placeholder.com/600x400/0F1E33/D4A536?text=Warung+Kopi+Nusantara",
+        url: "#",
+        package: "Hemat",
+        duration: "5 hari",
+        year: "2026",
+        status: "LIVE",
+        features: [
+            "Menu digital dengan foto & harga",
+            "Info promo harian",
+            "Reservasi meja via WhatsApp",
+            "Peta lokasi + jam buka",
+            "Instagram feed integration"
+        ],
+        tech: ["HTML5", "CSS3", "JavaScript"]
+    },
+    {
+        id: 4,
+        title: "Butik Fashion Modena",
+        client: "Modena Fashion",
+        category: "ecommerce",
+        categoryLabel: "E-COMMERCE",
+        description: "Toko online fashion lengkap dengan sistem cart, payment gateway, tracking order, dan admin dashboard.",
+        image: "https://via.placeholder.com/600x400/0F1E33/D4A536?text=Butik+Modena",
+        url: "#",
+        package: "Premium",
+        duration: "30 hari",
+        year: "2026",
+        status: "LIVE",
+        features: [
+            "Katalog produk unlimited",
+            "Shopping cart & checkout",
+            "Payment gateway (Midtrans)",
+            "Tracking order otomatis",
+            "Admin dashboard lengkap",
+            "Multi-user (admin & staff)",
+            "Laporan penjualan real-time",
+            "Integrasi WhatsApp API"
+        ],
+        tech: ["HTML5", "CSS3", "JavaScript", "Midtrans", "Firebase"]
+    },
+    {
+        id: 5,
+        title: "Klinik Sehat Bersama",
+        client: "Klinik Sehat Bersama - Depok",
+        category: "company",
+        categoryLabel: "COMPANY PROFILE",
+        description: "Website klinik kesehatan dengan sistem booking dokter online, info layanan, dan artikel edukasi kesehatan.",
+        image: "https://via.placeholder.com/600x400/0F1E33/D4A536?text=Klinik+Sehat",
+        url: "#",
+        package: "Premium",
+        duration: "21 hari",
+        year: "2026",
+        status: "LIVE",
+        features: [
+            "Booking dokter online",
+            "Info dokter & jadwal praktek",
+            "Layanan & harga lengkap",
+            "Artikel kesehatan",
+            "Testimoni pasien",
+            "WhatsApp integration",
+            "Google Maps clinic locator"
+        ],
+        tech: ["HTML5", "CSS3", "JavaScript", "Booking System"]
+    },
+    {
+        id: 6,
+        title: "Ahmad Wibowo - Consultant",
+        client: "Ahmad Wibowo",
+        category: "personal",
+        categoryLabel: "PERSONAL BRAND",
+        description: "Personal branding website untuk konsultan bisnis dengan portfolio project, testimoni klien, dan booking konsultasi.",
+        image: "https://via.placeholder.com/600x400/0F1E33/D4A536?text=Ahmad+Wibowo",
+        url: "#",
+        package: "Reguler",
+        duration: "12 hari",
+        year: "2026",
+        status: "LIVE",
+        features: [
+            "About me & profesional journey",
+            "Portfolio project konsultasi",
+            "Testimoni klien",
+            "Booking konsultasi via WhatsApp",
+            "Blog artikel bisnis",
+            "Download CV/portfolio PDF"
+        ],
+        tech: ["HTML5", "CSS3", "JavaScript"]
+    },
+    {
+        id: 7,
+        title: "Katering Bunda",
+        client: "Katering Bunda - Yogyakarta",
+        category: "landing",
+        categoryLabel: "LANDING PAGE",
+        description: "Landing page katering rumahan dengan menu paket lengkap, testimoni pelanggan, dan order via WhatsApp.",
+        image: "https://via.placeholder.com/600x400/0F1E33/D4A536?text=Katering+Bunda",
+        url: "#",
+        package: "Hemat",
+        duration: "4 hari",
+        year: "2025",
+        status: "LIVE",
+        features: [
+            "Menu paket katering",
+            "Foto menu & harga",
+            "Testimoni pelanggan",
+            "Form pemesanan via WhatsApp",
+            "Info area pengiriman"
+        ],
+        tech: ["HTML5", "CSS3", "JavaScript"]
+    },
+    {
+        id: 8,
+        title: "Sekolah Al-Hikmah",
+        client: "Yayasan Al-Hikmah Islamic School",
+        category: "company",
+        categoryLabel: "COMPANY PROFILE",
+        description: "Website sekolah Islam dengan sistem PPDB online, info fasilitas, dan portal orang tua siswa.",
+        image: "https://via.placeholder.com/600x400/0F1E33/D4A536?text=Sekolah+Al-Hikmah",
+        url: "#",
+        package: "Premium",
+        duration: "25 hari",
+        year: "2025",
+        status: "LIVE",
+        features: [
+            "Sistem PPDB online",
+            "Info fasilitas & program",
+            "Portal orang tua siswa",
+            "Kalender kegiatan sekolah",
+            "Gallery kegiatan",
+            "Berita & pengumuman"
+        ],
+        tech: ["HTML5", "CSS3", "JavaScript", "PPDB System"]
+    },
+    {
+        id: 9,
+        title: "Property Cendana",
+        client: "PT Cendana Property",
+        category: "ecommerce",
+        categoryLabel: "E-COMMERCE",
+        description: "Portal listing property untuk perumahan & apartemen dengan filter pencarian advanced dan virtual tour 360°.",
+        image: "https://via.placeholder.com/600x400/0F1E33/D4A536?text=Cendana+Property",
+        url: "#",
+        package: "Premium",
+        duration: "30 hari",
+        year: "2025",
+        status: "LIVE",
+        features: [
+            "Listing property unlimited",
+            "Filter pencarian advanced",
+            "Virtual tour 360°",
+            "Kalkulator KPR",
+            "Booking survey via WhatsApp",
+            "Admin dashboard",
+            "Multi-agent system"
+        ],
+        tech: ["HTML5", "CSS3", "JavaScript", "Firebase", "360° Tour"]
+    }
+];
+
+
+// ============================================
+// RENDER PORTFOLIO
+// ============================================
+function renderPortfolio(filter = 'all'){
+    const grid = document.getElementById('portfolioGrid');
+    const filtered = filter === 'all' 
+        ? portfolioData 
+        : portfolioData.filter(item => item.category === filter);
+    
+    if(filtered.length === 0){
+        grid.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-inbox"></i>
+                <h3>Belum ada project di kategori ini</h3>
+                <p>Silakan pilih kategori lain atau lihat semua project.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    grid.innerHTML = filtered.map(item => `
+        <div class="portfolio-item" data-category="${item.category}" onclick="openModal(${item.id})">
+            <div class="portfolio-thumb">
+                <span class="thumb-badge">${item.categoryLabel}</span>
+                <span class="thumb-year">${item.year}</span>
+                <img src="${item.image}" alt="${item.title}" loading="lazy">
+                <div class="portfolio-overlay">
+                    <div class="overlay-content">
+                        <span class="view-btn">
+                            <i class="fas fa-eye"></i> Lihat Detail
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-info">
+                <h3 class="portfolio-title">${item.title}</h3>
+                <p class="portfolio-client">
+                    <i class="fas fa-building"></i>
+                    ${item.client}
+                </p>
+                <p class="portfolio-desc">${item.description}</p>
+                <div class="portfolio-tech">
+                    ${item.tech.slice(0, 3).map(t => `<span class="tech-tag">${t}</span>`).join('')}
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+
+// ============================================
+// FILTER FUNCTIONALITY
+// ============================================
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderPortfolio(btn.dataset.filter);
+    });
+});
+
+
+// ============================================
+// MODAL FUNCTIONALITY
+// ============================================
+function openModal(id){
+    const item = portfolioData.find(p => p.id === id);
+    if(!item) return;
+    
+    document.getElementById('modalImage').src = item.image;
+    document.getElementById('modalImage').alt = item.title;
+    document.getElementById('modalCategory').textContent = item.categoryLabel;
+    document.getElementById('modalTitle').textContent = item.title;
+    document.getElementById('modalClient').textContent = item.client;
+    document.getElementById('modalDesc').textContent = item.description;
+    document.getElementById('modalPackage').textContent = item.package;
+    document.getElementById('modalDuration').textContent = item.duration;
+    document.getElementById('modalYear').textContent = item.year;
+    document.getElementById('modalStatus').textContent = item.status;
+    
+    // Features
+    document.getElementById('modalFeatures').innerHTML = 
+        item.features.map(f => `<li>${f}</li>`).join('');
+    
+    // Tech tags
+    document.getElementById('modalTech').innerHTML = 
+        item.tech.map(t => `<span class="tech-tag">${t}</span>`).join('');
+    
+    // Visit URL
+    const visitBtn = document.getElementById('modalVisit');
+    if(item.url && item.url !== '#'){
+        visitBtn.href = item.url;
+        visitBtn.style.display = 'inline-flex';
+    } else {
+        visitBtn.style.display = 'none';
+    }
+    
+    // WhatsApp URL
+    const waMsg = encodeURIComponent(
+        `Assalamu'alaikum Ibaadurrahmaan,\n\n` +
+        `Saya tertarik dengan project *${item.title}* yang ada di portfolio.\n\n` +
+        `Saya mau website seperti itu untuk bisnis saya. Mohon info lebih lanjut & konsultasi.\n\n` +
+        `Terima kasih! 🙏`
+    );
+    document.getElementById('modalWA').href = `https://wa.me/6281401643188?text=${waMsg}`;
+    
+    // Show modal
+    document.getElementById('portfolioModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+    document.getElementById('portfolioModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Close modal on background click
+document.getElementById('portfolioModal').addEventListener('click', (e) => {
+    if(e.target.id === 'portfolioModal'){
+        closeModal();
+    }
+});
+
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape'){
+        closeModal();
+    }
+});
+
+
+// ============================================
+// UPDATE STATS
+// ============================================
+document.getElementById('statTotal').textContent = portfolioData.length + '+';
+
+
+// ============================================
+// NAVBAR SCROLL EFFECT
+// ============================================
+window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
+    if(window.scrollY > 20){
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
+
+// ============================================
+// INIT
+// ============================================
+renderPortfolio();
+</script>
+
+</body>
+</html>
