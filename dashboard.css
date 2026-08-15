@@ -482,9 +482,9 @@ body{
 }
 
 @keyframes shake{
-    0%,100%{transform:scale(1.1) translateX(0);}
-    25%{transform:scale(1.1) translateX(-2px);}
-    75%{transform:scale(1.1) translateX(2px);}
+    0%,100%{transform:translateX(0);}
+    25%{transform:translateX(-2px);}
+    75%{transform:translateX(2px);}
 }
 
 @keyframes fadeIn{
@@ -499,7 +499,7 @@ body{
 
 
 /* ==================================================
-   👤 RESELLER LIST ITEM
+   👤 RESELLER LIST ITEM (REDESIGNED)
    ================================================== */
 .reseller-list{
     display:flex;
@@ -509,19 +509,40 @@ body{
 
 .reseller-item{
     display:flex;
-    align-items:center;
+    align-items:flex-start;
     gap:14px;
-    padding:14px;
-    background:rgba(255,255,255,0.02);
+    padding:16px;
+    background:linear-gradient(145deg,rgba(15,30,51,0.5),rgba(10,22,38,0.5));
     border:1px solid var(--border);
     border-radius:var(--radius-md);
-    transition:all 0.3s;
+    transition:all 0.3s var(--ease);
     animation:fadeIn 0.3s ease;
+    position:relative;
+    overflow:hidden;
+    flex-wrap:wrap;
+}
+
+.reseller-item::before{
+    content:'';
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:3px;
+    background:var(--gold);
+    opacity:0;
+    transition:opacity 0.3s;
 }
 
 .reseller-item:hover{
-    background:rgba(212,165,54,0.05);
+    background:rgba(212,165,54,0.04);
     border-color:var(--border-hover);
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px rgba(0,0,0,0.3);
+}
+
+.reseller-item:hover::before{
+    opacity:1;
 }
 
 .reseller-avatar{
@@ -547,7 +568,7 @@ body{
     font-weight:700;
     color:var(--text);
     font-size:0.95rem;
-    margin-bottom:2px;
+    margin-bottom:4px;
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
@@ -583,10 +604,10 @@ body{
    🏷️ STATUS BADGES
    ================================================== */
 .reseller-status{
-    padding:4px 12px;
+    padding:5px 12px;
     border-radius:100px;
     font-size:0.7rem;
-    font-weight:700;
+    font-weight:800;
     text-transform:uppercase;
     letter-spacing:0.5px;
     flex-shrink:0;
@@ -614,6 +635,164 @@ body{
     background:rgba(231,76,60,0.15);
     color:var(--danger);
     border:1px solid rgba(231,76,60,0.3);
+}
+
+
+/* ==================================================
+   🎯 RESELLER ACTION BUTTONS (PREMIUM PILL STYLE)
+   ================================================== */
+.reseller-right{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:10px;
+    flex-shrink:0;
+    margin-left:auto;
+}
+
+.reseller-actions{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    width:100%;
+    margin-top:8px;
+    padding-top:12px;
+    border-top:1px dashed rgba(255,255,255,0.06);
+}
+
+.btn-action{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    padding:8px 14px;
+    border:none;
+    border-radius:100px;
+    cursor:pointer;
+    font-family:'Poppins',sans-serif;
+    font-size:0.75rem;
+    font-weight:700;
+    letter-spacing:0.3px;
+    transition:all 0.25s var(--ease);
+    position:relative;
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+.btn-action i{
+    font-size:0.85rem;
+    transition:transform 0.3s;
+}
+
+.btn-action:hover i{
+    transform:scale(1.15);
+}
+
+
+/* Detail - Blue */
+.btn-detail{
+    background:rgba(52,152,219,0.12);
+    color:var(--info);
+    border:1px solid rgba(52,152,219,0.25);
+}
+
+.btn-detail:hover{
+    background:linear-gradient(135deg,#3498db,#2980b9);
+    color:#fff;
+    box-shadow:0 4px 14px rgba(52,152,219,0.4);
+    transform:translateY(-2px);
+}
+
+
+/* Edit - Gold */
+.btn-edit{
+    background:rgba(212,165,54,0.12);
+    color:var(--gold);
+    border:1px solid rgba(212,165,54,0.25);
+}
+
+.btn-edit:hover{
+    background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+    color:var(--bg);
+    box-shadow:0 4px 14px var(--gold-glow);
+    transform:translateY(-2px);
+}
+
+
+/* Approve - Green */
+.btn-approve{
+    background:rgba(37,211,102,0.12);
+    color:var(--success);
+    border:1px solid rgba(37,211,102,0.25);
+}
+
+.btn-approve:hover{
+    background:linear-gradient(135deg,var(--success),#1eb85a);
+    color:#fff;
+    box-shadow:0 4px 14px rgba(37,211,102,0.4);
+    transform:translateY(-2px);
+}
+
+
+/* Reject - Red */
+.btn-reject{
+    background:rgba(231,76,60,0.12);
+    color:var(--danger);
+    border:1px solid rgba(231,76,60,0.25);
+}
+
+.btn-reject:hover{
+    background:linear-gradient(135deg,var(--danger),var(--danger-dark));
+    color:#fff;
+    box-shadow:0 4px 14px rgba(231,76,60,0.4);
+    transform:translateY(-2px);
+}
+
+
+/* Deactivate - Orange */
+.btn-deactivate{
+    background:rgba(243,156,18,0.12);
+    color:var(--warning);
+    border:1px solid rgba(243,156,18,0.25);
+}
+
+.btn-deactivate:hover{
+    background:linear-gradient(135deg,var(--warning),#e67e22);
+    color:#fff;
+    box-shadow:0 4px 14px rgba(243,156,18,0.4);
+    transform:translateY(-2px);
+}
+
+
+/* Reactivate - Green */
+.btn-reactivate{
+    background:rgba(37,211,102,0.12);
+    color:var(--success);
+    border:1px solid rgba(37,211,102,0.25);
+}
+
+.btn-reactivate:hover{
+    background:linear-gradient(135deg,var(--success),#1eb85a);
+    color:#fff;
+    box-shadow:0 4px 14px rgba(37,211,102,0.4);
+    transform:translateY(-2px);
+}
+
+
+/* Delete Permanent - Dark Red */
+.btn-delete{
+    background:rgba(192,57,43,0.15);
+    color:var(--danger-dark);
+    border:1px solid rgba(192,57,43,0.3);
+}
+
+.btn-delete:hover{
+    background:linear-gradient(135deg,var(--danger-dark),#96281b);
+    color:#fff;
+    box-shadow:0 4px 14px rgba(192,57,43,0.5);
+    transform:translateY(-2px);
+    animation:shake 0.4s ease-in-out;
 }
 
 
@@ -739,142 +918,6 @@ body{
 .action-card:hover .action-arrow{
     opacity:1;
     transform:translateX(0);
-}
-
-
-/* ==================================================
-   🎯 RESELLER ACTION BUTTONS
-   ================================================== */
-.reseller-right{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-end;
-    gap:8px;
-    flex-shrink:0;
-}
-
-.reseller-actions{
-    display:flex;
-    gap:6px;
-}
-
-.btn-action{
-    width:36px;
-    height:36px;
-    border:none;
-    border-radius:50%;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:0.9rem;
-    transition:all 0.2s;
-}
-
-
-/* Approve - Green */
-.btn-approve{
-    background:rgba(37,211,102,0.15);
-    color:var(--success);
-    border:1px solid rgba(37,211,102,0.3);
-}
-
-.btn-approve:hover{
-    background:var(--success);
-    color:#fff;
-    transform:scale(1.1);
-    box-shadow:0 4px 12px rgba(37,211,102,0.4);
-}
-
-
-/* Reject - Red */
-.btn-reject{
-    background:rgba(231,76,60,0.15);
-    color:var(--danger);
-    border:1px solid rgba(231,76,60,0.3);
-}
-
-.btn-reject:hover{
-    background:var(--danger);
-    color:#fff;
-    transform:scale(1.1);
-    box-shadow:0 4px 12px rgba(231,76,60,0.4);
-}
-
-
-/* Detail - Blue */
-.btn-detail{
-    background:rgba(52,152,219,0.15);
-    color:var(--info);
-    border:1px solid rgba(52,152,219,0.3);
-}
-
-.btn-detail:hover{
-    background:var(--info);
-    color:#fff;
-    transform:scale(1.1);
-    box-shadow:0 4px 12px rgba(52,152,219,0.4);
-}
-
-
-/* Edit - Gold */
-.btn-edit{
-    background:rgba(212,165,54,0.15);
-    color:var(--gold);
-    border:1px solid rgba(212,165,54,0.3);
-}
-
-.btn-edit:hover{
-    background:var(--gold);
-    color:var(--bg);
-    transform:scale(1.1);
-    box-shadow:0 4px 12px var(--gold-glow);
-}
-
-
-/* Deactivate - Orange */
-.btn-deactivate{
-    background:rgba(243,156,18,0.15);
-    color:var(--warning);
-    border:1px solid rgba(243,156,18,0.3);
-}
-
-.btn-deactivate:hover{
-    background:var(--warning);
-    color:#fff;
-    transform:scale(1.1);
-    box-shadow:0 4px 12px rgba(243,156,18,0.4);
-}
-
-
-/* Reactivate - Green */
-.btn-reactivate{
-    background:rgba(37,211,102,0.15);
-    color:var(--success);
-    border:1px solid rgba(37,211,102,0.3);
-}
-
-.btn-reactivate:hover{
-    background:var(--success);
-    color:#fff;
-    transform:scale(1.1);
-    box-shadow:0 4px 12px rgba(37,211,102,0.4);
-}
-
-
-/* Delete Permanent - Dark Red */
-.btn-delete{
-    background:rgba(150,40,27,0.2);
-    color:var(--danger-dark);
-    border:1px solid rgba(150,40,27,0.4);
-}
-
-.btn-delete:hover{
-    background:var(--danger-dark);
-    color:#fff;
-    transform:scale(1.1);
-    box-shadow:0 4px 12px rgba(150,40,27,0.5);
-    animation:shake 0.4s ease-in-out;
 }
 
 
@@ -1199,7 +1242,7 @@ body{
     }
     
     .reseller-item{
-        padding:12px;
+        padding:14px;
     }
     
     .reseller-name{
@@ -1210,6 +1253,15 @@ body{
         font-size:0.7rem;
         gap:8px;
     }
+    
+    .btn-action{
+        padding:7px 12px;
+        font-size:0.72rem;
+    }
+    
+    .btn-action i{
+        font-size:0.8rem;
+    }
 }
 
 
@@ -1218,17 +1270,18 @@ body{
    ================================================== */
 @media (max-width:480px){
     .reseller-right{
-        gap:6px;
-    }
-    
-    .btn-action{
-        width:32px;
-        height:32px;
-        font-size:0.82rem;
+        gap:8px;
+        width:100%;
+        flex-direction:row;
+        align-items:center;
+        justify-content:space-between;
+        margin-left:0;
     }
     
     .reseller-actions{
-        gap:4px;
+        gap:5px;
+        justify-content:flex-start;
+        width:100%;
     }
     
     .reseller-item{
@@ -1236,14 +1289,21 @@ body{
     }
     
     .reseller-info{
-        flex:1 1 60%;
+        flex:1 1 calc(100% - 60px);
+        min-width:0;
+    }
+    
+    .btn-action{
+        padding:7px 11px;
+        font-size:0.7rem;
+        flex:1;
         min-width:0;
     }
 }
 
 
 /* ==================================================
-   📱 RESPONSIVE - EXTRA SMALL
+   📱 RESPONSIVE - EXTRA SMALL (Icon Only)
    ================================================== */
 @media (max-width:400px){
     .nav-item span{
@@ -1269,6 +1329,27 @@ body{
     
     .stat-label{
         font-size:0.7rem;
+    }
+    
+    /* Icon-only buttons di HP kecil */
+    .btn-action{
+        width:38px;
+        height:38px;
+        padding:0;
+        border-radius:50%;
+        flex:0 0 auto;
+    }
+    
+    .btn-action span{
+        display:none;
+    }
+    
+    .btn-action i{
+        font-size:0.95rem;
+    }
+    
+    .reseller-actions{
+        justify-content:flex-end;
     }
 }
 
