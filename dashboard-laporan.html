@@ -194,56 +194,63 @@
 }
 
 
-/* ==================== PERIODE FILTER TABS ==================== */
+/* ==================== PERIODE FILTER (GRID RESPONSIVE) ==================== */
 .periode-filter{
     background:var(--grad-card);
     border:1px solid var(--border);
     border-radius:16px;
     padding:16px;
     margin-bottom:24px;
-    display:flex;
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:14px;
     align-items:center;
-    gap:12px;
-    flex-wrap:wrap;
 }
 
 .periode-label{
     color:var(--text-muted);
-    font-size:0.82rem;
+    font-size:0.78rem;
     font-weight:700;
     text-transform:uppercase;
     letter-spacing:0.5px;
     display:flex;
     align-items:center;
     gap:8px;
+    white-space:nowrap;
 }
 
 .periode-label i{color:var(--gold);}
 
+/* Grid untuk tabs — 6 kolom sama rata */
 .periode-tabs{
-    display:flex;
+    display:grid;
+    grid-template-columns:repeat(6, 1fr);
     gap:6px;
-    flex-wrap:wrap;
-    flex:1;
+    width:100%;
 }
 
 .periode-tab{
-    padding:8px 16px;
+    padding:10px 8px;
     background:rgba(255,255,255,0.04);
     border:1px solid var(--border);
     color:var(--text-muted);
-    border-radius:100px;
-    font-size:0.8rem;
-    font-weight:600;
+    border-radius:10px;
+    font-size:0.78rem;
+    font-weight:700;
     cursor:pointer;
     transition:all 0.3s;
     font-family:'Poppins',sans-serif;
+    text-align:center;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 .periode-tab:hover{
     background:rgba(212,165,54,0.08);
     color:var(--gold);
     border-color:rgba(212,165,54,0.3);
+    transform:translateY(-1px);
 }
 
 .periode-tab.active{
@@ -257,16 +264,17 @@
     padding:10px 16px;
     background:rgba(255,255,255,0.04);
     border:1px solid var(--border);
-    border-radius:100px;
+    border-radius:10px;
     color:var(--text-muted);
-    font-size:0.8rem;
-    font-weight:600;
+    font-size:0.78rem;
+    font-weight:700;
     cursor:pointer;
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:6px;
     transition:all 0.3s var(--ease);
     font-family:'Poppins',sans-serif;
+    white-space:nowrap;
 }
 
 .btn-refresh-laporan:hover{
@@ -393,6 +401,70 @@
     display:flex;
     align-items:center;
     gap:4px;
+}
+
+
+/* ==================== SUMMARY CARD (GRID RESPONSIVE) ==================== */
+.summary-card{
+    background:linear-gradient(135deg,rgba(212,165,54,0.1),rgba(212,165,54,0.03));
+    border:1px solid rgba(212,165,54,0.3);
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:24px;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+}
+
+.summary-item{
+    text-align:center;
+    padding:18px 12px;
+    background:rgba(0,0,0,0.2);
+    border-radius:12px;
+    border:1px solid rgba(212,165,54,0.15);
+    transition:all 0.3s var(--ease);
+}
+
+.summary-item:hover{
+    border-color:rgba(212,165,54,0.4);
+    background:rgba(0,0,0,0.3);
+    transform:translateY(-2px);
+    box-shadow:0 6px 20px rgba(212,165,54,0.15);
+}
+
+.summary-item-label{
+    color:var(--text-muted);
+    font-size:0.68rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.6px;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    line-height:1.3;
+}
+
+.summary-item-label i{
+    color:var(--gold);
+    font-size:0.85rem;
+}
+
+.summary-item-value{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.35rem;
+    font-weight:900;
+    color:var(--gold);
+    line-height:1;
+    margin-bottom:6px;
+    word-break:break-word;
+}
+
+.summary-item-desc{
+    color:var(--text-muted);
+    font-size:0.68rem;
+    line-height:1.4;
 }
 
 
@@ -565,50 +637,6 @@
     color:var(--gold);
     flex-shrink:0;
     text-align:right;
-}
-
-
-/* ==================== SUMMARY CARD ==================== */
-.summary-card{
-    background:linear-gradient(135deg,rgba(212,165,54,0.1),rgba(212,165,54,0.03));
-    border:1px solid rgba(212,165,54,0.3);
-    border-radius:16px;
-    padding:24px;
-    margin-bottom:24px;
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr;
-    gap:20px;
-}
-
-.summary-item{text-align:center;}
-
-.summary-item-label{
-    color:var(--text-muted);
-    font-size:0.72rem;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:0.8px;
-    margin-bottom:8px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-}
-
-.summary-item-label i{color:var(--gold);font-size:0.8rem;}
-
-.summary-item-value{
-    font-family:'Montserrat',sans-serif;
-    font-size:1.4rem;
-    font-weight:900;
-    color:var(--gold);
-    line-height:1;
-    margin-bottom:4px;
-}
-
-.summary-item-desc{
-    color:var(--text-muted);
-    font-size:0.72rem;
 }
 
 
@@ -787,30 +815,128 @@
     .page-title-section{padding:20px 16px 0;}
     .page-title-content h2{font-size:1.2rem;}
     .laporan-container{padding:20px 16px 40px;}
+    
+    /* Periode: vertical stack di mobile */
+    .periode-filter{
+        grid-template-columns:1fr;
+        gap:12px;
+        padding:14px;
+    }
+    .periode-label{
+        justify-content:flex-start;
+    }
+    .periode-tabs{
+        grid-template-columns:repeat(3, 1fr);
+        gap:6px;
+    }
+    .btn-refresh-laporan{
+        width:100%;
+        justify-content:center;
+    }
+    
+    /* Summary tetap 3 kolom compact di tablet */
+    .summary-card{
+        grid-template-columns:repeat(3, 1fr);
+        gap:10px;
+        padding:14px;
+    }
+    .summary-item{
+        padding:14px 8px;
+    }
+    .summary-item-label{
+        font-size:0.62rem;
+        letter-spacing:0.4px;
+        margin-bottom:8px;
+    }
+    .summary-item-value{font-size:1.1rem;}
+    .summary-item-desc{
+        font-size:0.62rem;
+        line-height:1.3;
+    }
+    
+    /* KPI */
     .kpi-value{font-size:1.3rem;}
-    .summary-card{grid-template-columns:1fr;gap:16px;}
-    .summary-item-value{font-size:1.2rem;}
     .chart-container,.chart-container-pie{height:240px;}
     .export-section{justify-content:stretch;}
     .btn-export{flex:1;justify-content:center;}
+    
+    /* Bottom Nav */
     .bottom-nav{padding:8px 10px;gap:2px;bottom:12px;}
     .nav-item{padding:8px 10px;font-size:0.6rem;min-width:56px;}
     .nav-item i{font-size:1rem;}
 }
 
 @media(max-width:600px){
+    /* KPI jadi 2 kolom */
     .kpi-grid{grid-template-columns:1fr 1fr;gap:10px;}
     .kpi-card{padding:16px;}
     .kpi-value{font-size:1.15rem;}
     .kpi-icon{width:36px;height:36px;font-size:1rem;}
     .chart-card{padding:16px;}
+    
+    /* Periode tabs → 3 kolom */
+    .periode-tabs{
+        grid-template-columns:repeat(3, 1fr);
+        gap:5px;
+    }
+    .periode-tab{
+        padding:9px 4px;
+        font-size:0.72rem;
+    }
+    
+    /* Summary → 3 kolom super compact */
+    .summary-card{
+        gap:8px;
+        padding:12px;
+    }
+    .summary-item{
+        padding:12px 6px;
+    }
+    .summary-item-label{
+        font-size:0.58rem;
+        gap:4px;
+    }
+    .summary-item-label i{
+        font-size:0.72rem;
+    }
+    .summary-item-value{
+        font-size:0.95rem;
+        margin-bottom:4px;
+    }
+    .summary-item-desc{
+        font-size:0.58rem;
+    }
+}
+
+@media(max-width:480px){
+    /* Periode tabs → 2 kolom */
+    .periode-tabs{
+        grid-template-columns:repeat(2, 1fr);
+    }
+    
+    /* Summary → sembunyikan deskripsi biar makin compact */
+    .summary-item-desc{display:none;}
+    .summary-item-label i{display:none;}
+    .summary-item{padding:10px 4px;}
+    .summary-item-value{font-size:0.9rem;}
 }
 
 @media(max-width:400px){
     .nav-item span{display:none;}
     .nav-item{min-width:44px;padding:10px 12px;}
     .nav-item i{font-size:1.2rem;}
+    
+    /* KPI jadi 1 kolom */
     .kpi-grid{grid-template-columns:1fr;}
+    
+    /* Summary tetap 3 kolom compact */
+    .summary-card{
+        gap:6px;
+        padding:10px;
+    }
+    .summary-item{padding:10px 3px;}
+    .summary-item-label{font-size:0.52rem;letter-spacing:0.2px;}
+    .summary-item-value{font-size:0.85rem;}
 }
 
 
@@ -824,6 +950,8 @@
         background:#fff !important;
         page-break-inside:avoid;
     }
+    .summary-card{grid-template-columns:repeat(3,1fr) !important;}
+    .kpi-grid{grid-template-columns:repeat(4,1fr) !important;}
 }
 </style>
 </head>
