@@ -5,2006 +5,1541 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#050B18">
 <title>Starter Kit Reseller | Ibaadurrahmaan Web Designer</title>
-<meta name="description" content="Panduan lengkap, materi promosi, dan strategi closing untuk reseller Ibaadurrahmaan Web Designer.">
+<meta name="description" content="Alat kerja lengkap untuk reseller: materi promosi, template chat, script closing, dan lainnya.">
 <link rel="icon" type="image/png" href="main-logo.png">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 
 <style>
-/* ====================================================
-   📦 STARTER KIT - PREMIUM STYLES
-   ==================================================== */
-.kit-page{
-    background:var(--bg);
-    min-height:100vh;
-}
+/* ============================================
+   STARTER KIT STYLES
+   ============================================ */
 
-
-/* Back Button */
-.kit-back{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    color:var(--text-muted);
-    text-decoration:none;
-    font-size:0.9rem;
-    font-weight:600;
-    padding:12px 20px;
-    background:rgba(5,11,24,0.8);
-    backdrop-filter:blur(10px);
-    border-radius:100px;
-    border:1px solid var(--border);
-    position:fixed;
-    top:20px;
-    left:20px;
-    z-index:100;
-    transition:all 0.3s var(--ease);
-}
-
-.kit-back:hover{
-    color:var(--gold);
-    border-color:var(--gold);
-}
-
-
-/* Hero Logo */
-.kit-hero-logo{
-    position:relative;
-    width:120px;
-    height:120px;
-    margin:0 auto 24px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:3;
-    animation:logoFloat 3s ease-in-out infinite;
-}
-
-.kit-hero-logo img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    border-radius:50%;
-    border:3px solid var(--gold);
-    padding:6px;
-    background:linear-gradient(135deg,#0F1E33,#050B18);
-    box-shadow:0 10px 40px rgba(212,165,54,0.4),0 4px 15px rgba(0,0,0,0.5),inset 0 0 20px rgba(212,165,54,0.1);
-    position:relative;
-    z-index:2;
-    transition:all 0.4s var(--ease);
-}
-
-.kit-hero-logo:hover img{
-    transform:scale(1.05) rotate(3deg);
-}
-
-.kit-hero-logo-glow{
-    position:absolute;
-    inset:-20px;
-    background:radial-gradient(circle,rgba(212,165,54,0.4),transparent 70%);
-    border-radius:50%;
-    z-index:1;
-    animation:glowPulse 2.5s ease-in-out infinite;
-    pointer-events:none;
-}
-
-@keyframes logoFloat{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-8px);}
-}
-
-@keyframes glowPulse{
-    0%,100%{opacity:0.6;transform:scale(1);}
-    50%{opacity:1;transform:scale(1.1);}
-}
-
-
-/* Hero Header */
 .kit-hero{
-    background:linear-gradient(180deg,#0F1E33 0%,#050B18 60%,var(--bg) 100%);
-    padding:140px 20px 80px;
+    background:linear-gradient(135deg,#0F1E33 0%,#050B18 100%);
+    padding:120px 20px 60px;
     text-align:center;
     position:relative;
     overflow:hidden;
+    border-bottom:2px solid var(--gold);
 }
 
 .kit-hero::before{
     content:'';
     position:absolute;
     inset:0;
-    background:radial-gradient(circle at 30% 20%,rgba(212,165,54,0.15),transparent 50%),radial-gradient(circle at 70% 80%,rgba(37,211,102,0.08),transparent 50%);
+    background:
+        radial-gradient(circle at 20% 30%,rgba(212,165,54,0.15),transparent 40%),
+        radial-gradient(circle at 80% 70%,rgba(37,211,102,0.08),transparent 40%);
 }
 
-.kit-hero-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:10px 24px;
-    background:rgba(212,165,54,0.15);
-    border:1px solid rgba(212,165,54,0.3);
+.hero-badge{
+    display:inline-block;
+    padding:8px 20px;
+    background:var(--grad-gold-shine);
+    color:var(--bg);
     border-radius:100px;
-    font-size:0.78rem;
+    font-size:0.75rem;
     font-weight:800;
     letter-spacing:2px;
     text-transform:uppercase;
-    margin-bottom:24px;
+    margin-bottom:20px;
     position:relative;
     z-index:2;
-    color:var(--gold);
+    box-shadow:0 6px 20px var(--gold-glow);
+    animation:pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.05);}
 }
 
 .kit-hero h1{
     font-family:'Montserrat',sans-serif;
-    font-size:clamp(2rem,5vw,3.5rem);
+    font-size:clamp(1.8rem,4vw,3rem);
     font-weight:900;
     color:var(--text);
     margin-bottom:16px;
+    line-height:1.2;
     position:relative;
     z-index:2;
-    line-height:1.15;
-    letter-spacing:-1px;
 }
 
-.kit-hero .text-gold{
+.kit-hero h1 span{
     background:var(--grad-gold-shine);
     -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
     background-clip:text;
-    color:transparent;
-    filter:drop-shadow(0 4px 15px rgba(212,165,54,0.4));
 }
 
-.kit-hero-sub{
+.kit-hero p{
     color:var(--text-muted);
-    font-size:1.1rem;
-    max-width:600px;
-    margin:0 auto 40px;
+    font-size:1.05rem;
+    max-width:650px;
+    margin:0 auto 30px;
     line-height:1.7;
     position:relative;
     z-index:2;
 }
 
-.kit-hero-stats{
-    display:flex;
-    justify-content:center;
-    gap:32px;
-    flex-wrap:wrap;
+
+/* ============================================
+   QUICK STATS
+   ============================================ */
+.kit-stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:16px;
+    max-width:800px;
+    margin:0 auto;
+    padding:20px;
     position:relative;
     z-index:2;
 }
 
-.kit-hero-stat{text-align:center;}
+.stat-item{
+    background:rgba(255,255,255,0.05);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:20px;
+    text-align:center;
+    backdrop-filter:blur(10px);
+    transition:all 0.3s var(--ease);
+}
 
-.kit-hero-stat-num{
-    font-family:'Montserrat',sans-serif;
+.stat-item:hover{
+    transform:translateY(-4px);
+    border-color:var(--gold);
+    background:rgba(212,165,54,0.08);
+}
+
+.stat-item i{
     font-size:2rem;
+    background:var(--grad-gold-shine);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin-bottom:8px;
+    display:block;
+}
+
+.stat-number{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.4rem;
     font-weight:900;
-    color:var(--gold);
+    color:var(--text);
     line-height:1;
     margin-bottom:4px;
 }
 
-.kit-hero-stat-label{
-    color:var(--text-dim);
-    font-size:0.8rem;
+.stat-label{
+    color:var(--text-muted);
+    font-size:0.78rem;
     font-weight:600;
+    letter-spacing:0.5px;
     text-transform:uppercase;
-    letter-spacing:1px;
 }
 
 
-/* Section Wrapper */
-.kit-section{
-    padding:80px 20px;
-    position:relative;
-}
-
-.kit-section.alt{
-    background:linear-gradient(180deg,rgba(15,30,51,0.5) 0%,var(--bg) 100%);
-}
-
+/* ============================================
+   CONTAINER
+   ============================================ */
 .kit-container{
-    max-width:1100px;
+    max-width:1200px;
     margin:0 auto;
+    padding:60px 20px 100px;
 }
 
 
-/* Section Header */
-.kit-section-header{
+/* ============================================
+   SECTION
+   ============================================ */
+.kit-section{
+    margin-bottom:60px;
+}
+
+.section-header{
     text-align:center;
-    margin-bottom:48px;
+    max-width:650px;
+    margin:0 auto 40px;
 }
 
-.kit-section-badge{
+.section-badge{
     display:inline-block;
     padding:6px 16px;
     background:rgba(212,165,54,0.12);
+    color:var(--gold);
     border:1px solid rgba(212,165,54,0.25);
     border-radius:100px;
     font-size:0.72rem;
     font-weight:800;
     letter-spacing:2px;
     text-transform:uppercase;
-    color:var(--gold);
-    margin-bottom:16px;
+    margin-bottom:14px;
 }
 
-.kit-section-title{
+.section-title{
     font-family:'Montserrat',sans-serif;
-    font-size:clamp(1.5rem,3.5vw,2.5rem);
+    font-size:clamp(1.5rem,3vw,2.2rem);
     font-weight:900;
     color:var(--text);
-    line-height:1.2;
     margin-bottom:12px;
+    line-height:1.2;
 }
 
-.kit-section-sub{
+.section-title span{
+    background:var(--grad-gold-shine);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+}
+
+.section-desc{
     color:var(--text-muted);
-    font-size:1rem;
-    max-width:600px;
-    margin:0 auto;
+    font-size:0.95rem;
     line-height:1.6;
 }
 
 
 /* ============================================
-   📚 LEARNING PATH - NO VERTICAL LINE!
+   TOOLS GRID
    ============================================ */
-.kit-roadmap{
-    max-width:800px;
-    margin:0 auto;
-    display:flex;
-    flex-direction:column;
+.tools-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
     gap:20px;
 }
 
-/* ❌ REMOVED: .kit-roadmap::before (garis kuning vertikal) */
-
-.kit-roadmap-step{
-    position:relative;
-    display:flex;
-    gap:20px;
-    align-items:flex-start;
-}
-
-.kit-roadmap-dot{
-    width:44px;
-    height:44px;
-    background:var(--grad-gold-shine);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--bg);
-    font-weight:900;
-    font-family:'Montserrat',sans-serif;
-    font-size:1rem;
-    box-shadow:0 6px 20px var(--gold-glow);
-    flex-shrink:0;
-    margin-top:6px;
-}
-
-.kit-roadmap-card{
+.tool-card{
     background:var(--grad-card);
     border:1px solid var(--border);
-    border-radius:var(--radius-lg);
+    border-radius:20px;
     padding:28px;
     transition:all 0.4s var(--ease);
-    flex:1;
-}
-
-.kit-roadmap-card:hover{
-    border-color:rgba(212,165,54,0.4);
-    transform:translateY(-4px);
-    box-shadow:0 10px 30px rgba(0,0,0,0.3);
-}
-
-.kit-roadmap-badge{
-    display:inline-block;
-    padding:4px 10px;
-    border-radius:100px;
-    font-size:0.68rem;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    margin-bottom:12px;
-}
-
-.kit-roadmap-badge.beginner{
-    background:rgba(37,211,102,0.15);
-    color:#25D366;
-    border:1px solid rgba(37,211,102,0.3);
-}
-
-.kit-roadmap-badge.intermediate{
-    background:rgba(52,152,219,0.15);
-    color:#3498db;
-    border:1px solid rgba(52,152,219,0.3);
-}
-
-.kit-roadmap-badge.advanced{
-    background:rgba(212,165,54,0.15);
-    color:var(--gold);
-    border:1px solid rgba(212,165,54,0.3);
-}
-
-.kit-roadmap-badge.expert{
-    background:rgba(147,51,234,0.15);
-    color:#9333ea;
-    border:1px solid rgba(147,51,234,0.3);
-}
-
-.kit-roadmap-title{
-    font-family:'Montserrat',sans-serif;
-    font-size:1.2rem;
-    font-weight:800;
-    color:var(--text);
-    margin-bottom:8px;
-}
-
-.kit-roadmap-desc{
-    color:var(--text-muted);
-    font-size:0.92rem;
-    line-height:1.7;
-    margin-bottom:16px;
-}
-
-.kit-roadmap-checklist{
-    list-style:none;
-    padding:0;
-    margin:0 0 16px;
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-}
-
-.kit-roadmap-checklist li{
-    display:flex;
-    align-items:flex-start;
-    gap:10px;
-    color:var(--text-muted);
-    font-size:0.88rem;
-    line-height:1.5;
-}
-
-.kit-roadmap-checklist li i{
-    color:var(--gold);
-    font-size:0.85rem;
-    margin-top:3px;
-    flex-shrink:0;
-}
-
-.kit-roadmap-time{
-    background:rgba(212,165,54,0.08);
-    border:1px solid rgba(212,165,54,0.2);
-    color:var(--gold);
-    padding:6px 12px;
-    border-radius:100px;
-    font-size:0.75rem;
-    font-weight:600;
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-}
-
-
-/* ============================================
-   TIER DIVIDER
-   ============================================ */
-.kit-tier-divider{
-    text-align:center;
-    margin:60px 0 30px;
-    padding:24px;
-    background:linear-gradient(145deg,rgba(212,165,54,0.05),transparent);
-    border-radius:16px;
-    border:1px solid rgba(212,165,54,0.15);
-}
-
-.kit-tier-divider-badge{
-    display:inline-block;
-    padding:6px 16px;
-    border-radius:100px;
-    font-size:0.7rem;
-    font-weight:800;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    margin-bottom:10px;
-}
-
-.kit-tier-divider-badge.pemula{background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);}
-.kit-tier-divider-badge.intermediate{background:rgba(52,152,219,0.15);color:#3498db;border:1px solid rgba(52,152,219,0.3);}
-.kit-tier-divider-badge.advanced{background:rgba(212,165,54,0.15);color:var(--gold);border:1px solid rgba(212,165,54,0.3);}
-.kit-tier-divider-badge.expert{background:rgba(147,51,234,0.15);color:#9333ea;border:1px solid rgba(147,51,234,0.3);}
-
-.kit-tier-divider h3{
-    font-family:'Montserrat',sans-serif;
-    font-size:1.3rem;
-    font-weight:800;
-    color:var(--text);
-    margin-bottom:6px;
-}
-
-.kit-tier-divider p{
-    color:var(--text-muted);
-    font-size:0.9rem;
-    max-width:500px;
-    margin:0 auto;
-}
-
-
-/* ============================================
-   📋 SOP RESELLER
-   ============================================ */
-.kit-sop-section{
-    padding:80px 20px;
-    background:linear-gradient(180deg,rgba(15,30,51,0.5) 0%,var(--bg) 100%);
-}
-
-.kit-sop-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-    gap:20px;
-    max-width:1100px;
-    margin:0 auto;
-}
-
-.kit-sop-card{
-    background:var(--grad-card);
-    border:1px solid var(--border);
-    border-radius:var(--radius-lg);
-    padding:28px;
-    transition:all 0.3s var(--ease);
-}
-
-.kit-sop-card:hover{
-    transform:translateY(-4px);
-    border-color:rgba(212,165,54,0.3);
-    box-shadow:0 15px 40px rgba(0,0,0,0.4);
-}
-
-.kit-sop-card.danger{
-    border-color:rgba(231,76,60,0.3);
-    background:linear-gradient(145deg,rgba(231,76,60,0.05),var(--grad-card));
-}
-
-.kit-sop-card.success{
-    border-color:rgba(37,211,102,0.3);
-    background:linear-gradient(145deg,rgba(37,211,102,0.05),var(--grad-card));
-}
-
-.kit-sop-icon{
-    font-size:2.2rem;
-    margin-bottom:14px;
-    display:block;
-}
-
-.kit-sop-title{
-    font-family:'Montserrat',sans-serif;
-    font-size:1.1rem;
-    font-weight:800;
-    color:var(--gold);
-    margin-bottom:18px;
-}
-
-.kit-sop-card.danger .kit-sop-title{color:#ff6b5b;}
-.kit-sop-card.success .kit-sop-title{color:#25d366;}
-
-.kit-sop-list{
-    list-style:none;
-    padding:0;
-    margin:0;
-    counter-reset:sop-counter;
-}
-
-.kit-sop-list li{
-    counter-increment:sop-counter;
-    padding:10px 0 10px 34px;
     position:relative;
-    color:rgba(255,255,255,0.85);
-    font-size:0.88rem;
-    line-height:1.5;
-    border-bottom:1px dashed rgba(255,255,255,0.05);
-}
-
-.kit-sop-list li:last-child{border-bottom:none;}
-
-.kit-sop-list li::before{
-    content:counter(sop-counter);
-    position:absolute;
-    left:0;
-    top:10px;
-    width:24px;
-    height:24px;
-    background:rgba(212,165,54,0.15);
-    color:var(--gold);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:800;
-    font-size:0.75rem;
-    border:1px solid rgba(212,165,54,0.3);
-}
-
-.kit-sop-card.danger .kit-sop-list li::before{
-    background:rgba(231,76,60,0.15);
-    color:#ff6b5b;
-    border-color:rgba(231,76,60,0.3);
-}
-
-.kit-sop-card.success .kit-sop-list li::before{
-    background:rgba(37,211,102,0.15);
-    color:#25d366;
-    border-color:rgba(37,211,102,0.3);
-}
-
-
-/* Knowledge Cards */
-.kit-knowledge-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:24px;
-}
-
-.kit-knowledge-card{
-    background:var(--grad-card);
-    border:1px solid var(--border);
-    border-radius:var(--radius-lg);
     overflow:hidden;
-    transition:all 0.4s var(--ease);
-    display:flex;
-    flex-direction:column;
 }
 
-.kit-knowledge-card:hover{
-    border-color:rgba(212,165,54,0.4);
+.tool-card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    width:120px;
+    height:120px;
+    background:radial-gradient(circle,var(--gold-glow),transparent 70%);
+    opacity:0.15;
+    border-radius:50%;
+    transform:translate(30%,-30%);
+}
+
+.tool-card:hover{
     transform:translateY(-6px);
-    box-shadow:0 15px 40px rgba(0,0,0,0.3);
+    border-color:var(--gold);
+    box-shadow:0 15px 40px rgba(0,0,0,0.4),0 0 30px rgba(212,165,54,0.1);
 }
 
-.kit-knowledge-header{
-    padding:28px 24px 20px;
-    position:relative;
-}
-
-.kit-knowledge-icon{
-    width:56px;
-    height:56px;
+.tool-icon{
+    width:60px;
+    height:60px;
     background:var(--grad-gold-shine);
-    border-radius:14px;
+    color:var(--bg);
+    border-radius:16px;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:1.5rem;
-    color:var(--bg);
-    margin-bottom:16px;
-    box-shadow:0 6px 20px var(--gold-glow);
+    font-size:1.6rem;
+    margin-bottom:20px;
+    box-shadow:0 8px 24px var(--gold-glow);
+    position:relative;
+    z-index:2;
 }
 
-.kit-knowledge-tag{
-    position:absolute;
-    top:20px;
-    right:20px;
-    padding:4px 10px;
-    border-radius:100px;
-    font-size:0.65rem;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    background:rgba(37,211,102,0.15);
-    color:#25D366;
-    border:1px solid rgba(37,211,102,0.3);
-}
-
-.kit-knowledge-tag.important{background:rgba(231,76,60,0.15);color:#e74c3c;border-color:rgba(231,76,60,0.3);}
-.kit-knowledge-tag.premium{background:rgba(212,165,54,0.15);color:var(--gold);border-color:rgba(212,165,54,0.3);}
-
-.kit-knowledge-title{
+.tool-title{
     font-family:'Montserrat',sans-serif;
     font-size:1.15rem;
     font-weight:800;
     color:var(--text);
     margin-bottom:8px;
-    line-height:1.3;
 }
 
-.kit-knowledge-body{
-    padding:0 24px 24px;
-    flex:1;
-    display:flex;
-    flex-direction:column;
-}
-
-.kit-knowledge-desc{
+.tool-desc{
     color:var(--text-muted);
-    font-size:0.88rem;
-    line-height:1.7;
+    font-size:0.9rem;
+    line-height:1.6;
     margin-bottom:16px;
-    flex:1;
 }
 
-.kit-knowledge-topics{
-    display:flex;
-    flex-wrap:wrap;
-    gap:6px;
-    margin-bottom:20px;
-}
-
-.kit-knowledge-topic{
-    padding:4px 10px;
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:100px;
-    font-size:0.72rem;
-    color:var(--text-dim);
-    font-weight:600;
-}
-
-.kit-knowledge-footer{
-    padding-top:16px;
-    border-top:1px solid var(--border);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.kit-knowledge-time{
-    display:flex;
-    align-items:center;
-    gap:6px;
-    color:var(--text-dim);
-    font-size:0.78rem;
-}
-
-.kit-knowledge-time i{
-    color:var(--gold);
-    font-size:0.85rem;
-}
-
-
-/* Tier Cards */
-.kit-tier-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-    margin-bottom:40px;
-}
-
-.kit-tier-card{
-    background:var(--grad-card);
-    border:1px solid var(--border);
-    border-radius:var(--radius-lg);
-    padding:28px 24px;
-    text-align:center;
-    transition:all 0.4s var(--ease);
-    position:relative;
-    overflow:hidden;
-}
-
-.kit-tier-card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 10px 30px rgba(0,0,0,0.3);
-}
-
-.kit-tier-card.featured{
-    border-color:var(--gold);
-    background:linear-gradient(180deg,rgba(212,165,54,0.12),rgba(212,165,54,0.02));
-    box-shadow:0 0 40px rgba(212,165,54,0.15);
-}
-
-.kit-tier-card.featured::before{
-    content:'⭐ POPULER';
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    padding:6px;
-    background:var(--grad-gold-shine);
-    color:var(--bg);
-    font-size:0.68rem;
-    font-weight:800;
-    letter-spacing:2px;
-    text-align:center;
-}
-
-.kit-tier-card.featured{padding-top:44px;}
-
-.kit-tier-emoji{
-    font-size:3rem;
-    margin-bottom:12px;
-    display:block;
-    filter:drop-shadow(0 4px 12px rgba(212,165,54,0.3));
-}
-
-.kit-tier-name{
-    font-family:'Montserrat',sans-serif;
-    font-size:1.3rem;
-    font-weight:900;
-    color:var(--gold);
-    letter-spacing:3px;
-    margin-bottom:8px;
-}
-
-.kit-tier-commission{
-    font-family:'Montserrat',sans-serif;
-    font-size:2.5rem;
-    font-weight:900;
-    background:var(--grad-gold-shine);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-    line-height:1;
-    margin-bottom:6px;
-}
-
-.kit-tier-req{
-    color:var(--text-dim);
-    font-size:0.85rem;
-    margin-bottom:20px;
-}
-
-.kit-tier-list{
+.tool-features{
     list-style:none;
-    padding:16px 0 0;
-    border-top:1px solid var(--border);
-    text-align:left;
-    margin:0;
+    padding:0;
+    margin-bottom:20px;
 }
 
-.kit-tier-list li{
-    padding:8px 0;
-    color:var(--text-muted);
-    font-size:0.88rem;
-    display:flex;
-    align-items:flex-start;
-    gap:8px;
+.tool-features li{
+    padding:6px 0 6px 24px;
+    color:rgba(255,255,255,0.85);
+    font-size:0.85rem;
+    line-height:1.5;
+    position:relative;
 }
 
-.kit-tier-list li i{
-    color:var(--gold);
-    font-size:0.8rem;
-    margin-top:3px;
-    flex-shrink:0;
-}
-
-
-/* Script Templates */
-.kit-script-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:24px;
-}
-
-.kit-script-card{
-    background:var(--grad-card);
-    border:1px solid var(--border);
-    border-radius:var(--radius-lg);
-    overflow:hidden;
-    transition:all 0.4s var(--ease);
-}
-
-.kit-script-card:hover{
-    border-color:rgba(212,165,54,0.4);
-    transform:translateY(-4px);
-    box-shadow:0 10px 30px rgba(0,0,0,0.3);
-}
-
-.kit-script-header{
-    padding:20px 24px;
-    border-bottom:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.kit-script-icon{
-    width:40px;
-    height:40px;
-    background:rgba(212,165,54,0.15);
-    border-radius:10px;
+.tool-features li::before{
+    content:'✓';
+    position:absolute;
+    left:0;
+    color:#25d366;
+    font-weight:900;
+    width:18px;
+    height:18px;
+    background:rgba(37,211,102,0.15);
+    border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
-    color:var(--gold);
-    font-size:1.1rem;
-    flex-shrink:0;
-}
-
-.kit-script-title{
-    font-family:'Montserrat',sans-serif;
-    font-size:1rem;
-    font-weight:800;
-    color:var(--text);
-}
-
-.kit-script-body{padding:20px 24px;}
-
-.kit-script-text{
-    background:#0D1829;
-    border:1px solid rgba(255,255,255,0.06);
-    border-radius:10px;
-    padding:16px 18px;
-    color:var(--text-muted);
-    font-size:0.88rem;
-    line-height:1.8;
-    position:relative;
-    font-style:italic;
-}
-
-.kit-script-text::before{
-    content:'"';
-    position:absolute;
+    font-size:0.65rem;
     top:8px;
-    left:12px;
-    font-size:2rem;
-    color:var(--gold);
-    opacity:0.3;
-    font-family:serif;
+}
+
+.tool-actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.tool-btn{
+    flex:1;
+    min-width:110px;
+    padding:11px 18px;
+    border:none;
+    border-radius:100px;
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:0.82rem;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    transition:all 0.3s;
+    text-decoration:none;
     line-height:1;
 }
 
-.kit-script-text strong{
-    color:var(--gold);
-    font-style:normal;
+.tool-btn-primary{
+    background:var(--grad-gold-shine);
+    color:var(--bg);
+    box-shadow:0 4px 15px var(--gold-glow);
 }
 
-.kit-script-actions{
-    padding:12px 24px 20px;
-    display:flex;
-    gap:8px;
+.tool-btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 20px rgba(212,165,54,0.5);
 }
 
-.kit-copy-btn{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:8px 16px;
+.tool-btn-secondary{
+    background:rgba(255,255,255,0.05);
+    color:var(--text);
+    border:1px solid var(--border);
+}
+
+.tool-btn-secondary:hover{
     background:rgba(212,165,54,0.1);
-    border:1px solid rgba(212,165,54,0.3);
-    border-radius:100px;
-    color:var(--gold);
-    font-size:0.8rem;
-    font-weight:700;
-    cursor:pointer;
-    transition:all 0.3s var(--ease);
-}
-
-.kit-copy-btn:hover{
-    background:rgba(212,165,54,0.2);
     border-color:var(--gold);
-    transform:translateY(-1px);
-}
-
-.kit-copy-btn.copied{
-    background:rgba(37,211,102,0.15);
-    border-color:#25D366;
-    color:#25D366;
+    color:var(--gold);
 }
 
 
-/* FAQ */
-.kit-faq-list{
-    max-width:800px;
-    margin:0 auto;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
+/* ============================================
+   TEMPLATE CHAT CARDS
+   ============================================ */
+.chat-templates{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
 }
 
-.kit-faq-item{
+.chat-card{
     background:var(--grad-card);
     border:1px solid var(--border);
-    border-radius:var(--radius-md);
-    overflow:hidden;
+    border-radius:16px;
+    padding:24px;
     transition:all 0.3s var(--ease);
 }
 
-.kit-faq-item.active{border-color:rgba(212,165,54,0.3);}
+.chat-card:hover{
+    border-color:rgba(212,165,54,0.3);
+}
 
-.kit-faq-q{
+.chat-card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
+    padding-bottom:14px;
+    border-bottom:1px dashed var(--border);
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.chat-card-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:1rem;
+    font-weight:800;
+    color:var(--gold);
     display:flex;
     align-items:center;
-    gap:14px;
-    width:100%;
-    padding:18px 20px;
-    background:transparent;
-    border:none;
-    color:var(--text);
-    font-size:0.95rem;
-    font-weight:600;
-    text-align:left;
+    gap:10px;
+}
+
+.chat-card-title i{
+    font-size:1.1rem;
+}
+
+.chat-copy-btn{
+    padding:8px 16px;
+    background:rgba(37,211,102,0.15);
+    color:#25d366;
+    border:1px solid rgba(37,211,102,0.3);
+    border-radius:100px;
+    font-family:'Poppins',sans-serif;
+    font-size:0.78rem;
+    font-weight:700;
     cursor:pointer;
-    transition:all 0.3s var(--ease);
+    transition:all 0.3s;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+}
+
+.chat-copy-btn:hover{
+    background:#25d366;
+    color:#fff;
+    transform:scale(1.05);
+}
+
+.chat-copy-btn.copied{
+    background:#25d366;
+    color:#fff;
+}
+
+.chat-message{
+    background:rgba(37,211,102,0.05);
+    border-left:3px solid #25d366;
+    border-radius:0 12px 12px 0;
+    padding:16px 20px;
+    color:rgba(255,255,255,0.9);
+    font-size:0.9rem;
+    line-height:1.7;
+    white-space:pre-wrap;
     font-family:'Poppins',sans-serif;
 }
 
-.kit-faq-q:hover{background:rgba(212,165,54,0.05);}
-
-.kit-faq-q i{
+.chat-message b,
+.chat-message strong{
     color:var(--gold);
-    font-size:0.85rem;
-    transition:transform 0.3s var(--ease);
-    flex-shrink:0;
-    margin-left:auto;
-}
-
-.kit-faq-item.active .kit-faq-q i{transform:rotate(45deg);}
-
-.kit-faq-a{
-    max-height:0;
-    overflow:hidden;
-    transition:max-height 0.4s var(--ease);
-}
-
-.kit-faq-item.active .kit-faq-a{max-height:500px;}
-
-.kit-faq-a p{
-    padding:0 20px 18px;
-    color:var(--text-muted);
-    font-size:0.9rem;
-    line-height:1.7;
-    margin:0;
 }
 
 
-/* CTA */
-.kit-cta{
+/* ============================================
+   RESELLER CODE SECTION
+   ============================================ */
+.reseller-code-section{
+    background:linear-gradient(135deg,rgba(212,165,54,0.12),rgba(212,165,54,0.03));
+    border:2px solid var(--gold);
+    border-radius:24px;
+    padding:40px 32px;
     text-align:center;
-    padding:80px 20px;
-    background:linear-gradient(180deg,var(--bg) 0%,#0F1E33 100%);
+    margin-bottom:40px;
     position:relative;
     overflow:hidden;
 }
 
-.kit-cta::before{
+.reseller-code-section::before{
     content:'';
     position:absolute;
-    inset:0;
-    background:radial-gradient(circle at center,rgba(212,165,54,0.1),transparent 60%);
+    top:-50px;
+    right:-50px;
+    width:200px;
+    height:200px;
+    background:radial-gradient(circle,var(--gold-glow),transparent 70%);
+    opacity:0.3;
+    border-radius:50%;
 }
 
-.kit-cta-box{
-    background:var(--grad-card);
-    border:2px solid var(--gold);
-    border-radius:var(--radius-xl);
-    padding:48px 32px;
-    max-width:700px;
-    margin:0 auto;
-    box-shadow:0 20px 60px rgba(212,165,54,0.15);
+.code-label{
+    color:var(--gold);
+    font-size:0.85rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    margin-bottom:12px;
     position:relative;
     z-index:2;
 }
 
-.kit-cta-box h2{
-    font-family:'Montserrat',sans-serif;
-    font-size:clamp(1.5rem,3vw,2.2rem);
-    font-weight:900;
-    color:var(--text);
-    margin-bottom:16px;
-    line-height:1.2;
+.code-input-wrapper{
+    max-width:400px;
+    margin:0 auto 20px;
+    position:relative;
+    z-index:2;
 }
 
-.kit-cta-box p{
+.code-input{
+    width:100%;
+    padding:16px 20px;
+    background:rgba(5,11,24,0.6);
+    border:2px solid var(--gold);
+    border-radius:100px;
+    color:var(--gold);
+    font-family:'Montserrat',monospace;
+    font-size:1.3rem;
+    font-weight:900;
+    text-align:center;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+.code-input:focus{
+    outline:none;
+    box-shadow:0 0 0 4px rgba(212,165,54,0.2);
+}
+
+.code-hint{
+    color:var(--text-muted);
+    font-size:0.85rem;
+    line-height:1.6;
+    position:relative;
+    z-index:2;
+}
+
+.code-hint b{
+    color:var(--gold);
+}
+
+
+/* ============================================
+   MATERI DOWNLOAD
+   ============================================ */
+.materi-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:16px;
+}
+
+.materi-card{
+    background:var(--grad-card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:24px;
+    text-align:center;
+    transition:all 0.3s var(--ease);
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+}
+
+.materi-card:hover{
+    transform:translateY(-4px);
+    border-color:var(--gold);
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+.materi-icon{
+    font-size:3rem;
+    margin-bottom:14px;
+    background:var(--grad-gold-shine);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+}
+
+.materi-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:1rem;
+    font-weight:800;
+    color:var(--text);
+    margin-bottom:6px;
+}
+
+.materi-desc{
+    color:var(--text-muted);
+    font-size:0.82rem;
+    line-height:1.5;
+    margin-bottom:16px;
+}
+
+.materi-count{
+    display:inline-block;
+    padding:4px 12px;
+    background:rgba(212,165,54,0.15);
+    color:var(--gold);
+    border-radius:100px;
+    font-size:0.72rem;
+    font-weight:700;
+    margin-bottom:16px;
+}
+
+.materi-download-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:10px 20px;
+    background:var(--grad-gold-shine);
+    color:var(--bg);
+    border-radius:100px;
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:0.82rem;
+    text-decoration:none;
+    box-shadow:0 4px 15px var(--gold-glow);
+    transition:transform 0.3s;
+}
+
+.materi-download-btn:hover{
+    transform:scale(1.05);
+}
+
+
+/* ============================================
+   SCRIPT KEBERATAN
+   ============================================ */
+.objection-item{
+    background:var(--grad-card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:20px 24px;
+    margin-bottom:12px;
+    transition:all 0.3s;
+    cursor:pointer;
+}
+
+.objection-item:hover{
+    border-color:var(--gold);
+    background:rgba(212,165,54,0.04);
+}
+
+.objection-question{
+    color:var(--gold);
+    font-weight:800;
+    font-size:0.95rem;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.objection-question i{
+    background:rgba(212,165,54,0.15);
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:0.8rem;
+    transition:all 0.3s;
+    flex-shrink:0;
+}
+
+.objection-item.active .objection-question i{
+    background:var(--grad-gold-shine);
+    color:var(--bg);
+    transform:rotate(180deg);
+}
+
+.objection-answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.4s var(--ease),padding 0.3s var(--ease);
+    padding:0 0 0 44px;
+}
+
+.objection-item.active .objection-answer{
+    max-height:500px;
+    padding:16px 0 0 44px;
+}
+
+.objection-answer p{
+    color:rgba(255,255,255,0.85);
+    font-size:0.88rem;
+    line-height:1.7;
+    margin-bottom:10px;
+}
+
+.objection-answer strong{
+    color:var(--gold);
+}
+
+.objection-example{
+    background:rgba(37,211,102,0.08);
+    border-left:3px solid #25d366;
+    padding:12px 16px;
+    border-radius:0 10px 10px 0;
+    font-style:italic;
+    color:rgba(255,255,255,0.9);
+    font-size:0.85rem;
+    margin-top:10px;
+    line-height:1.7;
+}
+
+
+/* ============================================
+   CTA SUPPORT
+   ============================================ */
+.support-cta{
+    background:linear-gradient(135deg,rgba(37,211,102,0.15),rgba(37,211,102,0.05));
+    border:2px solid rgba(37,211,102,0.3);
+    border-radius:24px;
+    padding:40px 32px;
+    text-align:center;
+    margin-top:60px;
+}
+
+.support-cta h2{
+    font-family:'Montserrat',sans-serif;
+    font-size:clamp(1.4rem,3vw,2rem);
+    font-weight:900;
+    color:var(--text);
+    margin-bottom:12px;
+}
+
+.support-cta h2 span{
+    color:#25d366;
+}
+
+.support-cta p{
     color:var(--text-muted);
     font-size:1rem;
-    margin-bottom:32px;
+    max-width:500px;
+    margin:0 auto 24px;
     line-height:1.6;
 }
 
-.kit-cta-buttons{
-    display:flex;
-    gap:12px;
-    justify-content:center;
-    flex-wrap:wrap;
-}
-
-.kit-btn{
+.support-btn{
     display:inline-flex;
     align-items:center;
-    justify-content:center;
-    gap:12px;
+    gap:10px;
     padding:16px 32px;
-    border-radius:100px;
-    font-size:1rem;
-    font-weight:700;
-    text-decoration:none;
-    cursor:pointer;
-    transition:all 0.3s var(--ease);
-    border:none;
-    line-height:1;
-    font-family:'Poppins',sans-serif;
-}
-
-.kit-btn i{font-size:1.2rem;}
-
-.kit-btn-primary{
-    background:var(--grad-gold-shine);
-    color:var(--bg);
-    box-shadow:0 6px 20px var(--gold-glow);
-}
-
-.kit-btn-primary:hover{
-    transform:translateY(-3px);
-    box-shadow:0 8px 30px var(--gold-glow);
-}
-
-.kit-btn-wa{
     background:#25D366;
     color:#fff;
-    box-shadow:0 6px 20px rgba(37,211,102,0.3);
+    border-radius:100px;
+    font-family:'Poppins',sans-serif;
+    font-weight:800;
+    font-size:1rem;
+    text-decoration:none;
+    box-shadow:0 8px 24px rgba(37,211,102,0.4);
+    transition:all 0.3s;
 }
 
-.kit-btn-wa:hover{
+.support-btn:hover{
     background:#20BA5A;
     transform:translateY(-3px);
-}
-
-.kit-btn-secondary{
-    background:rgba(255,255,255,0.05);
-    color:var(--text);
-    border:1px solid var(--border);
-}
-
-.kit-btn-secondary:hover{
-    border-color:var(--gold);
-    color:var(--gold);
-    transform:translateY(-3px);
+    box-shadow:0 12px 30px rgba(37,211,102,0.5);
 }
 
 
-/* Responsive */
-@media (max-width:992px){
-    .kit-knowledge-grid{grid-template-columns:repeat(2,1fr);}
-    .kit-tier-grid{grid-template-columns:repeat(2,1fr);}
-    .kit-tier-card.featured{
-        grid-column:1 / -1;
-        max-width:400px;
-        margin:0 auto;
-    }
+/* ============================================
+   TOAST NOTIFICATION
+   ============================================ */
+.toast{
+    position:fixed;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:linear-gradient(135deg,#25d366,#20BA5A);
+    color:#fff;
+    padding:14px 24px;
+    border-radius:100px;
+    box-shadow:0 10px 30px rgba(37,211,102,0.4);
+    font-weight:700;
+    font-size:0.9rem;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    z-index:10000;
+    opacity:0;
+    transition:all 0.3s var(--ease);
 }
 
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
 @media (max-width:768px){
-    .kit-hero{padding:120px 20px 60px;}
-    .kit-section{padding:60px 20px;}
-    .kit-sop-section{padding:60px 20px;}
-    
-    .kit-hero-logo{width:100px;height:100px;}
-    .kit-hero-logo img{padding:5px;border-width:2px;}
-
-    .kit-knowledge-grid,
-    .kit-script-grid{grid-template-columns:1fr;}
-
-    .kit-tier-grid{grid-template-columns:1fr;}
-    .kit-tier-card.featured{max-width:100%;}
-
-    .kit-roadmap-step{
-        flex-direction:column;
-        gap:12px;
-    }
-    
-    .kit-roadmap-dot{
-        width:40px;
-        height:40px;
-        font-size:0.9rem;
-    }
-    
-    .kit-roadmap-card{padding:20px;}
-
-    .kit-hero-stats{gap:20px;}
-    .kit-hero-stat-num{font-size:1.6rem;}
-
-    .kit-cta-box{padding:36px 24px;}
-    .kit-cta-buttons{flex-direction:column;}
-    .kit-btn{width:100%;}
-
-    .kit-back{
-        top:12px;
-        left:12px;
-        padding:10px 16px;
-        font-size:0.8rem;
-    }
-    
-    .kit-tier-divider{padding:20px;margin:40px 0 24px;}
-    .kit-tier-divider h3{font-size:1.1rem;}
-}
-
-@media (max-width:400px){
-    .kit-hero-logo{width:90px;height:90px;}
+    .kit-hero{padding:100px 16px 40px;}
+    .kit-hero h1{font-size:1.8rem;}
+    .kit-container{padding:40px 16px 80px;}
+    .tool-card{padding:24px 20px;}
+    .chat-card{padding:20px;}
+    .reseller-code-section{padding:32px 24px;}
+    .code-input{font-size:1rem;letter-spacing:1px;}
 }
 </style>
 </head>
-<body class="kit-page">
+<body>
 
-<!-- Back -->
-<a href="reseller.html" class="kit-back">
-    <i class="fas fa-arrow-left"></i>
-    <span>Kembali</span>
-</a>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-brand-text">
+            <span class="brand-name-nav">Ibaadurrahmaan</span>
+            <span class="brand-sub-nav">Web Designer</span>
+        </a>
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">Beranda</a>
+            <a href="reseller.html" class="nav-link">Reseller</a>
+            <a href="starter-kit.html" class="nav-link active">Starter Kit</a>
+            <a href="index.html#faq" class="nav-link">FAQ</a>
+        </div>
+    </div>
+</nav>
+
 
 <!-- ===== HERO ===== -->
 <section class="kit-hero">
-    <div class="kit-hero-logo">
-        <img src="main-logo.jpg" alt="Ibaadurrahmaan Web Designer" onerror="this.parentElement.style.display='none'">
-        <div class="kit-hero-logo-glow"></div>
+    <div class="hero-badge">🎁 STARTER KIT RESELLER</div>
+    <h1>
+        Alat Kerja Lengkap<br>
+        Untuk <span>Sukses Closing</span>
+    </h1>
+    <p>
+        Semua yang Anda butuhkan untuk jualan dengan mudah — dari template chat, 
+        materi promosi siap pakai, script closing, hingga script handle keberatan client.
+    </p>
+    
+    <div class="kit-stats">
+        <div class="stat-item">
+            <i class="fas fa-images"></i>
+            <div class="stat-number">15+</div>
+            <div class="stat-label">Poster Siap Pakai</div>
+        </div>
+        <div class="stat-item">
+            <i class="fas fa-comments"></i>
+            <div class="stat-number">10+</div>
+            <div class="stat-label">Template Chat</div>
+        </div>
+        <div class="stat-item">
+            <i class="fas fa-file-alt"></i>
+            <div class="stat-number">5+</div>
+            <div class="stat-label">Materi PDF</div>
+        </div>
+        <div class="stat-item">
+            <i class="fas fa-video"></i>
+            <div class="stat-number">3+</div>
+            <div class="stat-label">Video Training</div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===== KIT CONTAINER ===== -->
+<div class="kit-container">
+    
+    
+    <!-- ============ RESELLER CODE ============ -->
+    <div class="reseller-code-section">
+        <div class="code-label">🎫 Kode Reseller Anda</div>
+        <div class="code-input-wrapper">
+            <input type="text" 
+                   class="code-input" 
+                   id="resellerCode" 
+                   placeholder="Masukkan kode Anda"
+                   value="">
+        </div>
+        <p class="code-hint">
+            Setiap chat/promosi wajib pakai <b>kode reseller Anda</b> untuk tracking komisi.<br>
+            <small>Belum punya kode? <a href="reseller.html" style="color:var(--gold);text-decoration:underline;">Daftar dulu</a></small>
+        </p>
     </div>
     
-    <div class="kit-hero-badge">
-        <i class="fas fa-gem"></i>
-        <span>EXCLUSIVE RESELLER KIT</span>
-    </div>
-    <h1>
-        Starter Kit<br>
-        <span class="text-gold">Reseller Success</span>
-    </h1>
-    <p class="kit-hero-sub">
-        Panduan lengkap 30 hari + 15 modul pembelajaran + SOP resmi untuk sukses jadi reseller Ibaadurrahmaan Web Designer.
-    </p>
-    <div class="kit-hero-stats">
-        <div class="kit-hero-stat">
-            <div class="kit-hero-stat-num">15</div>
-            <div class="kit-hero-stat-label">Modul</div>
-        </div>
-        <div class="kit-hero-stat">
-            <div class="kit-hero-stat-num">6</div>
-            <div class="kit-hero-stat-label">SOP</div>
-        </div>
-        <div class="kit-hero-stat">
-            <div class="kit-hero-stat-num">30</div>
-            <div class="kit-hero-stat-label">Hari</div>
-        </div>
-        <div class="kit-hero-stat">
-            <div class="kit-hero-stat-num">25%</div>
-            <div class="kit-hero-stat-label">Max Komisi</div>
-        </div>
-    </div>
-</section>
-
-
-<!-- ===== LEARNING PATH LENGKAP (15 MODUL) ===== -->
-<section class="kit-section">
-    <div class="kit-container">
-        <div class="kit-section-header">
-            <div class="kit-section-badge">📚 CURRICULUM 30 HARI</div>
-            <h2 class="kit-section-title">15 Modul Menuju <span class="text-gold">Closing Pertama</span></h2>
-            <p class="kit-section-sub">Ikuti step-by-step dari foundation sampai jadi top performer!</p>
+    
+    <!-- ============ 1. TEMPLATE CHAT WA ============ -->
+    <section class="kit-section">
+        <div class="section-header">
+            <span class="section-badge">💬 TEMPLATE CHAT</span>
+            <h2 class="section-title">Template <span>Chat WhatsApp</span></h2>
+            <p class="section-desc">Copy-paste template siap kirim ke calon client. Sudah teruji ampuh untuk closing!</p>
         </div>
         
-        <div class="kit-roadmap">
+        <div class="chat-templates">
             
-            <!-- ===== TIER 1: PEMULA (Week 1) ===== -->
-            <div class="kit-tier-divider">
-                <div class="kit-tier-divider-badge pemula">🌱 WEEK 1 - PEMULA</div>
-                <h3>Foundation: Kenali Produk & Market</h3>
-                <p>Mulai dari basic — pahami produk, target pasar, dan mindset seorang reseller sukses</p>
-            </div>
-            
-            <!-- Modul 1 -->
-            <div class="kit-roadmap-step">
-                <div class="kit-roadmap-dot">1</div>
-                <div class="kit-roadmap-card">
-                    <span class="kit-roadmap-badge beginner">Pemula</span>
-                    <div class="kit-roadmap-title">Pahami Produk & Layanan</div>
-                    <div class="kit-roadmap-desc">Kenali detail 3 paket website yang kamu jual — dari harga, fitur, sampai value proposition.</div>
-                    <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>Pelajari 3 paket: Hemat, Reguler, Premium</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Hafal fitur & benefit setiap paket</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Studi 5+ contoh portfolio yang sudah dibuat</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Pahami perbedaan Landing Page vs Multi-page Website</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Kenali proses produksi (3-7 hari kerja)</span></li>
-                    </ul>
-                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 2-3 hari</div>
-                </div>
-            </div>
-            
-            <!-- Modul 2 -->
-            <div class="kit-roadmap-step">
-                <div class="kit-roadmap-dot">2</div>
-                <div class="kit-roadmap-card">
-                    <span class="kit-roadmap-badge beginner">Pemula</span>
-                    <div class="kit-roadmap-title">Kenali Target Market</div>
-                    <div class="kit-roadmap-desc">Tanpa target yang jelas, kamu akan sulit closing. Kenali siapa yang benar-benar butuh website.</div>
-                    <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>Identifikasi 5 kategori bisnis yang butuh website</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Pahami pain point mereka (kenapa butuh website)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Tentukan lokasi target market (kota/area)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Susun customer persona (usia, profesi, budget)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>List 20+ prospek awal dari lingkaran sendiri</span></li>
-                    </ul>
-                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 2 hari</div>
-                </div>
-            </div>
-            
-            <!-- Modul 3 -->
-            <div class="kit-roadmap-step">
-                <div class="kit-roadmap-dot">3</div>
-                <div class="kit-roadmap-card">
-                    <span class="kit-roadmap-badge beginner">Pemula</span>
-                    <div class="kit-roadmap-title">Mindset Reseller Sukses</div>
-                    <div class="kit-roadmap-desc">Modal utama bukan uang, tapi mindset. Bangun pola pikir seorang closer profesional.</div>
-                    <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>Reseller = solusi, bukan sekedar penjual</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Fokus pada value, bukan harga</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Handle penolakan sebagai pembelajaran</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Konsisten follow-up minimal 5x per prospek</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Set target harian: 10 prospek baru per hari</span></li>
-                    </ul>
-                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 1 hari</div>
-                </div>
-            </div>
-            
-            
-            <!-- ===== TIER 2: INTERMEDIATE (Week 2) ===== -->
-            <div class="kit-tier-divider">
-                <div class="kit-tier-divider-badge intermediate">🚀 WEEK 2 - INTERMEDIATE</div>
-                <h3>Persiapan Marketing & Content</h3>
-                <p>Bekali diri dengan tools marketing yang profesional</p>
-            </div>
-            
-            <!-- Modul 4 -->
-            <div class="kit-roadmap-step">
-                <div class="kit-roadmap-dot">4</div>
-                <div class="kit-roadmap-card">
-                    <span class="kit-roadmap-badge intermediate">Menengah</span>
-                    <div class="kit-roadmap-title">Setup Sosial Media Bisnis</div>
-                    <div class="kit-roadmap-desc">Sosial media = etalase digital kamu. Bikin yang profesional dan trust-worthy.</div>
-                    <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>Buat akun Instagram bisnis (bukan personal)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Setup Facebook Page dengan CTA WhatsApp</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Aktifkan WhatsApp Business + katalog</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Bikin bio yang jelas: "Web Designer for UMKM"</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Upload logo, cover, dan foto profesional</span></li>
-                    </ul>
-                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 1 hari</div>
-                </div>
-            </div>
-            
-            <!-- Modul 5 -->
-            <div class="kit-roadmap-step">
-                <div class="kit-roadmap-dot">5</div>
-                <div class="kit-roadmap-card">
-                    <span class="kit-roadmap-badge intermediate">Menengah</span>
-                    <div class="kit-roadmap-title">Content Strategy 30 Hari</div>
-                    <div class="kit-roadmap-desc">Konten adalah magnet prospek. Buat konten yang mendidik & jual halus.</div>
-                    <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>Rencana 30 konten (edukasi, portfolio, testimoni)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Formula 3-2-1: 3 edukasi, 2 portfolio, 1 jualan</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Gunakan template Canva yang sudah disediakan</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Jadwal posting: minimal 1x per hari</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Konsisten warna & style brand</span></li>
-                    </ul>
-                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 3 hari (planning)</div>
-                </div>
-            </div>
-            
-            <!-- Modul 6 -->
-            <div class="kit-roadmap-step">
-                <div class="kit-roadmap-dot">6</div>
-                <div class="kit-roadmap-card">
-                    <span class="kit-roadmap-badge intermediate">Menengah</span>
-                    <div class="kit-roadmap-title">Copywriting untuk Sosial Media</div>
-                    <div class="kit-roadmap-desc">Kata-kata yang tepat = closing rate naik 5x. Belajar formula AIDA & PAS.</div>
-                    <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>Formula AIDA: Attention, Interest, Desire, Action</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Formula PAS: Problem, Agitate, Solution</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Hook 3 detik pertama yang menarik</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>CTA (Call to Action) yang jelas</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Bahasa yang relatable dengan target market</span></li>
-                    </ul>
-                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 2 hari</div>
-                </div>
-            </div>
-            
-            <!-- Modul 7 -->
-            <div class="kit-roadmap-step">
-                <div class="kit-roadmap-dot">7</div>
-                <div class="kit-roadmap-card">
-                    <span class="kit-roadmap-badge intermediate">Menengah</span>
-                    <div class="kit-roadmap-title">Prospecting: Cari Calon Client</div>
-                    <div class="kit-roadmap-desc">Prospecting = mining emas. Semakin banyak digali, semakin besar peluang closing.</div>
-                    <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>Prospek Warm Market: keluarga, teman, kolega</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Prospek Cold Market: DM Instagram, Facebook Group</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Cari di Google Maps: UMKM tanpa website</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Follow up influencer/tokoh lokal yang butuh personal branding</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Target: 10 prospek baru per hari (300/bulan)</span></li>
-                    </ul>
-                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Daily activity</div>
-                </div>
-            </div>
-            
-            
-            <!-- ===== TIER 3: ADVANCED (Week 3) ===== -->
-            <div class="kit-tier-divider">
-                <div class="kit-tier-divider-badge advanced">💎 WEEK 3 - ADVANCED</div>
-                <h3>Sales & Closing Mastery</h3>
-                <p>Belajar teknik closing profesional yang terbukti efektif</p>
-            </div>
-            
-            <!-- Modul 8 -->
-            <div class="kit-roadmap-step">
-                <div class="kit-roadmap-dot">8</div>
-                <div class="kit-roadmap-card">
-                    <span class="kit-roadmap-badge advanced">Advanced</span>
-                    <div class="kit-roadmap-title">Script WhatsApp Chat</div>
-                    <div class="kit-roadmap-desc">Script yang teruji untuk berbagai skenario chat — dari opening sampai closing.</div>
-                    <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>Script opening chat pertama (perkenalan)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Script menjawab "berapa harga?"</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Script handle "mahal" / "nggak jadi"</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Script follow-up 1, 3, 7, 14 hari</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Script closing dengan urgency & scarcity</span></li>
-                    </ul>
-                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 3 hari praktek</div>
-                </div>
-            </div>
-            
-            <!-- Modul 9 -->
-            <div class="kit-roadmap-step">
-                <div class="kit-roadmap-dot">9</div>
-                <div class="kit-roadmap-card">
-                    <span class="kit-roadmap-badge advanced">Advanced</span>
-                    <div class="kit-roadmap-title">Handling Objection (Keberatan)</div>
-                    <div class="kit-roadmap-desc">90% prospek akan menolak dulu. Kunci sukses = handling objection dengan smooth.</div>
-                    <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>"Mahal" → Jelaskan ROI & value jangka panjang</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>"Nanti dulu" → Ciptakan urgency dengan promo terbatas</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>"Saya pikir-pikir dulu" → Berikan garansi & testimoni</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>"Bisa diskon?" → Tawarkan paket yang lebih rendah</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>"Saya bikin sendiri saja" → Bandingkan waktu vs hasil</span></li>
-                    </ul>
-                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 2 hari</div>
-                </div>
-            </div>
-            
-            <!-- Modul 10 -->
-            <div class="kit-roadmap-step">
-                <div class="kit-roadmap-dot">10</div>
-                <div class="kit-roadmap-card">
-                    <span class="kit-roadmap-badge advanced">Advanced</span>
-                    <div class="kit-roadmap-title">Presentasi Produk yang Menjual</div>
-                    <div class="kit-roadmap-desc">Cara presentasi menentukan keputusan client. Belajar structure yang persuasif.</div>
-                    <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>Opening yang menarik (statistik/cerita)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Identifikasi masalah client dengan pertanyaan</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Tunjukkan solusi (paket yang cocok)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Beri social proof (portfolio + testimoni)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Closing dengan pertanyaan tertutup: "Mau paket A atau B?"</span></li>
-                    </ul>
-                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 2 hari</div>
-                </div>
-            </div>
-            
-            <!-- Modul 11 -->
-            <div class="kit-roadmap-step">
-                <div class="kit-roadmap-dot">11</div>
-                <div class="kit-roadmap-card">
-                    <span class="kit-roadmap-badge advanced">Advanced</span>
-                    <div class="kit-roadmap-title">Negosiasi & Deal Making</div>
-                    <div class="kit-roadmap-desc">Negosiasi bukan tawar-menawar, tapi win-win solution.</div>
-                    <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>Jangan langsung kasih diskon → tawarkan bonus</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Tunggu offer client dulu → jangan initiate diskon</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Gunakan teknik "anchor pricing" (mulai dari yang paling mahal)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Tawarkan payment plan untuk paket premium</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Selalu confirm deal dengan chat/email tertulis</span></li>
-                    </ul>
-                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 1 hari</div>
-                </div>
-            </div>
-            
-            
-            <!-- ===== TIER 4: EXPERT (Week 4) ===== -->
-            <div class="kit-tier-divider">
-                <div class="kit-tier-divider-badge expert">👑 WEEK 4 - EXPERT</div>
-                <h3>Scale Up & Long-Term Growth</h3>
-                <p>Naik level dari reseller pemula jadi top performer</p>
-            </div>
-            
-            <!-- Modul 12 -->
-            <div class="kit-roadmap-step">
-                <div class="kit-roadmap-dot">12</div>
-                <div class="kit-roadmap-card">
-                    <span class="kit-roadmap-badge expert">Expert</span>
-                    <div class="kit-roadmap-title">Manajemen Client & Follow-Up</div>
-                    <div class="kit-roadmap-desc">80% penjualan datang dari follow-up. Sistem yang rapi = income yang stabil.</div>
-                    <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>Simpan database prospek di Google Sheets</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Kategorikan: Hot, Warm, Cold, Dead lead</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Set reminder follow-up (1, 3, 7, 14, 30 hari)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Kirim edukasi setiap follow-up (bukan cuma jualan)</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Track conversion rate per bulan</span></li>
-                    </ul>
-                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 2 hari setup</div>
-                </div>
-            </div>
-            
-            <!-- Modul 13 -->
-            <div class="kit-roadmap-step">
-                <div class="kit-roadmap-dot">13</div>
-                <div class="kit-roadmap-card">
-                    <span class="kit-roadmap-badge expert">Expert</span>
-                    <div class="kit-roadmap-title">Personal Branding & Authority</div>
-                    <div class="kit-roadmap-desc">Bangun personal brand yang bikin client datang sendiri ke kamu.</div>
-                    <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>Tentukan niche: "Web Designer untuk Restoran" dll</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Share tips web design 2-3x per minggu</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Kolaborasi dengan reseller lain / influencer</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Muncul di podcast/live IG bahas topik terkait</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Build authority: jadi problem solver, bukan penjual</span></li>
-                    </ul>
-                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Ongoing</div>
-                </div>
-            </div>
-            
-            <!-- Modul 14 -->
-            <div class="kit-roadmap-step">
-                <div class="kit-roadmap-dot">14</div>
-                <div class="kit-roadmap-card">
-                    <span class="kit-roadmap-badge expert">Expert</span>
-                    <div class="kit-roadmap-title">Upselling & Repeat Order</div>
-                    <div class="kit-roadmap-desc">Client existing 5x lebih mudah untuk closing lagi dibanding prospek baru.</div>
-                    <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>Tawarkan maintenance bulanan setelah web jadi</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Upsell dari Landing Page → Multi-page Website</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Cross-sell: web + logo design + copywriting</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Referral program: kasih diskon kalau refer teman</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Follow up di anniversary bisnis client</span></li>
-                    </ul>
-                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Estimasi: 1 hari</div>
-                </div>
-            </div>
-            
-            <!-- Modul 15 -->
-            <div class="kit-roadmap-step">
-                <div class="kit-roadmap-dot">15</div>
-                <div class="kit-roadmap-card">
-                    <span class="kit-roadmap-badge expert">Expert</span>
-                    <div class="kit-roadmap-title">Naik Tier: Silver → Gold → Platinum</div>
-                    <div class="kit-roadmap-desc">Strategi consistent closing untuk naik tier dan bonus lebih besar.</div>
-                    <ul class="kit-roadmap-checklist">
-                        <li><i class="fas fa-check-circle"></i> <span>Tier Silver → Gold: 3-5 closing dalam 1 bulan</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Tier Gold → Platinum: 6+ closing dalam 1 bulan</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Fokus paket Premium untuk komisi lebih besar</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Build tim: rekrut sub-reseller di bawah kamu</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>Investasi ke iklan berbayar untuk scale up</span></li>
-                    </ul>
-                    <div class="kit-roadmap-time"><i class="fas fa-clock"></i> Long-term goal</div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-</section>
-
-
-<!-- ===== SOP RESELLER ===== -->
-<section class="kit-sop-section">
-    <div class="kit-container">
-        <div class="kit-section-header">
-            <div class="kit-section-badge">📋 STANDARD OPERATING PROCEDURE</div>
-            <h2 class="kit-section-title">SOP Reseller <span class="text-gold">Resmi</span></h2>
-            <p class="kit-section-sub">Aturan main & workflow yang wajib diikuti semua reseller Ibaadurrahmaan</p>
-        </div>
-        
-        <div class="kit-sop-grid">
-            
-            <!-- SOP 1: Onboarding -->
-            <div class="kit-sop-card">
-                <span class="kit-sop-icon">🎯</span>
-                <h4 class="kit-sop-title">1. Onboarding Reseller Baru</h4>
-                <ol class="kit-sop-list">
-                    <li>Daftar via form registrasi reseller</li>
-                    <li>Verifikasi identitas (KTP + WhatsApp aktif)</li>
-                    <li>Tanda tangan MoU digital via halaman MoU</li>
-                    <li>Terima kode reseller unik (RSL-XXX)</li>
-                    <li>Akses starter kit & grup WhatsApp reseller</li>
-                    <li>Onboarding call 30 menit dengan owner</li>
-                </ol>
-            </div>
-            
-            <!-- SOP 2: Alur Closing -->
-            <div class="kit-sop-card">
-                <span class="kit-sop-icon">💼</span>
-                <h4 class="kit-sop-title">2. Alur Closing Client</h4>
-                <ol class="kit-sop-list">
-                    <li>Reseller ajak prospek untuk konsultasi</li>
-                    <li>Kirim proposal & portfolio</li>
-                    <li>Follow up sampai deal (max 14 hari)</li>
-                    <li>Client transfer DP 50% ke rekening owner</li>
-                    <li>Reseller lapor ke owner + bukti transfer</li>
-                    <li>Owner mulai produksi (3-7 hari kerja)</li>
-                    <li>Client pelunasan 50% sebelum web live</li>
-                    <li>Serah terima + garansi 30 hari</li>
-                </ol>
-            </div>
-            
-            <!-- SOP 3: Komisi -->
-            <div class="kit-sop-card">
-                <span class="kit-sop-icon">💰</span>
-                <h4 class="kit-sop-title">3. Sistem Komisi & Pembayaran</h4>
-                <ol class="kit-sop-list">
-                    <li>Komisi dihitung dari total pembayaran (setelah lunas)</li>
-                    <li>Silver: 15% | Gold: 20% + Rp 100rb | Platinum: 25% + Rp 200rb</li>
-                    <li>Payout tgl 1-5 bulan berikutnya</li>
-                    <li>Atau payout langsung per closing (opsional)</li>
-                    <li>Slip komisi dikirim via WhatsApp</li>
-                    <li>Semua transaksi tercatat resmi</li>
-                </ol>
-            </div>
-            
-            <!-- SOP 4: Komunikasi -->
-            <div class="kit-sop-card">
-                <span class="kit-sop-icon">💬</span>
-                <h4 class="kit-sop-title">4. Etika Komunikasi</h4>
-                <ol class="kit-sop-list">
-                    <li>Selalu ramah, profesional, no drama</li>
-                    <li>Balas chat prospek max 2 jam saat jam kerja</li>
-                    <li>Jangan janjikan hal di luar SOP</li>
-                    <li>Konsultasi ke owner untuk request khusus</li>
-                    <li>Dilarang perang harga sesama reseller</li>
-                    <li>Jaga nama baik brand Ibaadurrahmaan</li>
-                </ol>
-            </div>
-            
-            <!-- SOP 5: Larangan -->
-            <div class="kit-sop-card danger">
-                <span class="kit-sop-icon">⚠️</span>
-                <h4 class="kit-sop-title">5. Larangan Keras Reseller</h4>
-                <ol class="kit-sop-list">
-                    <li>Jual di bawah harga resmi</li>
-                    <li>Klaim portfolio orang lain sebagai milik sendiri</li>
-                    <li>Terima pembayaran ke rekening pribadi</li>
-                    <li>Janjikan revisi tak terbatas</li>
-                    <li>Cetak/edit MoU sepihak</li>
-                    <li>Rekrut reseller dengan cara MLM piramida</li>
-                    <li><b>Konsekuensi: MoU dibatalkan + blacklist</b></li>
-                </ol>
-            </div>
-            
-            <!-- SOP 6: Hak Reseller -->
-            <div class="kit-sop-card success">
-                <span class="kit-sop-icon">✅</span>
-                <h4 class="kit-sop-title">6. Hak Reseller</h4>
-                <ol class="kit-sop-list">
-                    <li>Dapat komisi sesuai tier & kesepakatan</li>
-                    <li>Akses starter kit lengkap (template, script, portfolio)</li>
-                    <li>Support 1-on-1 dari owner setiap saat</li>
-                    <li>Update materi & training gratis</li>
-                    <li>Naik tier otomatis sesuai performance</li>
-                    <li>Sertifikat resmi setelah 10 closing</li>
-                </ol>
-            </div>
-            
-        </div>
-    </div>
-</section>
-
-
-<!-- ===== KNOWLEDGE CARDS ===== -->
-<section class="kit-section">
-    <div class="kit-container">
-        <div class="kit-section-header">
-            <div class="kit-section-badge">📖 QUICK REFERENCE</div>
-            <h2 class="kit-section-title">Modul Referensi <span class="text-gold">Cepat</span></h2>
-            <p class="kit-section-sub">Ringkasan materi untuk kamu akses kapan saja!</p>
-        </div>
-        
-        <div class="kit-knowledge-grid">
-            
-            <div class="kit-knowledge-card">
-                <div class="kit-knowledge-header">
-                    <div class="kit-knowledge-icon"><i class="fas fa-box-open"></i></div>
-                    <span class="kit-knowledge-tag important">Wajib</span>
-                    <div class="kit-knowledge-title">Product Knowledge</div>
-                </div>
-                <div class="kit-knowledge-body">
-                    <div class="kit-knowledge-desc">Pahami detail setiap paket website: fitur, harga, target market, dan keunggulan dibanding kompetitor.</div>
-                    <div class="kit-knowledge-topics">
-                        <span class="kit-knowledge-topic">3 Paket</span>
-                        <span class="kit-knowledge-topic">Fitur</span>
-                        <span class="kit-knowledge-topic">Pricing</span>
-                        <span class="kit-knowledge-topic">Portfolio</span>
+            <!-- Template 1: Perkenalan -->
+            <div class="chat-card">
+                <div class="chat-card-header">
+                    <div class="chat-card-title">
+                        <i class="fas fa-hand-wave"></i>
+                        <span>1. Perkenalan / Cold Outreach</span>
                     </div>
-                    <div class="kit-knowledge-footer">
-                        <span class="kit-knowledge-time"><i class="fas fa-clock"></i> 15 menit baca</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="kit-knowledge-card">
-                <div class="kit-knowledge-header">
-                    <div class="kit-knowledge-icon"><i class="fas fa-bullhorn"></i></div>
-                    <span class="kit-knowledge-tag">Tips</span>
-                    <div class="kit-knowledge-title">Strategi Promosi Online</div>
-                </div>
-                <div class="kit-knowledge-body">
-                    <div class="kit-knowledge-desc">Cara efektif promosi di Instagram, WhatsApp, Facebook, dan TikTok tanpa biaya iklan.</div>
-                    <div class="kit-knowledge-topics">
-                        <span class="kit-knowledge-topic">Instagram</span>
-                        <span class="kit-knowledge-topic">WhatsApp</span>
-                        <span class="kit-knowledge-topic">TikTok</span>
-                        <span class="kit-knowledge-topic">Caption</span>
-                    </div>
-                    <div class="kit-knowledge-footer">
-                        <span class="kit-knowledge-time"><i class="fas fa-clock"></i> 20 menit baca</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="kit-knowledge-card">
-                <div class="kit-knowledge-header">
-                    <div class="kit-knowledge-icon"><i class="fas fa-handshake"></i></div>
-                    <span class="kit-knowledge-tag premium">Premium</span>
-                    <div class="kit-knowledge-title">Teknik Closing</div>
-                </div>
-                <div class="kit-knowledge-body">
-                    <div class="kit-knowledge-desc">Script & teknik menjawab keberatan client, negosiasi harga, dan menutup deal dengan elegan.</div>
-                    <div class="kit-knowledge-topics">
-                        <span class="kit-knowledge-topic">Objection Handling</span>
-                        <span class="kit-knowledge-topic">Negosiasi</span>
-                        <span class="kit-knowledge-topic">Urgency</span>
-                    </div>
-                    <div class="kit-knowledge-footer">
-                        <span class="kit-knowledge-time"><i class="fas fa-clock"></i> 25 menit baca</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="kit-knowledge-card">
-                <div class="kit-knowledge-header">
-                    <div class="kit-knowledge-icon"><i class="fas fa-comments"></i></div>
-                    <span class="kit-knowledge-tag important">Wajib</span>
-                    <div class="kit-knowledge-title">Template Chat & Pitching</div>
-                </div>
-                <div class="kit-knowledge-body">
-                    <div class="kit-knowledge-desc">15+ template pesan siap pakai untuk first approach, follow up, closing, dan after-sales.</div>
-                    <div class="kit-knowledge-topics">
-                        <span class="kit-knowledge-topic">Cold DM</span>
-                        <span class="kit-knowledge-topic">Follow Up</span>
-                        <span class="kit-knowledge-topic">Closing</span>
-                        <span class="kit-knowledge-topic">After Sales</span>
-                    </div>
-                    <div class="kit-knowledge-footer">
-                        <span class="kit-knowledge-time"><i class="fas fa-copy"></i> Copy-paste ready</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="kit-knowledge-card">
-                <div class="kit-knowledge-header">
-                    <div class="kit-knowledge-icon"><i class="fas fa-users"></i></div>
-                    <span class="kit-knowledge-tag">Tips</span>
-                    <div class="kit-knowledge-title">Mencari Calon Client</div>
-                </div>
-                <div class="kit-knowledge-body">
-                    <div class="kit-knowledge-desc">Di mana menemukan orang yang butuh website? Strategi hunting client yang terbukti efektif.</div>
-                    <div class="kit-knowledge-topics">
-                        <span class="kit-knowledge-topic">Grup FB</span>
-                        <span class="kit-knowledge-topic">LinkedIn</span>
-                        <span class="kit-knowledge-topic">Marketplace</span>
-                        <span class="kit-knowledge-topic">Referral</span>
-                    </div>
-                    <div class="kit-knowledge-footer">
-                        <span class="kit-knowledge-time"><i class="fas fa-clock"></i> 15 menit baca</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="kit-knowledge-card">
-                <div class="kit-knowledge-header">
-                    <div class="kit-knowledge-icon"><i class="fas fa-chart-line"></i></div>
-                    <span class="kit-knowledge-tag premium">Premium</span>
-                    <div class="kit-knowledge-title">Scale Up & Passive Income</div>
-                </div>
-                <div class="kit-knowledge-body">
-                    <div class="kit-knowledge-desc">Strategi lanjutan: otomasi promosi, repeat order, dan membangun passive income dari referral.</div>
-                    <div class="kit-knowledge-topics">
-                        <span class="kit-knowledge-topic">Automasi</span>
-                        <span class="kit-knowledge-topic">Repeat Order</span>
-                        <span class="kit-knowledge-topic">Referral</span>
-                    </div>
-                    <div class="kit-knowledge-footer">
-                        <span class="kit-knowledge-time"><i class="fas fa-crown"></i> Gold & Platinum</span>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-</section>
-
-
-<!-- ===== SCRIPT TEMPLATES ===== -->
-<section class="kit-section alt">
-    <div class="kit-container">
-        <div class="kit-section-header">
-            <div class="kit-section-badge">💬 TEMPLATE SIAP PAKAI</div>
-            <h2 class="kit-section-title">Script Chat <span class="text-gold">Copy-Paste</span></h2>
-            <p class="kit-section-sub">Klik tombol copy, paste ke WhatsApp, kirim. Semudah itu!</p>
-        </div>
-        
-        <div class="kit-script-grid">
-            
-            <div class="kit-script-card">
-                <div class="kit-script-header">
-                    <div class="kit-script-icon"><i class="fas fa-hand-wave"></i></div>
-                    <div class="kit-script-title">First Approach (Cold DM)</div>
-                </div>
-                <div class="kit-script-body">
-                    <div class="kit-script-text" id="script1">Halo Kak, saya lihat bisnis/toko kakak keren banget! 🔥 Btw, kakak udah punya <strong>website</strong> belum? Sekarang banyak banget customer yang cari info bisnis lewat Google. Kalau kakak tertarik, saya bisa bantu buatkan website profesional mulai dari <strong>Rp 1,5 juta aja</strong>. Mau saya kirim contoh portfolio-nya? 😊</div>
-                </div>
-                <div class="kit-script-actions">
-                    <button class="kit-copy-btn" onclick="copyScript('script1', this)">
-                        <i class="fas fa-copy"></i> Copy
+                    <button class="chat-copy-btn" onclick="copyChat(1, this)">
+                        <i class="fas fa-copy"></i>
+                        <span>Copy</span>
                     </button>
                 </div>
+                <div class="chat-message" id="chat-1">Assalamu'alaikum Kak [NAMA CLIENT],
+
+Perkenalkan, saya [NAMA ANDA], reseller resmi dari *Ibaadurrahmaan Web Designer*.
+
+Sekilas tentang kami:
+✅ Jasa pembuatan website profesional
+✅ Harga terjangkau (mulai Rp 1,5jt)
+✅ Pengerjaan cepat (3-14 hari)
+✅ Sudah 50+ client puas di seluruh Indonesia
+
+Saya lihat bisnis Kak [NAMA] menarik banget! Apakah sudah punya website?
+
+Kalau belum, kebetulan kami lagi ada promo spesial. Boleh saya kirim info detailnya?
+
+Terima kasih 🙏</div>
             </div>
             
-            <div class="kit-script-card">
-                <div class="kit-script-header">
-                    <div class="kit-script-icon"><i class="fas fa-clock"></i></div>
-                    <div class="kit-script-title">Follow Up (H+1)</div>
-                </div>
-                <div class="kit-script-body">
-                    <div class="kit-script-text" id="script2">Halo Kak, kemarin sempat chat soal website nih 😊 Gimana, udah dipikirkan? Kebetulan bulan ini lagi ada <strong>promo spesial</strong> — free domain + gratis revisi 3x. Slot-nya tinggal <strong>3 lagi</strong>. Kalau mau tanya-tanya dulu juga boleh, santai aja Kak! 🙏</div>
-                </div>
-                <div class="kit-script-actions">
-                    <button class="kit-copy-btn" onclick="copyScript('script2', this)">
-                        <i class="fas fa-copy"></i> Copy
+            <!-- Template 2: Follow Up -->
+            <div class="chat-card">
+                <div class="chat-card-header">
+                    <div class="chat-card-title">
+                        <i class="fas fa-reply"></i>
+                        <span>2. Follow Up (3-7 hari kemudian)</span>
+                    </div>
+                    <button class="chat-copy-btn" onclick="copyChat(2, this)">
+                        <i class="fas fa-copy"></i>
+                        <span>Copy</span>
                     </button>
                 </div>
+                <div class="chat-message" id="chat-2">Assalamu'alaikum Kak [NAMA],
+
+Beberapa hari lalu saya sempat kirim info soal jasa website Ibaadurrahmaan.
+
+Cuma mau tanya, sudah sempat dipertimbangkan belum?
+
+Kalau ada yang belum jelas, boleh langsung tanya ke saya. Atau kalau butuh contoh portfolio, bisa saya kirimkan.
+
+Gak ada tekanan sama sekali kok, cuma follow up aja 😊
+
+Semoga bisnis Kak makin lancar 🙏</div>
             </div>
             
-            <div class="kit-script-card">
-                <div class="kit-script-header">
-                    <div class="kit-script-icon"><i class="fas fa-fire"></i></div>
-                    <div class="kit-script-title">Closing Push</div>
-                </div>
-                <div class="kit-script-body">
-                    <div class="kit-script-text" id="script3">Kak, update nih — promo bulan ini <strong>tinggal 2 hari lagi</strong>. Kalau kakak deal sekarang, saya kasih bonus tambahan: <strong>logo design + kartu nama digital GRATIS</strong>! 🎁 Mau saya prosesin sekarang? Nanti saya hubungkan langsung ke tim desainer kami ya 💪</div>
-                </div>
-                <div class="kit-script-actions">
-                    <button class="kit-copy-btn" onclick="copyScript('script3', this)">
-                        <i class="fas fa-copy"></i> Copy
+            <!-- Template 3: Kirim Portfolio -->
+            <div class="chat-card">
+                <div class="chat-card-header">
+                    <div class="chat-card-title">
+                        <i class="fas fa-images"></i>
+                        <span>3. Kirim Portfolio + Paket</span>
+                    </div>
+                    <button class="chat-copy-btn" onclick="copyChat(3, this)">
+                        <i class="fas fa-copy"></i>
+                        <span>Copy</span>
                     </button>
                 </div>
+                <div class="chat-message" id="chat-3">Berikut info lengkapnya Kak:
+
+🎨 *PORTFOLIO KAMI:*
+Lihat contoh karya di:
+https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/portfolio.html
+
+📦 *PAKET WEBSITE:*
+
+1️⃣ *HEMAT* - Rp 1.500.000
+✅ Landing page profesional
+✅ Mobile friendly
+✅ Selesai 3-5 hari
+
+2️⃣ *REGULER* - Rp 2.500.000 (POPULER!)
+✅ Multi-halaman lengkap
+✅ Blog & SEO ready
+✅ Selesai 7-14 hari
+
+3️⃣ *PREMIUM* - Rp 5.000.000
+✅ E-commerce lengkap
+✅ Admin panel
+✅ Selesai 14-30 hari
+
+🎁 *Bonus untuk semua paket:*
+✅ Free konsultasi
+✅ Free revisi (sesuai batas paket)
+✅ Free support 1-6 bulan
+✅ Garansi uang kembali
+
+Info lengkap: https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/#paket
+
+Ada yang mau ditanyakan Kak? 🙏
+
+📌 Kode Reseller: [KODE_ANDA]</div>
             </div>
             
-            <div class="kit-script-card">
-                <div class="kit-script-header">
-                    <div class="kit-script-icon"><i class="fas fa-medal"></i></div>
-                    <div class="kit-script-title">Social Proof</div>
-                </div>
-                <div class="kit-script-body">
-                    <div class="kit-script-text" id="script4">Kak, ini contoh website yang baru selesai kami buat untuk <strong>[nama client]</strong>: [link]. Keren kan? 🔥 Client-nya langsung bilang <strong>orderan naiknya 40%</strong> setelah punya website. Kakak mau hasil yang sama? Yuk diskusi, gratis konsultasi kok! 😊</div>
-                </div>
-                <div class="kit-script-actions">
-                    <button class="kit-copy-btn" onclick="copyScript('script4', this)">
-                        <i class="fas fa-copy"></i> Copy
+            <!-- Template 4: Soft Closing -->
+            <div class="chat-card">
+                <div class="chat-card-header">
+                    <div class="chat-card-title">
+                        <i class="fas fa-handshake"></i>
+                        <span>4. Soft Closing</span>
+                    </div>
+                    <button class="chat-copy-btn" onclick="copyChat(4, this)">
+                        <i class="fas fa-copy"></i>
+                        <span>Copy</span>
                     </button>
                 </div>
+                <div class="chat-message" id="chat-4">Kak [NAMA],
+
+Kalau boleh saya rekomendasikan, untuk bisnis Kak yang [JENIS BISNIS], paling cocok pakai *Paket [PAKET]*.
+
+Alasannya:
+✅ [Alasan 1 - misal: Butuh multi-halaman untuk showcase produk]
+✅ [Alasan 2 - misal: Cocok untuk skala bisnis Kak]
+✅ [Alasan 3 - misal: ROI cepat balik modal]
+
+Untuk mulai, cukup DP 50% aja Kak (Rp [DP]). Sisanya setelah website selesai.
+
+Boleh saya bantu proses order sekarang? Atau ada yang mau didiskusikan dulu? 🙏</div>
             </div>
             
+            <!-- Template 5: Hard Closing -->
+            <div class="chat-card">
+                <div class="chat-card-header">
+                    <div class="chat-card-title">
+                        <i class="fas fa-fire"></i>
+                        <span>5. Hard Closing (Ada Urgency)</span>
+                    </div>
+                    <button class="chat-copy-btn" onclick="copyChat(5, this)">
+                        <i class="fas fa-copy"></i>
+                        <span>Copy</span>
+                    </button>
+                </div>
+                <div class="chat-message" id="chat-5">Kak [NAMA], 
+
+Info menarik nih! 🔥
+
+Kebetulan kami lagi ada *PROMO SPESIAL* bulan ini:
+🎁 Diskon 15% untuk semua paket
+🎁 Free SEO Setup (senilai Rp 500rb)
+🎁 Free training update konten
+
+Tapi promonya cuma sampai [TANGGAL] atau untuk 5 pemesan pertama aja Kak.
+
+Untuk Paket [PAKET] yang cocok buat bisnis Kak:
+- Harga normal: Rp [HARGA]
+- Diskon 15%: -Rp [DISKON]
+- *Harga khusus Kak: Rp [HARGA_AKHIR]*
+- DP 50%: Rp [DP]
+
+Slot terbatas, kalau minat sebaiknya secepatnya Kak.
+
+Mau saya bantu proses sekarang? 🙏</div>
+            </div>
+            
+            <!-- Template 6: Konfirmasi Order -->
+            <div class="chat-card">
+                <div class="chat-card-header">
+                    <div class="chat-card-title">
+                        <i class="fas fa-check-circle"></i>
+                        <span>6. Konfirmasi & Order Handover</span>
+                    </div>
+                    <button class="chat-copy-btn" onclick="copyChat(6, this)">
+                        <i class="fas fa-copy"></i>
+                        <span>Copy</span>
+                    </button>
+                </div>
+                <div class="chat-message" id="chat-6">Alhamdulillah, terima kasih Kak [NAMA] atas kepercayaannya! 🙏
+
+Berikut langkah selanjutnya:
+
+📝 *Step 1: Isi Form Order*
+Silakan isi form order di link berikut:
+https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/order.html
+
+💰 *Step 2: Bayar DP 50%*
+Transfer Rp [DP] ke rekening yang muncul di halaman order.
+
+📸 *Step 3: Kirim Bukti Transfer*
+Kirim bukti transfer ke saya, nanti saya konfirmasi ke tim.
+
+🚀 *Step 4: Tim Kontak*
+Dalam 1x24 jam, tim Ibaadurrahmaan akan kontak Kak via WhatsApp untuk briefing detail.
+
+📌 *WAJIB:* Saat isi form, tolong tulis kode reseller saya: *[KODE_ANDA]*
+
+Kalau ada kesulitan, langsung chat saya ya Kak.
+
+Sekali lagi, terima kasih banyak! 🙏✨</div>
+            </div>
+            
+            <!-- Template 7: Nurturing Content -->
+            <div class="chat-card">
+                <div class="chat-card-header">
+                    <div class="chat-card-title">
+                        <i class="fas fa-seedling"></i>
+                        <span>7. Nurturing (Kirim Tips/Value)</span>
+                    </div>
+                    <button class="chat-copy-btn" onclick="copyChat(7, this)">
+                        <i class="fas fa-copy"></i>
+                        <span>Copy</span>
+                    </button>
+                </div>
+                <div class="chat-message" id="chat-7">Kak [NAMA],
+
+Sekedar berbagi tips nih, mungkin bisa berguna 🙌
+
+🔥 *5 Ciri Bisnis Butuh Website:*
+
+1️⃣ Customer sering nanya "Websitenya ada?"
+2️⃣ Ingin terlihat seprofesional kompetitor
+3️⃣ Capek jelasin produk berulang-ulang di WA
+4️⃣ Siap ekspansi bisnis lebih luas
+5️⃣ Ingin meningkatkan kredibilitas brand
+
+Kalau 3 dari 5 tanda ini ADA di bisnis Kak, mungkin saatnya pertimbangkan website 😊
+
+Btw, kalau butuh diskusi gratis, saya siap bantu.
+
+Semoga bermanfaat! 🙏</div>
+            </div>
         </div>
-    </div>
-</section>
-
-
-<!-- ===== TIER INFO ===== -->
-<section class="kit-section">
-    <div class="kit-container">
-        <div class="kit-section-header">
-            <div class="kit-section-badge">🏆 TIER RESELLER</div>
-            <h2 class="kit-section-title">Naik Level, Naik <span class="text-gold">Penghasilan!</span></h2>
-            <p class="kit-section-sub">Semakin banyak closing, semakin besar komisi & bonus kamu!</p>
+    </section>
+    
+    
+    <!-- ============ 2. MATERI PROMOSI ============ -->
+    <section class="kit-section">
+        <div class="section-header">
+            <span class="section-badge">🎨 MATERI PROMOSI</span>
+            <h2 class="section-title">Materi Promosi <span>Siap Pakai</span></h2>
+            <p class="section-desc">Download semua materi promosi profesional untuk sosmed & WhatsApp status.</p>
         </div>
         
-        <div class="kit-tier-grid">
+        <div class="materi-grid">
             
-            <div class="kit-tier-card">
-                <span class="kit-tier-emoji">🥉</span>
-                <div class="kit-tier-name">SILVER</div>
-                <div class="kit-tier-commission">15%</div>
-                <p class="kit-tier-req">0-2 closing/bulan</p>
-                <ul class="kit-tier-list">
-                    <li><i class="fas fa-check"></i> Komisi 15% per closing</li>
-                    <li><i class="fas fa-check"></i> Materi promosi lengkap</li>
-                    <li><i class="fas fa-check"></i> Support via WhatsApp</li>
-                    <li><i class="fas fa-check"></i> Welcome pack</li>
-                    <li><i class="fas fa-check"></i> Akses grup reseller</li>
+            <div class="materi-card">
+                <div class="materi-icon">🎨</div>
+                <h3 class="materi-title">Poster Instagram</h3>
+                <p class="materi-desc">Poster siap post feed Instagram (1080x1080)</p>
+                <div class="materi-count">15 poster</div>
+                <br>
+                <a href="#" class="materi-download-btn" onclick="requestMateri('Poster Instagram')">
+                    <i class="fas fa-download"></i>
+                    <span>Request</span>
+                </a>
+            </div>
+            
+            <div class="materi-card">
+                <div class="materi-icon">📱</div>
+                <h3 class="materi-title">Instagram Story</h3>
+                <p class="materi-desc">Story vertical siap upload (1080x1920)</p>
+                <div class="materi-count">10 story</div>
+                <br>
+                <a href="#" class="materi-download-btn" onclick="requestMateri('Instagram Story')">
+                    <i class="fas fa-download"></i>
+                    <span>Request</span>
+                </a>
+            </div>
+            
+            <div class="materi-card">
+                <div class="materi-icon">📸</div>
+                <h3 class="materi-title">WhatsApp Status</h3>
+                <p class="materi-desc">Status WA menarik untuk personal branding</p>
+                <div class="materi-count">12 status</div>
+                <br>
+                <a href="#" class="materi-download-btn" onclick="requestMateri('WhatsApp Status')">
+                    <i class="fas fa-download"></i>
+                    <span>Request</span>
+                </a>
+            </div>
+            
+            <div class="materi-card">
+                <div class="materi-icon">🎬</div>
+                <h3 class="materi-title">Video Reels/TikTok</h3>
+                <p class="materi-desc">Video short-form siap upload (15-30 detik)</p>
+                <div class="materi-count">8 video</div>
+                <br>
+                <a href="#" class="materi-download-btn" onclick="requestMateri('Video Reels')">
+                    <i class="fas fa-download"></i>
+                    <span>Request</span>
+                </a>
+            </div>
+            
+            <div class="materi-card">
+                <div class="materi-icon">📝</div>
+                <h3 class="materi-title">Caption Sosmed</h3>
+                <p class="materi-desc">30+ caption sosmed siap copy-paste</p>
+                <div class="materi-count">30+ caption</div>
+                <br>
+                <a href="#" class="materi-download-btn" onclick="requestMateri('Caption Sosmed')">
+                    <i class="fas fa-download"></i>
+                    <span>Request</span>
+                </a>
+            </div>
+            
+            <div class="materi-card">
+                <div class="materi-icon">📄</div>
+                <h3 class="materi-title">Katalog PDF</h3>
+                <p class="materi-desc">Katalog paket lengkap dalam PDF profesional</p>
+                <div class="materi-count">1 PDF</div>
+                <br>
+                <a href="#" class="materi-download-btn" onclick="requestMateri('Katalog PDF')">
+                    <i class="fas fa-download"></i>
+                    <span>Request</span>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    
+    <!-- ============ 3. LINK PENTING ============ -->
+    <section class="kit-section">
+        <div class="section-header">
+            <span class="section-badge">🔗 LINK PENTING</span>
+            <h2 class="section-title">Link <span>Siap Share</span></h2>
+            <p class="section-desc">Link website yang bisa langsung Anda share ke calon client.</p>
+        </div>
+        
+        <div class="tools-grid">
+            
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3 class="tool-title">Beranda Website</h3>
+                <p class="tool-desc">Homepage utama untuk perkenalan bisnis Ibaadurrahmaan.</p>
+                <ul class="tool-features">
+                    <li>Tentang jasa</li>
+                    <li>Layanan lengkap</li>
+                    <li>Paket & harga</li>
+                    <li>Portfolio</li>
                 </ul>
+                <div class="tool-actions">
+                    <button class="tool-btn tool-btn-primary" onclick="copyLink('https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/')">
+                        <i class="fas fa-copy"></i>
+                        <span>Copy Link</span>
+                    </button>
+                    <a href="index.html" target="_blank" class="tool-btn tool-btn-secondary">
+                        <i class="fas fa-eye"></i>
+                        <span>Preview</span>
+                    </a>
+                </div>
             </div>
             
-            <div class="kit-tier-card featured">
-                <span class="kit-tier-emoji">🥈</span>
-                <div class="kit-tier-name">GOLD</div>
-                <div class="kit-tier-commission">20%</div>
-                <p class="kit-tier-req">3-5 closing/bulan</p>
-                <ul class="kit-tier-list">
-                    <li><i class="fas fa-check"></i> Komisi 20% per closing</li>
-                    <li><i class="fas fa-check"></i> <strong>Bonus Rp 100rb/closing</strong></li>
-                    <li><i class="fas fa-check"></i> Priority support</li>
-                    <li><i class="fas fa-check"></i> Training strategi marketing</li>
-                    <li><i class="fas fa-check"></i> Akses portfolio premium</li>
-                    <li><i class="fas fa-check"></i> Semua benefit Silver</li>
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3 class="tool-title">Portfolio</h3>
+                <p class="tool-desc">Showcase karya terbaik untuk bukti kualitas kerja.</p>
+                <ul class="tool-features">
+                    <li>50+ project selesai</li>
+                    <li>Filter kategori</li>
+                    <li>Detail lengkap</li>
                 </ul>
+                <div class="tool-actions">
+                    <button class="tool-btn tool-btn-primary" onclick="copyLink('https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/portfolio.html')">
+                        <i class="fas fa-copy"></i>
+                        <span>Copy Link</span>
+                    </button>
+                    <a href="portfolio.html" target="_blank" class="tool-btn tool-btn-secondary">
+                        <i class="fas fa-eye"></i>
+                        <span>Preview</span>
+                    </a>
+                </div>
             </div>
             
-            <div class="kit-tier-card">
-                <span class="kit-tier-emoji">🥇</span>
-                <div class="kit-tier-name">PLATINUM</div>
-                <div class="kit-tier-commission">25%</div>
-                <p class="kit-tier-req">6+ closing/bulan</p>
-                <ul class="kit-tier-list">
-                    <li><i class="fas fa-check"></i> Komisi 25% per closing</li>
-                    <li><i class="fas fa-check"></i> <strong>Bonus Rp 200rb/closing</strong></li>
-                    <li><i class="fas fa-check"></i> Status VIP Partner</li>
-                    <li><i class="fas fa-check"></i> Custom project fee</li>
-                    <li><i class="fas fa-check"></i> Personal branding kit</li>
-                    <li><i class="fas fa-check"></i> Bagi hasil project besar</li>
-                    <li><i class="fas fa-check"></i> Semua benefit Gold</li>
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-tag"></i>
+                </div>
+                <h3 class="tool-title">Halaman Paket</h3>
+                <p class="tool-desc">Info detail 3 paket + tabel perbandingan.</p>
+                <ul class="tool-features">
+                    <li>Hemat Rp 1,5jt</li>
+                    <li>Reguler Rp 2,5jt</li>
+                    <li>Premium Rp 5jt</li>
                 </ul>
+                <div class="tool-actions">
+                    <button class="tool-btn tool-btn-primary" onclick="copyLink('https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/#paket')">
+                        <i class="fas fa-copy"></i>
+                        <span>Copy Link</span>
+                    </button>
+                    <a href="index.html#paket" target="_blank" class="tool-btn tool-btn-secondary">
+                        <i class="fas fa-eye"></i>
+                        <span>Preview</span>
+                    </a>
+                </div>
             </div>
             
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <h3 class="tool-title">Halaman Order</h3>
+                <p class="tool-desc">Form checkout untuk client yang siap order.</p>
+                <ul class="tool-features">
+                    <li>Form multi-step</li>
+                    <li>Payment info</li>
+                    <li>Invoice otomatis</li>
+                </ul>
+                <div class="tool-actions">
+                    <button class="tool-btn tool-btn-primary" onclick="copyLink('https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/order.html')">
+                        <i class="fas fa-copy"></i>
+                        <span>Copy Link</span>
+                    </button>
+                    <a href="order.html" target="_blank" class="tool-btn tool-btn-secondary">
+                        <i class="fas fa-eye"></i>
+                        <span>Preview</span>
+                    </a>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
-
-
-<!-- ===== FAQ ===== -->
-<section class="kit-section alt">
-    <div class="kit-container">
-        <div class="kit-section-header">
-            <div class="kit-section-badge">❓ FAQ RESELLER</div>
-            <h2 class="kit-section-title">Pertanyaan yang <span class="text-gold">Sering Ditanyakan</span></h2>
+    </section>
+    
+    
+    <!-- ============ 4. HANDLE KEBERATAN ============ -->
+    <section class="kit-section">
+        <div class="section-header">
+            <span class="section-badge">🎯 HANDLE KEBERATAN</span>
+            <h2 class="section-title">Script Jawab <span>Keberatan Client</span></h2>
+            <p class="section-desc">Jawaban siap pakai untuk keberatan yang paling sering ditemui.</p>
         </div>
         
-        <div class="kit-faq-list">
+        <div class="objection-list">
             
-            <div class="kit-faq-item">
-                <button class="kit-faq-q" onclick="toggleFaq(this)">
-                    <span>Apa saya harus punya skill teknis untuk jadi reseller?</span>
-                    <i class="fas fa-plus"></i>
-                </button>
-                <div class="kit-faq-a">
-                    <p><strong>Tidak sama sekali!</strong> Kamu hanya perlu mencari orang yang butuh website, lalu serahkan ke tim kami untuk handle semua teknis. Kamu cukup jadi "penghubung" dan dapatkan komisi.</p>
+            <!-- Objection 1 -->
+            <div class="objection-item" onclick="toggleObjection(this)">
+                <div class="objection-question">
+                    <i class="fas fa-chevron-down"></i>
+                    <span>💰 "Mahal banget! Bisa lebih murah?"</span>
+                </div>
+                <div class="objection-answer">
+                    <p><strong>Strategi:</strong> Jangan langsung kasih diskon. Justifikasi value dulu.</p>
+                    <p><strong>Contoh Jawaban:</strong></p>
+                    <div class="objection-example">"Saya paham Kak. Tapi sebenarnya website itu bukan biaya, tapi INVESTASI. Anggap saja Rp 2,5jt untuk 3 tahun = cuma Rp 70rb/bulan atau Rp 2.300/hari. Sementara 1 closing dari website aja udah balik modal berkali-kali. Coba bandingkan dengan biaya iklan yang harus keluar terus-menerus. Kalau tetap keberatan, saya bantu tanya ke admin untuk special discount ya Kak, cuma ga janji dapat 🙏"</div>
                 </div>
             </div>
             
-            <div class="kit-faq-item">
-                <button class="kit-faq-q" onclick="toggleFaq(this)">
-                    <span>Bagaimana cara saya menjelaskan ke calon client?</span>
-                    <i class="fas fa-plus"></i>
-                </button>
-                <div class="kit-faq-a">
-                    <p>Gunakan <strong>template pitching</strong> yang sudah kami siapkan di atas! Kamu juga bisa tunjukkan portfolio website kami sebagai bukti kualitas. Kalau ada pertanyaan teknis yang sulit, langsung teruskan ke kami via WhatsApp.</p>
+            <!-- Objection 2 -->
+            <div class="objection-item" onclick="toggleObjection(this)">
+                <div class="objection-question">
+                    <i class="fas fa-chevron-down"></i>
+                    <span>🤔 "Nanti dulu deh, saya pikir-pikir"</span>
+                </div>
+                <div class="objection-answer">
+                    <p><strong>Strategi:</strong> Cari tahu keraguan sebenarnya + kasih urgency.</p>
+                    <p><strong>Contoh Jawaban:</strong></p>
+                    <div class="objection-example">"Boleh Kak, saya paham perlu waktu untuk pertimbangan. Cuma boleh saya tanya, apa yang bikin ragu? Apa soal harga, timeline, atau fitur? Mungkin saya bisa bantu jelaskan. Btw, kebetulan bulan ini kami ada promo diskon 15% cuma sampai [TANGGAL]. Slot terbatas untuk 5 client aja. Jadi kalau tertarik, mendingan ambil sekarang biar ga rugi Kak 🙏"</div>
                 </div>
             </div>
             
-            <div class="kit-faq-item">
-                <button class="kit-faq-q" onclick="toggleFaq(this)">
-                    <span>Bagaimana kalau client minta harga lebih murah?</span>
-                    <i class="fas fa-plus"></i>
-                </button>
-                <div class="kit-faq-a">
-                    <p>Jangan turunkan harga! Sebaliknya, <strong>tambahkan value</strong>. Bilang: "Harga segitu udah include desain custom, revisi 3x, domain gratis, dan support 1 tahun. Di tempat lain bisa 2x lipat." Kalau client masih ragu, hubungi kami untuk bantu negosiasi.</p>
+            <!-- Objection 3 -->
+            <div class="objection-item" onclick="toggleObjection(this)">
+                <div class="objection-question">
+                    <i class="fas fa-chevron-down"></i>
+                    <span>📱 "Saya sudah punya Instagram, cukup lah"</span>
+                </div>
+                <div class="objection-answer">
+                    <p><strong>Strategi:</strong> Jelaskan perbedaan website vs sosmed.</p>
+                    <p><strong>Contoh Jawaban:</strong></p>
+                    <div class="objection-example">"Setuju Kak, Instagram itu penting. TAPI ada bedanya:
+
+📱 IG: Jangkauan terbatas ke followers, bisa banned kapan aja
+🌐 Website: Muncul di Google (org tanya 'jasa X di kota Y'), 24/7, milik sendiri
+
+Idealnya keduanya JALAN BARENG. IG untuk engagement, website untuk kredibilitas & closing. Bayangkan calon customer buka IG Kak, tapi kompetitor punya website — pasti dianggap lebih pro.
+
+Coba deh Google 'jasa [bisnis Kak] di [kota]', yang muncul di halaman 1 pasti punya website. Nah, sayang banget kalau tempat Kak ga muncul di sana 🙏"</div>
                 </div>
             </div>
             
-            <div class="kit-faq-item">
-                <button class="kit-faq-q" onclick="toggleFaq(this)">
-                    <span>Berapa lama sampai closing pertama?</span>
-                    <i class="fas fa-plus"></i>
-                </button>
-                <div class="kit-faq-a">
-                    <p>Bervariasi, tapi reseller yang <strong>aktif promosi setiap hari</strong> biasanya closing pertama dalam <strong>1-2 minggu</strong>. Kuncinya: konsisten share konten, DM calon client, dan follow up dengan baik.</p>
+            <!-- Objection 4 -->
+            <div class="objection-item" onclick="toggleObjection(this)">
+                <div class="objection-question">
+                    <i class="fas fa-chevron-down"></i>
+                    <span>❓ "Bisnis saya masih kecil, belum butuh"</span>
+                </div>
+                <div class="objection-answer">
+                    <p><strong>Strategi:</strong> Ubah mindset — website adalah pendorong bisnis.</p>
+                    <p><strong>Contoh Jawaban:</strong></p>
+                    <div class="objection-example">"Justru karena masih kecil, Kak PERLU BANGET website! Ini alasannya:
+
+1️⃣ Website bikin bisnis kecil terlihat SEBESAR brand nasional (kepercayaan naik!)
+2️⃣ Muncul di Google = dapat customer BARU tiap hari (tanpa iklan)
+3️⃣ 1x bikin website, aset seumur hidup
+
+Banyak UMKM sukses justru karena punya website duluan sebelum kompetitor sadar. Kalau tunggu 'bisnis udah besar', biasanya udah kalah sama kompetitor yg move duluan.
+
+Btw, kami punya paket Hemat Rp 1,5jt yang cocok banget untuk start-up. Mau saya kirim detailnya? 🙏"</div>
                 </div>
             </div>
             
-            <div class="kit-faq-item">
-                <button class="kit-faq-q" onclick="toggleFaq(this)">
-                    <span>Apa yang terjadi setelah saya dapat lead?</span>
-                    <i class="fas fa-plus"></i>
-                </button>
-                <div class="kit-faq-a">
-                    <p>Setelah kamu dapat lead, <strong>lapor ke kami via WhatsApp</strong> dengan info: nama client, kontak, dan kebutuhan. Kami yang handle konsultasi, pembuatan, dan delivery. Setelah client bayar lunas, komisi kamu langsung cair <strong>max 3 hari kerja</strong>!</p>
+            <!-- Objection 5 -->
+            <div class="objection-item" onclick="toggleObjection(this)">
+                <div class="objection-question">
+                    <i class="fas fa-chevron-down"></i>
+                    <span>🔒 "Ada garansi kalau saya ga puas?"</span>
+                </div>
+                <div class="objection-answer">
+                    <p><strong>Strategi:</strong> Kasih penjelasan garansi dengan yakin.</p>
+                    <p><strong>Contoh Jawaban:</strong></p>
+                    <div class="objection-example">"Tentu ada Kak! Kami kasih 3 GARANSI:
+
+✅ *Garansi Revisi Sampai Puas*
+Semua paket ada slot revisi. Kami revisi terus sampai Kak setuju hasilnya.
+
+✅ *Garansi Timeline*
+Kalau delay dari sisi kami, Kak dapat kompensasi.
+
+✅ *Garansi Uang Kembali 100%*
+Kalau setelah revisi berulang tetap tidak sesuai, kami kembalikan uang Kak.
+
+Kami sudah 3+ tahun dengan 50+ client puas. Reputasi kami taruhannya, jadi ga mungkin kami kerja asal-asalan 🙏"</div>
                 </div>
             </div>
             
-            <div class="kit-faq-item">
-                <button class="kit-faq-q" onclick="toggleFaq(this)">
-                    <span>Apakah saya bisa promosi di semua platform?</span>
-                    <i class="fas fa-plus"></i>
-                </button>
-                <div class="kit-faq-a">
-                    <p><strong>Tentu!</strong> Kamu bebas promosi di mana saja: Instagram, TikTok, Facebook, LinkedIn, WhatsApp, Telegram, Twitter/X, YouTube, bahkan offline. Semakin banyak channel, semakin besar potensi closing.</p>
+            <!-- Objection 6 -->
+            <div class="objection-item" onclick="toggleObjection(this)">
+                <div class="objection-question">
+                    <i class="fas fa-chevron-down"></i>
+                    <span>⏰ "Terlalu lama nunggu 14 hari"</span>
+                </div>
+                <div class="objection-answer">
+                    <p><strong>Strategi:</strong> Justifikasi kualitas + kasih opsi cepat.</p>
+                    <p><strong>Contoh Jawaban:</strong></p>
+                    <div class="objection-example">"Saya paham Kak, siapa sih yang ga mau cepat 😊
+
+Tapi timeline 7-14 hari itu buat WEBSITE PROFESIONAL yang custom design, mobile-friendly, SEO ready, dsb. Kalau maksa cepat, biasanya hasilnya ala kadarnya.
+
+Alternatifnya, kami punya PAKET HEMAT (Landing Page) yang selesai 3-5 hari aja. Cocok untuk start dulu, nanti bisa upgrade ke paket lebih besar.
+
+Atau kalau memang urgent banget, kami ada layanan FAST TRACK (harga +30%) yang bisa selesai 50% lebih cepat. Mau saya info detailnya? 🙏"</div>
                 </div>
             </div>
-            
-            <div class="kit-faq-item">
-                <button class="kit-faq-q" onclick="toggleFaq(this)">
-                    <span>Bagaimana cara naik tier dari Silver ke Gold/Platinum?</span>
-                    <i class="fas fa-plus"></i>
-                </button>
-                <div class="kit-faq-a">
-                    <p>Tier di-review <strong>setiap bulan</strong> berdasarkan jumlah closing. Silver (0-2), Gold (3-5), Platinum (6+). Naik tier = naik komisi + bonus per closing. Kamu juga bisa turun tier kalau performa menurun, tapi <strong>tidak akan pernah kehilangan komisi yang sudah didapat</strong>.</p>
-                </div>
-            </div>
-            
         </div>
+    </section>
+    
+    
+    <!-- ============ SUPPORT CTA ============ -->
+    <div class="support-cta">
+        <h2>Butuh Bantuan? <span>Tim Support 24/7</span> 💬</h2>
+        <p>Kalau ada pertanyaan atau butuh bantuan closing, tim support siap bantu kapan saja!</p>
+        <a href="https://wa.me/6281401643188?text=Assalamu'alaikum,%20saya%20reseller%20Ibaadurrahmaan%20butuh%20bantuan" class="support-btn">
+            <i class="fab fa-whatsapp"></i>
+            <span>Chat Admin Sekarang</span>
+        </a>
     </div>
-</section>
+    
+</div>
 
 
-<!-- ===== CTA ===== -->
-<section class="kit-cta">
-    <div class="kit-cta-box">
-        <h2>🚀 Siap Mulai Closing Pertamamu?</h2>
-        <p>Kamu sudah punya 15 modul, 6 SOP, dan semua materi yang dibutuhkan. Saatnya ACTION!</p>
-        <div class="kit-cta-buttons">
-            <a href="mou-reseller.html" class="kit-btn kit-btn-primary">
-                <i class="fas fa-file-signature"></i>
-                <span>Daftar & Tanda Tangan MoU</span>
-            </a>
-            <a href="https://wa.me/6281401643188?text=Halo,%20saya%20sudah%20baca%20starter%20kit%20dan%20siap%20mulai%20jadi%20reseller!" class="kit-btn kit-btn-wa">
-                <i class="fab fa-whatsapp"></i>
-                <span>Chat Admin</span>
-            </a>
-            <a href="reseller.html" class="kit-btn kit-btn-secondary">
-                <i class="fas fa-arrow-left"></i>
-                <span>Kembali</span>
-            </a>
+<!-- ===== TOAST NOTIFICATION ===== -->
+<div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastText">Berhasil dicopy!</span>
+</div>
+
+
+<!-- ===== FOOTER (Simple) ===== -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-bottom">
+            <div class="footer-brand">
+                <img src="main-logo.png" alt="Ibaadurrahmaan" style="height:60px;">
+            </div>
+            <div class="footer-copy">
+                <p>© 2026 Ibaadurrahmaan. Starter Kit for Reseller.</p>
+            </div>
         </div>
     </div>
-</section>
+</footer>
+
+
+<!-- ===== FLOATING WA ===== -->
+<a href="https://wa.me/6281401643188" class="fab-wa">
+    <i class="fab fa-whatsapp"></i>
+</a>
 
 
 <script>
-// ====================================================
-// COPY SCRIPT
-// ====================================================
-function copyScript(id, btn) {
-    const el = document.getElementById(id);
-    const text = el.innerText;
+// ============================================
+// COPY CHAT TEMPLATE
+// ============================================
+function copyChat(id, btn){
+    const chatText = document.getElementById(`chat-${id}`).innerText;
+    const kode = document.getElementById('resellerCode').value.trim() || '[KODE_ANDA]';
     
-    navigator.clipboard.writeText(text).then(() => {
+    // Replace placeholder kode dengan kode reseller yang diisi
+    const finalText = chatText.replace('[KODE_ANDA]', kode);
+    
+    navigator.clipboard.writeText(finalText).then(() => {
+        // Change button style
         btn.classList.add('copied');
-        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-        setTimeout(() => {
-            btn.classList.remove('copied');
-            btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
-        }, 2000);
-    }).catch(() => {
-        const textarea = document.createElement('textarea');
-        textarea.value = text;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
+        btn.innerHTML = '<i class="fas fa-check"></i> <span>Copied!</span>';
         
-        btn.classList.add('copied');
-        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        showToast('✅ Template berhasil dicopy! Paste ke WhatsApp client.');
+        
         setTimeout(() => {
             btn.classList.remove('copied');
-            btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
-        }, 2000);
+            btn.innerHTML = '<i class="fas fa-copy"></i> <span>Copy</span>';
+        }, 2500);
     });
 }
 
 
-// ====================================================
-// FAQ TOGGLE
-// ====================================================
-function toggleFaq(btn) {
-    const item = btn.parentElement;
-    const wasActive = item.classList.contains('active');
-    document.querySelectorAll('.kit-faq-item').forEach(i => {
-        i.classList.remove('active');
+// ============================================
+// COPY LINK
+// ============================================
+function copyLink(url){
+    navigator.clipboard.writeText(url).then(() => {
+        showToast('🔗 Link berhasil dicopy!');
     });
-    if (!wasActive) {
-        item.classList.add('active');
-    }
 }
+
+
+// ============================================
+// REQUEST MATERI (Chat WA Admin)
+// ============================================
+function requestMateri(materi){
+    const kode = document.getElementById('resellerCode').value.trim();
+    const waMsg = encodeURIComponent(
+        `Assalamu'alaikum Admin Ibaadurrahmaan,\n\n` +
+        `Saya reseller mau request materi:\n\n` +
+        `📦 Materi: *${materi}*\n` +
+        `🎫 Kode Reseller: ${kode || '(belum diisi)'}\n\n` +
+        `Mohon dikirimkan link/file materinya ya.\n\n` +
+        `Terima kasih 🙏`
+    );
+    window.open(`https://wa.me/6281401643188?text=${waMsg}`, '_blank');
+}
+
+
+// ============================================
+// TOGGLE OBJECTION
+// ============================================
+function toggleObjection(item){
+    item.classList.toggle('active');
+}
+
+
+// ============================================
+// SHOW TOAST
+// ============================================
+function showToast(text){
+    const toast = document.getElementById('toast');
+    document.getElementById('toastText').textContent = text;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+
+// ============================================
+// SAVE/LOAD RESELLER CODE (localStorage)
+// ============================================
+const codeInput = document.getElementById('resellerCode');
+codeInput.value = localStorage.getItem('reseller_code') || '';
+
+codeInput.addEventListener('input', () => {
+    localStorage.setItem('reseller_code', codeInput.value.trim());
+});
 </script>
 
 </body>
