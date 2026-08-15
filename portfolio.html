@@ -283,20 +283,24 @@
    ============================================ */
 .nav-brand-text {
     display: flex !important;
-    flex-direction: column !important;
+    flex-direction: row !important;
     align-items: center !important;
-    justify-content: center !important;
-    gap: 8px !important;
+    gap: 12px !important;
     text-decoration: none;
-    padding: 8px 0;
-    text-align: center;
+}
+
+.nav-brand-logo {
+    height: 44px;
+    width: auto;
+    order: -1;  /* Logo di kiri */
+    filter: drop-shadow(0 4px 12px rgba(212, 165, 54, 0.25));
+    transition: all 0.3s;
 }
 
 .brand-text-wrap {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    line-height: 1.1;
+    line-height: 1;
 }
 
 .brand-name-nav {
