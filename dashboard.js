@@ -539,7 +539,7 @@ function renderResellerList(resellers) {
 
 
 // ============================================================
-// ✅ APPROVE RESELLER
+// ✅ APPROVE RESELLER (Enhanced Message)
 // ============================================================
 async function handleApprove(data) {
     const result = await Swal.fire({
@@ -550,7 +550,8 @@ async function handleApprove(data) {
             <div style="background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.2);padding:12px 16px;border-radius:10px;font-size:0.85rem;text-align:left;">
                 ✅ Status: <b>pending</b> → <b style="color:#25d366;">active</b><br>
                 🎫 Tier default: <b>Silver (15%)</b><br>
-                📱 Reseller: ${data.wa}
+                📱 Reseller: ${data.wa}<br>
+                🎁 Auto-send Welcome Pack + Starter Kit
             </div>
         `,
         showCancelButton: true,
@@ -573,39 +574,156 @@ async function handleApprove(data) {
     try {
         await updateResellerStatus(data.id, 'active');
         
+        // Format nomor WA
         const waNumber = data.wa.replace(/[^0-9]/g, '').replace(/^0/, '62');
-        const waMsg = encodeURIComponent(
-            `Assalamu'alaikum ${data.nama},\n\n` +
-            `🎉 *SELAMAT!*\n\n` +
-            `Pendaftaran reseller Anda telah *DISETUJUI*.\n\n` +
-            `🎫 Kode Reseller: *${data.resellerCode || '-'}*\n\n` +
-            `Anda sekarang resmi menjadi *Reseller Ibaadurrahmaan Web Designer* dengan tier *Silver (Komisi 15%)*.\n\n` +
-            `Langkah selanjutnya:\n` +
-            `1. Kami akan kirim welcome pack via WA\n` +
-            `2. Akses grup reseller khusus\n` +
-            `3. Materi promosi lengkap\n\n` +
-            `Silakan mulai memasarkan jasa website kami.\n\n` +
-            `Barakallahu fiik 🙏`
-        );
+        
+        // ============================================
+        // 📝 BUILD PESAN WA LENGKAP
+        // ============================================
+        const waMessage = 
+`Assalamu'alaikum Kak *${data.nama}*,
+
+🎉 *SELAMAT & BARAKALLAHU FIIK!*
+
+Pendaftaran reseller Anda telah *DISETUJUI* ✅
+
+━━━━━━━━━━━━━━━━━━━━━
+🎫 *DATA RESELLER*
+━━━━━━━━━━━━━━━━━━━━━
+
+Kode Reseller: *${data.resellerCode || '-'}*
+Tier: 🥉 *SILVER (Komisi 15%)*
+Status: ✅ AKTIF
+
+━━━━━━━━━━━━━━━━━━━━━
+🎁 *STARTER KIT RESELLER*
+━━━━━━━━━━━━━━━━━━━━━
+
+Silakan buka Starter Kit untuk mendapatkan:
+✅ Template Chat WhatsApp siap copy
+✅ Materi promosi (poster, video, caption)
+✅ Script handle keberatan client
+✅ Link website siap share
+✅ Panduan closing lengkap
+
+🔗 Buka di sini:
+https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/starter-kit.html
+
+*Cara Pakai:*
+1. Buka link di atas
+2. Masukkan Kode: *${data.resellerCode || '-'}*
+3. Copy template & mulai jualan!
+
+━━━━━━━━━━━━━━━━━━━━━
+💰 *POTENSI KOMISI ANDA*
+━━━━━━━━━━━━━━━━━━━━━
+
+Setiap closing dapat:
+🎫 Paket Hemat (Rp 1,5jt) = *Rp 225.000*
+🎫 Paket Reguler (Rp 2,5jt) = *Rp 375.000*
+🎫 Paket Premium (Rp 5jt) = *Rp 750.000*
+
+💡 *Simulasi 3 Closing/Bulan:*
+Rata-rata paket Reguler = *Rp 1.125.000/bulan*
++ Auto naik ke Gold (20% + bonus 100rb) 🎁
+
+💎 *Naik ke Platinum:*
+6 closing/bulan → Komisi 25% + bonus 200rb
+
+━━━━━━━━━━━━━━━━━━━━━
+📋 *ATURAN PENTING*
+━━━━━━━━━━━━━━━━━━━━━
+
+✅ *WAJIB:* Client yang Anda bawa harus mencantumkan Kode Reseller Anda saat order:
+🔗 https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/order.html
+
+📖 Baca MoU lengkap:
+🔗 https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/mou-reseller.html
+
+❌ *DILARANG:*
+- Mengubah harga sendiri
+- Menjanjikan hal di luar paket
+- Menggunakan brand untuk hal negatif
+
+━━━━━━━━━━━━━━━━━━━━━
+🎯 *LANGKAH SELANJUTNYA*
+━━━━━━━━━━━━━━━━━━━━━
+
+*Hari Ini:*
+1️⃣ Buka Starter Kit → pelajari template chat
+2️⃣ Save Kode Reseller Anda
+3️⃣ Update WA/IG bio: "Reseller Ibaadurrahmaan"
+
+*Minggu Ini:*
+1️⃣ Pitch ke 5 kontak terdekat
+2️⃣ Post materi promosi di WA Status
+3️⃣ Share portfolio kami di sosmed
+
+*Target Bulan 1:*
+🎯 Dapatkan 1-3 closing pertama!
+
+━━━━━━━━━━━━━━━━━━━━━
+
+💬 Ada pertanyaan? Langsung chat kami di nomor ini.
+🚀 Selamat mulai jualan & semoga sukses closing pertama!
+
+*Barakallahu fiik* 🙏
+
+_Ibaadurrahmaan Web Designer_
+_"Solusi Digital untuk Bisnis Anda"_`;
+        
+        const waMsg = encodeURIComponent(waMessage);
         const waUrl = `https://wa.me/${waNumber}?text=${waMsg}`;
         
+        // ============================================
+        // 🎉 SUCCESS MODAL
+        // ============================================
         await Swal.fire({
             icon: 'success',
             title: '🎉 Reseller Aktif!',
             html: `
-                <b style="color:#25d366;">${data.nama}</b> berhasil di-approve<br><br>
-                <div style="background:rgba(37,211,102,0.1);padding:12px;border-radius:10px;font-size:0.85rem;">
-                    ✅ Status: <b>ACTIVE</b><br>
-                    🎫 Tier: <b>Silver</b>
+                <div style="text-align:center;">
+                    <b style="color:#25d366;font-size:1.1rem;">${data.nama}</b><br>
+                    <span style="color:rgba(255,255,255,0.7);font-size:0.85rem;">berhasil di-approve sebagai reseller</span>
+                </div>
+                <br>
+                <div style="background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.2);padding:14px 16px;border-radius:12px;font-size:0.85rem;text-align:left;">
+                    ✅ Status: <b style="color:#25d366;">ACTIVE</b><br>
+                    🎫 Kode: <b style="color:#d4a536;font-family:monospace;">${data.resellerCode || '-'}</b><br>
+                    🥉 Tier: <b>Silver (15%)</b><br>
+                    📱 WA: ${data.wa}
+                </div>
+                <br>
+                <div style="background:rgba(212,165,54,0.08);border:1px dashed rgba(212,165,54,0.3);padding:12px;border-radius:10px;font-size:0.82rem;color:rgba(255,255,255,0.85);">
+                    💡 <b>Klik tombol WA</b> untuk kirim welcome message lengkap<br>
+                    <small style="opacity:0.7;">Berisi: Kode reseller, Starter Kit link, potensi komisi, dan langkah selanjutnya</small>
                 </div>
             `,
             showCancelButton: true,
-            confirmButtonText: '<i class="fab fa-whatsapp"></i> Notif via WA',
-            cancelButtonText: 'Nanti',
-            customClass: { popup: 'swal-premium' }
+            confirmButtonText: '<i class="fab fa-whatsapp"></i> Kirim Welcome via WA',
+            cancelButtonText: 'Nanti Saja',
+            customClass: { popup: 'swal-premium' },
+            reverseButtons: true,
+            focusConfirm: true
         }).then(res => {
             if (res.isConfirmed) {
                 window.open(waUrl, '_blank');
+                
+                // Optional: Toast notification setelah buka WA
+                setTimeout(() => {
+                    const toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        customClass: { popup: 'swal-premium' }
+                    });
+                    toast.fire({
+                        icon: 'success',
+                        title: 'WhatsApp Anda sudah terbuka! 📱'
+                    });
+                }, 500);
             }
         });
         
@@ -618,12 +736,18 @@ async function handleApprove(data) {
         Swal.fire({
             icon: 'error',
             title: 'Gagal Approve',
-            text: error.message,
-            customClass: { popup: 'swal-premium' }
+            html: `
+                <p>Terjadi kesalahan saat mengupdate status reseller.</p>
+                <div style="background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.2);padding:12px;border-radius:10px;font-size:0.85rem;text-align:left;margin-top:12px;">
+                    <b style="color:#e74c3c;">Error:</b><br>
+                    ${error.message}
+                </div>
+            `,
+            customClass: { popup: 'swal-premium' },
+            confirmButtonText: 'Coba Lagi'
         });
     }
 }
-
 
 // ============================================================
 // ❌ REJECT RESELLER
