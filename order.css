@@ -2770,3 +2770,243 @@ body{background:var(--bg);}
     margin: 4px;
   }
 }
+
+/* ==========================================
+   📱 WHATSAPP CONFIRM MODAL
+   ========================================== */
+.wa-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wa-modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.wa-modal-box {
+  background: linear-gradient(145deg, #0F1E33, #0A1626);
+  border: 2px solid #25d366;
+  border-radius: 24px;
+  padding: 40px 32px 32px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  transform: translateY(30px) scale(0.95);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.7),
+    0 0 60px rgba(37, 211, 102, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.wa-modal-overlay.show .wa-modal-box {
+  transform: translateY(0) scale(1);
+}
+
+/* Decorative shine */
+.wa-modal-box::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(37, 211, 102, 0.15),
+    transparent 40%
+  );
+  animation: pulseGlow 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.1); }
+}
+
+/* Icon */
+.wa-modal-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  color: #fff;
+  box-shadow:
+    0 12px 40px rgba(37, 211, 102, 0.5),
+    inset 0 -4px 12px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
+  animation: iconBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes iconBounce {
+  0%   { transform: scale(0) rotate(-180deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Title */
+.wa-modal-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Description */
+.wa-modal-desc {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.wa-modal-desc strong {
+  color: #25d366;
+  font-weight: 700;
+}
+
+.wa-modal-desc b {
+  color: #d4a536;
+  font-weight: 800;
+}
+
+/* Order ID Badge */
+.wa-modal-order-id {
+  display: inline-block;
+  padding: 10px 20px;
+  background: rgba(212, 165, 54, 0.12);
+  border: 1px solid rgba(212, 165, 54, 0.3);
+  border-radius: 100px;
+  font-family: 'Montserrat', monospace;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #d4a536;
+  margin-bottom: 24px;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Action Buttons */
+.wa-modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.wa-modal-btn {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 100px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.wa-btn-later {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.wa-btn-later:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.wa-btn-send {
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+}
+
+.wa-btn-send:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(37, 211, 102, 0.6);
+}
+
+.wa-btn-send:active {
+  transform: translateY(0);
+}
+
+/* Note */
+.wa-modal-note {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.78rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  position: relative;
+  z-index: 2;
+}
+
+.wa-modal-note i {
+  color: #d4a536;
+}
+
+
+/* Responsive */
+@media (max-width: 480px) {
+  .wa-modal-box {
+    padding: 32px 24px 24px;
+    border-radius: 20px;
+  }
+
+  .wa-modal-icon {
+    width: 68px;
+    height: 68px;
+    font-size: 2rem;
+  }
+
+  .wa-modal-title {
+    font-size: 1.2rem;
+  }
+
+  .wa-modal-desc {
+    font-size: 0.85rem;
+  }
+
+  .wa-modal-actions {
+    flex-direction: column;
+  }
+
+  .wa-modal-btn {
+    width: 100%;
+  }
+}
