@@ -580,7 +580,8 @@ async function handleApprove(data) {
         // ============================================
         // 📝 BUILD PESAN WA LENGKAP
         // ============================================
-        const waMessage = 
+
+const waMessage = 
 `Assalamu'alaikum Kak *${data.nama}*,
 
 🎉 *SELAMAT & BARAKALLAHU FIIK!*
@@ -596,23 +597,32 @@ Tier: 🥉 *SILVER (Komisi 15%)*
 Status: ✅ AKTIF
 
 ━━━━━━━━━━━━━━━━━━━━━
-🎁 *STARTER KIT RESELLER*
+📚 *STARTER KIT RESELLER*
 ━━━━━━━━━━━━━━━━━━━━━
 
-Silakan buka Starter Kit untuk mendapatkan:
-✅ Template Chat WhatsApp siap copy
-✅ Materi promosi (poster, video, caption)
-✅ Script handle keberatan client
-✅ Link website siap share
-✅ Panduan closing lengkap
+Silakan buka Starter Kit untuk akses:
+✅ 15 Modul Curriculum 30 Hari
+✅ 6 SOP Reseller Resmi
+✅ 4 Template Script Chat siap copy
+✅ 6 Knowledge Cards
+✅ 4 Link Website siap share
+✅ Info Tier & Komisi lengkap
+✅ Progress Tracker Belajar
 
 🔗 Buka di sini:
 https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/starter-kit.html
 
 *Cara Pakai:*
-1. Buka link di atas
-2. Masukkan Kode: *${data.resellerCode || '-'}*
-3. Copy template & mulai jualan!
+1️⃣ Buka link di atas
+2️⃣ Masukkan Kode: *${data.resellerCode || '-'}*
+3️⃣ Ikuti curriculum step-by-step
+4️⃣ Copy template & mulai jualan!
+
+*Coming Soon:*
+⏳ Poster Instagram siap pakai
+⏳ Video promosi
+⏳ Caption sosmed template
+_(update berkala)_
 
 ━━━━━━━━━━━━━━━━━━━━━
 💰 *POTENSI KOMISI ANDA*
@@ -650,22 +660,23 @@ Rata-rata paket Reguler = *Rp 1.125.000/bulan*
 ━━━━━━━━━━━━━━━━━━━━━
 
 *Hari Ini:*
-1️⃣ Buka Starter Kit → pelajari template chat
+1️⃣ Buka Starter Kit → pelajari Modul 1
 2️⃣ Save Kode Reseller Anda
 3️⃣ Update WA/IG bio: "Reseller Ibaadurrahmaan"
 
 *Minggu Ini:*
-1️⃣ Pitch ke 5 kontak terdekat
-2️⃣ Post materi promosi di WA Status
-3️⃣ Share portfolio kami di sosmed
+1️⃣ Selesaikan Week 1 (Modul 1-3)
+2️⃣ List 20+ prospek dari lingkaran sendiri
+3️⃣ Coba pitch ke 5 kontak terdekat
 
 *Target Bulan 1:*
+🎯 Selesaikan semua 15 modul
 🎯 Dapatkan 1-3 closing pertama!
 
 ━━━━━━━━━━━━━━━━━━━━━
 
 💬 Ada pertanyaan? Langsung chat kami di nomor ini.
-🚀 Selamat mulai jualan & semoga sukses closing pertama!
+🚀 Selamat mulai belajar & closing pertama!
 
 *Barakallahu fiik* 🙏
 
