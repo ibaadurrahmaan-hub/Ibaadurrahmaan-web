@@ -615,7 +615,8 @@ const monthsID = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
 
 let currentMode = 'monthly';
 let closingCount = 0;
-let autoFilledClientId = null; // untuk track client yang di-autofill
+let autoFilledClientId = null;
+let autoFilledResellerWA = ''; // ✨ NEW
 
 
 // ====================================================
@@ -1535,9 +1536,6 @@ async function markCommissionPaid(clientId) {
 // ====================================================
 // INIT
 // ====================================================
-
-let autoFilledClientId = null;
-let autoFilledResellerWA = ''; // ✨ NEW
 
 window.addEventListener('load', () => {
     // Set default dates
