@@ -371,200 +371,24 @@
 </head>
 <body>
 
-<!-- ============================================
-     🖥️ NAVBAR DESKTOP - Global Public Pages
-     ============================================ -->
-<nav class="navbar-main">
-  <div class="nav-container">
-
-    <!-- Logo & Brand -->
-    <a href="index.html" class="nav-brand">
-      <div class="nav-logo">
-        <img src="main-logo.png" alt="Logo">
-      </div>
-      <div class="nav-brand-text">
-        <span class="nav-brand-name">Ibaadurrahmaan</span>
-        <span class="nav-brand-tag">Web Designer</span>
-      </div>
-    </a>
-
-    <!-- Menu Utama (3 Kategori) -->
-    <ul class="nav-menu" id="navMenu">
-      
-      <!-- 🏠 BERANDA - Direct link + anchor sections -->
-      <li class="nav-item nav-has-dropdown">
-        <a href="index.html" class="nav-link" onclick="toggleDropdown(event, 'berandaDropdown')">
-          <i class="fas fa-home"></i>
-          <span>Beranda</span>
-          <i class="fas fa-chevron-down nav-arrow"></i>
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+    <div class="nav-inner">
+        <a href="#beranda" class="nav-brand-text">
+            <span class="brand-name-nav">Ibaadurrahmaan</span>
+            <span class="brand-sub-nav">Web Designer</span>
         </a>
-        <div class="nav-dropdown" id="berandaDropdown">
-          <div class="dropdown-header">
-            <i class="fas fa-home"></i>
-            <span>Tentang Website</span>
-          </div>
-          <a href="index.html#about" class="dropdown-link">
-            <div class="dd-icon icon-gold"><i class="fas fa-info-circle"></i></div>
-            <div class="dd-text">
-              <div class="dd-title">About Us</div>
-              <div class="dd-desc">Cerita & visi brand kami</div>
-            </div>
-          </a>
-          <a href="index.html#services" class="dropdown-link">
-            <div class="dd-icon icon-blue"><i class="fas fa-cogs"></i></div>
-            <div class="dd-text">
-              <div class="dd-title">Layanan</div>
-              <div class="dd-desc">Jasa yang ditawarkan</div>
-            </div>
-          </a>
-          <a href="index.html#portfolio" class="dropdown-link">
-            <div class="dd-icon icon-purple"><i class="fas fa-images"></i></div>
-            <div class="dd-text">
-              <div class="dd-title">Portfolio</div>
-              <div class="dd-desc">Karya-karya terbaik</div>
-            </div>
-          </a>
-          <a href="index.html#faq" class="dropdown-link">
-            <div class="dd-icon icon-orange"><i class="fas fa-question-circle"></i></div>
-            <div class="dd-text">
-              <div class="dd-title">FAQ</div>
-              <div class="dd-desc">Pertanyaan umum</div>
-            </div>
-          </a>
-          <a href="index.html#kontak" class="dropdown-link">
-            <div class="dd-icon icon-cyan"><i class="fas fa-envelope"></i></div>
-            <div class="dd-text">
-              <div class="dd-title">Kontak</div>
-              <div class="dd-desc">Hubungi kami langsung</div>
-            </div>
-          </a>
+        
+        <div class="nav-menu">
+            <a href="#beranda" class="nav-link active">Beranda</a>
+            <a href="#layanan" class="nav-link">Layanan</a>
+            <a href="#paket" class="nav-link">Paket</a>
+            <a href="#tentang" class="nav-link">Tentang</a>
+            <a href="#faq" class="nav-link">FAQ</a>
         </div>
-      </li>
-
-      <!-- 💼 CLIENT - Dropdown 6 menu -->
-      <li class="nav-item nav-has-dropdown">
-        <a href="#" class="nav-link" onclick="toggleDropdown(event, 'clientDropdown')">
-          <i class="fas fa-briefcase"></i>
-          <span>Client</span>
-          <i class="fas fa-chevron-down nav-arrow"></i>
-        </a>
-        <div class="nav-dropdown" id="clientDropdown">
-          <div class="dropdown-header">
-            <i class="fas fa-briefcase"></i>
-            <span>Untuk Client</span>
-          </div>
-          <a href="paket.html" class="dropdown-link">
-            <div class="dd-icon icon-gold"><i class="fas fa-box"></i></div>
-            <div class="dd-text">
-              <div class="dd-title">Paket & Harga</div>
-              <div class="dd-desc">3 pilihan sesuai kebutuhan</div>
-            </div>
-          </a>
-          <a href="template.html" class="dropdown-link">
-            <div class="dd-icon icon-blue"><i class="fas fa-palette"></i></div>
-            <div class="dd-text">
-              <div class="dd-title">Template Website</div>
-              <div class="dd-desc">Katalog design siap pakai</div>
-            </div>
-          </a>
-          <a href="testimoni.html" class="dropdown-link">
-            <div class="dd-icon icon-orange"><i class="fas fa-star"></i></div>
-            <div class="dd-text">
-              <div class="dd-title">Testimoni Client</div>
-              <div class="dd-desc">Success stories & rating</div>
-            </div>
-          </a>
-          <a href="penawaran.html" class="dropdown-link">
-            <div class="dd-icon icon-purple"><i class="fas fa-file-contract"></i></div>
-            <div class="dd-text">
-              <div class="dd-title">Penawaran Personal</div>
-              <div class="dd-desc">Custom offer spesial</div>
-            </div>
-          </a>
-          <a href="order.html" class="dropdown-link featured">
-            <div class="dd-icon icon-green"><i class="fas fa-shopping-cart"></i></div>
-            <div class="dd-text">
-              <div class="dd-title">Order Sekarang <span class="dd-badge">HOT</span></div>
-              <div class="dd-desc">Mulai project kamu!</div>
-            </div>
-          </a>
-          <a href="cek-order.html" class="dropdown-link">
-            <div class="dd-icon icon-cyan"><i class="fas fa-search"></i></div>
-            <div class="dd-text">
-              <div class="dd-title">Cek Status Order</div>
-              <div class="dd-desc">Tracking dengan Order ID</div>
-            </div>
-          </a>
-        </div>
-      </li>
-
-      <!-- 🤝 RESELLER - Dropdown 5 menu -->
-      <li class="nav-item nav-has-dropdown">
-        <a href="#" class="nav-link" onclick="toggleDropdown(event, 'resellerDropdown')">
-          <i class="fas fa-handshake"></i>
-          <span>Reseller</span>
-          <i class="fas fa-chevron-down nav-arrow"></i>
-        </a>
-        <div class="nav-dropdown" id="resellerDropdown">
-          <div class="dropdown-header">
-            <i class="fas fa-handshake"></i>
-            <span>Program Reseller</span>
-          </div>
-          <a href="reseller.html" class="dropdown-link">
-            <div class="dd-icon icon-gold"><i class="fas fa-info-circle"></i></div>
-            <div class="dd-text">
-              <div class="dd-title">Kenapa Jadi Reseller?</div>
-              <div class="dd-desc">Benefit & tier komisi</div>
-            </div>
-          </a>
-          <a href="reseller-simulasi.html" class="dropdown-link featured-gold">
-            <div class="dd-icon icon-gold"><i class="fas fa-calculator"></i></div>
-            <div class="dd-text">
-              <div class="dd-title">Simulasi Penghasilan <span class="dd-badge dd-badge-gold">HOT</span></div>
-              <div class="dd-desc">Hitung potensi income kamu</div>
-            </div>
-          </a>
-          <a href="reseller-daftar.html" class="dropdown-link featured">
-            <div class="dd-icon icon-green"><i class="fas fa-user-plus"></i></div>
-            <div class="dd-text">
-              <div class="dd-title">Daftar Reseller <span class="dd-badge">FREE</span></div>
-              <div class="dd-desc">Gratis, tanpa modal!</div>
-            </div>
-          </a>
-          <a href="reseller-mou.html" class="dropdown-link">
-            <div class="dd-icon icon-blue"><i class="fas fa-file-signature"></i></div>
-            <div class="dd-text">
-              <div class="dd-title">MoU Kerja Sama</div>
-              <div class="dd-desc">Perjanjian & syarat</div>
-            </div>
-          </a>
-          <a href="reseller-kit.html" class="dropdown-link">
-            <div class="dd-icon icon-purple"><i class="fas fa-gift"></i></div>
-            <div class="dd-text">
-              <div class="dd-title">Starter Kit</div>
-              <div class="dd-desc">Marketing materials gratis</div>
-            </div>
-          </a>
-        </div>
-      </li>
-
-    </ul>
-
-    <!-- CTA & Actions -->
-    <div class="nav-actions">
-      <a href="https://wa.me/6281401643188" class="nav-wa" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-        <span>Chat WA</span>
-      </a>
-      <a href="order.html" class="nav-cta">
-        <i class="fas fa-rocket"></i>
-        <span>Order Sekarang</span>
-      </a>
+        
     </div>
-
-  </div>
 </nav>
-
 <!-- ===== POSTER / MAIN CONTENT ===== -->
 <main class="poster" id="beranda">
 
@@ -1436,32 +1260,25 @@
   </div>
 </footer>
 
-<!-- ============================================
-     📱 MOBILE BOTTOM NAV (Fixed Pill)
-     ============================================ -->
-<nav class="mobile-nav">
-  <a href="index.html" class="mnav-item" data-page="index">
-    <i class="fas fa-home"></i>
-    <span>Beranda</span>
-  </a>
-  <button class="mnav-item" onclick="openMobileSheet('client')">
-    <i class="fas fa-briefcase"></i>
-    <span>Client</span>
-  </button>
-  <a href="order.html" class="mnav-item mnav-cta" data-page="order">
-    <i class="fas fa-shopping-cart"></i>
-    <span>Order</span>
-  </a>
-  <button class="mnav-item" onclick="openMobileSheet('reseller')">
-    <i class="fas fa-handshake"></i>
-    <span>Reseller</span>
-  </button>
-  <button class="mnav-item" onclick="openMobileSheet('menu')">
-    <i class="fas fa-bars"></i>
-    <span>Menu</span>
-  </button>
+<!-- ===== MOBILE BOTTOM NAV ===== -->
+<nav class="mobile-nav" id="mobileNav">
+    <a href="#beranda" class="mnav-item active">
+        <i class="fas fa-home"></i>
+        <span>Beranda</span>
+    </a>
+    <a href="#layanan" class="mnav-item">
+        <i class="fas fa-briefcase"></i>
+        <span>Layanan</span>
+    </a>
+    <a href="#paket" class="mnav-item">
+        <i class="fas fa-tag"></i>
+        <span>Paket</span>
+    </a>
+    <a href="#faq" class="mnav-item">
+        <i class="fas fa-question-circle"></i>
+        <span>FAQ</span>
+    </a>
 </nav>
-
 
 <!-- Mobile Sheet Overlay & Container -->
 <div class="mobile-sheet-overlay" id="mobileSheetOverlay" onclick="closeMobileSheet()"></div>
