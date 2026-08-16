@@ -2495,7 +2495,6 @@ async function quickUpdatePayment(docId){
     });
 
     if(!formValues) return;
-
     // ═══ Simpan ke Firestore ═══
     try {
         const fb = window.fbClient;
@@ -2505,6 +2504,7 @@ async function quickUpdatePayment(docId){
         if(formValues.status === 'paid_full') paidAmount = projectValue;
         else if(formValues.status === 'paid_partial') paidAmount = formValues.dp;
 
+        // ═══ Prepare update data ═══
         const updates = {
             paymentStatus: formValues.status,
             dpAmount     : formValues.dp,
@@ -2518,16 +2518,93 @@ async function quickUpdatePayment(docId){
             updates.paidAt = null;
         }
 
+        // ✨ NEW: Auto-detect transisi ke lunas
+        const wasNotFullyPaid = currentStatus !== 'paid_full';
+        const isNowFullyPaid = formValues.status === 'paid_full';
+        const projectNotDone = c.status !== 'done';
+        const shouldAskComplete = wasNotFullyPaid && isNowFullyPaid && projectNotDone;
+
+        // ✨ NEW: Auto-progress kalau DP baru (dari pending)
+        if (formValues.status === 'paid_partial' && c.status === 'pending') {
+            updates.status = 'progress';
+        }
+
+        // Save payment update
         await fb.updateDoc(ref, updates);
 
-        Swal.fire({
-            icon: 'success',
-            title: formValues.status === 'paid_full' ? '🎉 Sudah Lunas!' : '✅ Diperbarui',
-            text: `Status pembayaran ${c.name} berhasil diupdate`,
-            customClass:{popup:'swal-premium'},
-            timer: 2000, showConfirmButton: false, timerProgressBar: true,
-            toast: true, position: 'top-end'
-        });
+        // ═══ 🎉 Kalau baru lunas → tanya konfirmasi project selesai ═══
+        if (shouldAskComplete) {
+            const res = await Swal.fire({
+                icon: 'success',
+                title: '🎉 Client Sudah Lunas!',
+                html: `
+                    <div style="text-align:center;">
+                        <b style="color:#25d366;font-size:1.05rem;">${escHtml(c.name)}</b><br>
+                        <small style="color:rgba(255,255,255,0.7);">telah melunasi pembayaran</small>
+                    </div>
+                    <br>
+                    <div style="background:rgba(155,89,182,0.1);border:1px solid rgba(155,89,182,0.3);padding:14px;border-radius:12px;font-size:0.88rem;text-align:left;">
+                        💡 Karena pelunasan berarti project sudah selesai,<br>
+                        apakah status project di-update jadi <b style="color:#9b59b6;">"Done"</b>?
+                        <br><br>
+                        <small style="opacity:0.75;">Status: <b style="color:#f39c12;">${c.status.toUpperCase()}</b> → <b style="color:#9b59b6;">DONE</b> ✅</small>
+                    </div>
+                `,
+                showCancelButton: true,
+                confirmButtonText: '<i class="fas fa-check-circle"></i> Ya, Selesaikan',
+                cancelButtonText: 'Belum Selesai',
+                customClass: { popup: 'swal-premium' },
+                reverseButtons: true,
+                focusConfirm: true
+            });
+
+            if (res.isConfirmed) {
+                // Update status project ke done
+                await fb.updateDoc(ref, {
+                    status: 'done',
+                    completedAt: fb.serverTimestamp(),
+                    updatedAt: fb.serverTimestamp()
+                });
+
+                Swal.fire({
+                    icon: 'success',
+                    title: '✅ Project Selesai!',
+                    html: `Status <b>${escHtml(c.name)}</b> → <b style="color:#9b59b6;">DONE</b>`,
+                    customClass: { popup: 'swal-premium' },
+                    timer: 2000,
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    toast: true,
+                    position: 'top-end'
+                });
+            } else {
+                // Cukup notif payment saja
+                Swal.fire({
+                    icon: 'success',
+                    title: '💰 Lunas Tercatat',
+                    text: `Pembayaran ${c.name} berhasil diupdate`,
+                    customClass: { popup: 'swal-premium' },
+                    timer: 2000,
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    toast: true,
+                    position: 'top-end'
+                });
+            }
+        } else {
+            // Notif normal (bukan transisi ke lunas)
+            Swal.fire({
+                icon: 'success',
+                title: formValues.status === 'paid_full' ? '🎉 Sudah Lunas!' : '✅ Diperbarui',
+                text: `Status pembayaran ${c.name} berhasil diupdate`,
+                customClass: { popup: 'swal-premium' },
+                timer: 2000,
+                showConfirmButton: false,
+                timerProgressBar: true,
+                toast: true,
+                position: 'top-end'
+            });
+        }
 
         await loadClients();
 
@@ -2540,7 +2617,6 @@ async function quickUpdatePayment(docId){
         });
     }
 }
-
 
 // ====================================================
 // 🎯 CUSTOM DROPDOWN HELPERS untuk quickUpdatePayment
