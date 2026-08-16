@@ -1848,7 +1848,6 @@ function calcCommission(totalValue, tier) {
 // ═══════════════════════════════════════════
 // 📤 GENERATE SLIP KOMISI (redirect ke dashboard-slip)
 // ═══════════════════════════════════════════
-
 async function generateSlipKomisi(clientId) {
     const client = allClients.find(c => c.id === clientId);
     if (!client) return;
@@ -1857,7 +1856,6 @@ async function generateSlipKomisi(clientId) {
     const totalValue = parseRp(client.value);
     const resellerId = referral.resellerId || '';
     
-    // Loading
     Swal.fire({
         title: 'Mempersiapkan Slip...',
         html: 'Mengambil data reseller',
@@ -1868,54 +1866,58 @@ async function generateSlipKomisi(clientId) {
     
     // Data default (dari referral)
     let bankData = {
-        bank: '',
-        norek: '',
-        atasNama: referral.resellerName || ''
+        bank    : '',
+        norek   : '',
+        atasNama: referral.resellerName || '',
+        wa      : referral.resellerPhone || ''  // ✨ fallback dari referral
     };
     
-    // Fetch data reseller lengkap kalau ada resellerId
-if (resellerId) {
-    try {
-        const firestoreModule = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
-        const { doc, getDoc } = firestoreModule;
-        
-        const fb = window.fbClient || window.firebase;
-        if (fb && fb.db) {
-            const docRef = doc(fb.db, 'resellers', resellerId);
-            const docSnap = await getDoc(docRef);
+    // Fetch data reseller lengkap
+    if (resellerId) {
+        try {
+            const firestoreModule = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+            const { doc, getDoc } = firestoreModule;
             
-            if (docSnap.exists()) {
-                const resellerData = docSnap.data();
-                bankData = {
-                    bank: resellerData.bank || '',
-                    norek: resellerData.norek || '',
-                    atasNama: resellerData.atasNama || resellerData.nama || referral.resellerName
-                };
-                console.log('✅ Reseller data loaded:', bankData);
+            const fb = window.fbClient || window.firebase;
+            if (fb && fb.db) {
+                const docRef = doc(fb.db, 'resellers', resellerId);
+                const docSnap = await getDoc(docRef);
+                
+                if (docSnap.exists()) {
+                    const resellerData = docSnap.data();
+                    bankData = {
+                        bank    : resellerData.bank || '',
+                        norek   : resellerData.norek || '',
+                        atasNama: resellerData.atasNama || resellerData.nama || referral.resellerName,
+                        wa      : resellerData.wa || referral.resellerPhone || ''  // ✨ WA reseller
+                    };
+                    console.log('✅ Reseller data loaded:', bankData);
+                }
             }
+        } catch (err) {
+            console.error('❌ Fetch reseller error:', err);
         }
-    } catch (err) {
-        console.error('❌ Fetch reseller error:', err);
     }
-}
+    
     Swal.close();
     
     const slipData = {
-        mode: 'single',
-        nama: referral.resellerName || bankData.atasNama || '',
-        kode: referral.referralCode || '',
-        tier: (referral.resellerTier || 'silver').toLowerCase(),
-        bank: bankData.bank,
-        norek: bankData.norek,
-        atasNama: bankData.atasNama,
-        client: client.name || '',
-        paket: totalValue || 0,
-        paketName: client.project || 'Custom Project',
+        mode      : 'single',
+        nama      : referral.resellerName || bankData.atasNama || '',
+        kode      : referral.referralCode || '',
+        tier      : (referral.resellerTier || 'silver').toLowerCase(),
+        bank      : bankData.bank,
+        norek     : bankData.norek,
+        atasNama  : bankData.atasNama,
+        wa        : bankData.wa,  // ✨ NEW
+        client    : client.name || '',
+        paket     : totalValue || 0,
+        paketName : client.project || 'Custom Project',
         tglClosing: client.createdAt?.toDate 
-            ? client.createdAt.toDate().toISOString().split('T')[0] 
-            : new Date().toISOString().split('T')[0],
-        tglBayar: new Date().toISOString().split('T')[0],
-        clientId: clientId
+                     ? client.createdAt.toDate().toISOString().split('T')[0] 
+                     : new Date().toISOString().split('T')[0],
+        tglBayar  : new Date().toISOString().split('T')[0],
+        clientId  : clientId
     };
     
     sessionStorage.setItem('slip_autofill', JSON.stringify(slipData));
