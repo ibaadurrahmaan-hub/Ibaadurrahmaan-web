@@ -928,36 +928,427 @@
     line-height: 1;
 }
 
-/* ================================================
-   TAMBAHAN CSS - WiFi & Travel Umroh Templates
-   ================================================ */
+/* =============================================
+   WIFI PROVIDER & TRAVEL UMRAH TEMPLATES
+   Tambahkan di akhir template.css
+   ============================================= */
 
-/* --- WiFi Mockup Colors --- */
-.tpl-mockup-wifi {
-  background: linear-gradient(135deg, #0a1628 0%, #0d2545 50%, #091e40 100%);
-}
-.mnav-logo.wifi-col { color: #00d4ff; }
-.mock-btn.wifi-col {
-  background: linear-gradient(135deg, #00d4ff, #0099cc);
-  color: #000;
-}
-.mcard.wifi {
-  background: rgba(0, 212, 255, 0.15);
-  border: 1px solid rgba(0, 212, 255, 0.3);
-  color: #00d4ff;
-}
+/* ===== FILTER TAB WIFI & UMRAH ===== */
+.tpl-tab[data-filter="wifi"] { border-color: #0ea5e9; }
+.tpl-tab[data-filter="wifi"].active { background: linear-gradient(135deg, #0ea5e9, #0284c7); border-color: #0ea5e9; }
+.tpl-tab[data-filter="wifi"]:hover { border-color: #0ea5e9; color: #0ea5e9; }
 
-/* --- Umroh Mockup Colors --- */
-.tpl-mockup-umroh {
-  background: linear-gradient(135deg, #1a0a00 0%, #2d1500 50%, #1a0a00 100%);
-}
-.mnav-logo.umroh-col { color: #c9a84c; }
-.mock-btn.umroh-col {
-  background: linear-gradient(135deg, #c9a84c, #a07828);
+.tpl-tab[data-filter="umrah"] { border-color: #d4a536; }
+.tpl-tab[data-filter="umrah"].active { background: linear-gradient(135deg, #d4a536, #b8860b); border-color: #d4a536; }
+.tpl-tab[data-filter="umrah"]:hover { border-color: #d4a536; color: #d4a536; }
+
+/* ===== CATEGORY BADGE - WiFi & Umrah ===== */
+.tier-wifi {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
   color: #fff;
 }
-.mcard.umroh {
-  background: rgba(201, 168, 76, 0.15);
-  border: 1px solid rgba(201, 168, 76, 0.3);
-  color: #c9a84c;
+.tier-umrah {
+  background: linear-gradient(135deg, #d4a536, #8B6914);
+  color: #fff;
+}
+
+/* =============================================
+   WIFI MOCKUP STYLES
+   ============================================= */
+.tpl-mockup-wifi,
+.tpl-mockup-wifi2 {
+  background: linear-gradient(160deg, #0f172a 0%, #1e3a5f 60%, #0c4a6e 100%);
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+}
+
+.tpl-mockup-wifi .tpl-mockup-nav.dark,
+.tpl-mockup-wifi2 .tpl-mockup-nav {
+  background: rgba(0,0,0,0.4);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.mnav-logo.wifi-blue { color: #38bdf8; font-weight: 800; font-size: 11px; }
+.mnav-logo.green { color: #4ade80; font-weight: 800; font-size: 11px; }
+
+.wifi-hero {
+  padding: 12px;
+  text-align: center;
+}
+
+/* WiFi Signal Animation */
+.wifi-signal-anim {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ws-center { font-size: 18px; z-index: 2; }
+.ws1, .ws2, .ws3 {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid rgba(56, 189, 248, 0.4);
+  animation: wifiPulse 2s ease-out infinite;
+}
+.ws1 { width: 20px; height: 20px; animation-delay: 0s; }
+.ws2 { width: 30px; height: 30px; animation-delay: 0.5s; }
+.ws3 { width: 40px; height: 40px; animation-delay: 1s; }
+
+@keyframes wifiPulse {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+.tpl-mockup-wifi .tpl-mockup-hero h4,
+.tpl-mockup-wifi2 .tpl-mockup-hero h4 {
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  margin: 0 0 2px;
+}
+.tpl-mockup-wifi .tpl-mockup-hero p,
+.tpl-mockup-wifi2 .tpl-mockup-hero p {
+  color: rgba(255,255,255,0.7);
+  font-size: 8px;
+  margin: 0 0 6px;
+}
+
+.mock-btn.wifi-blue-btn {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 8px;
+  font-weight: 600;
+  display: inline-block;
+}
+.mock-btn.green {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 8px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* Paket Internet Cards */
+.tpl-mockup-paket {
+  display: flex;
+  gap: 4px;
+  padding: 8px;
+}
+.mpaket {
+  flex: 1;
+  background: rgba(255,255,255,0.1);
+  border-radius: 6px;
+  padding: 6px 4px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: all 0.3s;
+}
+.mpaket.active {
+  background: rgba(14, 165, 233, 0.3);
+  border-color: #38bdf8;
+  transform: scale(1.05);
+}
+.mpaket.green.active {
+  background: rgba(34, 197, 94, 0.3);
+  border-color: #4ade80;
+}
+.mpaket-speed {
+  color: #38bdf8;
+  font-size: 8px;
+  font-weight: 700;
+}
+.mpaket.green .mpaket-speed { color: #4ade80; }
+.mpaket-price {
+  color: #fff;
+  font-size: 7px;
+  margin-top: 2px;
+}
+
+/* ===== WIFI FEATURE HIGHLIGHT ===== */
+.tpl-wifi-highlight {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.08), rgba(2, 132, 199, 0.05));
+  border: 1px solid rgba(14, 165, 233, 0.2);
+  border-radius: 20px;
+  padding: 40px;
+  margin-top: 40px;
+}
+.tpl-wifi-highlight h3 {
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.tpl-wifi-highlight h3 i { color: #0ea5e9; margin-right: 8px; }
+
+.wifi-feat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.wifi-feat-item {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(14, 165, 233, 0.15);
+  border-radius: 14px;
+  padding: 24px 20px;
+  text-align: center;
+  transition: all 0.3s;
+}
+.wifi-feat-item:hover {
+  background: rgba(14, 165, 233, 0.08);
+  border-color: rgba(14, 165, 233, 0.4);
+  transform: translateY(-4px);
+}
+.wfi-icon {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+  font-size: 20px;
+  color: #fff;
+}
+.wifi-feat-item h4 {
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.wifi-feat-item p {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+/* =============================================
+   TRAVEL UMRAH MOCKUP STYLES
+   ============================================= */
+.tpl-mockup-umrah,
+.tpl-mockup-umrah2 {
+  background: linear-gradient(160deg, #1a0a00 0%, #3d1f00 50%, #1a3a1a 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  height: 100%;
+}
+
+.mnav-logo.gold-arabic {
+  color: #d4a536;
+  font-weight: 800;
+  font-size: 10px;
+}
+.mnav-logo.green-arabic {
+  color: #4ade80;
+  font-weight: 800;
+  font-size: 10px;
+}
+
+/* Umrah Hero */
+.umrah-hero {
+  padding: 10px 12px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(212,165,54,0.1) 0%, transparent 100%);
+}
+.umrah-kaaba-anim {
+  font-size: 24px;
+  animation: umrahFloat 3s ease-in-out infinite;
+  display: block;
+  margin-bottom: 4px;
+}
+@keyframes umrahFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.tpl-mockup-umrah .tpl-mockup-hero h4,
+.tpl-mockup-umrah2 .tpl-mockup-hero h4 {
+  color: #ffd700;
+  font-size: 10px;
+  font-weight: 700;
+  margin: 0 0 2px;
+}
+.tpl-mockup-umrah .tpl-mockup-hero p,
+.tpl-mockup-umrah2 .tpl-mockup-hero p {
+  color: rgba(255,255,255,0.7);
+  font-size: 8px;
+  margin: 0 0 6px;
+}
+
+.mock-btn.gold-btn {
+  background: linear-gradient(135deg, #d4a536, #b8860b);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 8px;
+  font-weight: 600;
+  display: inline-block;
+}
+.mock-btn.green-arabic-btn {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 8px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* Umrah Paket Cards */
+.tpl-mockup-umrah-paket {
+  display: flex;
+  gap: 4px;
+  padding: 8px;
+}
+.mu-paket {
+  flex: 1;
+  border-radius: 6px;
+  padding: 6px 4px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border: 1px solid transparent;
+}
+.mu-paket.economy {
+  background: rgba(156, 163, 175, 0.15);
+  border-color: rgba(156, 163, 175, 0.3);
+}
+.mu-paket.standard {
+  background: rgba(212, 165, 54, 0.2);
+  border-color: rgba(212, 165, 54, 0.5);
+  transform: scale(1.05);
+}
+.mu-paket.vip {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+.mu-paket.green-pkg.economy { background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.2); }
+.mu-paket.green-pkg.standard { background: rgba(34,197,94,0.25); border-color: rgba(34,197,94,0.5); }
+.mu-paket.green-pkg.vip { background: rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.3); }
+.mu-label {
+  color: rgba(255,255,255,0.7);
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.mu-price {
+  color: #ffd700;
+  font-size: 8px;
+  font-weight: 800;
+}
+.mu-paket.green-pkg .mu-price { color: #4ade80; }
+
+/* ===== UMRAH FEATURE HIGHLIGHT ===== */
+.tpl-umrah-highlight {
+  background: linear-gradient(135deg, rgba(212, 165, 54, 0.08), rgba(139, 69, 19, 0.05));
+  border: 1px solid rgba(212, 165, 54, 0.25);
+  border-radius: 20px;
+  padding: 40px;
+  margin-top: 40px;
+}
+.tpl-umrah-highlight h3 {
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.tpl-umrah-highlight h3 i { color: #d4a536; margin-right: 8px; }
+
+.umrah-feat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.umrah-feat-item {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(212, 165, 54, 0.15);
+  border-radius: 14px;
+  padding: 24px 20px;
+  transition: all 0.3s;
+}
+.umrah-feat-item:hover {
+  background: rgba(212, 165, 54, 0.07);
+  border-color: rgba(212, 165, 54, 0.4);
+  transform: translateY(-4px);
+}
+.ufi-icon {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, #d4a536, #8B6914);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  font-size: 20px;
+  color: #fff;
+}
+.umrah-feat-item h4 {
+  color: #ffd700;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.umrah-feat-item ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.umrah-feat-item ul li {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.8rem;
+  padding: 3px 0;
+  padding-left: 14px;
+  position: relative;
+  line-height: 1.4;
+}
+.umrah-feat-item ul li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #d4a536;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+/* =============================================
+   RESPONSIVE - WiFi & Umrah
+   ============================================= */
+@media (max-width: 1024px) {
+  .wifi-feat-grid,
+  .umrah-feat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .wifi-feat-grid,
+  .umrah-feat-grid {
+    grid-template-columns: 1fr;
+  }
+  .tpl-wifi-highlight,
+  .tpl-umrah-highlight {
+    padding: 24px 16px;
+  }
+  .tpl-wifi-highlight h3,
+  .tpl-umrah-highlight h3 {
+    font-size: 1.1rem;
+  }
+  .tpl-filter-tabs {
+    flex-wrap: wrap;
+  }
 }
