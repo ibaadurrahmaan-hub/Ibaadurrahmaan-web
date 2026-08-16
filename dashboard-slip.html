@@ -1048,7 +1048,7 @@ function generateSingleSlip() {
 
 
 // ====================================================
-// DOWNLOAD PDF
+// DOWNLOAD PDF (FIXED - Complete Inline CSS)
 // ====================================================
 function downloadPDF() {
     const nama = document.getElementById('fieldNama').value.trim();
@@ -1069,7 +1069,6 @@ function downloadPDF() {
     const filename = `Slip-Komisi-${nama.replace(/\s+/g, '-')}-${dateStr}`;
     
     const preview = document.getElementById('slipPreview').outerHTML;
-    const styles = document.querySelector('style').innerHTML;
     
     const win = window.open('', '_blank', 'width=900,height=1000');
     
@@ -1084,129 +1083,194 @@ function downloadPDF() {
         return;
     }
     
-    win.document.write(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-            <title>${filename}</title>
-            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-            <style>
-                ${styles}
-                * { box-sizing:border-box; }
-                html, body {
-                    background:#f5f5f5 !important; 
-                    padding:0;
-                    margin:0;
-                    width:100%;
-                    font-family:'Poppins',sans-serif;
-                    -webkit-text-size-adjust:100%;
-                }
-                body { padding:16px; }
-                .print-info {
-                    max-width:800px; width:100%; margin:0 auto 20px; padding:20px;
-                    background:linear-gradient(135deg,#d4a536,#c19a2e);
-                    color:#fff; border-radius:16px; text-align:center;
-                    font-family:'Poppins',sans-serif;
-                    box-shadow:0 8px 25px rgba(212,165,54,0.4);
-                }
-                .print-info h3 { margin:0 0 16px; font-size:1.2rem; font-weight:800; letter-spacing:0.5px; }
-                .print-steps {
-                    text-align:left; max-width:500px; margin:0 auto 20px;
-                    background:rgba(255,255,255,0.15); border-radius:12px; padding:16px;
-                }
-                .print-steps .step {
-                    display:flex; align-items:flex-start; gap:12px;
-                    padding:8px 0; font-size:0.88rem; line-height:1.5;
-                }
-                .print-steps .step-num {
-                    background:#fff; color:#d4a536; width:26px; height:26px;
-                    border-radius:50%; display:flex; align-items:center; justify-content:center;
-                    font-weight:900; flex-shrink:0; font-size:0.85rem;
-                }
-                .print-steps .step-text { flex:1; padding-top:3px; }
-                .print-info button {
-                    padding:14px 32px; background:#fff; color:#d4a536;
-                    border:none; border-radius:100px; font-weight:800;
-                    cursor:pointer; font-size:1rem;
-                    box-shadow:0 4px 15px rgba(0,0,0,0.2);
-                    display:inline-flex; align-items:center; justify-content:center; gap:10px;
-                    font-family:'Poppins',sans-serif;
-                }
-                .print-info button:active { transform:scale(0.96); }
-                .slip-preview {
-                    box-shadow:0 10px 40px rgba(0,0,0,0.15) !important;
-                    max-width:800px; width:100%; margin:0 auto;
-                    padding:30px 24px !important;
-                }
-                @media (max-width:768px) {
-                    body { padding:12px; }
-                    .slip-preview { padding:20px 14px !important; border-radius:10px !important; }
-                    .print-info { padding:16px; margin-bottom:16px; }
-                    .slip-doc-header { flex-direction:column !important; text-align:center !important; gap:12px !important; align-items:center !important; }
-                    .slip-parties { grid-template-columns:1fr !important; gap:10px !important; }
-                    .slip-table { font-size:0.68rem !important; }
-                    .slip-table th, .slip-table td { padding:6px 3px !important; }
-                    .slip-payment-detail { grid-template-columns:1fr !important; }
-                    .slip-footer { flex-direction:column !important; gap:12px !important; text-align:center !important; }
-                }
-                @media print {
-                    html, body { background:#fff !important; padding:0 !important; margin:0 !important; }
-                    .print-info { display:none !important; }
-                    .slip-preview { padding:15mm !important; box-shadow:none !important; border-radius:0 !important; max-width:100% !important; width:100% !important; }
-                    @page { size: A4; margin: 0; }
-                }
-            </style>
-        </head>
-        <body>
-            <div class="print-info">
-                <h3>💾 Cara Simpan sebagai PDF</h3>
-                <div class="print-steps">
-                    <div class="step">
-                        <span class="step-num">1</span>
-                        <span class="step-text">Klik tombol <b>"Buka Dialog Print"</b> di bawah</span>
-                    </div>
-                    <div class="step">
-                        <span class="step-num">2</span>
-                        <span class="step-text">Cari opsi <b>"Tujuan"</b> atau <b>"Destination"</b></span>
-                    </div>
-                    <div class="step">
-                        <span class="step-num">3</span>
-                        <span class="step-text">Pilih <b>"Simpan sebagai PDF"</b> / <b>"Save as PDF"</b></span>
-                    </div>
-                    <div class="step">
-                        <span class="step-num">4</span>
-                        <span class="step-text">Klik <b>"Simpan"</b> → PDF tersimpan di Downloads! ✅</span>
-                    </div>
-                </div>
-                <button onclick="window.print()">
-                    <i class="fas fa-print"></i> Buka Dialog Print Sekarang
-                </button>
-            </div>
-            ${preview}
-        </body>
-        </html>
-    `);
-    win.document.close();
-    
-    Swal.fire({
-        icon: 'info',
-        title: '📄 PDF Siap Disimpan',
-        text: 'Ikuti instruksi di window baru untuk simpan sebagai PDF',
-        customClass: { popup: 'swal-premium' },
-        timer: 3000,
-        showConfirmButton: false,
-        timerProgressBar: true,
-        toast: true,
-        position: 'top-end'
-    });
-}
-
-
-// ====================================================
-// SEND TO WHATSAPP
+    // CSS SLIP LENGKAP (inline, tidak bergantung file eksternal)
+    const slipCSS = `
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html, body {
+            background: #f5f5f5;
+            font-family: 'Poppins', Arial, sans-serif;
+            -webkit-text-size-adjust: 100%;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        body { padding: 16px; }
+        
+        /* Print Info Header */
+        .print-info {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #d4a536, #c19a2e);
+            color: #fff;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(212, 165, 54, 0.4);
+        }
+        .print-info h3 { margin: 0 0 16px; font-size: 1.2rem; font-weight: 800; letter-spacing: 0.5px; }
+        .print-steps {
+            text-align: left; max-width: 500px; margin: 0 auto 20px;
+            background: rgba(255,255,255,0.15); border-radius: 12px; padding: 16px;
+        }
+        .print-steps .step {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 8px 0; font-size: 0.88rem; line-height: 1.5;
+        }
+        .print-steps .step-num {
+            background: #fff; color: #d4a536; width: 26px; height: 26px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 900; flex-shrink: 0; font-size: 0.85rem;
+        }
+        .print-steps .step-text { flex: 1; padding-top: 3px; }
+        .print-info button {
+            padding: 14px 32px; background: #fff; color: #d4a536;
+            border: none; border-radius: 100px; font-weight: 800;
+            cursor: pointer; font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        
+        /* ═══════════════════════════════════════ */
+        /* SLIP PREVIEW - Main Container */
+        /* ═══════════════════════════════════════ */
+        .slip-preview {
+            background: #fff;
+            border-radius: 12px;
+            padding: 40px;
+            color: #333;
+            font-family: 'Poppins', Arial, sans-serif;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .slip-doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 20px;
+            border-bottom: 3px double #d4a536;
+            margin-bottom: 24px;
+            gap: 16px;
+        }
+        
+        .slip-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .slip-brand-logo {
+            width: 60px !important;
+            height: 60px !important;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            box-shadow: 0 4px 15px rgba(212,165,54,0.3);
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 2px solid #d4a536;
+            box-sizing: border-box;
+        }
+        
+        .slip-brand-logo img {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 60px !important;
+            max-height: 60px !important;
+            object-fit: contain;
+            border-radius: 50%;
+            display: block;
+        }
+        
+        .slip-brand-logo.fallback {
+            background: linear-gradient(135deg, #d4a536, #c19a2e);
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 900;
+            padding: 0;
+            border: none;
+        }
+        
+        .slip-brand-text h2 {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #333;
+            margin: 0 0 2px;
+        }
+        
+        .slip-brand-text p {
+            font-size: 0.75rem;
+            color: #888;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+        
+        .slip-doc-info {
+            text-align: right;
+        }
+        
+        .slip-doc-info h3 {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #d4a536;
+            margin: 0 0 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .slip-doc-info p {
+            font-size: 0.8rem;
+            color: #666;
+            margin: 2px 0;
+        }
+        
+        .slip-doc-info .slip-no {
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            color: #333;
+        }
+        
+        /* Parties (Dibayar Oleh / Kepada) */
+        .slip-parties {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 20px !important;
+            margin-bottom: 24px !important;
+        }
+        
+        .slip-party {
+            background: #faf5e6 !important;
+            border-left: 4px solid #d4a536 !important;
+            padding: 14px 16px !important;
+            border-radius: 0 8px 8px 0 !important;
+        }
+        
+        .slip-party.reseller {
+            background: #e6f9ee !important;
+            border-left-color: #25d366 !important;
+        }
+        
+        .slip-party-label {
+            font-size: 0.68rem;
+            font-weight: 800;
+            color: #d4a536;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+        
+        // ====================================================
+// SEND TO WHATSAPP (dengan nomor reseller otomatis)
 // ====================================================
 function sendToWA() {
     const nama = document.getElementById('fieldNama').value.trim();
@@ -1263,6 +1327,8 @@ Terima kasih atas kerja sama-nya 🙏
         const bonus = tierInfo.bonus;
         const total = komisi + bonus;
         const tglBayar = formatDate(document.getElementById('singleTglBayar').value);
+        const bank = document.getElementById('fieldBank').value.trim() || '-';
+        const norek = document.getElementById('fieldNorek').value.trim() || '-';
         
         message = `Halo *${nama}* 👋
 
@@ -1282,29 +1348,74 @@ ${bonus > 0 ? `• Bonus ${tierInfo.name}: Rp ${bonus.toLocaleString('id-ID')}` 
 💵 *TOTAL DIBAYAR:*
 *Rp ${total.toLocaleString('id-ID')}*
 
+🏦 *DIKIRIM KE:*
+• Bank: ${bank}
+• No. Rek: ${norek}
+• A/n: ${nama}
+
 Silakan cek rekening kamu!
 Terus semangat closing ya! 🚀
 
 - Ibaadurrahmaan Web Designer`;
     }
     
+    // ═══ FORMAT NOMOR WA ═══
+    // Prioritas: 1. WA dari autofill  2. Input manual  3. Kosong (fallback)
+    let waNumber = autoFilledResellerWA || '';
+    
+    // Bersihkan format nomor (hapus semua non-angka, jadikan format 62)
+    if (waNumber) {
+        waNumber = waNumber.replace(/[^0-9]/g, '');    // Hapus semua non-digit
+        if (waNumber.startsWith('0')) {
+            waNumber = '62' + waNumber.substring(1);   // 0812... → 62812...
+        } else if (waNumber.startsWith('8')) {
+            waNumber = '62' + waNumber;                // 812... → 62812...
+        }
+        // Kalau sudah 62..., biarkan
+    }
+    
+    // Buat URL WhatsApp
+    const waUrl = waNumber 
+        ? `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`
+        : `https://wa.me/?text=${encodeURIComponent(message)}`;  // fallback tanpa nomor
+    
     // Buka WhatsApp
-    window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(waUrl, '_blank');
     
-    // Toast notif WA dibuka
-    Swal.fire({
-        icon: 'success',
-        title: '📱 WhatsApp Dibuka',
-        text: 'Pilih kontak reseller untuk kirim slip',
-        customClass: { popup: 'swal-premium' },
-        timer: 2000,
-        showConfirmButton: false,
-        timerProgressBar: true,
-        toast: true,
-        position: 'top-end'
-    });
+    // Toast notif
+    if (waNumber) {
+        Swal.fire({
+            icon: 'success',
+            title: '📱 WhatsApp Dibuka',
+            html: `
+                Chat ke: <b style="color:#25d366;">+${waNumber}</b><br>
+                <small>(${nama})</small>
+            `,
+            customClass: { popup: 'swal-premium' },
+            timer: 2500,
+            showConfirmButton: false,
+            timerProgressBar: true,
+            toast: true,
+            position: 'top-end'
+        });
+    } else {
+        Swal.fire({
+            icon: 'info',
+            title: '📱 WhatsApp Dibuka',
+            html: `
+                Nomor reseller <b>belum tersedia</b><br>
+                <small>Silakan pilih kontak manual di WhatsApp</small>
+            `,
+            customClass: { popup: 'swal-premium' },
+            timer: 3500,
+            showConfirmButton: false,
+            timerProgressBar: true,
+            toast: true,
+            position: 'top-end'
+        });
+    }
     
-    // Konfirmasi update status komisi (hanya untuk mode single dari autofill)
+    // Konfirmasi update status komisi
     if (autoFilledClientId && currentMode === 'single') {
         setTimeout(() => {
             Swal.fire({
@@ -1325,11 +1436,12 @@ Terus semangat closing ya! 🚀
                 if (res.isConfirmed) {
                     await markCommissionPaid(autoFilledClientId);
                     autoFilledClientId = null;
+                    autoFilledResellerWA = '';
                 }
             });
-        }, 2500);
+        }, 3000);
     }
-}
+} 
 
 
 // ====================================================
@@ -1423,6 +1535,10 @@ async function markCommissionPaid(clientId) {
 // ====================================================
 // INIT
 // ====================================================
+
+let autoFilledClientId = null;
+let autoFilledResellerWA = ''; // ✨ NEW
+
 window.addEventListener('load', () => {
     // Set default dates
     const now = new Date();
@@ -1443,7 +1559,11 @@ window.addEventListener('load', () => {
             const d = JSON.parse(raw);
             
             // Simpan clientId
-            autoFilledClientId = d.clientId || null;
+          // Simpan clientId
+autoFilledClientId = d.clientId || null;
+
+// ✨ NEW: Simpan WA reseller
+autoFilledResellerWA = d.wa || '';
             
             // Pilih mode single
             selectMode('single');
