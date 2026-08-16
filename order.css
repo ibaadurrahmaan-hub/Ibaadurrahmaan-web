@@ -3683,4 +3683,23 @@ html, body {
   gap: 12px;
   box-sizing: border-box;
 }
+
+/* Bank/E-Wallet Logos */
+.bo-bri {
+  background: linear-gradient(135deg, #005baa, #003c7a);
+  color: #fff;
+  font-weight: 900;
+}
+
+.bo-dana {
+  background: linear-gradient(135deg, #118eea, #0074cc);
+  color: #fff;
+  font-weight: 900;
+}
+
+.bo-gopay {
+  background: linear-gradient(135deg, #00aed6, #0084a3);
+  color: #fff;
+  font-weight: 900;
+}
 */
