@@ -323,30 +323,59 @@ textarea.form-input{resize:vertical;min-height:100px}
 .footer-contact-item i{color:var(--primary);margin-top:2px}
 .footer-bottom{border-top:1px solid var(--border);padding:20px 0;text-align:center;font-size:.78rem}
 
-/* Floating WA - Icon Only */
-.fab-wa {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  width: 56px;
-  height: 56px;
-  background: transparent;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.8rem;
-  color: #25d366;
-  z-index: 999;
-  transition: all var(--t-normal);
-  filter: drop-shadow(0 4px 12px rgba(37, 211, 102, 0.4));
+/* ==================================================
+   FLOATING WHATSAPP
+   ================================================== */
+a.fab-wa,
+.fab-wa{
+  position:fixed !important;
+  bottom:100px !important;
+  right:20px !important;
+  width:auto !important;
+  height:auto !important;
+  background:transparent !important;
+  border:none !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  padding:0 !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  z-index:998 !important;
+  text-decoration:none !important;
+  transition:transform 0.3s var(--ease) !important;
+  animation:fabFloat 2.5s ease-in-out infinite;
 }
 
-.fab-wa:hover {
-  transform: scale(1.15);
-  filter: drop-shadow(0 6px 20px rgba(37, 211, 102, 0.6));
+a.fab-wa:hover,
+.fab-wa:hover{
+  transform:scale(1.15) !important;
+  background:transparent !important;
+  box-shadow:none !important;
 }
 
+a.fab-wa i,
+a.fab-wa .fa-whatsapp,
+a.fab-wa .fab.fa-whatsapp,
+.fab-wa i,
+.fab-wa .fa-whatsapp,
+.fab-wa .fab.fa-whatsapp{
+  font-size:4rem !important;
+  color:#25D366 !important;
+  line-height:1 !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:transparent !important;
+  filter:drop-shadow(0 4px 12px rgba(37,211,102,0.5));
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+
+@keyframes fabFloat{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
+}
 /* Modal */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:9997;align-items:center;justify-content:center}
 .modal-overlay.active{display:flex}
