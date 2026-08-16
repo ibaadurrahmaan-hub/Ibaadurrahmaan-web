@@ -1715,15 +1715,21 @@ function applyFilter(){
         const totalValue = parseRp(c.value);
 
         // Text nominal untuk info payment
-        let payText = '';
-        if(payStatus === 'paid_full'){
-            payText = toRp(totalValue);
-        } else if(payStatus === 'paid_partial' && dpAmount > 0){
-            payText = `DP ${toRp(dpAmount)}`;
-        } else {
-            payText = 'Belum dibayar';
-        }
-
+        // Text nominal untuk info payment
+let payText = '';
+if(payStatus === 'paid_full'){
+    payText = `Lunas ${toRp(totalValue)}`;
+} else if(payStatus === 'paid_partial' && dpAmount > 0){
+    const sisa = totalValue - dpAmount;
+    payText = sisa > 0
+        ? `Sisa ${toRp(sisa)}`
+        : toRp(dpAmount);
+} else {
+    // Status pending → tampilkan total yang harus dibayar
+    payText = totalValue > 0 
+        ? toRp(totalValue) 
+        : '—';
+}
         // ═══ NEW: Tombol "Bayar" — beda text/state sesuai status bayar ═══
         let payBtnHtml = '';
         if(payStatus === 'paid_full'){
