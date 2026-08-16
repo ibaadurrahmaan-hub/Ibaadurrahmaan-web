@@ -927,3 +927,37 @@
     flex-direction: column;
     line-height: 1;
 }
+
+/* ================================================
+   TAMBAHAN CSS - WiFi & Travel Umroh Templates
+   ================================================ */
+
+/* --- WiFi Mockup Colors --- */
+.tpl-mockup-wifi {
+  background: linear-gradient(135deg, #0a1628 0%, #0d2545 50%, #091e40 100%);
+}
+.mnav-logo.wifi-col { color: #00d4ff; }
+.mock-btn.wifi-col {
+  background: linear-gradient(135deg, #00d4ff, #0099cc);
+  color: #000;
+}
+.mcard.wifi {
+  background: rgba(0, 212, 255, 0.15);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  color: #00d4ff;
+}
+
+/* --- Umroh Mockup Colors --- */
+.tpl-mockup-umroh {
+  background: linear-gradient(135deg, #1a0a00 0%, #2d1500 50%, #1a0a00 100%);
+}
+.mnav-logo.umroh-col { color: #c9a84c; }
+.mock-btn.umroh-col {
+  background: linear-gradient(135deg, #c9a84c, #a07828);
+  color: #fff;
+}
+.mcard.umroh {
+  background: rgba(201, 168, 76, 0.15);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  color: #c9a84c;
+}
