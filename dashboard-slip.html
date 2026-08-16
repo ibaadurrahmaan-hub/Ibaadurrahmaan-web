@@ -14,6 +14,43 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<!-- ═══════════════════════════════════════════ -->
+<!-- 🔥 FIREBASE INIT (TAMBAHKAN DI SINI!)      -->
+<!-- ═══════════════════════════════════════════ -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { 
+        getFirestore, 
+        collection, 
+        doc, 
+        getDoc, 
+        getDocs, 
+        updateDoc, 
+        query, 
+        orderBy 
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // ⚠️ COPY DARI dashboard-client.html!
+    const firebaseConfig = {
+        apiKey: "AIza...",
+        authDomain: "...",
+        projectId: "...",
+        storageBucket: "...",
+        messagingSenderId: "...",
+        appId: "..."
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.fbClient = {
+        ready: true,
+        db, collection, doc, getDoc, getDocs, updateDoc, query, orderBy
+    };
+
+    console.log('✅ Firebase ready di dashboard-slip.html');
+</script>
+
 <style>
 .slip-page{background:var(--bg);min-height:100vh;padding-bottom:100px;}
 .dashboard-header{background:linear-gradient(135deg,#0F1E33 0%,#050B18 100%);padding:32px 20px 40px;border-bottom:2px solid var(--gold);position:relative;overflow:hidden;}
