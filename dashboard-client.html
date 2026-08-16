@@ -964,6 +964,45 @@
     min-width: 100px !important;
   }
 }
+
+/* ============================================
+   🔧 FIX: HIDE INPUT HIDDEN & CHECKBOX AWKWARD
+   ============================================ */
+
+/* Sembunyikan input[type=hidden] agar tidak render */
+.swal-qup input[type="hidden"],
+.qup-dropdown input[type="hidden"] {
+  display: none !important;
+  visibility: hidden !important;
+  position: absolute !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+}
+
+/* Sembunyikan swal2-input yang default (kalau ada) */
+.swal-qup .swal2-input,
+.swal-qup .swal2-checkbox,
+.swal-qup .swal2-file,
+.swal-qup .swal2-radio,
+.swal-qup .swal2-textarea {
+  display: none !important;
+}
+
+/* Kecuali qup-input yang kita custom */
+.swal-qup .qup-input {
+  display: block !important;
+}
+
+/* Sembunyikan focus outline default SweetAlert */
+.swal-qup .swal2-container:focus,
+.swal-qup .swal2-popup:focus {
+  outline: none !important;
+}
 </style>
 </head>
 
