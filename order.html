@@ -700,82 +700,52 @@
               <h2><i class="fas fa-credit-card"></i> Metode Pembayaran</h2>
             </div>
             <div class="payment-methods">
-              <label class="payment-option active">
-                <input type="radio" name="payment" value="bank_transfer" checked onchange="selectPayment(this)">
-                <div class="po-radio"></div>
-                <div class="po-icon"><i class="fas fa-university"></i></div>
-                <div class="po-info">
-                  <div class="po-name">Transfer Bank</div>
-                  <div class="po-desc">BCA, Mandiri, BNI, BRI</div>
-                </div>
-                <div class="po-badge popular">Populer</div>
-              </label>
-              <label class="payment-option">
-                <input type="radio" name="payment" value="ewallet" onchange="selectPayment(this)">
-                <div class="po-radio"></div>
-                <div class="po-icon"><i class="fas fa-wallet"></i></div>
-                <div class="po-info">
-                  <div class="po-name">E-Wallet</div>
-                  <div class="po-desc">GoPay, OVO, DANA, ShopeePay</div>
-                </div>
-              </label>
-              <label class="payment-option">
-                <input type="radio" name="payment" value="qris" onchange="selectPayment(this)">
-                <div class="po-radio"></div>
-                <div class="po-icon"><i class="fas fa-qrcode"></i></div>
-                <div class="po-info">
-                  <div class="po-name">QRIS</div>
-                  <div class="po-desc">Scan & bayar dengan aplikasi favorit</div>
-                </div>
-              </label>
-              <label class="payment-option">
-                <input type="radio" name="payment" value="cc" onchange="selectPayment(this)">
-                <div class="po-radio"></div>
-                <div class="po-icon"><i class="fas fa-credit-card"></i></div>
-                <div class="po-info">
-                  <div class="po-name">Kartu Kredit</div>
-                  <div class="po-desc">Visa, Mastercard, JCB (biaya +2.9%)</div>
-                </div>
-              </label>
+<label class="payment-option active">
+  <input type="radio" name="payment" value="bank_transfer" checked onchange="selectPayment(this)">
+  <div class="po-radio"></div>
+  <div class="po-icon"><i class="fas fa-university"></i></div>
+  <div class="po-info">
+    <div class="po-name">Transfer Bank & E-Wallet</div>
+    <div class="po-desc">BRI, DANA, GoPay</div>
+  </div>
+  <div class="po-badge popular">Populer</div>
+</label>
+              </label> 
             </div>
           </div>
 
           <div class="section-card payment-detail" id="paymentDetail">
             <h3><i class="fas fa-info-circle"></i> Detail Pembayaran</h3>
-            <div class="bank-options">
-              <div class="bank-option active" onclick="selectBank(this,'BCA','1234567890','a.n. Ibaadurrahmaan')">
-                <div class="bo-logo bo-bca">BCA</div>
-                <span>BCA</span>
-              </div>
-              <div class="bank-option" onclick="selectBank(this,'Mandiri','0987654321','a.n. Ibaadurrahmaan')">
-                <div class="bo-logo bo-mandiri">MDR</div>
-                <span>Mandiri</span>
-              </div>
-              <div class="bank-option" onclick="selectBank(this,'BNI','1122334455','a.n. Ibaadurrahmaan')">
-                <div class="bo-logo bo-bni">BNI</div>
-                <span>BNI</span>
-              </div>
-              <div class="bank-option" onclick="selectBank(this,'BRI','5544332211','a.n. Ibaadurrahmaan')">
-                <div class="bo-logo bo-bri">BRI</div>
-                <span>BRI</span>
-              </div>
-            </div>
+<div class="bank-options">
+  <div class="bank-option active" onclick="selectBank(this,'BRI','042301024084503','a.n. Syarif Iswandi')">
+    <div class="bo-logo bo-bri">BRI</div>
+    <span>Bank BRI</span>
+  </div>
+  <div class="bank-option" onclick="selectBank(this,'DANA','081401643188','a.n. Syarif Iswandi')">
+    <div class="bo-logo bo-dana">DANA</div>
+    <span>DANA</span>
+  </div>
+  <div class="bank-option" onclick="selectBank(this,'GoPay','081401643188','a.n. Syarif Iswandi')">
+    <div class="bo-logo bo-gopay">GPAY</div>
+    <span>GoPay</span>
+  </div>
+</div>
             <div class="bank-detail">
-              <div class="bd-item">
-                <span class="bd-label">Bank Tujuan</span>
-                <span class="bd-value" id="bankName">BCA</span>
-              </div>
-              <div class="bd-item">
-                <span class="bd-label">Nomor Rekening</span>
-                <div class="bd-copy">
-                  <span class="bd-value" id="bankAccount">1234567890</span>
-                  <button class="btn-copy" onclick="copyText('bankAccount')"><i class="fas fa-copy"></i> Salin</button>
-                </div>
-              </div>
-              <div class="bd-item">
-                <span class="bd-label">Atas Nama</span>
-                <span class="bd-value" id="bankHolder">a.n. Ibaadurrahmaan</span>
-              </div>
+  <div class="bd-item">
+    <span class="bd-label">Bank / E-Wallet Tujuan</span>
+    <span class="bd-value" id="bankName">BRI</span>
+  </div>
+  <div class="bd-item">
+    <span class="bd-label">Nomor Rekening / Akun</span>
+    <div class="bd-copy">
+      <span class="bd-value" id="bankAccount">042301024084503</span>
+      <button class="btn-copy" onclick="copyText('bankAccount')"><i class="fas fa-copy"></i> Salin</button>
+    </div>
+  </div>
+  <div class="bd-item">
+    <span class="bd-label">Atas Nama</span>
+    <span class="bd-value" id="bankHolder">a.n. Syarif Iswandi</span>
+  </div>
               <div class="bd-item highlight">
                 <span class="bd-label">Jumlah Transfer</span>
                 <div class="bd-copy">
@@ -955,10 +925,10 @@
               <i class="fas fa-university"></i>
               <h4>Instruksi Pembayaran</h4>
             </div>
-            <div class="ipb-grid">
-              <div class="ipb-item"><span class="ipb-label">Bank</span><span class="ipb-value" id="invBankName">BCA</span></div>
-              <div class="ipb-item"><span class="ipb-label">No. Rekening</span><span class="ipb-value" id="invBankAcc">1234567890</span></div>
-              <div class="ipb-item"><span class="ipb-label">Atas Nama</span><span class="ipb-value" id="invBankHolder">a.n. Ibaadurrahmaan</span></div>
+<div class="ipb-grid">
+  <div class="ipb-item"><span class="ipb-label">Bank / E-Wallet</span><span class="ipb-value" id="invBankName">BRI</span></div>
+  <div class="ipb-item"><span class="ipb-label">No. Rekening / Akun</span><span class="ipb-value" id="invBankAcc">042301024084503</span></div>
+  <div class="ipb-item"><span class="ipb-label">Atas Nama</span><span class="ipb-value" id="invBankHolder">a.n. Syarif Iswandi</span></div>
               <div class="ipb-item highlight">
                 <span class="ipb-label">Jumlah Transfer</span>
                 <span class="ipb-value ipb-amount" id="invPayTotal">Rp 0</span>
@@ -1145,7 +1115,7 @@ let couponCode       = '';
 let deadlineFee      = 0;
 let selectedDeadline = 'Standard (7-14 hari)';
 let paymentType      = 'full';
-let selectedBank     = { name:'BCA', account:'1234567890', holder:'a.n. Ibaadurrahmaan' };
+let selectedBank = { name:'BRI', account:'042301024084503', holder:'a.n. Syarif Iswandi' };
 let selectedPayment  = 'Transfer Bank';
 let verifiedReseller = null;
 let _currentOrderId  = null;
