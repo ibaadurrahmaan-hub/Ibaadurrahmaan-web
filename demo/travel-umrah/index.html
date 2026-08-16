@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 /* ═══════════════════════════════════
-   RESET & CSS VARIABLES
+   RESET & VARIABLES
    ═══════════════════════════════════ */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -17,15 +17,13 @@
   --accent:#7B61FF;--accent2:#00F5D4;
   --bg-900:#050505;--bg-800:#0A0E18;--bg-700:#101728;--bg-600:#1A2236;--bg-500:#263150;
   --bg-card:#0C1220;--bg-elevated:#141C2E;
-  --white:#FFFFFF;--text-100:#F1F5F9;--text-200:#CBD5E1;--text-300:#94A3B8;--text-400:#64748B;
+  --white:#FFF;--text-100:#F1F5F9;--text-200:#CBD5E1;--text-300:#94A3B8;--text-400:#64748B;
   --success:#22C55E;--warning:#EAB308;--danger:#EF4444;
   --grad-gold:linear-gradient(135deg,#D4A536 0%,#F2C55C 50%,#D4A536 100%);
   --grad-green:linear-gradient(135deg,#0F4D28 0%,#1B7A43 100%);
   --grad-premium:linear-gradient(135deg,#D4A536 0%,#7B61FF 50%,#00F5D4 100%);
-  --grad-dark:linear-gradient(180deg,#050505 0%,#0A0E18 100%);
   --border:rgba(212,165,54,0.08);--border-hover:rgba(212,165,54,0.25);
-  --shadow-gold:0 8px 40px rgba(212,165,54,0.15);
-  --shadow-lg:0 20px 60px rgba(0,0,0,0.5);
+  --shadow-gold:0 8px 40px rgba(212,165,54,0.15);--shadow-lg:0 20px 60px rgba(0,0,0,0.5);
   --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:24px;--r-2xl:32px;--r-full:9999px;
   --ease:cubic-bezier(0.4,0,0.2,1);--ease-bounce:cubic-bezier(0.34,1.56,0.64,1);
   --t-fast:0.2s;--t-normal:0.3s;--t-slow:0.5s;
@@ -33,34 +31,43 @@
 html{scroll-behavior:smooth;scroll-padding-top:80px}
 body{font-family:'Inter',-apple-system,sans-serif;color:var(--text-200);background:var(--bg-900);overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
 .container{max-width:1240px;margin:0 auto;padding:0 24px}
-a{text-decoration:none;color:inherit}
-button{font-family:inherit;cursor:pointer}
+a{text-decoration:none;color:inherit}button{font-family:inherit;cursor:pointer}
 ::selection{background:rgba(212,165,54,0.3);color:var(--white)}
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:var(--bg-900)}
-::-webkit-scrollbar-thumb{background:rgba(212,165,54,0.3);border-radius:10px}
-
-/* Noise overlay */
-body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:0.35}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg-900)}::-webkit-scrollbar-thumb{background:rgba(212,165,54,0.3);border-radius:10px}
+body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:.35}
 
 /* ═══════════════════════════════════
-   NAVBAR
+   DESKTOP NAVBAR
    ═══════════════════════════════════ */
 .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 0;transition:all var(--t-normal) var(--ease)}
 .navbar.scrolled{padding:10px 0;background:rgba(5,5,5,0.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1240px;margin:0 auto;padding:0 24px}
 .nav-logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:1.3rem;color:var(--white)}
-.logo-arabic{font-family:'Amiri',serif;font-size:1.6rem;color:var(--gold);line-height:1}
 .logo-icon{width:44px;height:44px;background:var(--grad-gold);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 4px 20px var(--gold-glow);position:relative}
-.logo-icon::after{content:'';position:absolute;inset:-2px;border-radius:var(--r-md);background:var(--grad-gold);opacity:0.25;filter:blur(8px);z-index:-1}
+.logo-icon::after{content:'';position:absolute;inset:-2px;border-radius:var(--r-md);background:var(--grad-gold);opacity:.25;filter:blur(8px);z-index:-1}
 .logo-en{color:var(--gold)}
-.nav-menu{display:flex;align-items:center;gap:6px;list-style:none}
-.nav-menu a{color:var(--text-300);font-weight:500;font-size:0.88rem;padding:8px 16px;border-radius:var(--r-sm);transition:all var(--t-fast) var(--ease)}
+.nav-menu{display:flex;align-items:center;gap:4px;list-style:none}
+.nav-menu a{color:var(--text-300);font-weight:500;font-size:.88rem;padding:8px 16px;border-radius:var(--r-sm);transition:all var(--t-fast) var(--ease);position:relative}
 .nav-menu a:hover{color:var(--white);background:rgba(255,255,255,0.05)}
-.nav-cta{background:var(--grad-gold)!important;color:var(--bg-900)!important;padding:10px 24px!important;border-radius:var(--r-full)!important;font-weight:700!important;box-shadow:0 4px 20px var(--gold-glow)}
+.nav-menu a.active{color:var(--gold)}
+.nav-menu a.active::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:16px;height:2px;background:var(--gold);border-radius:2px}
+.nav-cta{background:var(--grad-gold)!important;color:var(--bg-900)!important;padding:10px 24px!important;border-radius:var(--r-full)!important;font-weight:700!important;font-size:.85rem!important;box-shadow:0 4px 20px var(--gold-glow);transition:all var(--t-normal) var(--ease)!important}
 .nav-cta:hover{transform:translateY(-2px)!important;box-shadow:0 8px 32px rgba(212,165,54,0.5)!important}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:5px}
-.hamburger span{display:block;width:24px;height:2px;background:var(--white);border-radius:2px;transition:all var(--t-normal) var(--ease)}
+.nav-cta::after{display:none!important}
+
+/* ═══════════════════════════════════
+   MOBILE BOTTOM NAVBAR
+   ═══════════════════════════════════ */
+.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:1000;background:rgba(5,5,5,0.95);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--border);padding:6px 0 max(6px,env(safe-area-inset-bottom));justify-content:space-around}
+.mnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-400);font-size:.6rem;font-weight:500;padding:6px 8px;border-radius:var(--r-sm);transition:all var(--t-fast) var(--ease);text-decoration:none;position:relative;min-width:52px}
+.mnav-item i{font-size:1.1rem;transition:all var(--t-fast) var(--ease)}
+.mnav-item.active,.mnav-item:hover{color:var(--gold)}
+.mnav-item.active i{transform:translateY(-2px)}
+.mnav-item.active::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:20px;height:3px;background:var(--grad-gold);border-radius:0 0 3px 3px}
+.mnav-cta{position:relative}
+.mnav-cta .mnav-icon-wrap{width:48px;height:48px;background:var(--grad-gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:-20px;box-shadow:0 4px 20px var(--gold-glow);border:3px solid var(--bg-900)}
+.mnav-cta .mnav-icon-wrap i{font-size:1.2rem;color:var(--bg-900)}
+.mnav-cta>span{margin-top:2px;color:var(--gold);font-weight:700}
 
 /* ═══════════════════════════════════
    HERO
@@ -68,90 +75,74 @@ body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml
 .hero{min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden;padding-top:80px}
 .hero-bg{position:absolute;inset:0;background:var(--bg-900)}
 .hero-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 25% 50%,rgba(212,165,54,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 75% 30%,rgba(27,122,67,0.07) 0%,transparent 50%),radial-gradient(ellipse 50% 40% at 50% 90%,rgba(123,97,255,0.04) 0%,transparent 50%)}
-.hero-bg::after{content:'';position:absolute;inset:0;opacity:0.03;background-image:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4A536' fill-opacity='1'%3E%3Cpath d='M40 0L80 40L40 80L0 40z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");background-size:80px 80px;animation:patternDrift 40s linear infinite}
-@keyframes patternDrift{0%{transform:translateY(0) translateX(0)}100%{transform:translateY(80px) translateX(80px)}}
-
-.hero-orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:0.4;animation:orbDrift 10s ease-in-out infinite}
+.hero-bg::after{content:'';position:absolute;inset:0;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23D4A536' fill-opacity='1'%3E%3Cpath d='M40 0L80 40L40 80L0 40z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");background-size:80px 80px;animation:patDrift 40s linear infinite}
+@keyframes patDrift{0%{transform:translate(0,0)}100%{transform:translate(80px,80px)}}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.4;animation:orbD 10s ease-in-out infinite}
 .orb-1{width:500px;height:500px;background:rgba(212,165,54,0.07);top:-150px;left:-100px}
 .orb-2{width:400px;height:400px;background:rgba(27,122,67,0.06);bottom:-100px;right:-80px;animation-delay:-4s}
 .orb-3{width:350px;height:350px;background:rgba(123,97,255,0.05);top:40%;left:60%;animation-delay:-7s}
-@keyframes orbDrift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(25px,-20px) scale(1.04)}66%{transform:translate(-15px,25px) scale(0.97)}}
-
+@keyframes orbD{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(25px,-20px) scale(1.04)}66%{transform:translate(-15px,25px) scale(.97)}}
 .hero-content{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-
-/* Hero Text */
-.hero-arabic{font-family:'Amiri',serif;font-size:clamp(1.4rem,2.5vw,2rem);color:var(--gold);direction:rtl;text-align:left;margin-bottom:8px;opacity:0.85}
-.hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(212,165,54,0.08);border:1px solid rgba(212,165,54,0.2);color:var(--gold-light);padding:8px 18px;border-radius:var(--r-full);font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:28px;backdrop-filter:blur(10px)}
+.hero-arabic{font-family:'Amiri',serif;font-size:clamp(1.4rem,2.5vw,2rem);color:var(--gold);direction:rtl;text-align:left;margin-bottom:8px;opacity:.85}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(212,165,54,0.08);border:1px solid rgba(212,165,54,0.2);color:var(--gold-light);padding:8px 18px;border-radius:var(--r-full);font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:28px;backdrop-filter:blur(10px)}
 .hero-badge .pulse-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;position:relative}
-.hero-badge .pulse-dot::after{content:'';position:absolute;inset:-3px;border-radius:50%;background:var(--gold);opacity:0;animation:pulseDot 2s ease infinite}
-@keyframes pulseDot{0%{opacity:0.6;transform:scale(1)}100%{opacity:0;transform:scale(2.5)}}
+.hero-badge .pulse-dot::after{content:'';position:absolute;inset:-3px;border-radius:50%;background:var(--gold);opacity:0;animation:pDot 2s ease infinite}
+@keyframes pDot{0%{opacity:.6;transform:scale(1)}100%{opacity:0;transform:scale(2.5)}}
 .hero-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:700;line-height:1.1;color:var(--white);margin-bottom:20px;letter-spacing:-1.5px}
-.hero-title .grad-gold{background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-title .grad-green{color:var(--accent2)}
+.hero-title .gg{background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-title .ga{color:var(--accent2)}
 .hero-desc{color:var(--text-300);font-size:1rem;line-height:1.9;margin-bottom:32px;max-width:520px}
 .hero-badges{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px}
-.hb-item{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.85);padding:7px 14px;border-radius:var(--r-full);font-size:0.76rem;font-weight:500;backdrop-filter:blur(5px)}
-.hb-item i{color:var(--gold);font-size:0.8rem}
+.hb{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.85);padding:7px 14px;border-radius:var(--r-full);font-size:.76rem;font-weight:500;backdrop-filter:blur(5px)}
+.hb i{color:var(--gold);font-size:.8rem}
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap}
-
-/* Buttons */
-.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:var(--r-full);font-weight:700;font-size:0.92rem;border:none;cursor:pointer;transition:all var(--t-normal) var(--ease);position:relative;overflow:hidden}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:var(--r-full);font-weight:700;font-size:.92rem;border:none;cursor:pointer;transition:all var(--t-normal) var(--ease);position:relative;overflow:hidden}
 .btn-gold{background:var(--grad-gold);color:var(--bg-900);box-shadow:0 4px 24px var(--gold-glow)}
-.btn-gold::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);transition:left 0.6s ease}
+.btn-gold::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);transition:left .6s ease}
 .btn-gold:hover::before{left:100%}
 .btn-gold:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(212,165,54,0.45)}
 .btn-ghost{background:transparent;color:var(--text-200);border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(5px)}
 .btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 32px rgba(212,165,54,0.12)}
-
 /* Hero Visual */
 .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;min-height:480px}
-.kaaba-circle{width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(212,165,54,0.06) 0%,transparent 70%);border:2px solid rgba(212,165,54,0.12);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;animation:kaabaPulse 5s ease-in-out infinite}
+.kaaba-circle{width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(212,165,54,0.06) 0%,transparent 70%);border:2px solid rgba(212,165,54,0.12);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;animation:kPulse 5s ease-in-out infinite}
 .kaaba-circle::before,.kaaba-circle::after{content:'';position:absolute;border-radius:50%;border:1px solid rgba(212,165,54,0.06)}
-.kaaba-circle::before{inset:-35px;animation:ringRot 30s linear infinite}
-.kaaba-circle::after{inset:-70px;animation:ringRot 45s linear infinite reverse}
-@keyframes kaabaPulse{0%,100%{box-shadow:0 0 40px rgba(212,165,54,0.08),inset 0 0 40px rgba(212,165,54,0.04)}50%{box-shadow:0 0 80px rgba(212,165,54,0.18),inset 0 0 60px rgba(212,165,54,0.06)}}
-@keyframes ringRot{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-.kaaba-emoji{font-size:5.5rem;filter:drop-shadow(0 0 30px rgba(212,165,54,0.5));animation:kaabaBob 4s ease-in-out infinite}
-@keyframes kaabaBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-.kaaba-label{font-family:'Amiri',serif;font-size:1rem;color:var(--gold);margin-top:8px;opacity:0.7;letter-spacing:2px}
-
-.float-badge{position:absolute;background:rgba(255,255,255,0.05);backdrop-filter:blur(16px);border:1px solid rgba(212,165,54,0.15);border-radius:var(--r-md);padding:12px 16px;display:flex;align-items:center;gap:10px;color:var(--white);font-size:0.76rem;font-weight:600;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.3)}
-.float-badge .fb-icon{width:32px;height:32px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0}
-.fb-1{top:5%;left:-5%;animation:floatB 4s ease-in-out infinite}
-.fb-1 .fb-icon{background:rgba(212,165,54,0.15);color:var(--gold)}
-.fb-2{bottom:25%;left:-10%;animation:floatB 4s ease-in-out infinite 1.5s}
-.fb-2 .fb-icon{background:rgba(34,197,94,0.15);color:var(--success)}
-.fb-3{top:15%;right:-5%;animation:floatB 4s ease-in-out infinite 0.8s}
-.fb-3 .fb-icon{background:rgba(123,97,255,0.15);color:var(--accent)}
-.fb-4{bottom:12%;right:-8%;animation:floatB 4s ease-in-out infinite 2.2s}
-.fb-4 .fb-icon{background:rgba(0,245,212,0.15);color:var(--accent2)}
-@keyframes floatB{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.kaaba-circle::before{inset:-35px;animation:ringR 30s linear infinite}
+.kaaba-circle::after{inset:-70px;animation:ringR 45s linear infinite reverse}
+@keyframes kPulse{0%,100%{box-shadow:0 0 40px rgba(212,165,54,0.08),inset 0 0 40px rgba(212,165,54,0.04)}50%{box-shadow:0 0 80px rgba(212,165,54,0.18),inset 0 0 60px rgba(212,165,54,0.06)}}
+@keyframes ringR{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.kaaba-emoji{font-size:5.5rem;filter:drop-shadow(0 0 30px rgba(212,165,54,0.5));animation:kBob 4s ease-in-out infinite}
+@keyframes kBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.kaaba-label{font-family:'Amiri',serif;font-size:1rem;color:var(--gold);margin-top:8px;opacity:.7;letter-spacing:2px}
+.float-badge{position:absolute;background:rgba(255,255,255,0.05);backdrop-filter:blur(16px);border:1px solid rgba(212,165,54,0.15);border-radius:var(--r-md);padding:12px 16px;display:flex;align-items:center;gap:10px;color:var(--white);font-size:.76rem;font-weight:600;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.3)}
+.float-badge .fb-icon{width:32px;height:32px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
+.fb-1{top:5%;left:-5%;animation:fltB 4s ease-in-out infinite}.fb-1 .fb-icon{background:rgba(212,165,54,0.15);color:var(--gold)}
+.fb-2{bottom:25%;left:-10%;animation:fltB 4s ease-in-out infinite 1.5s}.fb-2 .fb-icon{background:rgba(34,197,94,0.15);color:var(--success)}
+.fb-3{top:15%;right:-5%;animation:fltB 4s ease-in-out infinite .8s}.fb-3 .fb-icon{background:rgba(123,97,255,0.15);color:var(--accent)}
+.fb-4{bottom:12%;right:-8%;animation:fltB 4s ease-in-out infinite 2.2s}.fb-4 .fb-icon{background:rgba(0,245,212,0.15);color:var(--accent2)}
+@keyframes fltB{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
 /* ═══════════════════════════════════
    SECTION BASE
    ═══════════════════════════════════ */
 section{padding:120px 0;position:relative}
 .section-header{text-align:center;margin-bottom:72px}
-.section-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(212,165,54,0.06);border:1px solid rgba(212,165,54,0.15);color:var(--gold);padding:6px 16px;border-radius:var(--r-full);font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px}
+.section-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(212,165,54,0.06);border:1px solid rgba(212,165,54,0.15);color:var(--gold);padding:6px 16px;border-radius:var(--r-full);font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px}
 .section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;color:var(--white);margin-bottom:16px;letter-spacing:-1px}
-.section-title .grad-gold{background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-title .gg{background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .section-desc{color:var(--text-400);font-size:1rem;max-width:560px;margin:0 auto;line-height:1.8}
 .section-line{width:60px;height:3px;background:var(--grad-gold);border-radius:3px;margin:16px auto 0}
 
-/* ═══════════════════════════════════
-   STATS BAR
-   ═══════════════════════════════════ */
+/* ═══ STATS ═══ */
 .stats-bar{background:var(--bg-800);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:0}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
-.stat-item{text-align:center;padding:36px 24px;border-right:1px solid var(--border);transition:background var(--t-fast) var(--ease)}
+.stat-item{text-align:center;padding:36px 24px;border-right:1px solid var(--border);transition:background var(--t-fast)}
 .stat-item:last-child{border:none}
 .stat-item:hover{background:rgba(212,165,54,0.03)}
 .stat-num{font-family:'Space Grotesk',sans-serif;font-size:2.5rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:6px}
-.stat-label{color:var(--text-400);font-size:0.78rem;font-weight:500;text-transform:uppercase;letter-spacing:0.5px}
+.stat-label{color:var(--text-400);font-size:.78rem;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
 
-/* ═══════════════════════════════════
-   KEUNGGULAN
-   ═══════════════════════════════════ */
+/* ═══ KEUNGGULAN ═══ */
 .keunggulan{background:var(--bg-800);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .kl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .kl-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);padding:32px 24px;text-align:center;position:relative;overflow:hidden;transition:all var(--t-normal) var(--ease)}
@@ -160,341 +151,296 @@ section{padding:120px 0;position:relative}
 .kl-card:hover::before{transform:scaleX(1)}
 .kl-icon{width:56px;height:56px;background:rgba(212,165,54,0.06);border:1px solid rgba(212,165,54,0.1);border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 18px;transition:all var(--t-normal) var(--ease)}
 .kl-card:hover .kl-icon{background:var(--grad-gold);border-color:transparent;box-shadow:0 8px 24px var(--gold-glow);transform:scale(1.08)}
-.kl-title{font-family:'Space Grotesk',sans-serif;font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:8px}
-.kl-desc{color:var(--text-400);font-size:0.82rem;line-height:1.7}
+.kl-title{font-family:'Space Grotesk',sans-serif;font-size:.95rem;font-weight:700;color:var(--white);margin-bottom:8px}
+.kl-desc{color:var(--text-400);font-size:.82rem;line-height:1.7}
 
-/* ═══════════════════════════════════
-   PAKET UMRAH
-   ═══════════════════════════════════ */
+/* ═══ PAKET ═══ */
 .paket-section{background:var(--bg-900)}
 .paket-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:1100px;margin:0 auto}
 .pkt-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-2xl);overflow:hidden;position:relative;transition:all var(--t-normal) var(--ease)}
 .pkt-card:hover{border-color:rgba(212,165,54,0.2);transform:translateY(-8px);box-shadow:var(--shadow-gold)}
 .pkt-card.featured{border-color:rgba(212,165,54,0.3);box-shadow:0 0 40px rgba(212,165,54,0.08);z-index:1}
 .pkt-card.featured::before{content:'';position:absolute;inset:0;border-radius:var(--r-2xl);padding:1px;background:linear-gradient(135deg,rgba(212,165,54,0.3),rgba(242,197,92,0.15),rgba(123,97,255,0.15));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
-.pkt-popular{position:absolute;top:0;left:50%;transform:translateX(-50%);background:var(--grad-gold);color:var(--bg-900);padding:6px 20px;border-radius:0 0 var(--r-md) var(--r-md);font-size:0.68rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;box-shadow:0 4px 16px var(--gold-glow)}
+.pkt-popular{position:absolute;top:0;left:50%;transform:translateX(-50%);background:var(--grad-gold);color:var(--bg-900);padding:6px 20px;border-radius:0 0 var(--r-md) var(--r-md);font-size:.68rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;box-shadow:0 4px 16px var(--gold-glow)}
 .pkt-header{padding:36px 28px 24px;text-align:center}
-.pkt-tier{font-size:0.68rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-400);margin-bottom:8px}
+.pkt-tier{font-size:.68rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-400);margin-bottom:8px}
 .pkt-name{font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:700;color:var(--white);margin-bottom:4px}
-.pkt-duration{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--text-400);font-size:0.82rem}
+.pkt-duration{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--text-400);font-size:.82rem}
 .pkt-duration i{color:var(--gold)}
 .pkt-price-box{background:rgba(212,165,54,0.06);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 28px;display:flex;align-items:center;justify-content:space-between}
-.pkt-price-main .pkt-label{font-size:0.72rem;color:var(--text-400);margin-bottom:2px}
-.pkt-price-main .pkt-amount{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;color:var(--gold)}
-.pkt-price-dp .pkt-label{font-size:0.72rem;color:var(--text-400);margin-bottom:2px;text-align:right}
-.pkt-price-dp .pkt-dp-val{font-weight:700;color:var(--text-200);font-size:0.88rem;text-align:right}
+.pkt-pm .pkt-lbl{font-size:.72rem;color:var(--text-400);margin-bottom:2px}
+.pkt-pm .pkt-amt{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;color:var(--gold)}
+.pkt-dp .pkt-lbl{font-size:.72rem;color:var(--text-400);margin-bottom:2px;text-align:right}
+.pkt-dp .pkt-dpv{font-weight:700;color:var(--text-200);font-size:.88rem;text-align:right}
 .pkt-body{padding:24px 28px 28px}
-.pkt-spec-title{font-size:0.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-400);margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.pkt-spec-title::after{content:'';flex:1;height:1px;background:var(--border)}
-.pkt-spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
-.pkt-spec-item{background:var(--bg-700);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 12px;transition:border-color var(--t-fast)}
-.pkt-spec-item:hover{border-color:rgba(212,165,54,0.15)}
-.pkt-spec-label{font-size:0.68rem;color:var(--text-400);margin-bottom:2px}
-.pkt-spec-val{font-size:0.82rem;font-weight:700;color:var(--white)}
-.pkt-fasilitas-title{font-size:0.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-400);margin:16px 0 12px;padding-top:16px;border-top:1px solid var(--border);display:flex;align-items:center;gap:8px}
-.pkt-fasilitas-title::after{content:'';flex:1;height:1px;background:var(--border)}
-.pkt-fasilitas{list-style:none;margin-bottom:24px}
-.pkt-fasilitas li{display:flex;align-items:flex-start;gap:10px;padding:6px 0;font-size:0.82rem;color:var(--text-200);border-bottom:1px solid rgba(255,255,255,0.02)}
-.pkt-fasilitas li:last-child{border:none}
-.pkt-fasilitas li i{flex-shrink:0;margin-top:3px;font-size:0.75rem}
-.pkt-fasilitas li .fa-check{color:var(--success)}
-.pkt-fasilitas li .fa-times{color:var(--text-400);opacity:0.5}
-.pkt-btn{display:block;width:100%;text-align:center;padding:14px;border-radius:var(--r-md);font-weight:700;font-size:0.9rem;transition:all var(--t-normal) var(--ease);border:none;cursor:pointer}
+.pkt-st{font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-400);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.pkt-st::after{content:'';flex:1;height:1px;background:var(--border)}
+.pkt-sg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
+.pkt-si{background:var(--bg-700);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 12px;transition:border-color var(--t-fast)}
+.pkt-si:hover{border-color:rgba(212,165,54,0.15)}
+.pkt-si-l{font-size:.68rem;color:var(--text-400);margin-bottom:2px}
+.pkt-si-v{font-size:.82rem;font-weight:700;color:var(--white)}
+.pkt-ft{font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-400);margin:16px 0 12px;padding-top:16px;border-top:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.pkt-ft::after{content:'';flex:1;height:1px;background:var(--border)}
+.pkt-fl{list-style:none;margin-bottom:24px}
+.pkt-fl li{display:flex;align-items:flex-start;gap:10px;padding:6px 0;font-size:.82rem;color:var(--text-200);border-bottom:1px solid rgba(255,255,255,0.02)}
+.pkt-fl li:last-child{border:none}
+.pkt-fl li i{flex-shrink:0;margin-top:3px;font-size:.75rem}
+.pkt-fl li .fa-check{color:var(--success)}
+.pkt-fl li .fa-times{color:var(--text-400);opacity:.5}
+.pkt-btn{display:block;width:100%;text-align:center;padding:14px;border-radius:var(--r-md);font-weight:700;font-size:.9rem;transition:all var(--t-normal) var(--ease);border:none;cursor:pointer}
 .pkt-btn-gold{background:var(--grad-gold);color:var(--bg-900);box-shadow:0 4px 20px var(--gold-glow)}
 .pkt-btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(212,165,54,0.4)}
 .pkt-btn-ghost{background:transparent;color:var(--text-200);border:1px solid var(--border);margin-top:10px}
 .pkt-btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
 
-/* ═══════════════════════════════════
-   JADWAL
-   ═══════════════════════════════════ */
+/* ═══ JADWAL ═══ */
 .jadwal-section{background:var(--bg-800);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .jadwal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
 .jadwal-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;transition:all var(--t-normal) var(--ease)}
 .jadwal-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-gold);border-color:var(--border-hover)}
-.jadwal-header{background:var(--bg-700);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
-.jadwal-bulan{color:var(--gold);font-weight:700;font-size:0.88rem;display:flex;align-items:center;gap:8px}
-.jadwal-status{padding:4px 12px;border-radius:var(--r-full);font-size:0.68rem;font-weight:700;letter-spacing:0.5px}
-.status-tersedia{background:rgba(34,197,94,0.1);color:var(--success);border:1px solid rgba(34,197,94,0.2)}
-.status-terbatas{background:rgba(234,179,8,0.1);color:var(--warning);border:1px solid rgba(234,179,8,0.2)}
-.status-penuh{background:rgba(239,68,68,0.1);color:var(--danger);border:1px solid rgba(239,68,68,0.2)}
+.jadwal-hdr{background:var(--bg-700);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.jadwal-bln{color:var(--gold);font-weight:700;font-size:.88rem;display:flex;align-items:center;gap:8px}
+.jadwal-sts{padding:4px 12px;border-radius:var(--r-full);font-size:.68rem;font-weight:700}
+.sts-ok{background:rgba(34,197,94,0.1);color:var(--success);border:1px solid rgba(34,197,94,0.2)}
+.sts-lim{background:rgba(234,179,8,0.1);color:var(--warning);border:1px solid rgba(234,179,8,0.2)}
+.sts-full{background:rgba(239,68,68,0.1);color:var(--danger);border:1px solid rgba(239,68,68,0.2)}
 .jadwal-body{padding:20px}
-.jadwal-tanggal{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;color:var(--white);margin-bottom:14px}
-.jadwal-detail{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
-.jd-item{font-size:0.78rem}
-.jd-label{color:var(--text-400);margin-bottom:1px}
-.jd-val{font-weight:700;color:var(--text-200)}
-.jadwal-btn{display:block;text-align:center;padding:10px;background:var(--bg-700);color:var(--text-200);border-radius:var(--r-sm);font-size:0.82rem;font-weight:600;transition:all var(--t-normal) var(--ease);border:1px solid var(--border)}
+.jadwal-tgl{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;color:var(--white);margin-bottom:14px}
+.jadwal-dtl{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.jd-item{font-size:.78rem}
+.jd-l{color:var(--text-400);margin-bottom:1px}
+.jd-v{font-weight:700;color:var(--text-200)}
+.jadwal-btn{display:block;text-align:center;padding:10px;background:var(--bg-700);color:var(--text-200);border-radius:var(--r-sm);font-size:.82rem;font-weight:600;transition:all var(--t-normal) var(--ease);border:1px solid var(--border)}
 .jadwal-btn:hover{background:var(--grad-gold);color:var(--bg-900);border-color:transparent}
 
-/* ═══════════════════════════════════
-   ALUR PENDAFTARAN
-   ═══════════════════════════════════ */
+/* ═══ ALUR ═══ */
 .alur-section{background:var(--bg-900)}
 .alur-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0;position:relative}
 .alur-grid::before{content:'';position:absolute;top:40px;left:8%;right:8%;height:2px;background:linear-gradient(90deg,var(--gold),rgba(212,165,54,0.1))}
 .alur-step{text-align:center;position:relative;z-index:1;padding:0 8px}
 .alur-icon{width:80px;height:80px;background:var(--bg-card);border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 18px;transition:all var(--t-normal) var(--ease)}
 .alur-step:hover .alur-icon{background:var(--grad-gold);box-shadow:0 0 30px var(--gold-glow);transform:scale(1.08)}
-.alur-step-title{font-weight:700;color:var(--white);font-size:0.85rem;margin-bottom:6px}
-.alur-step-desc{color:var(--text-400);font-size:0.75rem;line-height:1.5}
+.alur-st{font-weight:700;color:var(--white);font-size:.85rem;margin-bottom:6px}
+.alur-sd{color:var(--text-400);font-size:.75rem;line-height:1.5}
 
 /* ═══════════════════════════════════
    FORM SECTION
    ═══════════════════════════════════ */
 .form-section{background:var(--bg-900);position:relative;overflow:hidden}
 .form-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 0% 100%,rgba(212,165,54,0.05) 0%,transparent 50%),radial-gradient(ellipse 50% 60% at 100% 0%,rgba(27,122,67,0.04) 0%,transparent 50%)}
-.form-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:64px;align-items:start;position:relative;z-index:1}
+.form-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:start;position:relative;z-index:1}
 .form-info{color:var(--white)}
-.form-info-arabic{font-family:'Amiri',serif;font-size:1.6rem;color:var(--gold);direction:rtl;margin-bottom:12px;opacity:0.8}
-.form-info-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;color:var(--white);line-height:1.2;margin-bottom:16px;letter-spacing:-0.5px}
-.form-info-title .grad-gold{background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.form-info-desc{color:var(--text-400);line-height:1.8;margin-bottom:32px;font-size:0.92rem}
-
-.doc-section{margin-bottom:28px}
-.doc-title{font-size:0.82rem;font-weight:700;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.doc-list{list-style:none}
-.doc-list li{display:flex;align-items:center;gap:10px;padding:6px 0;color:var(--text-300);font-size:0.82rem}
-.doc-list li i{color:var(--gold);font-size:0.75rem}
-
-/* Form Card */
+.form-info-arabic{font-family:'Amiri',serif;font-size:1.6rem;color:var(--gold);direction:rtl;margin-bottom:12px;opacity:.8}
+.form-info-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;color:var(--white);line-height:1.2;margin-bottom:16px;letter-spacing:-.5px}
+.form-info-title .gg{background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.form-info-desc{color:var(--text-400);line-height:1.8;margin-bottom:32px;font-size:.92rem}
+.doc-sec{margin-bottom:28px}
+.doc-t{font-size:.82rem;font-weight:700;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.doc-l{list-style:none}
+.doc-l li{display:flex;align-items:center;gap:10px;padding:6px 0;color:var(--text-300);font-size:.82rem}
+.doc-l li i{color:var(--gold);font-size:.75rem}
 .form-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-2xl);padding:44px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
 .form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-premium)}
-.form-card-header{margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border)}
-.form-card-title{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:4px;display:flex;align-items:center;gap:10px}
-.form-card-sub{color:var(--text-400);font-size:0.82rem}
-
-/* Form Fields */
+.fc-header{margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.fc-title{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:4px;display:flex;align-items:center;gap:10px}
+.fc-sub{color:var(--text-400);font-size:.82rem}
 .form-group{margin-bottom:18px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.form-section-divider{font-size:0.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin:24px 0 14px;display:flex;align-items:center;gap:10px}
-.form-section-divider::after{content:'';flex:1;height:1px;background:var(--border)}
-.form-label{display:block;font-weight:600;font-size:0.82rem;color:var(--text-200);margin-bottom:8px;letter-spacing:0.3px}
+.fsd{font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin:24px 0 14px;display:flex;align-items:center;gap:10px}
+.fsd::after{content:'';flex:1;height:1px;background:var(--border)}
+.form-label{display:block;font-weight:600;font-size:.82rem;color:var(--text-200);margin-bottom:8px;letter-spacing:.3px}
 .form-label .req{color:var(--danger);margin-left:2px}
-.form-input{width:100%;padding:13px 16px;background:var(--bg-700);border:1.5px solid var(--border);border-radius:var(--r-md);color:var(--white);font-family:'Inter',sans-serif;font-size:0.88rem;transition:all var(--t-fast) var(--ease);outline:none}
+.form-input{width:100%;padding:13px 16px;background:var(--bg-700);border:1.5px solid var(--border);border-radius:var(--r-md);color:var(--white);font-family:'Inter',sans-serif;font-size:.88rem;transition:all var(--t-fast) var(--ease);outline:none}
 .form-input::placeholder{color:var(--text-400)}
 .form-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,165,54,0.1),0 0 20px rgba(212,165,54,0.05);background:var(--bg-600)}
 textarea.form-input{resize:vertical;min-height:80px}
-.form-check-group{display:flex;flex-direction:column;gap:8px}
-.form-check{display:flex;align-items:flex-start;gap:10px;font-size:0.82rem;color:var(--text-200);cursor:pointer}
-.form-check input{margin-top:2px;accent-color:var(--gold);width:16px;height:16px;cursor:pointer}
+.form-chk-group{display:flex;flex-direction:column;gap:8px}
+.form-chk{display:flex;align-items:flex-start;gap:10px;font-size:.82rem;color:var(--text-200);cursor:pointer}
+.form-chk input{margin-top:2px;accent-color:var(--gold);width:16px;height:16px;cursor:pointer}
 
-/* ═══════════════════════════════════
-   CUSTOM DROPDOWN — HIGH PREMIUM
-   ═══════════════════════════════════ */
-.custom-select{position:relative;width:100%;user-select:none}
-.custom-select-trigger{width:100%;padding:13px 16px;padding-right:48px;background:var(--bg-700);border:1.5px solid var(--border);border-radius:var(--r-md);color:var(--white);font-family:'Inter',sans-serif;font-size:0.88rem;cursor:pointer;transition:all var(--t-fast) var(--ease);display:flex;align-items:center;gap:12px;position:relative;min-height:48px}
-.custom-select-trigger:hover{border-color:rgba(212,165,54,0.15);background:var(--bg-600)}
-.custom-select.open .custom-select-trigger,.custom-select-trigger:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,165,54,0.1),0 0 20px rgba(212,165,54,0.05);background:var(--bg-600)}
-.custom-select-trigger .trigger-icon{width:30px;height:30px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0;background:rgba(212,165,54,0.08);border:1px solid rgba(212,165,54,0.1)}
-.custom-select-trigger .trigger-text{flex:1;display:flex;flex-direction:column;min-width:0}
-.custom-select-trigger .trigger-text .main-text{font-weight:600;color:var(--white);font-size:0.88rem;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.custom-select-trigger .trigger-text .sub-text{font-size:0.7rem;color:var(--text-400);font-weight:400;line-height:1.3}
-.custom-select-trigger.placeholder .trigger-text .main-text{color:var(--text-400);font-weight:400}
-.custom-select-arrow{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:var(--text-400);font-size:0.72rem;transition:all var(--t-normal) var(--ease);background:rgba(212,165,54,0.04);border-radius:6px;border:1px solid var(--border)}
-.custom-select.open .custom-select-arrow{transform:translateY(-50%) rotate(180deg);color:var(--gold);background:rgba(212,165,54,0.1);border-color:rgba(212,165,54,0.2)}
+/* ═══ CUSTOM DROPDOWN ═══ */
+.cs{position:relative;width:100%;user-select:none}
+.cs-trigger{width:100%;padding:13px 16px;padding-right:48px;background:var(--bg-700);border:1.5px solid var(--border);border-radius:var(--r-md);color:var(--white);font-family:'Inter',sans-serif;font-size:.88rem;cursor:pointer;transition:all var(--t-fast) var(--ease);display:flex;align-items:center;gap:12px;position:relative;min-height:48px}
+.cs-trigger:hover{border-color:rgba(212,165,54,0.15);background:var(--bg-600)}
+.cs.open .cs-trigger,.cs-trigger:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,165,54,0.1),0 0 20px rgba(212,165,54,0.05);background:var(--bg-600)}
+.cs-trigger .t-icon{width:30px;height:30px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;background:rgba(212,165,54,0.08);border:1px solid rgba(212,165,54,0.1)}
+.cs-trigger .t-text{flex:1;display:flex;flex-direction:column;min-width:0}
+.cs-trigger .t-text .t-main{font-weight:600;color:var(--white);font-size:.88rem;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cs-trigger .t-text .t-sub{font-size:.7rem;color:var(--text-400);font-weight:400;line-height:1.3}
+.cs-trigger.ph .t-text .t-main{color:var(--text-400);font-weight:400}
+.cs-arrow{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:var(--text-400);font-size:.72rem;transition:all var(--t-normal) var(--ease);background:rgba(212,165,54,0.04);border-radius:6px;border:1px solid var(--border)}
+.cs.open .cs-arrow{transform:translateY(-50%) rotate(180deg);color:var(--gold);background:rgba(212,165,54,0.1);border-color:rgba(212,165,54,0.2)}
+.cs-dropdown{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--bg-700);border:1.5px solid rgba(212,165,54,0.2);border-radius:var(--r-lg);overflow:hidden;z-index:100;box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px rgba(212,165,54,0.06);opacity:0;visibility:hidden;transform:translateY(-8px) scale(.98);transition:all var(--t-normal) var(--ease-bounce);max-height:0;backdrop-filter:blur(20px)}
+.cs.open .cs-dropdown{opacity:1;visibility:visible;transform:translateY(0) scale(1);max-height:380px}
+.dd-hdr{padding:14px 16px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.dd-hdr-lbl{font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-400)}
+.dd-hdr-cnt{background:rgba(212,165,54,0.1);color:var(--gold);padding:2px 8px;border-radius:var(--r-full);font-size:.62rem;font-weight:700}
+.cs-options{overflow-y:auto;max-height:320px;padding:6px;scroll-behavior:smooth}
+.cs-options::-webkit-scrollbar{width:4px}.cs-options::-webkit-scrollbar-thumb{background:rgba(212,165,54,0.2);border-radius:4px}
+.cs-opt{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:var(--r-md);cursor:pointer;transition:all var(--t-fast) var(--ease);position:relative;margin-bottom:2px;border:1px solid transparent}
+.cs-opt:hover{background:rgba(212,165,54,0.06)}
+.cs-opt.sel{background:rgba(212,165,54,0.08);border-color:rgba(212,165,54,0.15)}
+.cs-opt .o-icon{width:36px;height:36px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;background:rgba(255,255,255,0.03);border:1px solid var(--border);transition:all var(--t-fast)}
+.cs-opt:hover .o-icon,.cs-opt.sel .o-icon{background:rgba(212,165,54,0.1);border-color:rgba(212,165,54,0.15)}
+.cs-opt .o-content{flex:1;min-width:0}
+.cs-opt .o-label{font-weight:600;color:var(--white);font-size:.88rem;line-height:1.3}
+.cs-opt .o-desc{font-size:.7rem;color:var(--text-400);line-height:1.4;margin-top:1px}
+.cs-opt .o-tag{padding:3px 10px;border-radius:var(--r-full);font-size:.65rem;font-weight:700;white-space:nowrap;flex-shrink:0}
+.o-tag-gold{background:rgba(212,165,54,0.1);color:var(--gold);border:1px solid rgba(212,165,54,0.15)}
+.o-tag-green{background:rgba(34,197,94,0.1);color:var(--success);border:1px solid rgba(34,197,94,0.15)}
+.o-tag-purple{background:rgba(123,97,255,0.1);color:var(--accent);border:1px solid rgba(123,97,255,0.15)}
+.o-tag-cyan{background:rgba(0,245,212,0.1);color:var(--accent2);border:1px solid rgba(0,245,212,0.15)}
+.o-tag-warn{background:rgba(234,179,8,0.1);color:var(--warning);border:1px solid rgba(234,179,8,0.15)}
+.cs-opt .o-chk{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all var(--t-fast);font-size:.55rem;color:transparent}
+.cs-opt.sel .o-chk{background:var(--grad-gold);border-color:var(--gold);color:var(--bg-900);box-shadow:0 0 12px var(--gold-glow)}
+.native-sel{position:absolute;opacity:0;pointer-events:none;width:0;height:0}
 
-/* Dropdown Panel */
-.custom-select-dropdown{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--bg-700);border:1.5px solid rgba(212,165,54,0.2);border-radius:var(--r-lg);overflow:hidden;z-index:100;box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px rgba(212,165,54,0.06);opacity:0;visibility:hidden;transform:translateY(-8px) scale(0.98);transition:all var(--t-normal) var(--ease-bounce);max-height:0;backdrop-filter:blur(20px)}
-.custom-select.open .custom-select-dropdown{opacity:1;visibility:visible;transform:translateY(0) scale(1);max-height:380px}
-.dropdown-header{padding:14px 16px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.dropdown-header-label{font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-400)}
-.dropdown-header-count{background:rgba(212,165,54,0.1);color:var(--gold);padding:2px 8px;border-radius:var(--r-full);font-size:0.62rem;font-weight:700}
-.custom-select-options{overflow-y:auto;max-height:320px;padding:6px;scroll-behavior:smooth}
-.custom-select-options::-webkit-scrollbar{width:4px}
-.custom-select-options::-webkit-scrollbar-thumb{background:rgba(212,165,54,0.2);border-radius:4px}
-
-.custom-option{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:var(--r-md);cursor:pointer;transition:all var(--t-fast) var(--ease);position:relative;margin-bottom:2px}
-.custom-option:hover{background:rgba(212,165,54,0.06)}
-.custom-option.selected{background:rgba(212,165,54,0.08);border:1px solid rgba(212,165,54,0.15)}
-.custom-option:not(.selected){border:1px solid transparent}
-.custom-option .opt-icon{width:36px;height:36px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;background:rgba(255,255,255,0.03);border:1px solid var(--border);transition:all var(--t-fast)}
-.custom-option:hover .opt-icon,.custom-option.selected .opt-icon{background:rgba(212,165,54,0.1);border-color:rgba(212,165,54,0.15)}
-.custom-option .opt-content{flex:1;min-width:0}
-.custom-option .opt-label{font-weight:600;color:var(--white);font-size:0.88rem;line-height:1.3}
-.custom-option .opt-desc{font-size:0.7rem;color:var(--text-400);line-height:1.4;margin-top:1px}
-.custom-option .opt-tag{padding:3px 10px;border-radius:var(--r-full);font-size:0.65rem;font-weight:700;white-space:nowrap;flex-shrink:0}
-.opt-tag-gold{background:rgba(212,165,54,0.1);color:var(--gold);border:1px solid rgba(212,165,54,0.15)}
-.opt-tag-green{background:rgba(34,197,94,0.1);color:var(--success);border:1px solid rgba(34,197,94,0.15)}
-.opt-tag-purple{background:rgba(123,97,255,0.1);color:var(--accent);border:1px solid rgba(123,97,255,0.15)}
-.opt-tag-cyan{background:rgba(0,245,212,0.1);color:var(--accent2);border:1px solid rgba(0,245,212,0.15)}
-.custom-option .opt-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all var(--t-fast);font-size:0.55rem;color:transparent}
-.custom-option.selected .opt-check{background:var(--grad-gold);border-color:var(--gold);color:var(--bg-900);box-shadow:0 0 12px var(--gold-glow)}
-.native-select{position:absolute;opacity:0;pointer-events:none;width:0;height:0}
-
-/* ═══════════════════════════════════
-   FORM NOTE & SUBMIT
-   ═══════════════════════════════════ */
-.form-note{display:flex;align-items:flex-start;gap:10px;background:rgba(212,165,54,0.04);border:1px solid rgba(212,165,54,0.1);border-radius:var(--r-md);padding:14px;margin:24px 0;font-size:0.78rem;color:var(--text-300);line-height:1.6}
+/* ═══ NOTE & SUBMIT ═══ */
+.form-note{display:flex;align-items:flex-start;gap:10px;background:rgba(212,165,54,0.04);border:1px solid rgba(212,165,54,0.1);border-radius:var(--r-md);padding:14px;margin:24px 0;font-size:.78rem;color:var(--text-300);line-height:1.6}
 .form-note i{color:var(--gold);margin-top:2px;flex-shrink:0}
 .form-submit{width:100%;padding:16px;background:var(--grad-gold);color:var(--bg-900);border:none;border-radius:var(--r-md);font-family:'Inter',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all var(--t-normal) var(--ease);display:flex;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;box-shadow:0 4px 24px var(--gold-glow)}
-.form-submit::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left 0.6s ease}
+.form-submit::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left .6s ease}
 .form-submit:hover::before{left:100%}
 .form-submit:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(212,165,54,0.45)}
 
-/* ═══════════════════════════════════
-   TESTIMONIAL
-   ═══════════════════════════════════ */
+/* ═══ TESTIMONIAL ═══ */
 .testi-section{background:var(--bg-800);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .testi-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);padding:28px;position:relative;overflow:hidden;transition:all var(--t-normal) var(--ease)}
 .testi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-gold)}
 .testi-card:hover{border-color:var(--border-hover);transform:translateY(-4px);box-shadow:var(--shadow-gold)}
-.testi-quote{font-family:'Amiri',serif;font-size:2.5rem;color:var(--gold);line-height:1;margin-bottom:8px;opacity:0.6}
-.testi-stars{color:var(--warning);font-size:0.8rem;margin-bottom:14px;letter-spacing:2px}
-.testi-text{color:var(--text-200);font-size:0.88rem;line-height:1.8;font-style:italic;margin-bottom:20px}
+.testi-q{font-family:'Amiri',serif;font-size:2.5rem;color:var(--gold);line-height:1;margin-bottom:8px;opacity:.6}
+.testi-stars{color:var(--warning);font-size:.8rem;margin-bottom:14px;letter-spacing:2px}
+.testi-text{color:var(--text-200);font-size:.88rem;line-height:1.8;font-style:italic;margin-bottom:20px}
 .testi-user{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--border)}
 .testi-avatar{width:44px;height:44px;border-radius:50%;background:var(--grad-gold);display:flex;align-items:center;justify-content:center;font-size:1.2rem;border:2px solid var(--gold)}
-.testi-name{font-weight:700;font-size:0.88rem;color:var(--white)}
-.testi-info{color:var(--text-400);font-size:0.75rem}
+.testi-name{font-weight:700;font-size:.88rem;color:var(--white)}
+.testi-info{color:var(--text-400);font-size:.75rem}
 
-/* ═══════════════════════════════════
-   FAQ
-   ═══════════════════════════════════ */
+/* ═══ FAQ ═══ */
 .faq-section{background:var(--bg-900)}
 .faq-list{max-width:800px;margin:0 auto}
 .faq-item{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);margin-bottom:10px;overflow:hidden;transition:all var(--t-normal) var(--ease)}
 .faq-item:hover,.faq-item.active{border-color:rgba(212,165,54,0.15)}
-.faq-question{width:100%;background:none;border:none;padding:20px 24px;text-align:left;font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:600;color:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:all var(--t-fast)}
-.faq-question:hover{color:var(--gold)}
-.faq-arrow{width:28px;height:28px;border-radius:50%;background:rgba(212,165,54,0.08);display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:var(--gold);flex-shrink:0;transition:all var(--t-normal) var(--ease)}
-.faq-item.active .faq-arrow{background:var(--grad-gold);color:var(--bg-900);transform:rotate(180deg);box-shadow:0 4px 12px var(--gold-glow)}
-.faq-answer{max-height:0;overflow:hidden;transition:max-height 0.4s var(--ease),padding 0.3s;padding:0 24px;color:var(--text-400);font-size:0.85rem;line-height:1.8}
-.faq-item.active .faq-answer{max-height:400px;padding:0 24px 20px}
+.faq-q{width:100%;background:none;border:none;padding:20px 24px;text-align:left;font-family:'Inter',sans-serif;font-size:.92rem;font-weight:600;color:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:all var(--t-fast)}
+.faq-q:hover{color:var(--gold)}
+.faq-arr{width:28px;height:28px;border-radius:50%;background:rgba(212,165,54,0.08);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:var(--gold);flex-shrink:0;transition:all var(--t-normal) var(--ease)}
+.faq-item.active .faq-arr{background:var(--grad-gold);color:var(--bg-900);transform:rotate(180deg);box-shadow:0 4px 12px var(--gold-glow)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s var(--ease),padding .3s;padding:0 24px;color:var(--text-400);font-size:.85rem;line-height:1.8}
+.faq-item.active .faq-a{max-height:400px;padding:0 24px 20px}
 
-/* ═══════════════════════════════════
-   CTA
-   ═══════════════════════════════════ */
+/* ═══ CTA ═══ */
 .cta-section{padding:100px 0;text-align:center;position:relative;overflow:hidden}
 .cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(212,165,54,0.06) 0%,transparent 60%)}
-.cta-arabic{font-family:'Amiri',serif;font-size:2rem;color:var(--gold);margin-bottom:12px;position:relative;z-index:1;opacity:0.8}
+.cta-ar{font-family:'Amiri',serif;font-size:2rem;color:var(--gold);margin-bottom:12px;position:relative;z-index:1;opacity:.8}
 .cta-section h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;color:var(--white);margin-bottom:16px;position:relative;z-index:1;letter-spacing:-1px}
-.cta-section p{color:var(--text-400);margin-bottom:36px;font-size:1rem;position:relative;z-index:1}
+.cta-section p{color:var(--text-400);margin-bottom:36px;position:relative;z-index:1}
 .cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
 
-/* ═══════════════════════════════════
-   FOOTER
-   ═══════════════════════════════════ */
+/* ═══ FOOTER ═══ */
 .site-footer{background:var(--bg-800);border-top:1px solid var(--border);padding:60px 0 0;color:var(--text-400)}
 .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
-.footer-brand-logo{font-size:1.3rem;font-weight:800;color:var(--white);margin-bottom:6px}
-.footer-brand-logo .gold{color:var(--gold)}
-.footer-arabic{font-family:'Amiri',serif;font-size:1.1rem;color:var(--gold);margin-bottom:12px;direction:rtl;opacity:0.7}
-.footer-desc{font-size:0.82rem;line-height:1.8;margin-bottom:20px}
+.footer-brand-logo{font-size:1.3rem;font-weight:800;color:var(--white);margin-bottom:6px}.footer-brand-logo .gold{color:var(--gold)}
+.footer-ar{font-family:'Amiri',serif;font-size:1.1rem;color:var(--gold);margin-bottom:12px;direction:rtl;opacity:.7}
+.footer-desc{font-size:.82rem;line-height:1.8;margin-bottom:20px}
 .footer-socials{display:flex;gap:8px}
-.footer-socials a{width:36px;height:36px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;color:var(--text-400);font-size:0.85rem;transition:all var(--t-fast)}
+.footer-socials a{width:36px;height:36px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;color:var(--text-400);font-size:.85rem;transition:all var(--t-fast)}
 .footer-socials a:hover{background:var(--grad-gold);color:var(--bg-900);border-color:transparent}
 .izin-box{background:rgba(212,165,54,0.04);border:1px solid rgba(212,165,54,0.1);border-radius:var(--r-sm);padding:12px;margin-top:16px}
-.izin-box-title{font-size:0.68rem;font-weight:700;color:var(--gold);margin-bottom:6px;letter-spacing:0.5px}
-.izin-box p{font-size:0.7rem;line-height:1.6;color:var(--text-400)}
-.footer-col h4{color:var(--white);font-size:0.88rem;font-weight:700;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid rgba(212,165,54,0.1)}
-.footer-links{list-style:none}
-.footer-links li{margin-bottom:10px}
-.footer-links a{font-size:0.82rem;transition:color var(--t-fast)}
-.footer-links a:hover{color:var(--gold)}
-.footer-contact-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;font-size:0.82rem}
-.footer-contact-item i{color:var(--gold);margin-top:2px}
-.footer-bottom{border-top:1px solid var(--border);padding:20px 0;text-align:center;font-size:0.75rem}
+.izin-box-t{font-size:.68rem;font-weight:700;color:var(--gold);margin-bottom:6px}.izin-box p{font-size:.7rem;line-height:1.6}
+.footer-col h4{color:var(--white);font-size:.88rem;font-weight:700;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid rgba(212,165,54,0.1)}
+.footer-links{list-style:none}.footer-links li{margin-bottom:10px}.footer-links a{font-size:.82rem;transition:color var(--t-fast)}.footer-links a:hover{color:var(--gold)}
+.fci{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;font-size:.82rem}.fci i{color:var(--gold);margin-top:2px}
+.footer-bottom{border-top:1px solid var(--border);padding:20px 0;text-align:center;font-size:.75rem}
 
-/* ═══════════════════════════════════
-   FLOATING WA + MODAL
-   ═══════════════════════════════════ */
-.fab-wa{position:fixed;bottom:28px;right:28px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:var(--white);z-index:9999;transition:all var(--t-normal);box-shadow:0 8px 24px rgba(37,211,102,0.4)}
-.fab-wa:hover{transform:scale(1.1);box-shadow:0 12px 36px rgba(37,211,102,0.6)}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:9998;align-items:center;justify-content:center}
+/* ═══ FLOATING WA — ICON ONLY ═══ */
+.fab-wa{position:fixed;bottom:28px;right:28px;width:56px;height:56px;background:transparent;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.8rem;color:#25d366;z-index:999;transition:all var(--t-normal);filter:drop-shadow(0 4px 12px rgba(37,211,102,0.4))}
+.fab-wa:hover{transform:scale(1.15);filter:drop-shadow(0 6px 20px rgba(37,211,102,0.6))}
+
+/* ═══ MODAL ═══ */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:9997;align-items:center;justify-content:center}
 .modal-overlay.active{display:flex}
-.modal-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-2xl);padding:48px 40px;text-align:center;max-width:440px;width:90%;animation:modalIn 0.4s var(--ease-bounce);position:relative}
+.modal-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-2xl);padding:48px 40px;text-align:center;max-width:440px;width:90%;animation:mIn .4s var(--ease-bounce);position:relative}
 .modal-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-premium);border-radius:var(--r-2xl) var(--r-2xl) 0 0}
-@keyframes modalIn{from{transform:scale(0.85);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes mIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
 .modal-icon{font-size:4rem;margin-bottom:16px}
-.modal-arabic{font-family:'Amiri',serif;font-size:1.4rem;color:var(--gold);margin-bottom:8px}
+.modal-ar{font-family:'Amiri',serif;font-size:1.4rem;color:var(--gold);margin-bottom:8px}
 .modal-title{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:12px}
-.modal-desc{color:var(--text-400);font-size:0.85rem;line-height:1.7;margin-bottom:28px}
-.modal-close{background:var(--grad-gold);color:var(--bg-900);border:none;padding:12px 32px;border-radius:var(--r-md);font-weight:700;cursor:pointer;font-size:0.92rem;transition:all var(--t-normal);box-shadow:0 4px 20px var(--gold-glow)}
+.modal-desc{color:var(--text-400);font-size:.85rem;line-height:1.7;margin-bottom:28px}
+.modal-close{background:var(--grad-gold);color:var(--bg-900);border:none;padding:12px 32px;border-radius:var(--r-md);font-weight:700;cursor:pointer;font-size:.92rem;transition:all var(--t-normal);box-shadow:0 4px 20px var(--gold-glow)}
 .modal-close:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(212,165,54,0.4)}
 
-/* ═══════════════════════════════════
-   RESPONSIVE
-   ═══════════════════════════════════ */
-@media(max-width:1024px){
-  .kl-grid{grid-template-columns:repeat(2,1fr)}
-  .paket-grid{grid-template-columns:1fr 1fr}
-  .testi-grid{grid-template-columns:1fr 1fr}
-  .alur-grid{grid-template-columns:repeat(3,1fr);row-gap:40px}
-}
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1024px){.kl-grid{grid-template-columns:repeat(2,1fr)}.paket-grid{grid-template-columns:1fr 1fr}.testi-grid{grid-template-columns:1fr 1fr}.alur-grid{grid-template-columns:repeat(3,1fr);row-gap:40px}}
 @media(max-width:768px){
   section{padding:80px 0}
+  .nav-menu{display:none!important}
+  .mobile-nav{display:flex}
+  body{padding-bottom:72px}
   .hero-content{grid-template-columns:1fr;gap:40px;text-align:center}
   .hero-desc{margin-left:auto;margin-right:auto}
   .hero-btns,.hero-badges{justify-content:center}
   .hero-visual{min-height:300px}
-  .kaaba-circle{width:220px;height:220px}
-  .kaaba-emoji{font-size:4rem}
+  .kaaba-circle{width:220px;height:220px}.kaaba-emoji{font-size:4rem}
   .float-badge{display:none}
-  .nav-menu{display:none}
-  .hamburger{display:flex}
-  .nav-menu.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(5,5,5,0.97);backdrop-filter:blur(20px);padding:20px;gap:4px;border-bottom:1px solid var(--border)}
-  .nav-menu.open a{padding:12px 16px}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .kl-grid{grid-template-columns:1fr}
-  .paket-grid{grid-template-columns:1fr;max-width:420px}
-  .pkt-card.featured{transform:none}
+  .paket-grid{grid-template-columns:1fr;max-width:420px}.pkt-card.featured{transform:none}
   .testi-grid{grid-template-columns:1fr}
   .form-grid{grid-template-columns:1fr;gap:40px}
   .form-row{grid-template-columns:1fr}
   .form-card{padding:28px 20px}
   .footer-grid{grid-template-columns:1fr}
-  .alur-grid{grid-template-columns:repeat(2,1fr)}
-  .alur-grid::before{display:none}
+  .alur-grid{grid-template-columns:repeat(2,1fr)}.alur-grid::before{display:none}
+  .fab-wa{bottom:80px;right:16px;width:48px;height:48px;font-size:2.4rem}
+  .cta-section{padding-bottom:100px}
 }
-@media(max-width:480px){
-  .stats-grid{grid-template-columns:repeat(2,1fr)}
-  .alur-grid{grid-template-columns:1fr 1fr}
-  .pkt-spec-grid{grid-template-columns:1fr}
-}
+@media(max-width:480px){.stats-grid{grid-template-columns:repeat(2,1fr)}.alur-grid{grid-template-columns:1fr 1fr}.pkt-sg{grid-template-columns:1fr}.container{padding:0 16px}}
 </style>
 </head>
 <body>
 
-<!-- ═══ NAVBAR ═══ -->
+<!-- ═══ DESKTOP NAVBAR ═══ -->
 <nav class="navbar" id="navbar">
   <div class="nav-inner">
-    <a href="#" class="nav-logo">
-      <div class="logo-icon">🕌</div>
-      Al-<span class="logo-en">Hijaz</span>
-    </a>
+    <a href="#home" class="nav-logo"><div class="logo-icon">🕌</div>Al-<span class="logo-en">Hijaz</span></a>
     <ul class="nav-menu" id="navMenu">
+      <li><a href="#home" class="active">Beranda</a></li>
       <li><a href="#keunggulan">Keunggulan</a></li>
       <li><a href="#paket">Paket</a></li>
       <li><a href="#jadwal">Jadwal</a></li>
+      <li><a href="#testimonial">Testimoni</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#daftar" class="nav-cta">Daftar Umrah</a></li>
     </ul>
-    <button class="hamburger" onclick="toggleNav()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
   </div>
+</nav>
+
+<!-- ═══ MOBILE BOTTOM NAV ═══ -->
+<nav class="mobile-nav" id="mobileNav">
+  <a href="#home" class="mnav-item active" data-section="home"><i class="fas fa-home"></i><span>Beranda</span></a>
+  <a href="#paket" class="mnav-item" data-section="paket"><i class="fas fa-kaaba"></i><span>Paket</span></a>
+  <a href="#daftar" class="mnav-item mnav-cta" data-section="daftar"><div class="mnav-icon-wrap"><i class="fas fa-plus"></i></div><span>Daftar</span></a>
+  <a href="#jadwal" class="mnav-item" data-section="jadwal"><i class="fas fa-calendar-alt"></i><span>Jadwal</span></a>
+  <a href="#faq" class="mnav-item" data-section="faq"><i class="fas fa-question-circle"></i><span>FAQ</span></a>
 </nav>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero" id="home">
-  <div class="hero-bg">
-    <div class="hero-orb orb-1"></div>
-    <div class="hero-orb orb-2"></div>
-    <div class="hero-orb orb-3"></div>
-  </div>
+  <div class="hero-bg"><div class="hero-orb orb-1"></div><div class="hero-orb orb-2"></div><div class="hero-orb orb-3"></div></div>
   <div class="container">
     <div class="hero-content">
       <div>
         <div class="hero-arabic">لبيك اللهم لبيك</div>
         <div class="hero-badge"><span class="pulse-dot"></span>BIRO PERJALANAN UMRAH & HAJI RESMI</div>
-        <h1 class="hero-title">Wujudkan Impian<br><span class="grad-gold">Ibadah ke Baitullah</span><br><span class="grad-green">Bersama Kami</span></h1>
+        <h1 class="hero-title">Wujudkan Impian<br><span class="gg">Ibadah ke Baitullah</span><br><span class="ga">Bersama Kami</span></h1>
         <p class="hero-desc">Al-Hijaz Travel hadir sebagai mitra perjalanan umrah dan haji terpercaya. Pelayanan terbaik, fasilitas premium, dan pembimbing berpengalaman.</p>
         <div class="hero-badges">
-          <div class="hb-item"><i class="fas fa-certificate"></i>Izin Resmi Kemenag</div>
-          <div class="hb-item"><i class="fas fa-plane"></i>Direct Flight</div>
-          <div class="hb-item"><i class="fas fa-hotel"></i>Hotel Bintang 4-5</div>
-          <div class="hb-item"><i class="fas fa-user-tie"></i>Pembimbing Pro</div>
+          <div class="hb"><i class="fas fa-certificate"></i>Izin Kemenag</div>
+          <div class="hb"><i class="fas fa-plane"></i>Direct Flight</div>
+          <div class="hb"><i class="fas fa-hotel"></i>Hotel 4-5★</div>
+          <div class="hb"><i class="fas fa-user-tie"></i>Pembimbing Pro</div>
         </div>
         <div class="hero-btns">
           <a href="#daftar" class="btn btn-gold"><i class="fas fa-kaaba"></i>Daftar Umrah</a>
@@ -502,13 +448,10 @@ textarea.form-input{resize:vertical;min-height:80px}
         </div>
       </div>
       <div class="hero-visual">
-        <div class="kaaba-circle">
-          <div class="kaaba-emoji">🕌</div>
-          <div class="kaaba-label">Baitullah</div>
-        </div>
-        <div class="float-badge fb-1"><div class="fb-icon"><i class="fas fa-shield-alt"></i></div><span>Terpercaya & Aman</span></div>
+        <div class="kaaba-circle"><div class="kaaba-emoji">🕌</div><div class="kaaba-label">Baitullah</div></div>
+        <div class="float-badge fb-1"><div class="fb-icon"><i class="fas fa-shield-alt"></i></div><span>Terpercaya</span></div>
         <div class="float-badge fb-2"><div class="fb-icon"><i class="fas fa-plane"></i></div><span>Direct Flight</span></div>
-        <div class="float-badge fb-3"><div class="fb-icon"><i class="fas fa-pray"></i></div><span>Dibimbing Ustadz</span></div>
+        <div class="float-badge fb-3"><div class="fb-icon"><i class="fas fa-pray"></i></div><span>Dibimbing</span></div>
         <div class="float-badge fb-4"><div class="fb-icon"><i class="fas fa-star"></i></div><span>Rating 5.0</span></div>
       </div>
     </div>
@@ -516,506 +459,230 @@ textarea.form-input{resize:vertical;min-height:80px}
 </section>
 
 <!-- ═══ STATS ═══ -->
-<div class="stats-bar">
-  <div class="container">
-    <div class="stats-grid">
-      <div class="stat-item"><div class="stat-num">15K+</div><div class="stat-label">Jamaah Berangkat</div></div>
-      <div class="stat-item"><div class="stat-num">12+</div><div class="stat-label">Tahun Pengalaman</div></div>
-      <div class="stat-item"><div class="stat-num">98%</div><div class="stat-label">Jamaah Puas</div></div>
-      <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">Pembimbing</div></div>
-    </div>
-  </div>
-</div>
+<div class="stats-bar"><div class="container"><div class="stats-grid">
+  <div class="stat-item"><div class="stat-num">15K+</div><div class="stat-label">Jamaah</div></div>
+  <div class="stat-item"><div class="stat-num">12+</div><div class="stat-label">Tahun</div></div>
+  <div class="stat-item"><div class="stat-num">98%</div><div class="stat-label">Puas</div></div>
+  <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">Pembimbing</div></div>
+</div></div></div>
 
 <!-- ═══ KEUNGGULAN ═══ -->
-<section class="keunggulan" id="keunggulan">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-badge"><i class="fas fa-award"></i>KEUNGGULAN KAMI</div>
-      <h2 class="section-title">Mengapa Memilih <span class="grad-gold">Al-Hijaz?</span></h2>
-      <p class="section-desc">Komitmen memberikan perjalanan ibadah yang nyaman, aman, dan khusyuk.</p>
-      <div class="section-line"></div>
-    </div>
-    <div class="kl-grid">
-      <div class="kl-card"><div class="kl-icon">🏛️</div><h3 class="kl-title">Izin Resmi Kemenag</h3><p class="kl-desc">Terdaftar resmi PPIU Kementerian Agama RI.</p></div>
-      <div class="kl-card"><div class="kl-icon">✈️</div><h3 class="kl-title">Direct Flight</h3><p class="kl-desc">Penerbangan langsung tanpa transit.</p></div>
-      <div class="kl-card"><div class="kl-icon">🏨</div><h3 class="kl-title">Hotel Bintang 4-5</h3><p class="kl-desc">Dekat Masjidil Haram & Masjid Nabawi.</p></div>
-      <div class="kl-card"><div class="kl-icon">👳</div><h3 class="kl-title">Pembimbing Pro</h3><p class="kl-desc">Ustadz bersertifikat 10+ tahun pengalaman.</p></div>
-      <div class="kl-card"><div class="kl-icon">🍽️</div><h3 class="kl-title">Konsumsi Halal</h3><p class="kl-desc">Menu nusantara & arab 3x sehari.</p></div>
-      <div class="kl-card"><div class="kl-icon">🛡️</div><h3 class="kl-title">Asuransi Lengkap</h3><p class="kl-desc">Perlindungan jiwa & kesehatan.</p></div>
-      <div class="kl-card"><div class="kl-icon">💳</div><h3 class="kl-title">Cicilan 0%</h3><p class="kl-desc">Cicilan ringan hingga 24 bulan.</p></div>
-      <div class="kl-card"><div class="kl-icon">📱</div><h3 class="kl-title">Support 24/7</h3><p class="kl-desc">Sebelum, selama, dan setelah perjalanan.</p></div>
-    </div>
+<section class="keunggulan" id="keunggulan"><div class="container">
+  <div class="section-header"><div class="section-badge"><i class="fas fa-award"></i>KEUNGGULAN</div><h2 class="section-title">Mengapa <span class="gg">Al-Hijaz?</span></h2><div class="section-line"></div></div>
+  <div class="kl-grid">
+    <div class="kl-card"><div class="kl-icon">🏛️</div><h3 class="kl-title">Izin Kemenag</h3><p class="kl-desc">PPIU terdaftar resmi Kementerian Agama RI.</p></div>
+    <div class="kl-card"><div class="kl-icon">✈️</div><h3 class="kl-title">Direct Flight</h3><p class="kl-desc">Penerbangan langsung tanpa transit.</p></div>
+    <div class="kl-card"><div class="kl-icon">🏨</div><h3 class="kl-title">Hotel 4-5★</h3><p class="kl-desc">Dekat Masjidil Haram & Nabawi.</p></div>
+    <div class="kl-card"><div class="kl-icon">👳</div><h3 class="kl-title">Pembimbing Pro</h3><p class="kl-desc">Ustadz bersertifikat 10+ tahun.</p></div>
+    <div class="kl-card"><div class="kl-icon">🍽️</div><h3 class="kl-title">Halal Food</h3><p class="kl-desc">Menu nusantara & arab 3x sehari.</p></div>
+    <div class="kl-card"><div class="kl-icon">🛡️</div><h3 class="kl-title">Asuransi</h3><p class="kl-desc">Perlindungan jiwa & kesehatan.</p></div>
+    <div class="kl-card"><div class="kl-icon">💳</div><h3 class="kl-title">Cicilan 0%</h3><p class="kl-desc">Cicilan ringan hingga 24 bulan.</p></div>
+    <div class="kl-card"><div class="kl-icon">📱</div><h3 class="kl-title">Support 24/7</h3><p class="kl-desc">Sebelum, selama, setelah perjalanan.</p></div>
   </div>
-</section>
+</div></section>
 
-<!-- ═══ PAKET UMRAH ═══ -->
-<section class="paket-section" id="paket">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-badge"><i class="fas fa-kaaba"></i>PAKET UMRAH 2025</div>
-      <h2 class="section-title">Pilih <span class="grad-gold">Paket Umrah</span> Terbaik</h2>
-      <p class="section-desc">Semua paket termasuk tiket, hotel, visa, dan pembimbing.</p>
-      <div class="section-line"></div>
-    </div>
-    <div class="paket-grid">
-      <!-- Economy -->
-      <div class="pkt-card">
-        <div class="pkt-header"><div class="pkt-tier">PAKET HEMAT</div><div class="pkt-name">Economy</div><div class="pkt-duration"><i class="fas fa-calendar-alt"></i>9 Hari 7 Malam</div></div>
-        <div class="pkt-price-box"><div class="pkt-price-main"><div class="pkt-label">Harga Per Orang</div><div class="pkt-amount">Rp 25 Jt</div></div><div class="pkt-price-dp"><div class="pkt-label">DP Minimal</div><div class="pkt-dp-val">Rp 5.000.000</div></div></div>
-        <div class="pkt-body">
-          <div class="pkt-spec-title">📋 SPESIFIKASI</div>
-          <div class="pkt-spec-grid">
-            <div class="pkt-spec-item"><div class="pkt-spec-label">✈️ Maskapai</div><div class="pkt-spec-val">Garuda / Saudi</div></div>
-            <div class="pkt-spec-item"><div class="pkt-spec-label">🏨 Hotel Makkah</div><div class="pkt-spec-val">Bintang 3 (1km)</div></div>
-            <div class="pkt-spec-item"><div class="pkt-spec-label">🛏️ Kamar</div><div class="pkt-spec-val">Quad (4 orang)</div></div>
-            <div class="pkt-spec-item"><div class="pkt-spec-label">🍽️ Makan</div><div class="pkt-spec-val">3x Sehari</div></div>
-          </div>
-          <div class="pkt-fasilitas-title">✅ FASILITAS</div>
-          <ul class="pkt-fasilitas">
-            <li><i class="fas fa-check"></i>Tiket pesawat PP</li>
-            <li><i class="fas fa-check"></i>Visa umrah resmi</li>
-            <li><i class="fas fa-check"></i>Hotel 3★ di Makkah & Madinah</li>
-            <li><i class="fas fa-check"></i>Makan 3x sehari</li>
-            <li><i class="fas fa-check"></i>Pembimbing bersertifikat</li>
-            <li><i class="fas fa-check"></i>Asuransi jiwa</li>
-            <li><i class="fas fa-times"></i>Laundry service</li>
-            <li><i class="fas fa-times"></i>Air zamzam 5L</li>
-          </ul>
-          <a href="#daftar" class="pkt-btn pkt-btn-ghost">Daftar Economy</a>
-        </div>
-      </div>
-      <!-- Standard Plus (Featured) -->
-      <div class="pkt-card featured">
-        <div class="pkt-popular">⭐ PALING DIMINATI</div>
-        <div class="pkt-header"><div class="pkt-tier">PAKET REGULER</div><div class="pkt-name">Standard Plus</div><div class="pkt-duration"><i class="fas fa-calendar-alt"></i>12 Hari 11 Malam</div></div>
-        <div class="pkt-price-box"><div class="pkt-price-main"><div class="pkt-label">Harga Per Orang</div><div class="pkt-amount">Rp 35 Jt</div></div><div class="pkt-price-dp"><div class="pkt-label">DP Minimal</div><div class="pkt-dp-val">Rp 7.000.000</div></div></div>
-        <div class="pkt-body">
-          <div class="pkt-spec-title">📋 SPESIFIKASI</div>
-          <div class="pkt-spec-grid">
-            <div class="pkt-spec-item"><div class="pkt-spec-label">✈️ Maskapai</div><div class="pkt-spec-val">Garuda Indonesia</div></div>
-            <div class="pkt-spec-item"><div class="pkt-spec-label">🏨 Hotel Makkah</div><div class="pkt-spec-val">Bintang 4 (500m)</div></div>
-            <div class="pkt-spec-item"><div class="pkt-spec-label">🛏️ Kamar</div><div class="pkt-spec-val">Triple (3 orang)</div></div>
-            <div class="pkt-spec-item"><div class="pkt-spec-label">🍽️ Makan</div><div class="pkt-spec-val">3x Buffet</div></div>
-          </div>
-          <div class="pkt-fasilitas-title">✅ FASILITAS</div>
-          <ul class="pkt-fasilitas">
-            <li><i class="fas fa-check"></i>Tiket Garuda PP</li>
-            <li><i class="fas fa-check"></i>Visa + asuransi perjalanan</li>
-            <li><i class="fas fa-check"></i>Hotel 4★ dekat masjid</li>
-            <li><i class="fas fa-check"></i>Makan 3x buffet premium</li>
-            <li><i class="fas fa-check"></i>Pembimbing + mutawwif</li>
-            <li><i class="fas fa-check"></i>City tour Makkah, Madinah & Thaif</li>
-            <li><i class="fas fa-check"></i>Laundry 2x</li>
-            <li><i class="fas fa-check"></i>Air zamzam 5L</li>
-          </ul>
-          <a href="#daftar" class="pkt-btn pkt-btn-gold">Daftar Standard Plus</a>
-        </div>
-      </div>
-      <!-- Royal VIP -->
-      <div class="pkt-card">
-        <div class="pkt-header"><div class="pkt-tier">PAKET VIP EKSKLUSIF</div><div class="pkt-name">Royal Umrah</div><div class="pkt-duration"><i class="fas fa-calendar-alt"></i>15 Hari 14 Malam</div></div>
-        <div class="pkt-price-box"><div class="pkt-price-main"><div class="pkt-label">Harga Per Orang</div><div class="pkt-amount">Rp 55 Jt</div></div><div class="pkt-price-dp"><div class="pkt-label">DP Minimal</div><div class="pkt-dp-val">Rp 10.000.000</div></div></div>
-        <div class="pkt-body">
-          <div class="pkt-spec-title">📋 SPESIFIKASI</div>
-          <div class="pkt-spec-grid">
-            <div class="pkt-spec-item"><div class="pkt-spec-label">✈️ Maskapai</div><div class="pkt-spec-val">Saudia Business</div></div>
-            <div class="pkt-spec-item"><div class="pkt-spec-label">🏨 Hotel Makkah</div><div class="pkt-spec-val">Bintang 5 (50m)</div></div>
-            <div class="pkt-spec-item"><div class="pkt-spec-label">🛏️ Kamar</div><div class="pkt-spec-val">Double (2 orang)</div></div>
-            <div class="pkt-spec-item"><div class="pkt-spec-label">🍽️ Makan</div><div class="pkt-spec-val">Prasmanan VIP</div></div>
-          </div>
-          <div class="pkt-fasilitas-title">✅ FASILITAS</div>
-          <ul class="pkt-fasilitas">
-            <li><i class="fas fa-check"></i>Business class Saudia PP</li>
-            <li><i class="fas fa-check"></i>Visa + asuransi premium</li>
-            <li><i class="fas fa-check"></i>Hotel 5★ ultra dekat masjid</li>
-            <li><i class="fas fa-check"></i>Prasmanan + afternoon tea</li>
-            <li><i class="fas fa-check"></i>Pembimbing pribadi + dokter</li>
-            <li><i class="fas fa-check"></i>Tour eksklusif + Jeddah</li>
-            <li><i class="fas fa-check"></i>Laundry unlimited</li>
-            <li><i class="fas fa-check"></i>Air zamzam 10L</li>
-          </ul>
-          <a href="#daftar" class="pkt-btn pkt-btn-ghost">Daftar Royal VIP</a>
-        </div>
-      </div>
-    </div>
+<!-- ═══ PAKET ═══ -->
+<section class="paket-section" id="paket"><div class="container">
+  <div class="section-header"><div class="section-badge"><i class="fas fa-kaaba"></i>PAKET 2025</div><h2 class="section-title">Pilih <span class="gg">Paket Umrah</span></h2><div class="section-line"></div></div>
+  <div class="paket-grid">
+    <div class="pkt-card"><div class="pkt-header"><div class="pkt-tier">HEMAT</div><div class="pkt-name">Economy</div><div class="pkt-duration"><i class="fas fa-calendar-alt"></i>9 Hari</div></div><div class="pkt-price-box"><div class="pkt-pm"><div class="pkt-lbl">Harga</div><div class="pkt-amt">Rp 25 Jt</div></div><div class="pkt-dp"><div class="pkt-lbl">DP</div><div class="pkt-dpv">Rp 5 Jt</div></div></div><div class="pkt-body"><div class="pkt-st">📋 SPESIFIKASI</div><div class="pkt-sg"><div class="pkt-si"><div class="pkt-si-l">✈️ Maskapai</div><div class="pkt-si-v">Garuda</div></div><div class="pkt-si"><div class="pkt-si-l">🏨 Hotel</div><div class="pkt-si-v">3★ (1km)</div></div><div class="pkt-si"><div class="pkt-si-l">🛏️ Kamar</div><div class="pkt-si-v">Quad</div></div><div class="pkt-si"><div class="pkt-si-l">🍽️ Makan</div><div class="pkt-si-v">3x/hari</div></div></div><div class="pkt-ft">✅ FASILITAS</div><ul class="pkt-fl"><li><i class="fas fa-check"></i>Tiket PP</li><li><i class="fas fa-check"></i>Visa resmi</li><li><i class="fas fa-check"></i>Hotel 3★</li><li><i class="fas fa-check"></i>Pembimbing</li><li><i class="fas fa-check"></i>Asuransi</li><li><i class="fas fa-times"></i>Laundry</li><li><i class="fas fa-times"></i>Zamzam 5L</li></ul><a href="#daftar" class="pkt-btn pkt-btn-ghost">Daftar Economy</a></div></div>
+    <div class="pkt-card featured"><div class="pkt-popular">⭐ DIMINATI</div><div class="pkt-header"><div class="pkt-tier">REGULER</div><div class="pkt-name">Standard Plus</div><div class="pkt-duration"><i class="fas fa-calendar-alt"></i>12 Hari</div></div><div class="pkt-price-box"><div class="pkt-pm"><div class="pkt-lbl">Harga</div><div class="pkt-amt">Rp 35 Jt</div></div><div class="pkt-dp"><div class="pkt-lbl">DP</div><div class="pkt-dpv">Rp 7 Jt</div></div></div><div class="pkt-body"><div class="pkt-st">📋 SPESIFIKASI</div><div class="pkt-sg"><div class="pkt-si"><div class="pkt-si-l">✈️ Maskapai</div><div class="pkt-si-v">Garuda</div></div><div class="pkt-si"><div class="pkt-si-l">🏨 Hotel</div><div class="pkt-si-v">4★ (500m)</div></div><div class="pkt-si"><div class="pkt-si-l">🛏️ Kamar</div><div class="pkt-si-v">Triple</div></div><div class="pkt-si"><div class="pkt-si-l">🍽️ Makan</div><div class="pkt-si-v">Buffet 3x</div></div></div><div class="pkt-ft">✅ FASILITAS</div><ul class="pkt-fl"><li><i class="fas fa-check"></i>Tiket Garuda PP</li><li><i class="fas fa-check"></i>Visa + asuransi</li><li><i class="fas fa-check"></i>Hotel 4★ dekat masjid</li><li><i class="fas fa-check"></i>Pembimbing + mutawwif</li><li><i class="fas fa-check"></i>City tour + Thaif</li><li><i class="fas fa-check"></i>Laundry 2x</li><li><i class="fas fa-check"></i>Zamzam 5L</li></ul><a href="#daftar" class="pkt-btn pkt-btn-gold">Daftar Standard</a></div></div>
+    <div class="pkt-card"><div class="pkt-header"><div class="pkt-tier">VIP EKSKLUSIF</div><div class="pkt-name">Royal</div><div class="pkt-duration"><i class="fas fa-calendar-alt"></i>15 Hari</div></div><div class="pkt-price-box"><div class="pkt-pm"><div class="pkt-lbl">Harga</div><div class="pkt-amt">Rp 55 Jt</div></div><div class="pkt-dp"><div class="pkt-lbl">DP</div><div class="pkt-dpv">Rp 10 Jt</div></div></div><div class="pkt-body"><div class="pkt-st">📋 SPESIFIKASI</div><div class="pkt-sg"><div class="pkt-si"><div class="pkt-si-l">✈️ Maskapai</div><div class="pkt-si-v">Business</div></div><div class="pkt-si"><div class="pkt-si-l">🏨 Hotel</div><div class="pkt-si-v">5★ (50m)</div></div><div class="pkt-si"><div class="pkt-si-l">🛏️ Kamar</div><div class="pkt-si-v">Double</div></div><div class="pkt-si"><div class="pkt-si-l">🍽️ Makan</div><div class="pkt-si-v">VIP Buffet</div></div></div><div class="pkt-ft">✅ FASILITAS</div><ul class="pkt-fl"><li><i class="fas fa-check"></i>Business class PP</li><li><i class="fas fa-check"></i>Asuransi premium</li><li><i class="fas fa-check"></i>Hotel 5★ ultra dekat</li><li><i class="fas fa-check"></i>Pembimbing + dokter</li><li><i class="fas fa-check"></i>Tour eksklusif</li><li><i class="fas fa-check"></i>Laundry unlimited</li><li><i class="fas fa-check"></i>Zamzam 10L</li></ul><a href="#daftar" class="pkt-btn pkt-btn-ghost">Daftar Royal</a></div></div>
   </div>
-</section>
+</div></section>
 
 <!-- ═══ JADWAL ═══ -->
-<section class="jadwal-section" id="jadwal">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-badge"><i class="fas fa-calendar-alt"></i>JADWAL 2025</div>
-      <h2 class="section-title">Jadwal <span class="grad-gold">Keberangkatan</span></h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="jadwal-grid">
-      <div class="jadwal-card"><div class="jadwal-header"><span class="jadwal-bulan"><i class="fas fa-calendar"></i>Januari</span><span class="jadwal-status status-terbatas">Terbatas</span></div><div class="jadwal-body"><div class="jadwal-tanggal">15 - 23 Jan 2025</div><div class="jadwal-detail"><div class="jd-item"><div class="jd-label">Durasi</div><div class="jd-val">9 Hari</div></div><div class="jd-item"><div class="jd-label">Sisa</div><div class="jd-val">8 Kursi</div></div></div><a href="#daftar" class="jadwal-btn">Daftar →</a></div></div>
-      <div class="jadwal-card"><div class="jadwal-header"><span class="jadwal-bulan"><i class="fas fa-calendar"></i>Februari</span><span class="jadwal-status status-tersedia">Tersedia</span></div><div class="jadwal-body"><div class="jadwal-tanggal">10 - 21 Feb 2025</div><div class="jadwal-detail"><div class="jd-item"><div class="jd-label">Durasi</div><div class="jd-val">12 Hari</div></div><div class="jd-item"><div class="jd-label">Sisa</div><div class="jd-val">25 Kursi</div></div></div><a href="#daftar" class="jadwal-btn">Daftar →</a></div></div>
-      <div class="jadwal-card"><div class="jadwal-header"><span class="jadwal-bulan"><i class="fas fa-calendar"></i>Maret</span><span class="jadwal-status status-tersedia">Tersedia</span></div><div class="jadwal-body"><div class="jadwal-tanggal">5 - 17 Mar 2025</div><div class="jadwal-detail"><div class="jd-item"><div class="jd-label">Durasi</div><div class="jd-val">12 Hari</div></div><div class="jd-item"><div class="jd-label">Sisa</div><div class="jd-val">30 Kursi</div></div></div><a href="#daftar" class="jadwal-btn">Daftar →</a></div></div>
-      <div class="jadwal-card"><div class="jadwal-header"><span class="jadwal-bulan"><i class="fas fa-calendar"></i>Ramadhan</span><span class="jadwal-status status-penuh">Penuh</span></div><div class="jadwal-body"><div class="jadwal-tanggal">1 - 10 Ramadhan 1446H</div><div class="jadwal-detail"><div class="jd-item"><div class="jd-label">Durasi</div><div class="jd-val">10 Hari</div></div><div class="jd-item"><div class="jd-label">Sisa</div><div class="jd-val">PENUH</div></div></div><a href="#" class="jadwal-btn">Waiting List →</a></div></div>
-    </div>
+<section class="jadwal-section" id="jadwal"><div class="container">
+  <div class="section-header"><div class="section-badge"><i class="fas fa-calendar-alt"></i>JADWAL 2025</div><h2 class="section-title">Jadwal <span class="gg">Keberangkatan</span></h2><div class="section-line"></div></div>
+  <div class="jadwal-grid">
+    <div class="jadwal-card"><div class="jadwal-hdr"><span class="jadwal-bln"><i class="fas fa-calendar"></i>Januari</span><span class="jadwal-sts sts-lim">Terbatas</span></div><div class="jadwal-body"><div class="jadwal-tgl">15 - 23 Jan 2025</div><div class="jadwal-dtl"><div class="jd-item"><div class="jd-l">Durasi</div><div class="jd-v">9 Hari</div></div><div class="jd-item"><div class="jd-l">Sisa</div><div class="jd-v">8 Kursi</div></div></div><a href="#daftar" class="jadwal-btn">Daftar →</a></div></div>
+    <div class="jadwal-card"><div class="jadwal-hdr"><span class="jadwal-bln"><i class="fas fa-calendar"></i>Februari</span><span class="jadwal-sts sts-ok">Tersedia</span></div><div class="jadwal-body"><div class="jadwal-tgl">10 - 21 Feb 2025</div><div class="jadwal-dtl"><div class="jd-item"><div class="jd-l">Durasi</div><div class="jd-v">12 Hari</div></div><div class="jd-item"><div class="jd-l">Sisa</div><div class="jd-v">25 Kursi</div></div></div><a href="#daftar" class="jadwal-btn">Daftar →</a></div></div>
+    <div class="jadwal-card"><div class="jadwal-hdr"><span class="jadwal-bln"><i class="fas fa-calendar"></i>Maret</span><span class="jadwal-sts sts-ok">Tersedia</span></div><div class="jadwal-body"><div class="jadwal-tgl">5 - 17 Mar 2025</div><div class="jadwal-dtl"><div class="jd-item"><div class="jd-l">Durasi</div><div class="jd-v">12 Hari</div></div><div class="jd-item"><div class="jd-l">Sisa</div><div class="jd-v">30 Kursi</div></div></div><a href="#daftar" class="jadwal-btn">Daftar →</a></div></div>
+    <div class="jadwal-card"><div class="jadwal-hdr"><span class="jadwal-bln"><i class="fas fa-calendar"></i>Ramadhan</span><span class="jadwal-sts sts-full">Penuh</span></div><div class="jadwal-body"><div class="jadwal-tgl">1-10 Ramadhan 1446H</div><div class="jadwal-dtl"><div class="jd-item"><div class="jd-l">Durasi</div><div class="jd-v">10 Hari</div></div><div class="jd-item"><div class="jd-l">Sisa</div><div class="jd-v">PENUH</div></div></div><a href="#" class="jadwal-btn">Waiting List →</a></div></div>
   </div>
-</section>
+</div></section>
 
 <!-- ═══ ALUR ═══ -->
-<section class="alur-section">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-badge"><i class="fas fa-route"></i>ALUR PENDAFTARAN</div>
-      <h2 class="section-title">Cara <span class="grad-gold">Mudah</span> Daftar</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="alur-grid">
-      <div class="alur-step"><div class="alur-icon">📝</div><div class="alur-step-title">Isi Formulir</div><div class="alur-step-desc">Lengkapi data pendaftaran</div></div>
-      <div class="alur-step"><div class="alur-icon">💰</div><div class="alur-step-title">Bayar DP</div><div class="alur-step-desc">Amankan kursi Anda</div></div>
-      <div class="alur-step"><div class="alur-icon">📄</div><div class="alur-step-title">Lengkapi Dokumen</div><div class="alur-step-desc">Paspor, foto, KTP</div></div>
-      <div class="alur-step"><div class="alur-icon">🔄</div><div class="alur-step-title">Proses Visa</div><div class="alur-step-desc">Kami urus semua</div></div>
-      <div class="alur-step"><div class="alur-icon">🤲</div><div class="alur-step-title">Manasik</div><div class="alur-step-desc">Bimbingan ibadah</div></div>
-      <div class="alur-step"><div class="alur-icon">✈️</div><div class="alur-step-title">Berangkat!</div><div class="alur-step-desc">Menuju Baitullah</div></div>
-    </div>
+<section class="alur-section"><div class="container">
+  <div class="section-header"><div class="section-badge"><i class="fas fa-route"></i>ALUR</div><h2 class="section-title">Cara <span class="gg">Mudah</span> Daftar</h2><div class="section-line"></div></div>
+  <div class="alur-grid">
+    <div class="alur-step"><div class="alur-icon">📝</div><div class="alur-st">Isi Formulir</div><div class="alur-sd">Data pendaftaran</div></div>
+    <div class="alur-step"><div class="alur-icon">💰</div><div class="alur-st">Bayar DP</div><div class="alur-sd">Amankan kursi</div></div>
+    <div class="alur-step"><div class="alur-icon">📄</div><div class="alur-st">Dokumen</div><div class="alur-sd">Paspor, foto, KTP</div></div>
+    <div class="alur-step"><div class="alur-icon">🔄</div><div class="alur-st">Visa</div><div class="alur-sd">Kami urus semua</div></div>
+    <div class="alur-step"><div class="alur-icon">🤲</div><div class="alur-st">Manasik</div><div class="alur-sd">Bimbingan ibadah</div></div>
+    <div class="alur-step"><div class="alur-icon">✈️</div><div class="alur-st">Berangkat!</div><div class="alur-sd">Menuju Baitullah</div></div>
   </div>
-</section>
+</div></section>
 
-<!-- ═══ FORMULIR PENDAFTARAN ═══ -->
-<section class="form-section" id="daftar">
-  <div class="container">
-    <div class="form-grid">
-      <div class="form-info">
-        <div class="form-info-arabic">بسم الله الرحمن الرحيم</div>
-        <h2 class="form-info-title">Formulir<br><span class="grad-gold">Pendaftaran Umrah</span></h2>
-        <p class="form-info-desc">Isi formulir dengan lengkap dan benar. Tim kami akan menghubungi dalam 1×24 jam.</p>
-        <div class="doc-section">
-          <div class="doc-title"><i class="fas fa-file-alt"></i>Dokumen yang Disiapkan:</div>
-          <ul class="doc-list">
-            <li><i class="fas fa-check-circle"></i>Paspor berlaku min. 8 bulan</li>
-            <li><i class="fas fa-check-circle"></i>KTP / KK (scan/foto)</li>
-            <li><i class="fas fa-check-circle"></i>Foto background putih 4x6</li>
-            <li><i class="fas fa-check-circle"></i>Surat nikah (pasangan)</li>
-            <li><i class="fas fa-check-circle"></i>Sertifikat vaksin meningitis</li>
-          </ul>
-        </div>
-        <div class="doc-section">
-          <div class="doc-title"><i class="fas fa-university"></i>Rekening Pembayaran:</div>
-          <ul class="doc-list">
-            <li><i class="fas fa-university"></i>BSI Syariah: 9988776655</li>
-            <li><i class="fas fa-university"></i>Bank BCA: 1234567890</li>
-            <li><i class="fas fa-university"></i>Bank Mandiri: 0987654321</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="form-card">
-        <div class="form-card-header">
-          <h3 class="form-card-title"><i class="fas fa-edit" style="color:var(--gold)"></i>Form Pendaftaran Umrah</h3>
-          <p class="form-card-sub">Isi data akurat sesuai paspor / KTP</p>
-        </div>
-        <form id="umrahForm" onsubmit="submitUmrah(event)">
-
-          <div class="form-section-divider"><i class="fas fa-user"></i>Data Diri Jamaah</div>
-          <div class="form-group"><label class="form-label">Nama Lengkap (sesuai paspor) <span class="req">*</span></label><input type="text" class="form-input" placeholder="Nama lengkap" required></div>
-          <div class="form-row">
-            <div class="form-group"><label class="form-label">Tempat Lahir <span class="req">*</span></label><input type="text" class="form-input" placeholder="Kota" required></div>
-            <div class="form-group"><label class="form-label">Tanggal Lahir <span class="req">*</span></label><input type="date" class="form-input" required></div>
-          </div>
-          <div class="form-row">
-            <!-- CUSTOM DROPDOWN: Jenis Kelamin -->
-            <div class="form-group">
-              <label class="form-label">Jenis Kelamin <span class="req">*</span></label>
-              <div class="custom-select" data-name="gender">
-                <select class="native-select" name="gender" required><option value="" disabled selected>Pilih</option><option value="laki">Laki-laki</option><option value="perempuan">Perempuan</option></select>
-                <div class="custom-select-trigger placeholder" tabindex="0"><span class="trigger-text"><span class="main-text">-- Pilih Jenis Kelamin --</span></span><span class="custom-select-arrow"><i class="fas fa-chevron-down"></i></span></div>
-                <div class="custom-select-dropdown">
-                  <div class="dropdown-header"><span class="dropdown-header-label">Jenis Kelamin</span><span class="dropdown-header-count">2</span></div>
-                  <div class="custom-select-options">
-                    <div class="custom-option" data-value="laki"><div class="opt-icon">👨</div><div class="opt-content"><div class="opt-label">Laki-laki</div><div class="opt-desc">Ikhwan</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                    <div class="custom-option" data-value="perempuan"><div class="opt-icon">👩</div><div class="opt-content"><div class="opt-label">Perempuan</div><div class="opt-desc">Akhwat</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- CUSTOM DROPDOWN: Status -->
-            <div class="form-group">
-              <label class="form-label">Status Pernikahan <span class="req">*</span></label>
-              <div class="custom-select" data-name="status">
-                <select class="native-select" name="status" required><option value="" disabled selected>Pilih</option><option value="menikah">Menikah</option><option value="belum">Belum Menikah</option><option value="janda">Duda / Janda</option></select>
-                <div class="custom-select-trigger placeholder" tabindex="0"><span class="trigger-text"><span class="main-text">-- Pilih Status --</span></span><span class="custom-select-arrow"><i class="fas fa-chevron-down"></i></span></div>
-                <div class="custom-select-dropdown">
-                  <div class="dropdown-header"><span class="dropdown-header-label">Status</span><span class="dropdown-header-count">3</span></div>
-                  <div class="custom-select-options">
-                    <div class="custom-option" data-value="menikah"><div class="opt-icon">💍</div><div class="opt-content"><div class="opt-label">Menikah</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                    <div class="custom-option" data-value="belum"><div class="opt-icon">👤</div><div class="opt-content"><div class="opt-label">Belum Menikah</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                    <div class="custom-option" data-value="janda"><div class="opt-icon">👥</div><div class="opt-content"><div class="opt-label">Duda / Janda</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-section-divider"><i class="fas fa-phone"></i>Informasi Kontak</div>
-          <div class="form-row">
-            <div class="form-group"><label class="form-label">No. HP / WhatsApp <span class="req">*</span></label><input type="tel" class="form-input" placeholder="08xxxxxxxxxx" required></div>
-            <div class="form-group"><label class="form-label">Email <span class="req">*</span></label><input type="email" class="form-input" placeholder="email@contoh.com" required></div>
-          </div>
-          <div class="form-group"><label class="form-label">Alamat Lengkap <span class="req">*</span></label><textarea class="form-input" rows="2" placeholder="Alamat sesuai KTP" required></textarea></div>
-
-          <div class="form-section-divider"><i class="fas fa-kaaba"></i>Pilihan Paket</div>
-          <div class="form-row">
-            <!-- CUSTOM DROPDOWN: Paket Umrah -->
-            <div class="form-group">
-              <label class="form-label">Paket Umrah <span class="req">*</span></label>
-              <div class="custom-select" data-name="paket">
-                <select class="native-select" name="paket" required><option value="" disabled selected>Pilih Paket</option><option value="economy">Economy - 9 Hari (Rp 25 Jt)</option><option value="standard">Standard Plus - 12 Hari (Rp 35 Jt)</option><option value="vip">Royal VIP - 15 Hari (Rp 55 Jt)</option></select>
-                <div class="custom-select-trigger placeholder" tabindex="0"><span class="trigger-text"><span class="main-text">-- Pilih Paket Umrah --</span></span><span class="custom-select-arrow"><i class="fas fa-chevron-down"></i></span></div>
-                <div class="custom-select-dropdown">
-                  <div class="dropdown-header"><span class="dropdown-header-label">Paket Umrah</span><span class="dropdown-header-count">3 Paket</span></div>
-                  <div class="custom-select-options">
-                    <div class="custom-option" data-value="economy"><div class="opt-icon">🕌</div><div class="opt-content"><div class="opt-label">Economy</div><div class="opt-desc">9 Hari • Hotel 3★ • Quad</div></div><span class="opt-tag opt-tag-green">Rp 25 Jt</span><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                    <div class="custom-option" data-value="standard"><div class="opt-icon">⭐</div><div class="opt-content"><div class="opt-label">Standard Plus</div><div class="opt-desc">12 Hari • Hotel 4★ • Triple • TV Cable</div></div><span class="opt-tag opt-tag-gold">Rp 35 Jt</span><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                    <div class="custom-option" data-value="vip"><div class="opt-icon">👑</div><div class="opt-content"><div class="opt-label">Royal VIP</div><div class="opt-desc">15 Hari • Hotel 5★ • Business Class • Private</div></div><span class="opt-tag opt-tag-purple">Rp 55 Jt</span><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- CUSTOM DROPDOWN: Jadwal -->
-            <div class="form-group">
-              <label class="form-label">Jadwal <span class="req">*</span></label>
-              <div class="custom-select" data-name="jadwal">
-                <select class="native-select" name="jadwal" required><option value="" disabled selected>Pilih Jadwal</option><option value="jan">Jan 2025 (Terbatas)</option><option value="feb">Feb 2025</option><option value="mar">Mar 2025</option><option value="apr">Apr 2025</option></select>
-                <div class="custom-select-trigger placeholder" tabindex="0"><span class="trigger-text"><span class="main-text">-- Pilih Jadwal --</span></span><span class="custom-select-arrow"><i class="fas fa-chevron-down"></i></span></div>
-                <div class="custom-select-dropdown">
-                  <div class="dropdown-header"><span class="dropdown-header-label">Jadwal Keberangkatan</span><span class="dropdown-header-count">4</span></div>
-                  <div class="custom-select-options">
-                    <div class="custom-option" data-value="jan"><div class="opt-icon">📅</div><div class="opt-content"><div class="opt-label">15-23 Januari 2025</div><div class="opt-desc">9 Hari • Sisa 8 kursi</div></div><span class="opt-tag" style="background:rgba(234,179,8,0.1);color:var(--warning);border:1px solid rgba(234,179,8,0.15)">Terbatas</span><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                    <div class="custom-option" data-value="feb"><div class="opt-icon">📅</div><div class="opt-content"><div class="opt-label">10-21 Februari 2025</div><div class="opt-desc">12 Hari • Sisa 25 kursi</div></div><span class="opt-tag opt-tag-green">Tersedia</span><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                    <div class="custom-option" data-value="mar"><div class="opt-icon">📅</div><div class="opt-content"><div class="opt-label">5-17 Maret 2025</div><div class="opt-desc">12 Hari • Sisa 30 kursi</div></div><span class="opt-tag opt-tag-green">Tersedia</span><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                    <div class="custom-option" data-value="apr"><div class="opt-icon">📅</div><div class="opt-content"><div class="opt-label">20 Apr - 4 Mei 2025</div><div class="opt-desc">15 Hari • Sisa 40 kursi</div></div><span class="opt-tag opt-tag-green">Tersedia</span><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <!-- CUSTOM DROPDOWN: Tipe Kamar -->
-            <div class="form-group">
-              <label class="form-label">Tipe Kamar <span class="req">*</span></label>
-              <div class="custom-select" data-name="kamar">
-                <select class="native-select" name="kamar" required><option value="" disabled selected>Pilih Kamar</option><option value="quad">Quad (4 orang)</option><option value="triple">Triple (3 orang)</option><option value="double">Double (2 orang)</option></select>
-                <div class="custom-select-trigger placeholder" tabindex="0"><span class="trigger-text"><span class="main-text">-- Pilih Tipe Kamar --</span></span><span class="custom-select-arrow"><i class="fas fa-chevron-down"></i></span></div>
-                <div class="custom-select-dropdown">
-                  <div class="dropdown-header"><span class="dropdown-header-label">Tipe Kamar</span><span class="dropdown-header-count">3</span></div>
-                  <div class="custom-select-options">
-                    <div class="custom-option" data-value="quad"><div class="opt-icon">🛏️</div><div class="opt-content"><div class="opt-label">Quad</div><div class="opt-desc">4 orang per kamar • Paling hemat</div></div><span class="opt-tag opt-tag-green">Hemat</span><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                    <div class="custom-option" data-value="triple"><div class="opt-icon">🛏️</div><div class="opt-content"><div class="opt-label">Triple</div><div class="opt-desc">3 orang per kamar • Lebih luas</div></div><span class="opt-tag opt-tag-gold">Populer</span><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                    <div class="custom-option" data-value="double"><div class="opt-icon">🛏️</div><div class="opt-content"><div class="opt-label">Double</div><div class="opt-desc">2 orang per kamar • Privasi maksimal</div></div><span class="opt-tag opt-tag-purple">Premium</span><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- CUSTOM DROPDOWN: Jumlah Jamaah -->
-            <div class="form-group">
-              <label class="form-label">Jumlah Jamaah</label>
-              <div class="custom-select" data-name="jumlah">
-                <select class="native-select" name="jumlah"><option value="1" selected>1 Orang</option><option value="2">2 Orang</option><option value="3">3 Orang</option><option value="4">4 Orang</option><option value="5+">5+ Orang (Grup)</option></select>
-                <div class="custom-select-trigger" tabindex="0"><div class="trigger-icon">👥</div><span class="trigger-text"><span class="main-text">1 Orang</span><span class="sub-text">Jumlah jamaah yang didaftarkan</span></span><span class="custom-select-arrow"><i class="fas fa-chevron-down"></i></span></div>
-                <div class="custom-select-dropdown">
-                  <div class="dropdown-header"><span class="dropdown-header-label">Jumlah Jamaah</span><span class="dropdown-header-count">5</span></div>
-                  <div class="custom-select-options">
-                    <div class="custom-option selected" data-value="1"><div class="opt-icon">👤</div><div class="opt-content"><div class="opt-label">1 Orang</div><div class="opt-desc">Individual</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                    <div class="custom-option" data-value="2"><div class="opt-icon">👫</div><div class="opt-content"><div class="opt-label">2 Orang</div><div class="opt-desc">Pasangan / Suami Istri</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                    <div class="custom-option" data-value="3"><div class="opt-icon">👨‍👩‍👦</div><div class="opt-content"><div class="opt-label">3 Orang</div><div class="opt-desc">Keluarga kecil</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                    <div class="custom-option" data-value="4"><div class="opt-icon">👨‍👩‍👧‍👦</div><div class="opt-content"><div class="opt-label">4 Orang</div><div class="opt-desc">Keluarga</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                    <div class="custom-option" data-value="5+"><div class="opt-icon">👥</div><div class="opt-content"><div class="opt-label">5+ Orang</div><div class="opt-desc">Grup / Rombongan (harga khusus)</div></div><span class="opt-tag opt-tag-cyan">Diskon!</span><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-section-divider"><i class="fas fa-heartbeat"></i>Kondisi Kesehatan</div>
-          <div class="form-group"><label class="form-label">Riwayat Penyakit / Kondisi Khusus</label><textarea class="form-input" rows="2" placeholder="Contoh: diabetes, hipertensi, kursi roda. Isi 'tidak ada' jika sehat."></textarea></div>
-          <div class="form-row">
-            <!-- CUSTOM DROPDOWN: Vaksin -->
-            <div class="form-group">
-              <label class="form-label">Sudah Vaksin Meningitis?</label>
-              <div class="custom-select" data-name="vaksin">
-                <select class="native-select" name="vaksin"><option value="sudah">Sudah</option><option value="belum">Belum (dibantu travel)</option></select>
-                <div class="custom-select-trigger" tabindex="0"><div class="trigger-icon">💉</div><span class="trigger-text"><span class="main-text">Sudah</span><span class="sub-text">Akan upload sertifikat</span></span><span class="custom-select-arrow"><i class="fas fa-chevron-down"></i></span></div>
-                <div class="custom-select-dropdown">
-                  <div class="dropdown-header"><span class="dropdown-header-label">Status Vaksin</span><span class="dropdown-header-count">2</span></div>
-                  <div class="custom-select-options">
-                    <div class="custom-option selected" data-value="sudah"><div class="opt-icon">✅</div><div class="opt-content"><div class="opt-label">Sudah Vaksin</div><div class="opt-desc">Akan upload sertifikat vaksin</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                    <div class="custom-option" data-value="belum"><div class="opt-icon">⏳</div><div class="opt-content"><div class="opt-label">Belum Vaksin</div><div class="opt-desc">Akan dibantu oleh pihak travel</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form-group"></div>
-          </div>
-
-          <div class="form-section-divider"><i class="fas fa-star"></i>Kebutuhan Khusus</div>
-          <div class="form-group">
-            <div class="form-check-group">
-              <label class="form-check"><input type="checkbox">Butuh kursi roda / assistance</label>
-              <label class="form-check"><input type="checkbox">Ibadah umrah pertama kali</label>
-              <label class="form-check"><input type="checkbox">Perlu bimbingan bahasa Arab</label>
-              <label class="form-check"><input type="checkbox">Butuh diet khusus</label>
-            </div>
-          </div>
-          <div class="form-group"><label class="form-label">Catatan Tambahan</label><textarea class="form-input" rows="2" placeholder="Pertanyaan atau info tambahan..."></textarea></div>
-
-          <div class="form-note"><i class="fas fa-info-circle"></i><span>Data Anda dijaga kerahasiaannya. Tim kami menghubungi via WhatsApp dalam <strong style="color:var(--white)">1×24 jam</strong> untuk konfirmasi dan panduan DP.</span></div>
-          <button type="submit" class="form-submit"><i class="fas fa-paper-plane"></i>Kirim Pendaftaran Umrah</button>
-        </form>
-      </div>
-    </div>
+<!-- ═══ FORM ═══ -->
+<section class="form-section" id="daftar"><div class="container"><div class="form-grid">
+  <div class="form-info">
+    <div class="form-info-arabic">بسم الله الرحمن الرحيم</div>
+    <h2 class="form-info-title">Formulir<br><span class="gg">Pendaftaran Umrah</span></h2>
+    <p class="form-info-desc">Isi formulir dengan lengkap. Tim kami menghubungi dalam 1×24 jam.</p>
+    <div class="doc-sec"><div class="doc-t"><i class="fas fa-file-alt"></i>Dokumen:</div><ul class="doc-l"><li><i class="fas fa-check-circle"></i>Paspor min. 8 bulan</li><li><i class="fas fa-check-circle"></i>KTP / KK</li><li><i class="fas fa-check-circle"></i>Foto putih 4x6</li><li><i class="fas fa-check-circle"></i>Surat nikah</li><li><i class="fas fa-check-circle"></i>Vaksin meningitis</li></ul></div>
+    <div class="doc-sec"><div class="doc-t"><i class="fas fa-university"></i>Rekening:</div><ul class="doc-l"><li><i class="fas fa-university"></i>BSI: 9988776655</li><li><i class="fas fa-university"></i>BCA: 1234567890</li><li><i class="fas fa-university"></i>Mandiri: 0987654321</li></ul></div>
   </div>
-</section>
+  <div class="form-card">
+    <div class="fc-header"><h3 class="fc-title"><i class="fas fa-edit" style="color:var(--gold)"></i>Form Pendaftaran Umrah</h3><p class="fc-sub">Data akurat sesuai paspor/KTP</p></div>
+    <form id="umrahForm" onsubmit="submitForm(event)">
+      <div class="fsd"><i class="fas fa-user"></i>Data Diri</div>
+      <div class="form-group"><label class="form-label">Nama Lengkap <span class="req">*</span></label><input type="text" class="form-input" placeholder="Nama lengkap" required></div>
+      <div class="form-row"><div class="form-group"><label class="form-label">Tempat Lahir <span class="req">*</span></label><input type="text" class="form-input" placeholder="Kota" required></div><div class="form-group"><label class="form-label">Tanggal Lahir <span class="req">*</span></label><input type="date" class="form-input" required></div></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Jenis Kelamin <span class="req">*</span></label><div class="cs"><select class="native-sel" required><option value="" disabled selected>Pilih</option><option value="l">Laki-laki</option><option value="p">Perempuan</option></select><div class="cs-trigger ph" tabindex="0"><span class="t-text"><span class="t-main">-- Pilih --</span></span><span class="cs-arrow"><i class="fas fa-chevron-down"></i></span></div><div class="cs-dropdown"><div class="dd-hdr"><span class="dd-hdr-lbl">Jenis Kelamin</span><span class="dd-hdr-cnt">2</span></div><div class="cs-options"><div class="cs-opt" data-value="l"><div class="o-icon">👨</div><div class="o-content"><div class="o-label">Laki-laki</div></div><div class="o-chk"><i class="fas fa-check"></i></div></div><div class="cs-opt" data-value="p"><div class="o-icon">👩</div><div class="o-content"><div class="o-label">Perempuan</div></div><div class="o-chk"><i class="fas fa-check"></i></div></div></div></div></div></div>
+        <div class="form-group"><label class="form-label">Status <span class="req">*</span></label><div class="cs"><select class="native-sel" required><option value="" disabled selected>Pilih</option><option value="m">Menikah</option><option value="b">Belum</option><option value="d">Duda/Janda</option></select><div class="cs-trigger ph" tabindex="0"><span class="t-text"><span class="t-main">-- Pilih --</span></span><span class="cs-arrow"><i class="fas fa-chevron-down"></i></span></div><div class="cs-dropdown"><div class="dd-hdr"><span class="dd-hdr-lbl">Status</span><span class="dd-hdr-cnt">3</span></div><div class="cs-options"><div class="cs-opt" data-value="m"><div class="o-icon">💍</div><div class="o-content"><div class="o-label">Menikah</div></div><div class="o-chk"><i class="fas fa-check"></i></div></div><div class="cs-opt" data-value="b"><div class="o-icon">👤</div><div class="o-content"><div class="o-label">Belum Menikah</div></div><div class="o-chk"><i class="fas fa-check"></i></div></div><div class="cs-opt" data-value="d"><div class="o-icon">👥</div><div class="o-content"><div class="o-label">Duda/Janda</div></div><div class="o-chk"><i class="fas fa-check"></i></div></div></div></div></div></div>
+      </div>
+      <div class="fsd"><i class="fas fa-phone"></i>Kontak</div>
+      <div class="form-row"><div class="form-group"><label class="form-label">HP/WA <span class="req">*</span></label><input type="tel" class="form-input" placeholder="08xxx" required></div><div class="form-group"><label class="form-label">Email <span class="req">*</span></label><input type="email" class="form-input" placeholder="email@contoh.com" required></div></div>
+      <div class="form-group"><label class="form-label">Alamat <span class="req">*</span></label><textarea class="form-input" rows="2" placeholder="Alamat sesuai KTP" required></textarea></div>
+      <div class="fsd"><i class="fas fa-kaaba"></i>Pilihan Paket</div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Paket <span class="req">*</span></label><div class="cs"><select class="native-sel" required><option value="" disabled selected>Pilih</option><option value="eco">Economy</option><option value="std">Standard</option><option value="vip">Royal VIP</option></select><div class="cs-trigger ph" tabindex="0"><span class="t-text"><span class="t-main">-- Pilih Paket --</span></span><span class="cs-arrow"><i class="fas fa-chevron-down"></i></span></div><div class="cs-dropdown"><div class="dd-hdr"><span class="dd-hdr-lbl">Paket Umrah</span><span class="dd-hdr-cnt">3</span></div><div class="cs-options"><div class="cs-opt" data-value="eco"><div class="o-icon">🕌</div><div class="o-content"><div class="o-label">Economy</div><div class="o-desc">9 Hari • Hotel 3★ • Quad</div></div><span class="o-tag o-tag-green">Rp 25Jt</span><div class="o-chk"><i class="fas fa-check"></i></div></div><div class="cs-opt" data-value="std"><div class="o-icon">⭐</div><div class="o-content"><div class="o-label">Standard Plus</div><div class="o-desc">12 Hari • Hotel 4★ • Triple</div></div><span class="o-tag o-tag-gold">Rp 35Jt</span><div class="o-chk"><i class="fas fa-check"></i></div></div><div class="cs-opt" data-value="vip"><div class="o-icon">👑</div><div class="o-content"><div class="o-label">Royal VIP</div><div class="o-desc">15 Hari • Hotel 5★ • Business</div></div><span class="o-tag o-tag-purple">Rp 55Jt</span><div class="o-chk"><i class="fas fa-check"></i></div></div></div></div></div></div>
+        <div class="form-group"><label class="form-label">Jadwal <span class="req">*</span></label><div class="cs"><select class="native-sel" required><option value="" disabled selected>Pilih</option><option value="jan">Jan 2025</option><option value="feb">Feb 2025</option><option value="mar">Mar 2025</option><option value="apr">Apr 2025</option></select><div class="cs-trigger ph" tabindex="0"><span class="t-text"><span class="t-main">-- Pilih Jadwal --</span></span><span class="cs-arrow"><i class="fas fa-chevron-down"></i></span></div><div class="cs-dropdown"><div class="dd-hdr"><span class="dd-hdr-lbl">Jadwal</span><span class="dd-hdr-cnt">4</span></div><div class="cs-options"><div class="cs-opt" data-value="jan"><div class="o-icon">📅</div><div class="o-content"><div class="o-label">15-23 Jan 2025</div><div class="o-desc">9 Hari • Sisa 8</div></div><span class="o-tag o-tag-warn">Terbatas</span><div class="o-chk"><i class="fas fa-check"></i></div></div><div class="cs-opt" data-value="feb"><div class="o-icon">📅</div><div class="o-content"><div class="o-label">10-21 Feb 2025</div><div class="o-desc">12 Hari • Sisa 25</div></div><span class="o-tag o-tag-green">Tersedia</span><div class="o-chk"><i class="fas fa-check"></i></div></div><div class="cs-opt" data-value="mar"><div class="o-icon">📅</div><div class="o-content"><div class="o-label">5-17 Mar 2025</div><div class="o-desc">12 Hari • Sisa 30</div></div><span class="o-tag o-tag-green">Tersedia</span><div class="o-chk"><i class="fas fa-check"></i></div></div><div class="cs-opt" data-value="apr"><div class="o-icon">📅</div><div class="o-content"><div class="o-label">20 Apr-4 Mei</div><div class="o-desc">15 Hari • Sisa 40</div></div><span class="o-tag o-tag-green">Tersedia</span><div class="o-chk"><i class="fas fa-check"></i></div></div></div></div></div></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Tipe Kamar <span class="req">*</span></label><div class="cs"><select class="native-sel" required><option value="" disabled selected>Pilih</option><option value="q">Quad</option><option value="t">Triple</option><option value="d">Double</option></select><div class="cs-trigger ph" tabindex="0"><span class="t-text"><span class="t-main">-- Pilih Kamar --</span></span><span class="cs-arrow"><i class="fas fa-chevron-down"></i></span></div><div class="cs-dropdown"><div class="dd-hdr"><span class="dd-hdr-lbl">Kamar</span><span class="dd-hdr-cnt">3</span></div><div class="cs-options"><div class="cs-opt" data-value="q"><div class="o-icon">🛏️</div><div class="o-content"><div class="o-label">Quad</div><div class="o-desc">4 orang/kamar</div></div><span class="o-tag o-tag-green">Hemat</span><div class="o-chk"><i class="fas fa-check"></i></div></div><div class="cs-opt" data-value="t"><div class="o-icon">🛏️</div><div class="o-content"><div class="o-label">Triple</div><div class="o-desc">3 orang/kamar</div></div><span class="o-tag o-tag-gold">Populer</span><div class="o-chk"><i class="fas fa-check"></i></div></div><div class="cs-opt" data-value="d"><div class="o-icon">🛏️</div><div class="o-content"><div class="o-label">Double</div><div class="o-desc">2 orang/kamar</div></div><span class="o-tag o-tag-purple">Premium</span><div class="o-chk"><i class="fas fa-check"></i></div></div></div></div></div></div>
+        <div class="form-group"><label class="form-label">Jumlah Jamaah</label><div class="cs"><select class="native-sel"><option value="1" selected>1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5+">5+</option></select><div class="cs-trigger" tabindex="0"><div class="t-icon">👥</div><span class="t-text"><span class="t-main">1 Orang</span><span class="t-sub">Individual</span></span><span class="cs-arrow"><i class="fas fa-chevron-down"></i></span></div><div class="cs-dropdown"><div class="dd-hdr"><span class="dd-hdr-lbl">Jumlah</span><span class="dd-hdr-cnt">5</span></div><div class="cs-options"><div class="cs-opt sel" data-value="1"><div class="o-icon">👤</div><div class="o-content"><div class="o-label">1 Orang</div></div><div class="o-chk"><i class="fas fa-check"></i></div></div><div class="cs-opt" data-value="2"><div class="o-icon">👫</div><div class="o-content"><div class="o-label">2 Orang</div></div><div class="o-chk"><i class="fas fa-check"></i></div></div><div class="cs-opt" data-value="3"><div class="o-icon">👨‍👩‍👦</div><div class="o-content"><div class="o-label">3 Orang</div></div><div class="o-chk"><i class="fas fa-check"></i></div></div><div class="cs-opt" data-value="4"><div class="o-icon">👨‍👩‍👧‍👦</div><div class="o-content"><div class="o-label">4 Orang</div></div><div class="o-chk"><i class="fas fa-check"></i></div></div><div class="cs-opt" data-value="5+"><div class="o-icon">👥</div><div class="o-content"><div class="o-label">5+ Grup</div></div><span class="o-tag o-tag-cyan">Diskon!</span><div class="o-chk"><i class="fas fa-check"></i></div></div></div></div></div></div>
+      </div>
+      <div class="fsd"><i class="fas fa-heartbeat"></i>Kesehatan</div>
+      <div class="form-group"><label class="form-label">Riwayat Penyakit</label><textarea class="form-input" rows="2" placeholder="Isi 'tidak ada' jika sehat"></textarea></div>
+      <div class="fsd"><i class="fas fa-star"></i>Kebutuhan Khusus</div>
+      <div class="form-group"><div class="form-chk-group"><label class="form-chk"><input type="checkbox">Kursi roda / assistance</label><label class="form-chk"><input type="checkbox">Umrah pertama kali</label><label class="form-chk"><input type="checkbox">Bimbingan bahasa Arab</label></div></div>
+      <div class="form-group"><label class="form-label">Catatan</label><textarea class="form-input" rows="2" placeholder="Info tambahan..."></textarea></div>
+      <div class="form-note"><i class="fas fa-info-circle"></i><span>Data dijaga kerahasiaannya. Tim menghubungi via WA dalam <strong style="color:var(--white)">1×24 jam</strong>.</span></div>
+      <button type="submit" class="form-submit"><i class="fas fa-paper-plane"></i>Kirim Pendaftaran</button>
+    </form>
+  </div>
+</div></div></section>
 
 <!-- ═══ TESTIMONIAL ═══ -->
-<section class="testi-section">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-badge"><i class="fas fa-heart"></i>TESTIMONI JAMAAH</div>
-      <h2 class="section-title">Kata <span class="grad-gold">Jamaah</span> Kami</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="testi-grid">
-      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-stars">★★★★★</div><p class="testi-text">"Alhamdulillah, perjalanan umrah bersama Al-Hijaz sangat berkesan. Hotel dekat Masjidil Haram, pembimbing sabar dan berilmu."</p><div class="testi-user"><div class="testi-avatar">🤲</div><div><div class="testi-name">Hj. Fatimah Zahra</div><div class="testi-info">Standard • Jan 2024 • Jakarta</div></div></div></div>
-      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-stars">★★★★★</div><p class="testi-text">"Saya dan istri sangat puas. Prosesnya transparan, tidak ada biaya tersembunyi. Guide sangat informatif membantu khusyuk ibadah."</p><div class="testi-user"><div class="testi-avatar">🕌</div><div><div class="testi-name">Ust. Ahmad Baihaqi</div><div class="testi-info">VIP • Mar 2024 • Surabaya</div></div></div></div>
-      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-stars">★★★★★</div><p class="testi-text">"Pertama kali umrah langsung Al-Hijaz. Manasik lengkap, selama di tanah suci selalu dibimbing. Aman, nyaman. Jazakallah khairan!"</p><div class="testi-user"><div class="testi-avatar">✨</div><div><div class="testi-name">Ibu Siti Rahmah</div><div class="testi-info">Economy • Mei 2024 • Bandung</div></div></div></div>
-    </div>
+<section class="testi-section" id="testimonial"><div class="container">
+  <div class="section-header"><div class="section-badge"><i class="fas fa-heart"></i>TESTIMONI</div><h2 class="section-title">Kata <span class="gg">Jamaah</span></h2><div class="section-line"></div></div>
+  <div class="testi-grid">
+    <div class="testi-card"><div class="testi-q">"</div><div class="testi-stars">★★★★★</div><p class="testi-text">"Alhamdulillah sangat berkesan. Hotel dekat Masjidil Haram, pembimbing sabar dan berilmu."</p><div class="testi-user"><div class="testi-avatar">🤲</div><div><div class="testi-name">Hj. Fatimah</div><div class="testi-info">Standard • Jan 2024</div></div></div></div>
+    <div class="testi-card"><div class="testi-q">"</div><div class="testi-stars">★★★★★</div><p class="testi-text">"Sangat puas. Transparan, tidak ada biaya tersembunyi. Guide informatif membantu khusyuk."</p><div class="testi-user"><div class="testi-avatar">🕌</div><div><div class="testi-name">Ust. Ahmad</div><div class="testi-info">VIP • Mar 2024</div></div></div></div>
+    <div class="testi-card"><div class="testi-q">"</div><div class="testi-stars">★★★★★</div><p class="testi-text">"Pertama kali umrah, manasik lengkap, selama di tanah suci selalu dibimbing. Jazakallah!"</p><div class="testi-user"><div class="testi-avatar">✨</div><div><div class="testi-name">Ibu Siti</div><div class="testi-info">Economy • Mei 2024</div></div></div></div>
   </div>
-</section>
+</div></section>
 
 <!-- ═══ FAQ ═══ -->
-<section class="faq-section" id="faq">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-badge"><i class="fas fa-question-circle"></i>FAQ</div>
-      <h2 class="section-title">Pertanyaan <span class="grad-gold">Seputar Umrah</span></h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="faq-list">
-      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Apakah Al-Hijaz memiliki izin resmi Kemenag?<span class="faq-arrow"><i class="fas fa-chevron-down"></i></span></button><div class="faq-answer">Ya, Al-Hijaz Travel terdaftar resmi sebagai PPIU dengan nomor izin dari Kementerian Agama RI yang dapat diverifikasi secara online.</div></div>
-      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Berapa lama proses pengurusan visa umrah?<span class="faq-arrow"><i class="fas fa-chevron-down"></i></span></button><div class="faq-answer">14-21 hari kerja setelah dokumen lengkap. Kami sarankan pendaftaran minimal 2 bulan sebelum keberangkatan.</div></div>
-      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Apakah tersedia cicilan untuk biaya umrah?<span class="faq-arrow"><i class="fas fa-chevron-down"></i></span></button><div class="faq-answer">Ya, cicilan tanpa bunga (0%) hingga 24 bulan bekerjasama dengan bank syariah. Konsultasikan dengan tim kami.</div></div>
-      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Berapa jarak hotel dari Masjidil Haram?<span class="faq-arrow"><i class="fas fa-chevron-down"></i></span></button><div class="faq-answer">Economy (±1 km), Standard Plus (±500 m), Royal VIP (±50-100 m dari Masjidil Haram). Semua hotel dekat masjid.</div></div>
-      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Bagaimana ketentuan refund jika batal?<span class="faq-arrow"><i class="fas fa-chevron-down"></i></span></button><div class="faq-answer">Batal >90 hari (refund 80%), 60-89 hari (50%), 30-59 hari (25%), <30 hari (tidak ada refund). Keringanan untuk force majeure.</div></div>
-    </div>
+<section class="faq-section" id="faq"><div class="container">
+  <div class="section-header"><div class="section-badge"><i class="fas fa-question-circle"></i>FAQ</div><h2 class="section-title">Pertanyaan <span class="gg">Seputar Umrah</span></h2><div class="section-line"></div></div>
+  <div class="faq-list">
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Apakah Al-Hijaz memiliki izin resmi?<span class="faq-arr"><i class="fas fa-chevron-down"></i></span></button><div class="faq-a">Ya, PPIU terdaftar resmi Kemenag RI yang dapat diverifikasi online.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Berapa lama proses visa?<span class="faq-arr"><i class="fas fa-chevron-down"></i></span></button><div class="faq-a">14-21 hari kerja. Daftar minimal 2 bulan sebelum keberangkatan.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Tersedia cicilan?<span class="faq-arr"><i class="fas fa-chevron-down"></i></span></button><div class="faq-a">Ya, cicilan 0% hingga 24 bulan dengan bank syariah.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Jarak hotel ke Masjidil Haram?<span class="faq-arr"><i class="fas fa-chevron-down"></i></span></button><div class="faq-a">Economy ±1km, Standard ±500m, Royal VIP ±50m.</div></div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Ketentuan refund?<span class="faq-arr"><i class="fas fa-chevron-down"></i></span></button><div class="faq-a">>90 hari (80%), 60-89 hari (50%), 30-59 hari (25%), <30 hari (0%).</div></div>
   </div>
-</section>
+</div></section>
 
 <!-- ═══ CTA ═══ -->
-<section class="cta-section">
-  <div class="container">
-    <div class="cta-arabic">لبيك اللهم لبيك</div>
-    <h2>"Wujudkan Panggilan <span class="grad-gold">Baitullah</span>"</h2>
-    <p>Bergabunglah bersama ribuan jamaah yang telah mempercayakan perjalanan ibadah mereka.</p>
-    <div class="cta-btns">
-      <a href="#daftar" class="btn btn-gold"><i class="fas fa-kaaba"></i>Daftar Umrah</a>
-      <a href="https://wa.me/6281401643188?text=Assalamu'alaikum, saya ingin konsultasi umrah" class="btn btn-ghost" target="_blank"><i class="fab fa-whatsapp"></i>Konsultasi</a>
-    </div>
-  </div>
-</section>
+<section class="cta-section"><div class="container">
+  <div class="cta-ar">لبيك اللهم لبيك</div>
+  <h2>"Wujudkan Panggilan <span class="gg">Baitullah</span>"</h2>
+  <p>Bergabunglah bersama ribuan jamaah yang telah mempercayakan perjalanan mereka.</p>
+  <div class="cta-btns"><a href="#daftar" class="btn btn-gold"><i class="fas fa-kaaba"></i>Daftar Umrah</a><a href="https://wa.me/6281401643188?text=Assalamu'alaikum,%20konsultasi%20umrah" class="btn btn-ghost" target="_blank"><i class="fab fa-whatsapp"></i>Konsultasi</a></div>
+</div></section>
 
 <!-- ═══ FOOTER ═══ -->
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-arabic">الحجاز تراڤيل</div>
-        <div class="footer-brand-logo">Al-<span class="gold">Hijaz</span> Travel</div>
-        <p class="footer-desc">Biro perjalanan umrah & haji terpercaya sejak 2012. Pelayanan terbaik untuk ibadah yang khusyuk.</p>
-        <div class="footer-socials"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-tiktok"></i></a></div>
-        <div class="izin-box"><div class="izin-box-title">🏛️ Legalitas</div><p>PPIU: SK Kemenag No. D/558/2024<br>Anggota ASITA & AMPHURI</p></div>
-      </div>
-      <div class="footer-col"><h4>Navigasi</h4><ul class="footer-links"><li><a href="#home">Beranda</a></li><li><a href="#keunggulan">Keunggulan</a></li><li><a href="#paket">Paket Umrah</a></li><li><a href="#jadwal">Jadwal</a></li><li><a href="#daftar">Daftar</a></li><li><a href="#faq">FAQ</a></li></ul></div>
-      <div class="footer-col"><h4>Paket</h4><ul class="footer-links"><li><a href="#paket">Economy</a></li><li><a href="#paket">Standard Plus</a></li><li><a href="#paket">Royal VIP</a></li><li><a href="#paket">Umrah Ramadhan</a></li></ul></div>
-      <div class="footer-col"><h4>Kontak</h4><div class="footer-contact-item"><i class="fab fa-whatsapp"></i><span>+62 812-3456-7890</span></div><div class="footer-contact-item"><i class="fas fa-envelope"></i><span>info@alhijaztravel.com</span></div><div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Jl. Masjid Raya No. 88,<br>Jakarta Selatan</span></div><div class="footer-contact-item"><i class="fas fa-clock"></i><span>Sen-Jum 08-17<br>Sab 08-13</span></div></div>
-    </div>
-    <div class="footer-bottom"><p>© 2025 Al-Hijaz Travel. All rights reserved. | Template by Ibaadurrahmaan Web Designer</p></div>
+<footer class="site-footer"><div class="container">
+  <div class="footer-grid">
+    <div><div class="footer-ar">الحجاز تراڤيل</div><div class="footer-brand-logo">Al-<span class="gold">Hijaz</span> Travel</div><p class="footer-desc">Biro perjalanan umrah & haji terpercaya sejak 2012.</p><div class="footer-socials"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-tiktok"></i></a></div><div class="izin-box"><div class="izin-box-t">🏛️ Legalitas</div><p>PPIU: SK Kemenag No. D/558/2024<br>Anggota ASITA & AMPHURI</p></div></div>
+    <div class="footer-col"><h4>Navigasi</h4><ul class="footer-links"><li><a href="#home">Beranda</a></li><li><a href="#keunggulan">Keunggulan</a></li><li><a href="#paket">Paket</a></li><li><a href="#jadwal">Jadwal</a></li><li><a href="#daftar">Daftar</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+    <div class="footer-col"><h4>Paket</h4><ul class="footer-links"><li><a href="#paket">Economy</a></li><li><a href="#paket">Standard Plus</a></li><li><a href="#paket">Royal VIP</a></li><li><a href="#paket">Umrah Ramadhan</a></li></ul></div>
+    <div class="footer-col"><h4>Kontak</h4><div class="fci"><i class="fab fa-whatsapp"></i><span>+62 812-3456-7890</span></div><div class="fci"><i class="fas fa-envelope"></i><span>info@alhijaztravel.com</span></div><div class="fci"><i class="fas fa-map-marker-alt"></i><span>Jl. Masjid Raya No. 88<br>Jakarta Selatan</span></div><div class="fci"><i class="fas fa-clock"></i><span>Sen-Jum 08-17, Sab 08-13</span></div></div>
   </div>
-</footer>
+  <div class="footer-bottom"><p>© 2025 Al-Hijaz Travel | Template by Ibaadurrahmaan Web Designer</p></div>
+</div></footer>
 
-<!-- Floating WA -->
-<a href="https://wa.me/6281401643188?text=Assalamu'alaikum, saya ingin konsultasi umrah" class="fab-wa" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+<!-- ═══ WA FLOAT — ICON ONLY ═══ -->
+<a href="https://wa.me/6281401643188?text=Assalamu'alaikum,%20konsultasi%20umrah" class="fab-wa" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
-<!-- Modal -->
+<!-- ═══ MODAL ═══ -->
 <div class="modal-overlay" id="modalUmrah">
   <div class="modal-box">
     <div class="modal-icon">🕌</div>
-    <div class="modal-arabic">جزاك الله خيرا</div>
+    <div class="modal-ar">جزاك الله خيرا</div>
     <h3 class="modal-title">Pendaftaran Diterima!</h3>
-    <p class="modal-desc">Alhamdulillah, formulir pendaftaran umrah Anda telah kami terima. Tim Al-Hijaz Travel menghubungi via WhatsApp dalam <strong>1×24 jam</strong>. Semoga Allah memudahkan langkah Anda menuju Baitullah. 🤲</p>
+    <p class="modal-desc">Alhamdulillah, formulir Anda diterima. Tim menghubungi via WA dalam <strong>1×24 jam</strong>. Semoga Allah memudahkan. 🤲</p>
     <button class="modal-close" onclick="closeModal()">Barakallah Fiik</button>
   </div>
 </div>
 
 <!-- ═══ SCRIPTS ═══ -->
 <script>
-/* ═══ CUSTOM SELECT COMPONENT ═══ */
-class CustomSelect{
-  constructor(el){
-    this.el=el;
-    this.trigger=el.querySelector('.custom-select-trigger');
-    this.dropdown=el.querySelector('.custom-select-dropdown');
-    this.options=el.querySelectorAll('.custom-option');
-    this.native=el.querySelector('.native-select');
-    this.isOpen=false;
-    this.init();
-  }
+/* Custom Select */
+class CS{
+  constructor(el){this.el=el;this.trigger=el.querySelector('.cs-trigger');this.dd=el.querySelector('.cs-dropdown');this.opts=el.querySelectorAll('.cs-opt');this.native=el.querySelector('.native-sel');this.isOpen=false;this.init()}
   init(){
     this.trigger.addEventListener('click',e=>{e.stopPropagation();this.toggle()});
     this.trigger.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();this.toggle()}if(e.key==='Escape')this.close()});
-    this.options.forEach(opt=>opt.addEventListener('click',()=>this.select(opt)));
+    this.opts.forEach(o=>o.addEventListener('click',()=>this.select(o)));
     document.addEventListener('click',e=>{if(!this.el.contains(e.target))this.close()});
   }
   toggle(){this.isOpen?this.close():this.open()}
   open(){
-    document.querySelectorAll('.custom-select.open').forEach(s=>{if(s!==this.el)s.classList.remove('open')});
+    document.querySelectorAll('.cs.open').forEach(s=>{if(s!==this.el)s.classList.remove('open')});
     this.el.classList.add('open');this.isOpen=true;
-    this.options.forEach((opt,i)=>{opt.style.opacity='0';opt.style.transform='translateX(-8px)';setTimeout(()=>{opt.style.transition=`opacity 0.2s ease ${i*0.04}s, transform 0.2s ease ${i*0.04}s`;opt.style.opacity='1';opt.style.transform='translateX(0)'},50)});
+    this.opts.forEach((o,i)=>{o.style.opacity='0';o.style.transform='translateX(-8px)';setTimeout(()=>{o.style.transition=`opacity .2s ease ${i*.04}s,transform .2s ease ${i*.04}s`;o.style.opacity='1';o.style.transform='translateX(0)'},50)});
   }
   close(){this.el.classList.remove('open');this.isOpen=false}
   select(opt){
-    const value=opt.dataset.value;
-    const label=opt.querySelector('.opt-label').textContent;
-    const desc=opt.querySelector('.opt-desc')?.textContent||'';
-    const icon=opt.querySelector('.opt-icon')?.innerHTML||'';
-    if(this.native){this.native.value=value;this.native.dispatchEvent(new Event('change'))}
-    this.options.forEach(o=>o.classList.remove('selected'));
-    opt.classList.add('selected');
-    this.trigger.classList.remove('placeholder');
-    const triggerText=this.trigger.querySelector('.trigger-text');
-    let triggerIcon=this.trigger.querySelector('.trigger-icon');
-    if(!triggerIcon){triggerIcon=document.createElement('div');triggerIcon.className='trigger-icon';this.trigger.insertBefore(triggerIcon,triggerText)}
-    triggerIcon.innerHTML=icon;
-    triggerText.innerHTML=`<span class="main-text">${label}</span>${desc?`<span class="sub-text">${desc}</span>`:''}`;
-    opt.style.background='rgba(212,165,54,0.12)';setTimeout(()=>{opt.style.background=''},300);
+    const val=opt.dataset.value,lbl=opt.querySelector('.o-label').textContent,desc=opt.querySelector('.o-desc')?.textContent||'',icon=opt.querySelector('.o-icon')?.innerHTML||'';
+    if(this.native){this.native.value=val;this.native.dispatchEvent(new Event('change'))}
+    this.opts.forEach(o=>o.classList.remove('sel'));opt.classList.add('sel');
+    this.trigger.classList.remove('ph');
+    const tt=this.trigger.querySelector('.t-text');
+    let ti=this.trigger.querySelector('.t-icon');
+    if(!ti){ti=document.createElement('div');ti.className='t-icon';this.trigger.insertBefore(ti,tt)}
+    ti.innerHTML=icon;
+    tt.innerHTML=`<span class="t-main">${lbl}</span>${desc?`<span class="t-sub">${desc}</span>`:''}`;
+    opt.style.background='rgba(212,165,54,.12)';setTimeout(()=>{opt.style.background=''},300);
     this.close();
   }
 }
-document.querySelectorAll('.custom-select').forEach(el=>{el._cs=new CustomSelect(el)});
+document.querySelectorAll('.cs').forEach(el=>new CS(el));
 
-/* ═══ NAVBAR ═══ */
+/* Navbar scroll */
 window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60)},{passive:true});
-function toggleNav(){document.getElementById('navMenu').classList.toggle('open')}
 
-/* ═══ FAQ ═══ */
-function toggleFaq(btn){const item=btn.parentElement;const isActive=item.classList.contains('active');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('active'));if(!isActive)item.classList.add('active')}
+/* Active nav tracking */
+const secs=document.querySelectorAll('section[id]');
+const dLinks=document.querySelectorAll('.nav-menu a:not(.nav-cta)');
+const mItems=document.querySelectorAll('.mnav-item:not(.mnav-cta)');
+function updateNav(){
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id});
+  dLinks.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')==='#'+cur)l.classList.add('active')});
+  mItems.forEach(m=>{m.classList.remove('active');if(m.dataset.section===cur)m.classList.add('active')});
+}
+window.addEventListener('scroll',updateNav,{passive:true});
 
-/* ═══ FORM ═══ */
-function submitUmrah(e){e.preventDefault();document.getElementById('modalUmrah').classList.add('active')}
-function closeModal(){document.getElementById('modalUmrah').classList.remove('active');document.getElementById('umrahForm').reset();document.querySelectorAll('.custom-select').forEach(cs=>{const trigger=cs.querySelector('.custom-select-trigger');const triggerText=trigger.querySelector('.trigger-text');const nativeOpt=cs.querySelector('.native-select option[disabled]');if(nativeOpt){trigger.classList.add('placeholder');const triggerIcon=trigger.querySelector('.trigger-icon');if(triggerIcon&&!trigger.closest('[data-name="jumlah"]')&&!trigger.closest('[data-name="vaksin"]'))triggerIcon.remove();triggerText.innerHTML='<span class="main-text">'+nativeOpt.textContent+'</span>'}cs.querySelectorAll('.custom-option').forEach(o=>o.classList.remove('selected'))})}
+/* Smooth scroll */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}})});
 
-/* ═══ SMOOTH SCROLL ═══ */
-document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});document.getElementById('navMenu').classList.remove('open')}})});
+/* FAQ */
+function toggleFaq(btn){const item=btn.parentElement;const active=item.classList.contains('active');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('active'));if(!active)item.classList.add('active')}
 
-/* ═══ SCROLL ANIMATIONS ═══ */
-const obs=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.style.opacity='1';entry.target.style.transform='translateY(0)';obs.unobserve(entry.target)}})},{threshold:0.1});
-document.querySelectorAll('.kl-card,.pkt-card,.testi-card,.jadwal-card,.faq-item,.alur-step,.stat-item,.coverage-item').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition=`opacity 0.5s ease ${i*0.05}s, transform 0.5s ease ${i*0.05}s`;obs.observe(el)});
+/* Form */
+function submitForm(e){e.preventDefault();document.getElementById('modalUmrah').classList.add('active')}
+function closeModal(){
+  document.getElementById('modalUmrah').classList.remove('active');
+  document.getElementById('umrahForm').reset();
+  document.querySelectorAll('.cs').forEach(cs=>{
+    const trigger=cs.querySelector('.cs-trigger');const tt=trigger.querySelector('.t-text');
+    const dis=cs.querySelector('.native-sel option[disabled]');
+    if(dis){trigger.classList.add('ph');const ti=trigger.querySelector('.t-icon');if(ti&&!cs.querySelector('.native-sel option[selected]:not([disabled])'))ti.remove();tt.innerHTML='<span class="t-main">'+dis.textContent+'</span>'}
+    cs.querySelectorAll('.cs-opt').forEach(o=>o.classList.remove('sel'));
+  });
+}
+
+/* Scroll animations */
+const obs=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.style.opacity='1';entry.target.style.transform='translateY(0)';obs.unobserve(entry.target)}})},{threshold:.1});
+document.querySelectorAll('.kl-card,.pkt-card,.testi-card,.jadwal-card,.faq-item,.alur-step,.stat-item').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition=`opacity .5s ease ${i*.05}s,transform .5s ease ${i*.05}s`;obs.observe(el)});
 </script>
 </body>
 </html>
