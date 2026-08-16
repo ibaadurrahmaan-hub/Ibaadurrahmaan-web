@@ -1,13 +1,11 @@
 // ═══════════════════════════════════════════════════
 // FIREBASE CONFIG — Ibaadurrahmaan Web Designer
-// Shared across: order.html, dashboard-reseller.html,
-//                dashboard-admin.html, dashboard-slip.html
+// Menggunakan Cloud FIRESTORE (bukan Realtime DB)
 // ═══════════════════════════════════════════════════
 
 const firebaseConfig = {
   apiKey: "AIzaSyCYRygFt6uwCUiL_6-eoJHhUdkiumSwLzY",
   authDomain: "ibaadurrahmaan-web.firebaseapp.com",
-  databaseURL: "https://ibaadurrahmaan-web-default-rtdb.firebaseio.com",
   projectId: "ibaadurrahmaan-web",
   storageBucket: "ibaadurrahmaan-web.firebasestorage.app",
   messagingSenderId: "1066409450927",
@@ -15,28 +13,42 @@ const firebaseConfig = {
   measurementId: "G-ZJP1W4P2P8"
 };
 
-// Initialize Firebase (compat mode for static hosting)
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+const db = firebase.firestore();
 
 // ═══════════════════════════════════════════════════
 // COMMISSION CONFIG
 // ═══════════════════════════════════════════════════
 const COMMISSION_CONFIG = {
   rates: {
-    hemat:   { name: 'Paket Hemat',   price: 1500000, commission: 10 },
-    reguler: { name: 'Paket Reguler', price: 2500000, commission: 12 },
-    premium: { name: 'Paket Premium', price: 5000000, commission: 15 },
+    hemat:   { name: 'Paket Hemat',    price: 1500000, commission: 10 },
+    reguler: { name: 'Paket Reguler',  price: 2500000, commission: 12 },
+    premium: { name: 'Paket Premium',  price: 5000000, commission: 15 },
     custom:  { name: 'Custom Project', price: 0,       commission: 10 }
   },
-  orderStatus: {
-    pending:      { label: 'Pending',     color: '#EAB308', icon: 'clock'          },
-    in_progress:  { label: 'Dikerjakan',  color: '#3B82F6', icon: 'code'           },
-    completed:    { label: 'Selesai',     color: '#8B5CF6', icon: 'check-circle'   },
-    paid_partial: { label: 'DP Dibayar',  color: '#F97316', icon: 'credit-card'    },
-    paid_full:    { label: 'Lunas',       color: '#22C55E', icon: 'check-double'   },
-    cancelled:    { label: 'Batal',       color: '#EF4444', icon: 'times-circle'   }
+  
+  // Tier bonus (opsional — bonus % tambahan berdasarkan level reseller)
+  tierBonus: {
+    silver:   0,   // Default rate
+    gold:     2,   // +2% dari base
+    platinum: 5,   // +5% dari base
+    diamond:  8    // +8% dari base
   },
+  
+  orderStatus: {
+    pending:      { label: 'Pending',     color: '#EAB308' },
+    in_progress:  { label: 'Dikerjakan',  color: '#3B82F6' },
+    completed:    { label: 'Selesai',     color: '#8B5CF6' },
+    cancelled:    { label: 'Batal',       color: '#EF4444' }
+  },
+  
+  paymentStatus: {
+    pending:      { label: 'Belum Bayar', color: '#EAB308' },
+    paid_partial: { label: 'DP Dibayar',  color: '#F97316' },
+    paid_full:    { label: 'Lunas',       color: '#22C55E' }
+  },
+  
   commissionStatus: {
     pending:   { label: 'Belum Cair',    color: '#EAB308' },
     eligible:  { label: 'Siap Cair',     color: '#3B82F6' },
@@ -50,51 +62,44 @@ const COMMISSION_CONFIG = {
 // ═══════════════════════════════════════════════════
 const ADMIN_CONFIG = {
   phone: '6281401643188',
-  email: 'ibadurrohman1428@gmail.com',
-  // Simple admin password (for demo — use Firebase Auth for production)
-  adminKey: 'admin2025'
+  email: 'ibadurrohman1428@gmail.com'
 };
 
 // ═══════════════════════════════════════════════════
 // UTILITY FUNCTIONS
 // ═══════════════════════════════════════════════════
 const Utils = {
-
-  // Format Rupiah
   formatCurrency(num) {
     return new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
+      style: 'currency', currency: 'IDR',
+      minimumFractionDigits: 0, maximumFractionDigits: 0
     }).format(num || 0);
   },
 
-  // Format short currency (1.5jt, 2.5jt)
   formatShort(num) {
     if (num >= 1000000) return (num / 1000000).toFixed(1).replace('.0', '') + ' Jt';
     if (num >= 1000) return (num / 1000).toFixed(0) + 'K';
     return num.toString();
   },
 
-  // Format date
   formatDate(ts) {
     if (!ts) return '-';
-    return new Date(ts).toLocaleDateString('id-ID', {
+    // Handle Firestore Timestamp
+    const date = ts.toDate ? ts.toDate() : new Date(ts);
+    return date.toLocaleDateString('id-ID', {
       day: 'numeric', month: 'short', year: 'numeric'
     });
   },
 
-  // Format date + time
   formatDateTime(ts) {
     if (!ts) return '-';
-    return new Date(ts).toLocaleString('id-ID', {
+    const date = ts.toDate ? ts.toDate() : new Date(ts);
+    return date.toLocaleString('id-ID', {
       day: 'numeric', month: 'short', year: 'numeric',
       hour: '2-digit', minute: '2-digit'
     });
   },
 
-  // Generate Order ID: ORD-250115-A1B2
   generateOrderId() {
     const d = new Date();
     const y = String(d.getFullYear()).slice(-2);
@@ -104,28 +109,30 @@ const Utils = {
     return `ORD-${y}${m}${day}-${rand}`;
   },
 
-  // Generate Reseller Code: RES-NAMAXX
-  generateResellerCode(name) {
-    const clean = name.replace(/[^a-zA-Z]/g, '').toUpperCase().slice(0, 6);
-    const rand = String(Math.floor(Math.random() * 100)).padStart(2, '0');
-    return `RES-${clean}${rand}`;
-  },
-
-  // Calculate commission amount
-  calcCommission(paket, customPrice = 0) {
+  // Calculate commission with tier bonus
+  calcCommission(paket, tier = 'silver', customPrice = 0) {
     const cfg = COMMISSION_CONFIG.rates[paket];
     if (!cfg) return 0;
     const price = paket === 'custom' ? (customPrice || 0) : cfg.price;
-    return Math.round(price * cfg.commission / 100);
+    const baseRate = cfg.commission;
+    const bonus = COMMISSION_CONFIG.tierBonus[tier] || 0;
+    const totalRate = baseRate + bonus;
+    return Math.round(price * totalRate / 100);
   },
 
-  // Get month key: "2025-01"
+  // Get commission rate with tier
+  getCommissionRate(paket, tier = 'silver') {
+    const cfg = COMMISSION_CONFIG.rates[paket];
+    if (!cfg) return 0;
+    const bonus = COMMISSION_CONFIG.tierBonus[tier] || 0;
+    return cfg.commission + bonus;
+  },
+
   getMonthKey(date) {
     const d = date || new Date();
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
   },
 
-  // Get month label: "Januari 2025"
   getMonthLabel(monthKey) {
     if (!monthKey) return '-';
     const [y, m] = monthKey.split('-');
@@ -134,134 +141,110 @@ const Utils = {
     return `${months[parseInt(m)]} ${y}`;
   },
 
-  // Build WhatsApp URL
   buildWaUrl(phone, message) {
     const clean = phone.replace(/[^0-9]/g, '');
     const formatted = clean.startsWith('0') ? '62' + clean.slice(1) : clean;
     return `https://wa.me/${formatted}?text=${encodeURIComponent(message)}`;
   },
 
-  // Build admin WA notification
-  buildAdminNotification(order) {
-    const ref = order.referral;
-    let msg = `🆕 *ORDER BARU!*\n\n`;
-    msg += `📋 *${order.orderId}*\n`;
-    msg += `📅 ${Utils.formatDateTime(order.createdAt)}\n\n`;
-    msg += `👤 *Client:*\n`;
-    msg += `• ${order.client.name}\n`;
-    msg += `• WA: ${order.client.phone}\n`;
-    msg += `• ${order.client.businessName}\n\n`;
-    msg += `📦 *Project:*\n`;
-    msg += `• ${order.project.paketName}\n`;
-    msg += `• ${Utils.formatCurrency(order.project.price)}\n\n`;
-    if (ref) {
-      msg += `🎁 *Referral:*\n`;
-      msg += `• ${ref.resellerName} (${ref.referralCode})\n`;
-      msg += `• Komisi: ${Utils.formatCurrency(ref.commissionAmount)} (${ref.commissionRate}%)\n`;
-      msg += `• Bayar: ${ref.paymentSchedule === 'monthly' ? 'Bulanan' : 'Per Closing'}\n\n`;
-    }
-    msg += `───────────────\n_Otomatis dari Order System_`;
-    return msg;
-  },
-
-  // Show toast notification
   showToast(message, type = 'success') {
     const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
-    toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle'}"></i> ${message}`;
-    toast.style.cssText = `position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:${type === 'success' ? '#065F46' : type === 'error' ? '#7F1D1D' : '#1E3A5F'};color:#fff;padding:14px 24px;border-radius:12px;font-size:.88rem;font-weight:600;z-index:99999;display:flex;align-items:center;gap:10px;box-shadow:0 10px 40px rgba(0,0,0,0.5);animation:toastIn .3s ease;font-family:'Inter',sans-serif;max-width:90%;`;
-    const style = document.createElement('style');
-    style.textContent = '@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}';
-    document.head.appendChild(style);
+    const colors = { success: '#065F46', error: '#7F1D1D', info: '#1E3A5F' };
+    const icons = { success: 'check-circle', error: 'times-circle', info: 'info-circle' };
+    toast.innerHTML = `<i class="fas fa-${icons[type]}"></i> ${message}`;
+    toast.style.cssText = `position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:${colors[type]};color:#fff;padding:14px 24px;border-radius:12px;font-size:.88rem;font-weight:600;z-index:99999;display:flex;align-items:center;gap:10px;box-shadow:0 10px 40px rgba(0,0,0,0.5);animation:toastIn .3s ease;font-family:'Inter',sans-serif;max-width:90%;`;
+    if (!document.getElementById('toast-style')) {
+      const style = document.createElement('style');
+      style.id = 'toast-style';
+      style.textContent = '@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}';
+      document.head.appendChild(style);
+    }
     document.body.appendChild(toast);
     setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity .3s'; setTimeout(() => toast.remove(), 300); }, 3000);
-  },
-
-  // Debounce
-  debounce(fn, delay = 300) {
-    let timer;
-    return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), delay); };
   }
 };
 
 // ═══════════════════════════════════════════════════
-// DATABASE HELPER FUNCTIONS
+// FIRESTORE DATABASE HELPERS
 // ═══════════════════════════════════════════════════
 const DB = {
 
   // ── RESELLER ──
+  // Get reseller by referral code (using resellerCode field)
   async getResellerByCode(code) {
-    const snap = await db.ref('resellers').orderByChild('referralCode').equalTo(code).once('value');
-    if (!snap.exists()) return null;
-    const data = snap.val();
-    const id = Object.keys(data)[0];
-    return { id, ...data[id] };
+    try {
+      const snap = await db.collection('resellers')
+        .where('resellerCode', '==', code)
+        .where('status', '==', 'active')
+        .limit(1)
+        .get();
+      
+      if (snap.empty) return null;
+      const doc = snap.docs[0];
+      return { id: doc.id, ...doc.data() };
+    } catch (err) {
+      console.error('getResellerByCode error:', err);
+      return null;
+    }
   },
 
   async getReseller(id) {
-    const snap = await db.ref(`resellers/${id}`).once('value');
-    return snap.exists() ? { id, ...snap.val() } : null;
+    try {
+      const doc = await db.collection('resellers').doc(id).get();
+      if (!doc.exists) return null;
+      return { id: doc.id, ...doc.data() };
+    } catch (err) {
+      console.error('getReseller error:', err);
+      return null;
+    }
   },
 
   // ── ORDER ──
   async createOrder(orderData) {
-    await db.ref(`orders/${orderData.orderId}`).set(orderData);
-    return orderData.orderId;
+    try {
+      await db.collection('orders').doc(orderData.orderId).set(orderData);
+      return orderData.orderId;
+    } catch (err) {
+      console.error('createOrder error:', err);
+      throw err;
+    }
   },
 
   async updateOrder(orderId, updates) {
-    updates.updatedAt = Date.now();
-    await db.ref(`orders/${orderId}`).update(updates);
+    updates.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+    await db.collection('orders').doc(orderId).update(updates);
   },
 
-  // ── COMMISSION ──
-  async createCommission(resellerId, orderId, commData) {
-    const updates = {};
-    updates[`commissions/${resellerId}/${orderId}`] = commData;
-    updates[`commissions_monthly/${resellerId}/${commData.monthKey}/${orderId}`] = commData;
-    await db.ref().update(updates);
+  async getOrder(orderId) {
+    const doc = await db.collection('orders').doc(orderId).get();
+    if (!doc.exists) return null;
+    return { id: doc.id, ...doc.data() };
   },
 
-  async updateCommissionStatus(resellerId, orderId, monthKey, newStatus) {
-    const updates = {};
-    updates[`commissions/${resellerId}/${orderId}/status`] = newStatus;
-    updates[`commissions/${resellerId}/${orderId}/updatedAt`] = Date.now();
-    if (monthKey) {
-      updates[`commissions_monthly/${resellerId}/${monthKey}/${orderId}/status`] = newStatus;
-    }
-    await db.ref().update(updates);
+  async getAllOrders() {
+    const snap = await db.collection('orders').orderBy('createdAt', 'desc').get();
+    return snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   },
 
-  async updateResellerStats(resellerId, statUpdates) {
-    await db.ref(`resellers/${resellerId}/stats`).update(statUpdates);
-  },
-
-  async getResellerStats(resellerId) {
-    const snap = await db.ref(`resellers/${resellerId}/stats`).once('value');
-    return snap.val() || {
-      totalOrders: 0,
-      totalCommission: 0,
-      pendingCommission: 0,
-      eligibleCommission: 0,
-      paidCommission: 0,
-      lastOrderDate: null
-    };
-  },
-
-  // ── PROCESS ORDER + COMMISSION TOGETHER ──
+  // ── PROCESS NEW ORDER WITH COMMISSION ──
   async processNewOrder(orderData) {
-    const updates = {};
-    const now = Date.now();
+    const batch = db.batch();
+    const now = firebase.firestore.FieldValue.serverTimestamp();
+    
+    // 1. Create order
+    const orderRef = db.collection('orders').doc(orderData.orderId);
+    batch.set(orderRef, orderData);
 
-    // 1. Save order
-    updates[`orders/${orderData.orderId}`] = orderData;
-
-    // 2. If has referral, save commission
+    // 2. If has referral, create commission entry
     if (orderData.referral) {
       const rid = orderData.referral.resellerId;
       const oid = orderData.orderId;
-      const comm = {
+      
+      const commData = {
         orderId: oid,
+        resellerId: rid,
+        resellerName: orderData.referral.resellerName,
+        resellerCode: orderData.referral.referralCode,
         clientName: orderData.client.name,
         clientPhone: orderData.client.phone,
         paket: orderData.project.paket,
@@ -275,129 +258,164 @@ const DB = {
         monthKey: orderData.monthKey
       };
 
-      updates[`commissions/${rid}/${oid}`] = comm;
-      updates[`commissions_monthly/${rid}/${orderData.monthKey}/${oid}`] = comm;
+      // Save to commissions collection (nested under reseller)
+      const commRef = db.collection('resellers').doc(rid)
+        .collection('commissions').doc(oid);
+      batch.set(commRef, commData);
 
-      // Update reseller stats
-      const stats = await DB.getResellerStats(rid);
-      updates[`resellers/${rid}/stats`] = {
-        totalOrders: (stats.totalOrders || 0) + 1,
-        totalCommission: (stats.totalCommission || 0) + comm.commissionAmount,
-        pendingCommission: (stats.pendingCommission || 0) + comm.commissionAmount,
-        eligibleCommission: stats.eligibleCommission || 0,
-        paidCommission: stats.paidCommission || 0,
-        lastOrderDate: now
-      };
+      // Update reseller totals
+      const resellerRef = db.collection('resellers').doc(rid);
+      batch.update(resellerRef, {
+        totalClosing: firebase.firestore.FieldValue.increment(1),
+        totalKomisi: firebase.firestore.FieldValue.increment(orderData.referral.commissionAmount),
+        pendingKomisi: firebase.firestore.FieldValue.increment(orderData.referral.commissionAmount),
+        lastOrderAt: now,
+        updatedAt: now
+      });
     }
 
-    // Atomic write
-    await db.ref().update(updates);
+    await batch.commit();
     return orderData.orderId;
   },
 
-  // ── PROCESS STATUS CHANGE (admin) ──
+  // ── UPDATE ORDER STATUS (admin) ──
   async processOrderStatusChange(order, newOrderStatus, newPaymentStatus, dpAmount) {
-    const updates = {};
-    const now = Date.now();
-    const oid = order.orderId;
+    const batch = db.batch();
+    const now = firebase.firestore.FieldValue.serverTimestamp();
+    const orderRef = db.collection('orders').doc(order.orderId);
 
     // Update order
-    updates[`orders/${oid}/status`] = newOrderStatus;
-    updates[`orders/${oid}/payment/status`] = newPaymentStatus;
-    updates[`orders/${oid}/payment/dpAmount`] = dpAmount || 0;
-    updates[`orders/${oid}/updatedAt`] = now;
+    const orderUpdate = {
+      status: newOrderStatus,
+      'payment.status': newPaymentStatus,
+      'payment.dpAmount': dpAmount || 0,
+      updatedAt: now
+    };
 
     if (newPaymentStatus === 'paid_full') {
-      updates[`orders/${oid}/payment/paidAmount`] = order.project?.price || 0;
-      updates[`orders/${oid}/payment/paidAt`] = now;
+      orderUpdate['payment.paidAmount'] = order.project?.price || 0;
+      orderUpdate['payment.paidAt'] = now;
     }
 
-    // Handle commission changes
+    batch.update(orderRef, orderUpdate);
+
+    // Handle commission changes if there's a referral
     if (order.referral) {
       const rid = order.referral.resellerId;
       const commAmt = order.referral.commissionAmount;
       const oldCommStatus = order.referral.commissionStatus || 'pending';
-      const mk = order.monthKey;
+      const resellerRef = db.collection('resellers').doc(rid);
+      const commRef = db.collection('resellers').doc(rid)
+        .collection('commissions').doc(order.orderId);
+
       let newCommStatus = oldCommStatus;
 
-      // Client pays full → commission eligible
+      // Case 1: Client pays FULL → commission becomes ELIGIBLE
       if (newPaymentStatus === 'paid_full' && oldCommStatus === 'pending') {
         newCommStatus = 'eligible';
-        const stats = await DB.getResellerStats(rid);
-        updates[`resellers/${rid}/stats/pendingCommission`] = Math.max(0, (stats.pendingCommission || 0) - commAmt);
-        updates[`resellers/${rid}/stats/eligibleCommission`] = (stats.eligibleCommission || 0) + commAmt;
+        batch.update(resellerRef, {
+          pendingKomisi: firebase.firestore.FieldValue.increment(-commAmt),
+          eligibleKomisi: firebase.firestore.FieldValue.increment(commAmt),
+          updatedAt: now
+        });
       }
 
-      // Order cancelled → remove commission
+      // Case 2: Order CANCELLED → remove commission
       if (newOrderStatus === 'cancelled' && oldCommStatus !== 'cancelled' && oldCommStatus !== 'paid') {
         newCommStatus = 'cancelled';
-        const stats = await DB.getResellerStats(rid);
-        updates[`resellers/${rid}/stats/totalOrders`] = Math.max(0, (stats.totalOrders || 0) - 1);
-        updates[`resellers/${rid}/stats/totalCommission`] = Math.max(0, (stats.totalCommission || 0) - commAmt);
+        const updates = {
+          totalClosing: firebase.firestore.FieldValue.increment(-1),
+          totalKomisi: firebase.firestore.FieldValue.increment(-commAmt),
+          updatedAt: now
+        };
         if (oldCommStatus === 'pending') {
-          updates[`resellers/${rid}/stats/pendingCommission`] = Math.max(0, (stats.pendingCommission || 0) - commAmt);
+          updates.pendingKomisi = firebase.firestore.FieldValue.increment(-commAmt);
         } else if (oldCommStatus === 'eligible') {
-          updates[`resellers/${rid}/stats/eligibleCommission`] = Math.max(0, (stats.eligibleCommission || 0) - commAmt);
+          updates.eligibleKomisi = firebase.firestore.FieldValue.increment(-commAmt);
         }
+        batch.update(resellerRef, updates);
       }
 
-      updates[`orders/${oid}/referral/commissionStatus`] = newCommStatus;
-      updates[`commissions/${rid}/${oid}/status`] = newCommStatus;
-      updates[`commissions/${rid}/${oid}/updatedAt`] = now;
-      if (mk) {
-        updates[`commissions_monthly/${rid}/${mk}/${oid}/status`] = newCommStatus;
-      }
+      // Update commission status
+      batch.update(commRef, { status: newCommStatus, updatedAt: now });
+      batch.update(orderRef, { 'referral.commissionStatus': newCommStatus });
     }
 
-    await db.ref().update(updates);
+    await batch.commit();
   },
 
   // ── MARK COMMISSION AS PAID ──
-  async markCommissionPaid(resellerId, orderId, monthKey) {
-    const updates = {};
-    const now = Date.now();
+  async markCommissionPaid(resellerId, orderId) {
+    const commRef = db.collection('resellers').doc(resellerId)
+      .collection('commissions').doc(orderId);
+    const commSnap = await commRef.get();
+    
+    if (!commSnap.exists) return;
+    const comm = commSnap.data();
+    if (comm.status !== 'eligible') return;
 
-    // Get commission data first
-    const commSnap = await db.ref(`commissions/${resellerId}/${orderId}`).once('value');
-    if (!commSnap.exists()) return;
-    const comm = commSnap.val();
+    const batch = db.batch();
+    const now = firebase.firestore.FieldValue.serverTimestamp();
 
-    if (comm.status !== 'eligible') return; // Can only pay eligible commissions
+    batch.update(commRef, { status: 'paid', paidAt: now });
+    batch.update(db.collection('orders').doc(orderId), {
+      'referral.commissionStatus': 'paid',
+      updatedAt: now
+    });
+    batch.update(db.collection('resellers').doc(resellerId), {
+      eligibleKomisi: firebase.firestore.FieldValue.increment(-comm.commissionAmount),
+      paidKomisi: firebase.firestore.FieldValue.increment(comm.commissionAmount),
+      updatedAt: now
+    });
 
-    updates[`commissions/${resellerId}/${orderId}/status`] = 'paid';
-    updates[`commissions/${resellerId}/${orderId}/paidAt`] = now;
-    updates[`orders/${orderId}/referral/commissionStatus`] = 'paid';
-
-    if (monthKey) {
-      updates[`commissions_monthly/${resellerId}/${monthKey}/${orderId}/status`] = 'paid';
-      updates[`commissions_monthly/${resellerId}/${monthKey}/${orderId}/paidAt`] = now;
-    }
-
-    const stats = await DB.getResellerStats(resellerId);
-    updates[`resellers/${resellerId}/stats/eligibleCommission`] = Math.max(0, (stats.eligibleCommission || 0) - comm.commissionAmount);
-    updates[`resellers/${resellerId}/stats/paidCommission`] = (stats.paidCommission || 0) + comm.commissionAmount;
-
-    await db.ref().update(updates);
+    await batch.commit();
   },
 
   // ── BULK PAY MONTHLY COMMISSIONS ──
   async bulkPayMonthlyCommissions(resellerId, monthKey) {
-    const snap = await db.ref(`commissions_monthly/${resellerId}/${monthKey}`).once('value');
-    if (!snap.exists()) return 0;
+    const snap = await db.collection('resellers').doc(resellerId)
+      .collection('commissions')
+      .where('monthKey', '==', monthKey)
+      .where('status', '==', 'eligible')
+      .get();
 
-    const entries = snap.val();
-    let paidCount = 0;
+    if (snap.empty) return 0;
 
-    for (const [orderId, comm] of Object.entries(entries)) {
-      if (comm.status === 'eligible') {
-        await DB.markCommissionPaid(resellerId, orderId, monthKey);
-        paidCount++;
-      }
+    for (const doc of snap.docs) {
+      await DB.markCommissionPaid(resellerId, doc.id);
     }
 
-    return paidCount;
+    return snap.size;
+  },
+
+  // ── GET RESELLER COMMISSIONS ──
+  async getResellerCommissions(resellerId) {
+    const snap = await db.collection('resellers').doc(resellerId)
+      .collection('commissions')
+      .orderBy('createdAt', 'desc')
+      .get();
+    return snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  },
+
+  // ── REAL-TIME LISTENER ──
+  listenResellerCommissions(resellerId, callback) {
+    return db.collection('resellers').doc(resellerId)
+      .collection('commissions')
+      .orderBy('createdAt', 'desc')
+      .onSnapshot(snap => {
+        const data = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        callback(data);
+      });
+  },
+
+  listenAllOrders(callback) {
+    return db.collection('orders')
+      .orderBy('createdAt', 'desc')
+      .onSnapshot(snap => {
+        const data = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        callback(data);
+      });
   }
 };
 
-console.log('🔥 Firebase initialized: ibaadurrahmaan-web');
-console.log('📊 Database connected:', firebaseConfig.databaseURL);
+console.log('🔥 Firebase Firestore initialized: ibaadurrahmaan-web');
