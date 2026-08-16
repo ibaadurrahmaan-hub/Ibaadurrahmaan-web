@@ -1059,6 +1059,15 @@
   </div>
 </div>
 
+
+<!-- PDF Loading Overlay -->
+<div class="pdf-loading" id="pdfLoading">
+  <div class="pdf-loading-spinner"></div>
+  <div class="pdf-loading-text">📄 Generating PDF...</div>
+  <div class="pdf-loading-desc">Mohon tunggu, invoice sedang dibuat</div>
+</div>
+
+
 <!-- ==========================================
      🔥 FIREBASE SDK (Modular v10) — dengan support Firestore Query
      ========================================== -->
@@ -2095,13 +2104,6 @@ function showToast(text) {
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2500);
 }
-
-<!-- PDF Loading Overlay -->
-<div class="pdf-loading" id="pdfLoading">
-  <div class="pdf-loading-spinner"></div>
-  <div class="pdf-loading-text">📄 Generating PDF...</div>
-  <div class="pdf-loading-desc">Mohon tunggu, invoice sedang dibuat</div>
-</div>
 
 // ============================================
 // INIT
