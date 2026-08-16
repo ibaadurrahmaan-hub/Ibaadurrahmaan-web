@@ -2348,34 +2348,200 @@ Terus semangat closing ya! 🚀
     });
 }
 
+    window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+    
+    // ═══ NEW: Update status komisi ═══
+    const clientId = sessionStorage.getItem('slip_client_id');
+    if (clientId && currentMode === 'single') {
+        setTimeout(() => {
+            Swal.fire({
+                icon: 'question',
+                title: '💰 Konfirmasi Pembayaran',
+                html: `
+                    Apakah komisi sudah <b style="color:#25d366;">DIBAYARKAN</b> ke reseller?<br><br>
+                    <small style="opacity:0.7;">Status akan otomatis update di database</small>
+                `,
+                showCancelButton: true,
+                confirmButtonText: '<i class="fas fa-check"></i> Ya, Sudah Dibayar',
+                cancelButtonText: 'Belum',
+                customClass: { popup: 'swal-premium' },
+                reverseButtons: true
+            }).then(async res => {
+                if (res.isConfirmed) {
+                    await markCommissionPaid(clientId);
+                }
+                sessionStorage.removeItem('slip_client_id');
+            });
+        }, 1500);
+    }
+    
+    Swal.fire({
+        icon: 'success',
+        title: '📱 WhatsApp Dibuka',
+        text: 'Pilih kontak reseller untuk kirim slip',
+        customClass: { popup: 'swal-premium' },
+        timer: 2000,
+        showConfirmButton: false,
+        timerProgressBar: true,
+        toast: true,
+        position: 'top-end'
+    });
+}
 
+
+// ═══ Update status komisi di Firebase ═══
+async function markCommissionPaid(clientId) {
+    try {
+        // Wait for firebase
+        let attempts = 0;
+        while ((!window.firebase || !window.firebase.ready) && attempts < 20) {
+            await new Promise(r => setTimeout(r, 200));
+            attempts++;
+        }
+        
+        if (!window.firebase?.ready) {
+            throw new Error('Firebase belum siap');
+        }
+        
+        const firestoreModule = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+        const { doc, updateDoc } = firestoreModule;
+        
+        const { db } = window.firebase;
+        const docRef = doc(db, 'clients', clientId);
+        
+        await updateDoc(docRef, {
+            'referral.commissionStatus': 'paid',
+            'referral.commissionPaidAt': new Date(),
+            updatedAt: new Date()
+        });
+        
+        Swal.fire({
+            icon: 'success',
+            title: '✅ Status Update!',
+            text: 'Komisi ditandai sebagai sudah dibayar',
+            customClass: { popup: 'swal-premium' },
+            timer: 2000,
+            showConfirmButton: false
+        });
+        
+    } catch (err) {
+        console.error('Update commission error:', err);
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal Update',
+            text: err.message,
+            customClass: { popup: 'swal-premium' }
+        });
+    }
+}
 // ====================================================
 // INIT
 // ====================================================
+
 window.addEventListener('load', () => {
+    // ═══ AUTO-FILL dari halaman client ═══
+    const urlParams = new URLSearchParams(window.location.search);
+    const isAutofill = urlParams.get('autofill') === '1';
+    
+    // Set default dates dulu
     const now = new Date();
     const yearMonth = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
-    document.getElementById('fieldPeriode').value = yearMonth;
-    
     const today = now.toISOString().split('T')[0];
+    document.getElementById('fieldPeriode').value = yearMonth;
     document.getElementById('fieldTglBayar').value = today;
     document.getElementById('singleTglClosing').value = today;
     document.getElementById('singleTglBayar').value = today;
     
-    addClosing();
+    // Handle autofill
+    if (isAutofill) {
+        const raw = sessionStorage.getItem('slip_autofill');
+        if (raw) {
+            try {
+                const d = JSON.parse(raw);
+                
+                // Pilih mode
+                selectMode('single');
+                
+                // Isi data reseller
+                document.getElementById('fieldNama').value = d.nama || '';
+                document.getElementById('fieldKode').value = d.kode || '';
+                
+                // Set tier
+                const tierOption = document.querySelector(`.custom-option[data-value="${d.tier}"]`);
+                if (tierOption) selectLevel(tierOption);
+                
+                // Isi data closing
+                document.getElementById('singleClient').value = d.client || '';
+                if (d.tglClosing) document.getElementById('singleTglClosing').value = d.tglClosing;
+                if (d.tglBayar) document.getElementById('singleTglBayar').value = d.tglBayar;
+                
+                // Set paket
+                const paketSelect = document.getElementById('singlePaket');
+                let foundOption = false;
+                for (const opt of paketSelect.options) {
+                    if (parseInt(opt.value) === d.paket) {
+                        opt.selected = true;
+                        foundOption = true;
+                        break;
+                    }
+                }
+                
+                // Custom paket kalau tidak match
+                if (!foundOption && d.paket > 0) {
+                    const customOpt = document.createElement('option');
+                    customOpt.value = d.paket;
+                    customOpt.textContent = `${d.paketName} - Rp ${d.paket.toLocaleString('id-ID')}`;
+                    customOpt.selected = true;
+                    paketSelect.appendChild(customOpt);
+                }
+                
+                // Simpan clientId untuk update nanti
+                if (d.clientId) {
+                    sessionStorage.setItem('slip_client_id', d.clientId);
+                }
+                
+                sessionStorage.removeItem('slip_autofill');
+                
+                // Notif sukses
+                setTimeout(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '✨ Auto-Fill Berhasil!',
+                        text: 'Data client sudah diisi otomatis',
+                        customClass: { popup: 'swal-premium' },
+                        timer: 2500,
+                        showConfirmButton: false,
+                        toast: true,
+                        position: 'top-end',
+                        timerProgressBar: true
+                    });
+                }, 300);
+                
+            } catch(e) {
+                console.error('Autofill error:', e);
+            }
+        }
+    } else {
+        // Kalau bukan autofill, tambah 1 closing default (mode monthly)
+        addClosing();
+    }
     
+    // Listener input
     document.querySelectorAll('.slip-form-input, .slip-form-select').forEach(input => {
         input.addEventListener('input', updatePreview);
         input.addEventListener('change', updatePreview);
     });
     
-    // Set user info dari session
+    // Set user info
     if (session) {
         const username = session.username || 'Owner';
         const displayName = username.charAt(0).toUpperCase() + username.slice(1);
         document.getElementById('userName').textContent = displayName;
         document.getElementById('userAvatar').textContent = displayName.charAt(0);
     }
+    
+    // Update preview
+    setTimeout(updatePreview, 200);
 });
 </script>
 
