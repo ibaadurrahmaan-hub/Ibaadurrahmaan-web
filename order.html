@@ -1084,13 +1084,21 @@
   </div>
 </div>
 
-
 <!-- ==========================================
-     🔥 FIREBASE SDK
+     🔥 FIREBASE SDK (Modular v10) — dengan support Firestore Query
      ========================================== -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    query,
+    where,
+    limit,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey:            "AIzaSyCYRygFt6uwCUiL_6-eoJHhUdkiumSwLzY",
@@ -1105,7 +1113,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 
-window.fbOrder = { db, collection, addDoc, serverTimestamp, ready: true };
+// Expose ke window agar bisa diakses dari script biasa
+window.fbOrder = {
+    db,
+    collection,
+    addDoc,
+    getDocs,
+    query,
+    where,
+    limit,
+    serverTimestamp,
+    ready: true
+};
+
 console.log('🔥 Firebase Order ready!');
 document.dispatchEvent(new CustomEvent('fbOrderReady'));
 </script>
@@ -1129,22 +1149,6 @@ let selectedBank     = { name:'BCA', account:'1234567890', holder:'a.n. Ibaadurr
 let selectedPayment  = 'Transfer Bank';
 let verifiedReseller = null;
 let _currentOrderId  = null;
-
-
-// ============================================
-// RESELLER DATABASE
-// ============================================
-const resellerDatabase = {
-  'RSL-AHMAD':   { name:'Ahmad Fauzi',    tier:'Gold Reseller',   since:'2025' },
-  'RSL-BUDI':    { name:'Budi Santoso',   tier:'Silver Reseller', since:'2025' },
-  'RSL-SARI':    { name:'Sari Wulandari', tier:'Gold Reseller',   since:'2024' },
-  'RSL-DIAN':    { name:'Dian Pratama',   tier:'Silver Reseller', since:'2025' },
-  'RSL-RIZKY':   { name:'Rizky Hidayat',  tier:'Bronze Reseller', since:'2025' },
-  'RSL-NISA':    { name:'Nisa Amelia',    tier:'Gold Reseller',   since:'2024' },
-  'RSL-FIKRI':   { name:'Fikri Rahman',   tier:'Silver Reseller', since:'2025' },
-  'RSL-PUTRI':   { name:'Putri Maharani', tier:'Bronze Reseller', since:'2025' },
-  'RESELLER123': { name:'Demo Reseller',  tier:'Demo',            since:'2025' },
-};
 
 
 // ============================================
@@ -1341,9 +1345,9 @@ document.querySelectorAll('input[name="deadline"]').forEach(r => {
 
 
 // ============================================
-// RESELLER VERIFICATION
+// 🔥 RESELLER VERIFICATION (via Firestore) — UPDATED
 // ============================================
-function verifyReseller() {
+async function verifyReseller() {
   const input  = document.getElementById('resellerCode');
   const result = document.getElementById('resellerResult');
   const btn    = document.getElementById('verifyResellerBtn');
@@ -1358,36 +1362,94 @@ function verifyReseller() {
     return;
   }
 
+  // Cek Firebase ready
+  if (!window.fbOrder || !window.fbOrder.ready) {
+    result.innerHTML = `
+      <div class="reseller-error">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>Sistem belum siap. Refresh halaman dan coba lagi.</span>
+      </div>`;
+    return;
+  }
+
+  // Loading state
   btn.classList.add('loading');
   btn.querySelector('i').className = 'fas fa-spinner fa-spin';
   btn.querySelector('span').textContent = 'Checking...';
 
-  setTimeout(() => {
+  try {
+    const fb = window.fbOrder;
+
+    // 🔥 Query ke Firestore: cari reseller aktif dengan resellerCode yang sesuai
+    const q = fb.query(
+      fb.collection(fb.db, 'resellers'),
+      fb.where('resellerCode', '==', code),
+      fb.where('status', '==', 'active'),
+      fb.limit(1)
+    );
+
+    const snap = await fb.getDocs(q);
+
+    // Reset button
     btn.classList.remove('loading');
     btn.querySelector('i').className = 'fas fa-search';
     btn.querySelector('span').textContent = 'Verifikasi';
 
-    if (resellerDatabase[code]) {
-      const reseller   = resellerDatabase[code];
-      verifiedReseller = { code, ...reseller };
-      input.value      = code;
-      input.readOnly   = true;
+    if (!snap.empty) {
+      // ✅ Reseller ditemukan & aktif
+      const docSnap = snap.docs[0];
+      const data    = docSnap.data();
+
+      // Tentukan tahun bergabung
+      let sinceYear = '2025';
+      if (data.createdDate) {
+        // Format "15/8/2025" → ambil tahun
+        const parts = data.createdDate.split('/');
+        if (parts.length === 3) sinceYear = parts[2];
+      } else if (data.timestamp?.toDate) {
+        sinceYear = data.timestamp.toDate().getFullYear().toString();
+      }
+
+      // Tentukan tier label
+      const tierRaw = (data.tier || 'silver').toLowerCase();
+      const tierLabel = tierRaw.charAt(0).toUpperCase() + tierRaw.slice(1) + ' Reseller';
+
+      verifiedReseller = {
+        id          : docSnap.id,
+        code        : code,
+        name        : data.nama || data.name || 'Reseller',
+        tier        : tierLabel,
+        tierRaw     : tierRaw,
+        since       : sinceYear,
+        phone       : data.wa || '',
+        email       : data.email || '',
+        paymentType : data.paymentType || 'per-closing',
+        paymentLabel: data.paymentLabel || 'Per Closing',
+        bank        : data.bank || '',
+        norek       : data.norek || '',
+        atasNama    : data.atasNama || ''
+      };
+
+      input.value = code;
+      input.readOnly = true;
       input.style.opacity = '0.7';
 
       result.innerHTML = `
         <div class="reseller-success">
           <i class="fas fa-check-circle"></i>
           <div class="rs-info">
-            <div class="rs-name">${reseller.name}</div>
-            <div class="rs-detail">${reseller.tier} • Kode: ${code} • Sejak ${reseller.since}</div>
+            <div class="rs-name">${verifiedReseller.name}</div>
+            <div class="rs-detail">${verifiedReseller.tier} • Kode: ${code} • Sejak ${sinceYear}</div>
           </div>
           <button type="button" class="btn-remove-reseller" onclick="removeReseller()" title="Hapus kode reseller">
             <i class="fas fa-times"></i>
           </button>
         </div>`;
 
-      showToast('Kode reseller terverifikasi: ' + reseller.name);
+      showToast('✅ Kode terverifikasi: ' + verifiedReseller.name);
+
     } else {
+      // ❌ Kode tidak ditemukan atau status bukan active
       verifiedReseller = null;
       result.innerHTML = `
         <div class="reseller-error">
@@ -1395,8 +1457,36 @@ function verifyReseller() {
           <span>Kode "<b>${code}</b>" tidak ditemukan. Periksa kembali atau <a href="reseller.html" target="_blank" style="color:#e74c3c;text-decoration:underline;">daftar jadi reseller</a>.</span>
         </div>`;
     }
-    renderSummary();
-  }, 1200);
+
+  } catch (err) {
+    console.error('❌ Verify reseller error:', err);
+
+    btn.classList.remove('loading');
+    btn.querySelector('i').className = 'fas fa-search';
+    btn.querySelector('span').textContent = 'Verifikasi';
+
+    verifiedReseller = null;
+
+    // Deteksi error index (composite index belum dibuat)
+    const errMsg = err.message || String(err);
+    if (errMsg.includes('index') || errMsg.includes('failed-precondition')) {
+      const linkMatch = errMsg.match(/https:\/\/[^\s]+/);
+      const link = linkMatch ? linkMatch[0] : '#';
+      result.innerHTML = `
+        <div class="reseller-error">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span>Firestore butuh composite index. <a href="${link}" target="_blank" style="color:#e74c3c;text-decoration:underline;font-weight:700;">Klik di sini</a> untuk auto-create index.</span>
+        </div>`;
+    } else {
+      result.innerHTML = `
+        <div class="reseller-error">
+          <i class="fas fa-times-circle"></i>
+          <span>Gagal verifikasi: ${errMsg}</span>
+        </div>`;
+    }
+  }
+
+  renderSummary();
 }
 
 function removeReseller() {
@@ -1508,7 +1598,7 @@ function goToStep(n) {
 
 
 // ============================================
-// 🔥 PLACE ORDER → FIREBASE + AUTO WA
+// 🔥 PLACE ORDER → FIREBASE + AUTO WA (UPDATED — include referral ID)
 // ============================================
 async function placeOrder() {
   // Validasi terms
@@ -1550,11 +1640,18 @@ async function placeOrder() {
     price: parseInt(a.dataset.price)
   }));
 
+  // ═══ Data payment status (default: pending) ═══
+  const paymentStatus = 'pending';
+  const dpAmount = 0;
+  const paidAmount = 0;
+
   const clientData = {
-    orderId, name,
+    orderId,
+    name,
     company : company || '',
     phone   : phoneNorm,
-    phoneRaw, email,
+    phoneRaw,
+    email,
     project : selectedPkg.dataset.name,
     paketKey: selectedPkg.dataset.pkg,
     value   : 'Rp ' + c.pkgPrice.toLocaleString('id-ID'),
@@ -1565,6 +1662,7 @@ async function placeOrder() {
     addons      : addonsArr,
     deadline    : selectedDeadline,
     deadlineKey : dlValue,
+
     priceDetail : {
       basePrice   : c.pkgPrice,
       addonsTotal : c.addonsPrice,
@@ -1578,22 +1676,42 @@ async function placeOrder() {
       remaining   : c.remaining,
       paymentType : paymentType
     },
+
     paymentMethod : selectedPayment,
     bankName      : selectedBank.name,
     bankAccount   : selectedBank.account,
     bankHolder    : selectedBank.holder,
+
+    // ═══ PAYMENT STATUS (untuk sistem komisi) ═══
+    paymentStatus : paymentStatus,   // pending | paid_partial | paid_full
+    dpAmount      : dpAmount,
+    paidAmount    : paidAmount,
+
+    // ═══ REFERRAL INFO (jika ada kode reseller) ═══
     referralCode  : verifiedReseller ? verifiedReseller.code : '',
     referralName  : verifiedReseller ? verifiedReseller.name : '',
-    referralTier  : verifiedReseller ? verifiedReseller.tier : '',
+    referralTier  : verifiedReseller ? verifiedReseller.tierRaw : '',
+
+    // ⭐ Object referral lengkap untuk sistem komisi
+    referral: verifiedReseller ? {
+      resellerId       : verifiedReseller.id,
+      resellerName     : verifiedReseller.name,
+      referralCode     : verifiedReseller.code,
+      resellerTier     : verifiedReseller.tierRaw,
+      paymentSchedule  : verifiedReseller.paymentType,
+      resellerPhone    : verifiedReseller.phone,
+      commissionStatus : 'pending'
+    } : null,
+
     voucherCode   : couponCode || '',
-    status  : 'pending',
-    source  : 'order_form_website',
-    notes   : '[Website Order] ' + (desc || 'Order via order.html'),
-    createdAt : window.fbOrder?.serverTimestamp() || new Date().toISOString(),
-    updatedAt : window.fbOrder?.serverTimestamp() || new Date().toISOString()
+    status        : 'pending',   // project status
+    source        : 'order_form_website',
+    notes         : '[Website Order] ' + (desc || 'Order via order.html'),
+    createdAt     : window.fbOrder?.serverTimestamp() || new Date().toISOString(),
+    updatedAt     : window.fbOrder?.serverTimestamp() || new Date().toISOString()
   };
 
-  // Kirim ke Firestore
+  // Kirim ke Firestore (collection: clients)
   let savedToFirebase = false;
   let firebaseDocId = null;
 
@@ -1610,6 +1728,9 @@ async function placeOrder() {
       savedToFirebase = true;
       firebaseDocId = docRef.id;
       console.log('✅ Firebase OK! Doc ID:', docRef.id, '| Order ID:', orderId);
+      if (verifiedReseller) {
+        console.log('🎁 Referral tercatat:', verifiedReseller.name, '(' + verifiedReseller.code + ')');
+      }
 
     } catch (fbErr) {
       console.error('❌ Firebase error:', fbErr);
@@ -1972,19 +2093,23 @@ if (resellerParam) {
     const input = document.getElementById('resellerCode');
     if (input) {
       input.value = resellerParam.toUpperCase();
-      verifyReseller();
+      // Delay verify sampai Firebase siap
+      const tryVerify = () => {
+        if (window.fbOrder && window.fbOrder.ready) {
+          verifyReseller();
+        } else {
+          setTimeout(tryVerify, 300);
+        }
+      };
+      tryVerify();
     }
-  }, 600);
+  }, 800);
 }
 
 document.addEventListener('fbOrderReady', () => {
-  console.log('✅ Firebase siap menerima order!');
+  console.log('✅ Firebase siap menerima order & verifikasi reseller!');
 });
 </script>
-
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-  <script src="firebase-config.js"></script>
   
 </body>
 
