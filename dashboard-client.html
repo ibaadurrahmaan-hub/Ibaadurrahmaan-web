@@ -1003,6 +1003,150 @@
 .swal-qup .swal2-popup:focus {
   outline: none !important;
 }
+
+/* ──────────────────────────────────────
+   💰 RESELLER COMMISSION BOX
+   ────────────────────────────────────── */
+.card-commission {
+    padding        : 12px;
+    border-radius  : 10px;
+    margin-bottom  : 10px;
+    font-size      : 0.82rem;
+    display        : flex;
+    flex-direction : column;
+    gap            : 10px;
+}
+
+.card-commission.pending {
+    background     : linear-gradient(135deg, #fefce8, #fef9c3);
+    border         : 1px solid #fde047;
+    color          : #713f12;
+}
+
+.card-commission.ready {
+    background     : linear-gradient(135deg, #eff6ff, #dbeafe);
+    border         : 1px solid #93c5fd;
+    color          : #1e40af;
+}
+
+.card-commission.done {
+    background     : linear-gradient(135deg, #f0fdf4, #dcfce7);
+    border         : 1px solid #86efac;
+    color          : #166534;
+}
+
+.commission-header {
+    display        : flex;
+    justify-content: space-between;
+    align-items    : flex-start;
+    gap            : 8px;
+    flex-wrap      : wrap;
+}
+
+.commission-tier {
+    display        : flex;
+    flex-direction : column;
+    gap            : 2px;
+    font-weight    : 600;
+    line-height    : 1.3;
+}
+
+.commission-tier small {
+    font-weight    : 500;
+    opacity        : 0.75;
+    font-size      : 0.7rem;
+    text-transform : capitalize;
+}
+
+.commission-status-badge {
+    font-size      : 0.7rem;
+    font-weight    : 700;
+    padding        : 4px 10px;
+    background     : rgba(255, 255, 255, 0.5);
+    border-radius  : 100px;
+    white-space    : nowrap;
+    flex-shrink    : 0;
+}
+
+.commission-body {
+    display        : flex;
+    justify-content: space-between;
+    align-items    : center;
+    gap            : 10px;
+    padding-top    : 8px;
+    border-top     : 1px dashed currentColor;
+    flex-wrap      : wrap;
+}
+
+.commission-amount-box {
+    display        : flex;
+    flex-direction : column;
+    gap            : 2px;
+}
+
+.ca-label {
+    font-size      : 0.68rem;
+    opacity        : 0.75;
+    text-transform : uppercase;
+    letter-spacing : 0.5px;
+    font-weight    : 600;
+}
+
+.ca-value {
+    font-weight    : 800;
+    font-size      : 1.05rem;
+    font-family    : 'Montserrat', sans-serif;
+}
+
+.commission-breakdown {
+    font-size      : 0.7rem;
+    opacity        : 0.8;
+    font-style     : italic;
+    text-align     : right;
+}
+
+.commission-btn {
+    background     : linear-gradient(135deg, #d4a536, #c19a2e);
+    color          : #fff;
+    border         : none;
+    padding        : 10px 16px;
+    border-radius  : 8px;
+    font-size      : 0.82rem;
+    font-weight    : 700;
+    cursor         : pointer;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    gap            : 8px;
+    transition     : all 0.3s;
+    box-shadow     : 0 3px 10px rgba(212, 165, 54, 0.3);
+    font-family    : 'Poppins', sans-serif;
+}
+
+.commission-btn:hover {
+    transform      : translateY(-2px);
+    box-shadow     : 0 5px 15px rgba(212, 165, 54, 0.5);
+}
+
+.commission-btn i {
+    font-size      : 0.9rem;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .commission-header {
+        flex-direction : column;
+    }
+    
+    .commission-body {
+        flex-direction : column;
+        align-items    : flex-start;
+    }
+    
+    .commission-breakdown {
+        text-align     : left;
+    }
+}
 </style>
 </head>
 
@@ -1251,6 +1395,16 @@
                     <input type="text" class="form-input" id="fDpAmount" placeholder="Rp 0" oninput="autoFormatRp(this)">
                 </div>
             </div>
+
+<!-- Payment Info Box -->
+<div class="card-payment ${payMap.cls}">
+    <i class="fas ${payMap.icon}"></i>
+    <span class="pay-label">${payMap.label}</span>
+    <span class="pay-amount">${payText}</span>
+</div>
+
+<!-- ═══ Commission Box ═══ -->
+${commissionBadge}
 
             <!-- ═══ SECTION: CATATAN ═══ -->
             <div class="form-section-title">
@@ -1667,6 +1821,31 @@ async function loadClients(){
     }
 }
 
+// ═══════════════════════════════════════════
+// KONFIGURASI KOMISI RESELLER (sesuai sistem slip)
+// ═══════════════════════════════════════════
+const TIER_CONFIG = {
+    silver  : { pct: 15, bonus: 0,      label: 'Silver',   icon: '🥉' },
+    gold    : { pct: 20, bonus: 100000, label: 'Gold',     icon: '🥈' },
+    platinum: { pct: 25, bonus: 200000, label: 'Platinum', icon: '🥇' }
+};
+
+// Function hitung komisi
+function calcCommission(totalValue, tier) {
+    const cfg    = TIER_CONFIG[tier] || TIER_CONFIG.silver;
+    const komisi = Math.round(totalValue * cfg.pct / 100);
+    const bonus  = cfg.bonus;
+    const total  = komisi + bonus;
+    
+    return {
+        pct       : cfg.pct,
+        bonus     : bonus,
+        komisi    : komisi,
+        total     : total,
+        tierLabel : cfg.label,
+        tierIcon  : cfg.icon
+    };
+}
 
 // ====================================================
 // FILTER & RENDER (UPDATED — dengan payment info)
@@ -1729,6 +1908,70 @@ if(payStatus === 'paid_full'){
     payText = totalValue > 0 
         ? toRp(totalValue) 
         : '—';
+}
+
+// ═══ Reseller & Komisi ═══
+const referral       = c.referral || {};
+const resellerName   = referral.resellerName || '';
+const resellerCode   = referral.referralCode || referral.resellerCode || '';
+const resellerTier   = (referral.resellerTier || 'silver').toLowerCase();
+const commissionStat = referral.commissionStatus || 'pending';
+const hasReseller    = resellerName.trim() !== '';
+
+// Hitung komisi
+const comm = calcCommission(totalValue, resellerTier);
+
+let commissionBadge = '';
+
+if (hasReseller) {
+    let statusIcon, statusText, boxClass, actionBtn = '';
+    
+    if (payStatus !== 'paid_full') {
+        // Client belum lunas
+        boxClass   = 'pending';
+        statusIcon = '⏳';
+        statusText = 'Menunggu client lunas';
+    } else if (commissionStat === 'paid') {
+        // Komisi sudah dibayar
+        boxClass   = 'done';
+        statusIcon = '✅';
+        statusText = 'Komisi sudah dibayar';
+    } else {
+        // Siap dicairkan → tampilkan tombol generate slip
+        boxClass   = 'ready';
+        statusIcon = '💰';
+        statusText = 'Siap dibayar';
+        actionBtn  = `
+            <button class="commission-btn" onclick="generateSlipKomisi('${c.id}')">
+                <i class="fas fa-file-invoice-dollar"></i> Buat Slip
+            </button>`;
+    }
+    
+    // Breakdown teks
+    const breakdown = comm.bonus > 0
+        ? `${toRp(comm.komisi)} + Bonus ${toRp(comm.bonus)}`
+        : `${comm.pct}% × ${toRp(totalValue)}`;
+
+    commissionBadge = `
+        <div class="card-commission ${boxClass}">
+            <div class="commission-header">
+                <span class="commission-tier">
+                    ${comm.tierIcon} <b>${escHtml(resellerName)}</b>
+                    <small>${comm.tierLabel} • ${comm.pct}%${comm.bonus > 0 ? ' + bonus' : ''}</small>
+                </span>
+                <span class="commission-status-badge">${statusIcon} ${statusText}</span>
+            </div>
+            <div class="commission-body">
+                <div class="commission-amount-box">
+                    <span class="ca-label">Total Komisi</span>
+                    <span class="ca-value">${toRp(comm.total)}</span>
+                </div>
+                <div class="commission-breakdown">
+                    💡 ${breakdown}
+                </div>
+            </div>
+            ${actionBtn}
+        </div>`;
 }
         // ═══ NEW: Tombol "Bayar" — beda text/state sesuai status bayar ═══
         let payBtnHtml = '';
