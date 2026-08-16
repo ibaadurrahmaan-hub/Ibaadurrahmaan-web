@@ -540,6 +540,430 @@
 .client-container {
   padding-bottom: 100px !important;
 }
+
+/* ============================================
+   💰 QUICK UPDATE PAYMENT MODAL (Custom Styled)
+   ============================================ */
+
+/* Popup override */
+.swal-qup.swal2-popup {
+  padding: 24px 22px 20px !important;
+  max-width: 440px !important;
+  width: calc(100vw - 24px) !important;
+}
+
+/* Title custom */
+.qup-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #d4a536;
+  padding: 0;
+  line-height: 1.3;
+}
+
+.qup-title-icon {
+  font-size: 1.4rem;
+}
+
+.swal-qup .swal2-title {
+  padding: 0 !important;
+  margin: 0 0 4px 0 !important;
+}
+
+.swal-qup .swal2-html-container {
+  padding: 0 !important;
+  margin: 16px 0 0 !important;
+  overflow: visible !important;
+  text-align: left !important;
+}
+
+.qup-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Client Info Box */
+.qup-client-box {
+  background: linear-gradient(135deg, rgba(212,165,54,0.08), rgba(212,165,54,0.03));
+  border: 1px solid rgba(212,165,54,0.2);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.qup-client-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #d4a536;
+  margin-bottom: 4px;
+}
+
+.qup-client-name i {
+  font-size: 0.9rem;
+}
+
+.qup-client-project {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.qup-client-value {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(212,165,54,0.15);
+  color: #d4a536;
+  font-family: 'Montserrat', monospace;
+  font-size: 0.82rem;
+  font-weight: 800;
+  border-radius: 100px;
+  border: 1px solid rgba(212,165,54,0.3);
+}
+
+/* Field */
+.qup-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.qup-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #d4a536;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.qup-label i {
+  font-size: 0.72rem;
+  opacity: 0.8;
+}
+
+/* Input */
+.qup-input {
+  width: 100%;
+  padding: 13px 15px;
+  background: #0D1829;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.92rem;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.qup-input:focus {
+  border-color: #d4a536;
+  background: #12233d;
+  box-shadow: 0 0 0 3px rgba(212,165,54,0.15);
+}
+
+.qup-input.readonly {
+  opacity: 0.65;
+  cursor: not-allowed;
+  background: rgba(0,0,0,0.3);
+}
+
+.qup-input::placeholder {
+  color: rgba(255,255,255,0.35);
+}
+
+/* ==================== CUSTOM DROPDOWN ==================== */
+.qup-dropdown {
+  position: relative;
+  width: 100%;
+  user-select: none;
+  font-family: 'Poppins', sans-serif;
+}
+
+.qup-trigger {
+  width: 100%;
+  padding: 13px 15px;
+  background: #0D1829;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  transition: all 0.3s ease;
+  outline: none;
+  font-family: inherit;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.qup-trigger:hover {
+  border-color: rgba(212,165,54,0.3);
+  background: #12233d;
+}
+
+.qup-dropdown.open .qup-trigger {
+  border-color: #d4a536;
+  background: #12233d;
+  box-shadow: 0 0 0 3px rgba(212,165,54,0.15);
+}
+
+.qup-selected {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.qup-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.08);
+}
+
+.qup-emoji {
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.qup-label-text {
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.9rem;
+}
+
+.qup-arrow {
+  color: #d4a536;
+  font-size: 0.72rem;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.qup-dropdown.open .qup-arrow {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.qup-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: linear-gradient(145deg, #12233d, #0D1829);
+  border: 1px solid rgba(212,165,54,0.3);
+  border-radius: 12px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 10000;
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.5),
+    0 0 30px rgba(212,165,54,0.15);
+  transform: translateY(-8px);
+}
+
+.qup-dropdown.open .qup-menu {
+  max-height: 300px;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Options */
+.qup-option {
+  padding: 12px 15px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.25s ease;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  position: relative;
+}
+
+.qup-option:last-child {
+  border-bottom: none;
+}
+
+.qup-option:hover {
+  background: rgba(212,165,54,0.08);
+  color: #d4a536;
+  padding-left: 20px;
+}
+
+.qup-option.active {
+  background: rgba(212,165,54,0.12);
+  color: #d4a536;
+  font-weight: 700;
+}
+
+.qup-check {
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: #d4a536;
+  flex-shrink: 0;
+}
+
+/* Info Hint */
+.qup-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  background: rgba(52,152,219,0.06);
+  border: 1px solid rgba(52,152,219,0.15);
+  border-radius: 8px;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.5;
+}
+
+.qup-hint i {
+  color: #3498db;
+  font-size: 0.85rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.qup-hint b {
+  color: #d4a536;
+}
+
+/* ==================== BUTTONS ==================== */
+.qup-btn-save,
+.qup-btn-cancel {
+  padding: 13px 22px !important;
+  font-size: 0.82rem !important;
+  font-weight: 800 !important;
+  font-family: 'Poppins', sans-serif !important;
+  border-radius: 100px !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  min-width: 120px !important;
+}
+
+.qup-btn-save {
+  background: linear-gradient(135deg, #d4a536, #c19a2e) !important;
+  color: #050B18 !important;
+  box-shadow: 0 6px 20px rgba(212,165,54,0.4) !important;
+}
+
+.qup-btn-save:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(212,165,54,0.5) !important;
+}
+
+.qup-btn-cancel {
+  background: rgba(255,255,255,0.08) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+}
+
+.qup-btn-cancel:hover {
+  background: rgba(231,76,60,0.15) !important;
+  border-color: rgba(231,76,60,0.4) !important;
+  color: #ff6b5b !important;
+}
+
+/* Actions container */
+.swal-qup .swal2-actions {
+  margin: 20px 0 0 !important;
+  gap: 10px !important;
+  padding: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  flex-wrap: nowrap !important;
+}
+
+/* Validation message */
+.swal-qup .swal2-validation-message {
+  background: rgba(231,76,60,0.15) !important;
+  color: #ff6b5b !important;
+  border: 1px solid rgba(231,76,60,0.3) !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  margin: 14px 0 0 !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+/* Scrollbar dropdown */
+.qup-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.qup-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.qup-menu::-webkit-scrollbar-thumb {
+  background: rgba(212,165,54,0.3);
+  border-radius: 100px;
+}
+
+/* Mobile adjustment */
+@media (max-width: 480px) {
+  .swal-qup.swal2-popup {
+    padding: 20px 16px 16px !important;
+  }
+
+  .qup-title {
+    font-size: 1.05rem;
+  }
+
+  .qup-client-name {
+    font-size: 0.9rem;
+  }
+
+  .qup-input,
+  .qup-trigger {
+    padding: 12px 14px;
+    font-size: 0.88rem;
+  }
+
+  .qup-btn-save,
+  .qup-btn-cancel {
+    padding: 12px 18px !important;
+    font-size: 0.75rem !important;
+    min-width: 100px !important;
+  }
+}
 </style>
 </head>
 
