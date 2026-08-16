@@ -1436,86 +1436,96 @@ window.addEventListener('load', () => {
     // Cek autofill dari halaman client
     const urlParams = new URLSearchParams(window.location.search);
     const isAutofill = urlParams.get('autofill') === '1';
-    
     if (isAutofill) {
-        const raw = sessionStorage.getItem('slip_autofill');
-        if (raw) {
-            try {
-                const d = JSON.parse(raw);
-                
-                // Simpan clientId
-                autoFilledClientId = d.clientId || null;
-                
-                // Pilih mode single
-                selectMode('single');
-                
-                // Isi data reseller
-                document.getElementById('fieldNama').value = d.nama || '';
-                document.getElementById('fieldKode').value = d.kode || '';
-                
-                // Set tier
-                const tierOption = document.querySelector(`.custom-option[data-value="${d.tier}"]`);
-                if (tierOption) selectLevel(tierOption);
-                
-                // Isi data closing
-                document.getElementById('singleClient').value = d.client || '';
-                if (d.tglClosing) document.getElementById('singleTglClosing').value = d.tglClosing;
-                if (d.tglBayar) document.getElementById('singleTglBayar').value = d.tglBayar;
-                
-                // Set paket
-                const paketSelect = document.getElementById('singlePaket');
-                let foundOption = false;
-                for (const opt of paketSelect.options) {
-                    if (parseInt(opt.value) === d.paket) {
-                        opt.selected = true;
-                        foundOption = true;
-                        break;
-                    }
+    const raw = sessionStorage.getItem('slip_autofill');
+    if (raw) {
+        try {
+            const d = JSON.parse(raw);
+            
+            // Simpan clientId
+            autoFilledClientId = d.clientId || null;
+            
+            // Pilih mode single
+            selectMode('single');
+            
+            // Isi data reseller
+            document.getElementById('fieldNama').value = d.nama || '';
+            document.getElementById('fieldKode').value = d.kode || '';
+            
+            // ✨ Isi data bank
+            document.getElementById('fieldBank').value = d.bank || '';
+            document.getElementById('fieldNorek').value = d.norek || '';
+            
+            // Set tier
+            const tierOption = document.querySelector(`.custom-option[data-value="${d.tier}"]`);
+            if (tierOption) selectLevel(tierOption);
+            
+            // Isi data closing
+            document.getElementById('singleClient').value = d.client || '';
+            if (d.tglClosing) document.getElementById('singleTglClosing').value = d.tglClosing;
+            if (d.tglBayar) document.getElementById('singleTglBayar').value = d.tglBayar;
+            
+            // Set paket
+            const paketSelect = document.getElementById('singlePaket');
+            let foundOption = false;
+            for (const opt of paketSelect.options) {
+                if (parseInt(opt.value) === d.paket) {
+                    opt.selected = true;
+                    foundOption = true;
+                    break;
                 }
-                
-                if (!foundOption && d.paket > 0) {
-                    const customOpt = document.createElement('option');
-                    customOpt.value = d.paket;
-                    customOpt.textContent = `${d.paketName} - Rp ${d.paket.toLocaleString('id-ID')}`;
-                    customOpt.selected = true;
-                    paketSelect.appendChild(customOpt);
-                }
-                
-                // Show autofill notice
-                const notice = document.getElementById('autofillNotice');
-                const desc = document.getElementById('autofillDesc');
-                if (notice) {
-                    notice.style.display = 'flex';
-                    if (desc) {
-                        desc.textContent = `Client: ${d.client} • ${d.nama} (${d.kode || 'RSL-?'})`;
-                    }
-                }
-                
-                sessionStorage.removeItem('slip_autofill');
-                
-                // Toast notif
-                setTimeout(() => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: '✨ Auto-Fill Berhasil!',
-                        text: 'Data client sudah terisi otomatis',
-                        customClass: { popup: 'swal-premium' },
-                        timer: 2500,
-                        showConfirmButton: false,
-                        toast: true,
-                        position: 'top-end',
-                        timerProgressBar: true
-                    });
-                }, 400);
-                
-            } catch(e) {
-                console.error('Autofill error:', e);
             }
+            
+            if (!foundOption && d.paket > 0) {
+                const customOpt = document.createElement('option');
+                customOpt.value = d.paket;
+                customOpt.textContent = `${d.paketName} - Rp ${d.paket.toLocaleString('id-ID')}`;
+                customOpt.selected = true;
+                paketSelect.appendChild(customOpt);
+            }
+            
+            // Show autofill notice
+            const notice = document.getElementById('autofillNotice');
+            const desc = document.getElementById('autofillDesc');
+            if (notice) {
+                notice.style.display = 'flex';
+                if (desc) {
+                    // Show info bank kalau ada
+                    let bankInfo = '';
+                    if (d.bank && d.norek) {
+                        bankInfo = ` • ${d.bank}: ${d.norek}`;
+                    } else {
+                        bankInfo = ' • ⚠️ Data bank belum ada di reseller';
+                    }
+                    desc.textContent = `${d.client} • ${d.nama} (${d.kode || 'RSL-?'})${bankInfo}`;
+                }
+            }
+            
+            sessionStorage.removeItem('slip_autofill');
+            
+            // Toast notif
+            setTimeout(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: '✨ Auto-Fill Berhasil!',
+                    text: 'Data client & bank reseller sudah terisi',
+                    customClass: { popup: 'swal-premium' },
+                    timer: 2500,
+                    showConfirmButton: false,
+                    toast: true,
+                    position: 'top-end',
+                    timerProgressBar: true
+                });
+            }, 400);
+            
+        } catch(e) {
+            console.error('Autofill error:', e);
         }
-    } else {
-        // Kalau bukan autofill, tambah 1 closing default (mode monthly)
-        addClosing();
     }
+} else {
+    // Kalau bukan autofill, tambah 1 closing default (mode monthly)
+    addClosing();
+}
     
     // Listener input
     document.querySelectorAll('.slip-form-input, .slip-form-select').forEach(input => {
