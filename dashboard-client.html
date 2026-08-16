@@ -1968,103 +1968,152 @@ async function saveClient(){
     }
 }
 
-
 // ====================================================
-// 🆕 QUICK UPDATE PAYMENT (tombol "Bayar" di card)
+// 🆕 QUICK UPDATE PAYMENT (Custom Dropdown - REVISED)
 // ====================================================
 async function quickUpdatePayment(docId){
     const c = allClients.find(x=>x.id===docId);
     if(!c) return;
 
-    const projectValue = parseRp(c.value);
-    const currentDp    = c.dpAmount || 0;
+    const projectValue  = parseRp(c.value);
+    const currentDp     = c.dpAmount || 0;
     const currentStatus = c.paymentStatus || 'pending';
 
-    // Build option select berdasarkan status saat ini
-    const optionsHtml = `
-        <option value="pending" ${currentStatus==='pending'?'selected':''}>💤 Belum Bayar</option>
-        <option value="paid_partial" ${currentStatus==='paid_partial'?'selected':''}>💵 DP Dibayar</option>
-        <option value="paid_full" ${currentStatus==='paid_full'?'selected':''}>✅ Lunas</option>
-    `;
+    // Payment options
+    const payOptions = [
+        { value: 'pending',      icon: '💤', label: 'Belum Bayar',  color: '#f39c12' },
+        { value: 'paid_partial', icon: '💵', label: 'DP Dibayar',   color: '#3498db' },
+        { value: 'paid_full',    icon: '✅', label: 'Lunas',        color: '#25d366' }
+    ];
+
+    const currentOption = payOptions.find(o => o.value === currentStatus) || payOptions[0];
 
     const { value: formValues } = await Swal.fire({
-        title: `<span style="color:#d4a536;">💰 Update Pembayaran</span>`,
+        title: `<div class="qup-title"><span class="qup-title-icon">💰</span> Update Pembayaran</div>`,
         html: `
-            <div style="text-align:left;margin-top:10px;">
-                <p style="color:#e8bd52;font-weight:700;margin-bottom:4px;font-size:0.9rem;">
-                    <i class="fas fa-user"></i> ${escHtml(c.name)}
-                </p>
-                <p style="color:rgba(255,255,255,0.7);font-size:0.82rem;margin-bottom:16px;">
-                    ${escHtml(c.project)} — <b style="color:#d4a536;">${escHtml(c.value||'Rp 0')}</b>
-                </p>
+            <div class="qup-body">
+                <!-- Info Client -->
+                <div class="qup-client-box">
+                    <div class="qup-client-name">
+                        <i class="fas fa-user-circle"></i> ${escHtml(c.name)}
+                    </div>
+                    <div class="qup-client-project">
+                        ${escHtml(c.project)}
+                    </div>
+                    <div class="qup-client-value">
+                        ${escHtml(c.value || 'Rp 0')}
+                    </div>
+                </div>
 
-                <label style="display:block;color:#d4a536;font-size:0.75rem;font-weight:700;
-                              text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">
-                    Status Pembayaran
-                </label>
-                <select id="swalPayStatus" class="swal2-select" style="width:100%;padding:10px 12px;
-                        background:#0D1829;color:#fff;border:1px solid rgba(255,255,255,0.1);
-                        border-radius:8px;font-family:'Poppins',sans-serif;font-size:0.9rem;margin-bottom:14px;">
-                    ${optionsHtml}
-                </select>
+                <!-- Status Pembayaran -->
+                <div class="qup-field">
+                    <label class="qup-label">
+                        <i class="fas fa-wallet"></i> Status Pembayaran
+                    </label>
+                    <div class="qup-dropdown" id="qupDropdown">
+                        <button type="button" class="qup-trigger" onclick="qupToggleDropdown()">
+                            <span class="qup-selected" id="qupSelected">
+                                <span class="qup-dot" style="background:${currentOption.color}"></span>
+                                <span class="qup-emoji">${currentOption.icon}</span>
+                                <span class="qup-label-text">${currentOption.label}</span>
+                            </span>
+                            <i class="fas fa-chevron-down qup-arrow"></i>
+                        </button>
+                        <div class="qup-menu" id="qupMenu">
+                            ${payOptions.map(opt => `
+                                <div class="qup-option ${opt.value === currentStatus ? 'active' : ''}"
+                                     data-value="${opt.value}"
+                                     data-icon="${opt.icon}"
+                                     data-label="${opt.label}"
+                                     data-color="${opt.color}"
+                                     onclick="qupSelectOption(this)">
+                                    <span class="qup-dot" style="background:${opt.color}"></span>
+                                    <span class="qup-emoji">${opt.icon}</span>
+                                    <span class="qup-label-text">${opt.label}</span>
+                                    ${opt.value === currentStatus ? '<i class="fas fa-check qup-check"></i>' : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <input type="hidden" id="qupStatus" value="${currentStatus}">
+                    </div>
+                </div>
 
-                <label style="display:block;color:#d4a536;font-size:0.75rem;font-weight:700;
-                              text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">
-                    Nominal DP
-                </label>
-                <input type="text" id="swalDpAmount" class="swal2-input"
-                       value="${currentDp>0?toRp(currentDp):''}"
-                       placeholder="Rp 0"
-                       style="width:100%;margin:0;padding:10px 12px;
-                              background:#0D1829;color:#fff;border:1px solid rgba(255,255,255,0.1);
-                              border-radius:8px;font-family:'Poppins',sans-serif;font-size:0.9rem;box-sizing:border-box;">
+                <!-- Nominal DP -->
+                <div class="qup-field">
+                    <label class="qup-label">
+                        <i class="fas fa-hand-holding-usd"></i> Nominal DP
+                    </label>
+                    <input type="text" id="qupDpAmount" class="qup-input"
+                           value="${currentDp>0?toRp(currentDp):''}"
+                           placeholder="Rp 0">
+                </div>
 
-                <p style="color:rgba(255,255,255,0.5);font-size:0.72rem;margin-top:8px;line-height:1.5;">
+                <!-- Info hint -->
+                <div class="qup-hint">
                     <i class="fas fa-info-circle"></i>
-                    Jika status <b>Lunas</b>, nominal otomatis = ${escHtml(c.value||'nilai project')}
-                </p>
+                    <span>Jika status <b>Lunas</b>, nominal otomatis = ${escHtml(c.value || 'nilai project')}</span>
+                </div>
             </div>
         `,
         showCancelButton: true,
         confirmButtonText: '<i class="fas fa-save"></i> Simpan',
         cancelButtonText: 'Batal',
-        customClass:{popup:'swal-premium'},
+        customClass: {
+            popup: 'swal-premium swal-qup',
+            confirmButton: 'qup-btn-save',
+            cancelButton: 'qup-btn-cancel'
+        },
         reverseButtons: true,
         focusConfirm: false,
+        buttonsStyling: false,
+        showCloseButton: false,
         didOpen: () => {
+            const dpEl = document.getElementById('qupDpAmount');
+
             // Auto-format Rp saat mengetik
-            const dpEl = document.getElementById('swalDpAmount');
             dpEl.addEventListener('input', () => autoFormatRp(dpEl));
 
-            // Auto-fill saat status Lunas
-            const stEl = document.getElementById('swalPayStatus');
-            stEl.addEventListener('change', () => {
-                if(stEl.value === 'paid_full' && projectValue > 0){
+            // Handle status change (via hidden input)
+            const statusEl = document.getElementById('qupStatus');
+            const observer = new MutationObserver(() => {
+                const st = statusEl.value;
+                if(st === 'paid_full' && projectValue > 0){
                     dpEl.value = toRp(projectValue);
                     dpEl.setAttribute('readonly','readonly');
-                    dpEl.style.opacity = '0.7';
-                } else if(stEl.value === 'pending'){
+                    dpEl.classList.add('readonly');
+                } else if(st === 'pending'){
                     dpEl.value = '';
                     dpEl.removeAttribute('readonly');
-                    dpEl.style.opacity = '1';
+                    dpEl.classList.remove('readonly');
                 } else {
                     dpEl.removeAttribute('readonly');
-                    dpEl.style.opacity = '1';
+                    dpEl.classList.remove('readonly');
                 }
             });
-            // Trigger sekali di awal
-            stEl.dispatchEvent(new Event('change'));
+            observer.observe(statusEl, { attributes: true, attributeFilter: ['value'] });
+
+            // Set initial state (in case starting from Lunas)
+            if(currentStatus === 'paid_full' && projectValue > 0){
+                dpEl.setAttribute('readonly','readonly');
+                dpEl.classList.add('readonly');
+            }
+
+            // Close dropdown on outside click
+            document.addEventListener('click', qupOutsideClick);
+        },
+        willClose: () => {
+            document.removeEventListener('click', qupOutsideClick);
         },
         preConfirm: () => {
-            const st = document.getElementById('swalPayStatus').value;
-            const dp = parseRp(document.getElementById('swalDpAmount').value);
+            const st = document.getElementById('qupStatus').value;
+            const dp = parseRp(document.getElementById('qupDpAmount').value);
 
             if(st === 'paid_partial' && dp <= 0){
-                Swal.showValidationMessage('Isi nominal DP terlebih dahulu');
+                Swal.showValidationMessage('❌ Isi nominal DP terlebih dahulu');
                 return false;
             }
             if(dp > 0 && projectValue > 0 && dp > projectValue){
-                Swal.showValidationMessage(`DP tidak boleh > nilai project (${toRp(projectValue)})`);
+                Swal.showValidationMessage(`❌ DP tidak boleh > ${toRp(projectValue)}`);
                 return false;
             }
             return { status: st, dp: dp };
@@ -2089,7 +2138,6 @@ async function quickUpdatePayment(docId){
             updatedAt    : fb.serverTimestamp()
         };
 
-        // Set paidAt kalau baru Lunas
         if(formValues.status === 'paid_full' && currentStatus !== 'paid_full'){
             updates.paidAt = fb.serverTimestamp();
         } else if(formValues.status !== 'paid_full'){
@@ -2099,12 +2147,12 @@ async function quickUpdatePayment(docId){
         await fb.updateDoc(ref, updates);
 
         Swal.fire({
-            icon:'success',
-            title: formValues.status==='paid_full' ? '🎉 Sudah Lunas!' : '✅ Diperbarui',
+            icon: 'success',
+            title: formValues.status === 'paid_full' ? '🎉 Sudah Lunas!' : '✅ Diperbarui',
             text: `Status pembayaran ${c.name} berhasil diupdate`,
             customClass:{popup:'swal-premium'},
-            timer:2000, showConfirmButton:false, timerProgressBar:true,
-            toast:true, position:'top-end'
+            timer: 2000, showConfirmButton: false, timerProgressBar: true,
+            toast: true, position: 'top-end'
         });
 
         await loadClients();
@@ -2112,12 +2160,62 @@ async function quickUpdatePayment(docId){
     } catch(err){
         console.error('❌ Quick payment update error:', err);
         Swal.fire({
-            icon:'error', title:'Gagal Update',
-            html:`Error: <code>${err.message}</code>`,
-            customClass:{popup:'swal-premium'}, confirmButtonText:'Oke'
+            icon: 'error', title: 'Gagal Update',
+            html: `Error: <code>${err.message}</code>`,
+            customClass:{popup:'swal-premium'}, confirmButtonText: 'Oke'
         });
     }
 }
+
+
+// ====================================================
+// 🎯 CUSTOM DROPDOWN HELPERS untuk quickUpdatePayment
+// ====================================================
+function qupToggleDropdown(){
+    const dd = document.getElementById('qupDropdown');
+    if(dd) dd.classList.toggle('open');
+}
+
+function qupSelectOption(opt){
+    const dd       = document.getElementById('qupDropdown');
+    const selected = document.getElementById('qupSelected');
+    const hidden   = document.getElementById('qupStatus');
+
+    const value = opt.dataset.value;
+    const icon  = opt.dataset.icon;
+    const label = opt.dataset.label;
+    const color = opt.dataset.color;
+
+    // Update display
+    selected.innerHTML = `
+        <span class="qup-dot" style="background:${color}"></span>
+        <span class="qup-emoji">${icon}</span>
+        <span class="qup-label-text">${label}</span>
+    `;
+
+    // Update active state
+    dd.querySelectorAll('.qup-option').forEach(o => {
+        o.classList.remove('active');
+        const check = o.querySelector('.qup-check');
+        if(check) check.remove();
+    });
+    opt.classList.add('active');
+    opt.insertAdjacentHTML('beforeend', '<i class="fas fa-check qup-check"></i>');
+
+    // Update hidden input value (trigger observer)
+    hidden.setAttribute('value', value);
+    hidden.value = value;
+
+    // Close dropdown
+    dd.classList.remove('open');
+}
+
+function qupOutsideClick(e){
+    if(!e.target.closest('.qup-dropdown')){
+        const dd = document.getElementById('qupDropdown');
+        if(dd) dd.classList.remove('open');
+    }
+} 
 
 
 // ====================================================
