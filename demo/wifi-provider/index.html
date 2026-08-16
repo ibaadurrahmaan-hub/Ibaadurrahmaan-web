@@ -10,2076 +10,458 @@
 /* ═══════════════════════════════════
    RESET & CSS VARIABLES
    ═══════════════════════════════════ */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  /* Primary Palette */
-  --primary: #00C6FF;
-  --primary-dark: #0078D4;
-  --primary-deeper: #004E8C;
-  --accent: #00F5D4;
-  --accent-alt: #7B61FF;
-  
-  /* Dark Theme */
-  --bg-900: #020817;
-  --bg-800: #0B1120;
-  --bg-700: #111827;
-  --bg-600: #1E293B;
-  --bg-500: #334155;
-  --bg-card: #0F172A;
-  --bg-elevated: #1A2332;
-  
-  /* Text */
-  --white: #FFFFFF;
-  --text-100: #F1F5F9;
-  --text-200: #CBD5E1;
-  --text-300: #94A3B8;
-  --text-400: #64748B;
-  
-  /* Status */
-  --success: #22C55E;
-  --warning: #EAB308;
-  --danger: #EF4444;
-  
-  /* Gradients */
-  --grad-primary: linear-gradient(135deg, #00C6FF 0%, #0078D4 100%);
-  --grad-accent: linear-gradient(135deg, #00F5D4 0%, #00C6FF 100%);
-  --grad-premium: linear-gradient(135deg, #7B61FF 0%, #00C6FF 50%, #00F5D4 100%);
-  --grad-dark: linear-gradient(180deg, #020817 0%, #0B1120 100%);
-  --grad-glass: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
-  
-  /* Effects */
-  --glow-primary: 0 0 60px rgba(0,198,255,0.15);
-  --glow-accent: 0 0 60px rgba(0,245,212,0.15);
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-  --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
-  --shadow-lg: 0 10px 40px rgba(0,0,0,0.5);
-  --shadow-xl: 0 25px 80px rgba(0,0,0,0.6);
-  --blur-glass: blur(20px);
-  
-  /* Border */
-  --border: rgba(255,255,255,0.06);
-  --border-hover: rgba(0,198,255,0.3);
-  --border-accent: rgba(0,245,212,0.3);
-  
-  /* Radius */
-  --r-sm: 8px;
-  --r-md: 12px;
-  --r-lg: 16px;
-  --r-xl: 24px;
-  --r-2xl: 32px;
-  --r-full: 9999px;
-  
-  /* Transition */
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --t-fast: 0.2s;
-  --t-normal: 0.3s;
-  --t-slow: 0.5s;
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --primary:#00C6FF;--primary-dark:#0078D4;--primary-deeper:#004E8C;
+  --accent:#00F5D4;--accent-alt:#7B61FF;
+  --bg-900:#020817;--bg-800:#0B1120;--bg-700:#111827;--bg-600:#1E293B;--bg-500:#334155;
+  --bg-card:#0F172A;--bg-elevated:#1A2332;
+  --white:#FFFFFF;--text-100:#F1F5F9;--text-200:#CBD5E1;--text-300:#94A3B8;--text-400:#64748B;
+  --success:#22C55E;--warning:#EAB308;--danger:#EF4444;
+  --grad-primary:linear-gradient(135deg,#00C6FF 0%,#0078D4 100%);
+  --grad-accent:linear-gradient(135deg,#00F5D4 0%,#00C6FF 100%);
+  --grad-premium:linear-gradient(135deg,#7B61FF 0%,#00C6FF 50%,#00F5D4 100%);
+  --border:rgba(255,255,255,0.06);--border-hover:rgba(0,198,255,0.3);
+  --glow-primary:0 0 60px rgba(0,198,255,0.15);
+  --shadow-lg:0 20px 60px rgba(0,0,0,0.5);
+  --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:24px;--r-2xl:32px;--r-full:9999px;
+  --ease:cubic-bezier(0.4,0,0.2,1);--ease-bounce:cubic-bezier(0.34,1.56,0.64,1);
+  --t-fast:0.2s;--t-normal:0.3s;--t-slow:0.5s;
 }
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px;
-}
-
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  color: var(--text-200);
-  background: var(--bg-900);
-  overflow-x: hidden;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.container {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-a { text-decoration: none; color: inherit; }
-img { max-width: 100%; height: auto; display: block; }
-button { font-family: inherit; cursor: pointer; }
-
-/* Selection */
-::selection {
-  background: rgba(0,198,255,0.3);
-  color: var(--white);
-}
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--bg-900); }
-::-webkit-scrollbar-thumb { background: rgba(0,198,255,0.3); border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(0,198,255,0.5); }
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:'Inter',-apple-system,sans-serif;color:var(--text-200);background:var(--bg-900);overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
+.container{max-width:1240px;margin:0 auto;padding:0 24px}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer}
+::selection{background:rgba(0,198,255,0.3);color:var(--white)}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg-900)}
+::-webkit-scrollbar-thumb{background:rgba(0,198,255,0.3);border-radius:10px}
+body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:0.35}
 
 /* ═══════════════════════════════════
-   NOISE TEXTURE OVERLAY
+   DESKTOP NAVBAR
    ═══════════════════════════════════ */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9998;
-  opacity: 0.4;
-}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 0;transition:all var(--t-normal) var(--ease)}
+.navbar.scrolled{padding:10px 0;background:rgba(2,8,23,0.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1240px;margin:0 auto;padding:0 24px}
+.nav-logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:1.3rem;color:var(--white);letter-spacing:-0.5px}
+.logo-icon{width:42px;height:42px;background:var(--grad-accent);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 4px 20px rgba(0,245,212,0.3);position:relative}
+.logo-icon::after{content:'';position:absolute;inset:-2px;border-radius:var(--r-md);background:var(--grad-accent);opacity:0.25;filter:blur(8px);z-index:-1}
+.nav-logo .hl{color:var(--accent)}
+.nav-menu{display:flex;align-items:center;gap:4px;list-style:none}
+.nav-menu a{color:var(--text-300);font-weight:500;font-size:0.88rem;padding:8px 16px;border-radius:var(--r-sm);transition:all var(--t-fast) var(--ease);position:relative}
+.nav-menu a:hover{color:var(--white);background:rgba(255,255,255,0.05)}
+.nav-menu a.active{color:var(--accent)}
+.nav-menu a.active::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:16px;height:2px;background:var(--accent);border-radius:2px}
+.nav-cta{background:var(--grad-primary)!important;color:var(--white)!important;padding:10px 24px!important;border-radius:var(--r-full)!important;font-weight:700!important;font-size:0.85rem!important;box-shadow:0 4px 20px rgba(0,198,255,0.3);transition:all var(--t-normal) var(--ease)!important}
+.nav-cta:hover{transform:translateY(-2px)!important;box-shadow:0 8px 32px rgba(0,198,255,0.5)!important}
+.nav-cta::after{display:none!important}
 
 /* ═══════════════════════════════════
-   NAVBAR
+   MOBILE BOTTOM NAVBAR
    ═══════════════════════════════════ */
-.navbar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-  padding: 16px 0;
-  transition: all var(--t-normal) var(--ease);
-}
-
-.navbar.scrolled {
-  padding: 10px 0;
-  background: rgba(2,8,23,0.85);
-  backdrop-filter: var(--blur-glass);
-  -webkit-backdrop-filter: var(--blur-glass);
-  border-bottom: 1px solid var(--border);
-}
-
-.nav-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-weight: 800;
-  font-size: 1.35rem;
-  color: var(--white);
-  letter-spacing: -0.5px;
-}
-
-.logo-icon {
-  width: 42px; height: 42px;
-  background: var(--grad-accent);
-  border-radius: var(--r-md);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem;
-  box-shadow: 0 4px 20px rgba(0,245,212,0.3);
-  position: relative;
-}
-
-.logo-icon::after {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: var(--r-md);
-  background: var(--grad-accent);
-  opacity: 0.3;
-  filter: blur(8px);
-  z-index: -1;
-}
-
-.nav-logo .highlight { color: var(--accent); }
-
-.nav-menu {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  list-style: none;
-}
-
-.nav-menu a {
-  color: var(--text-300);
-  font-weight: 500;
-  font-size: 0.88rem;
-  padding: 8px 16px;
-  border-radius: var(--r-sm);
-  transition: all var(--t-fast) var(--ease);
-  position: relative;
-}
-
-.nav-menu a:hover {
-  color: var(--white);
-  background: rgba(255,255,255,0.05);
-}
-
-.nav-cta {
-  background: var(--grad-primary) !important;
-  color: var(--white) !important;
-  padding: 10px 24px !important;
-  border-radius: var(--r-full) !important;
-  font-weight: 700 !important;
-  font-size: 0.85rem !important;
-  box-shadow: 0 4px 20px rgba(0,198,255,0.3);
-  transition: all var(--t-normal) var(--ease) !important;
-}
-
-.nav-cta:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 8px 32px rgba(0,198,255,0.5) !important;
-}
-
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 5px;
-  background: none;
-  border: none;
-}
-
-.hamburger span {
-  display: block;
-  width: 24px; height: 2px;
-  background: var(--white);
-  border-radius: 2px;
-  transition: all var(--t-normal) var(--ease);
-}
+.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:1000;background:rgba(2,8,23,0.95);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--border);padding:6px 0 max(6px,env(safe-area-inset-bottom));justify-content:space-around}
+.mnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-400);font-size:0.62rem;font-weight:500;padding:6px 8px;border-radius:var(--r-sm);transition:all var(--t-fast) var(--ease);text-decoration:none;position:relative;min-width:56px}
+.mnav-item i{font-size:1.15rem;transition:all var(--t-fast) var(--ease)}
+.mnav-item.active,.mnav-item:hover{color:var(--accent)}
+.mnav-item.active i{transform:translateY(-2px)}
+.mnav-item.active::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:20px;height:3px;background:var(--grad-accent);border-radius:0 0 3px 3px}
+/* Center CTA item */
+.mnav-cta{position:relative}
+.mnav-cta .mnav-icon-wrap{width:48px;height:48px;background:var(--grad-primary);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:-20px;box-shadow:0 4px 20px rgba(0,198,255,0.4);border:3px solid var(--bg-900)}
+.mnav-cta .mnav-icon-wrap i{font-size:1.2rem;color:var(--white)}
+.mnav-cta span{margin-top:2px;color:var(--primary);font-weight:700}
 
 /* ═══════════════════════════════════
-   HERO SECTION
+   HERO
    ═══════════════════════════════════ */
-.hero {
-  min-height: 100vh;
-  position: relative;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  padding-top: 80px;
-}
-
-/* Complex Background */
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background: var(--bg-900);
-}
-
-.hero-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 20% 40%, rgba(0,198,255,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(0,245,212,0.06) 0%, transparent 50%),
-    radial-gradient(ellipse 70% 40% at 50% 90%, rgba(123,97,255,0.05) 0%, transparent 50%);
-}
-
-.hero-bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(0,198,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,198,255,0.03) 1px, transparent 1px);
-  background-size: 80px 80px;
-  animation: gridDrift 30s linear infinite;
-}
-
-@keyframes gridDrift {
-  0% { transform: translateY(0) translateX(0); }
-  100% { transform: translateY(80px) translateX(80px); }
-}
-
-/* Animated orbs */
-.hero-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.5;
-  animation: orbFloat 8s ease-in-out infinite;
-}
-
-.hero-orb-1 {
-  width: 500px; height: 500px;
-  background: rgba(0,198,255,0.08);
-  top: -100px; left: -100px;
-  animation-delay: 0s;
-}
-
-.hero-orb-2 {
-  width: 400px; height: 400px;
-  background: rgba(0,245,212,0.06);
-  bottom: -50px; right: -100px;
-  animation-delay: -3s;
-}
-
-.hero-orb-3 {
-  width: 300px; height: 300px;
-  background: rgba(123,97,255,0.06);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  animation-delay: -5s;
-}
-
-@keyframes orbFloat {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(30px, -20px) scale(1.05); }
-  50% { transform: translate(-20px, 30px) scale(0.95); }
-  75% { transform: translate(20px, 20px) scale(1.02); }
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-
-/* Hero Text */
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(0,245,212,0.08);
-  border: 1px solid rgba(0,245,212,0.2);
-  color: var(--accent);
-  padding: 8px 18px;
-  border-radius: var(--r-full);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 28px;
-  backdrop-filter: blur(10px);
-}
-
-.hero-badge .pulse-dot {
-  width: 8px; height: 8px;
-  background: var(--accent);
-  border-radius: 50%;
-  position: relative;
-}
-
-.hero-badge .pulse-dot::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 50%;
-  background: var(--accent);
-  opacity: 0;
-  animation: pulseDot 2s ease infinite;
-}
-
-@keyframes pulseDot {
-  0% { opacity: 0.6; transform: scale(1); }
-  100% { opacity: 0; transform: scale(2.5); }
-}
-
-.hero-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--white);
-  margin-bottom: 20px;
-  letter-spacing: -1.5px;
-}
-
-.hero-title .gradient-text {
-  background: var(--grad-accent);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero-desc {
-  color: var(--text-300);
-  font-size: 1.05rem;
-  line-height: 1.8;
-  margin-bottom: 36px;
-  max-width: 520px;
-}
-
-/* Hero Stats */
-.hero-stats {
-  display: flex;
-  gap: 0;
-  margin-bottom: 36px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  backdrop-filter: blur(10px);
-}
-
-.hero-stat {
-  flex: 1;
-  padding: 20px;
-  text-align: center;
-  border-right: 1px solid var(--border);
-  transition: background var(--t-fast) var(--ease);
-}
-
-.hero-stat:last-child { border: none; }
-.hero-stat:hover { background: rgba(0,198,255,0.04); }
-
-.hero-stat-num {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--accent);
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
-.hero-stat-label {
-  font-size: 0.72rem;
-  color: var(--text-400);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* Hero Buttons */
-.hero-btns {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 32px;
-  border-radius: var(--r-full);
-  font-weight: 700;
-  font-size: 0.92rem;
-  border: none;
-  cursor: pointer;
-  transition: all var(--t-normal) var(--ease);
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary {
-  background: var(--grad-primary);
-  color: var(--white);
-  box-shadow: 0 4px 24px rgba(0,198,255,0.3);
-}
-
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 100%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.6s ease;
-}
-
-.btn-primary:hover::before { left: 100%; }
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 40px rgba(0,198,255,0.5); }
-
-.btn-ghost {
-  background: transparent;
-  color: var(--text-200);
-  border: 1px solid rgba(255,255,255,0.15);
-  backdrop-filter: blur(5px);
-}
-
-.btn-ghost:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(0,245,212,0.15);
-}
+.hero{min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden;padding-top:80px}
+.hero-bg{position:absolute;inset:0;background:var(--bg-900)}
+.hero-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 40%,rgba(0,198,255,0.08) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 20%,rgba(0,245,212,0.06) 0%,transparent 50%),radial-gradient(ellipse 70% 40% at 50% 90%,rgba(123,97,255,0.05) 0%,transparent 50%)}
+.hero-bg::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,198,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,198,255,0.03) 1px,transparent 1px);background-size:80px 80px;animation:gridDrift 30s linear infinite}
+@keyframes gridDrift{0%{transform:translateY(0) translateX(0)}100%{transform:translateY(80px) translateX(80px)}}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.5;animation:orbFloat 8s ease-in-out infinite}
+.orb-1{width:500px;height:500px;background:rgba(0,198,255,0.08);top:-100px;left:-100px}
+.orb-2{width:400px;height:400px;background:rgba(0,245,212,0.06);bottom:-50px;right:-100px;animation-delay:-3s}
+.orb-3{width:300px;height:300px;background:rgba(123,97,255,0.06);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:-5s}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(30px,-20px) scale(1.05)}50%{transform:translate(-20px,30px) scale(0.95)}75%{transform:translate(20px,20px) scale(1.02)}}
+.hero-content{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(0,245,212,0.08);border:1px solid rgba(0,245,212,0.2);color:var(--accent);padding:8px 18px;border-radius:var(--r-full);font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:28px;backdrop-filter:blur(10px)}
+.hero-badge .pulse-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;position:relative}
+.hero-badge .pulse-dot::after{content:'';position:absolute;inset:-3px;border-radius:50%;background:var(--accent);opacity:0;animation:pDot 2s ease infinite}
+@keyframes pDot{0%{opacity:.6;transform:scale(1)}100%{opacity:0;transform:scale(2.5)}}
+.hero-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;line-height:1.1;color:var(--white);margin-bottom:20px;letter-spacing:-1.5px}
+.hero-title .gt{background:var(--grad-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{color:var(--text-300);font-size:1.05rem;line-height:1.8;margin-bottom:36px;max-width:520px}
+.hero-stats{display:flex;gap:0;margin-bottom:36px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;backdrop-filter:blur(10px)}
+.hero-stat{flex:1;padding:20px;text-align:center;border-right:1px solid var(--border);transition:background var(--t-fast)}
+.hero-stat:last-child{border:none}
+.hero-stat:hover{background:rgba(0,198,255,0.04)}
+.hero-stat-num{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:var(--accent);line-height:1;margin-bottom:4px}
+.hero-stat-label{font-size:0.72rem;color:var(--text-400);font-weight:500;text-transform:uppercase;letter-spacing:.5px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:var(--r-full);font-weight:700;font-size:0.92rem;border:none;cursor:pointer;transition:all var(--t-normal) var(--ease);position:relative;overflow:hidden}
+.btn-primary{background:var(--grad-primary);color:var(--white);box-shadow:0 4px 24px rgba(0,198,255,0.3)}
+.btn-primary::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left .6s ease}
+.btn-primary:hover::before{left:100%}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 40px rgba(0,198,255,0.5)}
+.btn-ghost{background:transparent;color:var(--text-200);border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(5px)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,245,212,0.15)}
 
 /* Hero Visual */
-.hero-visual {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 460px;
-}
-
-.speed-meter {
-  width: 300px; height: 300px;
-  background: radial-gradient(circle at center, rgba(0,198,255,0.05) 0%, transparent 70%);
-  border: 2px solid rgba(0,198,255,0.15);
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  animation: meterPulse 4s ease-in-out infinite;
-}
-
-.speed-meter::before,
-.speed-meter::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid;
-}
-
-.speed-meter::before {
-  inset: -30px;
-  border-color: rgba(0,245,212,0.08);
-  animation: ringRotate 25s linear infinite;
-}
-
-.speed-meter::after {
-  inset: -60px;
-  border-color: rgba(123,97,255,0.06);
-  animation: ringRotate 35s linear infinite reverse;
-}
-
-@keyframes meterPulse {
-  0%, 100% { box-shadow: 0 0 40px rgba(0,198,255,0.1), inset 0 0 40px rgba(0,198,255,0.05); }
-  50% { box-shadow: 0 0 80px rgba(0,198,255,0.2), inset 0 0 60px rgba(0,198,255,0.08); }
-}
-
-@keyframes ringRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-.speed-value {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 4.5rem;
-  font-weight: 700;
-  color: var(--white);
-  line-height: 1;
-  position: relative;
-}
-
-.speed-value span {
-  font-size: 1.2rem;
-  color: var(--accent);
-  font-weight: 500;
-}
-
-.speed-label {
-  color: var(--text-400);
-  font-size: 0.82rem;
-  font-weight: 500;
-  margin-top: 4px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-/* Floating badges */
-.float-badge {
-  position: absolute;
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: var(--r-md);
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--white);
-  font-size: 0.78rem;
-  font-weight: 600;
-  white-space: nowrap;
-  box-shadow: var(--shadow-md);
-}
-
-.float-badge .fb-icon {
-  width: 32px; height: 32px;
-  border-radius: var(--r-sm);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.9rem;
-  flex-shrink: 0;
-}
-
-.fb-1 { top: 8%; left: -5%; animation: floatA 4s ease-in-out infinite; }
-.fb-1 .fb-icon { background: rgba(0,245,212,0.15); color: var(--accent); }
-
-.fb-2 { bottom: 25%; left: -10%; animation: floatA 4s ease-in-out infinite 1.5s; }
-.fb-2 .fb-icon { background: rgba(123,97,255,0.15); color: var(--accent-alt); }
-
-.fb-3 { top: 15%; right: -5%; animation: floatA 4s ease-in-out infinite 0.8s; }
-.fb-3 .fb-icon { background: rgba(0,198,255,0.15); color: var(--primary); }
-
-.fb-4 { bottom: 15%; right: -8%; animation: floatA 4s ease-in-out infinite 2.2s; }
-.fb-4 .fb-icon { background: rgba(34,197,94,0.15); color: var(--success); }
-
-@keyframes floatA {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center;min-height:460px}
+.speed-meter{width:300px;height:300px;background:radial-gradient(circle at center,rgba(0,198,255,0.05) 0%,transparent 70%);border:2px solid rgba(0,198,255,0.15);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;animation:meterP 4s ease-in-out infinite}
+.speed-meter::before,.speed-meter::after{content:'';position:absolute;border-radius:50%;border:1px solid}
+.speed-meter::before{inset:-30px;border-color:rgba(0,245,212,0.08);animation:ringR 25s linear infinite}
+.speed-meter::after{inset:-60px;border-color:rgba(123,97,255,0.06);animation:ringR 35s linear infinite reverse}
+@keyframes meterP{0%,100%{box-shadow:0 0 40px rgba(0,198,255,0.1),inset 0 0 40px rgba(0,198,255,0.05)}50%{box-shadow:0 0 80px rgba(0,198,255,0.2),inset 0 0 60px rgba(0,198,255,0.08)}}
+@keyframes ringR{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.speed-value{font-family:'Space Grotesk',sans-serif;font-size:4.5rem;font-weight:700;color:var(--white);line-height:1}
+.speed-value span{font-size:1.2rem;color:var(--accent);font-weight:500}
+.speed-label{color:var(--text-400);font-size:.82rem;font-weight:500;margin-top:4px;letter-spacing:2px;text-transform:uppercase}
+.float-badge{position:absolute;background:rgba(255,255,255,0.06);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r-md);padding:12px 16px;display:flex;align-items:center;gap:10px;color:var(--white);font-size:.78rem;font-weight:600;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.3)}
+.float-badge .fb-icon{width:32px;height:32px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.fb-1{top:8%;left:-5%;animation:fltA 4s ease-in-out infinite}.fb-1 .fb-icon{background:rgba(0,245,212,0.15);color:var(--accent)}
+.fb-2{bottom:25%;left:-10%;animation:fltA 4s ease-in-out infinite 1.5s}.fb-2 .fb-icon{background:rgba(123,97,255,0.15);color:var(--accent-alt)}
+.fb-3{top:15%;right:-5%;animation:fltA 4s ease-in-out infinite .8s}.fb-3 .fb-icon{background:rgba(0,198,255,0.15);color:var(--primary)}
+.fb-4{bottom:15%;right:-8%;animation:fltA 4s ease-in-out infinite 2.2s}.fb-4 .fb-icon{background:rgba(34,197,94,0.15);color:var(--success)}
+@keyframes fltA{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 
 /* ═══════════════════════════════════
-   SECTION BASE STYLES
+   SECTION STYLES
    ═══════════════════════════════════ */
-section { padding: 120px 0; position: relative; }
+section{padding:120px 0;position:relative}
+.section-header{text-align:center;margin-bottom:72px}
+.section-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,198,255,0.06);border:1px solid rgba(0,198,255,0.15);color:var(--primary);padding:6px 16px;border-radius:var(--r-full);font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;color:var(--white);margin-bottom:16px;letter-spacing:-1px}
+.section-title .gt{background:var(--grad-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-desc{color:var(--text-400);font-size:1rem;max-width:560px;margin:0 auto;line-height:1.8}
+.section-line{width:60px;height:3px;background:var(--grad-primary);border-radius:3px;margin:16px auto 0}
 
-.section-header {
-  text-align: center;
-  margin-bottom: 72px;
-  position: relative;
-}
+/* Why Us */
+.why-section{background:var(--bg-800);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.why-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px 28px;position:relative;overflow:hidden;transition:all var(--t-normal) var(--ease)}
+.why-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-primary);transform:scaleX(0);transform-origin:left;transition:transform var(--t-slow) var(--ease)}
+.why-card:hover{border-color:var(--border-hover);transform:translateY(-6px);box-shadow:var(--glow-primary)}
+.why-card:hover::before{transform:scaleX(1)}
+.why-icon{width:56px;height:56px;background:rgba(0,198,255,0.08);border:1px solid rgba(0,198,255,0.12);border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px;transition:all var(--t-normal) var(--ease)}
+.why-card:hover .why-icon{background:var(--grad-primary);border-color:transparent;box-shadow:0 8px 24px rgba(0,198,255,0.3);transform:scale(1.05)}
+.why-title{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:700;color:var(--white);margin-bottom:10px}
+.why-desc{color:var(--text-400);font-size:.88rem;line-height:1.7}
 
-.section-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(0,198,255,0.06);
-  border: 1px solid rgba(0,198,255,0.15);
-  color: var(--primary);
-  padding: 6px 16px;
-  border-radius: var(--r-full);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
+/* Paket */
+.paket-section{background:var(--bg-900)}
+.paket-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:1100px;margin:0 auto}
+.paket-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-2xl);overflow:hidden;position:relative;transition:all var(--t-normal) var(--ease)}
+.paket-card:hover{border-color:rgba(0,198,255,0.2);transform:translateY(-8px);box-shadow:var(--glow-primary)}
+.paket-card.popular{border-color:rgba(0,198,255,0.3);box-shadow:0 0 40px rgba(0,198,255,0.1);z-index:1}
+.paket-card.popular::before{content:'';position:absolute;inset:0;border-radius:var(--r-2xl);padding:1px;background:linear-gradient(135deg,rgba(0,198,255,0.3),rgba(0,245,212,0.2),rgba(123,97,255,0.2));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.pop-badge{position:absolute;top:0;left:50%;transform:translateX(-50%);background:var(--grad-primary);color:var(--white);padding:6px 20px;border-radius:0 0 var(--r-md) var(--r-md);font-size:.7rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;box-shadow:0 4px 16px rgba(0,198,255,0.3)}
+.pkt-header{padding:36px 28px 28px;text-align:center}
+.pkt-tier{font-size:.7rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-400);margin-bottom:8px}
+.pkt-speed{font-family:'Space Grotesk',sans-serif;font-size:3.5rem;font-weight:700;color:var(--white);line-height:1;margin-bottom:4px}
+.pkt-speed span{font-size:1.2rem;color:var(--text-300);font-weight:500}
+.pkt-type{color:var(--text-400);font-size:.82rem}
+.pkt-divider{height:1px;background:var(--border);margin:0 28px}
+.pkt-price-box{padding:24px 28px;text-align:center}
+.pkt-price{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:var(--primary)}
+.pkt-period{color:var(--text-400);font-size:.82rem}
+.pkt-features{padding:0 28px;list-style:none;margin-bottom:28px}
+.pkt-features li{display:flex;align-items:center;gap:12px;padding:10px 0;font-size:.88rem;color:var(--text-200);border-bottom:1px solid rgba(255,255,255,0.03)}
+.pkt-features li:last-child{border:none}
+.pkt-features li i{width:18px;text-align:center;flex-shrink:0}
+.pkt-features li .fa-check{color:var(--success)}
+.pkt-features li .fa-times{color:var(--text-400);opacity:.5}
+.pkt-footer{padding:0 28px 28px}
+.pkt-btn{display:block;width:100%;text-align:center;padding:14px;border-radius:var(--r-md);font-weight:700;font-size:.9rem;transition:all var(--t-normal) var(--ease);border:none;cursor:pointer}
+.pkt-btn-primary{background:var(--grad-primary);color:var(--white);box-shadow:0 4px 20px rgba(0,198,255,0.25)}
+.pkt-btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,198,255,0.4)}
+.pkt-btn-ghost{background:transparent;color:var(--text-200);border:1px solid var(--border)}
+.pkt-btn-ghost:hover{border-color:var(--primary);color:var(--primary)}
 
-.section-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(2rem, 3.5vw, 3rem);
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 16px;
-  letter-spacing: -1px;
-}
-
-.section-title .gradient-text {
-  background: var(--grad-accent);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.section-desc {
-  color: var(--text-400);
-  font-size: 1rem;
-  max-width: 560px;
-  margin: 0 auto;
-  line-height: 1.8;
-}
-
-/* Decorative line */
-.section-line {
-  width: 60px; height: 3px;
-  background: var(--grad-primary);
-  border-radius: 3px;
-  margin: 16px auto 0;
-}
+/* Coverage */
+.coverage-section{background:var(--bg-800);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.coverage-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.coverage-visual{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-2xl);padding:48px;text-align:center;position:relative;overflow:hidden}
+.coverage-visual::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 30% 30%,rgba(0,198,255,0.05) 0%,transparent 50%),linear-gradient(rgba(0,245,212,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,212,0.02) 1px,transparent 1px);background-size:100%,40px 40px,40px 40px}
+.cov-icon{font-size:5rem;margin-bottom:24px;position:relative;z-index:1;filter:drop-shadow(0 0 20px rgba(0,198,255,0.3))}
+.coverage-visual h3{font-family:'Space Grotesk',sans-serif;color:var(--white);font-size:1.2rem;font-weight:700;margin-bottom:12px;position:relative;z-index:1}
+.coverage-visual p{color:var(--text-400);font-size:.88rem;line-height:1.7;position:relative;z-index:1;margin-bottom:24px}
+.cov-list{list-style:none}
+.cov-item{display:flex;align-items:flex-start;gap:16px;padding:18px 0;border-bottom:1px solid var(--border)}
+.cov-item:last-child{border:none}
+.ci-icon{width:46px;height:46px;min-width:46px;background:rgba(0,198,255,0.06);border:1px solid rgba(0,198,255,0.1);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:1.3rem;transition:all var(--t-normal) var(--ease)}
+.cov-item:hover .ci-icon{background:var(--grad-primary);border-color:transparent;transform:scale(1.05)}
+.ci-title{font-weight:700;color:var(--white);font-size:.95rem;margin-bottom:4px}
+.ci-desc{color:var(--text-400);font-size:.82rem;line-height:1.6}
 
 /* ═══════════════════════════════════
-   KEUNGGULAN / WHY US
+   FORM SECTION
    ═══════════════════════════════════ */
-.why-section {
-  background: var(--bg-800);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.why-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.why-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r-xl);
-  padding: 36px 28px;
-  position: relative;
-  overflow: hidden;
-  transition: all var(--t-normal) var(--ease);
-  group: true;
-}
-
-.why-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--grad-primary);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--t-slow) var(--ease);
-}
-
-.why-card:hover {
-  border-color: var(--border-hover);
-  transform: translateY(-6px);
-  box-shadow: var(--glow-primary);
-}
-
-.why-card:hover::before { transform: scaleX(1); }
-
-.why-icon {
-  width: 56px; height: 56px;
-  background: rgba(0,198,255,0.08);
-  border: 1px solid rgba(0,198,255,0.12);
-  border-radius: var(--r-lg);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  transition: all var(--t-normal) var(--ease);
-}
-
-.why-card:hover .why-icon {
-  background: var(--grad-primary);
-  border-color: transparent;
-  box-shadow: 0 8px 24px rgba(0,198,255,0.3);
-  transform: scale(1.05);
-}
-
-.why-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 10px;
-}
-
-.why-desc {
-  color: var(--text-400);
-  font-size: 0.88rem;
-  line-height: 1.7;
-}
+.form-section{background:var(--bg-900);position:relative;overflow:hidden}
+.form-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 0% 100%,rgba(0,198,255,0.06) 0%,transparent 50%),radial-gradient(ellipse 50% 60% at 100% 0%,rgba(0,245,212,0.05) 0%,transparent 50%)}
+.form-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:start;position:relative;z-index:1}
+.form-info{color:var(--white)}
+.form-info .section-badge{margin-bottom:20px}
+.form-info-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,2.8vw,2.2rem);font-weight:700;color:var(--white);line-height:1.2;margin-bottom:16px;letter-spacing:-.5px}
+.form-info-title .gt{background:var(--grad-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.form-info-desc{color:var(--text-400);line-height:1.8;margin-bottom:36px;font-size:.95rem}
+.reg-steps{list-style:none}
+.reg-step{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px;position:relative}
+.reg-step:not(:last-child)::after{content:'';position:absolute;left:19px;top:42px;width:1px;height:calc(100% - 10px);background:linear-gradient(180deg,rgba(0,198,255,0.3),rgba(0,198,255,0.05))}
+.step-num{width:40px;height:40px;min-width:40px;background:rgba(0,198,255,0.1);border:1px solid rgba(0,198,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;color:var(--primary);position:relative;z-index:1}
+.step-title{font-weight:700;color:var(--white);font-size:.95rem;margin-bottom:2px}
+.step-desc{color:var(--text-400);font-size:.82rem;line-height:1.6}
+.form-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-2xl);padding:44px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-premium)}
+.form-card-header{margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.form-card-title{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:4px;display:flex;align-items:center;gap:10px}
+.form-card-sub{color:var(--text-400);font-size:.82rem}
+.form-group{margin-bottom:20px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-label{display:block;font-weight:600;font-size:.82rem;color:var(--text-200);margin-bottom:8px;letter-spacing:.3px}
+.form-label .req{color:var(--danger);margin-left:2px}
+.form-input{width:100%;padding:13px 16px;background:var(--bg-700);border:1.5px solid var(--border);border-radius:var(--r-md);color:var(--white);font-family:'Inter',sans-serif;font-size:.88rem;transition:all var(--t-fast) var(--ease);outline:none}
+.form-input::placeholder{color:var(--text-400)}
+.form-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,198,255,0.1),0 0 20px rgba(0,198,255,0.05);background:var(--bg-600)}
+textarea.form-input{resize:vertical;min-height:100px}
 
 /* ═══════════════════════════════════
-   PAKET INTERNET
+   CUSTOM DROPDOWN
    ═══════════════════════════════════ */
-.paket-section { background: var(--bg-900); }
-
-.paket-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.paket-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r-2xl);
-  overflow: hidden;
-  position: relative;
-  transition: all var(--t-normal) var(--ease);
-}
-
-.paket-card:hover {
-  border-color: rgba(0,198,255,0.2);
-  transform: translateY(-8px);
-  box-shadow: var(--glow-primary);
-}
-
-.paket-card.popular {
-  border-color: rgba(0,198,255,0.3);
-  box-shadow: 0 0 40px rgba(0,198,255,0.1);
-  z-index: 1;
-}
-
-.paket-card.popular::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: var(--r-2xl);
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(0,198,255,0.3), rgba(0,245,212,0.2), rgba(123,97,255,0.2));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-.popular-badge {
-  position: absolute;
-  top: 0; left: 50%;
-  transform: translateX(-50%);
-  background: var(--grad-primary);
-  color: var(--white);
-  padding: 6px 20px;
-  border-radius: 0 0 var(--r-md) var(--r-md);
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  box-shadow: 0 4px 16px rgba(0,198,255,0.3);
-}
-
-.paket-header {
-  padding: 36px 28px 28px;
-  text-align: center;
-  position: relative;
-}
-
-.paket-tier {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--text-400);
-  margin-bottom: 8px;
-}
-
-.paket-speed {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: var(--white);
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
-.paket-speed span {
-  font-size: 1.2rem;
-  color: var(--text-300);
-  font-weight: 500;
-}
-
-.paket-type {
-  color: var(--text-400);
-  font-size: 0.82rem;
-}
-
-.paket-divider {
-  height: 1px;
-  background: var(--border);
-  margin: 0 28px;
-}
-
-.paket-price-box {
-  padding: 24px 28px;
-  text-align: center;
-}
-
-.paket-price {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--primary);
-}
-
-.paket-price-period {
-  color: var(--text-400);
-  font-size: 0.82rem;
-}
-
-.paket-features {
-  padding: 0 28px;
-  list-style: none;
-  margin-bottom: 28px;
-}
-
-.paket-features li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 0;
-  font-size: 0.88rem;
-  color: var(--text-200);
-  border-bottom: 1px solid rgba(255,255,255,0.03);
-}
-
-.paket-features li:last-child { border: none; }
-
-.paket-features li i {
-  width: 18px;
-  text-align: center;
-  flex-shrink: 0;
-}
-
-.paket-features li .fa-check { color: var(--success); }
-.paket-features li .fa-times { color: var(--text-400); opacity: 0.5; }
-
-.paket-footer {
-  padding: 0 28px 28px;
-}
-
-.paket-btn {
-  display: block;
-  width: 100%;
-  text-align: center;
-  padding: 14px;
-  border-radius: var(--r-md);
-  font-weight: 700;
-  font-size: 0.9rem;
-  transition: all var(--t-normal) var(--ease);
-  border: none;
-}
-
-.paket-btn-primary {
-  background: var(--grad-primary);
-  color: var(--white);
-  box-shadow: 0 4px 20px rgba(0,198,255,0.25);
-}
-
-.paket-btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0,198,255,0.4);
-}
-
-.paket-btn-ghost {
-  background: transparent;
-  color: var(--text-200);
-  border: 1px solid var(--border);
-}
-
-.paket-btn-ghost:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-
-/* ═══════════════════════════════════
-   COVERAGE SECTION
-   ═══════════════════════════════════ */
-.coverage-section {
-  background: var(--bg-800);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.coverage-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-.coverage-visual {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r-2xl);
-  padding: 48px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.coverage-visual::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 30% 30%, rgba(0,198,255,0.05) 0%, transparent 50%),
-    linear-gradient(rgba(0,245,212,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,245,212,0.02) 1px, transparent 1px);
-  background-size: 100%, 40px 40px, 40px 40px;
-}
-
-.coverage-map-icon {
-  font-size: 5rem;
-  margin-bottom: 24px;
-  position: relative; z-index: 1;
-  filter: drop-shadow(0 0 20px rgba(0,198,255,0.3));
-}
-
-.coverage-visual h3 {
-  font-family: 'Space Grotesk', sans-serif;
-  color: var(--white);
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-  position: relative; z-index: 1;
-}
-
-.coverage-visual p {
-  color: var(--text-400);
-  font-size: 0.88rem;
-  line-height: 1.7;
-  position: relative; z-index: 1;
-  margin-bottom: 24px;
-}
-
-.coverage-list { list-style: none; }
-
-.coverage-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.coverage-item:last-child { border: none; }
-
-.ci-icon {
-  width: 46px; height: 46px;
-  min-width: 46px;
-  background: rgba(0,198,255,0.06);
-  border: 1px solid rgba(0,198,255,0.1);
-  border-radius: var(--r-md);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem;
-  transition: all var(--t-normal) var(--ease);
-}
-
-.coverage-item:hover .ci-icon {
-  background: var(--grad-primary);
-  border-color: transparent;
-  transform: scale(1.05);
-}
-
-.ci-title {
-  font-weight: 700;
-  color: var(--white);
-  font-size: 0.95rem;
-  margin-bottom: 4px;
-}
-
-.ci-desc {
-  color: var(--text-400);
-  font-size: 0.82rem;
-  line-height: 1.6;
-}
-
-/* ═══════════════════════════════════
-   FORM SECTION (with Custom Dropdowns)
-   ═══════════════════════════════════ */
-.form-section {
-  background: var(--bg-900);
-  position: relative;
-  overflow: hidden;
-}
-
-.form-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 50% 60% at 0% 100%, rgba(0,198,255,0.06) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 60% at 100% 0%, rgba(0,245,212,0.05) 0%, transparent 50%);
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 64px;
-  align-items: start;
-  position: relative;
-  z-index: 1;
-}
-
-.form-info { color: var(--white); }
-
-.form-info .section-badge { margin-bottom: 20px; }
-
-.form-info-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
-  font-weight: 700;
-  color: var(--white);
-  line-height: 1.2;
-  margin-bottom: 16px;
-  letter-spacing: -0.5px;
-}
-
-.form-info-title .gradient-text {
-  background: var(--grad-accent);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.form-info-desc {
-  color: var(--text-400);
-  line-height: 1.8;
-  margin-bottom: 36px;
-  font-size: 0.95rem;
-}
-
-/* Steps */
-.reg-steps { list-style: none; }
-
-.reg-step {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 24px;
-  position: relative;
-}
-
-.reg-step:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  left: 19px; top: 42px;
-  width: 1px; height: calc(100% - 10px);
-  background: linear-gradient(180deg, rgba(0,198,255,0.3), rgba(0,198,255,0.05));
-}
-
-.step-num {
-  width: 40px; height: 40px;
-  min-width: 40px;
-  background: rgba(0,198,255,0.1);
-  border: 1px solid rgba(0,198,255,0.2);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: var(--primary);
-  position: relative;
-  z-index: 1;
-}
-
-.step-content {}
-
-.step-title {
-  font-weight: 700;
-  color: var(--white);
-  font-size: 0.95rem;
-  margin-bottom: 2px;
-}
-
-.step-desc {
-  color: var(--text-400);
-  font-size: 0.82rem;
-  line-height: 1.6;
-}
-
-/* ─── FORM CARD ─── */
-.form-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r-2xl);
-  padding: 44px;
-  box-shadow: var(--shadow-xl);
-  position: relative;
-  overflow: hidden;
-}
-
-.form-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--grad-premium);
-}
-
-.form-card-header {
-  margin-bottom: 32px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--border);
-}
-
-.form-card-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.form-card-sub {
-  color: var(--text-400);
-  font-size: 0.82rem;
-}
-
-/* ─── FORM FIELDS ─── */
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.form-label {
-  display: block;
-  font-weight: 600;
-  font-size: 0.82rem;
-  color: var(--text-200);
-  margin-bottom: 8px;
-  letter-spacing: 0.3px;
-}
-
-.form-label .required { color: var(--danger); margin-left: 2px; }
-
-.form-input {
-  width: 100%;
-  padding: 13px 16px;
-  background: var(--bg-700);
-  border: 1.5px solid var(--border);
-  border-radius: var(--r-md);
-  color: var(--white);
-  font-family: 'Inter', sans-serif;
-  font-size: 0.88rem;
-  transition: all var(--t-fast) var(--ease);
-  outline: none;
-}
-
-.form-input::placeholder { color: var(--text-400); }
-
-.form-input:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(0,198,255,0.1), 0 0 20px rgba(0,198,255,0.05);
-  background: var(--bg-600);
-}
-
-textarea.form-input {
-  resize: vertical;
-  min-height: 100px;
-}
-
-/* ═══════════════════════════════════════
-   CUSTOM DROPDOWN — HIGH PREMIUM DESIGN
-   ═══════════════════════════════════════ */
-.custom-select {
-  position: relative;
-  width: 100%;
-  user-select: none;
-}
-
-/* Trigger */
-.custom-select-trigger {
-  width: 100%;
-  padding: 13px 16px;
-  padding-right: 48px;
-  background: var(--bg-700);
-  border: 1.5px solid var(--border);
-  border-radius: var(--r-md);
-  color: var(--white);
-  font-family: 'Inter', sans-serif;
-  font-size: 0.88rem;
-  cursor: pointer;
-  transition: all var(--t-fast) var(--ease);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  position: relative;
-  min-height: 48px;
-}
-
-.custom-select-trigger:hover {
-  border-color: rgba(255,255,255,0.15);
-  background: var(--bg-600);
-}
-
-.custom-select.open .custom-select-trigger,
-.custom-select-trigger:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(0,198,255,0.1), 0 0 20px rgba(0,198,255,0.05);
-  background: var(--bg-600);
-}
-
-.custom-select-trigger .trigger-icon {
-  width: 28px; height: 28px;
-  border-radius: var(--r-sm);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.9rem;
-  flex-shrink: 0;
-  background: rgba(0,198,255,0.08);
-}
-
-.custom-select-trigger .trigger-text {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  min-width: 0;
-}
-
-.custom-select-trigger .trigger-text .main-text {
-  font-weight: 600;
-  color: var(--white);
-  font-size: 0.88rem;
-  line-height: 1.3;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.custom-select-trigger .trigger-text .sub-text {
-  font-size: 0.72rem;
-  color: var(--text-400);
-  font-weight: 400;
-  line-height: 1.3;
-}
-
-/* Placeholder state */
-.custom-select-trigger.placeholder .trigger-text .main-text {
-  color: var(--text-400);
-  font-weight: 400;
-}
-
-/* Arrow */
-.custom-select-arrow {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 24px; height: 24px;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--text-400);
-  font-size: 0.75rem;
-  transition: all var(--t-normal) var(--ease);
-  background: rgba(255,255,255,0.04);
-  border-radius: 6px;
-}
-
-.custom-select.open .custom-select-arrow {
-  transform: translateY(-50%) rotate(180deg);
-  color: var(--primary);
-  background: rgba(0,198,255,0.1);
-}
-
-/* Dropdown Panel */
-.custom-select-dropdown {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0; right: 0;
-  background: var(--bg-700);
-  border: 1.5px solid rgba(0,198,255,0.2);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  z-index: 100;
-  box-shadow:
-    0 20px 60px rgba(0,0,0,0.5),
-    0 0 40px rgba(0,198,255,0.08);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-8px) scale(0.98);
-  transition: all var(--t-normal) var(--ease-bounce);
-  max-height: 0;
-  backdrop-filter: blur(20px);
-}
-
-.custom-select.open .custom-select-dropdown {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0) scale(1);
-  max-height: 360px;
-}
-
-/* Dropdown Header */
-.dropdown-header {
-  padding: 14px 16px 10px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.dropdown-header-label {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--text-400);
-}
-
-.dropdown-header-count {
-  background: rgba(0,198,255,0.1);
-  color: var(--primary);
-  padding: 2px 8px;
-  border-radius: var(--r-full);
-  font-size: 0.65rem;
-  font-weight: 700;
-}
-
-/* Options scrollable area */
-.custom-select-options {
-  overflow-y: auto;
-  max-height: 300px;
-  padding: 6px;
-  scroll-behavior: smooth;
-}
-
-.custom-select-options::-webkit-scrollbar { width: 4px; }
-.custom-select-options::-webkit-scrollbar-track { background: transparent; }
-.custom-select-options::-webkit-scrollbar-thumb { background: rgba(0,198,255,0.2); border-radius: 4px; }
-
-/* Single Option */
-.custom-option {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 12px 14px;
-  border-radius: var(--r-md);
-  cursor: pointer;
-  transition: all var(--t-fast) var(--ease);
-  position: relative;
-  margin-bottom: 2px;
-}
-
-.custom-option:last-child { margin-bottom: 0; }
-
-.custom-option:hover {
-  background: rgba(0,198,255,0.06);
-}
-
-.custom-option.selected {
-  background: rgba(0,198,255,0.1);
-  border: 1px solid rgba(0,198,255,0.2);
-}
-
-.custom-option .opt-icon {
-  width: 36px; height: 36px;
-  border-radius: var(--r-sm);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem;
-  flex-shrink: 0;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--border);
-  transition: all var(--t-fast) var(--ease);
-}
-
-.custom-option:hover .opt-icon,
-.custom-option.selected .opt-icon {
-  background: rgba(0,198,255,0.12);
-  border-color: rgba(0,198,255,0.2);
-}
-
-.custom-option .opt-content {
-  flex: 1;
-  min-width: 0;
-}
-
-.custom-option .opt-label {
-  font-weight: 600;
-  color: var(--white);
-  font-size: 0.88rem;
-  line-height: 1.3;
-}
-
-.custom-option .opt-desc {
-  font-size: 0.72rem;
-  color: var(--text-400);
-  line-height: 1.4;
-  margin-top: 1px;
-}
-
-/* Option tag (price, speed, etc.) */
-.custom-option .opt-tag {
-  padding: 3px 10px;
-  border-radius: var(--r-full);
-  font-size: 0.68rem;
-  font-weight: 700;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.opt-tag-primary {
-  background: rgba(0,198,255,0.1);
-  color: var(--primary);
-  border: 1px solid rgba(0,198,255,0.15);
-}
-
-.opt-tag-success {
-  background: rgba(34,197,94,0.1);
-  color: var(--success);
-  border: 1px solid rgba(34,197,94,0.15);
-}
-
-.opt-tag-accent {
-  background: rgba(0,245,212,0.1);
-  color: var(--accent);
-  border: 1px solid rgba(0,245,212,0.15);
-}
-
-.opt-tag-purple {
-  background: rgba(123,97,255,0.1);
-  color: var(--accent-alt);
-  border: 1px solid rgba(123,97,255,0.15);
-}
-
-/* Check mark for selected */
-.custom-option .opt-check {
-  width: 20px; height: 20px;
-  border-radius: 50%;
-  border: 2px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  transition: all var(--t-fast) var(--ease);
-  font-size: 0.6rem;
-  color: transparent;
-}
-
-.custom-option.selected .opt-check {
-  background: var(--grad-primary);
-  border-color: var(--primary);
-  color: var(--white);
-  box-shadow: 0 0 12px rgba(0,198,255,0.3);
-}
-
-/* Divider in dropdown */
-.dropdown-divider {
-  height: 1px;
-  background: var(--border);
-  margin: 6px 14px;
-}
-
-/* Group label in dropdown */
-.dropdown-group-label {
-  padding: 10px 14px 6px;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--text-400);
-}
-
-/* Hidden native select */
-.custom-select .native-select {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-  width: 0; height: 0;
-}
-
-/* ═══════════════════════════════════
-   FORM NOTE & SUBMIT
-   ═══════════════════════════════════ */
-.form-note {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  background: rgba(0,198,255,0.04);
-  border: 1px solid rgba(0,198,255,0.1);
-  border-radius: var(--r-md);
-  padding: 14px;
-  margin-bottom: 24px;
-  font-size: 0.8rem;
-  color: var(--text-300);
-  line-height: 1.6;
-}
-
-.form-note i { color: var(--primary); margin-top: 2px; font-size: 0.85rem; flex-shrink: 0; }
-
-.form-submit {
-  width: 100%;
-  padding: 16px;
-  background: var(--grad-primary);
-  color: var(--white);
-  border: none;
-  border-radius: var(--r-md);
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all var(--t-normal) var(--ease);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0,198,255,0.25);
-}
-
-.form-submit::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 100%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-  transition: left 0.6s ease;
-}
-
-.form-submit:hover::before { left: 100%; }
-
-.form-submit:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(0,198,255,0.4);
-}
-
-/* ═══════════════════════════════════
-   TESTIMONIALS
-   ═══════════════════════════════════ */
-.testi-section {
-  background: var(--bg-800);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.testi-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.testi-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r-xl);
-  padding: 28px;
-  position: relative;
-  transition: all var(--t-normal) var(--ease);
-}
-
-.testi-card:hover {
-  border-color: var(--border-hover);
-  transform: translateY(-4px);
-  box-shadow: var(--glow-primary);
-}
-
-.testi-stars {
-  color: #EAB308;
-  font-size: 0.85rem;
-  margin-bottom: 16px;
-  letter-spacing: 2px;
-}
-
-.testi-text {
-  color: var(--text-200);
-  font-size: 0.9rem;
-  line-height: 1.7;
-  font-style: italic;
-  margin-bottom: 20px;
-}
-
-.testi-user {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-}
-
-.testi-avatar {
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  background: var(--grad-primary);
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 800;
-  color: var(--white);
-  font-size: 0.95rem;
-}
-
-.testi-name { font-weight: 700; font-size: 0.9rem; color: var(--white); }
-.testi-loc { color: var(--text-400); font-size: 0.78rem; }
-
-/* ═══════════════════════════════════
-   FAQ
-   ═══════════════════════════════════ */
-.faq-section { background: var(--bg-900); }
-
-.faq-list { max-width: 800px; margin: 0 auto; }
-
-.faq-item {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  margin-bottom: 10px;
-  overflow: hidden;
-  transition: all var(--t-normal) var(--ease);
-}
-
-.faq-item:hover,
-.faq-item.active {
-  border-color: rgba(0,198,255,0.15);
-}
-
-.faq-question {
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 20px 24px;
-  text-align: left;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--white);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  transition: all var(--t-fast) var(--ease);
-}
-
-.faq-question:hover { color: var(--primary); }
-
-.faq-question .faq-arrow {
-  width: 28px; height: 28px;
-  border-radius: 50%;
-  background: rgba(0,198,255,0.08);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.7rem;
-  color: var(--primary);
-  flex-shrink: 0;
-  transition: all var(--t-normal) var(--ease);
-}
-
-.faq-item.active .faq-arrow {
-  background: var(--grad-primary);
-  color: var(--white);
-  transform: rotate(180deg);
-  box-shadow: 0 4px 12px rgba(0,198,255,0.3);
-}
-
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s var(--ease), padding 0.3s;
-  padding: 0 24px;
-  color: var(--text-400);
-  font-size: 0.88rem;
-  line-height: 1.8;
-}
-
-.faq-item.active .faq-answer {
-  max-height: 300px;
-  padding: 0 24px 20px;
-}
-
-/* ═══════════════════════════════════
-   CTA SECTION
-   ═══════════════════════════════════ */
-.cta-section {
-  padding: 100px 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,198,255,0.08) 0%, transparent 60%);
-}
-
-.cta-section h2 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(2rem, 3.5vw, 3rem);
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 16px;
-  position: relative; z-index: 1;
-  letter-spacing: -1px;
-}
-
-.cta-section p {
-  color: var(--text-400);
-  margin-bottom: 36px;
-  font-size: 1rem;
-  position: relative; z-index: 1;
-}
-
-.cta-btns {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  flex-wrap: wrap;
-  position: relative; z-index: 1;
-}
-
-/* ═══════════════════════════════════
-   FOOTER
-   ═══════════════════════════════════ */
-.site-footer {
-  background: var(--bg-800);
-  border-top: 1px solid var(--border);
-  padding: 60px 0 0;
-  color: var(--text-400);
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 40px;
-  margin-bottom: 40px;
-}
-
-.footer-brand .nav-logo { margin-bottom: 16px; }
-.footer-desc { font-size: 0.83rem; line-height: 1.8; margin-bottom: 20px; }
-
-.footer-socials { display: flex; gap: 8px; }
-
-.footer-socials a {
-  width: 36px; height: 36px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--border);
-  border-radius: var(--r-sm);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--text-400);
-  font-size: 0.85rem;
-  transition: all var(--t-fast) var(--ease);
-}
-
-.footer-socials a:hover {
-  background: var(--grad-primary);
-  color: var(--white);
-  border-color: transparent;
-}
-
-.footer-col h4 {
-  color: var(--white);
-  font-size: 0.88rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-}
-
-.footer-links { list-style: none; }
-.footer-links li { margin-bottom: 10px; }
-.footer-links a { font-size: 0.83rem; transition: color var(--t-fast) var(--ease); }
-.footer-links a:hover { color: var(--primary); }
-
-.footer-contact-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin-bottom: 12px;
-  font-size: 0.83rem;
-}
-
-.footer-contact-item i { color: var(--primary); margin-top: 2px; }
-
-.footer-bottom {
-  border-top: 1px solid var(--border);
-  padding: 20px 0;
-  text-align: center;
-  font-size: 0.78rem;
-}
-
-/* ═══════════════════════════════════
-   FLOATING WA
-   ═══════════════════════════════════ */
-.fab-wa {
-  position: fixed;
-  bottom: 28px; right: 28px;
-  width: 56px; height: 56px;
-  background: #25d366;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.6rem;
-  color: var(--white);
-  z-index: 9999;
-  transition: all var(--t-normal) var(--ease);
-  box-shadow: 0 8px 24px rgba(37,211,102,0.4);
-}
-
-.fab-wa:hover { transform: scale(1.1); box-shadow: 0 12px 36px rgba(37,211,102,0.6); }
-
-/* ═══════════════════════════════════
-   MODAL
-   ═══════════════════════════════════ */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(8px);
-  z-index: 9998;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-overlay.active { display: flex; }
-
-.modal-box {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r-2xl);
-  padding: 48px 40px;
-  text-align: center;
-  max-width: 440px;
-  width: 90%;
-  animation: modalIn 0.4s var(--ease-bounce);
-  position: relative;
-}
-
-.modal-box::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--grad-premium);
-  border-radius: var(--r-2xl) var(--r-2xl) 0 0;
-}
-
-@keyframes modalIn {
-  from { transform: scale(0.85); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-.modal-icon {
-  width: 80px; height: 80px;
-  background: rgba(34,197,94,0.1);
-  border: 1px solid rgba(34,197,94,0.2);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2rem;
-  margin: 0 auto 24px;
-  color: var(--success);
-}
-
-.modal-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 12px;
-}
-
-.modal-desc {
-  color: var(--text-400);
-  font-size: 0.88rem;
-  line-height: 1.7;
-  margin-bottom: 28px;
-}
-
-.modal-close {
-  background: var(--grad-primary);
-  color: var(--white);
-  border: none;
-  padding: 12px 32px;
-  border-radius: var(--r-md);
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 0.92rem;
-  transition: all var(--t-normal) var(--ease);
-  box-shadow: 0 4px 20px rgba(0,198,255,0.25);
-}
-
-.modal-close:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,198,255,0.4); }
+.custom-select{position:relative;width:100%;user-select:none}
+.custom-select-trigger{width:100%;padding:13px 16px;padding-right:48px;background:var(--bg-700);border:1.5px solid var(--border);border-radius:var(--r-md);color:var(--white);font-family:'Inter',sans-serif;font-size:.88rem;cursor:pointer;transition:all var(--t-fast) var(--ease);display:flex;align-items:center;gap:12px;position:relative;min-height:48px}
+.custom-select-trigger:hover{border-color:rgba(255,255,255,0.15);background:var(--bg-600)}
+.custom-select.open .custom-select-trigger,.custom-select-trigger:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,198,255,0.1),0 0 20px rgba(0,198,255,0.05);background:var(--bg-600)}
+.custom-select-trigger .trigger-icon{width:28px;height:28px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;background:rgba(0,198,255,0.08)}
+.custom-select-trigger .trigger-text{flex:1;display:flex;flex-direction:column;min-width:0}
+.custom-select-trigger .trigger-text .main-text{font-weight:600;color:var(--white);font-size:.88rem;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.custom-select-trigger .trigger-text .sub-text{font-size:.7rem;color:var(--text-400);font-weight:400;line-height:1.3}
+.custom-select-trigger.placeholder .trigger-text .main-text{color:var(--text-400);font-weight:400}
+.custom-select-arrow{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:var(--text-400);font-size:.72rem;transition:all var(--t-normal) var(--ease);background:rgba(255,255,255,0.04);border-radius:6px;border:1px solid var(--border)}
+.custom-select.open .custom-select-arrow{transform:translateY(-50%) rotate(180deg);color:var(--primary);background:rgba(0,198,255,0.1);border-color:rgba(0,198,255,0.2)}
+.custom-select-dropdown{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--bg-700);border:1.5px solid rgba(0,198,255,0.2);border-radius:var(--r-lg);overflow:hidden;z-index:100;box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 40px rgba(0,198,255,0.08);opacity:0;visibility:hidden;transform:translateY(-8px) scale(.98);transition:all var(--t-normal) var(--ease-bounce);max-height:0;backdrop-filter:blur(20px)}
+.custom-select.open .custom-select-dropdown{opacity:1;visibility:visible;transform:translateY(0) scale(1);max-height:360px}
+.dropdown-header{padding:14px 16px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.dropdown-header-label{font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-400)}
+.dropdown-header-count{background:rgba(0,198,255,0.1);color:var(--primary);padding:2px 8px;border-radius:var(--r-full);font-size:.62rem;font-weight:700}
+.custom-select-options{overflow-y:auto;max-height:300px;padding:6px;scroll-behavior:smooth}
+.custom-select-options::-webkit-scrollbar{width:4px}
+.custom-select-options::-webkit-scrollbar-thumb{background:rgba(0,198,255,0.2);border-radius:4px}
+.custom-option{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:var(--r-md);cursor:pointer;transition:all var(--t-fast) var(--ease);position:relative;margin-bottom:2px}
+.custom-option:hover{background:rgba(0,198,255,0.06)}
+.custom-option.selected{background:rgba(0,198,255,0.1);border:1px solid rgba(0,198,255,0.2)}
+.custom-option:not(.selected){border:1px solid transparent}
+.custom-option .opt-icon{width:36px;height:36px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;background:rgba(255,255,255,0.04);border:1px solid var(--border);transition:all var(--t-fast)}
+.custom-option:hover .opt-icon,.custom-option.selected .opt-icon{background:rgba(0,198,255,0.12);border-color:rgba(0,198,255,0.2)}
+.custom-option .opt-content{flex:1;min-width:0}
+.custom-option .opt-label{font-weight:600;color:var(--white);font-size:.88rem;line-height:1.3}
+.custom-option .opt-desc{font-size:.7rem;color:var(--text-400);line-height:1.4;margin-top:1px}
+.custom-option .opt-tag{padding:3px 10px;border-radius:var(--r-full);font-size:.65rem;font-weight:700;white-space:nowrap;flex-shrink:0}
+.opt-tag-primary{background:rgba(0,198,255,0.1);color:var(--primary);border:1px solid rgba(0,198,255,0.15)}
+.opt-tag-success{background:rgba(34,197,94,0.1);color:var(--success);border:1px solid rgba(34,197,94,0.15)}
+.opt-tag-accent{background:rgba(0,245,212,0.1);color:var(--accent);border:1px solid rgba(0,245,212,0.15)}
+.opt-tag-purple{background:rgba(123,97,255,0.1);color:var(--accent-alt);border:1px solid rgba(123,97,255,0.15)}
+.custom-option .opt-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all var(--t-fast);font-size:.55rem;color:transparent}
+.custom-option.selected .opt-check{background:var(--grad-primary);border-color:var(--primary);color:var(--white);box-shadow:0 0 12px rgba(0,198,255,0.3)}
+.native-select{position:absolute;opacity:0;pointer-events:none;width:0;height:0}
+
+/* Form Note & Submit */
+.form-note{display:flex;align-items:flex-start;gap:10px;background:rgba(0,198,255,0.04);border:1px solid rgba(0,198,255,0.1);border-radius:var(--r-md);padding:14px;margin-bottom:24px;font-size:.8rem;color:var(--text-300);line-height:1.6}
+.form-note i{color:var(--primary);margin-top:2px;flex-shrink:0}
+.form-submit{width:100%;padding:16px;background:var(--grad-primary);color:var(--white);border:none;border-radius:var(--r-md);font-family:'Inter',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all var(--t-normal) var(--ease);display:flex;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;box-shadow:0 4px 24px rgba(0,198,255,0.25)}
+.form-submit::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);transition:left .6s ease}
+.form-submit:hover::before{left:100%}
+.form-submit:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,198,255,0.4)}
+
+/* Testimonial */
+.testi-section{background:var(--bg-800);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.testi-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);padding:28px;transition:all var(--t-normal) var(--ease)}
+.testi-card:hover{border-color:var(--border-hover);transform:translateY(-4px);box-shadow:var(--glow-primary)}
+.testi-stars{color:var(--warning);font-size:.85rem;margin-bottom:16px;letter-spacing:2px}
+.testi-text{color:var(--text-200);font-size:.9rem;line-height:1.7;font-style:italic;margin-bottom:20px}
+.testi-user{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--border)}
+.testi-avatar{width:44px;height:44px;border-radius:50%;background:var(--grad-primary);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--white);font-size:.95rem}
+.testi-name{font-weight:700;font-size:.9rem;color:var(--white)}
+.testi-loc{color:var(--text-400);font-size:.78rem}
+
+/* FAQ */
+.faq-section{background:var(--bg-900)}
+.faq-list{max-width:800px;margin:0 auto}
+.faq-item{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);margin-bottom:10px;overflow:hidden;transition:all var(--t-normal) var(--ease)}
+.faq-item:hover,.faq-item.active{border-color:rgba(0,198,255,0.15)}
+.faq-question{width:100%;background:none;border:none;padding:20px 24px;text-align:left;font-family:'Inter',sans-serif;font-size:.95rem;font-weight:600;color:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:all var(--t-fast)}
+.faq-question:hover{color:var(--primary)}
+.faq-arrow{width:28px;height:28px;border-radius:50%;background:rgba(0,198,255,0.08);display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--primary);flex-shrink:0;transition:all var(--t-normal) var(--ease)}
+.faq-item.active .faq-arrow{background:var(--grad-primary);color:var(--white);transform:rotate(180deg);box-shadow:0 4px 12px rgba(0,198,255,0.3)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .4s var(--ease),padding .3s;padding:0 24px;color:var(--text-400);font-size:.88rem;line-height:1.8}
+.faq-item.active .faq-answer{max-height:300px;padding:0 24px 20px}
+
+/* CTA */
+.cta-section{padding:100px 0;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(0,198,255,0.08) 0%,transparent 60%)}
+.cta-section h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;color:var(--white);margin-bottom:16px;position:relative;z-index:1;letter-spacing:-1px}
+.cta-section p{color:var(--text-400);margin-bottom:36px;position:relative;z-index:1}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+
+/* Footer */
+.site-footer{background:var(--bg-800);border-top:1px solid var(--border);padding:60px 0 0;color:var(--text-400)}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-desc{font-size:.83rem;line-height:1.8;margin-bottom:20px}
+.footer-socials{display:flex;gap:8px}
+.footer-socials a{width:36px;height:36px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;color:var(--text-400);font-size:.85rem;transition:all var(--t-fast)}
+.footer-socials a:hover{background:var(--grad-primary);color:var(--white);border-color:transparent}
+.footer-col h4{color:var(--white);font-size:.88rem;font-weight:700;margin-bottom:16px}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:10px}
+.footer-links a{font-size:.83rem;transition:color var(--t-fast)}
+.footer-links a:hover{color:var(--primary)}
+.footer-contact-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;font-size:.83rem}
+.footer-contact-item i{color:var(--primary);margin-top:2px}
+.footer-bottom{border-top:1px solid var(--border);padding:20px 0;text-align:center;font-size:.78rem}
+
+/* Floating WA */
+.fab-wa{position:fixed;bottom:28px;right:28px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:var(--white);z-index:999;transition:all var(--t-normal);box-shadow:0 8px 24px rgba(37,211,102,0.4)}
+.fab-wa:hover{transform:scale(1.1);box-shadow:0 12px 36px rgba(37,211,102,0.6)}
+
+/* Modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:9997;align-items:center;justify-content:center}
+.modal-overlay.active{display:flex}
+.modal-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-2xl);padding:48px 40px;text-align:center;max-width:440px;width:90%;animation:modalIn .4s var(--ease-bounce);position:relative}
+.modal-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-premium);border-radius:var(--r-2xl) var(--r-2xl) 0 0}
+@keyframes modalIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-icon{width:80px;height:80px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 24px;color:var(--success)}
+.modal-title{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;color:var(--white);margin-bottom:12px}
+.modal-desc{color:var(--text-400);font-size:.88rem;line-height:1.7;margin-bottom:28px}
+.modal-close{background:var(--grad-primary);color:var(--white);border:none;padding:12px 32px;border-radius:var(--r-md);font-weight:700;cursor:pointer;font-size:.92rem;transition:all var(--t-normal);box-shadow:0 4px 20px rgba(0,198,255,0.25)}
+.modal-close:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,198,255,0.4)}
 
 /* ═══════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════ */
-@media (max-width: 1024px) {
-  .why-grid { grid-template-columns: repeat(2, 1fr); }
-  .paket-grid { grid-template-columns: repeat(2, 1fr); }
-  .testi-grid { grid-template-columns: repeat(2, 1fr); }
+@media(max-width:1024px){
+  .why-grid{grid-template-columns:repeat(2,1fr)}
+  .paket-grid{grid-template-columns:repeat(2,1fr)}
+  .testi-grid{grid-template-columns:repeat(2,1fr)}
 }
-
-@media (max-width: 768px) {
-  section { padding: 80px 0; }
-  .hero-content { grid-template-columns: 1fr; gap: 40px; text-align: center; }
-  .hero-desc { margin-left: auto; margin-right: auto; }
-  .hero-btns { justify-content: center; }
-  .hero-visual { min-height: 340px; }
-  .speed-meter { width: 240px; height: 240px; }
-  .speed-value { font-size: 3.5rem; }
-  .float-badge { display: none; }
-  .nav-menu { display: none; }
-  .hamburger { display: flex; }
-  .nav-menu.open {
-    display: flex; flex-direction: column;
-    position: absolute; top: 100%; left: 0; right: 0;
-    background: rgba(2,8,23,0.97); backdrop-filter: blur(20px);
-    padding: 20px; gap: 4px;
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-menu.open a { padding: 12px 16px; }
-  .why-grid { grid-template-columns: 1fr; }
-  .paket-grid { grid-template-columns: 1fr; max-width: 400px; }
-  .testi-grid { grid-template-columns: 1fr; }
-  .coverage-grid { grid-template-columns: 1fr; }
-  .form-grid { grid-template-columns: 1fr; gap: 40px; }
-  .form-row { grid-template-columns: 1fr; }
-  .form-card { padding: 28px 20px; }
-  .footer-grid { grid-template-columns: 1fr; }
+@media(max-width:768px){
+  section{padding:80px 0}
+  /* Hide desktop nav links */
+  .nav-menu{display:none!important}
+  /* Show mobile bottom nav */
+  .mobile-nav{display:flex}
+  /* Adjust body bottom padding for mobile nav */
+  body{padding-bottom:72px}
+  .hero-content{grid-template-columns:1fr;gap:40px;text-align:center}
+  .hero-desc{margin-left:auto;margin-right:auto}
+  .hero-btns{justify-content:center}
+  .hero-visual{min-height:340px}
+  .speed-meter{width:240px;height:240px}
+  .speed-value{font-size:3.5rem}
+  .float-badge{display:none}
+  .why-grid{grid-template-columns:1fr}
+  .paket-grid{grid-template-columns:1fr;max-width:400px}
+  .testi-grid{grid-template-columns:1fr}
+  .coverage-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr;gap:40px}
+  .form-row{grid-template-columns:1fr}
+  .form-card{padding:28px 20px}
+  .footer-grid{grid-template-columns:1fr}
+  .fab-wa{bottom:80px;right:16px;width:48px;height:48px;font-size:1.3rem}
+  .hero-stats{flex-direction:column}
+  .hero-stat{border-right:none;border-bottom:1px solid var(--border)}
+  .hero-stat:last-child{border:none}
+  .cta-section{padding-bottom:100px}
 }
-
-@media (max-width: 480px) {
-  .hero-stats { flex-direction: column; }
-  .hero-stat { border-right: none; border-bottom: 1px solid var(--border); }
-  .hero-stat:last-child { border: none; }
-  .speed-meter { width: 200px; height: 200px; }
-  .speed-value { font-size: 2.8rem; }
+@media(max-width:480px){
+  .speed-meter{width:200px;height:200px}
+  .speed-value{font-size:2.8rem}
+  .container{padding:0 16px}
 }
 </style>
 </head>
 <body>
 
-<!-- ═══ NAVBAR ═══ -->
+<!-- ═══ DESKTOP NAVBAR ═══ -->
 <nav class="navbar" id="navbar">
   <div class="nav-inner">
-    <a href="#" class="nav-logo">
+    <a href="#home" class="nav-logo">
       <div class="logo-icon">📡</div>
-      Net<span class="highlight">Fast</span>
+      Net<span class="hl">Fast</span>
     </a>
     <ul class="nav-menu" id="navMenu">
+      <li><a href="#home" class="active">Beranda</a></li>
       <li><a href="#keunggulan">Keunggulan</a></li>
       <li><a href="#paket">Paket</a></li>
       <li><a href="#coverage">Area</a></li>
+      <li><a href="#testimonial">Testimoni</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#daftar" class="nav-cta">Daftar Sekarang</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
   </div>
+</nav>
+
+<!-- ═══ MOBILE BOTTOM NAVBAR ═══ -->
+<nav class="mobile-nav" id="mobileNav">
+  <a href="#home" class="mnav-item active" data-section="home">
+    <i class="fas fa-home"></i>
+    <span>Beranda</span>
+  </a>
+  <a href="#paket" class="mnav-item" data-section="paket">
+    <i class="fas fa-wifi"></i>
+    <span>Paket</span>
+  </a>
+  <a href="#daftar" class="mnav-item mnav-cta" data-section="daftar">
+    <div class="mnav-icon-wrap">
+      <i class="fas fa-plus"></i>
+    </div>
+    <span>Daftar</span>
+  </a>
+  <a href="#coverage" class="mnav-item" data-section="coverage">
+    <i class="fas fa-map-marker-alt"></i>
+    <span>Area</span>
+  </a>
+  <a href="#faq" class="mnav-item" data-section="faq">
+    <i class="fas fa-question-circle"></i>
+    <span>FAQ</span>
+  </a>
 </nav>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero" id="home">
   <div class="hero-bg">
-    <div class="hero-orb hero-orb-1"></div>
-    <div class="hero-orb hero-orb-2"></div>
-    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
+    <div class="hero-orb orb-3"></div>
   </div>
   <div class="container">
     <div class="hero-content">
-      <div class="hero-text">
-        <div class="hero-badge">
-          <span class="pulse-dot"></span>
-          INTERNET FIBER OPTIK TERPERCAYA
-        </div>
-        <h1 class="hero-title">
-          Internet Super Cepat
-          <span class="gradient-text">Untuk Rumah & Bisnis</span>
-        </h1>
-        <p class="hero-desc">
-          Nikmati koneksi internet stabil tanpa gangguan dengan teknologi fiber optik terkini. 
-          Mulai dari Rp 99.000/bulan dengan kecepatan hingga 100 Mbps.
-        </p>
+      <div>
+        <div class="hero-badge"><span class="pulse-dot"></span>INTERNET FIBER OPTIK TERPERCAYA</div>
+        <h1 class="hero-title">Internet Super Cepat<br><span class="gt">Untuk Rumah & Bisnis</span></h1>
+        <p class="hero-desc">Nikmati koneksi internet stabil tanpa gangguan dengan teknologi fiber optik terkini. Mulai dari Rp 99.000/bulan dengan kecepatan hingga 100 Mbps.</p>
         <div class="hero-stats">
-          <div class="hero-stat">
-            <div class="hero-stat-num">10K+</div>
-            <div class="hero-stat-label">Pelanggan</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-num">99.9%</div>
-            <div class="hero-stat-label">Uptime</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-num">24/7</div>
-            <div class="hero-stat-label">Support</div>
-          </div>
+          <div class="hero-stat"><div class="hero-stat-num">10K+</div><div class="hero-stat-label">Pelanggan</div></div>
+          <div class="hero-stat"><div class="hero-stat-num">99.9%</div><div class="hero-stat-label">Uptime</div></div>
+          <div class="hero-stat"><div class="hero-stat-num">24/7</div><div class="hero-stat-label">Support</div></div>
         </div>
         <div class="hero-btns">
-          <a href="#daftar" class="btn btn-primary">
-            <i class="fas fa-wifi"></i> Daftar Sekarang
-          </a>
-          <a href="#paket" class="btn btn-ghost">
-            <i class="fas fa-list"></i> Lihat Paket
-          </a>
+          <a href="#daftar" class="btn btn-primary"><i class="fas fa-wifi"></i>Daftar Sekarang</a>
+          <a href="#paket" class="btn btn-ghost"><i class="fas fa-list"></i>Lihat Paket</a>
         </div>
       </div>
       <div class="hero-visual">
         <div class="speed-meter">
-          <div class="speed-value">100<span>Mbps</span></div>
+          <div class="speed-value" id="speedCounter">0<span>Mbps</span></div>
           <div class="speed-label">Max Speed</div>
         </div>
-        <div class="float-badge fb-1">
-          <div class="fb-icon"><i class="fas fa-bolt"></i></div>
-          <span>Ultra Fast Speed</span>
-        </div>
-        <div class="float-badge fb-2">
-          <div class="fb-icon"><i class="fas fa-shield-alt"></i></div>
-          <span>Anti Gangguan</span>
-        </div>
-        <div class="float-badge fb-3">
-          <div class="fb-icon"><i class="fas fa-headset"></i></div>
-          <span>24/7 Support</span>
-        </div>
-        <div class="float-badge fb-4">
-          <div class="fb-icon"><i class="fas fa-check-circle"></i></div>
-          <span>Gratis Instalasi</span>
-        </div>
+        <div class="float-badge fb-1"><div class="fb-icon"><i class="fas fa-bolt"></i></div><span>Ultra Fast</span></div>
+        <div class="float-badge fb-2"><div class="fb-icon"><i class="fas fa-shield-alt"></i></div><span>Anti Gangguan</span></div>
+        <div class="float-badge fb-3"><div class="fb-icon"><i class="fas fa-headset"></i></div><span>24/7 Support</span></div>
+        <div class="float-badge fb-4"><div class="fb-icon"><i class="fas fa-check-circle"></i></div><span>Gratis Instalasi</span></div>
       </div>
     </div>
   </div>
@@ -2089,131 +471,53 @@ textarea.form-input {
 <section class="why-section" id="keunggulan">
   <div class="container">
     <div class="section-header">
-      <div class="section-badge"><i class="fas fa-star"></i> KEUNGGULAN KAMI</div>
-      <h2 class="section-title">Kenapa Pilih <span class="gradient-text">NetFast?</span></h2>
-      <p class="section-desc">Kami berkomitmen memberikan layanan internet terbaik dengan teknologi mutakhir dan dukungan pelanggan 24 jam.</p>
+      <div class="section-badge"><i class="fas fa-star"></i>KEUNGGULAN</div>
+      <h2 class="section-title">Kenapa Pilih <span class="gt">NetFast?</span></h2>
+      <p class="section-desc">Teknologi mutakhir dan dukungan pelanggan 24 jam.</p>
       <div class="section-line"></div>
     </div>
     <div class="why-grid">
-      <div class="why-card">
-        <div class="why-icon">⚡</div>
-        <h3 class="why-title">Kecepatan Tinggi</h3>
-        <p class="why-desc">Teknologi fiber optik FTTH dengan kecepatan hingga 100 Mbps. Download film HD dalam hitungan detik.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">🛡️</div>
-        <h3 class="why-title">Stabil & Terpercaya</h3>
-        <p class="why-desc">Uptime 99.9% dijamin dengan SLA. Jaringan redundant memastikan koneksi selalu online.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">🔧</div>
-        <h3 class="why-title">Pasang Cepat</h3>
-        <p class="why-desc">Pemasangan hanya 1-3 hari kerja setelah pendaftaran. Tim teknisi profesional siap membantu.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">🎧</div>
-        <h3 class="why-title">Support 24/7</h3>
-        <p class="why-desc">Tim customer service siap membantu 24/7 via WhatsApp, telepon, atau live chat.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">💰</div>
-        <h3 class="why-title">Harga Terjangkau</h3>
-        <p class="why-desc">Mulai Rp 99.000/bulan tanpa biaya tersembunyi. Bayar bulanan, tanpa kontrak panjang.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">🏠</div>
-        <h3 class="why-title">Bebas Pemasangan</h3>
-        <p class="why-desc">Gratis biaya instalasi untuk pelanggan baru bulan ini. Modem WiFi sudah termasuk!</p>
-      </div>
+      <div class="why-card"><div class="why-icon">⚡</div><h3 class="why-title">Kecepatan Tinggi</h3><p class="why-desc">Fiber optik FTTH hingga 100 Mbps. Download film HD dalam hitungan detik.</p></div>
+      <div class="why-card"><div class="why-icon">🛡️</div><h3 class="why-title">Stabil & Terpercaya</h3><p class="why-desc">Uptime 99.9% dijamin SLA. Jaringan redundant selalu online.</p></div>
+      <div class="why-card"><div class="why-icon">🔧</div><h3 class="why-title">Pasang Cepat</h3><p class="why-desc">Pemasangan 1-3 hari kerja. Tim teknisi profesional siap membantu.</p></div>
+      <div class="why-card"><div class="why-icon">🎧</div><h3 class="why-title">Support 24/7</h3><p class="why-desc">Customer service via WhatsApp, telepon, atau live chat 24 jam.</p></div>
+      <div class="why-card"><div class="why-icon">💰</div><h3 class="why-title">Harga Terjangkau</h3><p class="why-desc">Mulai Rp 99.000/bulan tanpa biaya tersembunyi. Tanpa kontrak.</p></div>
+      <div class="why-card"><div class="why-icon">🏠</div><h3 class="why-title">Gratis Instalasi</h3><p class="why-desc">Gratis biaya instalasi & modem WiFi untuk pelanggan baru bulan ini!</p></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ PAKET INTERNET ═══ -->
+<!-- ═══ PAKET ═══ -->
 <section class="paket-section" id="paket">
   <div class="container">
     <div class="section-header">
-      <div class="section-badge"><i class="fas fa-wifi"></i> PAKET INTERNET</div>
-      <h2 class="section-title">Pilih <span class="gradient-text">Paket Terbaik</span></h2>
-      <p class="section-desc">Semua paket sudah termasuk modem WiFi, instalasi gratis, dan support 24/7.</p>
+      <div class="section-badge"><i class="fas fa-wifi"></i>PAKET INTERNET</div>
+      <h2 class="section-title">Pilih <span class="gt">Paket Terbaik</span></h2>
+      <p class="section-desc">Semua paket termasuk modem WiFi, instalasi gratis, dan support 24/7.</p>
       <div class="section-line"></div>
     </div>
     <div class="paket-grid">
-      <!-- Basic -->
       <div class="paket-card">
-        <div class="paket-header">
-          <div class="paket-tier">PAKET BASIC</div>
-          <div class="paket-speed">20 <span>Mbps</span></div>
-          <div class="paket-type">Fiber Optik FTTH</div>
-        </div>
-        <div class="paket-divider"></div>
-        <div class="paket-price-box">
-          <div class="paket-price">Rp 99.000</div>
-          <div class="paket-price-period">per bulan</div>
-        </div>
-        <ul class="paket-features">
-          <li><i class="fas fa-check"></i> Speed 20 Mbps Downstream</li>
-          <li><i class="fas fa-check"></i> 10 Mbps Upstream</li>
-          <li><i class="fas fa-check"></i> Modem WiFi Gratis</li>
-          <li><i class="fas fa-check"></i> Instalasi Gratis</li>
-          <li><i class="fas fa-check"></i> Support 24/7</li>
-          <li><i class="fas fa-times"></i> TV Cable</li>
-          <li><i class="fas fa-times"></i> Static IP</li>
-        </ul>
-        <div class="paket-footer">
-          <a href="#daftar" class="paket-btn paket-btn-ghost">Pilih Paket Basic</a>
-        </div>
+        <div class="pkt-header"><div class="pkt-tier">PAKET BASIC</div><div class="pkt-speed">20 <span>Mbps</span></div><div class="pkt-type">Fiber Optik FTTH</div></div>
+        <div class="pkt-divider"></div>
+        <div class="pkt-price-box"><div class="pkt-price">Rp 99.000</div><div class="pkt-period">per bulan</div></div>
+        <ul class="pkt-features"><li><i class="fas fa-check"></i>Speed 20 Mbps Down</li><li><i class="fas fa-check"></i>10 Mbps Up</li><li><i class="fas fa-check"></i>Modem WiFi Gratis</li><li><i class="fas fa-check"></i>Instalasi Gratis</li><li><i class="fas fa-check"></i>Support 24/7</li><li><i class="fas fa-times"></i>TV Cable</li><li><i class="fas fa-times"></i>Static IP</li></ul>
+        <div class="pkt-footer"><a href="#daftar" class="pkt-btn pkt-btn-ghost">Pilih Basic</a></div>
       </div>
-      <!-- Standard (Popular) -->
       <div class="paket-card popular">
-        <div class="popular-badge">⭐ PALING POPULER</div>
-        <div class="paket-header">
-          <div class="paket-tier">PAKET STANDARD</div>
-          <div class="paket-speed">50 <span>Mbps</span></div>
-          <div class="paket-type">Fiber Optik FTTH</div>
-        </div>
-        <div class="paket-divider"></div>
-        <div class="paket-price-box">
-          <div class="paket-price">Rp 179.000</div>
-          <div class="paket-price-period">per bulan</div>
-        </div>
-        <ul class="paket-features">
-          <li><i class="fas fa-check"></i> Speed 50 Mbps Downstream</li>
-          <li><i class="fas fa-check"></i> 25 Mbps Upstream</li>
-          <li><i class="fas fa-check"></i> Modem WiFi Dual Band</li>
-          <li><i class="fas fa-check"></i> Instalasi Gratis</li>
-          <li><i class="fas fa-check"></i> Support 24/7 Priority</li>
-          <li><i class="fas fa-check"></i> 30 Channel TV Cable</li>
-          <li><i class="fas fa-times"></i> Static IP</li>
-        </ul>
-        <div class="paket-footer">
-          <a href="#daftar" class="paket-btn paket-btn-primary">Pilih Paket Standard</a>
-        </div>
+        <div class="pop-badge">⭐ PALING POPULER</div>
+        <div class="pkt-header"><div class="pkt-tier">PAKET STANDARD</div><div class="pkt-speed">50 <span>Mbps</span></div><div class="pkt-type">Fiber Optik FTTH</div></div>
+        <div class="pkt-divider"></div>
+        <div class="pkt-price-box"><div class="pkt-price">Rp 179.000</div><div class="pkt-period">per bulan</div></div>
+        <ul class="pkt-features"><li><i class="fas fa-check"></i>Speed 50 Mbps Down</li><li><i class="fas fa-check"></i>25 Mbps Up</li><li><i class="fas fa-check"></i>Modem WiFi Dual Band</li><li><i class="fas fa-check"></i>Instalasi Gratis</li><li><i class="fas fa-check"></i>Support 24/7 Priority</li><li><i class="fas fa-check"></i>30 Ch TV Cable</li><li><i class="fas fa-times"></i>Static IP</li></ul>
+        <div class="pkt-footer"><a href="#daftar" class="pkt-btn pkt-btn-primary">Pilih Standard</a></div>
       </div>
-      <!-- Premium -->
       <div class="paket-card">
-        <div class="paket-header">
-          <div class="paket-tier">PAKET PREMIUM</div>
-          <div class="paket-speed">100 <span>Mbps</span></div>
-          <div class="paket-type">Fiber Optik FTTH</div>
-        </div>
-        <div class="paket-divider"></div>
-        <div class="paket-price-box">
-          <div class="paket-price">Rp 299.000</div>
-          <div class="paket-price-period">per bulan</div>
-        </div>
-        <ul class="paket-features">
-          <li><i class="fas fa-check"></i> Speed 100 Mbps Downstream</li>
-          <li><i class="fas fa-check"></i> 50 Mbps Upstream</li>
-          <li><i class="fas fa-check"></i> Modem WiFi 6 (AX1800)</li>
-          <li><i class="fas fa-check"></i> Instalasi Gratis</li>
-          <li><i class="fas fa-check"></i> Support 24/7 VIP</li>
-          <li><i class="fas fa-check"></i> 100 Channel TV Cable</li>
-          <li><i class="fas fa-check"></i> Static IP Address</li>
-        </ul>
-        <div class="paket-footer">
-          <a href="#daftar" class="paket-btn paket-btn-ghost">Pilih Paket Premium</a>
-        </div>
+        <div class="pkt-header"><div class="pkt-tier">PAKET PREMIUM</div><div class="pkt-speed">100 <span>Mbps</span></div><div class="pkt-type">Fiber Optik FTTH</div></div>
+        <div class="pkt-divider"></div>
+        <div class="pkt-price-box"><div class="pkt-price">Rp 299.000</div><div class="pkt-period">per bulan</div></div>
+        <ul class="pkt-features"><li><i class="fas fa-check"></i>Speed 100 Mbps Down</li><li><i class="fas fa-check"></i>50 Mbps Up</li><li><i class="fas fa-check"></i>Modem WiFi 6</li><li><i class="fas fa-check"></i>Instalasi Gratis</li><li><i class="fas fa-check"></i>Support 24/7 VIP</li><li><i class="fas fa-check"></i>100 Ch TV Cable</li><li><i class="fas fa-check"></i>Static IP Address</li></ul>
+        <div class="pkt-footer"><a href="#daftar" class="pkt-btn pkt-btn-ghost">Pilih Premium</a></div>
       </div>
     </div>
   </div>
@@ -2223,355 +527,117 @@ textarea.form-input {
 <section class="coverage-section" id="coverage">
   <div class="container">
     <div class="section-header">
-      <div class="section-badge"><i class="fas fa-map-marker-alt"></i> AREA LAYANAN</div>
-      <h2 class="section-title">Cakupan <span class="gradient-text">Layanan</span> Kami</h2>
-      <p class="section-desc">Jaringan fiber optik kami terus berkembang menjangkau lebih banyak area.</p>
+      <div class="section-badge"><i class="fas fa-map-marker-alt"></i>AREA LAYANAN</div>
+      <h2 class="section-title">Cakupan <span class="gt">Layanan</span></h2>
       <div class="section-line"></div>
     </div>
     <div class="coverage-grid">
       <div class="coverage-visual">
-        <div class="coverage-map-icon">🗺️</div>
+        <div class="cov-icon">🗺️</div>
         <h3>Peta Jaringan NetFast</h3>
-        <p>Hubungi kami untuk mengecek ketersediaan layanan di lokasi Anda.</p>
-        <a href="#daftar" class="btn btn-primary" style="font-size:0.85rem;padding:10px 24px;">
-          <i class="fas fa-search"></i> Cek Lokasi Saya
-        </a>
+        <p>Hubungi kami untuk cek ketersediaan di lokasi Anda.</p>
+        <a href="#daftar" class="btn btn-primary" style="font-size:.85rem;padding:10px 24px"><i class="fas fa-search"></i>Cek Lokasi</a>
       </div>
-      <ul class="coverage-list">
-        <li class="coverage-item">
-          <div class="ci-icon">🏙️</div>
-          <div>
-            <div class="ci-title">Pusat Kota</div>
-            <div class="ci-desc">Seluruh area pusat kota terjangkau fiber optik FTTH kecepatan penuh.</div>
-          </div>
-        </li>
-        <li class="coverage-item">
-          <div class="ci-icon">🏘️</div>
-          <div>
-            <div class="ci-title">Perumahan & Komplek</div>
-            <div class="ci-desc">500+ perumahan dan komplek sudah terhubung jaringan NetFast.</div>
-          </div>
-        </li>
-        <li class="coverage-item">
-          <div class="ci-icon">🏢</div>
-          <div>
-            <div class="ci-title">Perkantoran & Ruko</div>
-            <div class="ci-desc">Solusi internet bisnis dengan SLA terjamin untuk perkantoran.</div>
-          </div>
-        </li>
-        <li class="coverage-item">
-          <div class="ci-icon">🏫</div>
-          <div>
-            <div class="ci-title">Sekolah & Kampus</div>
-            <div class="ci-desc">Paket khusus institusi pendidikan untuk mendukung e-learning.</div>
-          </div>
-        </li>
+      <ul class="cov-list">
+        <li class="cov-item"><div class="ci-icon">🏙️</div><div><div class="ci-title">Pusat Kota</div><div class="ci-desc">Seluruh area pusat kota terjangkau fiber optik kecepatan penuh.</div></div></li>
+        <li class="cov-item"><div class="ci-icon">🏘️</div><div><div class="ci-title">Perumahan & Komplek</div><div class="ci-desc">500+ perumahan sudah terhubung jaringan NetFast.</div></div></li>
+        <li class="cov-item"><div class="ci-icon">🏢</div><div><div class="ci-title">Perkantoran & Ruko</div><div class="ci-desc">Internet bisnis dengan SLA terjamin untuk perkantoran.</div></div></li>
+        <li class="cov-item"><div class="ci-icon">🏫</div><div><div class="ci-title">Sekolah & Kampus</div><div class="ci-desc">Paket khusus institusi pendidikan e-learning.</div></div></li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- ═══ FORMULIR PENDAFTARAN (Custom Dropdowns) ═══ -->
+<!-- ═══ FORMULIR ═══ -->
 <section class="form-section" id="daftar">
   <div class="container">
     <div class="form-grid">
-      <!-- Info -->
       <div class="form-info">
-        <div class="section-badge"><i class="fas fa-file-alt"></i> FORMULIR PENDAFTARAN</div>
-        <h2 class="form-info-title">
-          Daftar & Pasang<br>
-          <span class="gradient-text">Internet Sekarang!</span>
-        </h2>
-        <p class="form-info-desc">
-          Isi formulir di samping, tim kami akan menghubungi Anda dalam 1×24 jam untuk konfirmasi jadwal pemasangan.
-        </p>
+        <div class="section-badge"><i class="fas fa-file-alt"></i>FORMULIR PENDAFTARAN</div>
+        <h2 class="form-info-title">Daftar & Pasang<br><span class="gt">Internet Sekarang!</span></h2>
+        <p class="form-info-desc">Isi formulir, tim kami menghubungi dalam 1×24 jam untuk konfirmasi jadwal pemasangan.</p>
         <ol class="reg-steps">
-          <li class="reg-step">
-            <div class="step-num">1</div>
-            <div class="step-content">
-              <div class="step-title">Isi Formulir</div>
-              <div class="step-desc">Lengkapi data diri dan pilih paket</div>
-            </div>
-          </li>
-          <li class="reg-step">
-            <div class="step-num">2</div>
-            <div class="step-content">
-              <div class="step-title">Verifikasi Lokasi</div>
-              <div class="step-desc">Tim kami cek ketersediaan jaringan</div>
-            </div>
-          </li>
-          <li class="reg-step">
-            <div class="step-num">3</div>
-            <div class="step-content">
-              <div class="step-title">Jadwal Pemasangan</div>
-              <div class="step-desc">Teknisi datang sesuai jadwal</div>
-            </div>
-          </li>
-          <li class="reg-step">
-            <div class="step-num">4</div>
-            <div class="step-content">
-              <div class="step-title">Internet Aktif!</div>
-              <div class="step-desc">Nikmati internet cepat di rumah Anda</div>
-            </div>
-          </li>
+          <li class="reg-step"><div class="step-num">1</div><div><div class="step-title">Isi Formulir</div><div class="step-desc">Lengkapi data diri dan pilih paket</div></div></li>
+          <li class="reg-step"><div class="step-num">2</div><div><div class="step-title">Verifikasi Lokasi</div><div class="step-desc">Tim cek ketersediaan jaringan</div></div></li>
+          <li class="reg-step"><div class="step-num">3</div><div><div class="step-title">Jadwal Pemasangan</div><div class="step-desc">Teknisi datang sesuai jadwal</div></div></li>
+          <li class="reg-step"><div class="step-num">4</div><div><div class="step-title">Internet Aktif!</div><div class="step-desc">Nikmati internet cepat</div></div></li>
         </ol>
       </div>
-
-      <!-- Form Card -->
       <div class="form-card">
         <div class="form-card-header">
-          <h3 class="form-card-title">
-            <i class="fas fa-edit" style="color:var(--primary);"></i>
-            Form Pendaftaran Pemasangan
-          </h3>
-          <p class="form-card-sub">Isi dengan data yang benar untuk proses yang lebih cepat</p>
+          <h3 class="form-card-title"><i class="fas fa-edit" style="color:var(--primary)"></i>Form Pendaftaran</h3>
+          <p class="form-card-sub">Isi data benar untuk proses lebih cepat</p>
         </div>
-
-        <form id="registrationForm" onsubmit="submitForm(event)">
-          <!-- Nama & HP -->
+        <form id="regForm" onsubmit="submitForm(event)">
           <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Nama Lengkap <span class="required">*</span></label>
-              <input type="text" class="form-input" placeholder="Nama lengkap Anda" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">No. HP / WhatsApp <span class="required">*</span></label>
-              <input type="tel" class="form-input" placeholder="08xxxxxxxxxx" required>
-            </div>
+            <div class="form-group"><label class="form-label">Nama Lengkap <span class="req">*</span></label><input type="text" class="form-input" placeholder="Nama lengkap" required></div>
+            <div class="form-group"><label class="form-label">No. HP / WA <span class="req">*</span></label><input type="tel" class="form-input" placeholder="08xxxxxxxxxx" required></div>
           </div>
-
-          <!-- Email -->
-          <div class="form-group">
-            <label class="form-label">Email <span class="required">*</span></label>
-            <input type="email" class="form-input" placeholder="email@contoh.com" required>
-          </div>
-
-          <!-- CUSTOM DROPDOWN: Pilih Paket -->
+          <div class="form-group"><label class="form-label">Email <span class="req">*</span></label><input type="email" class="form-input" placeholder="email@contoh.com" required></div>
           <div class="form-row">
+            <!-- Custom Dropdown: Paket -->
             <div class="form-group">
-              <label class="form-label">Pilih Paket <span class="required">*</span></label>
-              <div class="custom-select" id="csPackage">
-                <select class="native-select" name="paket" required>
-                  <option value="" disabled selected>-- Pilih Paket --</option>
-                  <option value="basic">Paket Basic - 20 Mbps (Rp 99.000/bln)</option>
-                  <option value="standard">Paket Standard - 50 Mbps (Rp 179.000/bln)</option>
-                  <option value="premium">Paket Premium - 100 Mbps (Rp 299.000/bln)</option>
-                </select>
-                <div class="custom-select-trigger placeholder" tabindex="0">
-                  <span class="trigger-text">
-                    <span class="main-text">-- Pilih Paket --</span>
-                  </span>
-                  <span class="custom-select-arrow"><i class="fas fa-chevron-down"></i></span>
-                </div>
+              <label class="form-label">Pilih Paket <span class="req">*</span></label>
+              <div class="custom-select" data-name="paket">
+                <select class="native-select" name="paket" required><option value="" disabled selected>Pilih Paket</option><option value="basic">Basic 20Mbps</option><option value="standard">Standard 50Mbps</option><option value="premium">Premium 100Mbps</option></select>
+                <div class="custom-select-trigger placeholder" tabindex="0"><span class="trigger-text"><span class="main-text">-- Pilih Paket --</span></span><span class="custom-select-arrow"><i class="fas fa-chevron-down"></i></span></div>
                 <div class="custom-select-dropdown">
-                  <div class="dropdown-header">
-                    <span class="dropdown-header-label">Pilih Paket Internet</span>
-                    <span class="dropdown-header-count">3 Pilihan</span>
-                  </div>
+                  <div class="dropdown-header"><span class="dropdown-header-label">Paket Internet</span><span class="dropdown-header-count">3</span></div>
                   <div class="custom-select-options">
-                    <div class="custom-option" data-value="basic">
-                      <div class="opt-icon">⚡</div>
-                      <div class="opt-content">
-                        <div class="opt-label">Paket Basic</div>
-                        <div class="opt-desc">20 Mbps Down • 10 Mbps Up • WiFi Gratis</div>
-                      </div>
-                      <span class="opt-tag opt-tag-success">Rp 99K/bln</span>
-                      <div class="opt-check"><i class="fas fa-check"></i></div>
-                    </div>
-                    <div class="custom-option" data-value="standard">
-                      <div class="opt-icon">🚀</div>
-                      <div class="opt-content">
-                        <div class="opt-label">Paket Standard</div>
-                        <div class="opt-desc">50 Mbps Down • 25 Mbps Up • WiFi Dual Band + TV</div>
-                      </div>
-                      <span class="opt-tag opt-tag-primary">Rp 179K/bln</span>
-                      <div class="opt-check"><i class="fas fa-check"></i></div>
-                    </div>
-                    <div class="custom-option" data-value="premium">
-                      <div class="opt-icon">💎</div>
-                      <div class="opt-content">
-                        <div class="opt-label">Paket Premium</div>
-                        <div class="opt-desc">100 Mbps Down • 50 Mbps Up • WiFi 6 + TV + Static IP</div>
-                      </div>
-                      <span class="opt-tag opt-tag-purple">Rp 299K/bln</span>
-                      <div class="opt-check"><i class="fas fa-check"></i></div>
-                    </div>
+                    <div class="custom-option" data-value="basic"><div class="opt-icon">⚡</div><div class="opt-content"><div class="opt-label">Basic</div><div class="opt-desc">20 Mbps • WiFi Gratis</div></div><span class="opt-tag opt-tag-success">Rp 99K</span><div class="opt-check"><i class="fas fa-check"></i></div></div>
+                    <div class="custom-option" data-value="standard"><div class="opt-icon">🚀</div><div class="opt-content"><div class="opt-label">Standard</div><div class="opt-desc">50 Mbps • Dual Band + TV</div></div><span class="opt-tag opt-tag-primary">Rp 179K</span><div class="opt-check"><i class="fas fa-check"></i></div></div>
+                    <div class="custom-option" data-value="premium"><div class="opt-icon">💎</div><div class="opt-content"><div class="opt-label">Premium</div><div class="opt-desc">100 Mbps • WiFi 6 + TV + IP</div></div><span class="opt-tag opt-tag-purple">Rp 299K</span><div class="opt-check"><i class="fas fa-check"></i></div></div>
                   </div>
                 </div>
               </div>
             </div>
-
-            <!-- CUSTOM DROPDOWN: Jenis Lokasi -->
+            <!-- Custom Dropdown: Lokasi -->
             <div class="form-group">
-              <label class="form-label">Jenis Lokasi <span class="required">*</span></label>
-              <div class="custom-select" id="csLocation">
-                <select class="native-select" name="lokasi" required>
-                  <option value="" disabled selected>-- Pilih Jenis --</option>
-                  <option value="rumah">Rumah Tinggal</option>
-                  <option value="kos">Kos / Kontrakan</option>
-                  <option value="kantor">Kantor / Ruko</option>
-                  <option value="warung">Warung / Toko</option>
-                  <option value="sekolah">Sekolah / Kampus</option>
-                  <option value="lainnya">Lainnya</option>
-                </select>
-                <div class="custom-select-trigger placeholder" tabindex="0">
-                  <span class="trigger-text">
-                    <span class="main-text">-- Pilih Jenis Lokasi --</span>
-                  </span>
-                  <span class="custom-select-arrow"><i class="fas fa-chevron-down"></i></span>
-                </div>
+              <label class="form-label">Jenis Lokasi <span class="req">*</span></label>
+              <div class="custom-select" data-name="lokasi">
+                <select class="native-select" name="lokasi" required><option value="" disabled selected>Pilih</option><option value="rumah">Rumah</option><option value="kos">Kos/Kontrakan</option><option value="kantor">Kantor/Ruko</option><option value="warung">Warung/Toko</option><option value="sekolah">Sekolah/Kampus</option><option value="lain">Lainnya</option></select>
+                <div class="custom-select-trigger placeholder" tabindex="0"><span class="trigger-text"><span class="main-text">-- Pilih Lokasi --</span></span><span class="custom-select-arrow"><i class="fas fa-chevron-down"></i></span></div>
                 <div class="custom-select-dropdown">
-                  <div class="dropdown-header">
-                    <span class="dropdown-header-label">Jenis Lokasi</span>
-                    <span class="dropdown-header-count">6 Pilihan</span>
-                  </div>
+                  <div class="dropdown-header"><span class="dropdown-header-label">Jenis Lokasi</span><span class="dropdown-header-count">6</span></div>
                   <div class="custom-select-options">
-                    <div class="custom-option" data-value="rumah">
-                      <div class="opt-icon">🏠</div>
-                      <div class="opt-content">
-                        <div class="opt-label">Rumah Tinggal</div>
-                        <div class="opt-desc">Rumah pribadi / keluarga</div>
-                      </div>
-                      <div class="opt-check"><i class="fas fa-check"></i></div>
-                    </div>
-                    <div class="custom-option" data-value="kos">
-                      <div class="opt-icon">🏘️</div>
-                      <div class="opt-content">
-                        <div class="opt-label">Kos / Kontrakan</div>
-                        <div class="opt-desc">Kamar kos atau rumah kontrakan</div>
-                      </div>
-                      <div class="opt-check"><i class="fas fa-check"></i></div>
-                    </div>
-                    <div class="custom-option" data-value="kantor">
-                      <div class="opt-icon">🏢</div>
-                      <div class="opt-content">
-                        <div class="opt-label">Kantor / Ruko</div>
-                        <div class="opt-desc">Gedung perkantoran atau ruko bisnis</div>
-                      </div>
-                      <div class="opt-check"><i class="fas fa-check"></i></div>
-                    </div>
-                    <div class="custom-option" data-value="warung">
-                      <div class="opt-icon">🏪</div>
-                      <div class="opt-content">
-                        <div class="opt-label">Warung / Toko</div>
-                        <div class="opt-desc">Warung makan, toko retail, dll</div>
-                      </div>
-                      <div class="opt-check"><i class="fas fa-check"></i></div>
-                    </div>
-                    <div class="custom-option" data-value="sekolah">
-                      <div class="opt-icon">🏫</div>
-                      <div class="opt-content">
-                        <div class="opt-label">Sekolah / Kampus</div>
-                        <div class="opt-desc">Institusi pendidikan</div>
-                      </div>
-                      <div class="opt-check"><i class="fas fa-check"></i></div>
-                    </div>
-                    <div class="custom-option" data-value="lainnya">
-                      <div class="opt-icon">📍</div>
-                      <div class="opt-content">
-                        <div class="opt-label">Lainnya</div>
-                        <div class="opt-desc">Jenis lokasi lain</div>
-                      </div>
-                      <div class="opt-check"><i class="fas fa-check"></i></div>
-                    </div>
+                    <div class="custom-option" data-value="rumah"><div class="opt-icon">🏠</div><div class="opt-content"><div class="opt-label">Rumah Tinggal</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
+                    <div class="custom-option" data-value="kos"><div class="opt-icon">🏘️</div><div class="opt-content"><div class="opt-label">Kos / Kontrakan</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
+                    <div class="custom-option" data-value="kantor"><div class="opt-icon">🏢</div><div class="opt-content"><div class="opt-label">Kantor / Ruko</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
+                    <div class="custom-option" data-value="warung"><div class="opt-icon">🏪</div><div class="opt-content"><div class="opt-label">Warung / Toko</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
+                    <div class="custom-option" data-value="sekolah"><div class="opt-icon">🏫</div><div class="opt-content"><div class="opt-label">Sekolah / Kampus</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
+                    <div class="custom-option" data-value="lain"><div class="opt-icon">📍</div><div class="opt-content"><div class="opt-label">Lainnya</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- Alamat -->
-          <div class="form-group">
-            <label class="form-label">Alamat Lengkap Pemasangan <span class="required">*</span></label>
-            <textarea class="form-input" rows="3" placeholder="Jl. Nama Jalan No. XX, RT/RW, Kelurahan, Kecamatan, Kota, Kode Pos" required></textarea>
-          </div>
-
-          <!-- Kecamatan & Kode Pos -->
+          <div class="form-group"><label class="form-label">Alamat Lengkap <span class="req">*</span></label><textarea class="form-input" rows="3" placeholder="Jl. Nama No. XX, RT/RW, Kel, Kec, Kota, Kode Pos" required></textarea></div>
           <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Kecamatan <span class="required">*</span></label>
-              <input type="text" class="form-input" placeholder="Nama kecamatan" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Kode Pos</label>
-              <input type="text" class="form-input" placeholder="Kode pos" maxlength="5">
-            </div>
+            <div class="form-group"><label class="form-label">Kecamatan <span class="req">*</span></label><input type="text" class="form-input" placeholder="Kecamatan" required></div>
+            <div class="form-group"><label class="form-label">Kode Pos</label><input type="text" class="form-input" placeholder="Kode pos" maxlength="5"></div>
           </div>
-
-          <!-- CUSTOM DROPDOWN: Waktu Kunjungan -->
           <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Preferensi Jadwal <span class="required">*</span></label>
-              <input type="date" class="form-input" required>
-            </div>
+            <div class="form-group"><label class="form-label">Preferensi Jadwal <span class="req">*</span></label><input type="date" class="form-input" required></div>
+            <!-- Custom Dropdown: Waktu -->
             <div class="form-group">
               <label class="form-label">Waktu Kunjungan</label>
-              <div class="custom-select" id="csTime">
-                <select class="native-select" name="waktu">
-                  <option value="pagi">Pagi (08.00 - 12.00)</option>
-                  <option value="siang">Siang (12.00 - 15.00)</option>
-                  <option value="sore">Sore (15.00 - 18.00)</option>
-                </select>
-                <div class="custom-select-trigger" tabindex="0">
-                  <div class="trigger-icon">🕐</div>
-                  <span class="trigger-text">
-                    <span class="main-text">Pagi (08.00 - 12.00)</span>
-                    <span class="sub-text">Slot waktu kunjungan teknisi</span>
-                  </span>
-                  <span class="custom-select-arrow"><i class="fas fa-chevron-down"></i></span>
-                </div>
+              <div class="custom-select" data-name="waktu">
+                <select class="native-select" name="waktu"><option value="pagi" selected>Pagi</option><option value="siang">Siang</option><option value="sore">Sore</option></select>
+                <div class="custom-select-trigger" tabindex="0"><div class="trigger-icon">🕐</div><span class="trigger-text"><span class="main-text">Pagi (08-12)</span><span class="sub-text">Slot waktu teknisi</span></span><span class="custom-select-arrow"><i class="fas fa-chevron-down"></i></span></div>
                 <div class="custom-select-dropdown">
-                  <div class="dropdown-header">
-                    <span class="dropdown-header-label">Waktu Kunjungan</span>
-                    <span class="dropdown-header-count">3 Slot</span>
-                  </div>
+                  <div class="dropdown-header"><span class="dropdown-header-label">Waktu</span><span class="dropdown-header-count">3</span></div>
                   <div class="custom-select-options">
-                    <div class="custom-option selected" data-value="pagi">
-                      <div class="opt-icon">🌅</div>
-                      <div class="opt-content">
-                        <div class="opt-label">Pagi</div>
-                        <div class="opt-desc">08.00 - 12.00 WIB</div>
-                      </div>
-                      <span class="opt-tag opt-tag-accent">Recommended</span>
-                      <div class="opt-check"><i class="fas fa-check"></i></div>
-                    </div>
-                    <div class="custom-option" data-value="siang">
-                      <div class="opt-icon">☀️</div>
-                      <div class="opt-content">
-                        <div class="opt-label">Siang</div>
-                        <div class="opt-desc">12.00 - 15.00 WIB</div>
-                      </div>
-                      <div class="opt-check"><i class="fas fa-check"></i></div>
-                    </div>
-                    <div class="custom-option" data-value="sore">
-                      <div class="opt-icon">🌇</div>
-                      <div class="opt-content">
-                        <div class="opt-label">Sore</div>
-                        <div class="opt-desc">15.00 - 18.00 WIB</div>
-                      </div>
-                      <div class="opt-check"><i class="fas fa-check"></i></div>
-                    </div>
+                    <div class="custom-option selected" data-value="pagi"><div class="opt-icon">🌅</div><div class="opt-content"><div class="opt-label">Pagi</div><div class="opt-desc">08.00 - 12.00</div></div><span class="opt-tag opt-tag-accent">Best</span><div class="opt-check"><i class="fas fa-check"></i></div></div>
+                    <div class="custom-option" data-value="siang"><div class="opt-icon">☀️</div><div class="opt-content"><div class="opt-label">Siang</div><div class="opt-desc">12.00 - 15.00</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
+                    <div class="custom-option" data-value="sore"><div class="opt-icon">🌇</div><div class="opt-content"><div class="opt-label">Sore</div><div class="opt-desc">15.00 - 18.00</div></div><div class="opt-check"><i class="fas fa-check"></i></div></div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- Catatan -->
-          <div class="form-group">
-            <label class="form-label">Catatan Tambahan</label>
-            <textarea class="form-input" rows="2" placeholder="Info tambahan untuk teknisi (lokasi, akses masuk, dll)"></textarea>
-          </div>
-
-          <div class="form-note">
-            <i class="fas fa-info-circle"></i>
-            <span>Petugas kami akan menghubungi Anda via WhatsApp dalam <strong style="color:var(--white);">1×24 jam</strong> untuk konfirmasi dan jadwal pemasangan.</span>
-          </div>
-
-          <button type="submit" class="form-submit">
-            <i class="fas fa-paper-plane"></i>
-            Kirim Pendaftaran
-          </button>
+          <div class="form-group"><label class="form-label">Catatan Tambahan</label><textarea class="form-input" rows="2" placeholder="Info untuk teknisi"></textarea></div>
+          <div class="form-note"><i class="fas fa-info-circle"></i><span>Petugas menghubungi via WhatsApp dalam <strong style="color:var(--white)">1×24 jam</strong> untuk konfirmasi.</span></div>
+          <button type="submit" class="form-submit"><i class="fas fa-paper-plane"></i>Kirim Pendaftaran</button>
         </form>
       </div>
     </div>
@@ -2582,45 +648,14 @@ textarea.form-input {
 <section class="testi-section" id="testimonial">
   <div class="container">
     <div class="section-header">
-      <div class="section-badge"><i class="fas fa-heart"></i> TESTIMONI</div>
-      <h2 class="section-title">Kata Mereka <span class="gradient-text">Tentang NetFast</span></h2>
-      <p class="section-desc">Lebih dari 10.000 pelanggan puas telah mempercayakan kebutuhan internet mereka kepada kami.</p>
+      <div class="section-badge"><i class="fas fa-heart"></i>TESTIMONI</div>
+      <h2 class="section-title">Kata Mereka <span class="gt">Tentang NetFast</span></h2>
       <div class="section-line"></div>
     </div>
     <div class="testi-grid">
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"Internetnya beneran cepet! WFH jadi lancar, zoom meeting nggak pernah buffering. Pasangnya juga cepet, cuma 2 hari langsung aktif."</p>
-        <div class="testi-user">
-          <div class="testi-avatar">B</div>
-          <div>
-            <div class="testi-name">Budi Santoso</div>
-            <div class="testi-loc">📍 Bekasi Timur</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"Saya pakai untuk warung gaming, udah 6 bulan nggak pernah ada masalah. Koneksi stabil, harga terjangkau. Pelanggan saya juga puas!"</p>
-        <div class="testi-user">
-          <div class="testi-avatar">R</div>
-          <div>
-            <div class="testi-name">Rina Wulandari</div>
-            <div class="testi-loc">📍 Depok</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"CS-nya responsif banget, chat jam 11 malem pun langsung dibalas. Pas ada gangguan langsung ditangani dalam 2 jam. Recommended!"</p>
-        <div class="testi-user">
-          <div class="testi-avatar">A</div>
-          <div>
-            <div class="testi-name">Ahmad Fauzi</div>
-            <div class="testi-loc">📍 Tangerang</div>
-          </div>
-        </div>
-      </div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Internet cepet banget! WFH lancar, zoom nggak buffering. Pasang cuma 2 hari!"</p><div class="testi-user"><div class="testi-avatar">B</div><div><div class="testi-name">Budi Santoso</div><div class="testi-loc">📍 Bekasi</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Pakai buat warnet gaming, 6 bulan stabil. Harga terjangkau. Pelanggan puas!"</p><div class="testi-user"><div class="testi-avatar">R</div><div><div class="testi-name">Rina W.</div><div class="testi-loc">📍 Depok</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"CS responsif, chat jam 11 malem langsung dibalas. Gangguan ditangani 2 jam!"</p><div class="testi-user"><div class="testi-avatar">A</div><div><div class="testi-name">Ahmad Fauzi</div><div class="testi-loc">📍 Tangerang</div></div></div></div>
     </div>
   </div>
 </section>
@@ -2629,46 +664,16 @@ textarea.form-input {
 <section class="faq-section" id="faq">
   <div class="container">
     <div class="section-header">
-      <div class="section-badge"><i class="fas fa-question-circle"></i> FAQ</div>
-      <h2 class="section-title">Pertanyaan <span class="gradient-text">Yang Sering Ditanyakan</span></h2>
+      <div class="section-badge"><i class="fas fa-question-circle"></i>FAQ</div>
+      <h2 class="section-title">Pertanyaan <span class="gt">Yang Sering Ditanyakan</span></h2>
       <div class="section-line"></div>
     </div>
     <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          Berapa lama proses pemasangan setelah pendaftaran?
-          <span class="faq-arrow"><i class="fas fa-chevron-down"></i></span>
-        </button>
-        <div class="faq-answer">Setelah pendaftaran, tim kami survei lokasi dalam 1-2 hari kerja. Jika terjangkau jaringan, pemasangan dalam 1-3 hari kerja. Total 2-5 hari kerja.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          Apakah ada biaya pendaftaran atau instalasi?
-          <span class="faq-arrow"><i class="fas fa-chevron-down"></i></span>
-        </button>
-        <div class="faq-answer">Saat ini kami menawarkan GRATIS biaya instalasi dan modem WiFi untuk pelanggan baru. Anda hanya bayar berlangganan bulanan.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          Bagaimana cara cek apakah lokasi saya terjangkau?
-          <span class="faq-arrow"><i class="fas fa-chevron-down"></i></span>
-        </button>
-        <div class="faq-answer">Isi formulir pendaftaran atau hubungi CS via WhatsApp. Tim kami cek ketersediaan dan konfirmasi dalam 1×24 jam.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          Apakah bisa upgrade/downgrade paket?
-          <span class="faq-arrow"><i class="fas fa-chevron-down"></i></span>
-        </button>
-        <div class="faq-answer">Ya, upgrade atau downgrade kapan saja tanpa biaya. Perubahan berlaku mulai siklus tagihan berikutnya.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          Bagaimana sistem pembayaran tagihan?
-          <span class="faq-arrow"><i class="fas fa-chevron-down"></i></span>
-        </button>
-        <div class="faq-answer">Tagihan dikirim via WhatsApp/email. Bayar via transfer bank, e-wallet (GoPay, OVO, Dana), minimarket, atau autodebit.</div>
-      </div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Berapa lama proses pemasangan?<span class="faq-arrow"><i class="fas fa-chevron-down"></i></span></button><div class="faq-answer">Survei 1-2 hari kerja, pemasangan 1-3 hari kerja. Total 2-5 hari kerja.</div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Apakah ada biaya instalasi?<span class="faq-arrow"><i class="fas fa-chevron-down"></i></span></button><div class="faq-answer">GRATIS instalasi dan modem WiFi untuk pelanggan baru. Hanya bayar bulanan.</div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Bagaimana cek lokasi terjangkau?<span class="faq-arrow"><i class="fas fa-chevron-down"></i></span></button><div class="faq-answer">Isi formulir atau hubungi CS via WhatsApp. Konfirmasi dalam 1×24 jam.</div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Bisa upgrade/downgrade paket?<span class="faq-arrow"><i class="fas fa-chevron-down"></i></span></button><div class="faq-answer">Ya, kapan saja tanpa biaya. Berlaku di siklus tagihan berikutnya.</div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Bagaimana sistem pembayaran?<span class="faq-arrow"><i class="fas fa-chevron-down"></i></span></button><div class="faq-answer">Transfer bank, e-wallet (GoPay, OVO, Dana), minimarket, atau autodebit.</div></div>
     </div>
   </div>
 </section>
@@ -2676,11 +681,11 @@ textarea.form-input {
 <!-- ═══ CTA ═══ -->
 <section class="cta-section">
   <div class="container">
-    <h2>Siap Menikmati <span class="gradient-text">Internet Super Cepat?</span></h2>
-    <p>Daftar sekarang dan nikmati instalasi gratis untuk pelanggan baru bulan ini!</p>
+    <h2>Siap Menikmati <span class="gt">Internet Super Cepat?</span></h2>
+    <p>Daftar sekarang, instalasi gratis untuk pelanggan baru bulan ini!</p>
     <div class="cta-btns">
-      <a href="#daftar" class="btn btn-primary"><i class="fas fa-wifi"></i> Daftar Sekarang</a>
-      <a href="https://wa.me/6281401643188" class="btn btn-ghost" target="_blank"><i class="fab fa-whatsapp"></i> Chat WhatsApp</a>
+      <a href="#daftar" class="btn btn-primary"><i class="fas fa-wifi"></i>Daftar Sekarang</a>
+      <a href="https://wa.me/6281401643188" class="btn btn-ghost" target="_blank"><i class="fab fa-whatsapp"></i>Chat WhatsApp</a>
     </div>
   </div>
 </section>
@@ -2689,299 +694,139 @@ textarea.form-input {
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="nav-logo" style="margin-bottom:16px;">
-          <div class="logo-icon">📡</div>
-          Net<span class="highlight">Fast</span>
-        </div>
-        <p class="footer-desc">Provider internet fiber optik terpercaya. Koneksi cepat, stabil, dan terjangkau untuk rumah dan bisnis.</p>
-        <div class="footer-socials">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-whatsapp"></i></a>
-          <a href="#"><i class="fab fa-youtube"></i></a>
-        </div>
+      <div>
+        <div class="nav-logo" style="margin-bottom:16px"><div class="logo-icon">📡</div>Net<span class="hl">Fast</span></div>
+        <p class="footer-desc">Provider internet fiber optik terpercaya. Koneksi cepat, stabil, terjangkau.</p>
+        <div class="footer-socials"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div>
       </div>
-      <div class="footer-col">
-        <h4>Navigasi</h4>
-        <ul class="footer-links">
-          <li><a href="#home">Beranda</a></li>
-          <li><a href="#keunggulan">Keunggulan</a></li>
-          <li><a href="#paket">Paket Internet</a></li>
-          <li><a href="#coverage">Area Layanan</a></li>
-          <li><a href="#daftar">Daftar Sekarang</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Paket Internet</h4>
-        <ul class="footer-links">
-          <li><a href="#paket">Basic 20 Mbps</a></li>
-          <li><a href="#paket">Standard 50 Mbps</a></li>
-          <li><a href="#paket">Premium 100 Mbps</a></li>
-          <li><a href="#paket">Paket Bisnis</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Kontak</h4>
-        <div class="footer-contact-item"><i class="fab fa-whatsapp"></i><span>+62 812-3456-7890</span></div>
-        <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>cs@netfast.id</span></div>
-        <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Jl. Teknologi No. 1,<br>Jakarta Selatan</span></div>
-        <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Support 24/7</span></div>
-      </div>
+      <div class="footer-col"><h4>Navigasi</h4><ul class="footer-links"><li><a href="#home">Beranda</a></li><li><a href="#keunggulan">Keunggulan</a></li><li><a href="#paket">Paket</a></li><li><a href="#coverage">Area</a></li><li><a href="#daftar">Daftar</a></li></ul></div>
+      <div class="footer-col"><h4>Paket</h4><ul class="footer-links"><li><a href="#paket">Basic 20 Mbps</a></li><li><a href="#paket">Standard 50 Mbps</a></li><li><a href="#paket">Premium 100 Mbps</a></li><li><a href="#paket">Paket Bisnis</a></li></ul></div>
+      <div class="footer-col"><h4>Kontak</h4><div class="footer-contact-item"><i class="fab fa-whatsapp"></i><span>+62 812-3456-7890</span></div><div class="footer-contact-item"><i class="fas fa-envelope"></i><span>cs@netfast.id</span></div><div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Jl. Teknologi No. 1<br>Jakarta Selatan</span></div><div class="footer-contact-item"><i class="fas fa-clock"></i><span>Support 24/7</span></div></div>
     </div>
-    <div class="footer-bottom">
-      <p>© 2025 NetFast Internet. All rights reserved. | Template by Ibaadurrahmaan Web Designer</p>
-    </div>
+    <div class="footer-bottom"><p>© 2025 NetFast Internet. All rights reserved. | Template by Ibaadurrahmaan Web Designer</p></div>
   </div>
 </footer>
 
 <!-- Floating WA -->
-<a href="https://wa.me/6281401643188" class="fab-wa" aria-label="WhatsApp" target="_blank">
-  <i class="fab fa-whatsapp"></i>
-</a>
+<a href="https://wa.me/6281401643188" class="fab-wa" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
 <!-- Modal -->
 <div class="modal-overlay" id="modalSuccess">
   <div class="modal-box">
     <div class="modal-icon"><i class="fas fa-check"></i></div>
     <h3 class="modal-title">Pendaftaran Berhasil!</h3>
-    <p class="modal-desc">Terima kasih telah mendaftar layanan NetFast. Tim kami akan menghubungi Anda via WhatsApp dalam <strong>1×24 jam</strong> untuk konfirmasi dan jadwal pemasangan.</p>
+    <p class="modal-desc">Terima kasih! Tim kami menghubungi via WhatsApp dalam <strong>1×24 jam</strong> untuk konfirmasi dan jadwal pemasangan.</p>
     <button class="modal-close" onclick="closeModal()">OK, Mengerti</button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════
-     SCRIPTS
-     ═══════════════════════════════════ -->
+<!-- ═══ SCRIPTS ═══ -->
 <script>
-/* ═══════════════════════════════
-   CUSTOM SELECT COMPONENT
-   ═══════════════════════════════ */
-class CustomSelect {
-  constructor(el) {
-    this.el = el;
-    this.trigger = el.querySelector('.custom-select-trigger');
-    this.dropdown = el.querySelector('.custom-select-dropdown');
-    this.options = el.querySelectorAll('.custom-option');
-    this.nativeSelect = el.querySelector('.native-select');
-    this.isOpen = false;
-
-    this.init();
+/* ═══ Custom Select ═══ */
+class CustomSelect{
+  constructor(el){this.el=el;this.trigger=el.querySelector('.custom-select-trigger');this.dropdown=el.querySelector('.custom-select-dropdown');this.options=el.querySelectorAll('.custom-option');this.native=el.querySelector('.native-select');this.isOpen=false;this.init()}
+  init(){
+    this.trigger.addEventListener('click',e=>{e.stopPropagation();this.toggle()});
+    this.trigger.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();this.toggle()}if(e.key==='Escape')this.close()});
+    this.options.forEach(o=>o.addEventListener('click',()=>this.select(o)));
+    document.addEventListener('click',e=>{if(!this.el.contains(e.target))this.close()});
   }
-
-  init() {
-    // Click trigger
-    this.trigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      this.toggle();
-    });
-
-    // Keyboard
-    this.trigger.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        this.toggle();
-      }
-      if (e.key === 'Escape') this.close();
-    });
-
-    // Options click
-    this.options.forEach(opt => {
-      opt.addEventListener('click', () => this.select(opt));
-
-      // Hover effect sound simulation
-      opt.addEventListener('mouseenter', () => {
-        opt.style.transition = 'all 0.15s ease';
-      });
-    });
-
-    // Close on outside click
-    document.addEventListener('click', (e) => {
-      if (!this.el.contains(e.target)) this.close();
-    });
+  toggle(){this.isOpen?this.close():this.open()}
+  open(){
+    document.querySelectorAll('.custom-select.open').forEach(s=>{if(s!==this.el)s.classList.remove('open')});
+    this.el.classList.add('open');this.isOpen=true;
+    this.options.forEach((o,i)=>{o.style.opacity='0';o.style.transform='translateX(-8px)';setTimeout(()=>{o.style.transition=`opacity .2s ease ${i*.04}s,transform .2s ease ${i*.04}s`;o.style.opacity='1';o.style.transform='translateX(0)'},50)});
   }
-
-  toggle() {
-    this.isOpen ? this.close() : this.open();
-  }
-
-  open() {
-    // Close all other dropdowns first
-    document.querySelectorAll('.custom-select.open').forEach(s => {
-      if (s !== this.el) {
-        s.classList.remove('open');
-        s._customSelect && s._customSelect.isOpen && (s._customSelect.isOpen = false);
-      }
-    });
-
-    this.el.classList.add('open');
-    this.isOpen = true;
-
-    // Animate options in staggered
-    this.options.forEach((opt, i) => {
-      opt.style.opacity = '0';
-      opt.style.transform = 'translateX(-8px)';
-      setTimeout(() => {
-        opt.style.transition = `opacity 0.2s ease ${i * 0.04}s, transform 0.2s ease ${i * 0.04}s`;
-        opt.style.opacity = '1';
-        opt.style.transform = 'translateX(0)';
-      }, 50);
-    });
-  }
-
-  close() {
-    this.el.classList.remove('open');
-    this.isOpen = false;
-  }
-
-  select(opt) {
-    const value = opt.dataset.value;
-    const label = opt.querySelector('.opt-label').textContent;
-    const desc = opt.querySelector('.opt-desc')?.textContent || '';
-    const icon = opt.querySelector('.opt-icon')?.innerHTML || '';
-
-    // Update native select
-    if (this.nativeSelect) {
-      this.nativeSelect.value = value;
-      this.nativeSelect.dispatchEvent(new Event('change'));
-    }
-
-    // Update visual selected state
-    this.options.forEach(o => o.classList.remove('selected'));
-    opt.classList.add('selected');
-
-    // Update trigger display
+  close(){this.el.classList.remove('open');this.isOpen=false}
+  select(opt){
+    const val=opt.dataset.value,lbl=opt.querySelector('.opt-label').textContent,desc=opt.querySelector('.opt-desc')?.textContent||'',icon=opt.querySelector('.opt-icon')?.innerHTML||'';
+    if(this.native){this.native.value=val;this.native.dispatchEvent(new Event('change'))}
+    this.options.forEach(o=>o.classList.remove('selected'));opt.classList.add('selected');
     this.trigger.classList.remove('placeholder');
-    const triggerText = this.trigger.querySelector('.trigger-text');
-
-    // Check if there's trigger-icon
-    let triggerIcon = this.trigger.querySelector('.trigger-icon');
-    if (!triggerIcon) {
-      triggerIcon = document.createElement('div');
-      triggerIcon.className = 'trigger-icon';
-      this.trigger.insertBefore(triggerIcon, triggerText);
-    }
-    triggerIcon.innerHTML = icon;
-
-    triggerText.innerHTML = `
-      <span class="main-text">${label}</span>
-      ${desc ? `<span class="sub-text">${desc}</span>` : ''}
-    `;
-
-    // Trigger selection ripple effect
-    opt.style.background = 'rgba(0,198,255,0.15)';
-    setTimeout(() => { opt.style.background = ''; }, 300);
-
+    const tt=this.trigger.querySelector('.trigger-text');
+    let ti=this.trigger.querySelector('.trigger-icon');
+    if(!ti){ti=document.createElement('div');ti.className='trigger-icon';this.trigger.insertBefore(ti,tt)}
+    ti.innerHTML=icon;
+    tt.innerHTML=`<span class="main-text">${lbl}</span>${desc?`<span class="sub-text">${desc}</span>`:''}`;
+    opt.style.background='rgba(0,198,255,.15)';setTimeout(()=>{opt.style.background=''},300);
     this.close();
   }
 }
+document.querySelectorAll('.custom-select').forEach(el=>new CustomSelect(el));
 
-// Initialize all custom selects
-document.querySelectorAll('.custom-select').forEach(el => {
-  el._customSelect = new CustomSelect(el);
+/* ═══ Navbar Scroll ═══ */
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60)},{passive:true});
+
+/* ═══ Active Nav Link (Desktop & Mobile) ═══ */
+const sections=document.querySelectorAll('section[id]');
+const desktopLinks=document.querySelectorAll('.nav-menu a:not(.nav-cta)');
+const mobileItems=document.querySelectorAll('.mnav-item:not(.mnav-cta)');
+
+function updateActiveNav(){
+  let current='';
+  sections.forEach(sec=>{
+    const top=sec.offsetTop-120;
+    if(window.scrollY>=top)current=sec.getAttribute('id');
+  });
+  // Desktop
+  desktopLinks.forEach(l=>{
+    l.classList.remove('active');
+    if(l.getAttribute('href')==='#'+current)l.classList.add('active');
+  });
+  // Mobile
+  mobileItems.forEach(m=>{
+    m.classList.remove('active');
+    if(m.dataset.section===current)m.classList.add('active');
+  });
+}
+window.addEventListener('scroll',updateActiveNav,{passive:true});
+
+/* ═══ Smooth Scroll (both navs) ═══ */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}
+  });
 });
 
-/* ═══════════════════════════════
-   NAVBAR
-   ═══════════════════════════════ */
-window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
+/* ═══ FAQ ═══ */
+function toggleFaq(btn){const item=btn.parentElement;const active=item.classList.contains('active');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('active'));if(!active)item.classList.add('active')}
 
-function toggleNav() {
-  document.getElementById('navMenu').classList.toggle('open');
-}
-
-/* ═══════════════════════════════
-   FAQ
-   ═══════════════════════════════ */
-function toggleFaq(btn) {
-  const item = btn.parentElement;
-  const isActive = item.classList.contains('active');
-  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-  if (!isActive) item.classList.add('active');
-}
-
-/* ═══════════════════════════════
-   FORM
-   ═══════════════════════════════ */
-function submitForm(e) {
-  e.preventDefault();
-  document.getElementById('modalSuccess').classList.add('active');
-}
-
-function closeModal() {
+/* ═══ Form ═══ */
+function submitForm(e){e.preventDefault();document.getElementById('modalSuccess').classList.add('active')}
+function closeModal(){
   document.getElementById('modalSuccess').classList.remove('active');
-  document.getElementById('registrationForm').reset();
-  // Reset custom selects visual
-  document.querySelectorAll('.custom-select').forEach(cs => {
-    const trigger = cs.querySelector('.custom-select-trigger');
-    const firstOption = cs.querySelector('.custom-option');
-    trigger.classList.add('placeholder');
-    const triggerText = trigger.querySelector('.trigger-text');
-    const triggerIcon = trigger.querySelector('.trigger-icon');
-    if (triggerIcon && !trigger.closest('#csTime')) triggerIcon.remove();
-    triggerText.innerHTML = '<span class="main-text">' + (cs.querySelector('.native-select option[disabled]')?.textContent || 'Pilih...') + '</span>';
-    cs.querySelectorAll('.custom-option').forEach(o => o.classList.remove('selected'));
+  document.getElementById('regForm').reset();
+  document.querySelectorAll('.custom-select').forEach(cs=>{
+    const trigger=cs.querySelector('.custom-select-trigger');
+    const tt=trigger.querySelector('.trigger-text');
+    const disabled=cs.querySelector('.native-select option[disabled]');
+    if(disabled){
+      trigger.classList.add('placeholder');
+      const ti=trigger.querySelector('.trigger-icon');
+      if(ti&&!cs.querySelector('.native-select option[selected]:not([disabled])'))ti.remove();
+      tt.innerHTML='<span class="main-text">'+disabled.textContent+'</span>';
+    }
+    cs.querySelectorAll('.custom-option').forEach(o=>o.classList.remove('selected'));
   });
 }
 
-/* ═══════════════════════════════
-   SMOOTH SCROLL
-   ═══════════════════════════════ */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth' });
-      document.getElementById('navMenu').classList.remove('open');
+/* ═══ Speed Counter ═══ */
+const speedEl=document.getElementById('speedCounter');
+if(speedEl){
+  let cur=0;const target=100;
+  const sObs=new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting){
+      const iv=setInterval(()=>{cur+=2;if(cur>=target){cur=target;clearInterval(iv)}speedEl.innerHTML=`${cur}<span>Mbps</span>`},20);
+      sObs.unobserve(speedEl);
     }
-  });
-});
-
-/* ═══════════════════════════════
-   INTERSECTION OBSERVER
-   ═══════════════════════════════ */
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'translateY(0)';
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.why-card, .paket-card, .testi-card, .coverage-item, .faq-item').forEach((el, i) => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(24px)';
-  el.style.transition = `opacity 0.5s ease ${i * 0.06}s, transform 0.5s ease ${i * 0.06}s`;
-  observer.observe(el);
-});
-
-/* ═══════════════════════════════
-   SPEED METER COUNTER ANIMATION
-   ═══════════════════════════════ */
-const speedEl = document.querySelector('.speed-value');
-if (speedEl) {
-  let currentSpeed = 0;
-  const targetSpeed = 100;
-  const speedObs = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) {
-      const interval = setInterval(() => {
-        currentSpeed += 2;
-        if (currentSpeed >= targetSpeed) {
-          currentSpeed = targetSpeed;
-          clearInterval(interval);
-        }
-        speedEl.innerHTML = `${currentSpeed}<span>Mbps</span>`;
-      }, 20);
-      speedObs.unobserve(speedEl);
-    }
-  }, { threshold: 0.5 });
-  speedObs.observe(speedEl);
+  },{threshold:.5});
+  sObs.observe(speedEl);
 }
+
+/* ═══ Scroll Animations ═══ */
+const obs=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.style.opacity='1';entry.target.style.transform='translateY(0)';obs.unobserve(entry.target)}})},{threshold:.1});
+document.querySelectorAll('.why-card,.paket-card,.testi-card,.cov-item,.faq-item').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition=`opacity .5s ease ${i*.06}s,transform .5s ease ${i*.06}s`;obs.observe(el)});
 </script>
 </body>
 </html>
