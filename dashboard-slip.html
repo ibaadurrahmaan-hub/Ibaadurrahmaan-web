@@ -11,17 +11,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 
-<!-- SweetAlert2 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
-/* ====================================================
-   💰 SLIP KOMISI STYLES
-   ==================================================== */
 .slip-page{background:var(--bg);min-height:100vh;padding-bottom:100px;}
-
-/* ==================== DASHBOARD HEADER ==================== */
 .dashboard-header{background:linear-gradient(135deg,#0F1E33 0%,#050B18 100%);padding:32px 20px 40px;border-bottom:2px solid var(--gold);position:relative;overflow:hidden;}
 .dashboard-header::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(212,165,54,0.1),transparent 70%);}
 .header-container{max-width:1200px;margin:0 auto;position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;}
@@ -36,8 +30,6 @@
 .user-name{font-size:0.82rem;font-weight:700;color:var(--text);}
 .logout-btn{background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.3);color:#ff6b5b;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-size:0.95rem;}
 .logout-btn:hover{background:#e74c3c;color:#fff;transform:scale(1.05);}
-
-/* ==================== PAGE TITLE ==================== */
 .page-title-section{max-width:1200px;margin:0 auto;padding:24px 20px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
 .page-title-content{flex:1;min-width:200px;}
 .page-title-content h2{font-family:'Montserrat',sans-serif;font-size:1.5rem;font-weight:900;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:12px;}
@@ -45,19 +37,13 @@
 .page-title-content p{color:var(--text-muted);font-size:0.85rem;}
 .back-to-dashboard{display:inline-flex;align-items:center;gap:8px;color:var(--text-muted);text-decoration:none;font-size:0.85rem;font-weight:600;padding:10px 18px;background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border-radius:100px;border:1px solid var(--border);transition:all 0.3s var(--ease);}
 .back-to-dashboard:hover{color:var(--gold);border-color:var(--gold);background:rgba(212,165,54,0.08);}
-
-/* Container */
 .slip-container{max-width:900px;margin:0 auto;padding:24px 20px 40px;}
-
-/* Autofill Notice */
 .autofill-notice{background:linear-gradient(135deg,rgba(37,211,102,0.12),rgba(37,211,102,0.04));border:1px solid rgba(37,211,102,0.3);border-radius:12px;padding:16px 18px;margin-bottom:24px;display:flex;align-items:center;gap:14px;animation:slideDown 0.4s ease;}
 @keyframes slideDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
 .autofill-notice i{font-size:1.5rem;color:#25d366;flex-shrink:0;}
 .autofill-notice-text{flex:1;}
 .autofill-notice-text b{color:#25d366;font-size:0.95rem;display:block;margin-bottom:2px;}
 .autofill-notice-text small{color:var(--text-muted);font-size:0.78rem;}
-
-/* Mode Selector */
 .slip-mode-selector{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px;}
 .slip-mode-card{background:var(--grad-card);border:2px solid var(--border);border-radius:var(--radius-lg);padding:24px 20px;cursor:pointer;transition:all 0.3s var(--ease);text-align:center;position:relative;}
 .slip-mode-card:hover{border-color:rgba(212,165,54,0.4);transform:translateY(-3px);}
@@ -67,8 +53,6 @@
 .slip-mode-title{font-family:'Montserrat',sans-serif;font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:6px;}
 .slip-mode-card.active .slip-mode-title{color:var(--gold);}
 .slip-mode-desc{color:var(--text-muted);font-size:0.82rem;line-height:1.5;}
-
-/* Form Card */
 .slip-form-card{background:var(--grad-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;margin-bottom:24px;box-shadow:0 10px 30px rgba(0,0,0,0.3);}
 .slip-form-title{font-family:'Montserrat',sans-serif;font-size:1.2rem;font-weight:800;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--border);}
 .slip-form-title i{font-size:1.3rem;}
@@ -79,8 +63,6 @@
 .slip-form-label i{font-size:0.9rem;opacity:0.8;width:16px;}
 .slip-form-input,.slip-form-select{background:#0D1829;border:1px solid rgba(255,255,255,0.08);color:var(--text);padding:14px 16px;border-radius:10px;font-size:0.95rem;font-family:'Poppins',sans-serif;transition:all 0.3s var(--ease);width:100%;box-sizing:border-box;}
 .slip-form-input:focus,.slip-form-select:focus{outline:none;background:#12233d;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,165,54,0.1);}
-
-/* Closing List */
 .slip-closing-list{display:flex;flex-direction:column;gap:12px;margin-top:12px;}
 .slip-closing-item{background:#0D1829;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:16px;display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:center;transition:all 0.3s var(--ease);}
 .slip-closing-item:hover{border-color:rgba(212,165,54,0.3);}
@@ -90,13 +72,9 @@
 .slip-closing-remove:hover{background:#e74c3c;color:#fff;transform:scale(1.1);}
 .slip-btn-add{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;background:rgba(212,165,54,0.08);border:2px dashed rgba(212,165,54,0.3);border-radius:10px;color:var(--gold);font-size:0.9rem;font-weight:700;cursor:pointer;margin-top:12px;transition:all 0.3s var(--ease);}
 .slip-btn-add:hover{background:rgba(212,165,54,0.15);border-color:var(--gold);border-style:solid;}
-
-/* Preview Section */
 .slip-preview-wrapper{background:var(--grad-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-top:24px;}
 .slip-preview-title{font-family:'Montserrat',sans-serif;font-size:1.2rem;font-weight:800;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--border);}
 .slip-preview{background:#fff;border-radius:12px;padding:40px;color:#333;font-family:'Poppins',sans-serif;box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:100%;overflow-x:auto;}
-
-/* Slip Header */
 .slip-doc-header{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:20px;border-bottom:3px double #d4a536;margin-bottom:24px;flex-wrap:wrap;gap:16px;}
 .slip-brand{display:flex;align-items:center;gap:12px;}
 .slip-brand-logo{width:60px;height:60px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:4px;box-shadow:0 4px 15px rgba(212,165,54,0.3);overflow:hidden;flex-shrink:0;border:2px solid #d4a536;box-sizing:border-box;}
@@ -108,8 +86,6 @@
 .slip-doc-info h3{font-family:'Montserrat',sans-serif;font-size:1.15rem;font-weight:900;color:#d4a536;margin:0 0 4px;text-transform:uppercase;letter-spacing:1px;}
 .slip-doc-info p{font-size:0.8rem;color:#666;margin:2px 0;}
 .slip-doc-info .slip-no{font-family:'Montserrat',monospace;font-weight:700;color:#333;}
-
-/* Party Info */
 .slip-parties{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;}
 .slip-party{background:#faf5e6;border-left:4px solid #d4a536;padding:14px 16px;border-radius:0 8px 8px 0;}
 .slip-party.reseller{background:#e6f9ee;border-left-color:#25d366;}
@@ -117,8 +93,6 @@
 .slip-party.reseller .slip-party-label{color:#128c7e;}
 .slip-party-name{font-family:'Montserrat',sans-serif;font-size:1rem;font-weight:800;color:#333;margin-bottom:4px;}
 .slip-party-detail{font-size:0.78rem;color:#666;line-height:1.5;}
-
-/* Detail Table */
 .slip-detail-title{font-family:'Montserrat',sans-serif;font-size:0.9rem;font-weight:800;color:#333;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid #d4a536;text-transform:uppercase;letter-spacing:1px;}
 .slip-table{width:100%;border-collapse:collapse;margin-bottom:20px;font-size:0.85rem;}
 .slip-table th{background:#faf5e6;color:#d4a536;padding:10px 12px;text-align:left;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #d4a536;}
@@ -132,8 +106,6 @@
 .slip-table .tier-silver{background:#e8e8e8;color:#666;}
 .slip-table .tier-gold{background:#faf5e6;color:#d4a536;}
 .slip-table .tier-platinum{background:#e6f0fa;color:#3d6fb5;}
-
-/* Summary */
 .slip-summary{background:#faf5e6;border-radius:10px;padding:20px;margin-bottom:20px;}
 .slip-summary-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed rgba(212,165,54,0.2);font-size:0.9rem;color:#555;}
 .slip-summary-row:last-child{border-bottom:none;}
@@ -142,22 +114,16 @@
 .slip-summary-total{background:linear-gradient(135deg,#d4a536,#c19a2e);color:#fff;padding:16px 20px;border-radius:10px;margin-top:12px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 15px rgba(212,165,54,0.3);}
 .slip-summary-total .label{font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:0.9;}
 .slip-summary-total .value{font-family:'Montserrat',sans-serif;font-size:1.5rem;font-weight:900;}
-
-/* Payment Info */
 .slip-payment{background:#e6f9ee;border-left:4px solid #25d366;padding:16px;border-radius:0 8px 8px 0;margin-bottom:20px;}
 .slip-payment-title{font-weight:800;color:#128c7e;font-size:0.85rem;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:8px;}
 .slip-payment-detail{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;font-size:0.85rem;color:#333;}
 .slip-payment-detail strong{color:#128c7e;display:block;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;}
-
-/* Footer */
 .slip-footer{margin-top:24px;padding-top:20px;border-top:2px solid #eee;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
 .slip-footer-info{flex:1;font-size:0.75rem;color:#666;line-height:1.5;}
 .slip-footer-info strong{color:#333;}
 .slip-stamp{text-align:center;padding:16px;border:2px dashed #d4a536;border-radius:8px;color:#d4a536;font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:0.75rem;background:rgba(212,165,54,0.05);min-width:140px;}
 .slip-stamp i{font-size:1.5rem;display:block;margin-bottom:4px;}
 .slip-stamp.paid{border-color:#25d366;color:#128c7e;background:rgba(37,211,102,0.08);}
-
-/* Actions */
 .slip-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px;padding:0 20px;}
 .slip-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:16px 32px;border-radius:100px;font-size:1rem;font-weight:700;text-decoration:none;cursor:pointer;transition:all 0.3s var(--ease);border:none;min-width:180px;line-height:1;font-family:'Poppins',sans-serif;}
 .slip-btn i{font-size:1.2rem;}
@@ -165,8 +131,6 @@
 .slip-btn-primary:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 8px 30px var(--gold-glow);}
 .slip-btn-wa{background:#25D366;color:#fff;box-shadow:0 6px 20px rgba(37,211,102,0.3);}
 .slip-btn-wa:hover{background:#20BA5A;transform:translateY(-3px);}
-
-/* Custom Dropdown */
 .custom-select-wrapper{position:relative;width:100%;user-select:none;}
 .custom-select{background:rgba(255,255,255,0.03);border:1.5px solid rgba(212,165,54,0.3);border-radius:12px;padding:14px 18px;color:#fff;font-size:1rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:all 0.3s ease;min-height:52px;box-sizing:border-box;}
 .custom-select:hover{border-color:rgba(212,165,54,0.6);background:rgba(212,165,54,0.05);}
@@ -183,8 +147,6 @@
 .custom-option:hover{background:rgba(212,165,54,0.15);color:#d4a536;padding-left:24px;}
 .custom-option.selected{background:rgba(212,165,54,0.1);color:#d4a536;font-weight:700;position:relative;}
 .custom-option.selected::after{content:'✓';position:absolute;right:18px;color:#d4a536;font-weight:900;font-size:1.1rem;}
-
-/* Bottom Nav */
 .bottom-nav{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(15,30,51,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:100px;padding:10px 14px;display:flex;gap:6px;z-index:1000;box-shadow:0 10px 40px rgba(0,0,0,0.4),0 0 30px rgba(212,165,54,0.15);max-width:calc(100% - 32px);overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;}
 .bottom-nav::-webkit-scrollbar{display:none;}
 .nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 14px;color:var(--text-muted);text-decoration:none;border-radius:100px;font-size:0.68rem;font-weight:700;transition:all 0.3s ease;min-width:64px;cursor:pointer;flex-shrink:0;font-family:'Poppins',sans-serif;border:none;background:transparent;letter-spacing:0.3px;}
@@ -193,71 +155,31 @@
 .nav-item:hover i{transform:translateY(-2px);}
 .nav-item.active{background:linear-gradient(135deg,var(--gold),#c19a2e);color:var(--bg);box-shadow:0 4px 12px var(--gold-glow);}
 .nav-item.active i{color:var(--bg);}
-
-/* SweetAlert Premium */
-.swal-premium{background:linear-gradient(145deg,#0F1E33,#0A1626) !important;border:1px solid rgba(212,165,54,0.3) !important;border-radius:20px !important;box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px rgba(212,165,54,0.15) !important;color:#fff !important;font-family:'Poppins',sans-serif !important;}
-.swal-premium .swal2-title{color:#d4a536 !important;font-family:'Montserrat',sans-serif !important;font-weight:800 !important;font-size:1.4rem !important;}
-.swal-premium .swal2-html-container{color:rgba(255,255,255,0.85) !important;font-size:0.95rem !important;line-height:1.6 !important;}
-.swal-premium .swal2-icon{border-color:#d4a536 !important;color:#d4a536 !important;}
-.swal-premium .swal2-icon.swal2-success{border-color:#25d366 !important;}
-.swal-premium .swal2-icon.swal2-success .swal2-success-line-tip,.swal-premium .swal2-icon.swal2-success .swal2-success-line-long{background-color:#25d366 !important;}
-.swal-premium .swal2-icon.swal2-success .swal2-success-ring{border-color:rgba(37,211,102,0.3) !important;}
-.swal-premium .swal2-icon.swal2-error{border-color:#e74c3c !important;color:#e74c3c !important;}
-.swal-premium .swal2-icon.swal2-error [class^=swal2-x-mark-line]{background-color:#e74c3c !important;}
-.swal-premium .swal2-icon.swal2-warning{border-color:#f39c12 !important;color:#f39c12 !important;}
-.swal-premium .swal2-icon.swal2-info{border-color:#3498db !important;color:#3498db !important;}
-.swal-premium .swal2-icon.swal2-question{border-color:#d4a536 !important;color:#d4a536 !important;}
-.swal-premium .swal2-confirm{background:linear-gradient(135deg,#d4a536,#c19a2e) !important;color:#050B18 !important;border:none !important;border-radius:100px !important;padding:12px 30px !important;font-weight:800 !important;font-family:'Poppins',sans-serif !important;font-size:0.9rem !important;box-shadow:0 6px 20px rgba(212,165,54,0.4) !important;text-transform:uppercase !important;letter-spacing:0.5px !important;transition:all 0.3s ease !important;}
-.swal-premium .swal2-confirm:hover{transform:translateY(-2px) !important;box-shadow:0 8px 25px rgba(212,165,54,0.5) !important;}
-.swal-premium .swal2-cancel{background:rgba(255,255,255,0.08) !important;color:#fff !important;border:1px solid rgba(255,255,255,0.15) !important;border-radius:100px !important;padding:12px 30px !important;font-weight:700 !important;font-family:'Poppins',sans-serif !important;font-size:0.9rem !important;text-transform:uppercase !important;letter-spacing:0.5px !important;margin-right:12px !important;}
-.swal-premium .swal2-cancel:hover{background:rgba(231,76,60,0.15) !important;border-color:rgba(231,76,60,0.4) !important;color:#ff6b5b !important;}
-.swal-premium .swal2-timer-progress-bar{background:linear-gradient(90deg,#d4a536,#e8bd52) !important;height:4px !important;}
-.swal-premium .swal2-close{color:rgba(255,255,255,0.4) !important;font-size:2rem !important;}
-.swal-premium .swal2-close:hover{color:#d4a536 !important;transform:rotate(90deg) !important;}
-
-/* Responsive */
-@media (max-width:768px){
-    .dashboard-header{padding:20px 16px 30px;}
-    .header-title h1{font-size:1.1rem;}
-    .header-title p{font-size:0.7rem;}
-    .user-badge .user-name{display:none;}
-    .user-badge{padding:4px;}
-    .page-title-section{padding:20px 16px 0;}
-    .page-title-content h2{font-size:1.2rem;}
-    .slip-container{padding:20px 16px 40px;}
-    .slip-mode-selector{grid-template-columns:1fr;}
-    .slip-form-card{padding:24px 20px;}
-    .slip-form-grid{grid-template-columns:1fr;gap:16px;}
-    .slip-preview{padding:24px 20px;}
-    .slip-doc-header{flex-direction:column;text-align:center;}
-    .slip-doc-info{text-align:center;}
-    .slip-parties{grid-template-columns:1fr;gap:12px;}
-    .slip-table{font-size:0.75rem;}
-    .slip-table th,.slip-table td{padding:8px 6px;}
-    .slip-closing-item{grid-template-columns:1fr;gap:8px;}
-    .slip-summary-total .value{font-size:1.2rem;}
-    .slip-payment-detail{grid-template-columns:1fr;}
-    .slip-footer{flex-direction:column;text-align:center;}
-    .slip-actions{flex-direction:column;}
-    .slip-btn{width:100%;}
-    .slip-brand-logo{width:50px;height:50px;}
-    .custom-select{padding:12px 16px;font-size:0.95rem;min-height:48px;}
-    .custom-option{padding:12px 16px;font-size:0.95rem;}
-    .level-icon{font-size:1.2rem;}
-    .bottom-nav{padding:8px 10px;gap:2px;bottom:12px;}
-    .nav-item{padding:8px 10px;font-size:0.6rem;min-width:56px;}
-    .nav-item i{font-size:1rem;}
-}
-@media (max-width:400px){
-    .nav-item span{display:none;}
-    .nav-item{min-width:44px;padding:10px 12px;}
-    .nav-item i{font-size:1.2rem;}
-}
+.swal-premium{background:linear-gradient(145deg,#0F1E33,#0A1626)!important;border:1px solid rgba(212,165,54,0.3)!important;border-radius:20px!important;box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px rgba(212,165,54,0.15)!important;color:#fff!important;font-family:'Poppins',sans-serif!important;}
+.swal-premium .swal2-title{color:#d4a536!important;font-family:'Montserrat',sans-serif!important;font-weight:800!important;font-size:1.4rem!important;}
+.swal-premium .swal2-html-container{color:rgba(255,255,255,0.85)!important;font-size:0.95rem!important;line-height:1.6!important;}
+.swal-premium .swal2-icon{border-color:#d4a536!important;color:#d4a536!important;}
+.swal-premium .swal2-icon.swal2-success{border-color:#25d366!important;}
+.swal-premium .swal2-icon.swal2-success .swal2-success-line-tip,.swal-premium .swal2-icon.swal2-success .swal2-success-line-long{background-color:#25d366!important;}
+.swal-premium .swal2-icon.swal2-success .swal2-success-ring{border-color:rgba(37,211,102,0.3)!important;}
+.swal-premium .swal2-icon.swal2-error{border-color:#e74c3c!important;color:#e74c3c!important;}
+.swal-premium .swal2-icon.swal2-error [class^=swal2-x-mark-line]{background-color:#e74c3c!important;}
+.swal-premium .swal2-icon.swal2-warning{border-color:#f39c12!important;color:#f39c12!important;}
+.swal-premium .swal2-icon.swal2-info{border-color:#3498db!important;color:#3498db!important;}
+.swal-premium .swal2-icon.swal2-question{border-color:#d4a536!important;color:#d4a536!important;}
+.swal-premium .swal2-confirm{background:linear-gradient(135deg,#d4a536,#c19a2e)!important;color:#050B18!important;border:none!important;border-radius:100px!important;padding:12px 30px!important;font-weight:800!important;font-family:'Poppins',sans-serif!important;font-size:0.9rem!important;box-shadow:0 6px 20px rgba(212,165,54,0.4)!important;text-transform:uppercase!important;letter-spacing:0.5px!important;transition:all 0.3s ease!important;}
+.swal-premium .swal2-confirm:hover{transform:translateY(-2px)!important;box-shadow:0 8px 25px rgba(212,165,54,0.5)!important;}
+.swal-premium .swal2-cancel{background:rgba(255,255,255,0.08)!important;color:#fff!important;border:1px solid rgba(255,255,255,0.15)!important;border-radius:100px!important;padding:12px 30px!important;font-weight:700!important;font-family:'Poppins',sans-serif!important;font-size:0.9rem!important;text-transform:uppercase!important;letter-spacing:0.5px!important;margin-right:12px!important;}
+.swal-premium .swal2-cancel:hover{background:rgba(231,76,60,0.15)!important;border-color:rgba(231,76,60,0.4)!important;color:#ff6b5b!important;}
+.swal-premium .swal2-timer-progress-bar{background:linear-gradient(90deg,#d4a536,#e8bd52)!important;height:4px!important;}
+.swal-premium .swal2-close{color:rgba(255,255,255,0.4)!important;font-size:2rem!important;}
+.swal-premium .swal2-close:hover{color:#d4a536!important;transform:rotate(90deg)!important;}
+@media (max-width:768px){.dashboard-header{padding:20px 16px 30px;}.header-title h1{font-size:1.1rem;}.header-title p{font-size:0.7rem;}.user-badge .user-name{display:none;}.user-badge{padding:4px;}.page-title-section{padding:20px 16px 0;}.page-title-content h2{font-size:1.2rem;}.slip-container{padding:20px 16px 40px;}.slip-mode-selector{grid-template-columns:1fr;}.slip-form-card{padding:24px 20px;}.slip-form-grid{grid-template-columns:1fr;gap:16px;}.slip-preview{padding:24px 20px;}.slip-doc-header{flex-direction:column;text-align:center;}.slip-doc-info{text-align:center;}.slip-parties{grid-template-columns:1fr;gap:12px;}.slip-table{font-size:0.75rem;}.slip-table th,.slip-table td{padding:8px 6px;}.slip-closing-item{grid-template-columns:1fr;gap:8px;}.slip-summary-total .value{font-size:1.2rem;}.slip-payment-detail{grid-template-columns:1fr;}.slip-footer{flex-direction:column;text-align:center;}.slip-actions{flex-direction:column;}.slip-btn{width:100%;}.slip-brand-logo{width:50px;height:50px;}.custom-select{padding:12px 16px;font-size:0.95rem;min-height:48px;}.custom-option{padding:12px 16px;font-size:0.95rem;}.level-icon{font-size:1.2rem;}.bottom-nav{padding:8px 10px;gap:2px;bottom:12px;}.nav-item{padding:8px 10px;font-size:0.6rem;min-width:56px;}.nav-item i{font-size:1rem;}}
+@media (max-width:400px){.nav-item span{display:none;}.nav-item{min-width:44px;padding:10px 12px;}.nav-item i{font-size:1.2rem;}}
 </style>
 </head>
 <body class="slip-page">
 
-<!-- Dashboard Header -->
 <header class="dashboard-header">
     <div class="header-container">
         <div class="header-brand">
@@ -269,7 +191,6 @@
                 <p>Owner Dashboard</p>
             </div>
         </div>
-        
         <div class="header-actions">
             <div class="user-badge">
                 <div class="user-avatar" id="userAvatar">O</div>
@@ -282,8 +203,6 @@
     </div>
 </header>
 
-
-<!-- Page Title -->
 <section class="page-title-section">
     <div class="page-title-content">
         <h2><i class="fas fa-file-invoice-dollar"></i> Slip Komisi</h2>
@@ -295,11 +214,7 @@
     </a>
 </section>
 
-
-<!-- Container -->
 <div class="slip-container">
-
-    <!-- Autofill Notice (hidden by default) -->
     <div class="autofill-notice" id="autofillNotice" style="display:none;">
         <i class="fas fa-magic"></i>
         <div class="autofill-notice-text">
@@ -308,7 +223,6 @@
         </div>
     </div>
 
-    <!-- Mode Selector -->
     <div class="slip-mode-selector">
         <div class="slip-mode-card active" data-mode="monthly" onclick="selectMode('monthly')">
             <span class="slip-mode-icon">📅</span>
@@ -322,33 +236,22 @@
         </div>
     </div>
 
-
-    <!-- Form Data Reseller -->
     <div class="slip-form-card">
         <div class="slip-form-title">
             <i class="fas fa-user-circle"></i>
             <span>Data Reseller</span>
         </div>
-        
         <div class="slip-form-grid">
             <div class="slip-form-group full">
-                <label class="slip-form-label">
-                    <i class="fas fa-user"></i> Nama Reseller
-                </label>
+                <label class="slip-form-label"><i class="fas fa-user"></i> Nama Reseller</label>
                 <input type="text" class="slip-form-input" id="fieldNama" placeholder="Nama lengkap reseller">
             </div>
-            
             <div class="slip-form-group">
-                <label class="slip-form-label">
-                    <i class="fas fa-id-badge"></i> Kode Reseller
-                </label>
+                <label class="slip-form-label"><i class="fas fa-id-badge"></i> Kode Reseller</label>
                 <input type="text" class="slip-form-input" id="fieldKode" placeholder="RSL-001">
             </div>
-            
             <div class="slip-form-group">
-                <label class="slip-form-label">
-                    <i class="fas fa-medal"></i> Tier Reseller
-                </label>
+                <label class="slip-form-label"><i class="fas fa-medal"></i> Tier Reseller</label>
                 <div class="custom-select-wrapper">
                     <div class="custom-select" id="levelSelect" onclick="toggleLevelDropdown()">
                         <div class="custom-select-value">
@@ -374,111 +277,76 @@
                     <input type="hidden" id="resellerLevel" value="gold">
                 </div>
             </div>
-            
             <div class="slip-form-group">
-                <label class="slip-form-label">
-                    <i class="fas fa-landmark"></i> Bank
-                </label>
+                <label class="slip-form-label"><i class="fas fa-landmark"></i> Bank</label>
                 <input type="text" class="slip-form-input" id="fieldBank" placeholder="BCA / BNI / Dana / dll">
             </div>
-            
             <div class="slip-form-group">
-                <label class="slip-form-label">
-                    <i class="fas fa-credit-card"></i> No. Rekening
-                </label>
+                <label class="slip-form-label"><i class="fas fa-credit-card"></i> No. Rekening</label>
                 <input type="text" class="slip-form-input" id="fieldNorek" placeholder="Nomor rekening">
             </div>
         </div>
     </div>
 
-
-    <!-- Form Detail Closing (Bulanan) -->
     <div class="slip-form-card" id="cardMonthly">
         <div class="slip-form-title">
             <i class="fas fa-calendar-check"></i>
             <span>Detail Closing Bulan Ini</span>
         </div>
-        
         <div class="slip-form-grid" style="margin-bottom:16px;">
             <div class="slip-form-group">
-                <label class="slip-form-label">
-                    <i class="fas fa-calendar"></i> Periode Bulan
-                </label>
+                <label class="slip-form-label"><i class="fas fa-calendar"></i> Periode Bulan</label>
                 <input type="month" class="slip-form-input" id="fieldPeriode">
             </div>
-            
             <div class="slip-form-group">
-                <label class="slip-form-label">
-                    <i class="fas fa-calendar-day"></i> Tanggal Bayar
-                </label>
+                <label class="slip-form-label"><i class="fas fa-calendar-day"></i> Tanggal Bayar</label>
                 <input type="date" class="slip-form-input" id="fieldTglBayar">
             </div>
         </div>
-        
         <div class="slip-closing-list" id="closingList"></div>
-        
         <button class="slip-btn-add" onclick="addClosing()">
             <i class="fas fa-plus"></i>
             <span>Tambah Closing</span>
         </button>
     </div>
 
-
-    <!-- Form Detail Closing (Single) -->
     <div class="slip-form-card" id="cardSingle" style="display:none;">
         <div class="slip-form-title">
             <i class="fas fa-bolt"></i>
             <span>Detail Closing</span>
         </div>
-        
         <div class="slip-form-grid">
             <div class="slip-form-group">
-                <label class="slip-form-label">
-                    <i class="fas fa-user-tag"></i> Nama Client
-                </label>
+                <label class="slip-form-label"><i class="fas fa-user-tag"></i> Nama Client</label>
                 <input type="text" class="slip-form-input" id="singleClient" placeholder="Nama client" oninput="updatePreview()">
             </div>
-            
             <div class="slip-form-group">
-                <label class="slip-form-label">
-                    <i class="fas fa-box"></i> Paket
-                </label>
+                <label class="slip-form-label"><i class="fas fa-box"></i> Paket</label>
                 <select class="slip-form-select" id="singlePaket" onchange="updatePreview()">
                     <option value="1500000">Paket Hemat - Rp 1.500.000</option>
                     <option value="2500000" selected>Paket Reguler - Rp 2.500.000</option>
                     <option value="5000000">Paket Premium - Rp 5.000.000</option>
                 </select>
             </div>
-            
             <div class="slip-form-group">
-                <label class="slip-form-label">
-                    <i class="fas fa-calendar"></i> Tanggal Closing
-                </label>
+                <label class="slip-form-label"><i class="fas fa-calendar"></i> Tanggal Closing</label>
                 <input type="date" class="slip-form-input" id="singleTglClosing" onchange="updatePreview()">
             </div>
-            
             <div class="slip-form-group">
-                <label class="slip-form-label">
-                    <i class="fas fa-calendar-check"></i> Tanggal Bayar
-                </label>
+                <label class="slip-form-label"><i class="fas fa-calendar-check"></i> Tanggal Bayar</label>
                 <input type="date" class="slip-form-input" id="singleTglBayar" onchange="updatePreview()">
             </div>
         </div>
     </div>
 
-
-    <!-- PREVIEW -->
     <div class="slip-preview-wrapper">
         <div class="slip-preview-title">
             <i class="fas fa-eye"></i>
             <span>Preview Slip</span>
         </div>
-        
         <div class="slip-preview" id="slipPreview"></div>
     </div>
 
-
-    <!-- Actions -->
     <div class="slip-actions">
         <button class="slip-btn slip-btn-primary" onclick="downloadPDF()">
             <i class="fas fa-file-pdf"></i>
@@ -489,41 +357,21 @@
             <span>Kirim ke Reseller</span>
         </button>
     </div>
-
 </div>
 
-<!-- Bottom Navigation -->
 <nav class="bottom-nav">
-    <a href="dashboard.html" class="nav-item">
-        <i class="fas fa-th-large"></i>
-        <span>Overview</span>
-    </a>
-    <a href="dashboard-slip.html" class="nav-item active">
-        <i class="fas fa-file-invoice-dollar"></i>
-        <span>Slip</span>
-    </a>
-    <a href="dashboard-reseller.html" class="nav-item">
-        <i class="fas fa-handshake"></i>
-        <span>Reseller</span>
-    </a>
-    <a href="dashboard-client.html" class="nav-item">
-        <i class="fas fa-briefcase"></i>
-        <span>Client</span>
-    </a>
-    <a href="dashboard-laporan.html" class="nav-item">
-        <i class="fas fa-chart-line"></i>
-        <span>Laporan</span>
-    </a>
+    <a href="dashboard.html" class="nav-item"><i class="fas fa-th-large"></i><span>Overview</span></a>
+    <a href="dashboard-slip.html" class="nav-item active"><i class="fas fa-file-invoice-dollar"></i><span>Slip</span></a>
+    <a href="dashboard-reseller.html" class="nav-item"><i class="fas fa-handshake"></i><span>Reseller</span></a>
+    <a href="dashboard-client.html" class="nav-item"><i class="fas fa-briefcase"></i><span>Client</span></a>
+    <a href="dashboard-laporan.html" class="nav-item"><i class="fas fa-chart-line"></i><span>Laporan</span></a>
 </nav>
 
 <script>
 // ====================================================
 // AUTH GUARD
 // ====================================================
-const CREDENTIALS = {
-    username: 'owner',
-    password: 'ibaadurrahmaan2024'
-};
+const CREDENTIALS = { username: 'owner', password: 'ibaadurrahmaan2024' };
 
 function simpleHash(str) {
     let hash = 0;
@@ -537,87 +385,46 @@ function simpleHash(str) {
 
 function checkAuth() {
     const session = localStorage.getItem('ibaad_session');
-    if (!session) {
-        window.location.href = 'dashboard-login.html';
-        return false;
-    }
+    if (!session) { window.location.href = 'dashboard-login.html'; return false; }
     try {
         const data = JSON.parse(session);
         if (Date.now() > data.expiry) {
             localStorage.removeItem('ibaad_session');
-            Swal.fire({
-                icon: 'warning',
-                title: 'Sesi Berakhir',
-                text: 'Silakan login kembali untuk melanjutkan',
-                customClass: { popup: 'swal-premium' },
-                confirmButtonText: 'Login Ulang',
-                allowOutsideClick: false
-            }).then(() => {
-                window.location.href = 'dashboard-login.html';
-            });
+            Swal.fire({ icon: 'warning', title: 'Sesi Berakhir', text: 'Silakan login kembali', customClass: { popup: 'swal-premium' }, confirmButtonText: 'Login Ulang', allowOutsideClick: false })
+                .then(() => { window.location.href = 'dashboard-login.html'; });
             return false;
         }
         const validToken = simpleHash(CREDENTIALS.username + CREDENTIALS.password);
-        if (data.token !== validToken) {
-            localStorage.removeItem('ibaad_session');
-            window.location.href = 'dashboard-login.html';
-            return false;
-        }
+        if (data.token !== validToken) { localStorage.removeItem('ibaad_session'); window.location.href = 'dashboard-login.html'; return false; }
         return data;
-    } catch(e) {
-        window.location.href = 'dashboard-login.html';
-        return false;
-    }
+    } catch(e) { window.location.href = 'dashboard-login.html'; return false; }
 }
-
 const session = checkAuth();
-
 
 // ====================================================
 // LOGOUT
 // ====================================================
 function handleLogout() {
     Swal.fire({
-        icon: 'question',
-        title: 'Keluar Dashboard?',
-        text: 'Kamu akan diarahkan ke halaman login',
-        showCancelButton: true,
-        confirmButtonText: '<i class="fas fa-sign-out-alt"></i> Ya, Keluar',
-        cancelButtonText: 'Batal',
-        customClass: { popup: 'swal-premium' },
-        reverseButtons: true,
-        focusCancel: true
+        icon: 'question', title: 'Keluar Dashboard?', text: 'Kamu akan diarahkan ke halaman login',
+        showCancelButton: true, confirmButtonText: '<i class="fas fa-sign-out-alt"></i> Ya, Keluar',
+        cancelButtonText: 'Batal', customClass: { popup: 'swal-premium' }, reverseButtons: true, focusCancel: true
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Sampai Jumpa! 👋',
-                text: 'Berhasil keluar dari dashboard',
-                customClass: { popup: 'swal-premium' },
-                timer: 1500,
-                showConfirmButton: false,
-                timerProgressBar: true
-            }).then(() => {
-                localStorage.removeItem('ibaad_session');
-                window.location.href = 'dashboard-login.html';
-            });
+            Swal.fire({ icon: 'success', title: 'Sampai Jumpa! 👋', text: 'Berhasil keluar', customClass: { popup: 'swal-premium' }, timer: 1500, showConfirmButton: false, timerProgressBar: true })
+                .then(() => { localStorage.removeItem('ibaad_session'); window.location.href = 'dashboard-login.html'; });
         }
     });
 }
 
-
 // ====================================================
 // GLOBAL VARS
 // ====================================================
-const daysID = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-const monthsID = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
-                  'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-
+const monthsID = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
 let currentMode = 'monthly';
 let closingCount = 0;
 let autoFilledClientId = null;
-let autoFilledResellerWA = ''; // ✨ NEW
-
+let autoFilledResellerWA = '';
 
 // ====================================================
 // HELPERS
@@ -636,9 +443,7 @@ function getTierName(tier) {
     return { name: 'SILVER', class: 'tier-silver', bonus: 0 };
 }
 
-function formatRp(num) { 
-    return 'Rp ' + num.toLocaleString('id-ID'); 
-}
+function formatRp(num) { return 'Rp ' + num.toLocaleString('id-ID'); }
 
 function formatDate(dateStr) {
     if (!dateStr) return '-';
@@ -661,7 +466,6 @@ function generateSlipNo(mode) {
     return `${prefix}/${y}${m}/${random}`;
 }
 
-
 // ====================================================
 // MODE & DROPDOWN
 // ====================================================
@@ -675,39 +479,33 @@ function selectMode(mode) {
     updatePreview();
 }
 
-function toggleLevelDropdown(){
+function toggleLevelDropdown() {
     document.getElementById('levelSelect').classList.toggle('active');
     document.getElementById('levelOptions').classList.toggle('show');
 }
 
-function selectLevel(element){
+function selectLevel(element) {
     const value = element.dataset.value;
     const icon = element.dataset.icon;
     const text = element.dataset.text;
-    
     document.getElementById('resellerLevel').value = value;
-    
     const select = document.getElementById('levelSelect');
     select.querySelector('.level-icon').textContent = icon;
     select.querySelector('.level-text').textContent = text;
-    
     document.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
     element.classList.add('selected');
-    
     select.classList.remove('active');
     document.getElementById('levelOptions').classList.remove('show');
-    
     updatePreview();
 }
 
-document.addEventListener('click', function(e){
+document.addEventListener('click', function(e) {
     const wrapper = document.querySelector('.custom-select-wrapper');
-    if(wrapper && !wrapper.contains(e.target)){
+    if (wrapper && !wrapper.contains(e.target)) {
         document.getElementById('levelSelect')?.classList.remove('active');
         document.getElementById('levelOptions')?.classList.remove('show');
     }
 });
-
 
 // ====================================================
 // CLOSING MANAGEMENT
@@ -715,7 +513,6 @@ document.addEventListener('click', function(e){
 function addClosing() {
     closingCount++;
     const list = document.getElementById('closingList');
-    
     const item = document.createElement('div');
     item.className = 'slip-closing-item';
     item.dataset.id = closingCount;
@@ -730,22 +527,15 @@ function addClosing() {
             <i class="fas fa-trash"></i>
         </button>
     `;
-    
     list.appendChild(item);
     updatePreview();
 }
 
 function removeClosing(id) {
     Swal.fire({
-        icon: 'warning',
-        title: 'Hapus Closing?',
-        text: 'Closing ini akan dihapus dari daftar',
-        showCancelButton: true,
-        confirmButtonText: '<i class="fas fa-trash"></i> Ya, Hapus',
-        cancelButtonText: 'Batal',
-        customClass: { popup: 'swal-premium' },
-        reverseButtons: true,
-        focusCancel: true
+        icon: 'warning', title: 'Hapus Closing?', text: 'Closing ini akan dihapus',
+        showCancelButton: true, confirmButtonText: '<i class="fas fa-trash"></i> Ya, Hapus',
+        cancelButtonText: 'Batal', customClass: { popup: 'swal-premium' }, reverseButtons: true, focusCancel: true
     }).then((result) => {
         if (result.isConfirmed) {
             const item = document.querySelector(`.slip-closing-item[data-id="${id}"]`);
@@ -765,15 +555,13 @@ function getClosings() {
     }));
 }
 
-
 // ====================================================
-// PREVIEW GENERATORS
+// PREVIEW
 // ====================================================
 function updatePreview() {
     if (currentMode === 'monthly') generateMonthlySlip();
     else generateSingleSlip();
 }
-
 
 function generateMonthlySlip() {
     const data = {
@@ -786,40 +574,22 @@ function generateMonthlySlip() {
         tglBayar: document.getElementById('fieldTglBayar').value,
         closings: getClosings()
     };
-    
     const tierInfo = getTierName(data.tier);
     const slipNo = generateSlipNo('monthly');
-    
     let totalKomisi = 0, totalBonus = 0;
     const rowsHTML = data.closings.map(c => {
         const komisi = (c.paket * data.tier) / 100;
         const bonus = tierInfo.bonus;
         totalKomisi += komisi;
         totalBonus += bonus;
-        return `
-            <tr>
-                <td class="center">${c.no}</td>
-                <td>${c.client}</td>
-                <td>${c.paketName}</td>
-                <td class="right">${formatRp(c.paket)}</td>
-                <td class="center">${data.tier}%</td>
-                <td class="right">${formatRp(komisi)}</td>
-                <td class="right">${formatRp(bonus)}</td>
-            </tr>`;
+        return `<tr><td class="center">${c.no}</td><td>${c.client}</td><td>${c.paketName}</td><td class="right">${formatRp(c.paket)}</td><td class="center">${data.tier}%</td><td class="right">${formatRp(komisi)}</td><td class="right">${formatRp(bonus)}</td></tr>`;
     }).join('');
-    
     const grandTotal = totalKomisi + totalBonus;
-    
-    const html = `
+    document.getElementById('slipPreview').innerHTML = `
         <div class="slip-doc-header">
             <div class="slip-brand">
-                <div class="slip-brand-logo">
-                    <img src="main-logo.jpg" alt="Ibaadurrahmaan" onerror="this.parentElement.innerHTML='I';this.parentElement.classList.add('fallback');">
-                </div>
-                <div class="slip-brand-text">
-                    <h2>Ibaadurrahmaan</h2>
-                    <p>WEB DESIGNER</p>
-                </div>
+                <div class="slip-brand-logo"><img src="main-logo.jpg" alt="Ibaadurrahmaan" onerror="this.parentElement.innerHTML='I';this.parentElement.classList.add('fallback');"></div>
+                <div class="slip-brand-text"><h2>Ibaadurrahmaan</h2><p>WEB DESIGNER</p></div>
             </div>
             <div class="slip-doc-info">
                 <h3>Slip Komisi Bulanan</h3>
@@ -828,69 +598,31 @@ function generateMonthlySlip() {
                 <p>Tanggal Bayar: <b>${formatDate(data.tglBayar)}</b></p>
             </div>
         </div>
-        
         <div class="slip-parties">
             <div class="slip-party">
                 <div class="slip-party-label">DIBAYAR OLEH</div>
                 <div class="slip-party-name">Ibaadurrahmaan Web Designer</div>
-                <div class="slip-party-detail">
-                    WhatsApp: 0814-0164-3188<br>
-                    Email: ibadurrohman1428@gmail.com
-                </div>
+                <div class="slip-party-detail">WhatsApp: 0814-0164-3188<br>Email: ibadurrohman1428@gmail.com</div>
             </div>
             <div class="slip-party reseller">
                 <div class="slip-party-label">DIBAYAR KEPADA</div>
                 <div class="slip-party-name">${data.nama}</div>
-                <div class="slip-party-detail">
-                    Kode: <b>${data.kode}</b><br>
-                    Tier: <span class="tier-badge ${tierInfo.class}">${tierInfo.name}</span>
-                </div>
+                <div class="slip-party-detail">Kode: <b>${data.kode}</b><br>Tier: <span class="tier-badge ${tierInfo.class}">${tierInfo.name}</span></div>
             </div>
         </div>
-        
         <div class="slip-detail-title">📋 Detail Closing (${data.closings.length} closing)</div>
-        
         <table class="slip-table">
-            <thead>
-                <tr>
-                    <th class="center" style="width:40px;">No</th>
-                    <th>Client</th>
-                    <th>Paket</th>
-                    <th class="right">Nilai</th>
-                    <th class="center">%</th>
-                    <th class="right">Komisi</th>
-                    <th class="right">Bonus</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${rowsHTML || '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px;">Belum ada closing.</td></tr>'}
-            </tbody>
+            <thead><tr><th class="center" style="width:40px;">No</th><th>Client</th><th>Paket</th><th class="right">Nilai</th><th class="center">%</th><th class="right">Komisi</th><th class="right">Bonus</th></tr></thead>
+            <tbody>${rowsHTML || '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px;">Belum ada closing.</td></tr>'}</tbody>
         </table>
-        
         <div class="slip-summary">
-            <div class="slip-summary-row">
-                <span class="label">Jumlah Closing</span>
-                <span class="value">${data.closings.length} closing</span>
-            </div>
-            <div class="slip-summary-row">
-                <span class="label">Total Komisi (${data.tier}%)</span>
-                <span class="value">${formatRp(totalKomisi)}</span>
-            </div>
-            ${totalBonus > 0 ? `
-            <div class="slip-summary-row">
-                <span class="label">Total Bonus (${data.closings.length} × ${formatRp(tierInfo.bonus)})</span>
-                <span class="value">${formatRp(totalBonus)}</span>
-            </div>` : ''}
-            <div class="slip-summary-total">
-                <span class="label">💰 Total Dibayar</span>
-                <span class="value">${formatRp(grandTotal)}</span>
-            </div>
+            <div class="slip-summary-row"><span class="label">Jumlah Closing</span><span class="value">${data.closings.length} closing</span></div>
+            <div class="slip-summary-row"><span class="label">Total Komisi (${data.tier}%)</span><span class="value">${formatRp(totalKomisi)}</span></div>
+            ${totalBonus > 0 ? `<div class="slip-summary-row"><span class="label">Total Bonus</span><span class="value">${formatRp(totalBonus)}</span></div>` : ''}
+            <div class="slip-summary-total"><span class="label">💰 Total Dibayar</span><span class="value">${formatRp(grandTotal)}</span></div>
         </div>
-        
         <div class="slip-payment">
-            <div class="slip-payment-title">
-                <i class="fas fa-university"></i> Transfer ke Rekening
-            </div>
+            <div class="slip-payment-title"><i class="fas fa-university"></i> Transfer ke Rekening</div>
             <div class="slip-payment-detail">
                 <div><strong>Bank</strong>${data.bank}</div>
                 <div><strong>No. Rekening</strong>${data.norek}</div>
@@ -898,23 +630,12 @@ function generateMonthlySlip() {
                 <div><strong>Jumlah</strong>${formatRp(grandTotal)}</div>
             </div>
         </div>
-        
         <div class="slip-footer">
-            <div class="slip-footer-info">
-                <strong>Terima kasih atas kerja sama Anda! 🙏</strong><br>
-                Slip ini adalah bukti pembayaran komisi resmi dari Ibaadurrahmaan Web Designer.<br>
-                Verifikasi: WA 0814-0164-3188 | Diterbitkan otomatis oleh sistem.
-            </div>
-            <div class="slip-stamp paid">
-                <i class="fas fa-check-circle"></i>
-                Lunas
-            </div>
+            <div class="slip-footer-info"><strong>Terima kasih atas kerja sama Anda! 🙏</strong><br>Slip resmi Ibaadurrahmaan Web Designer.<br>Verifikasi: WA 0814-0164-3188</div>
+            <div class="slip-stamp paid"><i class="fas fa-check-circle"></i>Lunas</div>
         </div>
     `;
-    
-    document.getElementById('slipPreview').innerHTML = html;
 }
-
 
 function generateSingleSlip() {
     const data = {
@@ -929,23 +650,16 @@ function generateSingleSlip() {
         tglClosing: document.getElementById('singleTglClosing').value,
         tglBayar: document.getElementById('singleTglBayar').value
     };
-    
     const tierInfo = getTierName(data.tier);
     const slipNo = generateSlipNo('single');
     const komisi = (data.paket * data.tier) / 100;
     const bonus = tierInfo.bonus;
     const total = komisi + bonus;
-
-    const html = `
+    document.getElementById('slipPreview').innerHTML = `
         <div class="slip-doc-header">
             <div class="slip-brand">
-                <div class="slip-brand-logo">
-                    <img src="main-logo.jpg" alt="Ibaadurrahmaan" onerror="this.parentElement.innerHTML='I';this.parentElement.classList.add('fallback');">
-                </div>
-                <div class="slip-brand-text">
-                    <h2>Ibaadurrahmaan</h2>
-                    <p>WEB DESIGNER</p>
-                </div>
+                <div class="slip-brand-logo"><img src="main-logo.jpg" alt="Ibaadurrahmaan" onerror="this.parentElement.innerHTML='I';this.parentElement.classList.add('fallback');"></div>
+                <div class="slip-brand-text"><h2>Ibaadurrahmaan</h2><p>WEB DESIGNER</p></div>
             </div>
             <div class="slip-doc-info">
                 <h3>Slip Komisi Closing</h3>
@@ -954,75 +668,31 @@ function generateSingleSlip() {
                 <p>Tgl Bayar: <b>${formatDate(data.tglBayar)}</b></p>
             </div>
         </div>
-        
         <div class="slip-parties">
             <div class="slip-party">
                 <div class="slip-party-label">DIBAYAR OLEH</div>
                 <div class="slip-party-name">Ibaadurrahmaan Web Designer</div>
-                <div class="slip-party-detail">
-                    WhatsApp: 0814-0164-3188<br>
-                    Email: ibadurrohman1428@gmail.com
-                </div>
+                <div class="slip-party-detail">WhatsApp: 0814-0164-3188<br>Email: ibadurrohman1428@gmail.com</div>
             </div>
             <div class="slip-party reseller">
                 <div class="slip-party-label">DIBAYAR KEPADA</div>
                 <div class="slip-party-name">${data.nama}</div>
-                <div class="slip-party-detail">
-                    Kode: <b>${data.kode}</b><br>
-                    Tier: <span class="tier-badge ${tierInfo.class}">${tierInfo.name}</span>
-                </div>
+                <div class="slip-party-detail">Kode: <b>${data.kode}</b><br>Tier: <span class="tier-badge ${tierInfo.class}">${tierInfo.name}</span></div>
             </div>
         </div>
-        
         <div class="slip-detail-title">⚡ Detail Closing</div>
-        
         <table class="slip-table">
-            <thead>
-                <tr>
-                    <th>Client</th>
-                    <th>Paket</th>
-                    <th class="right">Nilai</th>
-                    <th class="center">Komisi %</th>
-                    <th class="right">Komisi</th>
-                    <th class="right">Bonus</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><b>${data.client}</b></td>
-                    <td>${data.paketName}</td>
-                    <td class="right">${formatRp(data.paket)}</td>
-                    <td class="center">${data.tier}%</td>
-                    <td class="right">${formatRp(komisi)}</td>
-                    <td class="right">${formatRp(bonus)}</td>
-                </tr>
-            </tbody>
+            <thead><tr><th>Client</th><th>Paket</th><th class="right">Nilai</th><th class="center">Komisi %</th><th class="right">Komisi</th><th class="right">Bonus</th></tr></thead>
+            <tbody><tr><td><b>${data.client}</b></td><td>${data.paketName}</td><td class="right">${formatRp(data.paket)}</td><td class="center">${data.tier}%</td><td class="right">${formatRp(komisi)}</td><td class="right">${formatRp(bonus)}</td></tr></tbody>
         </table>
-        
         <div class="slip-summary">
-            <div class="slip-summary-row">
-                <span class="label">Nilai Project</span>
-                <span class="value">${formatRp(data.paket)}</span>
-            </div>
-            <div class="slip-summary-row">
-                <span class="label">Komisi Reseller (${data.tier}%)</span>
-                <span class="value">${formatRp(komisi)}</span>
-            </div>
-            ${bonus > 0 ? `
-            <div class="slip-summary-row">
-                <span class="label">Bonus ${tierInfo.name}</span>
-                <span class="value">${formatRp(bonus)}</span>
-            </div>` : ''}
-            <div class="slip-summary-total">
-                <span class="label">💰 Total Dibayar</span>
-                <span class="value">${formatRp(total)}</span>
-            </div>
+            <div class="slip-summary-row"><span class="label">Nilai Project</span><span class="value">${formatRp(data.paket)}</span></div>
+            <div class="slip-summary-row"><span class="label">Komisi Reseller (${data.tier}%)</span><span class="value">${formatRp(komisi)}</span></div>
+            ${bonus > 0 ? `<div class="slip-summary-row"><span class="label">Bonus ${tierInfo.name}</span><span class="value">${formatRp(bonus)}</span></div>` : ''}
+            <div class="slip-summary-total"><span class="label">💰 Total Dibayar</span><span class="value">${formatRp(total)}</span></div>
         </div>
-        
         <div class="slip-payment">
-            <div class="slip-payment-title">
-                <i class="fas fa-university"></i> Transfer ke Rekening
-            </div>
+            <div class="slip-payment-title"><i class="fas fa-university"></i> Transfer ke Rekening</div>
             <div class="slip-payment-detail">
                 <div><strong>Bank</strong>${data.bank}</div>
                 <div><strong>No. Rekening</strong>${data.norek}</div>
@@ -1030,268 +700,142 @@ function generateSingleSlip() {
                 <div><strong>Jumlah</strong>${formatRp(total)}</div>
             </div>
         </div>
-        
         <div class="slip-footer">
-            <div class="slip-footer-info">
-                <strong>Terima kasih atas closing-nya! 🎉</strong><br>
-                Slip ini adalah bukti pembayaran komisi resmi dari Ibaadurrahmaan Web Designer.<br>
-                Verifikasi: WA 0814-0164-3188 | Diterbitkan otomatis oleh sistem.
-            </div>
-            <div class="slip-stamp paid">
-                <i class="fas fa-check-circle"></i>
-                Lunas
-            </div>
+            <div class="slip-footer-info"><strong>Terima kasih atas closing-nya! 🎉</strong><br>Slip resmi Ibaadurrahmaan Web Designer.<br>Verifikasi: WA 0814-0164-3188</div>
+            <div class="slip-stamp paid"><i class="fas fa-check-circle"></i>Lunas</div>
         </div>
     `;
-    
-    document.getElementById('slipPreview').innerHTML = html;
 }
 
-
 // ====================================================
-// DOWNLOAD PDF (FIXED - Complete Inline CSS)
+// DOWNLOAD PDF
 // ====================================================
 function downloadPDF() {
     const nama = document.getElementById('fieldNama').value.trim();
-    
     if (!nama) {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Data Belum Lengkap',
-            text: 'Silakan isi nama reseller terlebih dahulu',
-            customClass: { popup: 'swal-premium' },
-            confirmButtonText: 'Oke'
-        });
+        Swal.fire({ icon: 'warning', title: 'Data Belum Lengkap', text: 'Silakan isi nama reseller terlebih dahulu', customClass: { popup: 'swal-premium' }, confirmButtonText: 'Oke' });
         return;
     }
-    
     const now = new Date();
     const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
     const filename = `Slip-Komisi-${nama.replace(/\s+/g, '-')}-${dateStr}`;
-    
     const preview = document.getElementById('slipPreview').outerHTML;
-    
     const win = window.open('', '_blank', 'width=900,height=1000');
-    
     if (!win) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Popup Diblokir',
-            text: 'Izinkan popup untuk website ini agar bisa download PDF',
-            customClass: { popup: 'swal-premium' },
-            confirmButtonText: 'Mengerti'
-        });
+        Swal.fire({ icon: 'error', title: 'Popup Diblokir', text: 'Izinkan popup untuk download PDF', customClass: { popup: 'swal-premium' }, confirmButtonText: 'Mengerti' });
         return;
     }
-    
-    // CSS SLIP LENGKAP (inline, tidak bergantung file eksternal)
+
     const slipCSS = `
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        html, body {
-            background: #f5f5f5;
-            font-family: 'Poppins', Arial, sans-serif;
-            -webkit-text-size-adjust: 100%;
-            color: #333;
-            line-height: 1.5;
-        }
-        
-        body { padding: 16px; }
-        
-        /* Print Info Header */
-        .print-info {
-            max-width: 800px;
-            width: 100%;
-            margin: 0 auto 20px;
-            padding: 20px;
-            background: linear-gradient(135deg, #d4a536, #c19a2e);
-            color: #fff;
-            border-radius: 16px;
-            text-align: center;
-            box-shadow: 0 8px 25px rgba(212, 165, 54, 0.4);
-        }
-        .print-info h3 { margin: 0 0 16px; font-size: 1.2rem; font-weight: 800; letter-spacing: 0.5px; }
-        .print-steps {
-            text-align: left; max-width: 500px; margin: 0 auto 20px;
-            background: rgba(255,255,255,0.15); border-radius: 12px; padding: 16px;
-        }
-        .print-steps .step {
-            display: flex; align-items: flex-start; gap: 12px;
-            padding: 8px 0; font-size: 0.88rem; line-height: 1.5;
-        }
-        .print-steps .step-num {
-            background: #fff; color: #d4a536; width: 26px; height: 26px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-weight: 900; flex-shrink: 0; font-size: 0.85rem;
-        }
-        .print-steps .step-text { flex: 1; padding-top: 3px; }
-        .print-info button {
-            padding: 14px 32px; background: #fff; color: #d4a536;
-            border: none; border-radius: 100px; font-weight: 800;
-            cursor: pointer; font-size: 1rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-        }
-        
-        /* ═══════════════════════════════════════ */
-        /* SLIP PREVIEW - Main Container */
-        /* ═══════════════════════════════════════ */
-        .slip-preview {
-            background: #fff;
-            border-radius: 12px;
-            padding: 40px;
-            color: #333;
-            font-family: 'Poppins', Arial, sans-serif;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            max-width: 800px;
-            width: 100%;
-            margin: 0 auto;
-        }
-        
-        /* Header */
-        .slip-doc-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding-bottom: 20px;
-            border-bottom: 3px double #d4a536;
-            margin-bottom: 24px;
-            gap: 16px;
-        }
-        
-        .slip-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .slip-brand-logo {
-            width: 60px !important;
-            height: 60px !important;
-            background: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 4px;
-            box-shadow: 0 4px 15px rgba(212,165,54,0.3);
-            overflow: hidden;
-            flex-shrink: 0;
-            border: 2px solid #d4a536;
-            box-sizing: border-box;
-        }
-        
-        .slip-brand-logo img {
-            width: 100% !important;
-            height: 100% !important;
-            max-width: 60px !important;
-            max-height: 60px !important;
-            object-fit: contain;
-            border-radius: 50%;
-            display: block;
-        }
-        
-        .slip-brand-logo.fallback {
-            background: linear-gradient(135deg, #d4a536, #c19a2e);
-            color: #fff;
-            font-size: 1.5rem;
-            font-weight: 900;
-            padding: 0;
-            border: none;
-        }
-        
-        .slip-brand-text h2 {
-            font-family: 'Montserrat', Arial, sans-serif;
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: #333;
-            margin: 0 0 2px;
-        }
-        
-        .slip-brand-text p {
-            font-size: 0.75rem;
-            color: #888;
-            margin: 0;
-            letter-spacing: 1px;
-        }
-        
-        .slip-doc-info {
-            text-align: right;
-        }
-        
-        .slip-doc-info h3 {
-            font-family: 'Montserrat', Arial, sans-serif;
-            font-size: 1.15rem;
-            font-weight: 900;
-            color: #d4a536;
-            margin: 0 0 4px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .slip-doc-info p {
-            font-size: 0.8rem;
-            color: #666;
-            margin: 2px 0;
-        }
-        
-        .slip-doc-info .slip-no {
-            font-family: 'Courier New', monospace;
-            font-weight: 700;
-            color: #333;
-        }
-        
-        /* Parties (Dibayar Oleh / Kepada) */
-        .slip-parties {
-            display: grid !important;
-            grid-template-columns: 1fr 1fr !important;
-            gap: 20px !important;
-            margin-bottom: 24px !important;
-        }
-        
-        .slip-party {
-            background: #faf5e6 !important;
-            border-left: 4px solid #d4a536 !important;
-            padding: 14px 16px !important;
-            border-radius: 0 8px 8px 0 !important;
-        }
-        
-        .slip-party.reseller {
-            background: #e6f9ee !important;
-            border-left-color: #25d366 !important;
-        }
-        
-        .slip-party-label {
-            font-size: 0.68rem;
-            font-weight: 800;
-            color: #d4a536;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 8px;
-        }
-        
-        // ====================================================
-// SEND TO WHATSAPP (dengan nomor reseller otomatis)
+        *{box-sizing:border-box;margin:0;padding:0;}
+        html,body{background:#f5f5f5;font-family:'Poppins',Arial,sans-serif;-webkit-text-size-adjust:100%;color:#333;line-height:1.5;}
+        body{padding:16px;}
+        .print-info{max-width:800px;width:100%;margin:0 auto 20px;padding:20px;background:linear-gradient(135deg,#d4a536,#c19a2e);color:#fff;border-radius:16px;text-align:center;box-shadow:0 8px 25px rgba(212,165,54,0.4);}
+        .print-info h3{margin:0 0 16px;font-size:1.2rem;font-weight:800;letter-spacing:0.5px;}
+        .print-steps{text-align:left;max-width:500px;margin:0 auto 20px;background:rgba(255,255,255,0.15);border-radius:12px;padding:16px;}
+        .print-steps .step{display:flex;align-items:flex-start;gap:12px;padding:8px 0;font-size:0.88rem;line-height:1.5;}
+        .print-steps .step-num{background:#fff;color:#d4a536;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0;font-size:0.85rem;}
+        .print-steps .step-text{flex:1;padding-top:3px;}
+        .print-info button{padding:14px 32px;background:#fff;color:#d4a536;border:none;border-radius:100px;font-weight:800;cursor:pointer;font-size:1rem;box-shadow:0 4px 15px rgba(0,0,0,0.2);display:inline-flex;align-items:center;justify-content:center;gap:10px;}
+        .slip-preview{background:#fff;border-radius:12px;padding:40px;color:#333;font-family:'Poppins',Arial,sans-serif;box-shadow:0 10px 40px rgba(0,0,0,0.15);max-width:800px;width:100%;margin:0 auto;}
+        .slip-doc-header{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:20px;border-bottom:3px double #d4a536;margin-bottom:24px;gap:16px;}
+        .slip-brand{display:flex;align-items:center;gap:12px;}
+        .slip-brand-logo{width:60px!important;height:60px!important;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:4px;box-shadow:0 4px 15px rgba(212,165,54,0.3);overflow:hidden;flex-shrink:0;border:2px solid #d4a536;box-sizing:border-box;}
+        .slip-brand-logo img{width:100%!important;height:100%!important;max-width:60px!important;max-height:60px!important;object-fit:contain;border-radius:50%;display:block;}
+        .slip-brand-logo.fallback{background:linear-gradient(135deg,#d4a536,#c19a2e);color:#fff;font-size:1.5rem;font-weight:900;padding:0;border:none;}
+        .slip-brand-text h2{font-family:'Montserrat',Arial,sans-serif;font-size:1.2rem;font-weight:900;color:#333;margin:0 0 2px;}
+        .slip-brand-text p{font-size:0.75rem;color:#888;margin:0;letter-spacing:1px;}
+        .slip-doc-info{text-align:right;}
+        .slip-doc-info h3{font-family:'Montserrat',Arial,sans-serif;font-size:1.15rem;font-weight:900;color:#d4a536;margin:0 0 4px;text-transform:uppercase;letter-spacing:1px;}
+        .slip-doc-info p{font-size:0.8rem;color:#666;margin:2px 0;}
+        .slip-doc-info .slip-no{font-family:'Courier New',monospace;font-weight:700;color:#333;}
+        .slip-parties{display:grid!important;grid-template-columns:1fr 1fr!important;gap:20px!important;margin-bottom:24px!important;}
+        .slip-party{background:#faf5e6!important;border-left:4px solid #d4a536!important;padding:14px 16px!important;border-radius:0 8px 8px 0!important;}
+        .slip-party.reseller{background:#e6f9ee!important;border-left-color:#25d366!important;}
+        .slip-party-label{font-size:0.68rem;font-weight:800;color:#d4a536;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;}
+        .slip-party.reseller .slip-party-label{color:#128c7e;}
+        .slip-party-name{font-family:'Montserrat',Arial,sans-serif;font-size:1rem;font-weight:800;color:#333;margin-bottom:4px;}
+        .slip-party-detail{font-size:0.78rem;color:#666;line-height:1.5;}
+        .slip-detail-title{font-family:'Montserrat',Arial,sans-serif;font-size:0.9rem;font-weight:800;color:#333;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid #d4a536;text-transform:uppercase;letter-spacing:1px;}
+        .slip-table{width:100%!important;border-collapse:collapse!important;margin-bottom:20px;font-size:0.85rem;}
+        .slip-table th{background:#faf5e6!important;color:#d4a536!important;padding:10px 12px!important;text-align:left;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #d4a536!important;}
+        .slip-table th.center{text-align:center;}
+        .slip-table th.right{text-align:right;}
+        .slip-table td{padding:12px!important;border-bottom:1px solid #eee!important;color:#333;vertical-align:top;}
+        .slip-table td.center{text-align:center;}
+        .slip-table td.right{text-align:right;font-family:'Courier New',monospace;font-weight:600;}
+        .slip-table .tier-badge{display:inline-block;padding:3px 8px;border-radius:100px;font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;}
+        .slip-table .tier-silver{background:#e8e8e8;color:#666;}
+        .slip-table .tier-gold{background:#faf5e6;color:#d4a536;}
+        .slip-table .tier-platinum{background:#e6f0fa;color:#3d6fb5;}
+        .slip-summary{background:#faf5e6!important;border-radius:10px!important;padding:20px!important;margin-bottom:20px!important;}
+        .slip-summary-row{display:flex!important;justify-content:space-between!important;align-items:center!important;padding:8px 0!important;border-bottom:1px dashed rgba(212,165,54,0.3)!important;font-size:0.9rem;color:#555;}
+        .slip-summary-row:last-child{border-bottom:none!important;}
+        .slip-summary-row .label{color:#666;font-weight:500;}
+        .slip-summary-row .value{font-family:'Courier New',monospace;font-weight:700;color:#333;}
+        .slip-summary-total{background:linear-gradient(135deg,#d4a536,#c19a2e)!important;color:#fff!important;padding:16px 20px!important;border-radius:10px!important;margin-top:12px!important;display:flex!important;justify-content:space-between!important;align-items:center!important;box-shadow:0 4px 15px rgba(212,165,54,0.3);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+        .slip-summary-total .label{font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:0.95;color:#fff!important;}
+        .slip-summary-total .value{font-family:'Montserrat',Arial,sans-serif;font-size:1.5rem;font-weight:900;color:#fff!important;}
+        .slip-payment{background:#e6f9ee!important;border-left:4px solid #25d366!important;padding:16px!important;border-radius:0 8px 8px 0!important;margin-bottom:20px!important;}
+        .slip-payment-title{font-weight:800;color:#128c7e;font-size:0.85rem;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;}
+        .slip-payment-detail{display:grid!important;grid-template-columns:1fr 1fr!important;gap:12px 20px!important;font-size:0.88rem;color:#333;}
+        .slip-payment-detail > div{display:block;padding:4px 0;}
+        .slip-payment-detail strong{color:#128c7e!important;display:block!important;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;font-weight:800;}
+        .slip-footer{margin-top:24px;padding-top:20px;border-top:2px solid #eee;display:flex!important;justify-content:space-between!important;align-items:center!important;gap:16px;}
+        .slip-footer-info{flex:1;font-size:0.75rem;color:#666;line-height:1.5;}
+        .slip-footer-info strong{color:#333;}
+        .slip-stamp{text-align:center;padding:16px;border:2px dashed #d4a536;border-radius:8px;color:#d4a536;font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:0.75rem;background:rgba(212,165,54,0.05);min-width:140px;-webkit-print-color-adjust:exact;}
+        .slip-stamp i{font-size:1.5rem;display:block;margin-bottom:4px;}
+        .slip-stamp.paid{border-color:#25d366;color:#128c7e;background:rgba(37,211,102,0.08);}
+        @media (max-width:768px){body{padding:10px;}.slip-preview{padding:20px 16px!important;border-radius:10px!important;}.print-info{padding:16px;margin-bottom:16px;}.slip-doc-header{flex-direction:column!important;text-align:center!important;gap:12px!important;align-items:center!important;}.slip-parties{grid-template-columns:1fr!important;gap:10px!important;}.slip-table{font-size:0.7rem!important;}.slip-table th,.slip-table td{padding:6px 4px!important;}.slip-payment-detail{grid-template-columns:1fr!important;gap:8px!important;}.slip-footer{flex-direction:column!important;gap:12px!important;text-align:center!important;}}
+        @media print{html,body{background:#fff!important;padding:0!important;margin:0!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}.print-info{display:none!important;}.slip-preview{padding:12mm 10mm!important;box-shadow:none!important;border-radius:0!important;max-width:100%!important;width:100%!important;margin:0!important;page-break-inside:avoid;}.slip-doc-header,.slip-parties,.slip-summary,.slip-payment,.slip-footer{page-break-inside:avoid;}.slip-brand-logo{width:55px!important;height:55px!important;}.slip-brand-logo img{max-width:55px!important;max-height:55px!important;}@page{size:A4;margin:10mm;}}
+    `;
+
+    win.document.write(`
+        <!DOCTYPE html><html><head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+        <title>${filename}</title>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <style>${slipCSS}</style>
+        </head><body>
+        <div class="print-info">
+            <h3>💾 Cara Simpan sebagai PDF</h3>
+            <div class="print-steps">
+                <div class="step"><span class="step-num">1</span><span class="step-text">Klik <b>"Buka Dialog Print"</b> di bawah</span></div>
+                <div class="step"><span class="step-num">2</span><span class="step-text">Pilih <b>"Simpan sebagai PDF"</b></span></div>
+                <div class="step"><span class="step-num">3</span><span class="step-text">⚠️ AKTIFKAN <b>"Background Graphics"</b></span></div>
+                <div class="step"><span class="step-num">4</span><span class="step-text">Klik <b>"Simpan"</b> ✅</span></div>
+            </div>
+            <button onclick="window.print()"><i class="fas fa-print"></i> Buka Dialog Print</button>
+        </div>
+        ${preview}
+        </body></html>
+    `);
+    win.document.close();
+
+    Swal.fire({
+        icon: 'info', title: '📄 PDF Siap Disimpan',
+        html: `Ikuti instruksi di window baru<br><small style="color:#f39c12;">⚠️ Aktifkan "Background Graphics"!</small>`,
+        customClass: { popup: 'swal-premium' }, timer: 4000, showConfirmButton: false, timerProgressBar: true, toast: true, position: 'top-end'
+    });
+}
+
+// ====================================================
+// SEND TO WHATSAPP
 // ====================================================
 function sendToWA() {
     const nama = document.getElementById('fieldNama').value.trim();
-    
     if (!nama) {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Data Belum Lengkap',
-            text: 'Silakan isi nama reseller terlebih dahulu',
-            customClass: { popup: 'swal-premium' },
-            confirmButtonText: 'Oke'
-        });
+        Swal.fire({ icon: 'warning', title: 'Data Belum Lengkap', text: 'Silakan isi nama reseller terlebih dahulu', customClass: { popup: 'swal-premium' }, confirmButtonText: 'Oke' });
         return;
     }
-    
+
     const tier = getTierPercent(document.getElementById('resellerLevel').value);
     const tierInfo = getTierName(tier);
-    
     let message = '';
-    
+
     if (currentMode === 'monthly') {
         const periode = formatPeriode(document.getElementById('fieldPeriode').value);
         const tglBayar = formatDate(document.getElementById('fieldTglBayar').value);
@@ -1299,7 +843,6 @@ function sendToWA() {
         const totalKomisi = closings.reduce((sum, c) => sum + (c.paket * tier) / 100, 0);
         const totalBonus = closings.length * tierInfo.bonus;
         const total = totalKomisi + totalBonus;
-        
         message = `Halo *${nama}* 👋
 
 🎉 *SLIP KOMISI BULANAN* 🎉
@@ -1330,7 +873,6 @@ Terima kasih atas kerja sama-nya 🙏
         const tglBayar = formatDate(document.getElementById('singleTglBayar').value);
         const bank = document.getElementById('fieldBank').value.trim() || '-';
         const norek = document.getElementById('fieldNorek').value.trim() || '-';
-        
         message = `Halo *${nama}* 👋
 
 🎉 *SLIP KOMISI CLOSING* 🎉
@@ -1359,80 +901,51 @@ Terus semangat closing ya! 🚀
 
 - Ibaadurrahmaan Web Designer`;
     }
-    
-    // ═══ FORMAT NOMOR WA ═══
-    // Prioritas: 1. WA dari autofill  2. Input manual  3. Kosong (fallback)
+
+    // Format nomor WA
     let waNumber = autoFilledResellerWA || '';
-    
-    // Bersihkan format nomor (hapus semua non-angka, jadikan format 62)
     if (waNumber) {
-        waNumber = waNumber.replace(/[^0-9]/g, '');    // Hapus semua non-digit
+        waNumber = waNumber.replace(/[^0-9]/g, '');
         if (waNumber.startsWith('0')) {
-            waNumber = '62' + waNumber.substring(1);   // 0812... → 62812...
+            waNumber = '62' + waNumber.substring(1);
         } else if (waNumber.startsWith('8')) {
-            waNumber = '62' + waNumber;                // 812... → 62812...
+            waNumber = '62' + waNumber;
         }
-        // Kalau sudah 62..., biarkan
     }
-    
-    // Buat URL WhatsApp
-    const waUrl = waNumber 
+
+    const waUrl = waNumber
         ? `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`
-        : `https://wa.me/?text=${encodeURIComponent(message)}`;  // fallback tanpa nomor
-    
-    // Buka WhatsApp
+        : `https://wa.me/?text=${encodeURIComponent(message)}`;
+
     window.open(waUrl, '_blank');
-    
-    // Toast notif
+
     if (waNumber) {
         Swal.fire({
-            icon: 'success',
-            title: '📱 WhatsApp Dibuka',
-            html: `
-                Chat ke: <b style="color:#25d366;">+${waNumber}</b><br>
-                <small>(${nama})</small>
-            `,
-            customClass: { popup: 'swal-premium' },
-            timer: 2500,
-            showConfirmButton: false,
-            timerProgressBar: true,
-            toast: true,
-            position: 'top-end'
+            icon: 'success', title: '📱 WhatsApp Dibuka',
+            html: `Chat ke: <b style="color:#25d366;">+${waNumber}</b><br><small>(${nama})</small>`,
+            customClass: { popup: 'swal-premium' }, timer: 2500, showConfirmButton: false, timerProgressBar: true, toast: true, position: 'top-end'
         });
     } else {
         Swal.fire({
-            icon: 'info',
-            title: '📱 WhatsApp Dibuka',
-            html: `
-                Nomor reseller <b>belum tersedia</b><br>
-                <small>Silakan pilih kontak manual di WhatsApp</small>
-            `,
-            customClass: { popup: 'swal-premium' },
-            timer: 3500,
-            showConfirmButton: false,
-            timerProgressBar: true,
-            toast: true,
-            position: 'top-end'
+            icon: 'info', title: '📱 WhatsApp Dibuka',
+            html: `Nomor reseller <b>belum tersedia</b><br><small>Pilih kontak manual di WhatsApp</small>`,
+            customClass: { popup: 'swal-premium' }, timer: 3500, showConfirmButton: false, timerProgressBar: true, toast: true, position: 'top-end'
         });
     }
-    
+
     // Konfirmasi update status komisi
     if (autoFilledClientId && currentMode === 'single') {
         setTimeout(() => {
             Swal.fire({
-                icon: 'question',
-                title: '💰 Konfirmasi Pembayaran',
-                html: `
-                    Sudah <b style="color:#25d366;">TRANSFER</b> komisi ke reseller?<br><br>
+                icon: 'question', title: '💰 Konfirmasi Pembayaran',
+                html: `Sudah <b style="color:#25d366;">TRANSFER</b> komisi ke reseller?<br><br>
                     <div style="background:rgba(212,165,54,0.08);border:1px solid rgba(212,165,54,0.2);padding:10px;border-radius:8px;font-size:0.82rem;text-align:left;">
-                        ℹ️ Jika Ya, status komisi otomatis di-update jadi <b style="color:#25d366;">"Sudah Dibayar"</b> di database
-                    </div>
-                `,
+                        ℹ️ Jika Ya, status komisi otomatis update jadi <b style="color:#25d366;">"Sudah Dibayar"</b>
+                    </div>`,
                 showCancelButton: true,
                 confirmButtonText: '<i class="fas fa-check"></i> Ya, Sudah Transfer',
                 cancelButtonText: 'Belum',
-                customClass: { popup: 'swal-premium' },
-                reverseButtons: true
+                customClass: { popup: 'swal-premium' }, reverseButtons: true
             }).then(async res => {
                 if (res.isConfirmed) {
                     await markCommissionPaid(autoFilledClientId);
@@ -1442,101 +955,75 @@ Terus semangat closing ya! 🚀
             });
         }, 3000);
     }
-} 
-
+}
 
 // ====================================================
-// UPDATE COMMISSION STATUS DI FIREBASE
+// UPDATE COMMISSION STATUS
 // ====================================================
 async function markCommissionPaid(clientId) {
     Swal.fire({
-        title: 'Menyimpan...',
-        html: 'Update status komisi di database',
-        allowOutsideClick: false,
-        customClass: { popup: 'swal-premium' },
+        title: 'Menyimpan...', html: 'Update status komisi',
+        allowOutsideClick: false, customClass: { popup: 'swal-premium' },
         didOpen: () => Swal.showLoading()
     });
-    
+
     try {
-        // Wait for firebase (support fbClient & firebase)
         let attempts = 0;
-        while (
-            (!window.fbClient || !window.fbClient.ready) && 
-            (!window.firebase || !window.firebase.ready) && 
-            attempts < 25
-        ) {
+        while ((!window.fbClient || !window.fbClient.ready) && (!window.firebase || !window.firebase.ready) && attempts < 25) {
             await new Promise(r => setTimeout(r, 200));
             attempts++;
         }
-        
+
         const fb = window.fbClient || window.firebase;
-        
-        if (!fb || !fb.ready) {
-            throw new Error('Firebase belum siap. Coba refresh halaman.');
-        }
-        
+        if (!fb || !fb.ready) throw new Error('Firebase belum siap. Refresh halaman.');
+
         let docFn, updateDocFn, db;
-        
         if (fb.doc && fb.updateDoc) {
             docFn = fb.doc;
             updateDocFn = fb.updateDoc;
             db = fb.db;
         } else {
-            const firestoreModule = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
-            docFn = firestoreModule.doc;
-            updateDocFn = firestoreModule.updateDoc;
+            const mod = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+            docFn = mod.doc;
+            updateDocFn = mod.updateDoc;
             db = fb.db;
         }
-        
+
         const docRef = docFn(db, 'clients', clientId);
-        
         await updateDocFn(docRef, {
             'referral.commissionStatus': 'paid',
             'referral.commissionPaidAt': new Date(),
             updatedAt: new Date()
         });
-        
+
         await Swal.fire({
-            icon: 'success',
-            title: '✅ Status Update!',
-            html: `
-                Komisi berhasil ditandai <b style="color:#25d366;">SUDAH DIBAYAR</b><br><br>
+            icon: 'success', title: '✅ Status Update!',
+            html: `Komisi ditandai <b style="color:#25d366;">SUDAH DIBAYAR</b><br><br>
                 <div style="background:rgba(37,211,102,0.1);padding:12px;border-radius:10px;font-size:0.85rem;">
                     💡 Cek halaman <b>Client</b> untuk melihat perubahan
-                </div>
-            `,
+                </div>`,
             showCancelButton: true,
             confirmButtonText: '<i class="fas fa-briefcase"></i> Lihat Client',
             cancelButtonText: 'Tutup',
             customClass: { popup: 'swal-premium' }
         }).then(res => {
-            if (res.isConfirmed) {
-                window.location.href = 'dashboard-client.html';
-            }
+            if (res.isConfirmed) window.location.href = 'dashboard-client.html';
         });
-        
+
     } catch (err) {
-        console.error('❌ Update commission error:', err);
+        console.error('Update commission error:', err);
         Swal.fire({
-            icon: 'error',
-            title: 'Gagal Update',
-            html: `
-                Gagal update status komisi.<br><br>
-                <div style="background:rgba(231,76,60,0.1);padding:10px;border-radius:8px;font-size:0.82rem;color:#ff6b5b;">
-                    ${err.message}
-                </div>
-            `,
-            customClass: { popup: 'swal-premium' },
-            confirmButtonText: 'Mengerti'
+            icon: 'error', title: 'Gagal Update',
+            html: `Gagal update status komisi.<br><br>
+                <div style="background:rgba(231,76,60,0.1);padding:10px;border-radius:8px;font-size:0.82rem;color:#ff6b5b;">${err.message}</div>`,
+            customClass: { popup: 'swal-premium' }, confirmButtonText: 'Mengerti'
         });
     }
 }
 
-
 // ====================================================
 // INIT
 // ====================================================
-
 window.addEventListener('load', () => {
     // Set default dates
     const now = new Date();
@@ -1546,111 +1033,88 @@ window.addEventListener('load', () => {
     document.getElementById('fieldTglBayar').value = today;
     document.getElementById('singleTglClosing').value = today;
     document.getElementById('singleTglBayar').value = today;
-    
-    // Cek autofill dari halaman client
+
+    // Cek autofill
     const urlParams = new URLSearchParams(window.location.search);
     const isAutofill = urlParams.get('autofill') === '1';
-    if (isAutofill) {
-    const raw = sessionStorage.getItem('slip_autofill');
-    if (raw) {
-        try {
-            const d = JSON.parse(raw);
-            
-            // Simpan clientId
-          // Simpan clientId
-autoFilledClientId = d.clientId || null;
 
-// ✨ NEW: Simpan WA reseller
-autoFilledResellerWA = d.wa || '';
-            
-            // Pilih mode single
-            selectMode('single');
-            
-            // Isi data reseller
-            document.getElementById('fieldNama').value = d.nama || '';
-            document.getElementById('fieldKode').value = d.kode || '';
-            
-            // ✨ Isi data bank
-            document.getElementById('fieldBank').value = d.bank || '';
-            document.getElementById('fieldNorek').value = d.norek || '';
-            
-            // Set tier
-            const tierOption = document.querySelector(`.custom-option[data-value="${d.tier}"]`);
-            if (tierOption) selectLevel(tierOption);
-            
-            // Isi data closing
-            document.getElementById('singleClient').value = d.client || '';
-            if (d.tglClosing) document.getElementById('singleTglClosing').value = d.tglClosing;
-            if (d.tglBayar) document.getElementById('singleTglBayar').value = d.tglBayar;
-            
-            // Set paket
-            const paketSelect = document.getElementById('singlePaket');
-            let foundOption = false;
-            for (const opt of paketSelect.options) {
-                if (parseInt(opt.value) === d.paket) {
-                    opt.selected = true;
-                    foundOption = true;
-                    break;
-                }
-            }
-            
-            if (!foundOption && d.paket > 0) {
-                const customOpt = document.createElement('option');
-                customOpt.value = d.paket;
-                customOpt.textContent = `${d.paketName} - Rp ${d.paket.toLocaleString('id-ID')}`;
-                customOpt.selected = true;
-                paketSelect.appendChild(customOpt);
-            }
-            
-            // Show autofill notice
-            const notice = document.getElementById('autofillNotice');
-            const desc = document.getElementById('autofillDesc');
-            if (notice) {
-                notice.style.display = 'flex';
-                if (desc) {
-                    // Show info bank kalau ada
-                    let bankInfo = '';
-                    if (d.bank && d.norek) {
-                        bankInfo = ` • ${d.bank}: ${d.norek}`;
-                    } else {
-                        bankInfo = ' • ⚠️ Data bank belum ada di reseller';
+    if (isAutofill) {
+        const raw = sessionStorage.getItem('slip_autofill');
+        if (raw) {
+            try {
+                const d = JSON.parse(raw);
+                autoFilledClientId = d.clientId || null;
+                autoFilledResellerWA = d.wa || '';
+
+                selectMode('single');
+
+                document.getElementById('fieldNama').value = d.nama || '';
+                document.getElementById('fieldKode').value = d.kode || '';
+                document.getElementById('fieldBank').value = d.bank || '';
+                document.getElementById('fieldNorek').value = d.norek || '';
+
+                const tierOption = document.querySelector(`.custom-option[data-value="${d.tier}"]`);
+                if (tierOption) selectLevel(tierOption);
+
+                document.getElementById('singleClient').value = d.client || '';
+                if (d.tglClosing) document.getElementById('singleTglClosing').value = d.tglClosing;
+                if (d.tglBayar) document.getElementById('singleTglBayar').value = d.tglBayar;
+
+                const paketSelect = document.getElementById('singlePaket');
+                let foundOption = false;
+                for (const opt of paketSelect.options) {
+                    if (parseInt(opt.value) === d.paket) {
+                        opt.selected = true;
+                        foundOption = true;
+                        break;
                     }
-                    desc.textContent = `${d.client} • ${d.nama} (${d.kode || 'RSL-?'})${bankInfo}`;
                 }
+                if (!foundOption && d.paket > 0) {
+                    const customOpt = document.createElement('option');
+                    customOpt.value = d.paket;
+                    customOpt.textContent = `${d.paketName} - Rp ${d.paket.toLocaleString('id-ID')}`;
+                    customOpt.selected = true;
+                    paketSelect.appendChild(customOpt);
+                }
+
+                const notice = document.getElementById('autofillNotice');
+                const desc = document.getElementById('autofillDesc');
+                if (notice) {
+                    notice.style.display = 'flex';
+                    if (desc) {
+                        let bankInfo = '';
+                        if (d.bank && d.norek) bankInfo = ` • ${d.bank}: ${d.norek}`;
+                        else bankInfo = ' • ⚠️ Data bank belum ada';
+                        let waInfo = d.wa ? ` • WA: ${d.wa}` : '';
+                        desc.textContent = `${d.client} • ${d.nama}${bankInfo}${waInfo}`;
+                    }
+                }
+
+                sessionStorage.removeItem('slip_autofill');
+
+                setTimeout(() => {
+                    Swal.fire({
+                        icon: 'success', title: '✨ Auto-Fill Berhasil!',
+                        text: 'Data client, bank & WA reseller sudah terisi',
+                        customClass: { popup: 'swal-premium' },
+                        timer: 2500, showConfirmButton: false, toast: true, position: 'top-end', timerProgressBar: true
+                    });
+                }, 400);
+
+            } catch(e) {
+                console.error('Autofill error:', e);
             }
-            
-            sessionStorage.removeItem('slip_autofill');
-            
-            // Toast notif
-            setTimeout(() => {
-                Swal.fire({
-                    icon: 'success',
-                    title: '✨ Auto-Fill Berhasil!',
-                    text: 'Data client & bank reseller sudah terisi',
-                    customClass: { popup: 'swal-premium' },
-                    timer: 2500,
-                    showConfirmButton: false,
-                    toast: true,
-                    position: 'top-end',
-                    timerProgressBar: true
-                });
-            }, 400);
-            
-        } catch(e) {
-            console.error('Autofill error:', e);
         }
+    } else {
+        addClosing();
     }
-} else {
-    // Kalau bukan autofill, tambah 1 closing default (mode monthly)
-    addClosing();
-}
-    
+
     // Listener input
     document.querySelectorAll('.slip-form-input, .slip-form-select').forEach(input => {
         input.addEventListener('input', updatePreview);
         input.addEventListener('change', updatePreview);
     });
-    
+
     // Set user info
     if (session) {
         const username = session.username || 'Owner';
@@ -1658,8 +1122,7 @@ autoFilledResellerWA = d.wa || '';
         document.getElementById('userName').textContent = displayName;
         document.getElementById('userAvatar').textContent = displayName.charAt(0);
     }
-    
-    // Update preview
+
     setTimeout(updatePreview, 200);
 });
 </script>
