@@ -14,42 +14,56 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- ═══════════════════════════════════════════ -->
-<!-- 🔥 FIREBASE INIT (TAMBAHKAN DI SINI!)      -->
-<!-- ═══════════════════════════════════════════ -->
+
+<!-- ==========================================
+     🔥 FIREBASE SDK
+     ========================================== -->
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { 
-        getFirestore, 
-        collection, 
-        doc, 
-        getDoc, 
-        getDocs, 
-        updateDoc, 
-        query, 
-        orderBy 
-    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {
+    getFirestore,
+    collection,
+    getDocs,
+    getDoc,
+    addDoc,
+    updateDoc,
+    deleteDoc,
+    doc,
+    query,
+    where,
+    orderBy,
+    limit,
+    increment,
+    writeBatch,
+    Timestamp,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // ⚠️ COPY DARI dashboard-client.html!
-    const firebaseConfig = {
-        apiKey: "AIza...",
-        authDomain: "...",
-        projectId: "...",
-        storageBucket: "...",
-        messagingSenderId: "...",
-        appId: "..."
-    };
+const firebaseConfig = {
+    apiKey: "AIzaSyCYRygFt6uwCUiL_6-eoJHhUdkiumSwLzY",
+    authDomain: "ibaadurrahmaan-web.firebaseapp.com",
+    projectId: "ibaadurrahmaan-web",
+    storageBucket: "ibaadurrahmaan-web.firebasestorage.app",
+    messagingSenderId: "1066409450927",
+    appId: "1:1066409450927:web:3497135ea3a2c4ef77e35a",
+    measurementId: "G-ZJP1W4P2P8"
+};
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
 
-    window.fbClient = {
-        ready: true,
-        db, collection, doc, getDoc, getDocs, updateDoc, query, orderBy
-    };
+// Expose ke window agar bisa diakses dari script biasa
+window.fbClient = {
+    db, collection, getDocs, getDoc, addDoc, updateDoc, deleteDoc,
+    doc, query, where, orderBy, limit, increment, writeBatch,
+    Timestamp, serverTimestamp,
+    ready: true
+};
 
-    console.log('✅ Firebase ready di dashboard-slip.html');
+console.log('🔥 Client Firebase ready!');
+document.dispatchEvent(new CustomEvent('firebaseReady'));
 </script>
+
 
 <style>
 .slip-page{background:var(--bg);min-height:100vh;padding-bottom:100px;}
