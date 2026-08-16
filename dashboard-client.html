@@ -1822,7 +1822,7 @@ async function loadClients(){
 }
 
 // ═══════════════════════════════════════════
-// KONFIGURASI KOMISI RESELLER (sesuai sistem slip)
+// 💰 KONFIGURASI KOMISI RESELLER
 // ═══════════════════════════════════════════
 const TIER_CONFIG = {
     silver  : { pct: 15, bonus: 0,      label: 'Silver',   icon: '🥉' },
@@ -1830,21 +1830,65 @@ const TIER_CONFIG = {
     platinum: { pct: 25, bonus: 200000, label: 'Platinum', icon: '🥇' }
 };
 
-// Function hitung komisi
 function calcCommission(totalValue, tier) {
     const cfg    = TIER_CONFIG[tier] || TIER_CONFIG.silver;
     const komisi = Math.round(totalValue * cfg.pct / 100);
     const bonus  = cfg.bonus;
-    const total  = komisi + bonus;
-    
     return {
         pct       : cfg.pct,
         bonus     : bonus,
         komisi    : komisi,
-        total     : total,
+        total     : komisi + bonus,
         tierLabel : cfg.label,
         tierIcon  : cfg.icon
     };
+}
+
+
+// ═══════════════════════════════════════════
+// 📤 GENERATE SLIP KOMISI (redirect ke dashboard-slip)
+// ═══════════════════════════════════════════
+function generateSlipKomisi(clientId) {
+    const client = allClients.find(c => c.id === clientId);
+    if (!client) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Data tidak ditemukan',
+            customClass: { popup: 'swal-premium' }
+        });
+        return;
+    }
+    
+    const referral = client.referral || {};
+    const totalValue = parseRp(client.value);
+    
+    const slipData = {
+        mode        : 'single',
+        nama        : referral.resellerName  || '',
+        kode        : referral.referralCode  || referral.resellerCode || '',
+        tier        : (referral.resellerTier || 'silver').toLowerCase(),
+        client      : client.name             || '',
+        paket       : totalValue              || 0,
+        paketName   : client.project          || 'Custom Project',
+        tglClosing  : client.createdAt ? formatDateISO(client.createdAt) : '',
+        tglBayar    : new Date().toISOString().split('T')[0],
+        clientId    : clientId  // untuk update status komisi nanti
+    };
+    
+    sessionStorage.setItem('slip_autofill', JSON.stringify(slipData));
+    window.location.href = 'dashboard-slip.html?autofill=1';
+}
+
+// Helper: format Date/Timestamp ke YYYY-MM-DD
+function formatDateISO(dateInput) {
+    if (!dateInput) return '';
+    let d;
+    if (dateInput.toDate) d = dateInput.toDate();        // Firestore Timestamp
+    else if (typeof dateInput === 'string') d = new Date(dateInput);
+    else d = new Date(dateInput);
+    
+    if (isNaN(d.getTime())) return '';
+    return d.toISOString().split('T')[0];
 }
 
 // ====================================================
@@ -1909,16 +1953,13 @@ if(payStatus === 'paid_full'){
         ? toRp(totalValue) 
         : '—';
 }
-
 // ═══ Reseller & Komisi ═══
 const referral       = c.referral || {};
 const resellerName   = referral.resellerName || '';
-const resellerCode   = referral.referralCode || referral.resellerCode || '';
 const resellerTier   = (referral.resellerTier || 'silver').toLowerCase();
 const commissionStat = referral.commissionStatus || 'pending';
 const hasReseller    = resellerName.trim() !== '';
 
-// Hitung komisi
 const comm = calcCommission(totalValue, resellerTier);
 
 let commissionBadge = '';
@@ -1927,27 +1968,24 @@ if (hasReseller) {
     let statusIcon, statusText, boxClass, actionBtn = '';
     
     if (payStatus !== 'paid_full') {
-        // Client belum lunas
         boxClass   = 'pending';
         statusIcon = '⏳';
         statusText = 'Menunggu client lunas';
     } else if (commissionStat === 'paid') {
-        // Komisi sudah dibayar
         boxClass   = 'done';
         statusIcon = '✅';
         statusText = 'Komisi sudah dibayar';
     } else {
-        // Siap dicairkan → tampilkan tombol generate slip
         boxClass   = 'ready';
         statusIcon = '💰';
         statusText = 'Siap dibayar';
         actionBtn  = `
             <button class="commission-btn" onclick="generateSlipKomisi('${c.id}')">
-                <i class="fas fa-file-invoice-dollar"></i> Buat Slip
+                <i class="fas fa-file-invoice-dollar"></i>
+                Buat Slip Komisi
             </button>`;
     }
     
-    // Breakdown teks
     const breakdown = comm.bonus > 0
         ? `${toRp(comm.komisi)} + Bonus ${toRp(comm.bonus)}`
         : `${comm.pct}% × ${toRp(totalValue)}`;
@@ -1955,10 +1993,10 @@ if (hasReseller) {
     commissionBadge = `
         <div class="card-commission ${boxClass}">
             <div class="commission-header">
-                <span class="commission-tier">
-                    ${comm.tierIcon} <b>${escHtml(resellerName)}</b>
+                <div class="commission-tier">
+                    <span class="ct-name">${comm.tierIcon} <b>${escHtml(resellerName)}</b></span>
                     <small>${comm.tierLabel} • ${comm.pct}%${comm.bonus > 0 ? ' + bonus' : ''}</small>
-                </span>
+                </div>
                 <span class="commission-status-badge">${statusIcon} ${statusText}</span>
             </div>
             <div class="commission-body">
@@ -1966,9 +2004,7 @@ if (hasReseller) {
                     <span class="ca-label">Total Komisi</span>
                     <span class="ca-value">${toRp(comm.total)}</span>
                 </div>
-                <div class="commission-breakdown">
-                    💡 ${breakdown}
-                </div>
+                <div class="commission-breakdown">💡 ${breakdown}</div>
             </div>
             ${actionBtn}
         </div>`;
