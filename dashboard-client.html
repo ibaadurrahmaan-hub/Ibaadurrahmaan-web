@@ -1848,31 +1848,72 @@ function calcCommission(totalValue, tier) {
 // ═══════════════════════════════════════════
 // 📤 GENERATE SLIP KOMISI (redirect ke dashboard-slip)
 // ═══════════════════════════════════════════
-function generateSlipKomisi(clientId) {
+
+async function generateSlipKomisi(clientId) {
     const client = allClients.find(c => c.id === clientId);
-    if (!client) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Data tidak ditemukan',
-            customClass: { popup: 'swal-premium' }
-        });
-        return;
-    }
+    if (!client) return;
     
     const referral = client.referral || {};
     const totalValue = parseRp(client.value);
+    const resellerId = referral.resellerId || '';
+    
+    // Loading
+    Swal.fire({
+        title: 'Mempersiapkan Slip...',
+        html: 'Mengambil data reseller',
+        allowOutsideClick: false,
+        customClass: { popup: 'swal-premium' },
+        didOpen: () => Swal.showLoading()
+    });
+    
+    // Data default (dari referral)
+    let bankData = {
+        bank: '',
+        norek: '',
+        atasNama: referral.resellerName || ''
+    };
+    
+    // Fetch data reseller lengkap kalau ada resellerId
+    if (resellerId) {
+        try {
+            const fb = window.fbClient;
+            if (fb && fb.ready) {
+                const docRef = fb.doc(fb.db, 'resellers', resellerId);
+                const docSnap = await fb.getDoc(docRef);
+                
+                if (docSnap.exists()) {
+                    const resellerData = docSnap.data();
+                    bankData = {
+                        bank: resellerData.bank || '',
+                        norek: resellerData.norek || '',
+                        atasNama: resellerData.atasNama || resellerData.nama || referral.resellerName
+                    };
+                    console.log('✅ Reseller data loaded:', bankData);
+                }
+            }
+        } catch (err) {
+            console.error('❌ Fetch reseller error:', err);
+        }
+    }
+    
+    Swal.close();
     
     const slipData = {
-        mode        : 'single',
-        nama        : referral.resellerName  || '',
-        kode        : referral.referralCode  || referral.resellerCode || '',
-        tier        : (referral.resellerTier || 'silver').toLowerCase(),
-        client      : client.name             || '',
-        paket       : totalValue              || 0,
-        paketName   : client.project          || 'Custom Project',
-        tglClosing  : client.createdAt ? formatDateISO(client.createdAt) : '',
-        tglBayar    : new Date().toISOString().split('T')[0],
-        clientId    : clientId  // untuk update status komisi nanti
+        mode: 'single',
+        nama: referral.resellerName || bankData.atasNama || '',
+        kode: referral.referralCode || '',
+        tier: (referral.resellerTier || 'silver').toLowerCase(),
+        bank: bankData.bank,
+        norek: bankData.norek,
+        atasNama: bankData.atasNama,
+        client: client.name || '',
+        paket: totalValue || 0,
+        paketName: client.project || 'Custom Project',
+        tglClosing: client.createdAt?.toDate 
+            ? client.createdAt.toDate().toISOString().split('T')[0] 
+            : new Date().toISOString().split('T')[0],
+        tglBayar: new Date().toISOString().split('T')[0],
+        clientId: clientId
     };
     
     sessionStorage.setItem('slip_autofill', JSON.stringify(slipData));
