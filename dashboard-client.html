@@ -2040,12 +2040,17 @@ if (hasReseller) {
                 <span class="proj-value">${escHtml(c.value||'-')}</span>
             </div>
 
-            <!-- ═══ NEW: Payment Info Box ═══ -->
-            <div class="card-payment ${payMap.cls}">
-                <i class="fas ${payMap.icon}"></i>
-                <span class="pay-label">${payMap.label}</span>
-                <span class="pay-amount">${payText}</span>
-            </div>
+<!-- ═══ NEW: Payment Info Box ═══ -->
+<div class="card-payment ${payMap.cls}">
+    <i class="fas ${payMap.icon}"></i>
+    <span class="pay-label">${payMap.label}</span>
+    <span class="pay-amount">${payText}</span>
+</div>
+
+<!-- ═══ 💰 KOMISI RESELLER ═══ -->
+${commissionBadge}
+
+<div class="card-details">
 
             <div class="card-details">
                 <div class="detail-row">
