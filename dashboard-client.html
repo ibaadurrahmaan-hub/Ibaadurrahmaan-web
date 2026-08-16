@@ -265,6 +265,281 @@
 .modal-box::-webkit-scrollbar{width:6px;}
 .modal-box::-webkit-scrollbar-track{background:transparent;}
 .modal-box::-webkit-scrollbar-thumb{background:var(--border);border-radius:100px;}
+
+/* ============================================
+   🔧 FIX: TOOLBAR MOBILE
+   ============================================ */
+@media (max-width: 768px) {
+  .toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-wrap,
+  .custom-dropdown,
+  .btn-refresh,
+  .btn-toolbar {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Refresh button lebih compact */
+  .btn-refresh {
+    padding: 12px 16px;
+    justify-content: center;
+    font-size: 0.85rem;
+  }
+
+  /* Tambah button lebih menonjol */
+  .btn-toolbar {
+    padding: 14px 20px;
+    justify-content: center;
+    font-size: 0.9rem;
+    order: -1; /* Pindah ke atas */
+  }
+}
+
+
+/* ============================================
+   🔧 FIX: SWEETALERT MODAL "UPDATE PEMBAYARAN"
+   ============================================ */
+
+/* Hapus outline/border yang salah */
+.swal-premium .swal2-popup {
+  padding: 24px 20px 20px !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+}
+
+.swal-premium .swal2-html-container {
+  padding: 0 8px !important;
+  margin: 12px 0 !important;
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+/* Fix input & select dalam SweetAlert */
+.swal-premium .swal2-input,
+.swal-premium .swal2-select {
+  margin: 8px 0 !important;
+  padding: 12px 14px !important;
+  font-size: 0.9rem !important;
+  background: #0D1829 !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-radius: 10px !important;
+  font-family: 'Poppins', sans-serif !important;
+  box-shadow: none !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  outline: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.swal-premium .swal2-input:focus,
+.swal-premium .swal2-select:focus {
+  border-color: #d4a536 !important;
+  background: #12233d !important;
+  box-shadow: 0 0 0 3px rgba(212,165,54,0.15) !important;
+}
+
+.swal-premium .swal2-input[readonly] {
+  opacity: 0.65 !important;
+  cursor: not-allowed !important;
+}
+
+/* Fix untuk select dropdown - biar arrow tetap ada */
+.swal-premium .swal2-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23d4a536' d='M6 9L1 4h10z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 14px center !important;
+  padding-right: 36px !important;
+}
+
+/* Fix action buttons */
+.swal-premium .swal2-actions {
+  margin-top: 20px !important;
+  gap: 10px !important;
+  padding: 0 !important;
+  flex-wrap: nowrap !important;
+}
+
+.swal-premium .swal2-confirm,
+.swal-premium .swal2-cancel {
+  margin: 0 !important;
+  padding: 12px 24px !important;
+  font-size: 0.85rem !important;
+  flex: 1 !important;
+  max-width: none !important;
+  min-width: 0 !important;
+}
+
+/* Fix validation message */
+.swal-premium .swal2-validation-message {
+  background: rgba(231, 76, 60, 0.15) !important;
+  color: #ff6b5b !important;
+  border: 1px solid rgba(231, 76, 60, 0.3) !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  margin: 12px 0 0 !important;
+  font-size: 0.82rem !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+
+/* ============================================
+   🔧 FIX: MOBILE SWAL — REMOVE OVERFLOW
+   ============================================ */
+@media (max-width: 600px) {
+  .swal-premium.swal2-popup {
+    width: calc(100vw - 24px) !important;
+    max-width: calc(100vw - 24px) !important;
+    padding: 20px 16px 16px !important;
+    margin: 12px !important;
+  }
+
+  .swal-premium .swal2-title {
+    font-size: 1.15rem !important;
+    padding: 0 !important;
+    margin: 4px 0 !important;
+  }
+
+  .swal-premium .swal2-html-container {
+    padding: 0 !important;
+    font-size: 0.85rem !important;
+  }
+
+  .swal-premium .swal2-actions {
+    flex-direction: row !important;
+    gap: 8px !important;
+  }
+
+  .swal-premium .swal2-confirm,
+  .swal-premium .swal2-cancel {
+    padding: 12px 16px !important;
+    font-size: 0.78rem !important;
+    letter-spacing: 0.3px !important;
+  }
+}
+
+
+/* ============================================
+   🔧 FIX: CARD ACTIONS TIDAK KE-COVER
+   ============================================ */
+.client-card {
+  position: relative;
+  z-index: 1;
+}
+
+.card-actions {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* ============================================
+   🔧 FIX: RESPONSIVE CLIENT CARD ACTIONS
+   ============================================ */
+@media (max-width: 768px) {
+  .card-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .card-btn {
+    flex: none;
+    width: 100%;
+    padding: 10px 8px;
+    font-size: 0.74rem;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .card-btn i {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .card-actions {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .card-btn {
+    padding: 8px 6px;
+    font-size: 0.7rem;
+  }
+
+  /* Sembunyikan text, cuma icon */
+  .card-btn span,
+  .card-btn:not(:has(i)) {
+    display: none;
+  }
+}
+
+
+/* ============================================
+   🔧 FIX: MODAL "UPDATE PEMBAYARAN" INFO BOX
+   ============================================ */
+.swal-premium div[style*="Herman Juhanta"],
+.swal-premium div[style*="user"] p {
+  margin: 0 0 4px 0 !important;
+  padding: 0 !important;
+}
+
+/* Label text dalam SwAL */
+.swal-premium label {
+  display: block !important;
+  color: #d4a536 !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 6px !important;
+  margin-top: 12px !important;
+  text-align: left !important;
+}
+
+/* Info paragraf dalam SWAL */
+.swal-premium p {
+  text-align: left !important;
+  margin: 0 0 8px 0 !important;
+}
+
+
+/* ============================================
+   🔧 REMOVE STRANGE YELLOW LINE
+   ============================================ */
+.swal-premium.swal2-popup {
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+.swal-premium hr,
+.swal-premium::before,
+.swal-premium::after {
+  display: none !important;
+}
+
+
+/* ============================================
+   🎨 IMPROVE VISUAL: BOTTOM NAV SHADOW
+   ============================================ */
+.bottom-nav {
+  z-index: 1000;
+}
+
+/* Padding bawah biar card tidak ke-cover bottom nav */
+.client-container {
+  padding-bottom: 100px !important;
+}
 </style>
 </head>
 
