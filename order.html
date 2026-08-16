@@ -202,6 +202,8 @@
   font-family: 'Poppins', sans-serif;
 }
 </style>
+<!-- 📄 html2pdf.js — untuk generate PDF invoice -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 
 <body>
@@ -850,14 +852,17 @@
         </div>
 
         <div class="invoice-card" id="invoiceCard">
-          <div class="invoice-header">
-            <div class="inv-brand">
-              <div class="inv-logo"><i class="fas fa-code"></i></div>
-              <div class="inv-brand-info">
-                <span class="inv-brand-name">Ibaadurrahmaan</span>
-                <span class="inv-brand-tag">WEB DESIGNER</span>
-              </div>
-            </div>
+<div class="invoice-header">
+  <div class="inv-brand">
+    <div class="inv-logo-wrap">
+      <img src="main-logo.png" alt="Ibaadurrahmaan Logo" class="inv-logo-img"
+           onerror="this.parentElement.innerHTML='<div class=\'inv-logo-fallback\'>I</div>'">
+    </div>
+    <div class="inv-brand-info">
+      <span class="inv-brand-name">Ibaadurrahmaan</span>
+      <span class="inv-brand-tag">WEB DESIGNER</span>
+    </div>
+  </div>
             <div class="inv-title">
               <h2>INVOICE</h2>
               <div class="inv-number" id="invNumber">INV-20250615-XXXX</div>
@@ -2001,10 +2006,73 @@ function generateInvoice(orderId) {
 // ============================================
 // DOWNLOAD & PRINT
 // ============================================
-function downloadInvoice() {
-  showToast('Fitur download PDF segera hadir!');
-}
+// ============================================
+// 📄 DOWNLOAD INVOICE AS PDF
+// ============================================
+async function downloadInvoice() {
+  const invoiceEl = document.getElementById('invoiceCard');
+  const loading   = document.getElementById('pdfLoading');
+  const orderId   = _currentOrderId || document.getElementById('invNumber').textContent;
+  const custName  = document.getElementById('fullName').value.trim() || 'Client';
 
+  if (!invoiceEl) {
+    showToast('Invoice tidak ditemukan');
+    return;
+  }
+
+  if (typeof html2pdf === 'undefined') {
+    showToast('❌ Library PDF belum siap. Refresh halaman.');
+    return;
+  }
+
+  // Show loading
+  loading.classList.add('show');
+
+  // Tambahkan class PDF mode (light theme untuk PDF)
+  invoiceEl.classList.add('pdf-mode');
+
+  // Sembunyikan tombol/elemen yang tidak perlu di PDF
+  const hideElements = invoiceEl.querySelectorAll('.btn-copy, .no-pdf');
+  hideElements.forEach(el => el.style.display = 'none');
+
+  // Nama file PDF
+  const safeName = custName.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 20);
+  const filename = `Invoice_${orderId}_${safeName}.pdf`;
+
+  // Options PDF
+  const options = {
+    margin       : [10, 10, 10, 10],
+    filename     : filename,
+    image        : { type: 'jpeg', quality: 0.98 },
+    html2canvas  : {
+      scale       : 2,
+      useCORS     : true,
+      logging     : false,
+      windowWidth : 1200,
+      backgroundColor: '#ffffff'
+    },
+    jsPDF        : {
+      unit        : 'mm',
+      format      : 'a4',
+      orientation : 'portrait',
+      compress    : true
+    },
+    pagebreak    : { mode: ['avoid-all', 'css', 'legacy'] }
+  };
+
+  try {
+    await html2pdf().set(options).from(invoiceEl).save();
+    showToast('✅ Invoice berhasil diunduh!');
+  } catch (err) {
+    console.error('❌ PDF error:', err);
+    showToast('Gagal generate PDF: ' + err.message);
+  } finally {
+    // Restore
+    invoiceEl.classList.remove('pdf-mode');
+    hideElements.forEach(el => el.style.display = '');
+    loading.classList.remove('show');
+  }
+}
 function printInvoice() {
   window.print();
 }
@@ -2028,6 +2096,12 @@ function showToast(text) {
   setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
+<!-- PDF Loading Overlay -->
+<div class="pdf-loading" id="pdfLoading">
+  <div class="pdf-loading-spinner"></div>
+  <div class="pdf-loading-text">📄 Generating PDF...</div>
+  <div class="pdf-loading-desc">Mohon tunggu, invoice sedang dibuat</div>
+</div>
 
 // ============================================
 // INIT
