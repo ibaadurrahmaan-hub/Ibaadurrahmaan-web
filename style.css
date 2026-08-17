@@ -3256,134 +3256,164 @@ a.fab-wa .fab.fa-whatsapp,
     font-size: 0.85rem;
     flex-shrink: 0;
 }
-
 /* ============================================
-   📱 FIX: Mobile Nav Button (untuk toggleSheet)
+   🎯 FIX: Konsistensi Mobile Nav Item Height
    ============================================ */
 
-/* Reset button default styles */
+/* Pastikan a & button punya height sama */
+.mobile-nav .mnav-item,
+.mobile-nav a.mnav-item,
 .mobile-nav button.mnav-item {
-    /* Hapus semua default button styles */
-    background: transparent !important;
-    border: none !important;
-    outline: none !important;
-    padding: 10px 14px;
-    margin: 0;
-    font-family: inherit;
-    font-size: inherit;
-    cursor: pointer;
-    
-    /* Match dengan <a class="mnav-item"> */
-    display: flex;
+    height: 58px !important;
+    min-height: 58px;
+    box-sizing: border-box;
+    padding: 8px 12px !important;
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 4px;
-    min-width: 70px;
-    color: var(--text-muted);
-    text-decoration: none;
-    border-radius: 18px;
-    transition: all 0.3s var(--ease);
-    
-    /* Text tidak ke-select */
-    -webkit-user-select: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* Text di dalam button (biar sama dengan <a>) */
-.mobile-nav button.mnav-item span {
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    opacity: 0.8;
-    color: inherit;
+    min-width: 62px;
     line-height: 1.2;
+    vertical-align: middle;
 }
 
+/* Icon size konsisten */
+.mobile-nav .mnav-item i,
+.mobile-nav a.mnav-item i,
 .mobile-nav button.mnav-item i {
-    font-size: 1.2rem;
-    transition: transform 0.3s var(--ease);
-    color: inherit;
+    font-size: 1.15rem !important;
+    line-height: 1;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Hover state */
-.mobile-nav button.mnav-item:hover {
-    color: var(--text);
-}
-
-/* Active/pressed state */
-.mobile-nav button.mnav-item:active {
-    transform: scale(0.92);
-    background: rgba(255,255,255,0.05) !important;
-}
-
-/* Focus state (accessibility) */
-.mobile-nav button.mnav-item:focus {
-    outline: none;
-    background: rgba(212,165,54,0.08) !important;
-}
-
-.mobile-nav button.mnav-item:focus-visible {
-    outline: 2px solid var(--gold);
-    outline-offset: 2px;
-}
-
-/* Active current page (kalau match data-page) */
-.mobile-nav button.mnav-item.active {
-    background: var(--grad-gold-shine) !important;
-    color: var(--bg);
-    box-shadow: 0 6px 18px var(--gold-glow);
-}
-
-.mobile-nav button.mnav-item.active i {
-    transform: scale(1.15);
-    color: var(--bg);
-}
-
-.mobile-nav button.mnav-item.active span {
-    opacity: 1;
-    font-weight: 700;
-    color: var(--bg);
-}
-
-/* Highlight variant (Reseller) */
-.mobile-nav button.mnav-item.mnav-highlight {
-    position: relative;
-}
-
-/* HOT badge position fix untuk button */
-.mobile-nav button.mnav-item.mnav-highlight::before {
-    content: 'HOT';
-    position: absolute;
-    top: 2px;
-    right: 8px;
-    background: #ff4444;
-    color: white;
-    font-size: 0.5rem;
-    font-weight: 800;
-    padding: 2px 5px;
-    border-radius: 8px;
-    letter-spacing: 0.5px;
-    animation: hotBadge 1.5s ease-in-out infinite;
+/* Text size konsisten */
+.mobile-nav .mnav-item span,
+.mobile-nav a.mnav-item span,
+.mobile-nav button.mnav-item span {
+    font-size: 0.62rem !important;
+    line-height: 1.1;
+    display: block;
+    white-space: nowrap;
 }
 
 
 /* ============================================
-   🌟 FIX: FAB WhatsApp jangan ketutup nav
+   🎯 FIX: Active State — jangan "menonjol"
+   ============================================ */
+
+.mobile-nav .mnav-item.active,
+.mobile-nav a.mnav-item.active,
+.mobile-nav button.mnav-item.active {
+    /* HAPUS scale biar tidak menonjol */
+    transform: none !important;
+    /* Cukup background gold */
+    background: var(--grad-gold-shine) !important;
+    color: var(--bg) !important;
+    box-shadow: 0 4px 12px var(--gold-glow);
+}
+
+.mobile-nav .mnav-item.active i,
+.mobile-nav a.mnav-item.active i,
+.mobile-nav button.mnav-item.active i {
+    /* HAPUS scale icon */
+    transform: none !important;
+    color: var(--bg) !important;
+}
+
+.mobile-nav .mnav-item.active span,
+.mobile-nav a.mnav-item.active span,
+.mobile-nav button.mnav-item.active span {
+    color: var(--bg) !important;
+    opacity: 1;
+    font-weight: 700;
+}
+
+
+/* ============================================
+   🎯 FIX: Mobile Nav Container - Padding Rapi
+   ============================================ */
+.mobile-nav {
+    padding: 8px !important;
+    gap: 2px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* ============================================
+   🌟 FIX: FAB WhatsApp — Position lebih jauh dari nav
    ============================================ */
 @media (max-width: 768px) {
     a.fab-wa,
     .fab-wa {
-        bottom: 140px !important;   /* ⭐ Naik lebih tinggi biar tidak overlap */
+        bottom: 100px !important;   /* Naik lebih tinggi */
         right: 16px !important;
-        z-index: 999 !important;
+        z-index: 997 !important;    /* Di bawah nav (nav = 1000) */
+    }
+    
+    a.fab-wa i,
+    a.fab-wa .fa-whatsapp,
+    .fab-wa i,
+    .fab-wa .fa-whatsapp {
+        font-size: 3.2rem !important;  /* Sedikit kecil */
     }
 }
 
 @media (max-width: 480px) {
     a.fab-wa,
     .fab-wa {
-        bottom: 130px !important;
+        bottom: 95px !important;
+        right: 12px !important;
+    }
+    
+    a.fab-wa i,
+    a.fab-wa .fa-whatsapp,
+    .fab-wa i,
+    .fab-wa .fa-whatsapp {
+        font-size: 2.8rem !important;
+    }
+}
+
+
+/* ============================================
+   🎯 FIX: Reseller HOT Badge — jangan overlap
+   ============================================ */
+.mobile-nav .mnav-item.mnav-highlight,
+.mobile-nav a.mnav-item.mnav-highlight,
+.mobile-nav button.mnav-item.mnav-highlight {
+    position: relative;
+}
+
+.mobile-nav .mnav-item.mnav-highlight::before,
+.mobile-nav a.mnav-item.mnav-highlight::before,
+.mobile-nav button.mnav-item.mnav-highlight::before {
+    content: 'HOT';
+    position: absolute;
+    top: -2px;
+    right: 4px;
+    background: #ff4444;
+    color: white;
+    font-size: 0.48rem !important;
+    font-weight: 800;
+    padding: 2px 5px;
+    border-radius: 8px;
+    letter-spacing: 0.5px;
+    animation: hotBadge 1.5s ease-in-out infinite;
+    z-index: 2;
+    line-height: 1;
+}
+
+
+/* ============================================
+   📱 FIX: Body Padding untuk Mobile Nav
+   ============================================ */
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 90px !important;  /* Ruang untuk mobile nav */
     }
 }
