@@ -205,11 +205,89 @@ function initMockupParallax() {
     });
 }
 
+/* ============================================
+   🎯 AUTO-INJECT NAVBAR (Sub-Page)
+   ============================================ */
+function initAutoNavbar() {
+    const placeholder = document.getElementById('auto-navbar');
+    if (!placeholder) return;  // Skip kalau tidak ada placeholder (misal di index.html)
+    
+    // Deteksi apakah ini halaman index atau sub
+    const path = window.location.pathname;
+    const pageName = path.split('/').pop().replace('.html', '') || 'index';
+    const isHomepage = (pageName === 'index' || pageName === '' || pageName === 'Ibaadurrahmaan-web');
+    
+    // Kalau di homepage, skip (biar tetap pakai navbar bawaan)
+    if (isHomepage) return;
+    
+    // ═══ Template Navbar Sub-Page ═══
+    const navbarHTML = `
+        <nav class="navbar" id="navbar">
+            <div class="nav-inner nav-inner-sub">
+                
+                <!-- ⬅️ Tombol Back -->
+                <a href="index.html" class="nav-back-btn" id="navBackBtn" aria-label="Kembali">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Kembali</span>
+                </a>
+                
+                <!-- 🏆 Brand (Logo + Text) -->
+                <a href="index.html" class="nav-brand-full">
+                    <img src="main-logo.png" alt="Ibaadurrahmaan Logo" class="nav-brand-logo">
+                    <div class="nav-brand-text-wrap">
+                        <span class="brand-name-nav">IBAADURRAHMAAN</span>
+                        <span class="brand-sub-nav">WEB DESIGNER</span>
+                    </div>
+                </a>
+                
+                <!-- Spacer kanan -->
+                <div class="nav-spacer"></div>
+                
+            </div>
+        </nav>
+    `;
+    
+    // Inject ke placeholder
+    placeholder.outerHTML = navbarHTML;
+    
+    console.log('🎯 Auto-navbar injected for page:', pageName);
+    
+    // Setup smart back button setelah inject
+    setupBackButton();
+    
+    // Re-init nav scroll (biar navbar baru dapat efek scrolled)
+    initNavScroll();
+}
+
+
+/* ============================================
+   ⬅️ SMART BACK BUTTON
+   ============================================ */
+function setupBackButton() {
+    const backBtn = document.getElementById('navBackBtn');
+    if (!backBtn) return;
+    
+    backBtn.addEventListener('click', (e) => {
+        // Kalau user datang dari halaman lain di website ini, back ke sana
+        if (window.history.length > 1 && 
+            document.referrer && 
+            document.referrer.includes(window.location.host)) {
+            e.preventDefault();
+            window.history.back();
+            console.log('⬅️ History back');
+        } else {
+            // Kalau langsung buka (dari Google/link luar), ke index.html
+            console.log('🏠 Go to homepage');
+        }
+    });
+}
 
 /* ===== INIT ALL saat DOM ready ===== */
+
 document.addEventListener('DOMContentLoaded', () => {
+    initAutoNavbar();         // ⭐ TAMBAH INI PALING ATAS (biar navbar ready dulu)
     initNavScroll();
-    initActiveNav();          // ⭐ Fix nav active (multi-page)
+    initActiveNav();
     initSmoothScroll();
     initFAQ();
     initMobileNavAutoHide();
@@ -217,17 +295,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initFadeAnimations();
     initMockupParallax();
     
-    // Console greeting
-    console.log('%c👋 Halo!', 
-        'color: #D4A536; font-size: 24px; font-weight: bold;');
-    console.log('%cIbaadurrahmaan Web Designer', 
-        'color: #FFFFFF; font-size: 14px;');
-    console.log('%cChat WA: 081401643188', 
-        'color: #25D366; font-size: 12px;');
-    console.log('%c🚀 v8.0 - Multi-Page Ready', 
-        'color: #D4A536; font-size: 11px; font-style: italic;');
-});
-
+    console.log('%c👋 Halo!', 'color: #D4A536; font-size: 24px; font-weight: bold;');
+    console.log('%cIbaadurrahmaan Web Designer', 'color: #FFFFFF; font-size: 14px;');
+    console.log('%cChat WA: 081401643188', 'color: #25D366; font-size: 12px;');
+    console.log('%c🚀 v8.5 - Auto Navbar Ready', 'color: #D4A536; font-size: 11px; font-style: italic;');
+}); 
 
 /* ============================================
    📱 MOBILE SHEET CONTENT DATA (Optional - kalau pakai dropdown mobile)
