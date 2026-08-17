@@ -2410,6 +2410,8 @@ function generateInvoice(orderId) {
 // ============================================
 // 📄 DOWNLOAD INVOICE AS PDF
 // ============================================
+
+
 async function downloadInvoice() {
     const invoiceEl = document.getElementById('invoiceCard');
     if (!invoiceEl) return;
@@ -2419,22 +2421,19 @@ async function downloadInvoice() {
     const loading = document.getElementById('pdfLoading');
     if (loading) loading.classList.add('show');
     
-    // ═══ 🔥 KUNCI: Tandai body sedang html2pdf mode ═══
     document.body.classList.add('html2pdf-active');
     invoiceEl.classList.add('pdf-mode');
     
     await new Promise(r => setTimeout(r, 500));
     
-    // Ukur tinggi actual invoice
     const actualHeightPx = invoiceEl.scrollHeight;
-    const widthMM = 210; // A4 width
-    // Ratio: 800px content = 210mm, 1px = 0.2625mm
-    const heightMM = Math.max(297, Math.ceil((actualHeightPx / 800) * 210) + 30);
+    const contentWidth = 820; // 800px content + 20px margin
+    const contentHeight = actualHeightPx + 40; // + padding
     
-    console.log('📏 Invoice height:', actualHeightPx + 'px | PDF size:', widthMM + 'mm × ' + heightMM + 'mm');
+    console.log('📏 PDF size:', contentWidth + 'px × ' + contentHeight + 'px');
     
     const options = {
-        margin       : [10, 10, 10, 10],
+        margin       : 0,
         filename     : filename,
         image        : { type: 'jpeg', quality: 0.95 },
         html2canvas  : {
@@ -2451,10 +2450,9 @@ async function downloadInvoice() {
                 const target = clonedDoc.getElementById('invoiceCard');
                 if (!target) return;
                 
-                // Basic styling
                 target.style.width = '800px';
                 target.style.maxWidth = '800px';
-                target.style.margin = '0 auto';
+                target.style.margin = '0';
                 target.style.padding = '20px';
                 target.style.background = '#ffffff';
                 target.style.color = '#333333';
@@ -2465,7 +2463,6 @@ async function downloadInvoice() {
                 target.style.visibility = 'visible';
                 target.style.opacity = '1';
                 
-                // Force ipb-grid vertical
                 const ipbGrid = target.querySelector('.ipb-grid');
                 if (ipbGrid) {
                     ipbGrid.style.display = 'flex';
@@ -2481,12 +2478,10 @@ async function downloadInvoice() {
                     item.style.padding = '10px 14px';
                 });
                 
-                // Kompres empty
                 target.querySelectorAll('br + br, p:empty, div:empty').forEach(el => {
                     el.style.display = 'none';
                 });
                 
-                // ═══ Hide print-only elements di clone ═══
                 clonedDoc.querySelectorAll(
                     '.order-header, .progress-steps, .success-icon, .success-title, ' +
                     '.success-desc, .firebase-status, .success-actions, .tracking-card, ' +
@@ -2495,10 +2490,11 @@ async function downloadInvoice() {
             }
         },
         jsPDF        : {
-            unit        : 'mm',
-            format      : [widthMM, heightMM],  // ⭐ Custom format sesuai konten
+            unit        : 'px',           // ⭐ PX unit
+            format      : [contentWidth, contentHeight],  // ⭐ Match content
             orientation : 'portrait',
-            compress    : true
+            compress    : true,
+            hotfixes    : ['px_scaling']  // ⭐ Fix scaling
         }
     };
     
@@ -2509,7 +2505,6 @@ async function downloadInvoice() {
         console.error('❌ PDF error:', err);
         showToast('Gagal generate PDF: ' + err.message);
     } finally {
-        // ═══ Reset semua class ═══
         document.body.classList.remove('html2pdf-active');
         invoiceEl.classList.remove('pdf-mode');
         if (loading) loading.classList.remove('show');
