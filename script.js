@@ -1,6 +1,6 @@
 /* ====================================================
-   IBAADURRAHMAAN — Poster Web v7.0
-   Interactive Script
+   IBAADURRAHMAAN — Web Interactive Script v8.0
+   Multi-Page Support + Fixed Nav Active
    ==================================================== */
 
 
@@ -19,44 +19,51 @@ function initNavScroll() {
 }
 
 
-/* ===== ACTIVE MENU HIGHLIGHT ===== */
-function initActiveMenu() {
-    const sections = document.querySelectorAll('section[id], div[id]');
-    const allNavLinks = document.querySelectorAll('.nav-link, .mnav-item');
+/* ===== 🎯 AUTO-ACTIVE NAV berdasarkan URL current ===== */
+function initActiveNav() {
+    // Ambil nama file dari URL
+    const path = window.location.pathname;
+    let pageName = path.split('/').pop().replace('.html', '');
     
-    function updateActive() {
-        let current = 'beranda';
-        const scrollPos = window.scrollY + 150;
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            
-            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                current = section.getAttribute('id');
-            }
-        });
-        
-        allNavLinks.forEach(link => {
-            link.classList.remove('active');
-            const href = link.getAttribute('href');
-            if (href === '#' + current) {
-                link.classList.add('active');
-            }
-        });
+    // Handle root URL (misal: / atau /Ibaadurrahmaan-web/)
+    if (!pageName || pageName === '' || pageName === 'Ibaadurrahmaan-web') {
+        pageName = 'index';
     }
     
-    window.addEventListener('scroll', updateActive);
-    updateActive();
+    console.log('📍 Current page:', pageName);
+    
+    // Semua nav item (mobile + desktop)
+    const navItems = document.querySelectorAll('.mnav-item, .nav-link');
+    
+    navItems.forEach(item => {
+        // ═══ KUNCI: Reset SEMUA active dulu ═══
+        item.classList.remove('active');
+        
+        // Cek data-page attribute (primary check)
+        const dataPage = item.getAttribute('data-page');
+        if (dataPage && dataPage === pageName) {
+            item.classList.add('active');
+            return;
+        }
+        
+        // Fallback: cek href untuk match
+        const href = item.getAttribute('href') || '';
+        const hrefPage = href.split('/').pop().replace('.html', '').replace('#', '');
+        
+        if (hrefPage === pageName || 
+            (pageName === 'index' && (href === 'index.html' || href === '/' || href === ''))) {
+            item.classList.add('active');
+        }
+    });
 }
 
 
-/* ===== SMOOTH SCROLL ===== */
+/* ===== SMOOTH SCROLL (untuk anchor #section di halaman yang sama) ===== */
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
+            if (targetId === '#' || targetId.length < 2) return;
             
             const target = document.querySelector(targetId);
             if (target) {
@@ -82,14 +89,22 @@ function initFAQ() {
         
         question.addEventListener('click', () => {
             const isActive = item.classList.contains('active');
-            faqItems.forEach(i => i.classList.remove('active'));
+            
+            // Close all FAQ items dalam group yang sama
+            const parentGroup = item.closest('.faq-group') || item.closest('.faq-list').parentElement;
+            if (parentGroup) {
+                parentGroup.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+            } else {
+                faqItems.forEach(i => i.classList.remove('active'));
+            }
+            
             if (!isActive) item.classList.add('active');
         });
     });
 }
 
 
-/* ===== AUTO-HIDE MOBILE NAV ===== */
+/* ===== AUTO-HIDE MOBILE NAV saat scroll down ===== */
 function initMobileNavAutoHide() {
     const mobileNav = document.getElementById('mobileNav');
     if (!mobileNav) return;
@@ -100,20 +115,25 @@ function initMobileNavAutoHide() {
     window.addEventListener('scroll', () => {
         const currentScroll = window.scrollY;
         
+        // Selalu show kalau di atas
         if (currentScroll < 100) {
             mobileNav.classList.remove('hidden');
             lastScroll = currentScroll;
             return;
         }
         
+        // Scroll down → hide
         if (currentScroll > lastScroll + 5) {
             mobileNav.classList.add('hidden');
-        } else if (currentScroll < lastScroll - 5) {
+        } 
+        // Scroll up → show
+        else if (currentScroll < lastScroll - 5) {
             mobileNav.classList.remove('hidden');
         }
         
         lastScroll = currentScroll;
         
+        // Auto show setelah 1.5 detik tidak scroll
         clearTimeout(scrollTimer);
         scrollTimer = setTimeout(() => {
             mobileNav.classList.remove('hidden');
@@ -122,9 +142,9 @@ function initMobileNavAutoHide() {
 }
 
 
-/* ===== HAPTIC FEEDBACK ===== */
+/* ===== HAPTIC FEEDBACK (Vibrate saat klik) ===== */
 function initHapticFeedback() {
-    document.querySelectorAll('.mnav-item, .btn-primary, .cta-button').forEach(el => {
+    document.querySelectorAll('.mnav-item, .btn-primary, .cta-button, .paket-detail-cta, .cta-bottom-btn').forEach(el => {
         el.addEventListener('click', () => {
             if (navigator.vibrate) navigator.vibrate(30);
         });
@@ -132,7 +152,7 @@ function initHapticFeedback() {
 }
 
 
-/* ===== SCROLL FADE ANIMATIONS ===== */
+/* ===== SCROLL FADE ANIMATIONS (Intersection Observer) ===== */
 function initFadeAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -151,7 +171,7 @@ function initFadeAnimations() {
 }
 
 
-/* ===== PARALLAX MOCKUPS (Desktop only) ===== */
+/* ===== PARALLAX MOCKUPS (Desktop only, khusus halaman index) ===== */
 function initMockupParallax() {
     if (!window.matchMedia('(min-width: 992px)').matches) return;
     
@@ -163,10 +183,10 @@ function initMockupParallax() {
     
     heroRight.addEventListener('mousemove', (e) => {
         const rect = heroRight.getBoundingClientRect();
-        const x = (e.clientX - rect.left - rect.width/2) / rect.width;
-        const y = (e.clientY - rect.top - rect.height/2) / rect.height;
-        laptop.style.transform = `translate(${x*8}px, ${y*8}px)`;
-        phone.style.transform = `translate(${x*-12}px, ${y*-12}px)`;
+        const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
+        const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
+        laptop.style.transform = `translate(${x * 8}px, ${y * 8}px)`;
+        phone.style.transform = `translate(${x * -12}px, ${y * -12}px)`;
     });
     
     heroRight.addEventListener('mouseleave', () => {
@@ -176,10 +196,10 @@ function initMockupParallax() {
 }
 
 
-/* ===== INIT ALL ===== */
+/* ===== INIT ALL saat DOM ready ===== */
 document.addEventListener('DOMContentLoaded', () => {
     initNavScroll();
-    initActiveMenu();
+    initActiveNav();          // ⭐ Fix nav active (multi-page)
     initSmoothScroll();
     initFAQ();
     initMobileNavAutoHide();
@@ -187,185 +207,114 @@ document.addEventListener('DOMContentLoaded', () => {
     initFadeAnimations();
     initMockupParallax();
     
+    // Console greeting
     console.log('%c👋 Halo!', 
         'color: #D4A536; font-size: 24px; font-weight: bold;');
     console.log('%cIbaadurrahmaan Web Designer', 
         'color: #FFFFFF; font-size: 14px;');
     console.log('%cChat WA: 081401643188', 
         'color: #25D366; font-size: 12px;');
+    console.log('%c🚀 v8.0 - Multi-Page Ready', 
+        'color: #D4A536; font-size: 11px; font-style: italic;');
 });
 
-// ==========================================
-// 📱 MOBILE SHEET CONTENT DATA
-// ==========================================
+
+/* ============================================
+   📱 MOBILE SHEET CONTENT DATA (Optional - kalau pakai dropdown mobile)
+   ============================================ */
 const SHEET_CONTENT = {
-    // ═══════ MENU BERANDA ═══════
     menu: {
-        title: '<i class="fas fa-home" style="color:var(--gold)"></i> Tentang Website',
+        title: '<i class="fas fa-home" style="color:var(--gold)"></i> Menu Utama',
         items: [
-            { url:'index.html',          icon:'fa-home',         iconCls:'icon-gold',   title:'Beranda',    desc:'Halaman utama' },
-            { url:'index.html#about',    icon:'fa-info-circle',  iconCls:'icon-blue',   title:'About Us',   desc:'Cerita & visi brand' },
-            { url:'index.html#services', icon:'fa-cogs',         iconCls:'icon-green',  title:'Layanan',    desc:'Jasa yang ditawarkan' },
-            { url:'index.html#portfolio',icon:'fa-images',       iconCls:'icon-purple', title:'Portfolio',  desc:'Karya-karya terbaik' },
-            { url:'index.html#faq',      icon:'fa-question-circle',iconCls:'icon-orange',title:'FAQ',       desc:'Pertanyaan umum' },
-            { url:'index.html#kontak',   icon:'fa-envelope',     iconCls:'icon-cyan',   title:'Kontak',     desc:'Hubungi kami' }
+            { url:'index.html',    icon:'fa-home',            iconCls:'icon-gold',   title:'Beranda',  desc:'Halaman utama' },
+            { url:'layanan.html',  icon:'fa-briefcase',       iconCls:'icon-blue',   title:'Layanan',  desc:'Jasa yang ditawarkan' },
+            { url:'paket.html',    icon:'fa-tag',             iconCls:'icon-green',  title:'Paket',    desc:'Pilih paket sesuai kebutuhan' },
+            { url:'reseller.html', icon:'fa-handshake',       iconCls:'icon-orange', title:'Reseller', desc:'Program komisi menarik', badge:'HOT' },
+            { url:'faq.html',      icon:'fa-question-circle', iconCls:'icon-purple', title:'FAQ',      desc:'Pertanyaan umum' }
         ]
     },
     
-    // ═══════ MENU CLIENT ═══════
     client: {
         title: '<i class="fas fa-briefcase" style="color:var(--gold)"></i> Untuk Client',
         items: [
-            { 
-                url:'paket.html',       
-                icon:'fa-box',           
-                iconCls:'icon-gold',   
-                title:'Paket & Harga',       
-                desc:'3 pilihan sesuai kebutuhan' 
-            },
-            { 
-                url:'template.html',    
-                icon:'fa-palette',       
-                iconCls:'icon-blue',   
-                title:'Template Website',    
-                desc:'Katalog design siap pakai' 
-            },
-            { 
-                url:'testimoni.html',   
-                icon:'fa-star',          
-                iconCls:'icon-orange', 
-                title:'Testimoni Client',    
-                desc:'Success stories & rating' 
-            },
-            { 
-                url:'penawaran.html',   
-                icon:'fa-file-contract', 
-                iconCls:'icon-purple', 
-                title:'Penawaran Personal',  
-                desc:'Custom offer spesial' 
-            },
-            { 
-                url:'order.html',       
-                icon:'fa-shopping-cart', 
-                iconCls:'icon-green',  
-                title:'Order Sekarang',      
-                desc:'Mulai project kamu!',
-                badge:'HOT',
-                featured:true 
-            },
-            { 
-                url:'cek-order.html',   
-                icon:'fa-search',        
-                iconCls:'icon-cyan',   
-                title:'Cek Status Order',    
-                desc:'Tracking dengan Order ID' 
-            }
+            { url:'paket.html',     icon:'fa-box',           iconCls:'icon-gold',   title:'Paket & Harga',    desc:'3 pilihan sesuai kebutuhan' },
+            { url:'order.html',     icon:'fa-shopping-cart', iconCls:'icon-green',  title:'Order Sekarang',   desc:'Mulai project kamu!', badge:'HOT', featured:true },
+            { url:'cek-order.html', icon:'fa-search',        iconCls:'icon-cyan',   title:'Cek Status Order', desc:'Tracking dengan Order ID' }
         ]
     },
     
-    // ═══════ MENU RESELLER ═══════
     reseller: {
         title: '<i class="fas fa-handshake" style="color:var(--gold)"></i> Program Reseller',
         items: [
-            { 
-                url:'reseller.html',           
-                icon:'fa-info-circle',    
-                iconCls:'icon-gold',   
-                title:'Kenapa Jadi Reseller?', 
-                desc:'Benefit & tier komisi' 
-            },
-            { 
-                url:'reseller-simulasi.html',  
-                icon:'fa-calculator',     
-                iconCls:'icon-gold',   
-                title:'Simulasi Penghasilan',  
-                desc:'Hitung potensi income kamu',
-                badgeGold:'HOT',
-                featuredGold:true
-            },
-            { 
-                url:'reseller-daftar.html',    
-                icon:'fa-user-plus',      
-                iconCls:'icon-green',  
-                title:'Daftar Reseller',       
-                desc:'Gratis, tanpa modal!',
-                badge:'FREE',
-                featured:true 
-            },
-            { 
-                url:'reseller-mou.html',       
-                icon:'fa-file-signature', 
-                iconCls:'icon-blue',   
-                title:'MoU Kerja Sama',        
-                desc:'Perjanjian & syarat' 
-            },
-            { 
-                url:'reseller-kit.html',       
-                icon:'fa-gift',           
-                iconCls:'icon-purple', 
-                title:'Starter Kit',           
-                desc:'Marketing materials gratis' 
-            }
+            { url:'reseller.html',          icon:'fa-info-circle',    iconCls:'icon-gold',   title:'Kenapa Jadi Reseller?', desc:'Benefit & tier komisi' },
+            { url:'reseller-simulasi.html', icon:'fa-calculator',     iconCls:'icon-gold',   title:'Simulasi Penghasilan',  desc:'Hitung potensi income', badgeGold:'HOT', featuredGold:true },
+            { url:'reseller-daftar.html',   icon:'fa-user-plus',      iconCls:'icon-green',  title:'Daftar Reseller',       desc:'Gratis, tanpa modal!', badge:'FREE', featured:true }
         ]
     }
 };
 
 
-// ==========================================
-// 🖥️ DESKTOP NAVBAR DROPDOWN
-// ==========================================
-function toggleDropdown(e, id){
+/* ============================================
+   🖥️ DESKTOP NAVBAR DROPDOWN (kalau ada)
+   ============================================ */
+function toggleDropdown(e, id) {
     e.preventDefault();
     e.stopPropagation();
     
     const item = e.currentTarget.closest('.nav-item');
+    if (!item) return;
+    
     const isOpen = item.classList.contains('open');
     
     // Close all others
     document.querySelectorAll('.nav-item.open').forEach(i => {
-        if(i !== item) i.classList.remove('open');
+        if (i !== item) i.classList.remove('open');
     });
     
     // Toggle current
     item.classList.toggle('open');
 }
 
-// Close on outside click
+// Close dropdown on outside click
 document.addEventListener('click', e => {
-    if(!e.target.closest('.nav-has-dropdown')){
+    if (!e.target.closest('.nav-has-dropdown')) {
         document.querySelectorAll('.nav-item.open').forEach(i => i.classList.remove('open'));
     }
 });
 
-// Close with ESC
+// Close with ESC key
 document.addEventListener('keydown', e => {
-    if(e.key === 'Escape'){
+    if (e.key === 'Escape') {
         document.querySelectorAll('.nav-item.open').forEach(i => i.classList.remove('open'));
-        closeMobileSheet();
+        if (typeof closeMobileSheet === 'function') closeMobileSheet();
     }
 });
 
 
-// ==========================================
-// 📱 MOBILE BOTTOM SHEET
-// ==========================================
-function openMobileSheet(type){
+/* ============================================
+   📱 MOBILE BOTTOM SHEET (kalau pakai)
+   ============================================ */
+function openMobileSheet(type) {
     const data = SHEET_CONTENT[type];
-    if(!data) return;
+    if (!data) return;
     
-    document.getElementById('sheetTitle').innerHTML = data.title;
+    const sheetTitle = document.getElementById('sheetTitle');
+    const sheetContent = document.getElementById('sheetContent');
+    const overlay = document.getElementById('mobileSheetOverlay');
+    const sheet = document.getElementById('mobileSheet');
     
-    const content = document.getElementById('sheetContent');
-    content.innerHTML = data.items.map(item => {
-        // Tentukan class
+    if (!sheetTitle || !sheetContent || !overlay || !sheet) return;
+    
+    sheetTitle.innerHTML = data.title;
+    
+    sheetContent.innerHTML = data.items.map(item => {
         let extraCls = '';
-        if(item.featured) extraCls = 'featured';
-        if(item.featuredGold) extraCls = 'featured-gold';
+        if (item.featured) extraCls = 'featured';
+        if (item.featuredGold) extraCls = 'featured-gold';
         
-        // Tentukan badge
         let badge = '';
-        if(item.badge) badge = `<span class="dd-badge">${item.badge}</span>`;
-        if(item.badgeGold) badge = `<span class="dd-badge dd-badge-gold">${item.badgeGold}</span>`;
+        if (item.badge) badge = `<span class="dd-badge">${item.badge}</span>`;
+        if (item.badgeGold) badge = `<span class="dd-badge dd-badge-gold">${item.badgeGold}</span>`;
         
         return `
             <a href="${item.url}" class="sheet-link ${extraCls}">
@@ -381,37 +330,16 @@ function openMobileSheet(type){
         `;
     }).join('');
     
-    document.getElementById('mobileSheetOverlay').classList.add('show');
-    document.getElementById('mobileSheet').classList.add('show');
+    overlay.classList.add('show');
+    sheet.classList.add('show');
     document.body.style.overflow = 'hidden';
 }
 
-function closeMobileSheet(){
-    document.getElementById('mobileSheetOverlay').classList.remove('show');
-    document.getElementById('mobileSheet').classList.remove('show');
+function closeMobileSheet() {
+    const overlay = document.getElementById('mobileSheetOverlay');
+    const sheet = document.getElementById('mobileSheet');
+    
+    if (overlay) overlay.classList.remove('show');
+    if (sheet) sheet.classList.remove('show');
     document.body.style.overflow = '';
 }
-
-
-// ==========================================
-// 🎯 SCROLL EFFECT
-// ==========================================
-window.addEventListener('scroll', () => {
-    const nav = document.querySelector('.navbar-main');
-    if(nav) nav.classList.toggle('scrolled', window.scrollY > 20);
-});
-
-
-// ==========================================
-// 🎯 AUTO-DETECT CURRENT PAGE
-// ==========================================
-document.addEventListener('DOMContentLoaded', () => {
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    
-    // Highlight nav item
-    document.querySelectorAll('.nav-link, .mnav-item, .sheet-link').forEach(link => {
-        if(link.href && link.href.includes(currentPage)){
-            link.classList.add('active');
-        }
-    });
-});
