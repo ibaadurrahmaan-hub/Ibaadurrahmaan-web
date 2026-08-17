@@ -445,6 +445,105 @@
     margin:0 0 8px 0 !important;
 }
 
+/* ═══ CHECKBOX — DARK THEME ═══ */
+.swal-premium .swal2-checkbox{
+    background:#0D1829 !important;
+    color:#fff !important;
+    border:1.5px solid rgba(212,165,54,0.25) !important;
+    border-radius:10px !important;
+    padding:14px 16px !important;
+    margin:14px auto !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    gap:12px !important;
+    width:calc(100% - 32px) !important;
+    max-width:400px !important;
+    box-sizing:border-box !important;
+    font-family:'Poppins',sans-serif !important;
+    font-size:0.88rem !important;
+    font-weight:600 !important;
+    cursor:pointer !important;
+    transition:all 0.3s ease !important;
+    text-align:left !important;
+}
+
+.swal-premium .swal2-checkbox:hover{
+    border-color:rgba(212,165,54,0.5) !important;
+    background:#12233d !important;
+}
+
+.swal-premium .swal2-checkbox input[type="checkbox"]{
+    appearance:none !important;
+    -webkit-appearance:none !important;
+    -moz-appearance:none !important;
+    width:20px !important;
+    height:20px !important;
+    min-width:20px !important;
+    background:#0A1626 !important;
+    border:2px solid rgba(212,165,54,0.4) !important;
+    border-radius:5px !important;
+    cursor:pointer !important;
+    position:relative !important;
+    margin:0 !important;
+    padding:0 !important;
+    flex-shrink:0 !important;
+    transition:all 0.2s ease !important;
+    box-shadow:none !important;
+    outline:none !important;
+}
+
+.swal-premium .swal2-checkbox input[type="checkbox"]:hover{
+    border-color:#d4a536 !important;
+    background:#12233d !important;
+}
+
+.swal-premium .swal2-checkbox input[type="checkbox"]:checked{
+    background:linear-gradient(135deg,#d4a536,#c19a2e) !important;
+    border-color:#d4a536 !important;
+}
+
+.swal-premium .swal2-checkbox input[type="checkbox"]:checked::after{
+    content:'✓' !important;
+    position:absolute !important;
+    top:50% !important;
+    left:50% !important;
+    transform:translate(-50%,-50%) !important;
+    color:#050B18 !important;
+    font-size:14px !important;
+    font-weight:900 !important;
+    line-height:1 !important;
+}
+
+.swal-premium .swal2-checkbox input[type="checkbox"]:focus{
+    box-shadow:0 0 0 3px rgba(212,165,54,0.2) !important;
+    outline:none !important;
+}
+
+.swal-premium .swal2-checkbox .swal2-label{
+    color:#fff !important;
+    font-size:0.88rem !important;
+    font-weight:600 !important;
+    font-family:'Poppins',sans-serif !important;
+    margin:0 !important;
+    padding:0 !important;
+    line-height:1.4 !important;
+    cursor:pointer !important;
+    flex:1 !important;
+    text-align:left !important;
+    text-transform:none !important;
+    letter-spacing:normal !important;
+}
+
+/* Kalau ada label emas di dalam checkbox, override */
+.swal-premium .swal2-checkbox label{
+    color:#fff !important;
+    text-transform:none !important;
+    letter-spacing:normal !important;
+    font-size:0.88rem !important;
+    margin:0 !important;
+    padding:0 !important;
+}
 
 /* ══════════════════════════════════════════
    💰 QUICK UPDATE PAYMENT MODAL (Custom)
