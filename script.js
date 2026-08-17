@@ -222,33 +222,34 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ============================================
    📱 MOBILE SHEET CONTENT DATA (Optional - kalau pakai dropdown mobile)
    ============================================ */
+
 const SHEET_CONTENT = {
-    menu: {
-        title: '<i class="fas fa-home" style="color:var(--gold)"></i> Menu Utama',
+    layanan: {
+        title: '<i class="fas fa-briefcase" style="color:var(--gold)"></i> Layanan Kami',
         items: [
-            { url:'index.html',    icon:'fa-home',            iconCls:'icon-gold',   title:'Beranda',  desc:'Halaman utama' },
-            { url:'layanan.html',  icon:'fa-briefcase',       iconCls:'icon-blue',   title:'Layanan',  desc:'Jasa yang ditawarkan' },
-            { url:'paket.html',    icon:'fa-tag',             iconCls:'icon-green',  title:'Paket',    desc:'Pilih paket sesuai kebutuhan' },
-            { url:'reseller.html', icon:'fa-handshake',       iconCls:'icon-orange', title:'Reseller', desc:'Program komisi menarik', badge:'HOT' },
-            { url:'faq.html',      icon:'fa-question-circle', iconCls:'icon-purple', title:'FAQ',      desc:'Pertanyaan umum' }
+            { url:'layanan.html',  icon:'fa-briefcase', iconCls:'icon-blue',   title:'Layanan Kami',    desc:'Overview semua jasa' },
+            { url:'portfolio.html',icon:'fa-images',    iconCls:'icon-purple', title:'Portfolio',       desc:'Karya-karya terbaik' },
+            { url:'template.html', icon:'fa-palette',   iconCls:'icon-green',  title:'Template Website',desc:'Katalog design siap pakai' },
+            { url:'demo/',         icon:'fa-globe',     iconCls:'icon-cyan',   title:'Live Demo',       desc:'Coba website interaktif' }
         ]
     },
     
-    client: {
-        title: '<i class="fas fa-briefcase" style="color:var(--gold)"></i> Untuk Client',
+    paket: {
+        title: '<i class="fas fa-tag" style="color:var(--gold)"></i> Paket & Order',
         items: [
-            { url:'paket.html',     icon:'fa-box',           iconCls:'icon-gold',   title:'Paket & Harga',    desc:'3 pilihan sesuai kebutuhan' },
+            { url:'paket.html',     icon:'fa-tag',           iconCls:'icon-gold',   title:'Paket & Harga',    desc:'3 pilihan sesuai kebutuhan' },
             { url:'order.html',     icon:'fa-shopping-cart', iconCls:'icon-green',  title:'Order Sekarang',   desc:'Mulai project kamu!', badge:'HOT', featured:true },
-            { url:'cek-order.html', icon:'fa-search',        iconCls:'icon-cyan',   title:'Cek Status Order', desc:'Tracking dengan Order ID' }
+            { url:'penawaran.html', icon:'fa-file-contract', iconCls:'icon-purple', title:'Penawaran Personal',desc:'Custom offer spesial' }
         ]
     },
     
     reseller: {
         title: '<i class="fas fa-handshake" style="color:var(--gold)"></i> Program Reseller',
         items: [
-            { url:'reseller.html',          icon:'fa-info-circle',    iconCls:'icon-gold',   title:'Kenapa Jadi Reseller?', desc:'Benefit & tier komisi' },
-            { url:'reseller-simulasi.html', icon:'fa-calculator',     iconCls:'icon-gold',   title:'Simulasi Penghasilan',  desc:'Hitung potensi income', badgeGold:'HOT', featuredGold:true },
-            { url:'reseller-daftar.html',   icon:'fa-user-plus',      iconCls:'icon-green',  title:'Daftar Reseller',       desc:'Gratis, tanpa modal!', badge:'FREE', featured:true }
+            { url:'reseller.html',        icon:'fa-info-circle',    iconCls:'icon-gold',   title:'Info Reseller',    desc:'Benefit & tier komisi' },
+            { url:'reseller.html#daftar', icon:'fa-user-plus',      iconCls:'icon-green',  title:'Daftar Reseller',  desc:'Gratis, tanpa modal!', badge:'FREE', featured:true },
+            { url:'mou-reseller.html',    icon:'fa-file-signature', iconCls:'icon-blue',   title:'MoU Kerja Sama',   desc:'Perjanjian & syarat' },
+            { url:'starter-kit.html',     icon:'fa-gift',           iconCls:'icon-purple', title:'Starter Kit',      desc:'Marketing materials gratis' }
         ]
     }
 };
