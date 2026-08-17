@@ -75,7 +75,7 @@
 
 <style>
 /* ============================================
-   📱 WHATSAPP CONFIRM MODAL (Optional - kalau mau pakai modal)
+   📱 WHATSAPP CONFIRM MODAL
    ============================================ */
 .wa-modal-overlay {
   position: fixed;
@@ -209,16 +209,15 @@
     width: 800px !important;
     max-width: 800px !important;
     margin: 0 auto !important;
-    padding: 20px !important;
+    padding: 15px !important;
     background: #ffffff !important;
     color: #333 !important;
     box-shadow: none !important;
     border-radius: 0 !important;
-    font-size: 12px !important;
-    line-height: 1.5 !important;
+    font-size: 11px !important;
+    line-height: 1.4 !important;
 }
 
-/* Header PDF Mode */
 .pdf-mode h1,
 .pdf-mode h2 {
     font-size: 1.4rem !important;
@@ -231,45 +230,35 @@
     font-size: 1rem !important;
 }
 
-/* Grid layout untuk PDF (kompres) */
 .pdf-mode .invoice-grid,
 .pdf-mode .invoice-info-grid {
     grid-template-columns: 1fr 1fr !important;
     gap: 16px !important;
 }
 
-/* Tabel PDF */
 .pdf-mode table {
     width: 100% !important;
     font-size: 11px !important;
     border-collapse: collapse !important;
+    margin: 10px 0 !important;
 }
 
 .pdf-mode table th,
 .pdf-mode table td {
-    padding: 8px 6px !important;
+    padding: 6px 8px !important;
     word-break: break-word !important;
     white-space: normal !important;
+    font-size: 10.5px !important;
+    line-height: 1.3 !important;
 }
 
-/* Kolom item tabel — kasih width fixed */
 .pdf-mode table th:nth-child(1),
-.pdf-mode table td:nth-child(1) {
-    width: 30% !important;
-}
-
+.pdf-mode table td:nth-child(1) { width: 30% !important; }
 .pdf-mode table th:nth-child(2),
-.pdf-mode table td:nth-child(2) {
-    width: 40% !important;
-}
-
+.pdf-mode table td:nth-child(2) { width: 40% !important; }
 .pdf-mode table th:nth-child(3),
-.pdf-mode table td:nth-child(3) {
-    width: 30% !important;
-    text-align: right !important;
-}
+.pdf-mode table td:nth-child(3) { width: 30% !important; text-align: right !important; }
 
-/* Badge status */
 .pdf-mode .status-badge,
 .pdf-mode .invoice-status {
     font-size: 10px !important;
@@ -277,31 +266,26 @@
     white-space: nowrap !important;
 }
 
-/* Nomor invoice */
 .pdf-mode .invoice-number,
 .pdf-mode .inv-number {
     font-size: 0.85rem !important;
     word-break: break-all !important;
 }
 
-/* Summary total */
 .pdf-mode .total-row,
-.pdf-mode .summary-total {
-    font-size: 1.1rem !important;
-}
+.pdf-mode .summary-total { font-size: 1.1rem !important; }
 
-.pdf-mode .total-amount {
-    font-size: 1.3rem !important;
+.pdf-mode .total-amount,
+.pdf-mode .summary-total .value {
+    font-size: 1.2rem !important;
     word-break: break-all !important;
 }
 
-/* Prevent overflow */
 .pdf-mode * {
     max-width: 100% !important;
     box-sizing: border-box !important;
 }
 
-/* Force hide di PDF */
 .pdf-mode .no-pdf,
 .pdf-mode .btn-copy,
 .pdf-mode .btn-download,
@@ -310,10 +294,11 @@
     display: none !important;
 }
 
-/* Force wrapping */
 .pdf-mode .invoice-header {
     flex-wrap: wrap !important;
     gap: 12px !important;
+    margin-bottom: 12px !important;
+    padding-bottom: 8px !important;
 }
 
 .pdf-mode .brand-title,
@@ -323,14 +308,6 @@
     word-wrap: break-word !important;
 }
 
-/* ═══ PDF MODE: Compact untuk 1 halaman ═══ */
-.pdf-mode {
-    padding: 15px !important;
-    font-size: 11px !important;
-    line-height: 1.4 !important;
-}
-
-/* Kurangi jarak antar section */
 .pdf-mode .invoice-section,
 .pdf-mode section,
 .pdf-mode .invoice-grid {
@@ -338,24 +315,6 @@
     padding: 8px !important;
 }
 
-/* Header compact */
-.pdf-mode .invoice-header {
-    margin-bottom: 12px !important;
-    padding-bottom: 8px !important;
-}
-
-/* Tabel compact */
-.pdf-mode table {
-    margin: 10px 0 !important;
-}
-.pdf-mode table th,
-.pdf-mode table td {
-    padding: 6px 8px !important;
-    font-size: 10.5px !important;
-    line-height: 1.3 !important;
-}
-
-/* Summary compact */
 .pdf-mode .invoice-summary,
 .pdf-mode .summary-section {
     margin-top: 8px !important;
@@ -366,29 +325,21 @@
     font-size: 11px !important;
 }
 
-/* Total tetap besar */
-.pdf-mode .total-amount,
-.pdf-mode .summary-total .value {
-    font-size: 1.2rem !important;
-}
-
-/* Payment box compact */
 .pdf-mode .payment-box {
     padding: 10px !important;
     margin-top: 10px !important;
 }
 
-/* Hilangkan whitespace berlebihan */
 .pdf-mode br + br { display: none !important; }
 .pdf-mode p:empty { display: none !important; }
 
-/* Force no break untuk summary+total */
 .pdf-mode .invoice-summary,
 .pdf-mode .total-section {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
 }
 </style>
+
 <!-- 📄 html2pdf.js — untuk generate PDF invoice -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
@@ -889,52 +840,51 @@
               <h2><i class="fas fa-credit-card"></i> Metode Pembayaran</h2>
             </div>
             <div class="payment-methods">
-<label class="payment-option active">
-  <input type="radio" name="payment" value="bank_transfer" checked onchange="selectPayment(this)">
-  <div class="po-radio"></div>
-  <div class="po-icon"><i class="fas fa-university"></i></div>
-  <div class="po-info">
-    <div class="po-name">Transfer Bank & E-Wallet</div>
-    <div class="po-desc">BRI, DANA, GoPay</div>
-  </div>
-  <div class="po-badge popular">Populer</div>
-</label>
-              </label> 
+              <label class="payment-option active">
+                <input type="radio" name="payment" value="bank_transfer" checked onchange="selectPayment(this)">
+                <div class="po-radio"></div>
+                <div class="po-icon"><i class="fas fa-university"></i></div>
+                <div class="po-info">
+                  <div class="po-name">Transfer Bank & E-Wallet</div>
+                  <div class="po-desc">BRI, DANA, GoPay</div>
+                </div>
+                <div class="po-badge popular">Populer</div>
+              </label>
             </div>
           </div>
 
           <div class="section-card payment-detail" id="paymentDetail">
             <h3><i class="fas fa-info-circle"></i> Detail Pembayaran</h3>
-<div class="bank-options">
-  <div class="bank-option active" onclick="selectBank(this,'BRI','042301024084503','a.n. Syarif Iswandi')">
-    <div class="bo-logo bo-bri">BRI</div>
-    <span>Bank BRI</span>
-  </div>
-  <div class="bank-option" onclick="selectBank(this,'DANA','081401643188','a.n. Syarif Iswandi')">
-    <div class="bo-logo bo-dana">DANA</div>
-    <span>DANA</span>
-  </div>
-  <div class="bank-option" onclick="selectBank(this,'GoPay','081401643188','a.n. Syarif Iswandi')">
-    <div class="bo-logo bo-gopay">GPAY</div>
-    <span>GoPay</span>
-  </div>
-</div>
+            <div class="bank-options">
+              <div class="bank-option active" onclick="selectBank(this,'BRI','042301024084503','a.n. Syarif Iswandi')">
+                <div class="bo-logo bo-bri">BRI</div>
+                <span>Bank BRI</span>
+              </div>
+              <div class="bank-option" onclick="selectBank(this,'DANA','081401643188','a.n. Syarif Iswandi')">
+                <div class="bo-logo bo-dana">DANA</div>
+                <span>DANA</span>
+              </div>
+              <div class="bank-option" onclick="selectBank(this,'GoPay','081401643188','a.n. Syarif Iswandi')">
+                <div class="bo-logo bo-gopay">GPAY</div>
+                <span>GoPay</span>
+              </div>
+            </div>
             <div class="bank-detail">
-  <div class="bd-item">
-    <span class="bd-label">Bank / E-Wallet Tujuan</span>
-    <span class="bd-value" id="bankName">BRI</span>
-  </div>
-  <div class="bd-item">
-    <span class="bd-label">Nomor Rekening / Akun</span>
-    <div class="bd-copy">
-      <span class="bd-value" id="bankAccount">042301024084503</span>
-      <button class="btn-copy" onclick="copyText('bankAccount')"><i class="fas fa-copy"></i> Salin</button>
-    </div>
-  </div>
-  <div class="bd-item">
-    <span class="bd-label">Atas Nama</span>
-    <span class="bd-value" id="bankHolder">a.n. Syarif Iswandi</span>
-  </div>
+              <div class="bd-item">
+                <span class="bd-label">Bank / E-Wallet Tujuan</span>
+                <span class="bd-value" id="bankName">BRI</span>
+              </div>
+              <div class="bd-item">
+                <span class="bd-label">Nomor Rekening / Akun</span>
+                <div class="bd-copy">
+                  <span class="bd-value" id="bankAccount">042301024084503</span>
+                  <button class="btn-copy" onclick="copyText('bankAccount')"><i class="fas fa-copy"></i> Salin</button>
+                </div>
+              </div>
+              <div class="bd-item">
+                <span class="bd-label">Atas Nama</span>
+                <span class="bd-value" id="bankHolder">a.n. Syarif Iswandi</span>
+              </div>
               <div class="bd-item highlight">
                 <span class="bd-label">Jumlah Transfer</span>
                 <div class="bd-copy">
@@ -1039,17 +989,17 @@
         </div>
 
         <div class="invoice-card" id="invoiceCard">
-<div class="invoice-header">
-  <div class="inv-brand">
-    <div class="inv-logo-wrap">
-      <img src="main-logo.png" alt="Ibaadurrahmaan Logo" class="inv-logo-img"
-           onerror="this.parentElement.innerHTML='<div class=\'inv-logo-fallback\'>I</div>'">
-    </div>
-    <div class="inv-brand-info">
-      <span class="inv-brand-name">Ibaadurrahmaan</span>
-      <span class="inv-brand-tag">WEB DESIGNER</span>
-    </div>
-  </div>
+          <div class="invoice-header">
+            <div class="inv-brand">
+              <div class="inv-logo-wrap">
+                <img src="main-logo.png" alt="Ibaadurrahmaan Logo" class="inv-logo-img"
+                     onerror="this.parentElement.innerHTML='<div class=\'inv-logo-fallback\'>I</div>'">
+              </div>
+              <div class="inv-brand-info">
+                <span class="inv-brand-name">Ibaadurrahmaan</span>
+                <span class="inv-brand-tag">WEB DESIGNER</span>
+              </div>
+            </div>
             <div class="inv-title">
               <h2>INVOICE</h2>
               <div class="inv-number" id="invNumber">INV-20250615-XXXX</div>
@@ -1117,10 +1067,10 @@
               <i class="fas fa-university"></i>
               <h4>Instruksi Pembayaran</h4>
             </div>
-<div class="ipb-grid">
-  <div class="ipb-item"><span class="ipb-label">Bank / E-Wallet</span><span class="ipb-value" id="invBankName">BRI</span></div>
-  <div class="ipb-item"><span class="ipb-label">No. Rekening / Akun</span><span class="ipb-value" id="invBankAcc">042301024084503</span></div>
-  <div class="ipb-item"><span class="ipb-label">Atas Nama</span><span class="ipb-value" id="invBankHolder">a.n. Syarif Iswandi</span></div>
+            <div class="ipb-grid">
+              <div class="ipb-item"><span class="ipb-label">Bank / E-Wallet</span><span class="ipb-value" id="invBankName">BRI</span></div>
+              <div class="ipb-item"><span class="ipb-label">No. Rekening / Akun</span><span class="ipb-value" id="invBankAcc">042301024084503</span></div>
+              <div class="ipb-item"><span class="ipb-label">Atas Nama</span><span class="ipb-value" id="invBankHolder">a.n. Syarif Iswandi</span></div>
               <div class="ipb-item highlight">
                 <span class="ipb-label">Jumlah Transfer</span>
                 <span class="ipb-value ipb-amount" id="invPayTotal">Rp 0</span>
@@ -1256,7 +1206,7 @@
 
 
 <!-- ==========================================
-     🔥 FIREBASE SDK (Modular v10) — dengan support Firestore Query
+     🔥 FIREBASE SDK (Modular v10)
      ========================================== -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -1284,16 +1234,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 
-// Expose ke window agar bisa diakses dari script biasa
 window.fbOrder = {
-    db,
-    collection,
-    addDoc,
-    getDocs,
-    query,
-    where,
-    limit,
-    serverTimestamp,
+    db, collection, addDoc, getDocs, query, where, limit, serverTimestamp,
     ready: true
 };
 
@@ -1516,7 +1458,7 @@ document.querySelectorAll('input[name="deadline"]').forEach(r => {
 
 
 // ============================================
-// 🔥 RESELLER VERIFICATION (via Firestore) — UPDATED
+// 🔥 RESELLER VERIFICATION
 // ============================================
 async function verifyReseller() {
   const input  = document.getElementById('resellerCode');
@@ -1533,7 +1475,6 @@ async function verifyReseller() {
     return;
   }
 
-  // Cek Firebase ready
   if (!window.fbOrder || !window.fbOrder.ready) {
     result.innerHTML = `
       <div class="reseller-error">
@@ -1543,15 +1484,12 @@ async function verifyReseller() {
     return;
   }
 
-  // Loading state
   btn.classList.add('loading');
   btn.querySelector('i').className = 'fas fa-spinner fa-spin';
   btn.querySelector('span').textContent = 'Checking...';
 
   try {
     const fb = window.fbOrder;
-
-    // 🔥 Query ke Firestore: cari reseller aktif dengan resellerCode yang sesuai
     const q = fb.query(
       fb.collection(fb.db, 'resellers'),
       fb.where('resellerCode', '==', code),
@@ -1561,27 +1499,22 @@ async function verifyReseller() {
 
     const snap = await fb.getDocs(q);
 
-    // Reset button
     btn.classList.remove('loading');
     btn.querySelector('i').className = 'fas fa-search';
     btn.querySelector('span').textContent = 'Verifikasi';
 
     if (!snap.empty) {
-      // ✅ Reseller ditemukan & aktif
       const docSnap = snap.docs[0];
       const data    = docSnap.data();
 
-      // Tentukan tahun bergabung
       let sinceYear = '2025';
       if (data.createdDate) {
-        // Format "15/8/2025" → ambil tahun
         const parts = data.createdDate.split('/');
         if (parts.length === 3) sinceYear = parts[2];
       } else if (data.timestamp?.toDate) {
         sinceYear = data.timestamp.toDate().getFullYear().toString();
       }
 
-      // Tentukan tier label
       const tierRaw = (data.tier || 'silver').toLowerCase();
       const tierLabel = tierRaw.charAt(0).toUpperCase() + tierRaw.slice(1) + ' Reseller';
 
@@ -1620,7 +1553,6 @@ async function verifyReseller() {
       showToast('✅ Kode terverifikasi: ' + verifiedReseller.name);
 
     } else {
-      // ❌ Kode tidak ditemukan atau status bukan active
       verifiedReseller = null;
       result.innerHTML = `
         <div class="reseller-error">
@@ -1638,7 +1570,6 @@ async function verifyReseller() {
 
     verifiedReseller = null;
 
-    // Deteksi error index (composite index belum dibuat)
     const errMsg = err.message || String(err);
     if (errMsg.includes('index') || errMsg.includes('failed-precondition')) {
       const linkMatch = errMsg.match(/https:\/\/[^\s]+/);
@@ -1769,16 +1700,14 @@ function goToStep(n) {
 
 
 // ============================================
-// 🔥 PLACE ORDER → FIREBASE + AUTO WA (UPDATED — include referral ID)
+// 🔥 PLACE ORDER
 // ============================================
 async function placeOrder() {
-  // Validasi terms
   if (!document.getElementById('agreeTerms').checked) {
     showToast('Setujui Syarat & Ketentuan terlebih dahulu');
     return;
   }
 
-  // Overlay loading
   const overlay = document.getElementById('processingOverlay');
   const titleEl = document.getElementById('processingTitle');
   const descEl  = document.getElementById('processingDesc');
@@ -1787,11 +1716,9 @@ async function placeOrder() {
   titleEl.textContent = 'Menyimpan Pesanan...';
   descEl.textContent  = 'Mengirim data ke database, mohon tunggu';
 
-  // Generate order ID
   const orderId   = generateOrderId();
   _currentOrderId = orderId;
 
-  // Kumpulkan data form
   const c          = calculate();
   const name       = document.getElementById('fullName').value.trim();
   const company    = document.getElementById('companyName').value.trim();
@@ -1811,18 +1738,14 @@ async function placeOrder() {
     price: parseInt(a.dataset.price)
   }));
 
-  // ═══ Data payment status (default: pending) ═══
   const paymentStatus = 'pending';
   const dpAmount = 0;
   const paidAmount = 0;
 
   const clientData = {
-    orderId,
-    name,
+    orderId, name,
     company : company || '',
-    phone   : phoneNorm,
-    phoneRaw,
-    email,
+    phone   : phoneNorm, phoneRaw, email,
     project : selectedPkg.dataset.name,
     paketKey: selectedPkg.dataset.pkg,
     value   : 'Rp ' + c.pkgPrice.toLocaleString('id-ID'),
@@ -1833,7 +1756,6 @@ async function placeOrder() {
     addons      : addonsArr,
     deadline    : selectedDeadline,
     deadlineKey : dlValue,
-
     priceDetail : {
       basePrice   : c.pkgPrice,
       addonsTotal : c.addonsPrice,
@@ -1847,23 +1769,16 @@ async function placeOrder() {
       remaining   : c.remaining,
       paymentType : paymentType
     },
-
     paymentMethod : selectedPayment,
     bankName      : selectedBank.name,
     bankAccount   : selectedBank.account,
     bankHolder    : selectedBank.holder,
-
-    // ═══ PAYMENT STATUS (untuk sistem komisi) ═══
-    paymentStatus : paymentStatus,   // pending | paid_partial | paid_full
+    paymentStatus : paymentStatus,
     dpAmount      : dpAmount,
     paidAmount    : paidAmount,
-
-    // ═══ REFERRAL INFO (jika ada kode reseller) ═══
     referralCode  : verifiedReseller ? verifiedReseller.code : '',
     referralName  : verifiedReseller ? verifiedReseller.name : '',
     referralTier  : verifiedReseller ? verifiedReseller.tierRaw : '',
-
-    // ⭐ Object referral lengkap untuk sistem komisi
     referral: verifiedReseller ? {
       resellerId       : verifiedReseller.id,
       resellerName     : verifiedReseller.name,
@@ -1873,16 +1788,14 @@ async function placeOrder() {
       resellerPhone    : verifiedReseller.phone,
       commissionStatus : 'pending'
     } : null,
-
     voucherCode   : couponCode || '',
-    status        : 'pending',   // project status
+    status        : 'pending',
     source        : 'order_form_website',
     notes         : '[Website Order] ' + (desc || 'Order via order.html'),
     createdAt     : window.fbOrder?.serverTimestamp() || new Date().toISOString(),
     updatedAt     : window.fbOrder?.serverTimestamp() || new Date().toISOString()
   };
 
-  // Kirim ke Firestore (collection: clients)
   let savedToFirebase = false;
   let firebaseDocId = null;
 
@@ -1902,14 +1815,12 @@ async function placeOrder() {
       if (verifiedReseller) {
         console.log('🎁 Referral tercatat:', verifiedReseller.name, '(' + verifiedReseller.code + ')');
       }
-
     } catch (fbErr) {
       console.error('❌ Firebase error:', fbErr);
       savedToFirebase = false;
     }
   }
 
-  // Generate Invoice
   titleEl.textContent = 'Membuat Invoice...';
   descEl.textContent  = 'Hampir selesai!';
 
@@ -1919,7 +1830,6 @@ async function placeOrder() {
   generateInvoice(orderId);
   goToStep(4);
 
-  // Firebase status badge
   const statusEl   = document.getElementById('firebaseStatus');
   const statusText = document.getElementById('firebaseStatusText');
   if (statusEl && statusText) {
@@ -1939,73 +1849,11 @@ async function placeOrder() {
     }
   }
 
-  // 📱 AUTO-OPEN WHATSAPP setelah 2 detik
   setTimeout(() => {
     const waUrl = document.getElementById('waConfirm').href;
     window.open(waUrl, '_blank');
     showToast('WhatsApp dibuka otomatis 📱');
   }, 2000);
-}
-
-
-// ============================================
-// 📱 MODAL KONFIRMASI KIRIM WA (Optional)
-// ============================================
-function showWhatsAppConfirmModal(orderId, customerName, savedOK) {
-  let modal = document.getElementById('waConfirmModal');
-  if (!modal) {
-    modal = document.createElement('div');
-    modal.id = 'waConfirmModal';
-    modal.className = 'wa-modal-overlay';
-    modal.innerHTML = `
-      <div class="wa-modal-box">
-        <div class="wa-modal-icon">
-          <i class="fab fa-whatsapp"></i>
-        </div>
-        <h3 class="wa-modal-title">Order Berhasil Dibuat! 🎉</h3>
-        <p class="wa-modal-desc">
-          Untuk mempercepat proses, kirim konfirmasi order ke Admin via WhatsApp.
-          <br><br>
-          <strong>Pesan sudah kami siapkan otomatis</strong> — kamu tinggal klik <b>Send</b> di WhatsApp!
-        </p>
-        <div class="wa-modal-order-id" id="waModalOrderId">-</div>
-        <div class="wa-modal-actions">
-          <button class="wa-modal-btn wa-btn-later" onclick="closeWaModal()">
-            <i class="fas fa-clock"></i> Nanti Saja
-          </button>
-          <button class="wa-modal-btn wa-btn-send" onclick="sendToWhatsApp()">
-            <i class="fab fa-whatsapp"></i> Kirim Sekarang
-          </button>
-        </div>
-        <p class="wa-modal-note">
-          <i class="fas fa-info-circle"></i>
-          Admin akan merespons dalam 1×24 jam
-        </p>
-      </div>
-    `;
-    document.body.appendChild(modal);
-  }
-
-  document.getElementById('waModalOrderId').textContent = orderId;
-  requestAnimationFrame(() => modal.classList.add('show'));
-  document.body.style.overflow = 'hidden';
-}
-
-function sendToWhatsApp() {
-  const waUrl = document.getElementById('waConfirm').href;
-  window.open(waUrl, '_blank');
-  closeWaModal();
-  showToast('WhatsApp dibuka di tab baru 📱');
-}
-
-function closeWaModal() {
-  const modal = document.getElementById('waConfirmModal');
-  if (modal) {
-    modal.classList.remove('show');
-    setTimeout(() => {
-      document.body.style.overflow = '';
-    }, 300);
-  }
 }
 
 
@@ -2200,39 +2048,31 @@ function generateInvoice(orderId) {
 
 
 // ============================================
-// DOWNLOAD & PRINT
-// ============================================
-// ============================================
 // 📄 DOWNLOAD INVOICE AS PDF
 // ============================================
-
 async function downloadInvoice() {
     const invoiceEl = document.getElementById('invoiceCard');
     if (!invoiceEl) return;
     
-    const filename = `Invoice-${document.querySelector('.invoice-number')?.textContent || 'invoice'}.pdf`;
+    const filename = 'Invoice-' + (document.getElementById('invNumber')?.textContent || 'invoice') + '.pdf';
     
-    // ═══ Loading & hide elements (kalau ada) ═══
-    const loading = document.querySelector('.loading') || { classList: { add: ()=>{}, remove: ()=>{} } };
-    const hideElements = document.querySelectorAll('.no-print, .pdf-hide') || [];
-    
-    loading.classList?.add('show');
-    hideElements.forEach(el => el.style.display = 'none');
+    const loading = document.getElementById('pdfLoading');
+    if (loading) loading.classList.add('show');
     invoiceEl.classList.add('pdf-mode');
     
-    // ═══ 🔥 STEP 1: Ukur tinggi asli invoice ═══
+    // Ukur tinggi asli invoice
     const originalWidth = 800;
     const a4Ratio = 297 / 210;
     const targetHeight = originalWidth * a4Ratio; // ~1131px
     const actualHeight = invoiceEl.scrollHeight;
     
-    // ═══ 🔥 STEP 2: Hitung scale factor otomatis ═══
+    // Hitung scale factor otomatis
     let autoScale = 1;
     if (actualHeight > targetHeight) {
         autoScale = (targetHeight / actualHeight) * 0.98;
     }
     
-    console.log(`📏 Actual: ${actualHeight}px | Target: ${targetHeight}px | Scale: ${autoScale.toFixed(3)}`);
+    console.log('📏 Actual: ' + actualHeight + 'px | Target: ' + targetHeight + 'px | Scale: ' + autoScale.toFixed(3));
     
     const options = {
         margin       : [2, 2, 2, 2],
@@ -2251,7 +2091,6 @@ async function downloadInvoice() {
             onclone     : (clonedDoc) => {
                 const target = clonedDoc.getElementById('invoiceCard');
                 if (target) {
-                    // Basic styling
                     target.style.width = '800px';
                     target.style.maxWidth = '800px';
                     target.style.margin = '0 auto';
@@ -2262,14 +2101,12 @@ async function downloadInvoice() {
                     target.style.minHeight = 'auto';
                     target.style.height = 'auto';
                     
-                    // ═══ 🔥 AUTO-FIT SCALE ═══
                     if (autoScale < 1) {
                         target.style.transformOrigin = 'top left';
-                        target.style.transform = `scale(${autoScale})`;
-                        target.style.width = `${800 / autoScale}px`;
+                        target.style.transform = 'scale(' + autoScale + ')';
+                        target.style.width = (800 / autoScale) + 'px';
                     }
                     
-                    // Kompres semua padding
                     const allElements = target.querySelectorAll('*');
                     allElements.forEach(el => {
                         const computed = window.getComputedStyle(el);
@@ -2279,13 +2116,11 @@ async function downloadInvoice() {
                         if (padBot > 15) el.style.paddingBottom = '8px';
                     });
                     
-                    // Kompres tabel
                     target.querySelectorAll('td, th').forEach(cell => {
                         cell.style.paddingTop = '6px';
                         cell.style.paddingBottom = '6px';
                     });
                     
-                    // Hilangkan empty
                     target.querySelectorAll('br + br, p:empty, div:empty').forEach(el => {
                         el.style.display = 'none';
                     });
@@ -2304,20 +2139,50 @@ async function downloadInvoice() {
     
     try {
         await new Promise(r => setTimeout(r, 300));
-        await html2pdf().set(options).from(invoiceEl).save();  // ✅ invoiceEl konsisten
-        if (typeof showToast === 'function') showToast('✅ Invoice berhasil diunduh!');
+        await html2pdf().set(options).from(invoiceEl).save();
+        showToast('✅ Invoice berhasil diunduh!');
     } catch (err) {
         console.error('❌ PDF error:', err);
-        if (typeof showToast === 'function') showToast('Gagal generate PDF: ' + err.message);
+        showToast('Gagal generate PDF: ' + err.message);
     } finally {
         invoiceEl.classList.remove('pdf-mode');
-        hideElements.forEach(el => el.style.display = '');
-        loading.classList?.remove('show');
+        if (loading) loading.classList.remove('show');
     }
 }
 
+
 // ═══════════════════════════════════════════
-// 🖨️ FALLBACK: Print to PDF (Manual) - FIXED
+// 🖨️ PRINT INVOICE
+// ═══════════════════════════════════════════
+function printInvoice() {
+    const invoiceEl = document.getElementById('invoiceCard');
+    if (!invoiceEl) {
+        showToast('❌ Invoice tidak ditemukan');
+        return;
+    }
+    
+    const filename = 'Invoice-' + (document.getElementById('invNumber')?.textContent || 'invoice');
+    
+    // Deteksi mobile
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // Mobile: print langsung halaman ini
+        showToast('💡 Pilih "Simpan sebagai PDF" di dialog print');
+        invoiceEl.classList.add('pdf-mode');
+        setTimeout(() => {
+            window.print();
+            setTimeout(() => invoiceEl.classList.remove('pdf-mode'), 1500);
+        }, 500);
+    } else {
+        // Desktop: pakai popup window
+        openPrintWindow(invoiceEl, filename);
+    }
+}
+
+
+// ═══════════════════════════════════════════
+// 🖨️ PRINT WINDOW (Desktop)
 // ═══════════════════════════════════════════
 function openPrintWindow(invoiceEl, filename) {
     if (!invoiceEl) {
@@ -2327,163 +2192,74 @@ function openPrintWindow(invoiceEl, filename) {
     
     const invoiceHTML = invoiceEl.outerHTML;
     
-    // ═══ 🔥 FIX 1: Ambil CSS dengan safe error handling ═══
+    // Ambil CSS
     let stylesheetLinks = '';
     let inlineStyles = '';
     
     Array.from(document.styleSheets).forEach(sheet => {
         try {
             if (sheet.href) {
-                // External CSS → pakai <link>
-                stylesheetLinks += `<link rel="stylesheet" href="${sheet.href}" crossorigin="anonymous">\n`;
+                stylesheetLinks += '<link rel="stylesheet" href="' + sheet.href + '">\n';
             } else if (sheet.cssRules) {
-                // Inline CSS → embed rules
                 const rules = Array.from(sheet.cssRules).map(r => r.cssText).join('\n');
                 inlineStyles += rules + '\n';
             }
         } catch(e) {
-            // CORS blocked → skip, tapi tetap link kalau ada href
             if (sheet.href) {
-                stylesheetLinks += `<link rel="stylesheet" href="${sheet.href}" crossorigin="anonymous">\n`;
+                stylesheetLinks += '<link rel="stylesheet" href="' + sheet.href + '">\n';
             }
-            console.warn('CSS blocked (CORS):', sheet.href);
         }
     });
     
-    const printCSS = `
-        *{box-sizing:border-box;margin:0;padding:0;}
-        html,body{
-            background:#f0f0f0!important;
-            font-family:'Poppins',Arial,sans-serif;
-            color:#333;
-            line-height:1.5;
-            padding:20px 16px;
-        }
-        
-        .print-guide{
-            max-width:800px;
-            margin:0 auto 20px;
-            padding:20px;
-            background:linear-gradient(135deg,#d4a536,#c19a2e);
-            color:#fff;
-            border-radius:16px;
-            text-align:center;
-            box-shadow:0 8px 25px rgba(212,165,54,0.4);
-        }
-        .print-guide h3{margin:0 0 12px;font-size:1.1rem;font-weight:800;color:#fff!important;}
-        .print-guide p{margin:8px 0;font-size:0.88rem;opacity:0.95;line-height:1.6;color:#fff!important;}
-        .print-guide button{
-            margin-top:12px;
-            padding:14px 32px;
-            background:#fff;
-            color:#d4a536;
-            border:none;
-            border-radius:100px;
-            font-weight:800;
-            cursor:pointer;
-            font-size:1rem;
-            box-shadow:0 4px 15px rgba(0,0,0,0.2);
-            transition:transform 0.2s;
-        }
-        .print-guide button:hover{transform:scale(1.05);}
-        .print-guide button:active{transform:scale(0.98);}
-        
-        #invoiceCard{
-            background:#fff!important;
-            max-width:800px;
-            margin:0 auto;
-            padding:40px;
-            border-radius:12px;
-            box-shadow:0 10px 40px rgba(0,0,0,0.15);
-            color:#333!important;
-        }
-        
-        #invoiceCard *{color:#333!important;}
-        #invoiceCard h1,#invoiceCard h2,#invoiceCard h3,#invoiceCard h4{color:#d4a536!important;}
-        
-        @media (max-width:768px){
-            body{padding:12px 8px;}
-            #invoiceCard{padding:20px 16px!important;border-radius:8px!important;}
-        }
-        
-        @media print{
-            *{
-                -webkit-print-color-adjust:exact!important;
-                print-color-adjust:exact!important;
-            }
-            html,body{
-                background:#fff!important;
-                padding:0!important;
-                margin:0!important;
-            }
-            .print-guide{display:none!important;}
-            #invoiceCard{
-                padding:12mm 10mm!important;
-                box-shadow:none!important;
-                border-radius:0!important;
-                max-width:100%!important;
-                margin:0!important;
-            }
-            @page{
-                size:A4 portrait;
-                margin:10mm 8mm;
-            }
-        }
-    `;
+    const printCSS = 
+        '*{box-sizing:border-box;margin:0;padding:0;}' +
+        'html,body{background:#f0f0f0!important;font-family:Poppins,Arial,sans-serif;color:#333;line-height:1.5;padding:20px 16px;}' +
+        '.print-guide{max-width:800px;margin:0 auto 20px;padding:20px;background:linear-gradient(135deg,#d4a536,#c19a2e);color:#fff;border-radius:16px;text-align:center;box-shadow:0 8px 25px rgba(212,165,54,0.4);}' +
+        '.print-guide h3{margin:0 0 12px;font-size:1.1rem;font-weight:800;color:#fff!important;}' +
+        '.print-guide p{margin:8px 0;font-size:0.88rem;opacity:0.95;line-height:1.6;color:#fff!important;}' +
+        '.print-guide button{margin-top:12px;padding:14px 32px;background:#fff;color:#d4a536;border:none;border-radius:100px;font-weight:800;cursor:pointer;font-size:1rem;box-shadow:0 4px 15px rgba(0,0,0,0.2);}' +
+        '#invoiceCard{background:#fff!important;max-width:800px;margin:0 auto;padding:40px;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.15);color:#333!important;}' +
+        '#invoiceCard *{color:#333!important;}' +
+        '#invoiceCard h1,#invoiceCard h2,#invoiceCard h3,#invoiceCard h4{color:#d4a536!important;}' +
+        '@media (max-width:768px){body{padding:12px 8px;}#invoiceCard{padding:20px 16px!important;border-radius:8px!important;}}' +
+        '@media print{*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}html,body{background:#fff!important;padding:0!important;margin:0!important;}.print-guide{display:none!important;}#invoiceCard{padding:12mm 10mm!important;box-shadow:none!important;border-radius:0!important;max-width:100%!important;margin:0!important;}@page{size:A4 portrait;margin:10mm 8mm;}}';
     
-    // ═══ 🔥 FIX 2: Build HTML lengkap ═══
-    const fullHTML = `<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${filename}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    ${stylesheetLinks}
-    <style>${inlineStyles}</style>
-    <style>${printCSS}</style>
-</head>
-<body>
-    <div class="print-guide">
-        <h3>💾 Cara Simpan sebagai PDF</h3>
-        <p>
-            1. Klik tombol <b>"Buka Dialog Print"</b> di bawah<br>
-            2. Pilih <b>"Simpan sebagai PDF"</b><br>
-            3. ⚠️ Aktifkan <b>"Background Graphics"</b><br>
-            4. Klik <b>"Simpan"</b> ✅
-        </p>
-        <button type="button" id="btnPrint">
-            🖨️ Buka Dialog Print
-        </button>
-    </div>
-    ${invoiceHTML}
+    // Script content — split "script" tag biar aman di string
+    const scriptContent = 
+        "document.addEventListener('DOMContentLoaded', function() {" +
+            "var btn = document.getElementById('btnPrint');" +
+            "if (btn) {" +
+                "btn.addEventListener('click', function() {" +
+                    "setTimeout(function() { window.print(); }, 300);" +
+                "});" +
+            "}" +
+        "});" +
+        "window.addEventListener('load', function() { window.focus(); });";
     
-    <script>
-        // ═══ 🔥 FIX 3: Attach event listener setelah DOM ready ═══
-        document.addEventListener('DOMContentLoaded', function() {
-            const btn = document.getElementById('btnPrint');
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    console.log('Print button clicked');
-                    // Delay dikit biar font load
-                    setTimeout(function() {
-                        window.print();
-                    }, 200);
-                });
-            }
-        });
-        
-        // ═══ 🔥 FIX 4: Auto-focus biar bisa print ═══
-        window.addEventListener('load', function() {
-            window.focus();
-            console.log('✅ Print window ready');
-        });
-    </script>
-</body>
-</html>`;
+    const fullHTML = 
+        '<!DOCTYPE html>' +
+        '<html lang="id"><head>' +
+        '<meta charset="UTF-8">' +
+        '<meta name="viewport" content="width=device-width, initial-scale=1.0">' +
+        '<title>' + filename + '</title>' +
+        '<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">' +
+        '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">' +
+        stylesheetLinks +
+        '<style>' + inlineStyles + '</style>' +
+        '<style>' + printCSS + '</style>' +
+        '</head><body>' +
+        '<div class="print-guide">' +
+            '<h3>💾 Cara Simpan sebagai PDF</h3>' +
+            '<p>1. Klik <b>"Buka Dialog Print"</b> di bawah<br>' +
+            '2. Pilih <b>"Simpan sebagai PDF"</b><br>' +
+            '3. ⚠️ Aktifkan <b>"Background Graphics"</b><br>' +
+            '4. Klik <b>"Simpan"</b> ✅</p>' +
+            '<button type="button" id="btnPrint">🖨️ Buka Dialog Print</button>' +
+        '</div>' +
+        invoiceHTML +
+        '<scr' + 'ipt>' + scriptContent + '</scr' + 'ipt>' +
+        '</body></html>';
     
-    // ═══ 🔥 FIX 5: Open window dengan feature yang benar ═══
     const win = window.open('', '_blank', 'width=900,height=1000,scrollbars=yes,resizable=yes');
     
     if (!win || win.closed || typeof win.closed === 'undefined') {
@@ -2491,21 +2267,18 @@ function openPrintWindow(invoiceEl, filename) {
         return;
     }
     
-    // ═══ 🔥 FIX 6: Write & close dengan urutan yang benar ═══
     try {
         win.document.open();
         win.document.write(fullHTML);
         win.document.close();
-        
-        // Focus window
         win.focus();
-        
         showToast('✅ Jendela print terbuka');
     } catch(err) {
         console.error('Print window error:', err);
         showToast('❌ Gagal buka window: ' + err.message);
     }
 }
+
 
 // ============================================
 // UTILS
@@ -2524,6 +2297,7 @@ function showToast(text) {
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2500);
 }
+
 
 // ============================================
 // INIT
@@ -2547,7 +2321,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const pkgParam  = urlParams.get('pkg');
 if (pkgParam) {
   setTimeout(() => {
-    const card = document.querySelector(`.package-card[data-pkg="${pkgParam}"]`);
+    const card = document.querySelector('.package-card[data-pkg="' + pkgParam + '"]');
     if (card) card.querySelector('.pkg-select-btn').click();
   }, 100);
 }
@@ -2559,7 +2333,6 @@ if (resellerParam) {
     const input = document.getElementById('resellerCode');
     if (input) {
       input.value = resellerParam.toUpperCase();
-      // Delay verify sampai Firebase siap
       const tryVerify = () => {
         if (window.fbOrder && window.fbOrder.ready) {
           verifyReseller();
