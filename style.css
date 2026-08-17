@@ -2,6 +2,7 @@
    IBAADURRAHMAAN — Modern Premium Web Design
    Version 8.4 · FINAL — Mobile Nav Fixed
    ==================================================== */
+
 :root{
   /* Colors */
   --gold:#D4A536;
@@ -3636,6 +3637,67 @@ a.fab-wa .fab.fa-whatsapp,
     font-weight: 800;
 }
 
+/* ============================================
+   📱 FIX v8.7: Bottom Sheet Content Scrollable
+   ============================================ */
+
+/* Container sheet: max-height dan flex layout */
+.mobile-sheet {
+    max-height: 85vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    padding-bottom: 100px !important;  /* ⭐ Space untuk mobile nav bawah */
+}
+
+/* Header sheet: fixed di atas */
+.sheet-handle,
+.sheet-header {
+    flex-shrink: 0 !important;
+}
+
+/* Content sheet: bisa di-scroll */
+.sheet-content {
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 20px !important;
+    min-height: 100px;
+}
+
+/* Scrollbar styling (opsional, biar cantik) */
+.sheet-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sheet-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sheet-content::-webkit-scrollbar-thumb {
+    background: rgba(212, 165, 54, 0.3);
+    border-radius: 4px;
+}
+
+.sheet-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(212, 165, 54, 0.5);
+}
+
+
+/* ============================================
+   ✨ Current Page Indicator (Highlight di Sheet)
+   ============================================ */
+.sheet-link.current-page {
+    background: linear-gradient(90deg, rgba(37,211,102,0.12), rgba(37,211,102,0.03)) !important;
+    border-color: rgba(37,211,102,0.35) !important;
+    box-shadow: 0 4px 12px rgba(37,211,102,0.15);
+}
+
+.sheet-link.current-page .sheet-link-title {
+    color: #25d366 !important;
+    font-weight: 800;
+}
 
 /* ==================================================
    END OF STYLE.CSS v8.4
