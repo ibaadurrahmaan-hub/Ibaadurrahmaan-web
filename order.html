@@ -2019,73 +2019,256 @@ function generateInvoice(orderId) {
 // 📄 DOWNLOAD INVOICE AS PDF
 // ============================================
 async function downloadInvoice() {
-  const invoiceEl = document.getElementById('invoiceCard');
-  const loading   = document.getElementById('pdfLoading');
-  const orderId   = _currentOrderId || document.getElementById('invNumber').textContent;
-  const custName  = document.getElementById('fullName').value.trim() || 'Client';
+    const invoiceEl = document.getElementById('invoiceCard');
+    const loading   = document.getElementById('pdfLoading');
+    const orderId   = _currentOrderId || document.getElementById('invNumber').textContent;
+    const custName  = document.getElementById('fullName').value.trim() || 'Client';
 
-  if (!invoiceEl) {
-    showToast('Invoice tidak ditemukan');
-    return;
-  }
+    if (!invoiceEl) {
+        showToast('Invoice tidak ditemukan');
+        return;
+    }
 
-  if (typeof html2pdf === 'undefined') {
-    showToast('❌ Library PDF belum siap. Refresh halaman.');
-    return;
-  }
+    // ═══ Cek konten tidak kosong ═══
+    if (!invoiceEl.innerHTML.trim()) {
+        showToast('❌ Invoice kosong. Refresh halaman.');
+        return;
+    }
 
-  // Show loading
-  loading.classList.add('show');
+    if (typeof html2pdf === 'undefined') {
+        showToast('❌ Library PDF belum siap. Refresh halaman.');
+        return;
+    }
 
-  // Tambahkan class PDF mode (light theme untuk PDF)
-  invoiceEl.classList.add('pdf-mode');
+    // Show loading
+    loading.classList.add('show');
 
-  // Sembunyikan tombol/elemen yang tidak perlu di PDF
-  const hideElements = invoiceEl.querySelectorAll('.btn-copy, .no-pdf');
-  hideElements.forEach(el => el.style.display = 'none');
+    // Tambah class PDF mode
+    invoiceEl.classList.add('pdf-mode');
 
-  // Nama file PDF
-  const safeName = custName.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 20);
-  const filename = `Invoice_${orderId}_${safeName}.pdf`;
+    // Sembunyikan tombol yang tidak perlu di PDF
+    const hideElements = invoiceEl.querySelectorAll('.btn-copy, .no-pdf');
+    hideElements.forEach(el => el.style.display = 'none');
 
-  // Options PDF
-  const options = {
-    margin       : [10, 10, 10, 10],
-    filename     : filename,
-    image        : { type: 'jpeg', quality: 0.98 },
-    html2canvas  : {
-      scale       : 2,
-      useCORS     : true,
-      logging     : false,
-      windowWidth : 1200,
-      backgroundColor: '#ffffff'
-    },
-    jsPDF        : {
-      unit        : 'mm',
-      format      : 'a4',
-      orientation : 'portrait',
-      compress    : true
-    },
-    pagebreak    : { mode: ['avoid-all', 'css', 'legacy'] }
-  };
+    // Nama file
+    const safeName = custName.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 20);
+    const filename = `Invoice_${orderId}_${safeName}.pdf`;
 
-  try {
-    await html2pdf().set(options).from(invoiceEl).save();
-    showToast('✅ Invoice berhasil diunduh!');
-  } catch (err) {
-    console.error('❌ PDF error:', err);
-    showToast('Gagal generate PDF: ' + err.message);
-  } finally {
-    // Restore
-    invoiceEl.classList.remove('pdf-mode');
-    hideElements.forEach(el => el.style.display = '');
-    loading.classList.remove('show');
-  }
+    // ═══ Options PDF (FIXED) ═══
+    const options = {
+        margin       : [8, 8, 8, 8],
+        filename     : filename,
+        image        : { type: 'jpeg', quality: 0.95 },
+        html2canvas  : {
+            scale       : 2,
+            useCORS     : true,
+            allowTaint  : true,           // ✨ NEW
+            logging     : true,           // ✨ Debug mode ON
+            windowWidth : 900,            // ✨ Kurangi dari 1200
+            backgroundColor: '#ffffff',
+            scrollY     : 0,              // ✨ Fix scroll
+            scrollX     : 0,
+            onclone     : (clonedDoc) => {
+                // ✨ Fix CSS modern di cloned doc
+                const styles = clonedDoc.querySelectorAll('style, link[rel="stylesheet"]');
+                styles.forEach(el => {
+                    if (el.textContent && el.textContent.includes('oklch')) {
+                        console.warn('⚠️ Removed oklch styles for PDF compatibility');
+                    }
+                });
+                
+                // ✨ Force visible
+                const target = clonedDoc.getElementById('invoiceCard');
+                if (target) {
+                    target.style.display = 'block';
+                    target.style.visibility = 'visible';
+                    target.style.opacity = '1';
+                    target.style.background = '#ffffff';
+                    target.style.color = '#333333';
+                }
+            }
+        },
+        jsPDF        : {
+            unit        : 'mm',
+            format      : 'a4',
+            orientation : 'portrait',
+            compress    : true
+        },
+        pagebreak    : { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+
+    try {
+        // ═══ Delay biar CSS ter-apply dulu ═══
+        await new Promise(r => setTimeout(r, 300));
+        
+        await html2pdf().set(options).from(invoiceEl).save();
+        showToast('✅ Invoice berhasil diunduh!');
+        
+    } catch (err) {
+        console.error('❌ PDF error:', err);
+        
+        // ═══ 🎯 FALLBACK: Print-to-PDF ═══
+        Swal.fire({
+            icon: 'warning',
+            title: 'Gagal Auto-Download',
+            html: `Ada masalah teknis dengan library PDF.<br><br>
+                <div style="background:rgba(212,165,54,0.1);padding:12px;border-radius:8px;font-size:0.85rem;">
+                    💡 Coba metode alternatif dengan Print → Save as PDF
+                </div>`,
+            showCancelButton: true,
+            confirmButtonText: '<i class="fas fa-print"></i> Coba Print-to-PDF',
+            cancelButtonText: 'Batal',
+            customClass: { popup: 'swal-premium' },
+            reverseButtons: true
+        }).then(res => {
+            if (res.isConfirmed) {
+                openPrintWindow(invoiceEl, filename);
+            }
+        });
+        
+    } finally {
+        invoiceEl.classList.remove('pdf-mode');
+        hideElements.forEach(el => el.style.display = '');
+        loading.classList.remove('show');
+    }
 }
-function printInvoice() {
-  window.print();
-}
 
+// ═══════════════════════════════════════════
+// 🖨️ FALLBACK: Print to PDF (Manual)
+// ═══════════════════════════════════════════
+function openPrintWindow(invoiceEl, filename) {
+    const invoiceHTML = invoiceEl.outerHTML;
+    
+    const win = window.open('', '_blank', 'width=900,height=1000');
+    if (!win) {
+        showToast('❌ Popup diblokir. Izinkan popup untuk lanjut.');
+        return;
+    }
+    
+    // Ambil semua CSS dari halaman utama
+    const stylesheets = Array.from(document.styleSheets)
+        .map(sheet => {
+            try {
+                if (sheet.href) {
+                    return `<link rel="stylesheet" href="${sheet.href}">`;
+                }
+                return `<style>${Array.from(sheet.cssRules).map(r => r.cssText).join('\n')}</style>`;
+            } catch(e) {
+                return '';
+            }
+        })
+        .join('\n');
+    
+    const printCSS = `
+        *{box-sizing:border-box;margin:0;padding:0;}
+        html,body{
+            background:#f0f0f0!important;
+            font-family:'Poppins',Arial,sans-serif;
+            color:#333;
+            line-height:1.5;
+            padding:20px 16px;
+        }
+        
+        .print-guide{
+            max-width:800px;
+            margin:0 auto 20px;
+            padding:20px;
+            background:linear-gradient(135deg,#d4a536,#c19a2e);
+            color:#fff;
+            border-radius:16px;
+            text-align:center;
+            box-shadow:0 8px 25px rgba(212,165,54,0.4);
+        }
+        .print-guide h3{margin:0 0 12px;font-size:1.1rem;font-weight:800;}
+        .print-guide p{margin:8px 0;font-size:0.88rem;opacity:0.95;line-height:1.6;}
+        .print-guide button{
+            margin-top:12px;
+            padding:12px 28px;
+            background:#fff;
+            color:#d4a536;
+            border:none;
+            border-radius:100px;
+            font-weight:800;
+            cursor:pointer;
+            font-size:0.95rem;
+            box-shadow:0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        #invoiceCard{
+            background:#fff!important;
+            max-width:800px;
+            margin:0 auto;
+            padding:40px;
+            border-radius:12px;
+            box-shadow:0 10px 40px rgba(0,0,0,0.15);
+            color:#333!important;
+        }
+        
+        /* Force light theme untuk invoice */
+        #invoiceCard *{color:#333!important;}
+        #invoiceCard h1,#invoiceCard h2,#invoiceCard h3,#invoiceCard h4{color:#d4a536!important;}
+        
+        @media (max-width:768px){
+            body{padding:12px 8px;}
+            #invoiceCard{padding:20px 16px!important;border-radius:8px!important;}
+        }
+        
+        @media print{
+            *{
+                -webkit-print-color-adjust:exact!important;
+                print-color-adjust:exact!important;
+            }
+            html,body{
+                background:#fff!important;
+                padding:0!important;
+                margin:0!important;
+            }
+            .print-guide{display:none!important;}
+            #invoiceCard{
+                padding:12mm 10mm!important;
+                box-shadow:none!important;
+                border-radius:0!important;
+                max-width:100%!important;
+                margin:0!important;
+            }
+            @page{
+                size:A4 portrait;
+                margin:10mm 8mm;
+            }
+        }
+    `;
+    
+    win.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>${filename}</title>
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+            ${stylesheets}
+            <style>${printCSS}</style>
+        </head>
+        <body>
+            <div class="print-guide">
+                <h3>💾 Cara Simpan sebagai PDF</h3>
+                <p>
+                    1. Klik <b>"Buka Dialog Print"</b> di bawah<br>
+                    2. Pilih <b>"Simpan sebagai PDF"</b><br>
+                    3. ⚠️ Aktifkan <b>"Background Graphics"</b><br>
+                    4. Klik <b>"Simpan"</b> ✅
+                </p>
+                <button onclick="window.print()">
+                    🖨️ Buka Dialog Print
+                </button>
+            </div>
+            ${invoiceHTML}
+        </body>
+        </html>
+    `);
+    win.document.close();
+}
 
 // ============================================
 // UTILS
