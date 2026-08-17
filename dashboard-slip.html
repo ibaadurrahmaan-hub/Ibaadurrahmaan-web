@@ -897,17 +897,54 @@ function downloadPDF() {
 
     const slipCSS = `
         *{box-sizing:border-box;margin:0;padding:0;}
-        html,body{background:#f5f5f5;font-family:'Poppins',Arial,sans-serif;-webkit-text-size-adjust:100%;color:#333;line-height:1.5;}
-        body{padding:16px;}
-        .print-info{max-width:800px;width:100%;margin:0 auto 20px;padding:20px;background:linear-gradient(135deg,#d4a536,#c19a2e);color:#fff;border-radius:16px;text-align:center;box-shadow:0 8px 25px rgba(212,165,54,0.4);}
+        html,body{
+            background:#f0f0f0;
+            font-family:'Poppins',Arial,sans-serif;
+            -webkit-text-size-adjust:100%;
+            color:#333;
+            line-height:1.5;
+            width:100%;
+            min-height:100vh;
+        }
+        body{
+            padding:20px 16px;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+        }
+        .print-info{
+            width:100%;
+            max-width:800px;
+            margin:0 auto 24px;
+            padding:20px;
+            background:linear-gradient(135deg,#d4a536,#c19a2e);
+            color:#fff;
+            border-radius:16px;
+            text-align:center;
+            box-shadow:0 8px 25px rgba(212,165,54,0.4);
+            box-sizing:border-box;
+        }
         .print-info h3{margin:0 0 16px;font-size:1.2rem;font-weight:800;letter-spacing:0.5px;}
         .print-steps{text-align:left;max-width:500px;margin:0 auto 20px;background:rgba(255,255,255,0.15);border-radius:12px;padding:16px;}
         .print-steps .step{display:flex;align-items:flex-start;gap:12px;padding:8px 0;font-size:0.88rem;line-height:1.5;}
         .print-steps .step-num{background:#fff;color:#d4a536;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0;font-size:0.85rem;}
         .print-steps .step-text{flex:1;padding-top:3px;}
         .print-info button{padding:14px 32px;background:#fff;color:#d4a536;border:none;border-radius:100px;font-weight:800;cursor:pointer;font-size:1rem;box-shadow:0 4px 15px rgba(0,0,0,0.2);display:inline-flex;align-items:center;justify-content:center;gap:10px;}
-        .slip-preview{background:#fff;border-radius:12px;padding:40px;color:#333;font-family:'Poppins',Arial,sans-serif;box-shadow:0 10px 40px rgba(0,0,0,0.15);max-width:800px;width:100%;margin:0 auto;}
-        .slip-doc-header{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:20px;border-bottom:3px double #d4a536;margin-bottom:24px;gap:16px;}
+        
+        /* ═══ SLIP PREVIEW - FULL WIDTH ═══ */
+        .slip-preview{
+            background:#fff;
+            border-radius:12px;
+            padding:40px;
+            color:#333;
+            font-family:'Poppins',Arial,sans-serif;
+            box-shadow:0 10px 40px rgba(0,0,0,0.15);
+            width:100%;
+            max-width:800px;
+            margin:0 auto;
+            box-sizing:border-box;
+        }
+        .slip-doc-header{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:20px;border-bottom:3px double #d4a536;margin-bottom:24px;gap:16px;flex-wrap:wrap;}
         .slip-brand{display:flex;align-items:center;gap:12px;}
         .slip-brand-logo{width:60px!important;height:60px!important;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:4px;box-shadow:0 4px 15px rgba(212,165,54,0.3);overflow:hidden;flex-shrink:0;border:2px solid #d4a536;box-sizing:border-box;}
         .slip-brand-logo img{width:100%!important;height:100%!important;max-width:60px!important;max-height:60px!important;object-fit:contain;border-radius:50%;display:block;}
@@ -918,6 +955,7 @@ function downloadPDF() {
         .slip-doc-info h3{font-family:'Montserrat',Arial,sans-serif;font-size:1.15rem;font-weight:900;color:#d4a536;margin:0 0 4px;text-transform:uppercase;letter-spacing:1px;}
         .slip-doc-info p{font-size:0.8rem;color:#666;margin:2px 0;}
         .slip-doc-info .slip-no{font-family:'Courier New',monospace;font-weight:700;color:#333;}
+        
         .slip-parties{display:grid!important;grid-template-columns:1fr 1fr!important;gap:20px!important;margin-bottom:24px!important;}
         .slip-party{background:#faf5e6!important;border-left:4px solid #d4a536!important;padding:14px 16px!important;border-radius:0 8px 8px 0!important;}
         .slip-party.reseller{background:#e6f9ee!important;border-left-color:#25d366!important;}
@@ -925,6 +963,7 @@ function downloadPDF() {
         .slip-party.reseller .slip-party-label{color:#128c7e;}
         .slip-party-name{font-family:'Montserrat',Arial,sans-serif;font-size:1rem;font-weight:800;color:#333;margin-bottom:4px;}
         .slip-party-detail{font-size:0.78rem;color:#666;line-height:1.5;}
+        
         .slip-detail-title{font-family:'Montserrat',Arial,sans-serif;font-size:0.9rem;font-weight:800;color:#333;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid #d4a536;text-transform:uppercase;letter-spacing:1px;}
         .slip-table{width:100%!important;border-collapse:collapse!important;margin-bottom:20px;font-size:0.85rem;}
         .slip-table th{background:#faf5e6!important;color:#d4a536!important;padding:10px 12px!important;text-align:left;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #d4a536!important;}
@@ -937,6 +976,7 @@ function downloadPDF() {
         .slip-table .tier-silver{background:#e8e8e8;color:#666;}
         .slip-table .tier-gold{background:#faf5e6;color:#d4a536;}
         .slip-table .tier-platinum{background:#e6f0fa;color:#3d6fb5;}
+        
         .slip-summary{background:#faf5e6!important;border-radius:10px!important;padding:20px!important;margin-bottom:20px!important;}
         .slip-summary-row{display:flex!important;justify-content:space-between!important;align-items:center!important;padding:8px 0!important;border-bottom:1px dashed rgba(212,165,54,0.3)!important;font-size:0.9rem;color:#555;}
         .slip-summary-row:last-child{border-bottom:none!important;}
@@ -945,19 +985,86 @@ function downloadPDF() {
         .slip-summary-total{background:linear-gradient(135deg,#d4a536,#c19a2e)!important;color:#fff!important;padding:16px 20px!important;border-radius:10px!important;margin-top:12px!important;display:flex!important;justify-content:space-between!important;align-items:center!important;box-shadow:0 4px 15px rgba(212,165,54,0.3);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
         .slip-summary-total .label{font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:0.95;color:#fff!important;}
         .slip-summary-total .value{font-family:'Montserrat',Arial,sans-serif;font-size:1.5rem;font-weight:900;color:#fff!important;}
+        
         .slip-payment{background:#e6f9ee!important;border-left:4px solid #25d366!important;padding:16px!important;border-radius:0 8px 8px 0!important;margin-bottom:20px!important;}
         .slip-payment-title{font-weight:800;color:#128c7e;font-size:0.85rem;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;}
         .slip-payment-detail{display:grid!important;grid-template-columns:1fr 1fr!important;gap:12px 20px!important;font-size:0.88rem;color:#333;}
         .slip-payment-detail > div{display:block;padding:4px 0;}
         .slip-payment-detail strong{color:#128c7e!important;display:block!important;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;font-weight:800;}
-        .slip-footer{margin-top:24px;padding-top:20px;border-top:2px solid #eee;display:flex!important;justify-content:space-between!important;align-items:center!important;gap:16px;}
+        
+        .slip-footer{margin-top:24px;padding-top:20px;border-top:2px solid #eee;display:flex!important;justify-content:space-between!important;align-items:center!important;gap:16px;flex-wrap:wrap;}
         .slip-footer-info{flex:1;font-size:0.75rem;color:#666;line-height:1.5;}
         .slip-footer-info strong{color:#333;}
         .slip-stamp{text-align:center;padding:16px;border:2px dashed #d4a536;border-radius:8px;color:#d4a536;font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:0.75rem;background:rgba(212,165,54,0.05);min-width:140px;-webkit-print-color-adjust:exact;}
         .slip-stamp i{font-size:1.5rem;display:block;margin-bottom:4px;}
         .slip-stamp.paid{border-color:#25d366;color:#128c7e;background:rgba(37,211,102,0.08);}
-        @media (max-width:768px){body{padding:10px;}.slip-preview{padding:20px 16px!important;border-radius:10px!important;}.print-info{padding:16px;margin-bottom:16px;}.slip-doc-header{flex-direction:column!important;text-align:center!important;gap:12px!important;align-items:center!important;}.slip-parties{grid-template-columns:1fr!important;gap:10px!important;}.slip-table{font-size:0.7rem!important;}.slip-table th,.slip-table td{padding:6px 4px!important;}.slip-payment-detail{grid-template-columns:1fr!important;gap:8px!important;}.slip-footer{flex-direction:column!important;gap:12px!important;text-align:center!important;}}
-        @media print{html,body{background:#fff!important;padding:0!important;margin:0!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}.print-info{display:none!important;}.slip-preview{padding:12mm 10mm!important;box-shadow:none!important;border-radius:0!important;max-width:100%!important;width:100%!important;margin:0!important;page-break-inside:avoid;}.slip-doc-header,.slip-parties,.slip-summary,.slip-payment,.slip-footer{page-break-inside:avoid;}.slip-brand-logo{width:55px!important;height:55px!important;}.slip-brand-logo img{max-width:55px!important;max-height:55px!important;}@page{size:A4;margin:10mm;}}
+        
+        /* ═══ MOBILE RESPONSIVE ═══ */
+        @media (max-width:768px){
+            body{padding:12px 8px;}
+            .slip-preview{padding:20px 16px!important;border-radius:10px!important;max-width:100%!important;}
+            .print-info{padding:16px 12px;margin-bottom:16px;}
+            .print-info h3{font-size:1rem;}
+            .print-steps{padding:12px;}
+            .print-steps .step{font-size:0.78rem;gap:8px;}
+            .print-info button{padding:12px 24px;font-size:0.9rem;}
+            .slip-doc-header{flex-direction:column!important;text-align:center!important;gap:12px!important;align-items:center!important;padding-bottom:14px!important;margin-bottom:16px!important;}
+            .slip-doc-info{text-align:center!important;}
+            .slip-brand{flex-direction:column;text-align:center;}
+            .slip-parties{grid-template-columns:1fr!important;gap:10px!important;margin-bottom:16px!important;}
+            .slip-party{padding:10px 12px!important;}
+            .slip-party-name{font-size:0.9rem!important;}
+            .slip-party-detail{font-size:0.72rem!important;}
+            .slip-table{font-size:0.7rem!important;display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch;}
+            .slip-table th,.slip-table td{padding:6px 4px!important;white-space:nowrap!important;}
+            .slip-summary{padding:14px!important;}
+            .slip-summary-row{font-size:0.8rem!important;}
+            .slip-summary-total .value{font-size:1.1rem!important;}
+            .slip-summary-total .label{font-size:0.75rem!important;}
+            .slip-payment{padding:12px!important;}
+            .slip-payment-detail{grid-template-columns:1fr!important;gap:8px!important;font-size:0.8rem!important;}
+            .slip-footer{flex-direction:column!important;gap:12px!important;text-align:center!important;}
+            .slip-stamp{padding:12px;min-width:120px;}
+        }
+        
+        /* ═══ PRINT — Full Width A4 ═══ */
+        @media print{
+            *{
+                -webkit-print-color-adjust:exact!important;
+                print-color-adjust:exact!important;
+                color-adjust:exact!important;
+            }
+            html,body{
+                background:#fff!important;
+                padding:0!important;
+                margin:0!important;
+                width:100%!important;
+                display:block!important;
+            }
+            .print-info{display:none!important;}
+            .slip-preview{
+                padding:12mm 10mm!important;
+                box-shadow:none!important;
+                border-radius:0!important;
+                max-width:100%!important;
+                width:100%!important;
+                margin:0!important;
+                page-break-inside:avoid;
+            }
+            .slip-doc-header,
+            .slip-parties,
+            .slip-summary,
+            .slip-payment,
+            .slip-footer{page-break-inside:avoid;}
+            .slip-table{page-break-inside:auto;}
+            .slip-table tr{page-break-inside:avoid;page-break-after:auto;}
+            .slip-brand-logo{width:55px!important;height:55px!important;}
+            .slip-brand-logo img{max-width:55px!important;max-height:55px!important;}
+            @page{
+                size:A4 portrait;
+                margin:10mm 8mm;
+            }
+        }
     `;
 
     win.document.write(`
