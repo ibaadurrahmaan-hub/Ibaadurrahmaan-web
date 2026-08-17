@@ -1947,7 +1947,7 @@ function formatDateISO(dateInput) {
 }
 
 // ====================================================
-// FILTER & RENDER (UPDATED — dengan payment info)
+// FILTER & RENDER (FIXED — pakai priceDetail)
 // ====================================================
 function applyFilter(){
     const query  = document.getElementById('searchInput').value.toLowerCase();
@@ -1986,85 +1986,104 @@ function applyFilter(){
         const avC = getAvatarClass(c.name||'?');
         const ini = getInitials(c.name||'?');
 
-        // ═══ NEW: Payment Info ═══
+        // ═══ 🔥 FIX: Ambil data dari priceDetail (bukan dari string value) ═══
+        const pd = c.priceDetail || {};
+        
+        // ⭐ Total Value: prioritas priceDetail.total → fallback parse c.value
+        const totalValue = pd.total 
+                        || pd.subtotal 
+                        || parseRp(c.value) 
+                        || 0;
+        
+        // ⭐ DP Amount: prioritas c.dpAmount → fallback priceDetail.payNow
+        const dpAmount = c.dpAmount 
+                      || c.paidAmount 
+                      || 0;
+        
+        // ⭐ Amount yg harus dibayar sekarang (untuk info "belum bayar")
+        const payNowExpected = pd.payNow || totalValue;
+
+        // ═══ Payment Info ═══
         const payStatus = c.paymentStatus || 'pending';
         const payMap = PAYMENT_MAP[payStatus] || PAYMENT_MAP.pending;
-        const dpAmount = c.dpAmount || 0;
-        const totalValue = parseRp(c.value);
 
         // Text nominal untuk info payment
-        // Text nominal untuk info payment
-let payText = '';
-if(payStatus === 'paid_full'){
-    payText = `Lunas ${toRp(totalValue)}`;
-} else if(payStatus === 'paid_partial' && dpAmount > 0){
-    const sisa = totalValue - dpAmount;
-    payText = sisa > 0
-        ? `Sisa ${toRp(sisa)}`
-        : toRp(dpAmount);
-} else {
-    // Status pending → tampilkan total yang harus dibayar
-    payText = totalValue > 0 
-        ? toRp(totalValue) 
-        : '—';
-}
-// ═══ Reseller & Komisi ═══
-const referral       = c.referral || {};
-const resellerName   = referral.resellerName || '';
-const resellerTier   = (referral.resellerTier || 'silver').toLowerCase();
-const commissionStat = referral.commissionStatus || 'pending';
-const hasReseller    = resellerName.trim() !== '';
+        let payText = '';
+        if(payStatus === 'paid_full'){
+            payText = `Lunas ${toRp(totalValue)}`;
+        } else if(payStatus === 'paid_partial' && dpAmount > 0){
+            const sisa = totalValue - dpAmount;
+            payText = sisa > 0
+                ? `Sisa ${toRp(sisa)}`
+                : toRp(dpAmount);
+        } else {
+            // Status pending → tampilkan total yang harus dibayar
+            payText = totalValue > 0 
+                ? toRp(totalValue) 
+                : '—';
+        }
 
-const comm = calcCommission(totalValue, resellerTier);
+        // ═══ Reseller & Komisi ═══
+        const referral       = c.referral || {};
+        const resellerName   = referral.resellerName || '';
+        const resellerTier   = (referral.resellerTier || 'silver').toLowerCase();
+        const commissionStat = referral.commissionStatus || 'pending';
+        const hasReseller    = resellerName.trim() !== '';
 
-let commissionBadge = '';
+        // ⭐ Komisi dihitung dari basePrice (harga paket saja, tanpa addons)
+        // Ganti ke totalValue jika mau komisi dari total
+        const commissionBase = pd.basePrice || totalValue;
+        const comm = calcCommission(commissionBase, resellerTier);
 
-if (hasReseller) {
-    let statusIcon, statusText, boxClass, actionBtn = '';
-    
-    if (payStatus !== 'paid_full') {
-        boxClass   = 'pending';
-        statusIcon = '⏳';
-        statusText = 'Menunggu client lunas';
-    } else if (commissionStat === 'paid') {
-        boxClass   = 'done';
-        statusIcon = '✅';
-        statusText = 'Komisi sudah dibayar';
-    } else {
-        boxClass   = 'ready';
-        statusIcon = '💰';
-        statusText = 'Siap dibayar';
-        actionBtn  = `
-            <button class="commission-btn" onclick="generateSlipKomisi('${c.id}')">
-                <i class="fas fa-file-invoice-dollar"></i>
-                Buat Slip Komisi
-            </button>`;
-    }
-    
-    const breakdown = comm.bonus > 0
-        ? `${toRp(comm.komisi)} + Bonus ${toRp(comm.bonus)}`
-        : `${comm.pct}% × ${toRp(totalValue)}`;
+        let commissionBadge = '';
 
-    commissionBadge = `
-        <div class="card-commission ${boxClass}">
-            <div class="commission-header">
-                <div class="commission-tier">
-                    <span class="ct-name">${comm.tierIcon} <b>${escHtml(resellerName)}</b></span>
-                    <small>${comm.tierLabel} • ${comm.pct}%${comm.bonus > 0 ? ' + bonus' : ''}</small>
-                </div>
-                <span class="commission-status-badge">${statusIcon} ${statusText}</span>
-            </div>
-            <div class="commission-body">
-                <div class="commission-amount-box">
-                    <span class="ca-label">Total Komisi</span>
-                    <span class="ca-value">${toRp(comm.total)}</span>
-                </div>
-                <div class="commission-breakdown">💡 ${breakdown}</div>
-            </div>
-            ${actionBtn}
-        </div>`;
-}
-        // ═══ NEW: Tombol "Bayar" — beda text/state sesuai status bayar ═══
+        if (hasReseller) {
+            let statusIcon, statusText, boxClass, actionBtn = '';
+            
+            if (payStatus !== 'paid_full') {
+                boxClass   = 'pending';
+                statusIcon = '⏳';
+                statusText = 'Menunggu client lunas';
+            } else if (commissionStat === 'paid') {
+                boxClass   = 'done';
+                statusIcon = '✅';
+                statusText = 'Komisi sudah dibayar';
+            } else {
+                boxClass   = 'ready';
+                statusIcon = '💰';
+                statusText = 'Siap dibayar';
+                actionBtn  = `
+                    <button class="commission-btn" onclick="generateSlipKomisi('${c.id}')">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        Buat Slip Komisi
+                    </button>`;
+            }
+            
+            const breakdown = comm.bonus > 0
+                ? `${toRp(comm.komisi)} + Bonus ${toRp(comm.bonus)}`
+                : `${comm.pct}% × ${toRp(commissionBase)}`;
+
+            commissionBadge = `
+                <div class="card-commission ${boxClass}">
+                    <div class="commission-header">
+                        <div class="commission-tier">
+                            <span class="ct-name">${comm.tierIcon} <b>${escHtml(resellerName)}</b></span>
+                            <small>${comm.tierLabel} • ${comm.pct}%${comm.bonus > 0 ? ' + bonus' : ''}</small>
+                        </div>
+                        <span class="commission-status-badge">${statusIcon} ${statusText}</span>
+                    </div>
+                    <div class="commission-body">
+                        <div class="commission-amount-box">
+                            <span class="ca-label">Total Komisi</span>
+                            <span class="ca-value">${toRp(comm.total)}</span>
+                        </div>
+                        <div class="commission-breakdown">💡 ${breakdown}</div>
+                    </div>
+                    ${actionBtn}
+                </div>`;
+        }
+
+        // ═══ Tombol "Bayar" ═══
         let payBtnHtml = '';
         if(payStatus === 'paid_full'){
             payBtnHtml = `
@@ -2092,20 +2111,18 @@ if (hasReseller) {
             <div class="card-project">
                 <i class="fas fa-code"></i>
                 <span class="proj-name">${escHtml(c.project||'-')}</span>
-                <span class="proj-value">${escHtml(c.value||'-')}</span>
+                <span class="proj-value">${toRp(totalValue)}</span>
             </div>
 
-<!-- ═══ NEW: Payment Info Box ═══ -->
-<div class="card-payment ${payMap.cls}">
-    <i class="fas ${payMap.icon}"></i>
-    <span class="pay-label">${payMap.label}</span>
-    <span class="pay-amount">${payText}</span>
-</div>
+            <!-- ═══ Payment Info Box ═══ -->
+            <div class="card-payment ${payMap.cls}">
+                <i class="fas ${payMap.icon}"></i>
+                <span class="pay-label">${payMap.label}</span>
+                <span class="pay-amount">${payText}</span>
+            </div>
 
-<!-- ═══ 💰 KOMISI RESELLER ═══ -->
-${commissionBadge}
-
-<div class="card-details">
+            <!-- ═══ 💰 KOMISI RESELLER ═══ -->
+            ${commissionBadge}
 
             <div class="card-details">
                 <div class="detail-row">
@@ -2144,7 +2161,6 @@ ${commissionBadge}
         </div>`;
     }).join('');
 }
-
 // ====================================================
 // MODAL HELPERS
 // ====================================================
