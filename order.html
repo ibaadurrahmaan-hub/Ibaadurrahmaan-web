@@ -2061,20 +2061,10 @@ async function downloadInvoice() {
     if (loading) loading.classList.add('show');
     invoiceEl.classList.add('pdf-mode');
     
-    const originalWidth = 800;
-    const a4Ratio = 297 / 210;
-    const targetHeight = originalWidth * a4Ratio;
-    const actualHeight = invoiceEl.scrollHeight;
-    
-    let autoScale = 1;
-    if (actualHeight > targetHeight) {
-        autoScale = (targetHeight / actualHeight) * 0.98;
-    }
-    
-    console.log('📏 Actual: ' + actualHeight + 'px | Target: ' + targetHeight + 'px | Scale: ' + autoScale.toFixed(3));
+    console.log('📏 Height: ' + invoiceEl.scrollHeight + 'px');
     
     const options = {
-        margin       : [5, 5, 5, 5],
+        margin       : [8, 8, 8, 8],
         filename     : filename,
         image        : { type: 'jpeg', quality: 0.95 },
         html2canvas  : {
@@ -2100,12 +2090,7 @@ async function downloadInvoice() {
                     target.style.minHeight = 'auto';
                     target.style.height = 'auto';
                     
-                    if (autoScale < 1) {
-                        target.style.transformOrigin = 'top left';
-                        target.style.transform = 'scale(' + autoScale + ')';
-                        target.style.width = (800 / autoScale) + 'px';
-                    }
-                    
+                    // Kompres padding besar
                     const allElements = target.querySelectorAll('*');
                     allElements.forEach(el => {
                         const computed = window.getComputedStyle(el);
@@ -2115,40 +2100,49 @@ async function downloadInvoice() {
                         if (padBot > 15) el.style.paddingBottom = '8px';
                     });
                     
+                    // Kompres tabel
                     target.querySelectorAll('td, th').forEach(cell => {
                         cell.style.paddingTop = '6px';
                         cell.style.paddingBottom = '6px';
                     });
                     
+                    // Hilangkan empty
                     target.querySelectorAll('br + br, p:empty, div:empty').forEach(el => {
                         el.style.display = 'none';
                     });
                     
-                    // ═══ 🔥 PREVENT BREAK di section penting ═══
-                    const noBreakSelectors = [
-                        '.invoice-payment-box',
-                        '.invoice-totals',
-                        '.invoice-nextsteps',
-                        '.invoice-footer',
-                        '.ipb-grid',
-                        '.ipb-deadline',
-                        '.inv-total-row',
-                        'table',
-                        'tr'
-                    ];
-                    
-                    noBreakSelectors.forEach(selector => {
-                        target.querySelectorAll(selector).forEach(el => {
-                            el.style.pageBreakInside = 'avoid';
-                            el.style.breakInside = 'avoid';
-                        });
-                    });
-                    
+                    // ═══ 🔥 KUNCI: Manual page-break SEBELUM Instruksi Pembayaran ═══
                     const paymentBox = target.querySelector('.invoice-payment-box');
                     if (paymentBox) {
+                        const pageBreak = clonedDoc.createElement('div');
+                        pageBreak.className = 'html2pdf__page-break';
+                        pageBreak.style.pageBreakBefore = 'always';
+                        pageBreak.style.breakBefore = 'page';
+                        pageBreak.style.height = '0';
+                        pageBreak.style.display = 'block';
+                        
+                        paymentBox.parentNode.insertBefore(pageBreak, paymentBox);
+                        
                         paymentBox.style.pageBreakInside = 'avoid';
                         paymentBox.style.breakInside = 'avoid';
                         paymentBox.style.display = 'block';
+                        paymentBox.style.marginTop = '0';
+                    }
+                    
+                    // Force nextsteps & footer avoid split
+                    ['.invoice-nextsteps', '.invoice-footer'].forEach(sel => {
+                        const el = target.querySelector(sel);
+                        if (el) {
+                            el.style.pageBreakInside = 'avoid';
+                            el.style.breakInside = 'avoid';
+                        }
+                    });
+                    
+                    // Total section juga jangan split
+                    const totals = target.querySelector('.invoice-totals');
+                    if (totals) {
+                        totals.style.pageBreakInside = 'avoid';
+                        totals.style.breakInside = 'avoid';
                     }
                 }
             }
@@ -2161,14 +2155,14 @@ async function downloadInvoice() {
             hotfixes    : ['px_scaling']
         },
         pagebreak    : { 
-            mode: ['css', 'legacy'],
+            mode: ['avoid-all', 'css', 'legacy'],
+            before: '.invoice-payment-box',
             avoid: [
                 '.invoice-payment-box',
                 '.invoice-totals',
                 '.invoice-nextsteps',
                 '.invoice-footer',
                 '.ipb-grid',
-                '.ipb-deadline',
                 'tr',
                 'table'
             ]
@@ -2186,7 +2180,7 @@ async function downloadInvoice() {
         invoiceEl.classList.remove('pdf-mode');
         if (loading) loading.classList.remove('show');
     }
-} 
+}
 
 
 // ═══════════════════════════════════════════
