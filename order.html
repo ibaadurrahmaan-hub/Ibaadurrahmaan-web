@@ -400,6 +400,304 @@
     page-break-inside: avoid !important;
     break-inside: avoid !important;
 }
+
+/* ═══════════════════════════════════════════
+   🖨️ PRINT MEDIA - Optimize untuk Print/Save PDF
+   ═══════════════════════════════════════════ */
+@media print {
+    /* Hide semua yang tidak perlu */
+    .order-header,
+    .progress-steps,
+    .success-icon,
+    .success-title,
+    .success-desc,
+    .firebase-status,
+    .success-actions,
+    .tracking-card,
+    .back-shop,
+    .toast,
+    .processing-overlay,
+    .pdf-loading,
+    .btn-copy,
+    .btn-download,
+    .btn-print,
+    .btn-wa,
+    .btn-primary,
+    .btn-outline,
+    .no-print,
+    button:not(.pkg-select-btn) {
+        display: none !important;
+    }
+    
+    /* Body & container */
+    html, body {
+        background: #ffffff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        color: #333 !important;
+    }
+    
+    .order-main,
+    .container,
+    .success-section {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        background: #fff !important;
+    }
+    
+    /* Invoice Card jadi full-width, no shadow */
+    #invoiceCard,
+    .invoice-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 15mm 10mm !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        background: #fff !important;
+        color: #333 !important;
+        font-size: 11pt !important;
+        page-break-inside: auto !important;
+    }
+    
+    /* Force text color hitam */
+    #invoiceCard,
+    #invoiceCard p,
+    #invoiceCard span,
+    #invoiceCard td,
+    #invoiceCard th,
+    #invoiceCard div {
+        color: #333 !important;
+    }
+    
+    /* Heading tetap gold */
+    #invoiceCard h1,
+    #invoiceCard h2,
+    #invoiceCard h3,
+    #invoiceCard h4,
+    .inv-brand-name,
+    .total-amount,
+    .inv-paynow {
+        color: #d4a536 !important;
+    }
+    
+    /* Header invoice */
+    .invoice-header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: flex-start !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        padding-bottom: 10px !important;
+        margin-bottom: 15px !important;
+        border-bottom: 2px solid #d4a536 !important;
+    }
+    
+    /* Info grid 2 kolom */
+    .invoice-info-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 20px !important;
+        margin-bottom: 15px !important;
+    }
+    
+    /* Tabel */
+    .invoice-table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        font-size: 10pt !important;
+        margin: 10px 0 !important;
+    }
+    
+    .invoice-table thead {
+        background: #d4a536 !important;
+        color: #fff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    .invoice-table th {
+        color: #fff !important;
+        padding: 8px 10px !important;
+        text-align: left !important;
+    }
+    
+    .invoice-table td {
+        padding: 8px 10px !important;
+        border-bottom: 1px solid #eee !important;
+    }
+    
+    /* Totals */
+    .invoice-totals {
+        background: #faf6ed !important;
+        padding: 12px 16px !important;
+        border-radius: 8px !important;
+        margin: 15px 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    .grand-total {
+        font-size: 13pt !important;
+        font-weight: 800 !important;
+        padding: 8px 0 !important;
+        border-top: 2px solid #d4a536 !important;
+        margin-top: 8px !important;
+    }
+    
+    .payment-now-row {
+        background: #faf6ed !important;
+        padding: 8px 12px !important;
+        border-radius: 6px !important;
+        margin-top: 6px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    /* ═══ PAYMENT BOX — KUNCI ═══ */
+    .invoice-payment-box {
+        background: #fff9e6 !important;
+        border: 1px solid #f0e5c8 !important;
+        border-radius: 8px !important;
+        padding: 12px 16px !important;
+        margin: 15px 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+    
+    /* Grid jadi vertical stack biar rapi */
+    .ipb-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6px !important;
+        margin: 10px 0 !important;
+    }
+    
+    .ipb-item {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+        padding: 8px 12px !important;
+        background: #fff !important;
+        border: 1px solid #f0e5c8 !important;
+        border-radius: 6px !important;
+        font-size: 10pt !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    .ipb-item.highlight {
+        background: #d4a536 !important;
+        border-color: #c19a2e !important;
+        color: #fff !important;
+    }
+    
+    .ipb-item.highlight * {
+        color: #fff !important;
+    }
+    
+    .ipb-label {
+        font-size: 9pt !important;
+        font-weight: 600 !important;
+    }
+    
+    .ipb-value {
+        font-size: 11pt !important;
+        font-weight: 800 !important;
+    }
+    
+    .ipb-deadline {
+        margin-top: 10px !important;
+        padding: 8px 12px !important;
+        background: #fff !important;
+        border-left: 3px solid #d4a536 !important;
+        font-size: 9pt !important;
+        page-break-inside: avoid !important;
+    }
+    
+    /* Next steps */
+    .invoice-nextsteps {
+        margin: 15px 0 !important;
+        padding: 12px 16px !important;
+        background: #f9f9f9 !important;
+        border-radius: 8px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        page-break-inside: avoid !important;
+    }
+    
+    .invoice-nextsteps ol {
+        padding-left: 20px !important;
+        font-size: 10pt !important;
+    }
+    
+    .invoice-nextsteps li {
+        padding: 3px 0 !important;
+    }
+    
+    /* Footer */
+    .invoice-footer {
+        text-align: center !important;
+        padding-top: 12px !important;
+        border-top: 1px solid #eee !important;
+        font-size: 9pt !important;
+        color: #666 !important;
+        margin-top: 15px !important;
+        page-break-inside: avoid !important;
+    }
+    
+    .invoice-footer p {
+        margin: 3px 0 !important;
+        color: #666 !important;
+    }
+    
+    .invoice-footer .inv-small {
+        font-size: 8pt !important;
+        font-style: italic !important;
+        color: #999 !important;
+    }
+    
+    /* Force page color exact */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    /* @page setup */
+    @page {
+        size: A4 portrait;
+        margin: 10mm 8mm;
+    }
+    
+    /* Avoid break di elemen tertentu */
+    tr, .ipb-item, .inv-total-row {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+    
+    /* Force new page kalau perlu */
+    .invoice-payment-box {
+        page-break-before: auto !important;
+    }
+}
+
+@media print {
+    .order-step, .order-step:not(#step4) {
+        display: none !important;
+    }
+    
+    #step4 {
+        display: block !important;
+    }
+}
+
 </style>
 
 <!-- 📄 html2pdf.js — untuk generate PDF invoice -->
@@ -2123,13 +2421,17 @@ async function downloadInvoice() {
     if (loading) loading.classList.add('show');
     invoiceEl.classList.add('pdf-mode');
     
-    // Beri waktu CSS pdf-mode apply
-    await new Promise(r => setTimeout(r, 500));
+    await new Promise(r => setTimeout(r, 400));
     
-    console.log('📏 Invoice height:', invoiceEl.scrollHeight + 'px');
+    // Hitung tinggi actual untuk custom format
+    const actualHeight = invoiceEl.scrollHeight;
+    const widthMM = 210; // A4 width
+    const heightMM = Math.ceil((actualHeight / 800) * widthMM) + 20; // Convert px to mm + padding
+    
+    console.log('📏 PDF size:', widthMM + 'mm × ' + heightMM + 'mm');
     
     const options = {
-        margin       : [10, 10, 10, 10],
+        margin       : [8, 8, 8, 8],
         filename     : filename,
         image        : { type: 'jpeg', quality: 0.95 },
         html2canvas  : {
@@ -2140,22 +2442,19 @@ async function downloadInvoice() {
             windowWidth : 800,
             width       : 800,
             backgroundColor: '#ffffff',
-            scrollY     : 0,
-            scrollX     : 0,
             onclone     : (clonedDoc) => {
                 const target = clonedDoc.getElementById('invoiceCard');
                 if (!target) return;
                 
-                // Basic styling
                 target.style.width = '800px';
                 target.style.maxWidth = '800px';
                 target.style.margin = '0 auto';
-                target.style.padding = '15px';
+                target.style.padding = '20px';
                 target.style.background = '#ffffff';
                 target.style.color = '#333333';
                 target.style.boxShadow = 'none';
                 
-                // ═══ Force Grid → Flex Column untuk ipb-grid ═══
+                // Force ipb-grid jadi vertical
                 const ipbGrid = target.querySelector('.ipb-grid');
                 if (ipbGrid) {
                     ipbGrid.style.display = 'flex';
@@ -2163,42 +2462,15 @@ async function downloadInvoice() {
                     ipbGrid.style.gap = '8px';
                 }
                 
-                // Setiap ipb-item jadi full-width row
                 target.querySelectorAll('.ipb-item').forEach(item => {
                     item.style.display = 'flex';
                     item.style.justifyContent = 'space-between';
                     item.style.alignItems = 'center';
                     item.style.width = '100%';
                     item.style.padding = '10px 14px';
-                    item.style.pageBreakInside = 'avoid';
-                    item.style.breakInside = 'avoid';
                 });
                 
-                // ═══ Insert manual page-break sebelum payment box ═══
-                const paymentBox = target.querySelector('.invoice-payment-box');
-                if (paymentBox) {
-                    const pageBreak = clonedDoc.createElement('div');
-                    pageBreak.className = 'html2pdf__page-break';
-                    pageBreak.style.pageBreakBefore = 'always';
-                    pageBreak.style.breakBefore = 'page';
-                    pageBreak.style.height = '0';
-                    paymentBox.parentNode.insertBefore(pageBreak, paymentBox);
-                    
-                    paymentBox.style.pageBreakInside = 'avoid';
-                    paymentBox.style.breakInside = 'avoid';
-                    paymentBox.style.marginTop = '0';
-                }
-                
-                // ═══ Nextsteps & Footer avoid break ═══
-                ['.invoice-nextsteps', '.invoice-footer', '.invoice-totals'].forEach(sel => {
-                    const el = target.querySelector(sel);
-                    if (el) {
-                        el.style.pageBreakInside = 'avoid';
-                        el.style.breakInside = 'avoid';
-                    }
-                });
-                
-                // Kompres empty elements
+                // Kompres empty
                 target.querySelectorAll('br + br, p:empty, div:empty').forEach(el => {
                     el.style.display = 'none';
                 });
@@ -2206,15 +2478,11 @@ async function downloadInvoice() {
         },
         jsPDF        : {
             unit        : 'mm',
-            format      : 'a4',
+            format      : [widthMM, heightMM],  // ⭐ CUSTOM FORMAT (dinamis)
             orientation : 'portrait',
             compress    : true
-        },
-        pagebreak    : { 
-            mode: ['avoid-all', 'css', 'legacy'],
-            before: '.invoice-payment-box',
-            avoid: ['.ipb-item', '.ipb-grid', '.invoice-totals', '.invoice-nextsteps', 'tr']
         }
+        // TIDAK perlu pagebreak config — karena 1 halaman
     };
     
     try {
