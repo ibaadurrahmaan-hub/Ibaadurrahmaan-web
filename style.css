@@ -3256,3 +3256,134 @@ a.fab-wa .fab.fa-whatsapp,
     font-size: 0.85rem;
     flex-shrink: 0;
 }
+
+/* ============================================
+   📱 FIX: Mobile Nav Button (untuk toggleSheet)
+   ============================================ */
+
+/* Reset button default styles */
+.mobile-nav button.mnav-item {
+    /* Hapus semua default button styles */
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    padding: 10px 14px;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    
+    /* Match dengan <a class="mnav-item"> */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 70px;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: 18px;
+    transition: all 0.3s var(--ease);
+    
+    /* Text tidak ke-select */
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Text di dalam button (biar sama dengan <a>) */
+.mobile-nav button.mnav-item span {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    opacity: 0.8;
+    color: inherit;
+    line-height: 1.2;
+}
+
+.mobile-nav button.mnav-item i {
+    font-size: 1.2rem;
+    transition: transform 0.3s var(--ease);
+    color: inherit;
+}
+
+/* Hover state */
+.mobile-nav button.mnav-item:hover {
+    color: var(--text);
+}
+
+/* Active/pressed state */
+.mobile-nav button.mnav-item:active {
+    transform: scale(0.92);
+    background: rgba(255,255,255,0.05) !important;
+}
+
+/* Focus state (accessibility) */
+.mobile-nav button.mnav-item:focus {
+    outline: none;
+    background: rgba(212,165,54,0.08) !important;
+}
+
+.mobile-nav button.mnav-item:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+}
+
+/* Active current page (kalau match data-page) */
+.mobile-nav button.mnav-item.active {
+    background: var(--grad-gold-shine) !important;
+    color: var(--bg);
+    box-shadow: 0 6px 18px var(--gold-glow);
+}
+
+.mobile-nav button.mnav-item.active i {
+    transform: scale(1.15);
+    color: var(--bg);
+}
+
+.mobile-nav button.mnav-item.active span {
+    opacity: 1;
+    font-weight: 700;
+    color: var(--bg);
+}
+
+/* Highlight variant (Reseller) */
+.mobile-nav button.mnav-item.mnav-highlight {
+    position: relative;
+}
+
+/* HOT badge position fix untuk button */
+.mobile-nav button.mnav-item.mnav-highlight::before {
+    content: 'HOT';
+    position: absolute;
+    top: 2px;
+    right: 8px;
+    background: #ff4444;
+    color: white;
+    font-size: 0.5rem;
+    font-weight: 800;
+    padding: 2px 5px;
+    border-radius: 8px;
+    letter-spacing: 0.5px;
+    animation: hotBadge 1.5s ease-in-out infinite;
+}
+
+
+/* ============================================
+   🌟 FIX: FAB WhatsApp jangan ketutup nav
+   ============================================ */
+@media (max-width: 768px) {
+    a.fab-wa,
+    .fab-wa {
+        bottom: 140px !important;   /* ⭐ Naik lebih tinggi biar tidak overlap */
+        right: 16px !important;
+        z-index: 999 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    a.fab-wa,
+    .fab-wa {
+        bottom: 130px !important;
+    }
+}
