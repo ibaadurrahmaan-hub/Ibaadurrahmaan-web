@@ -2410,7 +2410,6 @@ function generateInvoice(orderId) {
 // ============================================
 // 📄 DOWNLOAD INVOICE AS PDF
 // ============================================
-
 async function downloadInvoice() {
     const invoiceEl = document.getElementById('invoiceCard');
     if (!invoiceEl) return;
@@ -2419,19 +2418,23 @@ async function downloadInvoice() {
     
     const loading = document.getElementById('pdfLoading');
     if (loading) loading.classList.add('show');
+    
+    // ═══ 🔥 KUNCI: Tandai body sedang html2pdf mode ═══
+    document.body.classList.add('html2pdf-active');
     invoiceEl.classList.add('pdf-mode');
     
-    await new Promise(r => setTimeout(r, 400));
+    await new Promise(r => setTimeout(r, 500));
     
-    // Hitung tinggi actual untuk custom format
-    const actualHeight = invoiceEl.scrollHeight;
+    // Ukur tinggi actual invoice
+    const actualHeightPx = invoiceEl.scrollHeight;
     const widthMM = 210; // A4 width
-    const heightMM = Math.ceil((actualHeight / 800) * widthMM) + 20; // Convert px to mm + padding
+    // Ratio: 800px content = 210mm, 1px = 0.2625mm
+    const heightMM = Math.max(297, Math.ceil((actualHeightPx / 800) * 210) + 30);
     
-    console.log('📏 PDF size:', widthMM + 'mm × ' + heightMM + 'mm');
+    console.log('📏 Invoice height:', actualHeightPx + 'px | PDF size:', widthMM + 'mm × ' + heightMM + 'mm');
     
     const options = {
-        margin       : [8, 8, 8, 8],
+        margin       : [10, 10, 10, 10],
         filename     : filename,
         image        : { type: 'jpeg', quality: 0.95 },
         html2canvas  : {
@@ -2442,10 +2445,13 @@ async function downloadInvoice() {
             windowWidth : 800,
             width       : 800,
             backgroundColor: '#ffffff',
+            scrollY     : 0,
+            scrollX     : 0,
             onclone     : (clonedDoc) => {
                 const target = clonedDoc.getElementById('invoiceCard');
                 if (!target) return;
                 
+                // Basic styling
                 target.style.width = '800px';
                 target.style.maxWidth = '800px';
                 target.style.margin = '0 auto';
@@ -2453,8 +2459,13 @@ async function downloadInvoice() {
                 target.style.background = '#ffffff';
                 target.style.color = '#333333';
                 target.style.boxShadow = 'none';
+                target.style.minHeight = 'auto';
+                target.style.height = 'auto';
+                target.style.display = 'block';
+                target.style.visibility = 'visible';
+                target.style.opacity = '1';
                 
-                // Force ipb-grid jadi vertical
+                // Force ipb-grid vertical
                 const ipbGrid = target.querySelector('.ipb-grid');
                 if (ipbGrid) {
                     ipbGrid.style.display = 'flex';
@@ -2474,15 +2485,21 @@ async function downloadInvoice() {
                 target.querySelectorAll('br + br, p:empty, div:empty').forEach(el => {
                     el.style.display = 'none';
                 });
+                
+                // ═══ Hide print-only elements di clone ═══
+                clonedDoc.querySelectorAll(
+                    '.order-header, .progress-steps, .success-icon, .success-title, ' +
+                    '.success-desc, .firebase-status, .success-actions, .tracking-card, ' +
+                    '.back-shop, .toast, .processing-overlay, .pdf-loading'
+                ).forEach(el => el.style.display = 'none');
             }
         },
         jsPDF        : {
             unit        : 'mm',
-            format      : [widthMM, heightMM],  // ⭐ CUSTOM FORMAT (dinamis)
+            format      : [widthMM, heightMM],  // ⭐ Custom format sesuai konten
             orientation : 'portrait',
             compress    : true
         }
-        // TIDAK perlu pagebreak config — karena 1 halaman
     };
     
     try {
@@ -2492,6 +2509,8 @@ async function downloadInvoice() {
         console.error('❌ PDF error:', err);
         showToast('Gagal generate PDF: ' + err.message);
     } finally {
+        // ═══ Reset semua class ═══
+        document.body.classList.remove('html2pdf-active');
         invoiceEl.classList.remove('pdf-mode');
         if (loading) loading.classList.remove('show');
     }
