@@ -18,7 +18,8 @@ function initNavScroll() {
     });
 }
 
-/* ===== 🎯 AUTO-ACTIVE NAV berdasarkan URL current — FIXED v2 ===== */
+
+/* ===== 🎯 AUTO-ACTIVE NAV berdasarkan URL current (FIXED) ===== */
 function initActiveNav() {
     // Ambil nama file dari URL
     const path = window.location.pathname;
@@ -31,30 +32,40 @@ function initActiveNav() {
     
     console.log('📍 Current page:', pageName);
     
-    // Semua nav item (mobile + desktop)
-    const navItems = document.querySelectorAll('.mnav-item, .nav-link');
+    // ═══ Ambil SEMUA nav item (a & button, mobile & desktop) ═══
+    const navItems = document.querySelectorAll(
+        '.mnav-item, ' +          // Mobile nav items
+        '.nav-link, ' +            // Desktop nav links  
+        'a.mnav-item, ' +          // Explicit link
+        'button.mnav-item'         // ⭐ Explicit button (biar pasti kena)
+    );
     
-    // ═══ STEP 1: RESET SEMUA active dulu ═══
-    navItems.forEach(item => item.classList.remove('active'));
+    console.log('🎯 Found nav items:', navItems.length);
     
-    // ═══ STEP 2: Set active HANYA yang match ═══
     navItems.forEach(item => {
-        const dataPage = item.getAttribute('data-page');
+        // ═══ STEP 1: Reset SEMUA active dulu ═══
+        item.classList.remove('active');
         
-        // Match by data-page attribute (PRIMARY & ONLY check)
+        // ═══ STEP 2: Cek data-page (PRIMARY & UTAMA) ═══
+        const dataPage = item.getAttribute('data-page');
         if (dataPage && dataPage === pageName) {
             item.classList.add('active');
+            console.log('✅ Active:', dataPage, '→', item.tagName);
+            return;  // Sudah match, skip cek href
+        }
+        
+        // ═══ STEP 3: Fallback — cek href (untuk <a> yang tidak punya data-page) ═══
+        const href = item.getAttribute('href') || '';
+        if (!href || href === '#' || href.startsWith('http')) return;
+        
+        const hrefPage = href.split('/').pop().replace('.html', '').split('#')[0];
+        
+        if (hrefPage === pageName || 
+            (pageName === 'index' && (href === 'index.html' || href === '/' || href === ''))) {
+            item.classList.add('active');
+            console.log('✅ Active via href:', href, '→', item.tagName);
         }
     });
-    
-    // ═══ STEP 3: Default fallback — kalau tidak ada yang match ═══
-    const hasActive = document.querySelector('.mnav-item.active, .nav-link.active');
-    if (!hasActive && pageName === 'index') {
-        // Set active untuk semua data-page="index"
-        document.querySelectorAll('[data-page="index"]').forEach(item => {
-            item.classList.add('active');
-        });
-    }
 }
 
 /* ===== SMOOTH SCROLL (untuk anchor #section di halaman yang sama) ===== */
