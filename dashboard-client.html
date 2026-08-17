@@ -2369,15 +2369,24 @@ async function saveClient(){
 }
 
 // ====================================================
-// 🆕 QUICK UPDATE PAYMENT (Custom Dropdown - REVISED)
+// 🆕 QUICK UPDATE PAYMENT (FIXED — pakai priceDetail)
 // ====================================================
 async function quickUpdatePayment(docId){
     const c = allClients.find(x=>x.id===docId);
     if(!c) return;
 
-    const projectValue  = parseRp(c.value);
+    // ═══ 🔥 FIX: Ambil dari priceDetail (bukan parse dari c.value) ═══
+    const pd = c.priceDetail || {};
+    const projectValue = pd.total 
+                      || pd.subtotal 
+                      || parseRp(c.value) 
+                      || 0;
+    
     const currentDp     = c.dpAmount || 0;
     const currentStatus = c.paymentStatus || 'pending';
+    
+    // Text formatted untuk tampilan
+    const projectValueText = toRp(projectValue);
 
     // Payment options
     const payOptions = [
@@ -2401,7 +2410,7 @@ async function quickUpdatePayment(docId){
                         ${escHtml(c.project)}
                     </div>
                     <div class="qup-client-value">
-                        ${escHtml(c.value || 'Rp 0')}
+                        ${projectValueText}
                     </div>
                 </div>
 
@@ -2451,7 +2460,7 @@ async function quickUpdatePayment(docId){
                 <!-- Info hint -->
                 <div class="qup-hint">
                     <i class="fas fa-info-circle"></i>
-                    <span>Jika status <b>Lunas</b>, nominal otomatis = ${escHtml(c.value || 'nilai project')}</span>
+                    <span>Jika status <b>Lunas</b>, nominal otomatis = ${projectValueText}</span>
                 </div>
             </div>
         `,
@@ -2521,6 +2530,7 @@ async function quickUpdatePayment(docId){
     });
 
     if(!formValues) return;
+
     // ═══ Simpan ke Firestore ═══
     try {
         const fb = window.fbClient;
@@ -2544,13 +2554,13 @@ async function quickUpdatePayment(docId){
             updates.paidAt = null;
         }
 
-        // ✨ NEW: Auto-detect transisi ke lunas
+        // ✨ Auto-detect transisi ke lunas
         const wasNotFullyPaid = currentStatus !== 'paid_full';
         const isNowFullyPaid = formValues.status === 'paid_full';
         const projectNotDone = c.status !== 'done';
         const shouldAskComplete = wasNotFullyPaid && isNowFullyPaid && projectNotDone;
 
-        // ✨ NEW: Auto-progress kalau DP baru (dari pending)
+        // ✨ Auto-progress kalau DP baru (dari pending)
         if (formValues.status === 'paid_partial' && c.status === 'pending') {
             updates.status = 'progress';
         }
@@ -2585,7 +2595,6 @@ async function quickUpdatePayment(docId){
             });
 
             if (res.isConfirmed) {
-                // Update status project ke done
                 await fb.updateDoc(ref, {
                     status: 'done',
                     completedAt: fb.serverTimestamp(),
@@ -2604,7 +2613,6 @@ async function quickUpdatePayment(docId){
                     position: 'top-end'
                 });
             } else {
-                // Cukup notif payment saja
                 Swal.fire({
                     icon: 'success',
                     title: '💰 Lunas Tercatat',
@@ -2618,7 +2626,6 @@ async function quickUpdatePayment(docId){
                 });
             }
         } else {
-            // Notif normal (bukan transisi ke lunas)
             Swal.fire({
                 icon: 'success',
                 title: formValues.status === 'paid_full' ? '🎉 Sudah Lunas!' : '✅ Diperbarui',
