@@ -2452,11 +2452,11 @@ body{background:var(--bg);}
 }
 
 /* ============================================
-   REFERRAL / RESELLER CODE SECTION
+   🎁 REFERRAL / RESELLER CODE - IMPROVED
    ============================================ */
 .referral-card {
   border: 1px dashed rgba(212, 165, 54, 0.3) !important;
-  background: linear-gradient(135deg, rgba(212, 165, 54, 0.03), rgba(212, 165, 54, 0.01)) !important;
+  background: linear-gradient(135deg, rgba(212, 165, 54, 0.04), rgba(212, 165, 54, 0.01)) !important;
 }
 
 .referral-desc {
@@ -2470,20 +2470,23 @@ body{background:var(--bg);}
   margin-bottom: 20px;
 }
 
+/* ═══ INPUT GROUP — Horizontal Layout ═══ */
 .referral-input-group {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 0;
   border-radius: 14px;
   overflow: hidden;
-  border: 1px solid var(--border);
+  border: 2px solid rgba(212, 165, 54, 0.2);
   background: rgba(255, 255, 255, 0.02);
   transition: all 0.3s var(--ease);
+  position: relative;
 }
 
 .referral-input-group:focus-within {
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(212, 165, 54, 0.1);
+  box-shadow: 0 0 0 4px rgba(212, 165, 54, 0.12);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .referral-icon {
@@ -2492,23 +2495,23 @@ body{background:var(--bg);}
   justify-content: center;
   width: 52px;
   min-width: 52px;
-  height: 52px;
-  background: rgba(212, 165, 54, 0.08);
+  background: rgba(212, 165, 54, 0.1);
   color: var(--gold);
   font-size: 1rem;
-  border-right: 1px solid var(--border);
+  border-right: 1px solid rgba(212, 165, 54, 0.15);
 }
 
 .referral-input-group input {
   flex: 1;
+  min-width: 0;
   border: none;
   background: transparent;
   padding: 14px 16px;
   font-family: 'Poppins', sans-serif;
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text);
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
   outline: none;
 }
@@ -2521,147 +2524,209 @@ body{background:var(--bg);}
   font-size: 0.85rem;
 }
 
+.referral-input-group input:read-only {
+  color: var(--gold);
+  cursor: not-allowed;
+}
+
+/* ═══ VERIFY BUTTON — Compact & Solid ═══ */
 .btn-verify-reseller {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 12px 20px;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 24px;
   background: var(--grad-gold-shine);
   color: var(--bg);
   border: none;
   font-family: 'Poppins', sans-serif;
   font-size: 0.82rem;
-  font-weight: 700;
+  font-weight: 800;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.3s var(--ease);
-  margin: 4px;
-  border-radius: 10px;
+  transition: all 0.25s var(--ease);
+  min-width: 130px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 0;
+  border-left: 1px solid rgba(0,0,0,0.15);
 }
 
-.btn-verify-reseller:hover {
-  transform: scale(1.03);
-  box-shadow: 0 4px 15px var(--gold-glow);
+.btn-verify-reseller:hover:not(.loading) {
+  background: linear-gradient(135deg, #e5b642, #d4a536);
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.15);
 }
 
 .btn-verify-reseller:active {
-  transform: scale(0.97);
+  transform: scale(0.98);
 }
 
 .btn-verify-reseller.loading {
-  opacity: 0.7;
+  opacity: 0.85;
   pointer-events: none;
+  background: rgba(212, 165, 54, 0.5);
 }
 
 .btn-verify-reseller.loading i {
-  animation: spin 1s linear infinite;
+  animation: spin 0.8s linear infinite;
+}
+
+.btn-verify-reseller i {
+  font-size: 0.85rem;
 }
 
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
 
-/* Result States */
+/* ═══ RESULT CONTAINER ═══ */
 .referral-result {
-  margin-top: 10px;
+  margin-top: 12px;
   min-height: 0;
   transition: all 0.3s var(--ease);
 }
 
+/* ═══ SUCCESS STATE — Beautiful Card ═══ */
 .reseller-success {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
-  background: rgba(37, 211, 102, 0.08);
-  border: 1px solid rgba(37, 211, 102, 0.25);
-  border-radius: 12px;
+  gap: 14px;
+  padding: 16px 18px;
+  background: linear-gradient(135deg, rgba(37, 211, 102, 0.12), rgba(37, 211, 102, 0.05));
+  border: 1.5px solid rgba(37, 211, 102, 0.3);
+  border-radius: 14px;
   color: #25d366;
-  font-size: 0.88rem;
-  font-weight: 600;
-  animation: slideDown 0.3s var(--ease);
+  animation: slideDown 0.4s var(--ease);
+  position: relative;
+  overflow: hidden;
 }
 
-.reseller-success i {
-  font-size: 1.3rem;
+/* Left accent bar */
+.reseller-success::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #25d366, #128c7e);
+}
+
+/* Icon check bulat besar */
+.reseller-success > i:first-child {
   flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+  animation: iconPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes iconPop {
+  0%   { transform: scale(0) rotate(-180deg); }
+  100% { transform: scale(1) rotate(0deg); }
 }
 
 .reseller-success .rs-info {
   flex: 1;
+  min-width: 0;
 }
 
 .reseller-success .rs-name {
   font-weight: 800;
   color: #2ecc71;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  line-height: 1.3;
+  margin-bottom: 3px;
+  letter-spacing: 0.3px;
 }
 
 .reseller-success .rs-detail {
   font-size: 0.78rem;
-  color: rgba(37, 211, 102, 0.7);
+  color: rgba(37, 211, 102, 0.85);
   font-weight: 500;
-  margin-top: 2px;
+  line-height: 1.5;
+  word-break: break-word;
 }
 
+/* Remove button — bulat elegan */
 .reseller-success .btn-remove-reseller {
-  background: rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(37, 211, 102, 0.3);
-  color: #25d366;
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
+  color: rgba(37, 211, 102, 0.8);
+  border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.75rem;
   transition: all 0.3s;
-  flex-shrink: 0;
 }
 
 .reseller-success .btn-remove-reseller:hover {
-  background: rgba(231, 76, 60, 0.2);
+  background: rgba(231, 76, 60, 0.15);
   border-color: rgba(231, 76, 60, 0.4);
   color: #e74c3c;
+  transform: rotate(90deg);
 }
 
+/* ═══ ERROR STATE ═══ */
 .reseller-error {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  background: rgba(231, 76, 60, 0.08);
-  border: 1px solid rgba(231, 76, 60, 0.25);
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(231, 76, 60, 0.04));
+  border: 1.5px solid rgba(231, 76, 60, 0.3);
   border-radius: 12px;
   color: #e74c3c;
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 500;
+  line-height: 1.6;
   animation: slideDown 0.3s var(--ease);
 }
 
 .reseller-error i {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   flex-shrink: 0;
+  margin-top: 2px;
 }
 
+.reseller-error a {
+  color: #e74c3c;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* ═══ HINT STATE ═══ */
 .reseller-hint {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
   background: rgba(212, 165, 54, 0.06);
-  border: 1px solid rgba(212, 165, 54, 0.15);
+  border: 1px solid rgba(212, 165, 54, 0.2);
   border-radius: 12px;
   color: var(--gold);
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   font-weight: 500;
+  line-height: 1.6;
   animation: slideDown 0.3s var(--ease);
 }
 
 .reseller-hint i {
-  font-size: 1rem;
+  font-size: 1.05rem;
   flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .reseller-hint a {
@@ -2675,21 +2740,21 @@ body{background:var(--bg);}
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Benefits */
+/* ═══ BENEFITS ═══ */
 .referral-benefits {
   padding: 16px 18px;
   background: rgba(255, 255, 255, 0.02);
   border-radius: 12px;
-  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
 }
 
 .rb-title {
   color: var(--gold);
   font-size: 0.82rem;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -2700,7 +2765,7 @@ body{background:var(--bg);}
   padding: 0;
   margin: 0;
   display: grid;
-  gap: 6px;
+  gap: 8px;
 }
 
 .rb-list li {
@@ -2708,24 +2773,24 @@ body{background:var(--bg);}
   align-items: center;
   gap: 10px;
   color: var(--text-muted);
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   line-height: 1.5;
 }
 
 .rb-list li i {
   color: #25d366;
-  font-size: 0.7rem;
-  width: 18px;
-  height: 18px;
+  font-size: 0.65rem;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(37, 211, 102, 0.12);
+  background: rgba(37, 211, 102, 0.15);
   border-radius: 50%;
   flex-shrink: 0;
 }
 
-/* Verified Badge in Summary */
+/* ═══ SUMMARY BADGE ═══ */
 .si-reseller {
   display: flex;
   align-items: center;
@@ -2744,11 +2809,11 @@ body{background:var(--bg);}
   font-size: 0.85rem;
 }
 
-/* Responsive */
+/* ═══ MOBILE RESPONSIVE ═══ */
 @media (max-width: 768px) {
   .referral-input-group {
-    flex-wrap: wrap;
-    border-radius: 12px;
+    flex-direction: column;
+    border-radius: 14px;
   }
 
   .referral-icon {
@@ -2757,17 +2822,55 @@ body{background:var(--bg);}
 
   .referral-input-group input {
     width: 100%;
-    min-width: 0;
-    padding: 14px 14px;
-    font-size: 0.9rem;
-    border-bottom: 1px solid var(--border);
+    padding: 14px 16px;
+    text-align: center;
+    border-bottom: 1px solid rgba(212, 165, 54, 0.15);
+    font-size: 0.95rem;
   }
 
   .btn-verify-reseller {
-    width: calc(100% - 8px);
-    justify-content: center;
-    padding: 12px;
-    margin: 4px;
+    width: 100%;
+    padding: 14px;
+    border-left: none;
+    border-top: 1px solid rgba(0,0,0,0.15);
+    min-width: 0;
+    font-size: 0.85rem;
+  }
+  
+  /* Success card mobile adjustments */
+  .reseller-success {
+    padding: 14px;
+    gap: 12px;
+  }
+  
+  .reseller-success > i:first-child {
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+  }
+  
+  .reseller-success .rs-name {
+    font-size: 0.92rem;
+  }
+  
+  .reseller-success .rs-detail {
+    font-size: 0.75rem;
+  }
+  
+  .reseller-success .btn-remove-reseller {
+    width: 30px;
+    height: 30px;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .referral-benefits {
+    padding: 14px;
+  }
+  
+  .rb-list li {
+    font-size: 0.82rem;
   }
 }
 
