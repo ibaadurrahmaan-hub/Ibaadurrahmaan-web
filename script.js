@@ -305,10 +305,26 @@ document.addEventListener('keydown', e => {
 /* ============================================
    📱 MOBILE BOTTOM SHEET (kalau pakai)
    ============================================ */
+
 function openMobileSheet(type) {
     const data = SHEET_CONTENT[type];
     if (!data) return;
     
+    // ⭐ FIX: Reset semua active, lalu set ke tombol yang di-klik
+    document.querySelectorAll('.mnav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    // Cari tombol berdasarkan data-page dan set active
+    const activeBtn = document.querySelector(`.mnav-item[data-page="${type}"]`);
+    if (activeBtn) {
+        activeBtn.classList.add('active');
+        console.log('🎯 Sheet opened, active set to:', type);
+    } else {
+        console.warn('❌ Tombol tidak ditemukan untuk:', type);
+    }
+    
+    // Render sheet
     const sheetTitle = document.getElementById('sheetTitle');
     const sheetContent = document.getElementById('sheetContent');
     const overlay = document.getElementById('mobileSheetOverlay');
@@ -353,4 +369,9 @@ function closeMobileSheet() {
     if (overlay) overlay.classList.remove('show');
     if (sheet) sheet.classList.remove('show');
     document.body.style.overflow = '';
+    
+    // ⭐ Restore active state ke URL saat ini
+    if (typeof initActiveNav === 'function') {
+        initActiveNav();
+    }
 }
