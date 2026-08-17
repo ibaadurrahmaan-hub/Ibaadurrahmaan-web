@@ -322,6 +322,72 @@
     white-space: normal !important;
     word-wrap: break-word !important;
 }
+
+/* ═══ PDF MODE: Compact untuk 1 halaman ═══ */
+.pdf-mode {
+    padding: 15px !important;
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+}
+
+/* Kurangi jarak antar section */
+.pdf-mode .invoice-section,
+.pdf-mode section,
+.pdf-mode .invoice-grid {
+    margin-bottom: 12px !important;
+    padding: 8px !important;
+}
+
+/* Header compact */
+.pdf-mode .invoice-header {
+    margin-bottom: 12px !important;
+    padding-bottom: 8px !important;
+}
+
+/* Tabel compact */
+.pdf-mode table {
+    margin: 10px 0 !important;
+}
+.pdf-mode table th,
+.pdf-mode table td {
+    padding: 6px 8px !important;
+    font-size: 10.5px !important;
+    line-height: 1.3 !important;
+}
+
+/* Summary compact */
+.pdf-mode .invoice-summary,
+.pdf-mode .summary-section {
+    margin-top: 8px !important;
+    padding: 10px !important;
+}
+.pdf-mode .summary-row {
+    padding: 4px 0 !important;
+    font-size: 11px !important;
+}
+
+/* Total tetap besar */
+.pdf-mode .total-amount,
+.pdf-mode .summary-total .value {
+    font-size: 1.2rem !important;
+}
+
+/* Payment box compact */
+.pdf-mode .payment-box {
+    padding: 10px !important;
+    margin-top: 10px !important;
+}
+
+/* Hilangkan whitespace berlebihan */
+.pdf-mode br + br { display: none !important; }
+.pdf-mode p:empty { display: none !important; }
+
+/* Force no break untuk summary+total */
+.pdf-mode .invoice-summary,
+.pdf-mode .total-section {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+}
 </style>
 <!-- 📄 html2pdf.js — untuk generate PDF invoice -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -2139,7 +2205,6 @@ function generateInvoice(orderId) {
 // ============================================
 // 📄 DOWNLOAD INVOICE AS PDF
 // ============================================
-
 async function downloadInvoice() {
     const invoiceEl = document.getElementById('invoiceCard');
     const loading   = document.getElementById('pdfLoading');
@@ -2161,83 +2226,101 @@ async function downloadInvoice() {
         return;
     }
 
-    // Show loading
     loading.classList.add('show');
-
-    // Tambah class PDF mode
     invoiceEl.classList.add('pdf-mode');
 
-    // Sembunyikan elemen
     const hideElements = invoiceEl.querySelectorAll('.btn-copy, .no-pdf');
     hideElements.forEach(el => el.style.display = 'none');
 
-    // Nama file
     const safeName = custName.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 20);
     const filename = `Invoice_${orderId}_${safeName}.pdf`;
-
-    // ═══ 🔥 FIX: Options PDF untuk A4 fit ═══
-    const options = {
-        margin       : [5, 5, 5, 5],       // ⭐ Kurangi margin (dari 10 → 5)
-        filename     : filename,
-        image        : { type: 'jpeg', quality: 0.95 },
-        html2canvas  : {
-            scale       : 2,
-            useCORS     : true,
-            allowTaint  : true,
-            logging     : false,
-            windowWidth : 800,              // ⭐ Kurangi dari 1200 → 800 (fit A4)
-            width       : 800,              // ⭐ Force width
-            backgroundColor: '#ffffff',
-            scrollY     : 0,
-            scrollX     : 0,
-            onclone     : (clonedDoc) => {
-                const target = clonedDoc.getElementById('invoiceCard');
-                if (target) {
-                    // ⭐ Force width invoice untuk fit A4
-                    target.style.width = '800px';
-                    target.style.maxWidth = '800px';
-                    target.style.margin = '0 auto';
-                    target.style.padding = '20px';
-                    target.style.background = '#ffffff';
-                    target.style.color = '#333333';
-                    target.style.boxShadow = 'none';
+const options = {
+    margin       : [5, 5, 5, 5],
+    filename     : filename,
+    image        : { type: 'jpeg', quality: 0.95 },
+    html2canvas  : {
+        scale       : 2,
+        useCORS     : true,
+        allowTaint  : true,
+        logging     : false,
+        windowWidth : 800,
+        width       : 800,
+        backgroundColor: '#ffffff',
+        scrollY     : 0,
+        scrollX     : 0,
+        onclone     : (clonedDoc) => {
+            const target = clonedDoc.getElementById('invoiceCard');
+            if (target) {
+                // ═══ Basic styling ═══
+                target.style.width = '800px';
+                target.style.maxWidth = '800px';
+                target.style.margin = '0 auto';
+                target.style.padding = '20px';
+                target.style.background = '#ffffff';
+                target.style.color = '#333333';
+                target.style.boxShadow = 'none';
+                target.style.minHeight = 'auto';
+                target.style.height = 'auto';
+                
+                // ═══ 🔥 FIX: Kompres semua padding & margin ═══
+                const allElements = target.querySelectorAll('*');
+                allElements.forEach(el => {
+                    const computed = window.getComputedStyle(el);
                     
-                    // ⭐ Kurangi font-size di dalam PDF
-                    const allElements = target.querySelectorAll('*');
-                    allElements.forEach(el => {
-                        const computed = window.getComputedStyle(el);
-                        const fontSize = parseFloat(computed.fontSize);
-                        if (fontSize > 24) {
-                            el.style.fontSize = '20px';
-                        }
-                    });
+                    // Kurangi padding besar
+                    const padTop = parseFloat(computed.paddingTop);
+                    const padBot = parseFloat(computed.paddingBottom);
+                    if (padTop > 20) el.style.paddingTop = '12px';
+                    if (padBot > 20) el.style.paddingBottom = '12px';
+                    
+                    // Kurangi margin besar
+                    const marTop = parseFloat(computed.marginTop);
+                    const marBot = parseFloat(computed.marginBottom);
+                    if (marTop > 20) el.style.marginTop = '10px';
+                    if (marBot > 20) el.style.marginBottom = '10px';
+                });
+                
+                // ═══ 🔥 FIX: Kompres jarak antar section ═══
+                const sections = target.querySelectorAll('section, .invoice-section, .invoice-grid, table');
+                sections.forEach(sec => {
+                    sec.style.marginBottom = '10px';
+                    sec.style.marginTop = '0';
+                });
+                
+                // ═══ 🔥 FIX: Hilangkan empty elements ═══
+                target.querySelectorAll('br + br, p:empty, div:empty').forEach(el => {
+                    el.style.display = 'none';
+                });
+                
+                // ═══ 🔥 FIX: Prevent split summary+total ═══
+                const summary = target.querySelector('.invoice-summary, .summary-section, .total-section');
+                if (summary) {
+                    summary.style.pageBreakInside = 'avoid';
+                    summary.style.breakInside = 'avoid';
                 }
             }
-        },
-        jsPDF        : {
-            unit        : 'mm',
-            format      : 'a4',
-            orientation : 'portrait',
-            compress    : true,
-            hotfixes    : ['px_scaling']
-        },
-        pagebreak    : { 
-            mode: ['avoid-all', 'css', 'legacy'],
-            before: '.page-break-before',
-            after: '.page-break-after',
-            avoid: '.no-break'
         }
-    };
-
+    },
+    jsPDF        : {
+        unit        : 'mm',
+        format      : 'a4',
+        orientation : 'portrait',
+        compress    : true,
+        hotfixes    : ['px_scaling']
+    },
+    // ═══ 🔥 FIX: Ganti pagebreak mode ═══
+    pagebreak    : { 
+        mode: 'legacy',           // ⭐ Hapus 'avoid-all'
+        avoid: ['tr', '.no-break']
+    }
+};
     try {
         await new Promise(r => setTimeout(r, 300));
         await html2pdf().set(options).from(invoiceEl).save();
         showToast('✅ Invoice berhasil diunduh!');
-        
     } catch (err) {
         console.error('❌ PDF error:', err);
         showToast('Gagal generate PDF: ' + err.message);
-        
     } finally {
         invoiceEl.classList.remove('pdf-mode');
         hideElements.forEach(el => el.style.display = '');
