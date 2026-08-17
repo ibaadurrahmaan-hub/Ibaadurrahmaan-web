@@ -2586,42 +2586,49 @@ body{background:var(--bg);}
   transition: all 0.3s var(--ease);
 }
 
-/* ═══ SUCCESS STATE — Beautiful Card ═══ */
 
-.reseller-success .rs-detail {
-  font-size: 0.8rem;
-  color: rgba(37, 211, 102, 0.85);
-  font-weight: 500;
-  line-height: 1.5;
-  word-break: break-word;
-  display: block;
-  margin-top: 3px;
+/* ═══ SUCCESS STATE — Clean Border ═══ */
+.reseller-success {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: rgba(37, 211, 102, 0.08);
+  border: 2px solid rgba(37, 211, 102, 0.5);   /* ⭐ Border lebih solid */
+  border-left: 5px solid #25d366;              /* ⭐ Left accent tebal */
+  border-radius: 12px;
+  color: #25d366;
+  animation: slideDown 0.4s var(--ease);
+  position: relative;
+  box-shadow: none;                            /* ⭐ Hilangkan shadow */
 }
 
-/* Optional: pisahkan detail dengan bullet */
-.reseller-success .rs-detail span {
-  display: inline-block;
-  margin-right: 6px;
+/* Hapus ::before */
+.reseller-success::before {
+  display: none !important;
 }
-/* Icon check bulat besar */
-.reseller-success > i:first-child {
+
+/* ═══ Icon Check — Compact tanpa glow ganda ═══ */
+.reseller-success > i:first-child,
+.reseller-success .rs-icon-check {
   flex-shrink: 0;
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #25d366, #128c7e);
+  background: #25d366;                         /* ⭐ Solid hijau, no gradient */
   color: #fff;
   border-radius: 50%;
-  font-size: 1.3rem;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
-  animation: iconPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  font-size: 1rem;
+  box-shadow: none;                            /* ⭐ Hilangkan glow */
+  border: none;
+  animation: iconPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 @keyframes iconPop {
-  0%   { transform: scale(0) rotate(-180deg); }
-  100% { transform: scale(1) rotate(0deg); }
+  0%   { transform: scale(0); }
+  100% { transform: scale(1); }
 }
 
 .reseller-success .rs-info {
@@ -2634,26 +2641,26 @@ body{background:var(--bg);}
   color: #2ecc71;
   font-size: 1rem;
   line-height: 1.3;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
   letter-spacing: 0.3px;
 }
 
 .reseller-success .rs-detail {
-  font-size: 0.78rem;
-  color: rgba(37, 211, 102, 0.85);
+  font-size: 0.8rem;
+  color: rgba(37, 211, 102, 0.9);
   font-weight: 500;
   line-height: 1.5;
   word-break: break-word;
 }
 
-/* Remove button — bulat elegan */
+/* ═══ Remove Button — Bulat clean tanpa border tebal ═══ */
 .reseller-success .btn-remove-reseller {
   flex-shrink: 0;
-  width: 34px;
-  height: 34px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(37, 211, 102, 0.3);
-  color: rgba(37, 211, 102, 0.8);
+  width: 32px;
+  height: 32px;
+  background: rgba(37, 211, 102, 0.15);
+  border: 1px solid rgba(37, 211, 102, 0.4);   /* ⭐ Border tipis, no glow */
+  color: #25d366;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -2661,11 +2668,12 @@ body{background:var(--bg);}
   justify-content: center;
   font-size: 0.75rem;
   transition: all 0.3s;
+  box-shadow: none;                            /* ⭐ No shadow */
 }
 
 .reseller-success .btn-remove-reseller:hover {
-  background: rgba(231, 76, 60, 0.15);
-  border-color: rgba(231, 76, 60, 0.4);
+  background: rgba(231, 76, 60, 0.2);
+  border-color: rgba(231, 76, 60, 0.5);
   color: #e74c3c;
   transform: rotate(90deg);
 }
@@ -2731,12 +2739,13 @@ body{background:var(--bg);}
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ═══ BENEFITS ═══ */
+/* ═══ BENEFITS — Full border ═══ */
 .referral-benefits {
   padding: 16px 18px;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(212, 165, 54, 0.04);
+  border: 1px solid rgba(212, 165, 54, 0.25);   /* ⭐ Full border */
+  border-left: 4px solid var(--gold);           /* ⭐ Left accent lebih tebal */
   border-radius: 12px;
-  border-left: 3px solid var(--gold);
 }
 
 .rb-title {
