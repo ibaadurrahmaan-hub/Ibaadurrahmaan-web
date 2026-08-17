@@ -3434,19 +3434,26 @@ a.fab-wa .fab.fa-whatsapp,
 }
 
 /* ==================================================
-   🎯 NAVBAR SUB-PAGE (Auto-Injected)
+   🎯 NAVBAR SUB-PAGE (Auto-Injected) — FIXED v8.6
    ================================================== */
 
 .nav-inner-sub {
     display: flex !important;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;      /* ✅ Center content */
     gap: 12px;
     width: 100%;
+    position: relative;           /* ✅ Untuk absolute back btn */
+    padding-left: 60px;
+    padding-right: 60px;
 }
 
-/* ═══ Tombol Back ═══ */
+/* ═══ Tombol Back (Absolute Left) ═══ */
 .nav-back-btn {
+    position: absolute;           /* ✅ Absolute biar tidak dorong brand */
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -3473,7 +3480,7 @@ a.fab-wa .fab.fa-whatsapp,
 .nav-back-btn:hover {
     background: rgba(212, 165, 54, 0.2);
     border-color: var(--gold);
-    transform: translateX(-3px);
+    transform: translateY(-50%) translateX(-3px);
     box-shadow: 0 4px 12px rgba(212, 165, 54, 0.2);
 }
 
@@ -3482,13 +3489,14 @@ a.fab-wa .fab.fa-whatsapp,
 }
 
 .nav-back-btn:active {
-    transform: translateX(-3px) scale(0.96);
+    transform: translateY(-50%) translateX(-3px) scale(0.96);
 }
 
-/* ═══ Brand Full (Logo + Text) ═══ */
+/* ═══ Brand Full (Logo + Text) — Center ═══ */
 .nav-brand-full {
     display: inline-flex;
     align-items: center;
+    justify-content: center;      /* ✅ Center */
     gap: 10px;
     text-decoration: none;
     transition: transform 0.3s var(--ease);
@@ -3512,18 +3520,21 @@ a.fab-wa .fab.fa-whatsapp,
     display: block;
 }
 
+/* ═══ Text Wrap — CENTER ═══ */
 .nav-brand-text-wrap {
     display: flex;
     flex-direction: column;
+    align-items: center;          /* ✅ Center horizontal */
+    justify-content: center;
     line-height: 1;
     gap: 3px;
+    text-align: center;           /* ✅ FIX: text-align (bukan align-text!) */
 }
 
 .nav-brand-text-wrap .brand-name-nav {
     font-family: 'Montserrat', sans-serif;
     font-size: 0.95rem;
     font-weight: 800;
-    align-text: center;
     letter-spacing: -0.3px;
     background: var(--grad-gold-shine);
     -webkit-background-clip: text;
@@ -3531,6 +3542,9 @@ a.fab-wa .fab.fa-whatsapp,
     color: transparent;
     line-height: 1;
     white-space: nowrap;
+    text-align: center;           /* ✅ FIX */
+    display: block;
+    width: 100%;
 }
 
 .nav-brand-text-wrap .brand-sub-nav {
@@ -3541,13 +3555,14 @@ a.fab-wa .fab.fa-whatsapp,
     text-transform: uppercase;
     line-height: 1;
     white-space: nowrap;
+    text-align: center;           /* ✅ FIX */
+    display: block;
+    width: 100%;
 }
 
-/* ═══ Spacer (biar brand center) ═══ */
+/* ═══ Spacer HIDDEN (karena back sudah absolute) ═══ */
 .nav-spacer {
-    width: 100px;
-    flex-shrink: 0;
-    visibility: hidden;
+    display: none;                /* ✅ Tidak perlu lagi */
 }
 
 
@@ -3555,7 +3570,11 @@ a.fab-wa .fab.fa-whatsapp,
    📱 RESPONSIVE
    ================================================== */
 @media (max-width: 768px) {
-    .nav-inner-sub { gap: 8px; }
+    .nav-inner-sub { 
+        gap: 8px;
+        padding-left: 55px;
+        padding-right: 20px;
+    }
     
     .nav-back-btn {
         padding: 8px 12px;
@@ -3572,12 +3591,14 @@ a.fab-wa .fab.fa-whatsapp,
         font-size: 0.52rem;
         letter-spacing: 1.5px;
     }
-    
-    .nav-spacer { width: 70px; }
 }
 
 @media (max-width: 480px) {
-    .nav-inner-sub { gap: 6px; }
+    .nav-inner-sub { 
+        gap: 6px;
+        padding-left: 50px;
+        padding-right: 15px;
+    }
     
     /* Di layar sangat kecil, tombol back jadi ikon bulat */
     .nav-back-btn {
@@ -3600,8 +3621,6 @@ a.fab-wa .fab.fa-whatsapp,
         font-size: 0.48rem;
         letter-spacing: 1.2px;
     }
-    
-    .nav-spacer { width: 36px; }
 }
 
 /* ==================================================
