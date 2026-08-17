@@ -2207,24 +2207,32 @@ function generateInvoice(orderId) {
 // ============================================
 
 async function downloadInvoice() {
-    const element = document.getElementById('invoiceCard');
-    if (!element) return;
+    const invoiceEl = document.getElementById('invoiceCard');
+    if (!invoiceEl) return;
     
     const filename = `Invoice-${document.querySelector('.invoice-number')?.textContent || 'invoice'}.pdf`;
     
+    // ═══ Loading & hide elements (kalau ada) ═══
+    const loading = document.querySelector('.loading') || { classList: { add: ()=>{}, remove: ()=>{} } };
+    const hideElements = document.querySelectorAll('.no-print, .pdf-hide') || [];
+    
+    loading.classList?.add('show');
+    hideElements.forEach(el => el.style.display = 'none');
+    invoiceEl.classList.add('pdf-mode');
+    
     // ═══ 🔥 STEP 1: Ukur tinggi asli invoice ═══
     const originalWidth = 800;
-    const a4Ratio = 297 / 210; // A4 portrait ratio
+    const a4Ratio = 297 / 210;
     const targetHeight = originalWidth * a4Ratio; // ~1131px
-    const actualHeight = element.scrollHeight;
+    const actualHeight = invoiceEl.scrollHeight;
     
     // ═══ 🔥 STEP 2: Hitung scale factor otomatis ═══
     let autoScale = 1;
     if (actualHeight > targetHeight) {
-        autoScale = (targetHeight / actualHeight) * 0.98; // 0.98 safety margin
+        autoScale = (targetHeight / actualHeight) * 0.98;
     }
     
-    console.log(`Actual: ${actualHeight}px | Target: ${targetHeight}px | Scale: ${autoScale}`);
+    console.log(`📏 Actual: ${actualHeight}px | Target: ${targetHeight}px | Scale: ${autoScale.toFixed(3)}`);
     
     const options = {
         margin       : [2, 2, 2, 2],
@@ -2294,46 +2302,53 @@ async function downloadInvoice() {
         pagebreak    : { mode: 'legacy' }
     };
     
-    
     try {
         await new Promise(r => setTimeout(r, 300));
-        await html2pdf().set(options).from(invoiceEl).save();
-        showToast('✅ Invoice berhasil diunduh!');
+        await html2pdf().set(options).from(invoiceEl).save();  // ✅ invoiceEl konsisten
+        if (typeof showToast === 'function') showToast('✅ Invoice berhasil diunduh!');
     } catch (err) {
         console.error('❌ PDF error:', err);
-        showToast('Gagal generate PDF: ' + err.message);
+        if (typeof showToast === 'function') showToast('Gagal generate PDF: ' + err.message);
     } finally {
         invoiceEl.classList.remove('pdf-mode');
         hideElements.forEach(el => el.style.display = '');
-        loading.classList.remove('show');
+        loading.classList?.remove('show');
     }
 }
 
 // ═══════════════════════════════════════════
-// 🖨️ FALLBACK: Print to PDF (Manual)
+// 🖨️ FALLBACK: Print to PDF (Manual) - FIXED
 // ═══════════════════════════════════════════
 function openPrintWindow(invoiceEl, filename) {
-    const invoiceHTML = invoiceEl.outerHTML;
-    
-    const win = window.open('', '_blank', 'width=900,height=1000');
-    if (!win) {
-        showToast('❌ Popup diblokir. Izinkan popup untuk lanjut.');
+    if (!invoiceEl) {
+        showToast('❌ Invoice tidak ditemukan');
         return;
     }
     
-    // Ambil semua CSS dari halaman utama
-    const stylesheets = Array.from(document.styleSheets)
-        .map(sheet => {
-            try {
-                if (sheet.href) {
-                    return `<link rel="stylesheet" href="${sheet.href}">`;
-                }
-                return `<style>${Array.from(sheet.cssRules).map(r => r.cssText).join('\n')}</style>`;
-            } catch(e) {
-                return '';
+    const invoiceHTML = invoiceEl.outerHTML;
+    
+    // ═══ 🔥 FIX 1: Ambil CSS dengan safe error handling ═══
+    let stylesheetLinks = '';
+    let inlineStyles = '';
+    
+    Array.from(document.styleSheets).forEach(sheet => {
+        try {
+            if (sheet.href) {
+                // External CSS → pakai <link>
+                stylesheetLinks += `<link rel="stylesheet" href="${sheet.href}" crossorigin="anonymous">\n`;
+            } else if (sheet.cssRules) {
+                // Inline CSS → embed rules
+                const rules = Array.from(sheet.cssRules).map(r => r.cssText).join('\n');
+                inlineStyles += rules + '\n';
             }
-        })
-        .join('\n');
+        } catch(e) {
+            // CORS blocked → skip, tapi tetap link kalau ada href
+            if (sheet.href) {
+                stylesheetLinks += `<link rel="stylesheet" href="${sheet.href}" crossorigin="anonymous">\n`;
+            }
+            console.warn('CSS blocked (CORS):', sheet.href);
+        }
+    });
     
     const printCSS = `
         *{box-sizing:border-box;margin:0;padding:0;}
@@ -2355,20 +2370,23 @@ function openPrintWindow(invoiceEl, filename) {
             text-align:center;
             box-shadow:0 8px 25px rgba(212,165,54,0.4);
         }
-        .print-guide h3{margin:0 0 12px;font-size:1.1rem;font-weight:800;}
-        .print-guide p{margin:8px 0;font-size:0.88rem;opacity:0.95;line-height:1.6;}
+        .print-guide h3{margin:0 0 12px;font-size:1.1rem;font-weight:800;color:#fff!important;}
+        .print-guide p{margin:8px 0;font-size:0.88rem;opacity:0.95;line-height:1.6;color:#fff!important;}
         .print-guide button{
             margin-top:12px;
-            padding:12px 28px;
+            padding:14px 32px;
             background:#fff;
             color:#d4a536;
             border:none;
             border-radius:100px;
             font-weight:800;
             cursor:pointer;
-            font-size:0.95rem;
+            font-size:1rem;
             box-shadow:0 4px 15px rgba(0,0,0,0.2);
+            transition:transform 0.2s;
         }
+        .print-guide button:hover{transform:scale(1.05);}
+        .print-guide button:active{transform:scale(0.98);}
         
         #invoiceCard{
             background:#fff!important;
@@ -2380,7 +2398,6 @@ function openPrintWindow(invoiceEl, filename) {
             color:#333!important;
         }
         
-        /* Force light theme untuk invoice */
         #invoiceCard *{color:#333!important;}
         #invoiceCard h1,#invoiceCard h2,#invoiceCard h3,#invoiceCard h4{color:#d4a536!important;}
         
@@ -2414,36 +2431,80 @@ function openPrintWindow(invoiceEl, filename) {
         }
     `;
     
-    win.document.write(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>${filename}</title>
-            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-            ${stylesheets}
-            <style>${printCSS}</style>
-        </head>
-        <body>
-            <div class="print-guide">
-                <h3>💾 Cara Simpan sebagai PDF</h3>
-                <p>
-                    1. Klik <b>"Buka Dialog Print"</b> di bawah<br>
-                    2. Pilih <b>"Simpan sebagai PDF"</b><br>
-                    3. ⚠️ Aktifkan <b>"Background Graphics"</b><br>
-                    4. Klik <b>"Simpan"</b> ✅
-                </p>
-                <button onclick="window.print()">
-                    🖨️ Buka Dialog Print
-                </button>
-            </div>
-            ${invoiceHTML}
-        </body>
-        </html>
-    `);
-    win.document.close();
+    // ═══ 🔥 FIX 2: Build HTML lengkap ═══
+    const fullHTML = `<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${filename}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    ${stylesheetLinks}
+    <style>${inlineStyles}</style>
+    <style>${printCSS}</style>
+</head>
+<body>
+    <div class="print-guide">
+        <h3>💾 Cara Simpan sebagai PDF</h3>
+        <p>
+            1. Klik tombol <b>"Buka Dialog Print"</b> di bawah<br>
+            2. Pilih <b>"Simpan sebagai PDF"</b><br>
+            3. ⚠️ Aktifkan <b>"Background Graphics"</b><br>
+            4. Klik <b>"Simpan"</b> ✅
+        </p>
+        <button type="button" id="btnPrint">
+            🖨️ Buka Dialog Print
+        </button>
+    </div>
+    ${invoiceHTML}
+    
+    <script>
+        // ═══ 🔥 FIX 3: Attach event listener setelah DOM ready ═══
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('btnPrint');
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    console.log('Print button clicked');
+                    // Delay dikit biar font load
+                    setTimeout(function() {
+                        window.print();
+                    }, 200);
+                });
+            }
+        });
+        
+        // ═══ 🔥 FIX 4: Auto-focus biar bisa print ═══
+        window.addEventListener('load', function() {
+            window.focus();
+            console.log('✅ Print window ready');
+        });
+    </script>
+</body>
+</html>`;
+    
+    // ═══ 🔥 FIX 5: Open window dengan feature yang benar ═══
+    const win = window.open('', '_blank', 'width=900,height=1000,scrollbars=yes,resizable=yes');
+    
+    if (!win || win.closed || typeof win.closed === 'undefined') {
+        showToast('❌ Popup diblokir. Izinkan popup untuk lanjut.');
+        return;
+    }
+    
+    // ═══ 🔥 FIX 6: Write & close dengan urutan yang benar ═══
+    try {
+        win.document.open();
+        win.document.write(fullHTML);
+        win.document.close();
+        
+        // Focus window
+        win.focus();
+        
+        showToast('✅ Jendela print terbuka');
+    } catch(err) {
+        console.error('Print window error:', err);
+        showToast('❌ Gagal buka window: ' + err.message);
+    }
 }
 
 // ============================================
