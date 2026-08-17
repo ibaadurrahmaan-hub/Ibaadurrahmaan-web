@@ -3523,6 +3523,7 @@ a.fab-wa .fab.fa-whatsapp,
     font-family: 'Montserrat', sans-serif;
     font-size: 0.95rem;
     font-weight: 800;
+    align-text: center;
     letter-spacing: -0.3px;
     background: var(--grad-gold-shine);
     -webkit-background-clip: text;
