@@ -18,8 +18,7 @@ function initNavScroll() {
     });
 }
 
-
-/* ===== 🎯 AUTO-ACTIVE NAV berdasarkan URL current (FIXED) ===== */
+/* ===== 🎯 AUTO-ACTIVE NAV v8.6 — Support Parent Group ===== */
 function initActiveNav() {
     // Ambil nama file dari URL
     const path = window.location.pathname;
@@ -32,35 +31,60 @@ function initActiveNav() {
     
     console.log('📍 Current page:', pageName);
     
-    // ═══ Ambil SEMUA nav item (a & button, mobile & desktop) ═══
+    // ═══ 🗺️ MAPPING: sub-page → parent group ═══
+    // Halaman sub akan bikin parent-nya jadi active
+    const PAGE_GROUP_MAP = {
+        // ═══ Group: LAYANAN ═══
+        'portfolio'      : 'layanan',
+        'template'       : 'layanan',
+        'demo'           : 'layanan',
+        
+        // ═══ Group: PAKET ═══
+        'order'          : 'paket',
+        'penawaran'      : 'paket',
+        'invoice'        : 'paket',
+        
+        // ═══ Group: RESELLER ═══
+        'mou-reseller'   : 'reseller',
+        'starter-kit'    : 'reseller',
+        'daftar-reseller': 'reseller',
+        'dashboard-reseller': 'reseller',
+    };
+    
+    // Cek: apakah page saat ini punya parent group?
+    const activeGroup = PAGE_GROUP_MAP[pageName] || pageName;
+    
+    if (activeGroup !== pageName) {
+        console.log('🎯 Sub-page detected. Active parent:', activeGroup);
+    }
+    
+    // ═══ Ambil SEMUA nav item (mobile & desktop) ═══
     const navItems = document.querySelectorAll(
-        '.mnav-item, ' +          // Mobile nav items
-        '.nav-link, ' +            // Desktop nav links  
-        'a.mnav-item, ' +          // Explicit link
-        'button.mnav-item'         // ⭐ Explicit button (biar pasti kena)
+        '.mnav-item, .nav-link, a.mnav-item, button.mnav-item'
     );
     
-    console.log('🎯 Found nav items:', navItems.length);
+    console.log('📋 Found nav items:', navItems.length);
     
     navItems.forEach(item => {
-        // ═══ STEP 1: Reset SEMUA active dulu ═══
+        // Reset dulu
         item.classList.remove('active');
         
-        // ═══ STEP 2: Cek data-page (PRIMARY & UTAMA) ═══
+        // Cek data-page (priority)
         const dataPage = item.getAttribute('data-page');
-        if (dataPage && dataPage === pageName) {
+        if (dataPage && (dataPage === pageName || dataPage === activeGroup)) {
             item.classList.add('active');
             console.log('✅ Active:', dataPage, '→', item.tagName);
-            return;  // Sudah match, skip cek href
+            return;
         }
         
-        // ═══ STEP 3: Fallback — cek href (untuk <a> yang tidak punya data-page) ═══
+        // Fallback: cek href
         const href = item.getAttribute('href') || '';
         if (!href || href === '#' || href.startsWith('http')) return;
         
         const hrefPage = href.split('/').pop().replace('.html', '').split('#')[0];
         
         if (hrefPage === pageName || 
+            hrefPage === activeGroup ||
             (pageName === 'index' && (href === 'index.html' || href === '/' || href === ''))) {
             item.classList.add('active');
             console.log('✅ Active via href:', href, '→', item.tagName);
@@ -377,24 +401,18 @@ document.addEventListener('keydown', e => {
 /* ============================================
    📱 MOBILE BOTTOM SHEET (kalau pakai)
    ============================================ */
-
 function openMobileSheet(type) {
     const data = SHEET_CONTENT[type];
     if (!data) return;
     
-    // ⭐ FIX: Reset semua active, lalu set ke tombol yang di-klik
+    // Reset active
     document.querySelectorAll('.mnav-item').forEach(item => {
         item.classList.remove('active');
     });
     
-    // Cari tombol berdasarkan data-page dan set active
+    // Set active ke tombol yang di-klik
     const activeBtn = document.querySelector(`.mnav-item[data-page="${type}"]`);
-    if (activeBtn) {
-        activeBtn.classList.add('active');
-        console.log('🎯 Sheet opened, active set to:', type);
-    } else {
-        console.warn('❌ Tombol tidak ditemukan untuk:', type);
-    }
+    if (activeBtn) activeBtn.classList.add('active');
     
     // Render sheet
     const sheetTitle = document.getElementById('sheetTitle');
@@ -406,14 +424,27 @@ function openMobileSheet(type) {
     
     sheetTitle.innerHTML = data.title;
     
+    // ⭐ Deteksi URL saat ini biar bisa mark active di sheet
+    const currentPath = window.location.pathname.split('/').pop().toLowerCase();
+    
     sheetContent.innerHTML = data.items.map(item => {
         let extraCls = '';
         if (item.featured) extraCls = 'featured';
         if (item.featuredGold) extraCls = 'featured-gold';
         
+        // ⭐ Cek apakah item ini adalah halaman aktif
+        const itemPath = item.url.split('/').pop().toLowerCase();
+        const isCurrentPage = (itemPath === currentPath);
+        if (isCurrentPage) extraCls += ' current-page';
+        
         let badge = '';
         if (item.badge) badge = `<span class="dd-badge">${item.badge}</span>`;
         if (item.badgeGold) badge = `<span class="dd-badge dd-badge-gold">${item.badgeGold}</span>`;
+        
+        // ⭐ Checkmark hijau kalau current page
+        const currentIndicator = isCurrentPage 
+            ? '<i class="fas fa-check-circle" style="color:#25d366;margin-left:6px;font-size:0.9rem;"></i>' 
+            : '';
         
         return `
             <a href="${item.url}" class="sheet-link ${extraCls}">
@@ -421,7 +452,7 @@ function openMobileSheet(type) {
                     <i class="fas ${item.icon}"></i>
                 </div>
                 <div class="sheet-link-text">
-                    <div class="sheet-link-title">${item.title} ${badge}</div>
+                    <div class="sheet-link-title">${item.title} ${badge} ${currentIndicator}</div>
                     <div class="sheet-link-desc">${item.desc}</div>
                 </div>
                 <i class="fas fa-chevron-right sheet-link-arrow"></i>
