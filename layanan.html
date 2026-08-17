@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <meta name="theme-color" content="#050B18">
 
-
 <title>Layanan Web Design | Ibaadurrahmaan Web Designer</title>
 <meta name="description" content="Layanan pembuatan website profesional: Landing Page, Company Profile, E-commerce/Toko Online, Integrasi WhatsApp, Domain & Hosting, Custom Design. Cocok untuk UMKM, Toko, Kuliner, Klinik, dan bisnis Indonesia.">
 <meta name="keywords" content="layanan web design, jasa landing page, jasa company profile, jasa e-commerce, integrasi whatsapp, domain hosting setup, custom design website, web designer UMKM">
@@ -39,10 +38,10 @@
 <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 
-<!-- Page Header CSS (khusus untuk halaman non-hero) -->
+<!-- Page Header CSS (khusus halaman sub) -->
 <style>
 .page-header{
     padding:130px 20px 50px;
@@ -124,131 +123,9 @@
 </head>
 <body>
 
-<!-- ===== NAVBAR ===== -->
-<nav class="navbar" id="navbar">
-    <div class="nav-inner">
-        <a href="index.html" class="nav-brand-text">
-            <span class="brand-name-nav">Ibaadurrahmaan</span>
-            <span class="brand-sub-nav">Web Designer</span>
-        </a>
-        
-        <div class="nav-menu">  
-            <!-- 1. Beranda (single) -->
-            <a href="index.html" class="nav-link" data-page="index">
-                Beranda
-            </a>
-            
-            <!-- 2. Layanan (dropdown) -->
-            <div class="nav-item nav-has-dropdown">
-                <a href="#" class="nav-link nav-dropdown-toggle" data-page="layanan" onclick="toggleDropdown(event, 'layanan-dd')">
-                    Layanan <i class="fas fa-chevron-down dd-arrow"></i>
-                </a>
-                <div class="nav-dropdown" id="layanan-dd">
-                    <a href="layanan.html" class="dropdown-link">
-                        <div class="dd-icon icon-blue"><i class="fas fa-briefcase"></i></div>
-                        <div class="dd-text">
-                            <div class="dd-title">Layanan Kami</div>
-                            <div class="dd-desc">Overview semua jasa</div>
-                        </div>
-                    </a>
-                    <a href="portfolio.html" class="dropdown-link">
-                        <div class="dd-icon icon-purple"><i class="fas fa-images"></i></div>
-                        <div class="dd-text">
-                            <div class="dd-title">Portfolio</div>
-                            <div class="dd-desc">Karya-karya terbaik</div>
-                        </div>
-                    </a>
-                    <a href="template.html" class="dropdown-link">
-                        <div class="dd-icon icon-green"><i class="fas fa-palette"></i></div>
-                        <div class="dd-text">
-                            <div class="dd-title">Template Website</div>
-                            <div class="dd-desc">Katalog design siap pakai</div>
-                        </div>
-                    </a>
-                    <a href="demo/" class="dropdown-link">
-                        <div class="dd-icon icon-cyan"><i class="fas fa-globe"></i></div>
-                        <div class="dd-text">
-                            <div class="dd-title">Live Demo</div>
-                            <div class="dd-desc">Coba website interaktif</div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            
-            <!-- 3. Paket & Order (dropdown) -->
-            <div class="nav-item nav-has-dropdown">
-                <a href="#" class="nav-link nav-dropdown-toggle" data-page="paket" onclick="toggleDropdown(event, 'paket-dd')">
-                    Paket <i class="fas fa-chevron-down dd-arrow"></i>
-                </a>
-                <div class="nav-dropdown" id="paket-dd">
-                    <a href="paket.html" class="dropdown-link">
-                        <div class="dd-icon icon-gold"><i class="fas fa-tag"></i></div>
-                        <div class="dd-text">
-                            <div class="dd-title">Paket & Harga</div>
-                            <div class="dd-desc">3 pilihan sesuai kebutuhan</div>
-                        </div>
-                    </a>
-                    <a href="order.html" class="dropdown-link featured">
-                        <div class="dd-icon icon-green"><i class="fas fa-shopping-cart"></i></div>
-                        <div class="dd-text">
-                            <div class="dd-title">Order Sekarang <span class="dd-badge">HOT</span></div>
-                            <div class="dd-desc">Mulai project kamu!</div>
-                        </div>
-                    </a>
-                    <a href="penawaran.html" class="dropdown-link">
-                        <div class="dd-icon icon-purple"><i class="fas fa-file-contract"></i></div>
-                        <div class="dd-text">
-                            <div class="dd-title">Penawaran Personal</div>
-                            <div class="dd-desc">Custom offer spesial</div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            
-            <!-- 4. Reseller (dropdown) -->
-            <div class="nav-item nav-has-dropdown">
-                <a href="#" class="nav-link nav-dropdown-toggle nav-link-highlight" data-page="reseller" onclick="toggleDropdown(event, 'reseller-dd')">
-                    <i class="fas fa-fire"></i> Reseller <i class="fas fa-chevron-down dd-arrow"></i>
-                </a>
-                <div class="nav-dropdown" id="reseller-dd">
-                    <a href="reseller.html" class="dropdown-link">
-                        <div class="dd-icon icon-gold"><i class="fas fa-info-circle"></i></div>
-                        <div class="dd-text">
-                            <div class="dd-title">Info Reseller</div>
-                            <div class="dd-desc">Benefit & tier komisi</div>
-                        </div>
-                    </a>
-                    <a href="reseller.html#daftar" class="dropdown-link featured">
-                        <div class="dd-icon icon-green"><i class="fas fa-user-plus"></i></div>
-                        <div class="dd-text">
-                            <div class="dd-title">Daftar Reseller <span class="dd-badge">FREE</span></div>
-                            <div class="dd-desc">Gratis, tanpa modal!</div>
-                        </div>
-                    </a>
-                    <a href="mou-reseller.html" class="dropdown-link">
-                        <div class="dd-icon icon-blue"><i class="fas fa-file-signature"></i></div>
-                        <div class="dd-text">
-                            <div class="dd-title">MoU Kerja Sama</div>
-                            <div class="dd-desc">Perjanjian & syarat</div>
-                        </div>
-                    </a>
-                    <a href="starter-kit.html" class="dropdown-link">
-                        <div class="dd-icon icon-purple"><i class="fas fa-gift"></i></div>
-                        <div class="dd-text">
-                            <div class="dd-title">Starter Kit</div>
-                            <div class="dd-desc">Marketing materials gratis</div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            
-            <!-- 5. FAQ (single) -->
-            <a href="faq.html" class="nav-link" data-page="faq">
-                FAQ
-            </a>
-        </div>
-    </div>
-</nav>
+<!-- ⭐ Auto-Injected Navbar (via script.js) -->
+<div id="auto-navbar"></div>
+
 
 <!-- ===== PAGE HEADER ===== -->
 <section class="page-header">
@@ -256,6 +133,7 @@
     <h1 class="section-title">Solusi <span class="text-gold">Web Design</span> Lengkap</h1>
     <p class="section-desc">Berbagai layanan web design profesional untuk mendukung pertumbuhan bisnis online Anda</p>
 </section>
+
 
 <!-- ===== LAYANAN CONTENT ===== -->
 <section class="layanan-content-section">
@@ -343,6 +221,7 @@
     </div>
 </section>
 
+
 <!-- ===== KENAPA PILIH KAMI ===== -->
 <section class="section proses-section">
     <div class="container">
@@ -379,6 +258,7 @@
     </div>
 </section>
 
+
 <!-- ===== CTA BOTTOM ===== -->
 <section class="paket-detail-section" style="padding:40px 20px 80px;">
     <div class="container">
@@ -400,6 +280,7 @@
         </div>
     </div>
 </section>
+
 
 <!-- ===== FOOTER ===== -->
 <footer class="footer" role="contentinfo">
@@ -448,27 +329,31 @@
   </div>
 </footer>
 
-<!-- ===== MOBILE NAV ===== -->
+
+<!-- ===== FLOATING WHATSAPP ===== -->
+<a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Ibaadurrahmaan%2C%0A%0ASaya%20tertarik%20dengan%20layanan%20web%20design%20Anda.%0A%0ANama%20%3A%20%0AJenis%20Bisnis%20%3A%20%0A%0APertanyaan%20%3A%20%0A%0ATerima%20kasih!" class="fab-wa" aria-label="Chat WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+
+<!-- ===== MOBILE BOTTOM NAV ===== -->
 <nav class="mobile-nav" id="mobileNav">
     <a href="index.html" class="mnav-item" data-page="index">
         <i class="fas fa-home"></i>
         <span>Beranda</span>
     </a>
     
-    <!-- Layanan → Buka bottom sheet -->
-    <button type="button" class="mnav-item" onclick="openMobileSheet('layanan')" data-page="layanan">
+    <button type="button" class="mnav-item" data-page="layanan" onclick="openMobileSheet('layanan')">
         <i class="fas fa-briefcase"></i>
         <span>Layanan</span>
     </button>
     
-    <!-- Paket → Buka bottom sheet -->
-    <button type="button" class="mnav-item" onclick="openMobileSheet('paket')" data-page="paket">
+    <button type="button" class="mnav-item" data-page="paket" onclick="openMobileSheet('paket')">
         <i class="fas fa-tag"></i>
         <span>Paket</span>
     </button>
     
-    <!-- Reseller → Buka bottom sheet -->
-    <button type="button" class="mnav-item mnav-highlight" onclick="openMobileSheet('reseller')" data-page="reseller">
+    <button type="button" class="mnav-item mnav-highlight" data-page="reseller" onclick="openMobileSheet('reseller')">
         <i class="fas fa-fire"></i>
         <span>Reseller</span>
     </button>
@@ -479,15 +364,15 @@
     </a>
 </nav>
 
-<!-- ===== MOBILE SHEET OVERLAY ===== -->
+
+<!-- ===== BOTTOM SHEET ===== -->
 <div class="mobile-sheet-overlay" id="mobileSheetOverlay" onclick="closeMobileSheet()"></div>
 
-<!-- ===== MOBILE BOTTOM SHEET ===== -->
 <div class="mobile-sheet" id="mobileSheet">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
         <h3 class="sheet-title" id="sheetTitle"></h3>
-        <button class="sheet-close" onclick="closeMobileSheet()">
+        <button class="sheet-close" onclick="closeMobileSheet()" aria-label="Tutup">
             <i class="fas fa-times"></i>
         </button>
     </div>
@@ -495,11 +380,8 @@
 </div>
 
 
-<!-- ===== FLOATING WA ===== -->
-<a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Ibaadurrahmaan%2C%0A%0ASaya%20tertarik%20dengan%20layanan%20web%20design%20Anda.%0A%0ANama%20%3A%20%0AJenis%20Bisnis%20%3A%20%0A%0APertanyaan%20%3A%20%0A%0ATerima%20kasih!" class="fab-wa" aria-label="Chat WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-</a>
-
+<!-- ===== LOAD SCRIPT.JS ===== -->
 <script src="script.js"></script>
+
 </body>
 </html>
