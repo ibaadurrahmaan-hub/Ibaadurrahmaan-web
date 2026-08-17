@@ -349,13 +349,33 @@ const SHEET_CONTENT = {
         ]
     },
     
+    // ⭐ RESELLER — Opsi A: 3 items clean & simple
     reseller: {
         title: '<i class="fas fa-handshake" style="color:var(--gold)"></i> Program Reseller',
         items: [
-            { url:'reseller.html',        icon:'fa-info-circle',    iconCls:'icon-gold',   title:'Info Reseller',    desc:'Benefit & tier komisi' },
-            { url:'reseller.html#daftar', icon:'fa-user-plus',      iconCls:'icon-green',  title:'Daftar Reseller',  desc:'Gratis, tanpa modal!', badge:'FREE', featured:true },
-            { url:'mou-reseller.html',    icon:'fa-file-signature', iconCls:'icon-blue',   title:'MoU Kerja Sama',   desc:'Perjanjian & syarat' },
-            { url:'starter-kit.html',     icon:'fa-gift',           iconCls:'icon-purple', title:'Starter Kit',      desc:'Marketing materials gratis' }
+            { 
+                url:     'reseller.html',        
+                icon:    'fa-info-circle',    
+                iconCls: 'icon-gold',   
+                title:   'Info Reseller',    
+                desc:    'Benefit & tier komisi' 
+            },
+            { 
+                url:     'starter-kit.html',     
+                icon:    'fa-gift',           
+                iconCls: 'icon-green',  
+                title:   'Starter Kit',      
+                desc:    'Marketing materials gratis',
+                badge:   'FREE',
+                featured: true 
+            },
+            { 
+                url:     'mou-reseller.html',    
+                icon:    'fa-file-signature', 
+                iconCls: 'icon-blue',   
+                title:   'MoU Kerja Sama',   
+                desc:    'Perjanjian & syarat' 
+            }
         ]
     }
 };
