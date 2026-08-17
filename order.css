@@ -2587,31 +2587,22 @@ body{background:var(--bg);}
 }
 
 /* ═══ SUCCESS STATE — Beautiful Card ═══ */
-.reseller-success {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 16px 18px;
-  background: linear-gradient(135deg, rgba(37, 211, 102, 0.12), rgba(37, 211, 102, 0.05));
-  border: 1.5px solid rgba(37, 211, 102, 0.3);
-  border-radius: 14px;
-  color: #25d366;
-  animation: slideDown 0.4s var(--ease);
-  position: relative;
-  overflow: hidden;
+
+.reseller-success .rs-detail {
+  font-size: 0.8rem;
+  color: rgba(37, 211, 102, 0.85);
+  font-weight: 500;
+  line-height: 1.5;
+  word-break: break-word;
+  display: block;
+  margin-top: 3px;
 }
 
-/* Left accent bar */
-.reseller-success::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: linear-gradient(180deg, #25d366, #128c7e);
+/* Optional: pisahkan detail dengan bullet */
+.reseller-success .rs-detail span {
+  display: inline-block;
+  margin-right: 6px;
 }
-
 /* Icon check bulat besar */
 .reseller-success > i:first-child {
   flex-shrink: 0;
