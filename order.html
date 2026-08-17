@@ -2205,139 +2205,96 @@ function generateInvoice(orderId) {
 // ============================================
 // 📄 DOWNLOAD INVOICE AS PDF
 // ============================================
+
 async function downloadInvoice() {
-    const invoiceEl = document.getElementById('invoiceCard');
-    const loading   = document.getElementById('pdfLoading');
-    const orderId   = _currentOrderId || document.getElementById('invNumber').textContent;
-    const custName  = document.getElementById('fullName').value.trim() || 'Client';
-
-    if (!invoiceEl) {
-        showToast('Invoice tidak ditemukan');
-        return;
+    const element = document.getElementById('invoiceCard');
+    if (!element) return;
+    
+    const filename = `Invoice-${document.querySelector('.invoice-number')?.textContent || 'invoice'}.pdf`;
+    
+    // ═══ 🔥 STEP 1: Ukur tinggi asli invoice ═══
+    const originalWidth = 800;
+    const a4Ratio = 297 / 210; // A4 portrait ratio
+    const targetHeight = originalWidth * a4Ratio; // ~1131px
+    const actualHeight = element.scrollHeight;
+    
+    // ═══ 🔥 STEP 2: Hitung scale factor otomatis ═══
+    let autoScale = 1;
+    if (actualHeight > targetHeight) {
+        autoScale = (targetHeight / actualHeight) * 0.98; // 0.98 safety margin
     }
-
-    if (!invoiceEl.innerHTML.trim()) {
-        showToast('❌ Invoice kosong. Refresh halaman.');
-        return;
-    }
-
-    if (typeof html2pdf === 'undefined') {
-        showToast('❌ Library PDF belum siap. Refresh halaman.');
-        return;
-    }
-
-    loading.classList.add('show');
-    invoiceEl.classList.add('pdf-mode');
-
-    const hideElements = invoiceEl.querySelectorAll('.btn-copy, .no-pdf');
-    hideElements.forEach(el => el.style.display = 'none');
-
-    const safeName = custName.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 20);
-    const filename = `Invoice_${orderId}_${safeName}.pdf`;
+    
+    console.log(`Actual: ${actualHeight}px | Target: ${targetHeight}px | Scale: ${autoScale}`);
+    
     const options = {
-    margin       : [3, 3, 3, 3],  // ⭐ Margin lebih kecil (dari 5 → 3)
-    filename     : filename,
-    image        : { type: 'jpeg', quality: 0.95 },
-    html2canvas  : {
-        scale       : 2,
-        useCORS     : true,
-        allowTaint  : true,
-        logging     : false,
-        windowWidth : 800,
-        width       : 800,
-        backgroundColor: '#ffffff',
-        scrollY     : 0,
-        scrollX     : 0,
-        onclone     : (clonedDoc) => {
-            const target = clonedDoc.getElementById('invoiceCard');
-            if (target) {
-                // ═══ Basic styling ═══
-                target.style.width = '800px';
-                target.style.maxWidth = '800px';
-                target.style.margin = '0 auto';
-                target.style.padding = '15px';  // ⭐ Dari 20 → 15
-                target.style.background = '#ffffff';
-                target.style.color = '#333333';
-                target.style.boxShadow = 'none';
-                target.style.minHeight = 'auto';
-                target.style.height = 'auto';
-                
-                // ═══ 🔥 SCALE DOWN 92% biar muat 1 halaman ═══
-                target.style.transformOrigin = 'top left';
-                target.style.transform = 'scale(0.92)';
-                target.style.width = '869px'; // 800 / 0.92 biar tetap full width
-                
-                // ═══ Kompres semua padding & margin ═══
-                const allElements = target.querySelectorAll('*');
-                allElements.forEach(el => {
-                    const computed = window.getComputedStyle(el);
+        margin       : [2, 2, 2, 2],
+        filename     : filename,
+        image        : { type: 'jpeg', quality: 0.95 },
+        html2canvas  : {
+            scale       : 2,
+            useCORS     : true,
+            allowTaint  : true,
+            logging     : false,
+            windowWidth : 800,
+            width       : 800,
+            backgroundColor: '#ffffff',
+            scrollY     : 0,
+            scrollX     : 0,
+            onclone     : (clonedDoc) => {
+                const target = clonedDoc.getElementById('invoiceCard');
+                if (target) {
+                    // Basic styling
+                    target.style.width = '800px';
+                    target.style.maxWidth = '800px';
+                    target.style.margin = '0 auto';
+                    target.style.padding = '10px';
+                    target.style.background = '#ffffff';
+                    target.style.color = '#333333';
+                    target.style.boxShadow = 'none';
+                    target.style.minHeight = 'auto';
+                    target.style.height = 'auto';
                     
-                    const padTop = parseFloat(computed.paddingTop);
-                    const padBot = parseFloat(computed.paddingBottom);
-                    if (padTop > 15) el.style.paddingTop = '8px';
-                    if (padBot > 15) el.style.paddingBottom = '8px';
+                    // ═══ 🔥 AUTO-FIT SCALE ═══
+                    if (autoScale < 1) {
+                        target.style.transformOrigin = 'top left';
+                        target.style.transform = `scale(${autoScale})`;
+                        target.style.width = `${800 / autoScale}px`;
+                    }
                     
-                    const marTop = parseFloat(computed.marginTop);
-                    const marBot = parseFloat(computed.marginBottom);
-                    if (marTop > 15) el.style.marginTop = '6px';
-                    if (marBot > 15) el.style.marginBottom = '6px';
-                });
-                
-                // ═══ Kompres jarak antar section ═══
-                const sections = target.querySelectorAll('section, .invoice-section, .invoice-grid, table');
-                sections.forEach(sec => {
-                    sec.style.marginBottom = '8px';
-                    sec.style.marginTop = '0';
-                });
-                
-                // ═══ 🔥 KOMPRES TABEL (row height) ═══
-                const tableCells = target.querySelectorAll('td, th');
-                tableCells.forEach(cell => {
-                    cell.style.paddingTop = '6px';
-                    cell.style.paddingBottom = '6px';
-                });
-                
-                // ═══ 🔥 KOMPRES INSTRUKSI PEMBAYARAN (biang kerok!) ═══
-                const paymentBox = target.querySelector('.payment-instructions, .instruksi-pembayaran, [class*="payment"], [class*="instruksi"]');
-                if (paymentBox) {
-                    paymentBox.style.padding = '10px';
-                    paymentBox.style.marginTop = '8px';
-                    paymentBox.style.marginBottom = '8px';
-                }
-                
-                // Kompres semua box/card di dalam invoice
-                const boxes = target.querySelectorAll('[class*="box"], [class*="card"], [class*="info"]');
-                boxes.forEach(box => {
-                    const p = parseFloat(window.getComputedStyle(box).padding);
-                    if (p > 12) box.style.padding = '10px';
-                });
-                
-                // ═══ Hilangkan empty elements ═══
-                target.querySelectorAll('br + br, p:empty, div:empty').forEach(el => {
-                    el.style.display = 'none';
-                });
-                
-                // ═══ Prevent split summary+total ═══
-                const summary = target.querySelector('.invoice-summary, .summary-section, .total-section');
-                if (summary) {
-                    summary.style.pageBreakInside = 'avoid';
-                    summary.style.breakInside = 'avoid';
+                    // Kompres semua padding
+                    const allElements = target.querySelectorAll('*');
+                    allElements.forEach(el => {
+                        const computed = window.getComputedStyle(el);
+                        const padTop = parseFloat(computed.paddingTop);
+                        const padBot = parseFloat(computed.paddingBottom);
+                        if (padTop > 15) el.style.paddingTop = '8px';
+                        if (padBot > 15) el.style.paddingBottom = '8px';
+                    });
+                    
+                    // Kompres tabel
+                    target.querySelectorAll('td, th').forEach(cell => {
+                        cell.style.paddingTop = '6px';
+                        cell.style.paddingBottom = '6px';
+                    });
+                    
+                    // Hilangkan empty
+                    target.querySelectorAll('br + br, p:empty, div:empty').forEach(el => {
+                        el.style.display = 'none';
+                    });
                 }
             }
-        }
-    },
-    jsPDF        : {
-        unit        : 'mm',
-        format      : 'a4',
-        orientation : 'portrait',
-        compress    : true,
-        hotfixes    : ['px_scaling']
-    },
-    pagebreak    : { 
-        mode: 'legacy',
-        avoid: ['tr', '.no-break']
-    }
-}; 
+        },
+        jsPDF        : {
+            unit        : 'mm',
+            format      : 'a4',
+            orientation : 'portrait',
+            compress    : true,
+            hotfixes    : ['px_scaling']
+        },
+        pagebreak    : { mode: 'legacy' }
+    };
+    
+    
     try {
         await new Promise(r => setTimeout(r, 300));
         await html2pdf().set(options).from(invoiceEl).save();
