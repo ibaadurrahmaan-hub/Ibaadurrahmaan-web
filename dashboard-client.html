@@ -1147,6 +1147,83 @@
         text-align     : left;
     }
 }
+
+/* ══════════════════════════════════════════
+   🗑️ FIX: SweetAlert Input Konfirmasi Hapus
+   ══════════════════════════════════════════ */
+
+/* Input text di dalam SweetAlert */
+.swal-premium .swal2-input,
+.swal-premium input.swal2-input {
+    background: #0D1829 !important;
+    color: #fff !important;
+    border: 1.5px solid rgba(231, 76, 60, 0.3) !important;
+    border-radius: 10px !important;
+    padding: 13px 16px !important;
+    font-size: 0.95rem !important;
+    font-family: 'Poppins', sans-serif !important;
+    margin: 12px auto !important;
+    box-shadow: none !important;
+    outline: none !important;
+    width: calc(100% - 32px) !important;
+    max-width: 400px !important;
+    box-sizing: border-box !important;
+    transition: all 0.3s ease !important;
+    letter-spacing: 0.3px !important;
+}
+
+.swal-premium .swal2-input:focus {
+    background: #12233d !important;
+    border-color: #e74c3c !important;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.15) !important;
+    outline: none !important;
+}
+
+.swal-premium .swal2-input::placeholder {
+    color: rgba(255, 255, 255, 0.35) !important;
+    font-style: italic !important;
+}
+
+/* Validation error message */
+.swal-premium .swal2-validation-message {
+    background: rgba(231, 76, 60, 0.15) !important;
+    color: #ff6b5b !important;
+    border: 1px solid rgba(231, 76, 60, 0.3) !important;
+    border-radius: 10px !important;
+    padding: 10px 14px !important;
+    margin: 12px 20px 0 !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* Container input (biar tidak overflow) */
+.swal-premium .swal2-input,
+.swal-premium .swal2-textarea,
+.swal-premium .swal2-file,
+.swal-premium .swal2-select {
+    background: #0D1829 !important;
+    color: #fff !important;
+    border: 1.5px solid rgba(212, 165, 54, 0.3) !important;
+    border-radius: 10px !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* Fix untuk swal2-input yang error style */
+.swal2-input.swal2-inputerror,
+.swal-premium input.swal2-inputerror {
+    border-color: #e74c3c !important;
+    background: rgba(231, 76, 60, 0.05) !important;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.15) !important;
+}
+
+/* Textarea */
+.swal-premium .swal2-textarea {
+    min-height: 100px !important;
+    resize: vertical !important;
+    line-height: 1.5 !important;
+}
+
 </style>
 </head>
 
