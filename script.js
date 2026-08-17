@@ -18,14 +18,13 @@ function initNavScroll() {
     });
 }
 
-
-/* ===== 🎯 AUTO-ACTIVE NAV berdasarkan URL current ===== */
+/* ===== 🎯 AUTO-ACTIVE NAV berdasarkan URL current — FIXED v2 ===== */
 function initActiveNav() {
     // Ambil nama file dari URL
     const path = window.location.pathname;
     let pageName = path.split('/').pop().replace('.html', '');
     
-    // Handle root URL (misal: / atau /Ibaadurrahmaan-web/)
+    // Handle root URL
     if (!pageName || pageName === '' || pageName === 'Ibaadurrahmaan-web') {
         pageName = 'index';
     }
@@ -35,28 +34,28 @@ function initActiveNav() {
     // Semua nav item (mobile + desktop)
     const navItems = document.querySelectorAll('.mnav-item, .nav-link');
     
+    // ═══ STEP 1: RESET SEMUA active dulu ═══
+    navItems.forEach(item => item.classList.remove('active'));
+    
+    // ═══ STEP 2: Set active HANYA yang match ═══
     navItems.forEach(item => {
-        // ═══ KUNCI: Reset SEMUA active dulu ═══
-        item.classList.remove('active');
-        
-        // Cek data-page attribute (primary check)
         const dataPage = item.getAttribute('data-page');
+        
+        // Match by data-page attribute (PRIMARY & ONLY check)
         if (dataPage && dataPage === pageName) {
-            item.classList.add('active');
-            return;
-        }
-        
-        // Fallback: cek href untuk match
-        const href = item.getAttribute('href') || '';
-        const hrefPage = href.split('/').pop().replace('.html', '').replace('#', '');
-        
-        if (hrefPage === pageName || 
-            (pageName === 'index' && (href === 'index.html' || href === '/' || href === ''))) {
             item.classList.add('active');
         }
     });
+    
+    // ═══ STEP 3: Default fallback — kalau tidak ada yang match ═══
+    const hasActive = document.querySelector('.mnav-item.active, .nav-link.active');
+    if (!hasActive && pageName === 'index') {
+        // Set active untuk semua data-page="index"
+        document.querySelectorAll('[data-page="index"]').forEach(item => {
+            item.classList.add('active');
+        });
+    }
 }
-
 
 /* ===== SMOOTH SCROLL (untuk anchor #section di halaman yang sama) ===== */
 function initSmoothScroll() {
