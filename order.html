@@ -2050,6 +2050,7 @@ function generateInvoice(orderId) {
 // ============================================
 // 📄 DOWNLOAD INVOICE AS PDF
 // ============================================
+
 async function downloadInvoice() {
     const invoiceEl = document.getElementById('invoiceCard');
     if (!invoiceEl) return;
@@ -2060,13 +2061,11 @@ async function downloadInvoice() {
     if (loading) loading.classList.add('show');
     invoiceEl.classList.add('pdf-mode');
     
-    // Ukur tinggi asli invoice
     const originalWidth = 800;
     const a4Ratio = 297 / 210;
-    const targetHeight = originalWidth * a4Ratio; // ~1131px
+    const targetHeight = originalWidth * a4Ratio;
     const actualHeight = invoiceEl.scrollHeight;
     
-    // Hitung scale factor otomatis
     let autoScale = 1;
     if (actualHeight > targetHeight) {
         autoScale = (targetHeight / actualHeight) * 0.98;
@@ -2075,7 +2074,7 @@ async function downloadInvoice() {
     console.log('📏 Actual: ' + actualHeight + 'px | Target: ' + targetHeight + 'px | Scale: ' + autoScale.toFixed(3));
     
     const options = {
-        margin       : [2, 2, 2, 2],
+        margin       : [5, 5, 5, 5],
         filename     : filename,
         image        : { type: 'jpeg', quality: 0.95 },
         html2canvas  : {
@@ -2124,6 +2123,33 @@ async function downloadInvoice() {
                     target.querySelectorAll('br + br, p:empty, div:empty').forEach(el => {
                         el.style.display = 'none';
                     });
+                    
+                    // ═══ 🔥 PREVENT BREAK di section penting ═══
+                    const noBreakSelectors = [
+                        '.invoice-payment-box',
+                        '.invoice-totals',
+                        '.invoice-nextsteps',
+                        '.invoice-footer',
+                        '.ipb-grid',
+                        '.ipb-deadline',
+                        '.inv-total-row',
+                        'table',
+                        'tr'
+                    ];
+                    
+                    noBreakSelectors.forEach(selector => {
+                        target.querySelectorAll(selector).forEach(el => {
+                            el.style.pageBreakInside = 'avoid';
+                            el.style.breakInside = 'avoid';
+                        });
+                    });
+                    
+                    const paymentBox = target.querySelector('.invoice-payment-box');
+                    if (paymentBox) {
+                        paymentBox.style.pageBreakInside = 'avoid';
+                        paymentBox.style.breakInside = 'avoid';
+                        paymentBox.style.display = 'block';
+                    }
                 }
             }
         },
@@ -2134,7 +2160,19 @@ async function downloadInvoice() {
             compress    : true,
             hotfixes    : ['px_scaling']
         },
-        pagebreak    : { mode: 'legacy' }
+        pagebreak    : { 
+            mode: ['css', 'legacy'],
+            avoid: [
+                '.invoice-payment-box',
+                '.invoice-totals',
+                '.invoice-nextsteps',
+                '.invoice-footer',
+                '.ipb-grid',
+                '.ipb-deadline',
+                'tr',
+                'table'
+            ]
+        }
     };
     
     try {
@@ -2148,7 +2186,7 @@ async function downloadInvoice() {
         invoiceEl.classList.remove('pdf-mode');
         if (loading) loading.classList.remove('show');
     }
-}
+} 
 
 
 // ═══════════════════════════════════════════
