@@ -73,7 +73,40 @@
 }
 </script>
 
+
 <style>
+
+/* ============================================
+   🎯 FIX v8.6: Order Page — Navbar Spacing
+   ============================================ */
+
+/* Kasih space untuk navbar auto-inject */
+.order-header {
+    margin-top: 90px !important;   /* Desktop */
+}
+
+@media (max-width: 768px) {
+    .order-header {
+        margin-top: 80px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .order-header {
+        margin-top: 70px !important;
+    }
+}
+
+/* Progress steps container padding biar tidak mepet */
+.progress-steps {
+    padding-top: 8px !important;
+}
+
+/* Header inner biar tidak overlap */
+.header-inner {
+    padding: 12px 20px !important;
+}
+
 /* ============================================
    📱 WHATSAPP CONFIRM MODAL
    ============================================ */
