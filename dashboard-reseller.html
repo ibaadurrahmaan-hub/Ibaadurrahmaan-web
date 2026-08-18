@@ -171,168 +171,1273 @@ body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min
 .swal-premium .swal2-close{color:rgba(255,255,255,0.4)!important;font-size:2rem!important;}
 .swal-premium .swal2-close:hover{color:#d4a536!important;transform:rotate(90deg)!important;}
 .swal-premium .swal2-validation-message{background:rgba(231,76,60,0.1)!important;color:#ff6b5b!important;border-radius:8px!important;}
+/* ═══════════════════════════════════════════════════════
+   🎨 SWEETALERT REWARD & KOMISI - PREMIUM REDESIGN
+═══════════════════════════════════════════════════════ */
 
-/* ═══ REWARD INTEGRATION (dari versi lama - INTACT) ═══ */
-.card-progress-info{display:flex;gap:10px;padding:10px 12px;background:rgba(212,165,54,0.05);border:1px solid rgba(212,165,54,0.15);border-radius:10px;margin-bottom:12px;flex-wrap:wrap;font-size:0.75rem;}
-.progress-badge{display:inline-flex;align-items:center;gap:5px;color:var(--text-muted);font-weight:600;}
-.progress-badge i{color:var(--gold);font-size:0.85rem;}
-.progress-badge.reward-pending{color:#f39c12;background:rgba(243,156,18,0.1);padding:2px 8px;border-radius:6px;}
-.progress-badge.reward-paid{color:#25d366;background:rgba(37,211,102,0.1);padding:2px 8px;border-radius:6px;}
-.card-btn.reward{background:linear-gradient(135deg, rgba(212,165,54,0.2), rgba(212,165,54,0.1));color:#d4a536;border:1px solid rgba(212,165,54,0.4);position:relative;}
-.card-btn.reward:hover{background:linear-gradient(135deg, #d4a536, #c19a2e);color:#050B18;}
-.card-btn.reward .badge-notif{position:absolute;top:-6px;right:-6px;background:#e74c3c;color:#fff;font-size:0.6rem;font-weight:800;padding:2px 6px;border-radius:100px;border:2px solid var(--bg-card);}
-
-.swal-reward-content{text-align:left;color:#fff;font-family:'Poppins',sans-serif;}
-.reward-modal-section{background:rgba(0,0,0,0.25);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px;}
-.reward-modal-title{font-size:0.75rem;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
-.reward-progress-item{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:0.85rem;}
-.reward-progress-item .label{min-width:80px;color:rgba(255,255,255,0.85);font-weight:600;}
-.reward-progress-item .bar{flex:1;height:8px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;}
-.reward-progress-item .bar-fill{height:100%;background:linear-gradient(90deg, var(--gold), #e8bd52);border-radius:99px;transition:width 0.5s;}
-.reward-progress-item .value{min-width:55px;text-align:right;color:var(--gold);font-weight:800;font-size:0.8rem;}
-.reward-tier-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;}
-.reward-tier-card.earned{border-color:rgba(37,211,102,0.4);background:linear-gradient(135deg, rgba(37,211,102,0.08), rgba(255,255,255,0.02));}
-.reward-tier-card.paid{border-color:rgba(212,165,54,0.4);background:linear-gradient(135deg, rgba(212,165,54,0.1), rgba(255,255,255,0.02));}
-.reward-tier-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-.reward-tier-name{font-size:0.9rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px;}
-.reward-tier-amount{font-size:1rem;font-weight:900;color:var(--gold);}
-.reward-tier-desc{font-size:0.75rem;color:var(--text-muted);margin-bottom:10px;}
-.reward-tier-status{font-size:0.75rem;padding:5px 10px;border-radius:100px;font-weight:700;display:inline-block;}
-.status-locked-tier{background:rgba(255,255,255,0.05);color:var(--text-muted);}
-.status-earned-tier{background:rgba(243,156,18,0.15);color:#f39c12;border:1px solid rgba(243,156,18,0.3);}
-.status-paid-tier{background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);}
-.btn-mark-paid{background:linear-gradient(135deg, #25d366, #128c7e);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.8rem;font-family:'Poppins',sans-serif;margin-top:8px;transition:all 0.2s;}
-.btn-mark-paid:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,211,102,0.4);}
-.reward-summary{display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;margin-top:12px;}
-.summary-box{background:rgba(0,0,0,0.3);border-radius:10px;padding:10px;text-align:center;}
-.summary-box .label{font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;}
-.summary-box .value{font-size:0.85rem;font-weight:800;color:#fff;}
-.summary-box.pending .value{color:#f39c12;}
-.summary-box.paid .value{color:#25d366;}
-.btn-send-link{width:100%;background:linear-gradient(135deg, #25D366, #128C7E);color:#fff;border:none;padding:12px 16px;border-radius:10px;font-weight:800;cursor:pointer;font-size:0.85rem;font-family:'Poppins',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;transition:all 0.3s;}
-.btn-send-link:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,211,102,0.4);}
-
-/* ═══════════════════════════════════════════════════
-   💼 KOMISI WIDGET & MODAL (BARU)
-═══════════════════════════════════════════════════ */
-.card-komisi-info{
-    display:flex;
-    gap:10px;
-    padding:10px 12px;
-    background:linear-gradient(135deg,rgba(155,89,182,0.08),rgba(99,102,241,0.05));
-    border:1px solid rgba(155,89,182,0.2);
-    border-radius:10px;
-    margin-bottom:12px;
-    flex-wrap:wrap;
-    font-size:0.75rem;
-}
-.komisi-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:5px;
-    color:var(--text-muted);
-    font-weight:600;
-}
-.komisi-badge i{color:#9b59b6;font-size:0.85rem;}
-.komisi-badge.earned{
-    color:#c4b5fd;
-    background:rgba(155,89,182,0.1);
-    padding:2px 8px;
-    border-radius:6px;
-}
-.komisi-badge.unpaid{
-    color:#fbbf24;
-    background:rgba(243,156,18,0.1);
-    padding:2px 8px;
-    border-radius:6px;
-}
-.komisi-badge.paid{
-    color:#25d366;
-    background:rgba(37,211,102,0.1);
-    padding:2px 8px;
-    border-radius:6px;
+/* ─── Modal Container Enhancement ─── */
+.swal-premium.swal-reward-modal,
+.swal-premium.swal-komisi-modal {
+    padding: 0 !important;
+    overflow: hidden !important;
+    max-width: 620px !important;
+    width: calc(100vw - 24px) !important;
+    background: linear-gradient(145deg, #0A1626 0%, #050B18 100%) !important;
+    border: 2px solid rgba(212,165,54,0.3) !important;
+    box-shadow: 
+        0 30px 80px rgba(0,0,0,0.7),
+        0 0 60px rgba(212,165,54,0.2),
+        inset 0 1px 0 rgba(255,255,255,0.05) !important;
 }
 
-/* Modal komisi */
-.mk-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
-.mk-sum-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:14px 10px;text-align:center;}
-.mk-sum-val{font-family:'Montserrat',sans-serif;font-size:0.95rem;font-weight:800;display:block;margin-bottom:3px;line-height:1.2;}
-.mk-sum-val.clr-blue{color:#a5b4fc;}
-.mk-sum-val.clr-purple{color:#c4b5fd;}
-.mk-sum-val.clr-yellow{color:#fbbf24;}
-.mk-sum-lbl{font-size:0.65rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.4px;font-weight:600;}
-
-.mk-filter-row{display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
-.mk-filter-row label{font-size:0.72rem;color:var(--text-muted);font-weight:600;white-space:nowrap;}
-.mk-month-input{padding:8px 12px;background:#0D1829;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:0.82rem;font-family:'Poppins',sans-serif;outline:none;flex:1;min-width:130px;}
-.mk-month-input:focus{border-color:var(--gold);}
-.btn-mk-filter,.btn-mk-all{padding:8px 12px;border-radius:8px;font-size:0.75rem;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;white-space:nowrap;border:1px solid transparent;transition:all 0.2s;}
-.btn-mk-filter{background:rgba(155,89,182,0.12);border-color:rgba(155,89,182,0.3);color:#9b59b6;}
-.btn-mk-filter:hover{background:rgba(155,89,182,0.22);border-color:#9b59b6;}
-.btn-mk-all{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);color:var(--text-muted);}
-.btn-mk-all:hover{border-color:var(--gold);color:var(--gold);}
-
-.mk-list{max-height:320px;overflow-y:auto;margin-bottom:14px;display:flex;flex-direction:column;gap:8px;}
-.mk-list::-webkit-scrollbar{width:4px;}
-.mk-list::-webkit-scrollbar-thumb{background:rgba(155,89,182,0.3);border-radius:100px;}
-
-.mk-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;}
-.mk-item-left{flex:1;min-width:0;}
-.mk-client-name{font-size:0.88rem;font-weight:700;color:#fff;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.mk-item-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:0.7rem;color:var(--text-muted);}
-.mk-item-meta span{display:flex;align-items:center;gap:3px;}
-.mk-item-meta i{font-size:0.65rem;color:var(--gold);opacity:0.7;}
-
-.mk-item-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0;}
-.mk-komisi-val{font-family:'Montserrat',sans-serif;font-size:0.92rem;font-weight:800;color:#c4b5fd;}
-.mk-status-badge{font-size:0.62rem;font-weight:700;padding:3px 8px;border-radius:100px;text-transform:uppercase;letter-spacing:0.3px;}
-.mk-st-ready{background:rgba(52,152,219,0.12);color:#3498db;border:1px solid rgba(52,152,219,0.25);}
-.mk-st-paid{background:rgba(37,211,102,0.12);color:#25d366;border:1px solid rgba(37,211,102,0.25);}
-.btn-mk-pay{padding:4px 10px;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.25);border-radius:7px;color:#25d366;font-size:0.65rem;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;transition:all 0.2s;}
-.btn-mk-pay:hover{background:rgba(37,211,102,0.25);border-color:#25d366;}
-
-.mk-empty{text-align:center;padding:30px 20px;color:var(--text-muted);}
-.mk-empty i{font-size:2rem;opacity:0.3;display:block;margin-bottom:10px;color:#9b59b6;}
-.mk-empty p{font-size:0.85rem;}
-
-.mk-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
-.btn-mk-pay-all{
-    flex:1;
-    padding:11px 16px;
-    background:rgba(37,211,102,0.12);
-    border:1px solid rgba(37,211,102,0.3);
-    border-radius:100px;
-    color:#25d366;
-    font-size:0.82rem;
-    font-weight:700;
-    font-family:'Poppins',sans-serif;
-    cursor:pointer;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    transition:all 0.2s;
+.swal-premium.swal-reward-modal .swal2-title,
+.swal-premium.swal-komisi-modal .swal2-title {
+    display: none !important; /* Kita bikin custom header */
 }
-.btn-mk-pay-all.show{display:flex;}
-.btn-mk-pay-all:hover{background:rgba(37,211,102,0.22);}
-.btn-mk-slip{
-    flex:1;
-    padding:11px 16px;
-    background:linear-gradient(135deg,#9b59b6,#8e44ad);
-    color:#fff;
-    border:none;
-    border-radius:100px;
-    font-size:0.82rem;
-    font-weight:700;
-    font-family:'Poppins',sans-serif;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    transition:all 0.2s;
+
+.swal-premium.swal-reward-modal .swal2-html-container,
+.swal-premium.swal-komisi-modal .swal2-html-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    color: #fff !important;
 }
-.btn-mk-slip:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(155,89,182,0.4);}
+
+.swal-premium.swal-reward-modal .swal2-close,
+.swal-premium.swal-komisi-modal .swal2-close {
+    position: absolute !important;
+    top: 16px !important;
+    right: 16px !important;
+    width: 36px !important;
+    height: 36px !important;
+    background: rgba(255,255,255,0.08) !important;
+    border-radius: 50% !important;
+    color: rgba(255,255,255,0.6) !important;
+    font-size: 1.3rem !important;
+    z-index: 10 !important;
+    transition: all 0.3s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.swal-premium.swal-reward-modal .swal2-close:hover,
+.swal-premium.swal-komisi-modal .swal2-close:hover {
+    background: rgba(231,76,60,0.2) !important;
+    color: #ff6b5b !important;
+    transform: rotate(90deg) scale(1.1) !important;
+}
+
+/* ═══════════════════════════════════════════════════════
+   🏆 REWARD MODAL — PREMIUM DESIGN
+═══════════════════════════════════════════════════════ */
+
+/* Header dengan Gradient */
+.modal-header-premium {
+    position: relative;
+    padding: 28px 24px 22px;
+    background: linear-gradient(135deg, #d4a536 0%, #b8861f 50%, #8b6110 100%);
+    overflow: hidden;
+    text-align: center;
+}
+
+.modal-header-premium::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
+    border-radius: 50%;
+    animation: floatBg 8s ease-in-out infinite;
+}
+
+.modal-header-premium::after {
+    content: '';
+    position: absolute;
+    bottom: -70%;
+    left: -20%;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255,255,255,0.1), transparent 70%);
+    border-radius: 50%;
+    animation: floatBg 10s ease-in-out infinite reverse;
+}
+
+@keyframes floatBg {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(20px, -20px) scale(1.1); }
+}
+
+.modal-header-premium.komisi-header {
+    background: linear-gradient(135deg, #9b59b6 0%, #7d3c98 50%, #4a1e5e 100%);
+}
+
+.mhp-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+    animation: bounceIcon 2s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes bounceIcon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.mhp-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    position: relative;
+    z-index: 2;
+}
+
+.mhp-subtitle {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.9);
+    font-weight: 600;
+    position: relative;
+    z-index: 2;
+}
+
+.mhp-subtitle .mhp-code {
+    display: inline-block;
+    padding: 3px 12px;
+    background: rgba(0,0,0,0.25);
+    border-radius: 100px;
+    font-family: monospace;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-left: 6px;
+    backdrop-filter: blur(10px);
+}
+
+/* Body */
+.modal-body-premium {
+    padding: 24px 22px 20px;
+    max-height: 65vh;
+    overflow-y: auto;
+    background: transparent;
+}
+
+.modal-body-premium::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-body-premium::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.03);
+    border-radius: 100px;
+}
+
+.modal-body-premium::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #d4a536, #8b6110);
+    border-radius: 100px;
+}
+
+/* Section */
+.section-premium {
+    background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.section-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #d4a536, #8b6110);
+    border-radius: 4px 0 0 4px;
+}
+
+.section-premium.komisi-section::before {
+    background: linear-gradient(180deg, #9b59b6, #4a1e5e);
+}
+
+.section-title-premium {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #d4a536;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed rgba(255,255,255,0.08);
+}
+
+.section-title-premium i {
+    font-size: 1rem;
+    width: 24px;
+    height: 24px;
+    background: rgba(212,165,54,0.15);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d4a536;
+}
+
+.komisi-section .section-title-premium {
+    color: #c4b5fd;
+}
+
+.komisi-section .section-title-premium i {
+    background: rgba(155,89,182,0.15);
+    color: #9b59b6;
+}
+
+/* ─── Progress Bar Premium ─── */
+.progress-item-premium {
+    margin-bottom: 14px;
+}
+
+.progress-item-premium:last-child {
+    margin-bottom: 0;
+}
+
+.pip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+}
+
+.pip-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-weight: 700;
+}
+
+.pip-label .pip-emoji {
+    font-size: 1.1rem;
+}
+
+.pip-value {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    color: #d4a536;
+    font-size: 0.95rem;
+}
+
+.pip-value.complete {
+    color: #25d366;
+}
+
+.pip-value.complete::after {
+    content: ' ✓';
+    animation: pulseCheck 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseCheck {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.pip-bar-container {
+    position: relative;
+    height: 12px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 100px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.pip-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #d4a536 0%, #e8bd52 50%, #d4a536 100%);
+    background-size: 200% 100%;
+    border-radius: 100px;
+    transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: shimmer 3s linear infinite;
+    box-shadow: 0 0 10px rgba(212,165,54,0.5);
+    position: relative;
+}
+
+.pip-bar-fill.complete {
+    background: linear-gradient(90deg, #25d366 0%, #4ade80 50%, #25d366 100%);
+    background-size: 200% 100%;
+    box-shadow: 0 0 15px rgba(37,211,102,0.6);
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.pip-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: barShine 2s linear infinite;
+}
+
+@keyframes barShine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* ─── Reward Tier Card Premium ─── */
+.tier-card-premium {
+    background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    border: 1.5px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tier-card-premium.locked {
+    opacity: 0.65;
+}
+
+.tier-card-premium.earned {
+    border-color: rgba(243,156,18,0.5);
+    background: linear-gradient(145deg, rgba(243,156,18,0.12), rgba(243,156,18,0.03));
+    box-shadow: 0 4px 20px rgba(243,156,18,0.15);
+}
+
+.tier-card-premium.earned::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -30%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(243,156,18,0.15), transparent 70%);
+    animation: floatBg 6s ease-in-out infinite;
+}
+
+.tier-card-premium.paid {
+    border-color: rgba(37,211,102,0.5);
+    background: linear-gradient(145deg, rgba(37,211,102,0.12), rgba(37,211,102,0.03));
+    box-shadow: 0 4px 20px rgba(37,211,102,0.15);
+}
+
+.tier-card-premium.paid::before {
+    content: '✅';
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 1.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    animation: bounceIcon 2s ease-in-out infinite;
+}
+
+.tcp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+.tcp-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+.tcp-title .tcp-icon {
+    font-size: 1.4rem;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+}
+
+.tcp-amount {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #d4a536, #e8bd52);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 20px rgba(212,165,54,0.3);
+}
+
+.tcp-desc {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 12px;
+    line-height: 1.5;
+    padding-left: 34px;
+    position: relative;
+    z-index: 2;
+}
+
+.tcp-desc::before {
+    content: '📋 Syarat:';
+    display: inline;
+    font-weight: 700;
+    color: rgba(255,255,255,0.75);
+    margin-right: 4px;
+}
+
+.tcp-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 2;
+}
+
+.tcp-status.locked {
+    background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.tcp-status.earned {
+    background: rgba(243,156,18,0.15);
+    color: #f39c12;
+    border: 1px solid rgba(243,156,18,0.35);
+    animation: pulseEarned 2s ease-in-out infinite;
+}
+
+@keyframes pulseEarned {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(243,156,18,0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(243,156,18,0); }
+}
+
+.tcp-status.paid {
+    background: rgba(37,211,102,0.15);
+    color: #25d366;
+    border: 1px solid rgba(37,211,102,0.35);
+}
+
+/* Button Mark Paid */
+.btn-mark-paid-premium {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    font-weight: 800;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 20px rgba(37,211,102,0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.btn-mark-paid-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.btn-mark-paid-premium:hover::before {
+    left: 100%;
+}
+
+.btn-mark-paid-premium:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(37,211,102,0.5);
+}
+
+.btn-mark-paid-premium:active {
+    transform: translateY(0);
+}
+
+/* ─── Summary Cards Premium ─── */
+.summary-grid-premium {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.summary-card-premium {
+    background: linear-gradient(145deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2));
+    border-radius: 12px;
+    padding: 14px 10px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s ease;
+}
+
+.summary-card-premium:hover {
+    transform: translateY(-2px);
+    border-color: rgba(212,165,54,0.3);
+}
+
+.summary-card-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #d4a536, transparent);
+}
+
+.summary-card-premium.paid::before {
+    background: linear-gradient(90deg, transparent, #25d366, transparent);
+}
+
+.summary-card-premium.pending::before {
+    background: linear-gradient(90deg, transparent, #f39c12, transparent);
+}
+
+.summary-card-premium .sum-label {
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.summary-card-premium .sum-value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+}
+
+.summary-card-premium.paid .sum-value {
+    color: #25d366;
+    text-shadow: 0 0 15px rgba(37,211,102,0.3);
+}
+
+.summary-card-premium.pending .sum-value {
+    color: #f39c12;
+    text-shadow: 0 0 15px rgba(243,156,18,0.3);
+}
+
+/* Send Link WA Button */
+.btn-send-wa-premium {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    font-weight: 800;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(37,211,102,0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-send-wa-premium::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -100%;
+    width: 100%;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transform: rotate(45deg);
+    transition: right 0.6s ease;
+}
+
+.btn-send-wa-premium:hover::before {
+    right: 100%;
+}
+
+.btn-send-wa-premium:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(37,211,102,0.5);
+}
+
+.btn-send-wa-premium i {
+    font-size: 1.3rem;
+}
+
+/* ═══════════════════════════════════════════════════════
+   💼 KOMISI MODAL — PREMIUM DESIGN
+═══════════════════════════════════════════════════════ */
+
+/* Tier Badge */
+.tier-badge-premium {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 18px;
+    background: linear-gradient(135deg, rgba(155,89,182,0.15), rgba(155,89,182,0.05));
+    border: 1.5px solid rgba(155,89,182,0.3);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tier-badge-premium::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(155,89,182,0.2), transparent 70%);
+    animation: floatBg 6s ease-in-out infinite;
+}
+
+.tbp-icon {
+    font-size: 1.8rem;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    animation: bounceIcon 2s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+}
+
+.tbp-info {
+    position: relative;
+    z-index: 2;
+}
+
+.tbp-label {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.tbp-value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 900;
+    color: #c4b5fd;
+    text-shadow: 0 0 20px rgba(155,89,182,0.4);
+}
+
+/* Komisi Summary Cards */
+.komisi-summary-premium {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.ksp-card {
+    background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    border: 1.5px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 16px 10px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.ksp-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.ksp-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 14px 14px 0 0;
+}
+
+.ksp-card.closing::before {
+    background: linear-gradient(90deg, #6366f1, #a5b4fc);
+    box-shadow: 0 0 15px rgba(165,180,252,0.5);
+}
+
+.ksp-card.earned::before {
+    background: linear-gradient(90deg, #9b59b6, #c4b5fd);
+    box-shadow: 0 0 15px rgba(196,181,253,0.5);
+}
+
+.ksp-card.unpaid::before {
+    background: linear-gradient(90deg, #f39c12, #fbbf24);
+    box-shadow: 0 0 15px rgba(251,191,36,0.5);
+}
+
+.ksp-icon {
+    font-size: 1.4rem;
+    margin-bottom: 6px;
+    display: block;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+}
+
+.ksp-value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 900;
+    display: block;
+    margin-bottom: 3px;
+    line-height: 1.2;
+}
+
+.ksp-card.closing .ksp-value { 
+    color: #a5b4fc;
+    text-shadow: 0 0 15px rgba(165,180,252,0.4);
+}
+
+.ksp-card.earned .ksp-value { 
+    color: #c4b5fd;
+    text-shadow: 0 0 15px rgba(196,181,253,0.4);
+}
+
+.ksp-card.unpaid .ksp-value { 
+    color: #fbbf24;
+    text-shadow: 0 0 15px rgba(251,191,36,0.4);
+}
+
+.ksp-label {
+    font-size: 0.62rem;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    font-weight: 700;
+}
+
+/* Filter Row */
+.mk-filter-row-premium {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    padding: 12px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.mk-filter-row-premium label {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.6);
+    font-weight: 700;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.mk-month-input-premium {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.05);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.85rem;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.mk-month-input-premium:focus {
+    border-color: #9b59b6;
+    background: rgba(155,89,182,0.08);
+    box-shadow: 0 0 0 3px rgba(155,89,182,0.15);
+}
+
+.btn-mk-filter-premium,
+.btn-mk-all-premium {
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    border: 1.5px solid transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-mk-filter-premium {
+    background: linear-gradient(135deg, rgba(155,89,182,0.15), rgba(155,89,182,0.08));
+    border-color: rgba(155,89,182,0.35);
+    color: #c4b5fd;
+}
+
+.btn-mk-filter-premium:hover {
+    background: linear-gradient(135deg, #9b59b6, #7d3c98);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(155,89,182,0.4);
+}
+
+.btn-mk-all-premium {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.6);
+}
+
+.btn-mk-all-premium:hover {
+    border-color: #d4a536;
+    color: #d4a536;
+    background: rgba(212,165,54,0.08);
+}
+
+/* Komisi List */
+.mk-list-premium {
+    max-height: 320px;
+    overflow-y: auto;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 4px;
+}
+
+.mk-list-premium::-webkit-scrollbar {
+    width: 5px;
+}
+
+.mk-list-premium::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.03);
+    border-radius: 100px;
+}
+
+.mk-list-premium::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #9b59b6, #7d3c98);
+    border-radius: 100px;
+}
+
+.mk-item-premium {
+    background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.mk-item-premium::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, #9b59b6, #7d3c98);
+    border-radius: 3px 0 0 3px;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.mk-item-premium:hover {
+    border-color: rgba(155,89,182,0.3);
+    transform: translateX(3px);
+    box-shadow: -5px 5px 20px rgba(0,0,0,0.3);
+}
+
+.mk-item-premium:hover::before {
+    opacity: 1;
+}
+
+.mk-item-premium.paid::before {
+    background: linear-gradient(180deg, #25d366, #128c7e);
+}
+
+.mkp-left {
+    flex: 1;
+    min-width: 0;
+}
+
+.mkp-client-name {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.mkp-client-name .mkp-avatar-mini {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #9b59b6, #7d3c98);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 900;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.mkp-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 0.72rem;
+}
+
+.mkp-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 100px;
+    color: rgba(255,255,255,0.65);
+}
+
+.mkp-meta-item i {
+    font-size: 0.68rem;
+    color: #d4a536;
+}
+
+.mkp-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.mkp-komisi-val {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #c4b5fd, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 20px rgba(196,181,253,0.3);
+}
+
+.mkp-status {
+    font-size: 0.62rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.mkp-status.ready {
+    background: rgba(52,152,219,0.15);
+    color: #3498db;
+    border: 1px solid rgba(52,152,219,0.3);
+    animation: pulseReady 2s ease-in-out infinite;
+}
+
+@keyframes pulseReady {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(52,152,219,0.4); }
+    50% { box-shadow: 0 0 0 6px rgba(52,152,219,0); }
+}
+
+.mkp-status.paid {
+    background: rgba(37,211,102,0.15);
+    color: #25d366;
+    border: 1px solid rgba(37,211,102,0.3);
+}
+
+.btn-mkp-pay {
+    padding: 6px 12px;
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(37,211,102,0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.btn-mkp-pay:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(37,211,102,0.5);
+}
+
+/* Empty State */
+.mk-empty-premium {
+    text-align: center;
+    padding: 40px 20px;
+    color: rgba(255,255,255,0.4);
+}
+
+.mk-empty-premium .empty-icon-big {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 12px;
+    opacity: 0.3;
+    animation: bounceIcon 2s ease-in-out infinite;
+}
+
+.mk-empty-premium p {
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+
+.mk-empty-premium .empty-hint {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.3);
+    margin-top: 6px;
+}
+
+/* Action Buttons Footer */
+.mk-actions-premium {
+    display: flex;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    flex-wrap: wrap;
+}
+
+.btn-mk-pay-all-premium {
+    flex: 1;
+    min-width: 140px;
+    padding: 13px 18px;
+    background: linear-gradient(135deg, rgba(37,211,102,0.15), rgba(37,211,102,0.05));
+    border: 1.5px solid rgba(37,211,102,0.3);
+    border-radius: 100px;
+    color: #25d366;
+    font-size: 0.82rem;
+    font-weight: 800;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-mk-pay-all-premium.show {
+    display: flex;
+}
+
+.btn-mk-pay-all-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(37,211,102,0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.btn-mk-pay-all-premium:hover::before {
+    left: 100%;
+}
+
+.btn-mk-pay-all-premium:hover {
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37,211,102,0.35);
+}
+
+.btn-mk-slip-premium {
+    flex: 1;
+    min-width: 140px;
+    padding: 13px 18px;
+    background: linear-gradient(135deg, #9b59b6 0%, #7d3c98 100%);
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(155,89,182,0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-mk-slip-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transition: left 0.6s ease;
+}
+
+.btn-mk-slip-premium:hover::before {
+    left: 100%;
+}
+
+.btn-mk-slip-premium:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(155,89,182,0.5);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .modal-header-premium {
+        padding: 22px 18px 18px;
+    }
+    
+    .mhp-icon {
+        font-size: 2.5rem;
+    }
+    
+    .mhp-title {
+        font-size: 1.15rem;
+    }
+    
+    .mhp-subtitle {
+        font-size: 0.78rem;
+    }
+    
+    .modal-body-premium {
+        padding: 18px 14px 16px;
+    }
+    
+    .komisi-summary-premium,
+    .summary-grid-premium {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 6px;
+    }
+    
+    .ksp-card,
+    .summary-card-premium {
+        padding: 10px 6px;
+    }
+    
+    .ksp-value,
+    .summary-card-premium .sum-value {
+        font-size: 0.78rem;
+    }
+    
+    .ksp-icon {
+        font-size: 1.1rem;
+    }
+    
+    .mk-item-premium {
+        padding: 12px;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .mkp-right {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding-top: 10px;
+        border-top: 1px dashed rgba(255,255,255,0.08);
+    }
+    
+    .mk-actions-premium {
+        flex-direction: column;
+    }
+    
+    .btn-mk-pay-all-premium,
+    .btn-mk-slip-premium {
+        width: 100%;
+    }
+    
+    .tier-card-premium {
+        padding: 14px;
+    }
+    
+    .tcp-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+    
+    .tcp-amount {
+        font-size: 1rem;
+    }
+}
 
 /* RESPONSIVE */
 @media (max-width:768px){
@@ -932,63 +2037,91 @@ async function openKomisiModal(resellerId) {
     const tier = (reseller.tier || 'silver').toLowerCase();
     const tierCfg = TIER_KOMISI[tier];
     
-    // Default bulan = bulan ini
     const now = new Date();
     const defaultMonth = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
     
     Swal.fire({
-        title: `💼 Komisi — ${reseller.nama}`,
         html: `
-            <div style="text-align:left;font-family:'Poppins',sans-serif;">
-                <div style="background:rgba(155,89,182,0.08);border:1px solid rgba(155,89,182,0.2);border-radius:10px;padding:10px 14px;margin-bottom:14px;text-align:center;font-size:0.8rem;">
-                    Tier: <b style="color:#9b59b6;">${tierCfg.icon} ${tierCfg.label} (${tierCfg.pct}%${tierCfg.bonus>0?' + bonus '+toRp(tierCfg.bonus):''})</b>
+            <!-- Premium Header -->
+            <div class="modal-header-premium komisi-header">
+                <span class="mhp-icon">💼</span>
+                <div class="mhp-title">${reseller.nama || 'Reseller'}</div>
+                <div class="mhp-subtitle">
+                    Komisi Reseller
+                    <span class="mhp-code">${reseller.resellerCode || '-'}</span>
+                </div>
+            </div>
+            
+            <!-- Body -->
+            <div class="modal-body-premium">
+                
+                <!-- Tier Badge -->
+                <div class="tier-badge-premium">
+                    <span class="tbp-icon">${tierCfg.icon}</span>
+                    <div class="tbp-info">
+                        <div class="tbp-label">Tier Level</div>
+                        <div class="tbp-value">${tierCfg.label} — ${tierCfg.pct}%${tierCfg.bonus>0?' + Bonus '+toRp(tierCfg.bonus):''}</div>
+                    </div>
                 </div>
                 
-                <div class="mk-summary">
-                    <div class="mk-sum-card">
-                        <span class="mk-sum-val clr-blue" id="mkClosing">-</span>
-                        <span class="mk-sum-lbl">Closing</span>
+                <!-- Summary Cards -->
+                <div class="komisi-summary-premium">
+                    <div class="ksp-card closing">
+                        <span class="ksp-icon">📊</span>
+                        <span class="ksp-value" id="mkClosing">-</span>
+                        <span class="ksp-label">Closing</span>
                     </div>
-                    <div class="mk-sum-card">
-                        <span class="mk-sum-val clr-purple" id="mkEarned">-</span>
-                        <span class="mk-sum-lbl">Total Komisi</span>
+                    <div class="ksp-card earned">
+                        <span class="ksp-icon">💰</span>
+                        <span class="ksp-value" id="mkEarned">-</span>
+                        <span class="ksp-label">Total Komisi</span>
                     </div>
-                    <div class="mk-sum-card">
-                        <span class="mk-sum-val clr-yellow" id="mkUnpaid">-</span>
-                        <span class="mk-sum-lbl">Belum Bayar</span>
+                    <div class="ksp-card unpaid">
+                        <span class="ksp-icon">⏳</span>
+                        <span class="ksp-value" id="mkUnpaid">-</span>
+                        <span class="ksp-label">Belum Bayar</span>
                     </div>
                 </div>
                 
-                <div class="mk-filter-row">
-                    <label>📅 Filter:</label>
-                    <input type="month" class="mk-month-input" id="mkMonthFilter" value="${defaultMonth}">
-                    <button class="btn-mk-filter" onclick="renderKomisiList()">
+                <!-- Filter -->
+                <div class="mk-filter-row-premium">
+                    <label><i class="fas fa-calendar"></i> Periode:</label>
+                    <input type="month" class="mk-month-input-premium" id="mkMonthFilter" value="${defaultMonth}">
+                    <button class="btn-mk-filter-premium" onclick="renderKomisiList()">
                         <i class="fas fa-filter"></i> Filter
                     </button>
-                    <button class="btn-mk-all" onclick="clearMkFilter()">All Time</button>
+                    <button class="btn-mk-all-premium" onclick="clearMkFilter()">
+                        <i class="fas fa-infinity"></i> All
+                    </button>
                 </div>
                 
-                <div class="mk-list" id="mkList">
-                    <div class="mk-empty">
-                        <i class="fas fa-spinner fa-spin"></i>
+                <!-- List -->
+                <div class="mk-list-premium" id="mkList">
+                    <div class="mk-empty-premium">
+                        <span class="empty-icon-big">⏳</span>
                         <p>Loading...</p>
                     </div>
                 </div>
                 
-                <div class="mk-actions">
-                    <button class="btn-mk-pay-all" id="btnMkPayAll" onclick="markAllKomisiPaid()">
-                        <i class="fas fa-check-double"></i> Bayar Semua Unpaid
+                <!-- Action Buttons -->
+                <div class="mk-actions-premium">
+                    <button class="btn-mk-pay-all-premium" id="btnMkPayAll" onclick="markAllKomisiPaid()">
+                        <i class="fas fa-check-double"></i>
+                        Bayar Semua Unpaid
                     </button>
-                    <button class="btn-mk-slip" onclick="goToSlipFromKomisi()">
-                        <i class="fas fa-file-invoice-dollar"></i> Buat Slip
+                    <button class="btn-mk-slip-premium" onclick="goToSlipFromKomisi()">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        Buat Slip Komisi
                     </button>
                 </div>
+                
             </div>
         `,
         showCloseButton: true,
         showConfirmButton: false,
-        width: '650px',
-        customClass: { popup: 'swal-premium' },
+        width: '620px',
+        customClass: { popup: 'swal-premium swal-komisi-modal' },
+        padding: 0,
         didOpen: () => {
             renderKomisiList();
         }
@@ -1007,7 +2140,6 @@ function renderKomisiList() {
     let list = getResellerClientsCommission(mkCurrentResellerId)
         .filter(c => c.paymentStatus === 'paid_full');
     
-    // Filter bulan
     if (monthVal) {
         const [yr, mon] = monthVal.split('-').map(Number);
         list = list.filter(c => {
@@ -1019,7 +2151,6 @@ function renderKomisiList() {
         });
     }
     
-    // Hitung summary
     let totalKomisi = 0, totalUnpaid = 0;
     list.forEach(c => {
         const pd = c.priceDetail || {};
@@ -1030,7 +2161,6 @@ function renderKomisiList() {
         if (!isPaid) totalUnpaid += comm.total;
     });
     
-    // Update summary
     const mkClosing = document.getElementById('mkClosing');
     const mkEarned = document.getElementById('mkEarned');
     const mkUnpaid = document.getElementById('mkUnpaid');
@@ -1038,22 +2168,21 @@ function renderKomisiList() {
     if (mkEarned) mkEarned.textContent = toRp(totalKomisi);
     if (mkUnpaid) mkUnpaid.textContent = toRp(totalUnpaid);
     
-    // Show/hide "Bayar Semua"
     const btnPayAll = document.getElementById('btnMkPayAll');
     if (btnPayAll) {
         const hasUnpaid = list.some(c => c.referral?.commissionStatus !== 'paid');
         btnPayAll.classList.toggle('show', hasUnpaid);
     }
     
-    // Render list
     const mkList = document.getElementById('mkList');
     if (!mkList) return;
     
     if (!list.length) {
         mkList.innerHTML = `
-            <div class="mk-empty">
-                <i class="fas fa-inbox"></i>
-                <p>Tidak ada closing ${monthVal ? 'di periode ini' : ''}</p>
+            <div class="mk-empty-premium">
+                <span class="empty-icon-big">📭</span>
+                <p>Belum ada closing ${monthVal ? 'di periode ini' : ''}</p>
+                <div class="empty-hint">Data akan muncul setelah client lunas</div>
             </div>`;
         return;
     }
@@ -1063,42 +2192,56 @@ function renderKomisiList() {
         const base = pd.basePrice || pd.total || parseRp(c.value) || 0;
         const comm = calcKomisi(base, tier);
         const isPaid = c.referral?.commissionStatus === 'paid';
+        const clientInitial = (c.name || '?').charAt(0).toUpperCase();
         
         let dateStr = '-';
         const d = c.paidAt?.toDate?.() || c.createdAt?.toDate?.();
         if (d) dateStr = d.toLocaleDateString('id-ID', {day:'numeric', month:'short'});
         
         const breakdown = comm.bonus > 0 
-            ? `${comm.pct}% + ${toRp(comm.bonus)}` 
-            : `${comm.pct}% dari ${toRp(base)}`;
+            ? `${comm.pct}% + Bonus ${toRp(comm.bonus)}` 
+            : `${comm.pct}% × ${toRp(base)}`;
         
         return `
-            <div class="mk-item">
-                <div class="mk-item-left">
-                    <div class="mk-client-name">${c.name || '-'}</div>
-                    <div class="mk-item-meta">
-                        <span><i class="fas fa-code"></i> ${(c.project || '-').substring(0, 20)}</span>
-                        <span><i class="fas fa-money-bill"></i> ${toRp(base)}</span>
-                        <span><i class="fas fa-calendar"></i> ${dateStr}</span>
-                        <span><i class="fas fa-medal"></i> ${breakdown}</span>
+            <div class="mk-item-premium ${isPaid ? 'paid' : ''}">
+                <div class="mkp-left">
+                    <div class="mkp-client-name">
+                        <span class="mkp-avatar-mini">${clientInitial}</span>
+                        <span>${c.name || '-'}</span>
+                    </div>
+                    <div class="mkp-meta">
+                        <span class="mkp-meta-item">
+                            <i class="fas fa-code"></i>
+                            ${(c.project || '-').substring(0, 25)}
+                        </span>
+                        <span class="mkp-meta-item">
+                            <i class="fas fa-money-bill"></i>
+                            ${toRp(base)}
+                        </span>
+                        <span class="mkp-meta-item">
+                            <i class="fas fa-calendar"></i>
+                            ${dateStr}
+                        </span>
+                        <span class="mkp-meta-item">
+                            <i class="fas fa-medal"></i>
+                            ${breakdown}
+                        </span>
                     </div>
                 </div>
-                <div class="mk-item-right">
-                    <span class="mk-komisi-val">${toRp(comm.total)}</span>
-                    <span class="mk-status-badge ${isPaid?'mk-st-paid':'mk-st-ready'}">
-                        ${isPaid?'✓ Paid':'💰 Ready'}
+                <div class="mkp-right">
+                    <span class="mkp-komisi-val">${toRp(comm.total)}</span>
+                    <span class="mkp-status ${isPaid ? 'paid' : 'ready'}">
+                        ${isPaid ? '✓ Paid' : '💰 Ready'}
                     </span>
-                    ${!isPaid ? `<button class="btn-mk-pay" onclick="markKomisiPaid('${c.id}')"><i class="fas fa-check"></i> Bayar</button>` : ''}
+                    ${!isPaid ? `
+                        <button class="btn-mkp-pay" onclick="markKomisiPaid('${c.id}')">
+                            <i class="fas fa-check"></i> Bayar
+                        </button>
+                    ` : ''}
                 </div>
             </div>
         `;
     }).join('');
-}
-
-function clearMkFilter() {
-    const inp = document.getElementById('mkMonthFilter');
-    if (inp) inp.value = '';
-    renderKomisiList();
 }
 
 // ============================================================
@@ -1398,113 +2541,162 @@ async function handleReward(resellerId) {
         } catch(e) { return '-'; }
     };
     
-    const tier1HTML = `
-        <div class="reward-tier-card ${tier1.paid ? 'paid' : (tier1.earned ? 'earned' : '')}">
-            <div class="reward-tier-header">
-                <div class="reward-tier-name">🥈 Tier 1 — Belajar Selesai</div>
-                <div class="reward-tier-amount">Rp 50.000</div>
-            </div>
-            <div class="reward-tier-desc">Syarat: Selesai 15 modul</div>
-            ${!tier1.earned ? `
-                <span class="reward-tier-status status-locked-tier">
-                    🔒 Progress: ${modulesDone}/15 modul
-                </span>
-            ` : tier1.paid ? `
-                <span class="reward-tier-status status-paid-tier">
-                    ✅ SUDAH DIBAYAR — ${fmtDate(tier1.paidAt)}
-                </span>
-            ` : `
-                <span class="reward-tier-status status-earned-tier">
-                    💰 EARNED ${fmtDate(tier1.earnedAt)} — BELUM DIBAYAR
-                </span>
-                <br>
-                <button class="btn-mark-paid" onclick="markRewardPaid('${resellerId}', 'tier1')">
-                    <i class="fas fa-check-circle"></i> Tandai Sudah Dibayar
-                </button>
-            `}
-        </div>
-    `;
+    const modulesComplete = modulesDone >= 15;
+    const sopComplete = sopDone >= 6;
     
-    const tier2HTML = `
-        <div class="reward-tier-card ${tier2.paid ? 'paid' : (tier2.earned ? 'earned' : '')}">
-            <div class="reward-tier-header">
-                <div class="reward-tier-name">🥇 Tier 2 — Siap Jualan</div>
-                <div class="reward-tier-amount">Rp 100.000</div>
-            </div>
-            <div class="reward-tier-desc">Syarat: Selesai 15 modul + 6 SOP</div>
-            ${!tier2.earned ? `
-                <span class="reward-tier-status status-locked-tier">
-                    🔒 Modul: ${modulesDone}/15 | SOP: ${sopDone}/6
-                </span>
-            ` : tier2.paid ? `
-                <span class="reward-tier-status status-paid-tier">
-                    ✅ SUDAH DIBAYAR — ${fmtDate(tier2.paidAt)}
-                </span>
-            ` : `
-                <span class="reward-tier-status status-earned-tier">
-                    💰 EARNED ${fmtDate(tier2.earnedAt)} — BELUM DIBAYAR
-                </span>
-                <br>
-                <button class="btn-mark-paid" onclick="markRewardPaid('${resellerId}', 'tier2')">
-                    <i class="fas fa-check-circle"></i> Tandai Sudah Dibayar
-                </button>
-            `}
-        </div>
-    `;
+    // Tier 1 Card
+    const tier1Class = tier1.paid ? 'paid' : (tier1.earned ? 'earned' : 'locked');
+    let tier1StatusHTML = '';
+    if (!tier1.earned) {
+        tier1StatusHTML = `<span class="tcp-status locked">🔒 ${modulesDone}/15 Modul</span>`;
+    } else if (tier1.paid) {
+        tier1StatusHTML = `<span class="tcp-status paid">✅ Dibayar ${fmtDate(tier1.paidAt)}</span>`;
+    } else {
+        tier1StatusHTML = `
+            <span class="tcp-status earned">💰 Earned ${fmtDate(tier1.earnedAt)}</span>
+            <button class="btn-mark-paid-premium" onclick="markRewardPaid('${resellerId}', 'tier1')">
+                <i class="fas fa-check-circle"></i> Tandai Sudah Dibayar
+            </button>
+        `;
+    }
     
-    const contentHTML = `
-        <div class="swal-reward-content">
-            <div class="reward-modal-section">
-                <div class="reward-modal-title"><i class="fas fa-chart-bar"></i> Progress</div>
-                <div class="reward-progress-item">
-                    <span class="label">📚 Modul</span>
-                    <div class="bar"><div class="bar-fill" style="width:${modulesPct}%"></div></div>
-                    <span class="value">${modulesDone}/15</span>
-                </div>
-                <div class="reward-progress-item">
-                    <span class="label">📋 SOP</span>
-                    <div class="bar"><div class="bar-fill" style="width:${sopPct}%"></div></div>
-                    <span class="value">${sopDone}/6</span>
+    // Tier 2 Card
+    const tier2Class = tier2.paid ? 'paid' : (tier2.earned ? 'earned' : 'locked');
+    let tier2StatusHTML = '';
+    if (!tier2.earned) {
+        tier2StatusHTML = `<span class="tcp-status locked">🔒 Modul ${modulesDone}/15 | SOP ${sopDone}/6</span>`;
+    } else if (tier2.paid) {
+        tier2StatusHTML = `<span class="tcp-status paid">✅ Dibayar ${fmtDate(tier2.paidAt)}</span>`;
+    } else {
+        tier2StatusHTML = `
+            <span class="tcp-status earned">💰 Earned ${fmtDate(tier2.earnedAt)}</span>
+            <button class="btn-mark-paid-premium" onclick="markRewardPaid('${resellerId}', 'tier2')">
+                <i class="fas fa-check-circle"></i> Tandai Sudah Dibayar
+            </button>
+        `;
+    }
+    
+    Swal.fire({
+        html: `
+            <!-- Premium Header -->
+            <div class="modal-header-premium">
+                <span class="mhp-icon">🏆</span>
+                <div class="mhp-title">${reseller.nama || 'Reseller'}</div>
+                <div class="mhp-subtitle">
+                    Reward Progress
+                    <span class="mhp-code">${reseller.resellerCode || '-'}</span>
                 </div>
             </div>
             
-            <div class="reward-modal-section">
-                <div class="reward-modal-title"><i class="fas fa-trophy"></i> Reward Status</div>
-                ${tier1HTML}
-                ${tier2HTML}
-            </div>
-            
-            <div class="reward-modal-section">
-                <div class="reward-modal-title"><i class="fas fa-money-check-alt"></i> Ringkasan</div>
-                <div class="reward-summary">
-                    <div class="summary-box">
-                        <div class="label">Earned</div>
-                        <div class="value">Rp ${totalEarned.toLocaleString('id-ID')}</div>
+            <!-- Body -->
+            <div class="modal-body-premium">
+                
+                <!-- Section: Progress -->
+                <div class="section-premium">
+                    <div class="section-title-premium">
+                        <i class="fas fa-chart-line"></i>
+                        Progress Belajar
                     </div>
-                    <div class="summary-box paid">
-                        <div class="label">Paid</div>
-                        <div class="value">Rp ${totalPaid.toLocaleString('id-ID')}</div>
+                    
+                    <div class="progress-item-premium">
+                        <div class="pip-header">
+                            <div class="pip-label">
+                                <span class="pip-emoji">📚</span>
+                                <span>Modul Curriculum</span>
+                            </div>
+                            <div class="pip-value ${modulesComplete ? 'complete' : ''}">${modulesDone}/15</div>
+                        </div>
+                        <div class="pip-bar-container">
+                            <div class="pip-bar-fill ${modulesComplete ? 'complete' : ''}" 
+                                 style="width:${modulesPct}%"></div>
+                        </div>
                     </div>
-                    <div class="summary-box pending">
-                        <div class="label">Pending</div>
-                        <div class="value">Rp ${totalPending.toLocaleString('id-ID')}</div>
+                    
+                    <div class="progress-item-premium">
+                        <div class="pip-header">
+                            <div class="pip-label">
+                                <span class="pip-emoji">📋</span>
+                                <span>SOP Reseller</span>
+                            </div>
+                            <div class="pip-value ${sopComplete ? 'complete' : ''}">${sopDone}/6</div>
+                        </div>
+                        <div class="pip-bar-container">
+                            <div class="pip-bar-fill ${sopComplete ? 'complete' : ''}" 
+                                 style="width:${sopPct}%"></div>
+                        </div>
                     </div>
                 </div>
                 
-                <button class="btn-send-link" onclick="sendStarterKitLink('${reseller.wa || ''}', '${(reseller.nama||'').replace(/'/g,'')}', '${reseller.resellerCode || ''}')">
-                    <i class="fab fa-whatsapp"></i> Kirim Link Starter Kit ke WA
-                </button>
+                <!-- Section: Reward Tiers -->
+                <div class="section-premium">
+                    <div class="section-title-premium">
+                        <i class="fas fa-trophy"></i>
+                        Reward Tiers
+                    </div>
+                    
+                    <!-- Tier 1 -->
+                    <div class="tier-card-premium ${tier1Class}">
+                        <div class="tcp-header">
+                            <div class="tcp-title">
+                                <span class="tcp-icon">🥈</span>
+                                <span>Tier 1 — Belajar Selesai</span>
+                            </div>
+                            <div class="tcp-amount">Rp 50rb</div>
+                        </div>
+                        <div class="tcp-desc">Selesai 15 modul curriculum</div>
+                        ${tier1StatusHTML}
+                    </div>
+                    
+                    <!-- Tier 2 -->
+                    <div class="tier-card-premium ${tier2Class}">
+                        <div class="tcp-header">
+                            <div class="tcp-title">
+                                <span class="tcp-icon">🥇</span>
+                                <span>Tier 2 — Siap Jualan</span>
+                            </div>
+                            <div class="tcp-amount">Rp 100rb</div>
+                        </div>
+                        <div class="tcp-desc">Selesai 15 modul + 6 SOP</div>
+                        ${tier2StatusHTML}
+                    </div>
+                </div>
+                
+                <!-- Section: Summary -->
+                <div class="section-premium">
+                    <div class="section-title-premium">
+                        <i class="fas fa-money-check-alt"></i>
+                        Ringkasan Reward
+                    </div>
+                    
+                    <div class="summary-grid-premium">
+                        <div class="summary-card-premium">
+                            <div class="sum-label">Earned</div>
+                            <div class="sum-value">Rp ${(totalEarned/1000)}rb</div>
+                        </div>
+                        <div class="summary-card-premium paid">
+                            <div class="sum-label">Paid</div>
+                            <div class="sum-value">Rp ${(totalPaid/1000)}rb</div>
+                        </div>
+                        <div class="summary-card-premium pending">
+                            <div class="sum-label">Pending</div>
+                            <div class="sum-value">Rp ${(totalPending/1000)}rb</div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-send-wa-premium" 
+                            onclick="sendStarterKitLink('${reseller.wa || ''}', '${(reseller.nama||'').replace(/'/g,'')}', '${reseller.resellerCode || ''}')">
+                        <i class="fab fa-whatsapp"></i>
+                        Kirim Starter Kit ke WA
+                    </button>
+                </div>
+                
             </div>
-        </div>
-    `;
-    
-    Swal.fire({
-        title: `🏆 ${reseller.nama || 'Reseller'}`,
-        html: contentHTML,
+        `,
         showCloseButton: true,
         showConfirmButton: false,
-        width: '600px',
-        customClass: { popup: 'swal-premium' }
+        width: '620px',
+        customClass: { popup: 'swal-premium swal-reward-modal' },
+        padding: 0
     });
 }
 
