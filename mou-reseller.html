@@ -1891,12 +1891,8 @@
 </head>
 <body class="mou-page">
 
-<!-- Back Button -->
-<a href="reseller.html" class="mou-back">
-    <i class="fas fa-arrow-left"></i>
-    <span>Kembali</span>
-</a>
-
+<!-- ⭐ Auto-Injected Navbar (via script.js) -->
+<div id="auto-navbar"></div>
 <!-- Header -->
 <header class="mou-header">
     <div class="mou-header-badge">✍️ MOU DIGITAL INTERAKTIF</div>
@@ -2486,6 +2482,81 @@
         </div>
     </div>
 </div>
+
+
+<!-- ==================== MOBILE BOTTOM NAV (Konsisten) ==================== -->
+<nav class="mobile-nav" id="mobileNav">
+    <a href="index.html" class="mnav-item" data-page="index">
+        <i class="fas fa-home"></i>
+        <span>Beranda</span>
+    </a>
+    
+    <button class="mnav-item" data-page="layanan" onclick="openMobileSheet('layanan')">
+        <i class="fas fa-briefcase"></i>
+        <span>Layanan</span>
+    </button>
+    
+    <button class="mnav-item" data-page="paket" onclick="openMobileSheet('paket')">
+        <i class="fas fa-tag"></i>
+        <span>Paket</span>
+    </button>
+    
+    <button class="mnav-item mnav-highlight" data-page="reseller" onclick="openMobileSheet('reseller')">
+        <i class="fas fa-fire"></i>
+        <span>Reseller</span>
+    </button>
+    
+    <a href="faq.html" class="mnav-item" data-page="faq">
+        <i class="fas fa-question-circle"></i>
+        <span>FAQ</span>
+    </a>
+</nav>
+
+
+<!-- ==================== BOTTOM SHEET (untuk tombol Layanan/Paket/Reseller) ==================== -->
+<div class="mobile-sheet-overlay" id="mobileSheetOverlay" onclick="closeMobileSheet()"></div>
+
+<div class="mobile-sheet" id="mobileSheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+        <h3 class="sheet-title" id="sheetTitle"></h3>
+        <button class="sheet-close" onclick="closeMobileSheet()" aria-label="Tutup">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="sheet-content" id="sheetContent"></div>
+</div>
+
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <div class="footer-brand">
+        <img src="main-logo.png" alt="Logo Ibaadurrahmaan Web Designer">
+      </div>
+      
+      <div class="footer-social">
+        <a href="https://wa.me/6281401643188" title="WhatsApp" aria-label="Chat WhatsApp">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:ibadurrohman1428@gmail.com" title="Email" aria-label="Kirim Email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      
+      <div class="footer-copy">
+        <p>© 2026 Ibaadurrahmaan. Dibuat dengan ❤️ untuk bisnis Indonesia.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ==================== FLOATING WHATSAPP ==================== -->
+<a href="https://wa.me/6281401643188" class="fab-wa" aria-label="Chat WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
 
 <script>
 // ====================================================
@@ -3733,6 +3804,9 @@ window.addEventListener('resize', () => {
     // Trigger event kalau Firebase sudah ready
     document.dispatchEvent(new CustomEvent('firebaseReady'));
 </script>
+
+<!-- ⭐ WAJIB: Load script.js utama (Auto-navbar, Mobile sheet, dll) -->
+<script src="script.js"></script>
 
 </body>
 </html>
