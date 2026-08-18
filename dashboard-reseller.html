@@ -201,8 +201,35 @@ body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min
 .status-locked-tier{background:rgba(255,255,255,0.05);color:var(--text-muted);}
 .status-earned-tier{background:rgba(243,156,18,0.15);color:#f39c12;border:1px solid rgba(243,156,18,0.3);}
 .status-paid-tier{background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);}
-.btn-mark-paid{background:linear-gradient(135deg, #25d366, #128c7e);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.8rem;font-family:'Poppins',sans-serif;margin-top:8px;transition:all 0.2s;}
-.btn-mark-paid:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,211,102,0.4);}
+.btn-mark-paid {
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 10px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    text-transform: none;
+    letter-spacing: 0.3px;
+}
+
+.btn-mark-paid:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37,211,102,0.4);
+}
+
+.btn-mark-paid i {
+    font-size: 0.85rem;
+}
 .reward-summary{display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;margin-top:12px;}
 .summary-box{background:rgba(0,0,0,0.3);border-radius:10px;padding:10px;text-align:center;}
 .summary-box .label{font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;}
