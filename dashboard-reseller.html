@@ -14,7 +14,26 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
-.reseller-page{background:var(--bg);min-height:100vh;padding-bottom:100px;}
+/* ════════════════════════════════════════════════════════
+   VARIABLES (sama seperti versi lama)
+════════════════════════════════════════════════════════ */
+:root{
+    --bg:#050B18;
+    --bg-card:#0F1E33;
+    --gold:#d4a536;
+    --gold-glow:rgba(212,165,54,0.3);
+    --text:#fff;
+    --text-muted:#8a94a6;
+    --border:rgba(255,255,255,0.08);
+    --grad-card:linear-gradient(145deg,#0F1E33,#0A1626);
+    --grad-gold-shine:linear-gradient(135deg,#d4a536,#e8bd52,#c19a2e);
+    --radius-lg:16px;
+    --ease:cubic-bezier(0.4,0,0.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min-height:100vh;padding-bottom:100px;background-image:radial-gradient(circle at 10% 10%,rgba(212,165,54,0.08),transparent 40%),radial-gradient(circle at 90% 90%,rgba(212,165,54,0.05),transparent 40%);}
+
+/* HEADER */
 .dashboard-header{background:linear-gradient(135deg,#0F1E33 0%,#050B18 100%);padding:32px 20px 40px;border-bottom:2px solid var(--gold);position:relative;overflow:hidden;}
 .dashboard-header::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(212,165,54,0.1),transparent 70%);}
 .header-container{max-width:1200px;margin:0 auto;position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;}
@@ -30,6 +49,7 @@
 .logout-btn{background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.3);color:#ff6b5b;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-size:0.95rem;}
 .logout-btn:hover{background:#e74c3c;color:#fff;transform:scale(1.05);}
 
+/* PAGE TITLE */
 .page-title-section{max-width:1200px;margin:0 auto;padding:24px 20px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
 .page-title-content{flex:1;min-width:200px;}
 .page-title-content h2{font-family:'Montserrat',sans-serif;font-size:1.5rem;font-weight:900;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:12px;}
@@ -38,242 +58,319 @@
 .back-to-dashboard{display:inline-flex;align-items:center;gap:8px;color:var(--text-muted);text-decoration:none;font-size:0.85rem;font-weight:600;padding:10px 18px;background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);border-radius:100px;border:1px solid var(--border);transition:all 0.3s var(--ease);}
 .back-to-dashboard:hover{color:var(--gold);border-color:var(--gold);background:rgba(212,165,54,0.08);}
 
-.reseller-container{max-width:1200px;margin:0 auto;padding:24px 20px 100px;}
-.stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:28px;}
-.stat-card{background:var(--grad-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;text-align:center;transition:all 0.3s var(--ease);position:relative;overflow:hidden;}
-.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
-.stat-card.s-total::before{background:linear-gradient(90deg,var(--gold),#e8bd52);}
-.stat-card.s-active::before{background:linear-gradient(90deg,#25d366,#1eb85a);}
-.stat-card.s-closing::before{background:linear-gradient(90deg,#3498db,#2980b9);}
-.stat-card.s-komisi::before{background:linear-gradient(90deg,#9b59b6,#8e44ad);}
-.stat-card.s-unpaid::before{background:linear-gradient(90deg,#f39c12,#e67e22);}
-.stat-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.3);}
-.stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin:0 auto 12px;}
-.s-total .stat-icon{background:rgba(212,165,54,0.15);color:var(--gold);}
-.s-active .stat-icon{background:rgba(37,211,102,0.15);color:#25d366;}
-.s-closing .stat-icon{background:rgba(52,152,219,0.15);color:#3498db;}
-.s-komisi .stat-icon{background:rgba(155,89,182,0.15);color:#9b59b6;}
-.s-unpaid .stat-icon{background:rgba(243,156,18,0.15);color:#f39c12;}
-.stat-number{font-family:'Montserrat',sans-serif;font-size:1.8rem;font-weight:900;line-height:1;margin-bottom:4px;white-space:pre-line;}
-.s-total .stat-number{color:var(--gold);}
-.s-active .stat-number{color:#25d366;}
-.s-closing .stat-number{color:#3498db;}
-.s-komisi .stat-number{color:#9b59b6;font-size:1.15rem;}
-.s-unpaid .stat-number{color:#f39c12;font-size:1.15rem;}
-.stat-label{color:var(--text-muted);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+/* MAIN */
+.main{max-width:1200px;margin:0 auto;padding:24px 20px;}
 
-.toolbar{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:center;}
-.search-wrap{flex:1;min-width:220px;position:relative;}
-.search-wrap i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:0.9rem;pointer-events:none;}
-.search-wrap input{width:100%;padding:13px 14px 13px 42px;background:#0D1829;border:1px solid rgba(255,255,255,0.08);border-radius:12px;color:var(--text);font-size:0.9rem;font-family:'Poppins',sans-serif;transition:all 0.3s var(--ease);outline:none;box-sizing:border-box;}
-.search-wrap input:focus{background:#12233d;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,165,54,0.1);}
-.search-wrap input::placeholder{color:var(--text-muted);}
-.btn-toolbar{padding:13px 22px;background:var(--grad-gold-shine);color:var(--bg);border:none;border-radius:12px;font-size:0.88rem;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all 0.3s var(--ease);white-space:nowrap;box-shadow:0 4px 15px var(--gold-glow);}
-.btn-toolbar:hover{transform:translateY(-2px);box-shadow:0 8px 25px var(--gold-glow);}
-.btn-refresh{padding:13px 16px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;color:var(--text-muted);font-size:0.88rem;font-family:'Poppins',sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all 0.3s var(--ease);white-space:nowrap;}
-.btn-refresh:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,165,54,0.05);}
-.btn-refresh.spinning i{animation:spin 0.8s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
+/* SEARCH & FILTER */
+.controls{background:linear-gradient(145deg,var(--bg-card),#0A1626);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:20px;}
+.search-wrapper{position:relative;margin-bottom:16px;}
+.search-input{width:100%;background:#0D1829;border:1.5px solid rgba(255,255,255,0.08);color:var(--text);padding:14px 16px 14px 48px;border-radius:12px;font-family:'Poppins',sans-serif;font-size:0.95rem;transition:all 0.3s;}
+.search-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,165,54,0.1);background:#12233d;}
+.search-input::placeholder{color:var(--text-muted);}
+.search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--gold);font-size:1rem;}
+.search-clear{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.3);color:#e74c3c;width:28px;height:28px;border-radius:50%;cursor:pointer;display:none;align-items:center;justify-content:center;font-size:0.75rem;transition:all 0.2s;}
+.search-clear.show{display:flex;}
+.search-clear:hover{background:#e74c3c;color:#fff;}
+.filter-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;-ms-overflow-style:none;scrollbar-width:none;}
+.filter-tabs::-webkit-scrollbar{display:none;}
+.filter-tab{padding:10px 18px;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text-muted);border-radius:100px;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.3s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;font-family:'Poppins',sans-serif;flex-shrink:0;}
+.filter-tab:hover{background:rgba(212,165,54,0.1);color:var(--gold);border-color:rgba(212,165,54,0.2);}
+.filter-tab.active{background:linear-gradient(135deg,var(--gold),#c19a2e);color:var(--bg);border-color:var(--gold);box-shadow:0 4px 12px var(--gold-glow);}
+.filter-tab .count{background:rgba(0,0,0,0.15);padding:2px 8px;border-radius:100px;font-size:0.72rem;font-weight:800;}
+.filter-tab:not(.active) .count{background:rgba(212,165,54,0.15);color:var(--gold);}
 
-.filter-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
-.tab-btn{padding:8px 18px;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-size:0.82rem;font-weight:600;font-family:'Poppins',sans-serif;cursor:pointer;transition:all 0.3s var(--ease);}
-.tab-btn:hover,.tab-btn.active{background:rgba(212,165,54,0.12);border-color:rgba(212,165,54,0.4);color:var(--gold);}
+/* RESULT INFO */
+.result-info{display:flex;justify-content:space-between;align-items:center;padding:12px 4px;color:var(--text-muted);font-size:0.85rem;}
+.result-count{display:flex;align-items:center;gap:6px;}
+.result-count b{color:var(--gold);font-weight:800;}
 
-.reseller-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px;}
-.reseller-card{background:var(--grad-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:all 0.3s var(--ease);position:relative;}
-.reseller-card:hover{border-color:rgba(212,165,54,0.3);box-shadow:0 8px 30px rgba(0,0,0,0.3);transform:translateY(-3px);}
-.reseller-card::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold),#c19a2e);}
-.reseller-card.tier-gold::after{background:linear-gradient(180deg,#ffd700,#ffa500);}
-.reseller-card.tier-platinum::after{background:linear-gradient(180deg,#e5e4e2,#a8a9ad);}
-.reseller-card.tier-silver::after{background:linear-gradient(180deg,#c0c0c0,#909090);}
-.reseller-card.status-inactive{opacity:0.7;}
-.reseller-card.status-suspended::after{background:linear-gradient(180deg,#e74c3c,#c0392b);}
+/* RESELLER GRID */
+.reseller-grid{display:grid;gap:12px;margin-bottom:24px;}
+.reseller-card{background:linear-gradient(145deg,var(--bg-card),#0A1626);border:1px solid var(--border);border-radius:14px;padding:16px;transition:all 0.3s;position:relative;overflow:hidden;}
+.reseller-card:hover{border-color:rgba(212,165,54,0.3);transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,0.3);}
+.reseller-card.status-pending{border-left:3px solid #f39c12;}
+.reseller-card.status-active{border-left:3px solid #25d366;}
+.reseller-card.status-inactive{border-left:3px solid #f39c12;}
+.reseller-card.status-rejected{border-left:3px solid #e74c3c;}
 
-.rc-head{padding:18px 18px 14px 22px;display:flex;align-items:flex-start;gap:14px;}
-.rc-avatar{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;font-family:'Montserrat',sans-serif;flex-shrink:0;color:#fff;position:relative;}
-.rc-avatar.tier-silver{background:linear-gradient(135deg,#c0c0c0,#909090);}
-.rc-avatar.tier-gold{background:linear-gradient(135deg,#ffd700,#ffa500);color:#000;}
-.rc-avatar.tier-platinum{background:linear-gradient(135deg,#e5e4e2,#a8a9ad);color:#000;}
-.tier-crown{position:absolute;top:-6px;right:-6px;font-size:0.85rem;}
-.rc-info{flex:1;min-width:0;}
-.rc-name{font-family:'Montserrat',sans-serif;font-size:1rem;font-weight:800;color:var(--text);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.rc-code{font-family:'Courier New',monospace;font-size:0.75rem;color:var(--gold);background:rgba(212,165,54,0.1);padding:2px 8px;border-radius:6px;display:inline-block;margin-bottom:4px;}
-.rc-phone{font-size:0.78rem;color:var(--text-muted);display:flex;align-items:center;gap:5px;}
-.rc-phone i{color:#25d366;font-size:0.72rem;}
-.rc-status-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;}
-.rc-status{padding:4px 12px;border-radius:100px;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;}
-.rc-status.active{background:rgba(37,211,102,0.12);color:#25d366;border:1px solid rgba(37,211,102,0.25);}
-.rc-status.inactive{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.1);}
-.rc-status.suspended{background:rgba(231,76,60,0.12);color:#e74c3c;border:1px solid rgba(231,76,60,0.25);}
-.rc-tier-badge{padding:3px 10px;border-radius:100px;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;}
-.tier-badge-silver{background:rgba(192,192,192,0.12);color:#c0c0c0;border:1px solid rgba(192,192,192,0.25);}
-.tier-badge-gold{background:rgba(255,215,0,0.12);color:#ffd700;border:1px solid rgba(255,215,0,0.25);}
-.tier-badge-platinum{background:rgba(229,228,226,0.12);color:#e5e4e2;border:1px solid rgba(229,228,226,0.25);}
+.card-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.card-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#c19a2e);color:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.1rem;flex-shrink:0;}
+.card-info{flex:1;min-width:0;}
+.card-name{font-weight:700;color:var(--text);font-size:1rem;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.card-code{font-family:'Montserrat',monospace;background:rgba(212,165,54,0.1);color:var(--gold);padding:3px 10px;border-radius:6px;font-size:0.72rem;font-weight:700;display:inline-block;}
+.card-status{padding:5px 12px;border-radius:100px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;flex-shrink:0;}
+.card-status.pending{background:rgba(243,156,18,0.15);color:#f39c12;border:1px solid rgba(243,156,18,0.3);}
+.card-status.active{background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);}
+.card-status.inactive{background:rgba(243,156,18,0.15);color:#f39c12;border:1px solid rgba(243,156,18,0.3);}
+.card-status.rejected{background:rgba(231,76,60,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);}
 
-.rc-stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.rc-stat-item{padding:12px 10px;text-align:center;border-right:1px solid var(--border);}
-.rc-stat-item:last-child{border-right:none;}
-.rc-stat-num{font-family:'Montserrat',sans-serif;font-size:1rem;font-weight:800;display:block;margin-bottom:2px;}
-.rc-stat-num.clr-blue{color:#3498db;}
-.rc-stat-num.clr-purple{color:#9b59b6;}
-.rc-stat-num.clr-orange{color:#f39c12;}
-.rc-stat-lbl{font-size:0.65rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.4px;}
+.card-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px;background:rgba(255,255,255,0.02);border-radius:10px;margin-bottom:12px;font-size:0.78rem;}
+.card-meta-item{display:flex;align-items:center;gap:6px;color:var(--text-muted);min-width:0;}
+.card-meta-item i{color:var(--gold);font-size:0.85rem;flex-shrink:0;}
+.card-meta-item span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 
-.komisi-widget{margin:12px 14px;background:linear-gradient(135deg,rgba(155,89,182,0.08),rgba(99,102,241,0.05));border:1px solid rgba(155,89,182,0.2);border-radius:12px;padding:12px 14px;}
-.kw-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
-.kw-title{font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;display:flex;align-items:center;gap:6px;}
-.kw-title i{color:#9b59b6;font-size:0.78rem;}
-.kw-month{font-size:0.68rem;color:rgba(155,89,182,0.8);font-weight:600;}
-.kw-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-.kw-stat{text-align:center;}
-.kw-val{font-family:'Montserrat',sans-serif;font-size:0.82rem;font-weight:800;display:block;margin-bottom:2px;line-height:1.2;}
-.kw-val.closing{color:#a5b4fc;}
-.kw-val.earned{color:#c4b5fd;}
-.kw-val.unpaid{color:#fbbf24;}
-.kw-lbl{font-size:0.62rem;color:rgba(255,255,255,0.35);font-weight:600;text-transform:uppercase;letter-spacing:0.3px;}
+.card-actions{display:flex;gap:6px;flex-wrap:wrap;}
+.card-btn{flex:1;min-width:80px;padding:8px 12px;border:none;border-radius:8px;cursor:pointer;font-family:'Poppins',sans-serif;font-size:0.78rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s;}
+.card-btn i{font-size:0.85rem;}
+.card-btn.detail{background:rgba(52,152,219,0.15);color:#3498db;border:1px solid rgba(52,152,219,0.3);}
+.card-btn.detail:hover{background:#3498db;color:#fff;}
+.card-btn.edit{background:rgba(212,165,54,0.15);color:#d4a536;border:1px solid rgba(212,165,54,0.3);}
+.card-btn.edit:hover{background:#d4a536;color:#050B18;}
+.card-btn.approve{background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);}
+.card-btn.approve:hover{background:#25d366;color:#fff;}
+.card-btn.reject{background:rgba(231,76,60,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);}
+.card-btn.reject:hover{background:#e74c3c;color:#fff;}
+.card-btn.deactivate{background:rgba(243,156,18,0.15);color:#f39c12;border:1px solid rgba(243,156,18,0.3);}
+.card-btn.deactivate:hover{background:#f39c12;color:#fff;}
+.card-btn.reactivate{background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);}
+.card-btn.reactivate:hover{background:#25d366;color:#fff;}
+.card-btn.delete{background:rgba(150,40,27,0.2);color:#c0392b;border:1px solid rgba(150,40,27,0.4);}
+.card-btn.delete:hover{background:#c0392b;color:#fff;}
 
-.reward-widget{margin:0 14px 10px;padding:10px 14px;background:rgba(243,156,18,0.07);border:1px solid rgba(243,156,18,0.2);border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
-.rw-info{flex:1;min-width:0;}
-.rw-amount{font-family:'Montserrat',sans-serif;font-size:0.92rem;font-weight:800;color:#f39c12;display:flex;align-items:center;gap:6px;}
-.rw-note{font-size:0.72rem;color:var(--text-muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.rw-status{padding:4px 10px;border-radius:100px;font-size:0.65rem;font-weight:700;text-transform:uppercase;flex-shrink:0;}
-.rw-paid{background:rgba(37,211,102,0.12);color:#25d366;border:1px solid rgba(37,211,102,0.25);}
-.rw-unpaid{background:rgba(243,156,18,0.12);color:#f39c12;border:1px solid rgba(243,156,18,0.25);}
+/* ═══ NEW: BUTTON KOMISI ═══ */
+.card-btn.komisi{background:linear-gradient(135deg,rgba(155,89,182,0.15),rgba(155,89,182,0.08));color:#9b59b6;border:1px solid rgba(155,89,182,0.35);position:relative;}
+.card-btn.komisi:hover{background:linear-gradient(135deg,#9b59b6,#8e44ad);color:#fff;}
+.card-btn.komisi .badge-notif{position:absolute;top:-6px;right:-6px;background:#e74c3c;color:#fff;font-size:0.6rem;font-weight:800;padding:2px 6px;border-radius:100px;border:2px solid var(--bg-card);}
 
-.rc-actions{padding:12px 14px;display:flex;gap:8px;flex-wrap:wrap;}
-.rc-btn{flex:1;padding:9px 8px;border-radius:10px;font-size:0.72rem;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:all 0.3s var(--ease);border:1px solid transparent;background:transparent;min-width:65px;white-space:nowrap;}
-.rcb-komisi{border-color:rgba(155,89,182,0.35);color:#9b59b6;}
-.rcb-komisi:hover{background:rgba(155,89,182,0.12);border-color:#9b59b6;}
-.rcb-reward{border-color:rgba(243,156,18,0.35);color:#f39c12;}
-.rcb-reward:hover{background:rgba(243,156,18,0.12);border-color:#f39c12;}
-.rcb-edit{border-color:rgba(212,165,54,0.35);color:var(--gold);}
-.rcb-edit:hover{background:rgba(212,165,54,0.12);border-color:var(--gold);}
-.rcb-wa{border-color:rgba(37,211,102,0.35);color:#25d366;}
-.rcb-wa:hover{background:rgba(37,211,102,0.12);border-color:#25d366;}
-.rcb-del{border-color:rgba(231,76,60,0.3);color:#e74c3c;flex:0;padding:9px 12px;}
-.rcb-del:hover{background:rgba(231,76,60,0.12);border-color:#e74c3c;}
+/* Empty state */
+.empty-state{text-align:center;padding:60px 20px;color:var(--text-muted);}
+.empty-state i{font-size:4rem;opacity:0.3;margin-bottom:16px;color:var(--gold);}
+.empty-state h3{font-family:'Montserrat',sans-serif;color:var(--text);margin-bottom:8px;}
+.empty-state p{font-size:0.9rem;line-height:1.6;}
 
-.loading-state{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted);}
-.loading-state i{font-size:2.5rem;margin-bottom:16px;display:block;animation:spin 1s linear infinite;color:var(--gold);}
-.empty-state{grid-column:1/-1;text-align:center;padding:60px 20px;background:var(--grad-card);border:2px dashed var(--border);border-radius:var(--radius-lg);}
-.empty-state .empty-icon{font-size:4rem;margin-bottom:16px;opacity:0.3;display:block;}
-.empty-state h3{font-family:'Montserrat',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text);margin-bottom:8px;}
-.empty-state p{color:var(--text-muted);font-size:0.85rem;margin-bottom:24px;}
-.btn-empty-add{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:var(--grad-gold-shine);color:var(--bg);border:none;border-radius:100px;font-size:0.9rem;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;transition:all 0.3s var(--ease);box-shadow:0 6px 20px var(--gold-glow);}
-.btn-empty-add:hover{transform:translateY(-2px);box-shadow:0 10px 30px var(--gold-glow);}
-
-.swal-premium{background:linear-gradient(145deg,#0F1E33,#0A1626)!important;border:1px solid rgba(212,165,54,0.3)!important;border-radius:20px!important;box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px rgba(212,165,54,0.15)!important;color:#fff!important;font-family:'Poppins',sans-serif!important;padding:24px 22px 20px!important;}
-.swal-premium .swal2-title{color:#d4a536!important;font-family:'Montserrat',sans-serif!important;font-weight:800!important;font-size:1.3rem!important;}
-.swal-premium .swal2-html-container{color:rgba(255,255,255,0.85)!important;font-size:0.9rem!important;line-height:1.6!important;}
-.swal-premium .swal2-actions{margin-top:20px!important;gap:10px!important;display:flex!important;justify-content:center!important;}
-.swal-premium .swal2-confirm{background:linear-gradient(135deg,#d4a536,#c19a2e)!important;color:#050B18!important;border:none!important;border-radius:100px!important;padding:12px 24px!important;font-weight:800!important;font-family:'Poppins',sans-serif!important;font-size:0.85rem!important;box-shadow:0 6px 20px rgba(212,165,54,0.4)!important;flex:1!important;}
-.swal-premium .swal2-cancel{background:rgba(255,255,255,0.08)!important;color:#fff!important;border:1px solid rgba(255,255,255,0.15)!important;border-radius:100px!important;padding:12px 24px!important;font-weight:700!important;font-family:'Poppins',sans-serif!important;font-size:0.85rem!important;flex:1!important;}
-.swal-premium .swal2-input,.swal-premium .swal2-select{background:#0D1829!important;color:#fff!important;border:1.5px solid rgba(212,165,54,0.25)!important;border-radius:10px!important;padding:13px 16px!important;font-size:0.9rem!important;font-family:'Poppins',sans-serif!important;margin:10px auto!important;width:calc(100% - 32px)!important;box-sizing:border-box!important;}
-.swal-premium .swal2-input:focus,.swal-premium .swal2-select:focus{background:#12233d!important;border-color:#d4a536!important;box-shadow:0 0 0 3px rgba(212,165,54,0.15)!important;}
-.swal-premium .swal2-validation-message{background:rgba(231,76,60,0.15)!important;color:#ff6b5b!important;border:1px solid rgba(231,76,60,0.3)!important;border-radius:10px!important;padding:10px 14px!important;font-size:0.82rem!important;}
-
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(10px);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;opacity:0;transition:opacity 0.3s ease;}
-.modal-overlay.show{display:flex;opacity:1;}
-.modal-box{background:linear-gradient(145deg,#0F1E33,#0A1626);border:1px solid rgba(212,165,54,0.2);border-radius:20px;width:100%;max-width:540px;max-height:88vh;overflow-y:auto;transform:translateY(24px) scale(0.97);transition:all 0.35s cubic-bezier(0.4,0,0.2,1);box-shadow:0 30px 80px rgba(0,0,0,0.6);}
-.modal-overlay.show .modal-box{transform:translateY(0) scale(1);}
-.modal-box.modal-wide{max-width:720px;}
-.modal-head{display:flex;align-items:center;justify-content:space-between;padding:22px 24px;border-bottom:1px solid var(--border);position:sticky;top:0;background:linear-gradient(145deg,#0F1E33,#0A1626);z-index:10;}
-.modal-head h3{font-family:'Montserrat',sans-serif;font-size:1.1rem;font-weight:800;color:var(--gold);display:flex;align-items:center;gap:10px;}
-.modal-close-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.95rem;transition:all 0.3s ease;}
-.modal-close-btn:hover{border-color:#e74c3c;color:#e74c3c;background:rgba(231,76,60,0.1);}
-.modal-body{padding:24px;}
-.modal-foot{display:flex;gap:10px;padding:20px 24px;border-top:1px solid var(--border);justify-content:flex-end;position:sticky;bottom:0;background:linear-gradient(145deg,#0F1E33,#0A1626);z-index:10;flex-wrap:wrap;}
-.form-group{margin-bottom:16px;}
-.form-label{display:flex;align-items:center;gap:8px;font-size:0.8rem;font-weight:700;color:var(--gold);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;}
-.form-input,.form-select,.form-textarea{width:100%;padding:13px 16px;background:#0D1829;border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:'Poppins',sans-serif;transition:all 0.3s var(--ease);outline:none;box-sizing:border-box;}
-.form-input:focus,.form-select:focus,.form-textarea:focus{background:#12233d;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,165,54,0.1);}
-.form-textarea{resize:vertical;min-height:80px;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.required{color:#e74c3c;}
-.btn-cancel{padding:11px 22px;background:transparent;border:1px solid var(--border);border-radius:100px;color:var(--text-muted);font-size:0.85rem;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;transition:all 0.3s ease;}
-.btn-cancel:hover{border-color:var(--text-muted);color:var(--text);}
-.btn-save{padding:11px 26px;background:var(--grad-gold-shine);color:var(--bg);border:none;border-radius:100px;font-size:0.85rem;font-weight:800;font-family:'Poppins',sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all 0.3s var(--ease);box-shadow:0 4px 15px var(--gold-glow);}
-.btn-save:disabled{opacity:.5;cursor:not-allowed;}
-.form-section-title{display:flex;align-items:center;gap:10px;margin:20px 0 12px;padding:8px 12px;background:rgba(212,165,54,0.06);border-left:3px solid var(--gold);border-radius:6px;font-size:0.78rem;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:0.8px;}
-
-.mk-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;}
-.mk-sum-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:14px 10px;text-align:center;}
-.mk-sum-val{font-family:'Montserrat',sans-serif;font-size:1rem;font-weight:800;display:block;margin-bottom:3px;line-height:1.2;}
-.mk-sum-val.clr-blue{color:#a5b4fc;}
-.mk-sum-val.clr-purple{color:#c4b5fd;}
-.mk-sum-val.clr-yellow{color:#fbbf24;}
-.mk-sum-lbl{font-size:0.65rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.4px;font-weight:600;}
-
-.mk-filter-row{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
-.mk-filter-row label{font-size:0.75rem;color:var(--text-muted);font-weight:600;white-space:nowrap;}
-.mk-month-input{padding:8px 12px;background:#0D1829;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:0.82rem;font-family:'Poppins',sans-serif;outline:none;flex:1;min-width:140px;}
-.btn-mk-filter,.btn-mk-all{padding:8px 14px;border-radius:8px;font-size:0.78rem;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;white-space:nowrap;border:1px solid transparent;}
-.btn-mk-filter{background:rgba(155,89,182,0.12);border-color:rgba(155,89,182,0.3);color:#9b59b6;}
-.btn-mk-all{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);color:var(--text-muted);}
-
-.mk-list{max-height:340px;overflow-y:auto;margin-bottom:14px;display:flex;flex-direction:column;gap:8px;}
-.mk-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;}
-.mk-item-left{flex:1;min-width:0;}
-.mk-client-name{font-size:0.88rem;font-weight:700;color:var(--text);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.mk-item-meta{display:flex;gap:10px;flex-wrap:wrap;font-size:0.72rem;color:var(--text-muted);}
-.mk-item-meta span{display:flex;align-items:center;gap:3px;}
-.mk-item-meta i{font-size:0.68rem;color:var(--gold);opacity:0.7;}
-.mk-item-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0;}
-.mk-komisi-val{font-family:'Montserrat',sans-serif;font-size:0.92rem;font-weight:800;color:#c4b5fd;}
-.mk-status-badge{font-size:0.65rem;font-weight:700;padding:3px 9px;border-radius:100px;text-transform:uppercase;letter-spacing:0.3px;}
-.mk-st-ready{background:rgba(52,152,219,0.12);color:#3498db;border:1px solid rgba(52,152,219,0.25);}
-.mk-st-paid{background:rgba(37,211,102,0.12);color:#25d366;border:1px solid rgba(37,211,102,0.25);}
-.btn-mk-pay{padding:4px 10px;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.25);border-radius:7px;color:#25d366;font-size:0.68rem;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;}
-.mk-empty{text-align:center;padding:40px 20px;color:var(--text-muted);}
-.mk-empty .mk-empty-icon{font-size:2.5rem;opacity:0.3;display:block;margin-bottom:10px;}
-
-.btn-slip{padding:11px 20px;background:linear-gradient(135deg,#9b59b6,#8e44ad);color:#fff;border:none;border-radius:100px;font-size:0.82rem;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px;}
-.btn-pay-all{padding:11px 20px;background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);border-radius:100px;color:#25d366;font-size:0.82rem;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px;}
-
-.bottom-nav{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(15,30,51,0.95);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:100px;padding:10px 14px;display:flex;gap:6px;z-index:1000;box-shadow:0 10px 40px rgba(0,0,0,0.4),0 0 30px rgba(212,165,54,0.15);max-width:calc(100% - 32px);}
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(15,30,51,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:100px;padding:10px 14px;display:flex;gap:6px;z-index:1000;box-shadow:0 10px 40px rgba(0,0,0,0.4),0 0 30px rgba(212,165,54,0.15);max-width:calc(100% - 32px);overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;}
+.bottom-nav::-webkit-scrollbar{display:none;}
 .nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 14px;color:var(--text-muted);text-decoration:none;border-radius:100px;font-size:0.68rem;font-weight:700;transition:all 0.3s ease;min-width:64px;cursor:pointer;flex-shrink:0;font-family:'Poppins',sans-serif;border:none;background:transparent;letter-spacing:0.3px;}
-.nav-item i{font-size:1.1rem;}
+.nav-item i{font-size:1.1rem;transition:transform 0.3s ease;}
 .nav-item:hover{color:var(--gold);}
+.nav-item:hover i{transform:translateY(-2px);}
 .nav-item.active{background:linear-gradient(135deg,var(--gold),#c19a2e);color:var(--bg);box-shadow:0 4px 12px var(--gold-glow);}
 .nav-item.active i{color:var(--bg);}
 
-@media(max-width:1100px){.stats-grid{grid-template-columns:repeat(3,1fr);}}
-@media(max-width:768px){
-  .dashboard-header{padding:20px 16px 30px;}
-  .header-title h1{font-size:1.1rem;}
-  .user-badge .user-name{display:none;}
-  .user-badge{padding:4px;}
-  .page-title-section{padding:20px 16px 0;}
-  .reseller-container{padding:20px 16px 100px;}
-  .toolbar{flex-direction:column;}
-  .search-wrap,.btn-refresh,.btn-toolbar{width:100%;}
-  .btn-refresh,.btn-toolbar{justify-content:center;}
-  .form-row{grid-template-columns:1fr;}
-  .modal-foot{flex-direction:column;}
-  .btn-cancel,.btn-save,.btn-slip,.btn-pay-all{width:100%;justify-content:center;}
-  .rc-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
-  .rc-btn{flex:none;width:100%;}
-  .rcb-del{grid-column:1/-1;}
+/* SWEETALERT PREMIUM */
+.swal-premium{background:linear-gradient(145deg,#0F1E33,#0A1626)!important;border:1px solid rgba(212,165,54,0.3)!important;border-radius:20px!important;box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px rgba(212,165,54,0.15)!important;color:#fff!important;font-family:'Poppins',sans-serif!important;}
+.swal-premium .swal2-title{color:#d4a536!important;font-family:'Montserrat',sans-serif!important;font-weight:800!important;font-size:1.4rem!important;}
+.swal-premium .swal2-html-container{color:rgba(255,255,255,0.85)!important;font-size:0.95rem!important;line-height:1.6!important;}
+.swal-premium .swal2-input,.swal-premium .swal2-textarea,.swal-premium .swal2-select{background:#0D1829!important;border:1.5px solid rgba(212,165,54,0.2)!important;color:#fff!important;border-radius:10px!important;font-family:'Poppins',sans-serif!important;}
+.swal-premium .swal2-input:focus,.swal-premium .swal2-textarea:focus,.swal-premium .swal2-select:focus{border-color:#d4a536!important;box-shadow:0 0 0 3px rgba(212,165,54,0.1)!important;}
+.swal-premium .swal2-icon{border-color:#d4a536!important;color:#d4a536!important;}
+.swal-premium .swal2-icon.swal2-success{border-color:#25d366!important;}
+.swal-premium .swal2-icon.swal2-success .swal2-success-line-tip,.swal-premium .swal2-icon.swal2-success .swal2-success-line-long{background-color:#25d366!important;}
+.swal-premium .swal2-icon.swal2-success .swal2-success-ring{border-color:rgba(37,211,102,0.3)!important;}
+.swal-premium .swal2-icon.swal2-error{border-color:#e74c3c!important;color:#e74c3c!important;}
+.swal-premium .swal2-icon.swal2-error [class^=swal2-x-mark-line]{background-color:#e74c3c!important;}
+.swal-premium .swal2-icon.swal2-warning{border-color:#f39c12!important;color:#f39c12!important;}
+.swal-premium .swal2-icon.swal2-info{border-color:#3498db!important;color:#3498db!important;}
+.swal-premium .swal2-icon.swal2-question{border-color:#d4a536!important;color:#d4a536!important;}
+.swal-premium .swal2-confirm{background:linear-gradient(135deg,#d4a536,#c19a2e)!important;color:#050B18!important;border:none!important;border-radius:100px!important;padding:12px 30px!important;font-weight:800!important;font-family:'Poppins',sans-serif!important;font-size:0.9rem!important;box-shadow:0 6px 20px rgba(212,165,54,0.4)!important;text-transform:uppercase!important;letter-spacing:0.5px!important;transition:all 0.3s ease!important;}
+.swal-premium .swal2-confirm:hover{transform:translateY(-2px)!important;box-shadow:0 8px 25px rgba(212,165,54,0.5)!important;}
+.swal-premium .swal2-cancel{background:rgba(255,255,255,0.08)!important;color:#fff!important;border:1px solid rgba(255,255,255,0.15)!important;border-radius:100px!important;padding:12px 30px!important;font-weight:700!important;font-family:'Poppins',sans-serif!important;font-size:0.9rem!important;text-transform:uppercase!important;letter-spacing:0.5px!important;margin-right:12px!important;}
+.swal-premium .swal2-cancel:hover{background:rgba(231,76,60,0.15)!important;border-color:rgba(231,76,60,0.4)!important;color:#ff6b5b!important;}
+.swal-premium .swal2-timer-progress-bar{background:linear-gradient(90deg,#d4a536,#e8bd52)!important;height:4px!important;}
+.swal-premium .swal2-close{color:rgba(255,255,255,0.4)!important;font-size:2rem!important;}
+.swal-premium .swal2-close:hover{color:#d4a536!important;transform:rotate(90deg)!important;}
+.swal-premium .swal2-validation-message{background:rgba(231,76,60,0.1)!important;color:#ff6b5b!important;border-radius:8px!important;}
+
+/* ═══ REWARD INTEGRATION (dari versi lama - INTACT) ═══ */
+.card-progress-info{display:flex;gap:10px;padding:10px 12px;background:rgba(212,165,54,0.05);border:1px solid rgba(212,165,54,0.15);border-radius:10px;margin-bottom:12px;flex-wrap:wrap;font-size:0.75rem;}
+.progress-badge{display:inline-flex;align-items:center;gap:5px;color:var(--text-muted);font-weight:600;}
+.progress-badge i{color:var(--gold);font-size:0.85rem;}
+.progress-badge.reward-pending{color:#f39c12;background:rgba(243,156,18,0.1);padding:2px 8px;border-radius:6px;}
+.progress-badge.reward-paid{color:#25d366;background:rgba(37,211,102,0.1);padding:2px 8px;border-radius:6px;}
+.card-btn.reward{background:linear-gradient(135deg, rgba(212,165,54,0.2), rgba(212,165,54,0.1));color:#d4a536;border:1px solid rgba(212,165,54,0.4);position:relative;}
+.card-btn.reward:hover{background:linear-gradient(135deg, #d4a536, #c19a2e);color:#050B18;}
+.card-btn.reward .badge-notif{position:absolute;top:-6px;right:-6px;background:#e74c3c;color:#fff;font-size:0.6rem;font-weight:800;padding:2px 6px;border-radius:100px;border:2px solid var(--bg-card);}
+
+.swal-reward-content{text-align:left;color:#fff;font-family:'Poppins',sans-serif;}
+.reward-modal-section{background:rgba(0,0,0,0.25);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px;}
+.reward-modal-title{font-size:0.75rem;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.reward-progress-item{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:0.85rem;}
+.reward-progress-item .label{min-width:80px;color:rgba(255,255,255,0.85);font-weight:600;}
+.reward-progress-item .bar{flex:1;height:8px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;}
+.reward-progress-item .bar-fill{height:100%;background:linear-gradient(90deg, var(--gold), #e8bd52);border-radius:99px;transition:width 0.5s;}
+.reward-progress-item .value{min-width:55px;text-align:right;color:var(--gold);font-weight:800;font-size:0.8rem;}
+.reward-tier-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;}
+.reward-tier-card.earned{border-color:rgba(37,211,102,0.4);background:linear-gradient(135deg, rgba(37,211,102,0.08), rgba(255,255,255,0.02));}
+.reward-tier-card.paid{border-color:rgba(212,165,54,0.4);background:linear-gradient(135deg, rgba(212,165,54,0.1), rgba(255,255,255,0.02));}
+.reward-tier-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.reward-tier-name{font-size:0.9rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px;}
+.reward-tier-amount{font-size:1rem;font-weight:900;color:var(--gold);}
+.reward-tier-desc{font-size:0.75rem;color:var(--text-muted);margin-bottom:10px;}
+.reward-tier-status{font-size:0.75rem;padding:5px 10px;border-radius:100px;font-weight:700;display:inline-block;}
+.status-locked-tier{background:rgba(255,255,255,0.05);color:var(--text-muted);}
+.status-earned-tier{background:rgba(243,156,18,0.15);color:#f39c12;border:1px solid rgba(243,156,18,0.3);}
+.status-paid-tier{background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);}
+.btn-mark-paid{background:linear-gradient(135deg, #25d366, #128c7e);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.8rem;font-family:'Poppins',sans-serif;margin-top:8px;transition:all 0.2s;}
+.btn-mark-paid:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,211,102,0.4);}
+.reward-summary{display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;margin-top:12px;}
+.summary-box{background:rgba(0,0,0,0.3);border-radius:10px;padding:10px;text-align:center;}
+.summary-box .label{font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;}
+.summary-box .value{font-size:0.85rem;font-weight:800;color:#fff;}
+.summary-box.pending .value{color:#f39c12;}
+.summary-box.paid .value{color:#25d366;}
+.btn-send-link{width:100%;background:linear-gradient(135deg, #25D366, #128C7E);color:#fff;border:none;padding:12px 16px;border-radius:10px;font-weight:800;cursor:pointer;font-size:0.85rem;font-family:'Poppins',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;transition:all 0.3s;}
+.btn-send-link:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,211,102,0.4);}
+
+/* ═══════════════════════════════════════════════════
+   💼 KOMISI WIDGET & MODAL (BARU)
+═══════════════════════════════════════════════════ */
+.card-komisi-info{
+    display:flex;
+    gap:10px;
+    padding:10px 12px;
+    background:linear-gradient(135deg,rgba(155,89,182,0.08),rgba(99,102,241,0.05));
+    border:1px solid rgba(155,89,182,0.2);
+    border-radius:10px;
+    margin-bottom:12px;
+    flex-wrap:wrap;
+    font-size:0.75rem;
 }
-@media(max-width:600px){
-  .stats-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
-  .reseller-grid{grid-template-columns:1fr;}
+.komisi-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    color:var(--text-muted);
+    font-weight:600;
 }
-@media(max-width:400px){
-  .nav-item span{display:none;}
-  .nav-item{min-width:44px;padding:10px 12px;}
-  .nav-item i{font-size:1.2rem;}
+.komisi-badge i{color:#9b59b6;font-size:0.85rem;}
+.komisi-badge.earned{
+    color:#c4b5fd;
+    background:rgba(155,89,182,0.1);
+    padding:2px 8px;
+    border-radius:6px;
+}
+.komisi-badge.unpaid{
+    color:#fbbf24;
+    background:rgba(243,156,18,0.1);
+    padding:2px 8px;
+    border-radius:6px;
+}
+.komisi-badge.paid{
+    color:#25d366;
+    background:rgba(37,211,102,0.1);
+    padding:2px 8px;
+    border-radius:6px;
+}
+
+/* Modal komisi */
+.mk-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.mk-sum-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:14px 10px;text-align:center;}
+.mk-sum-val{font-family:'Montserrat',sans-serif;font-size:0.95rem;font-weight:800;display:block;margin-bottom:3px;line-height:1.2;}
+.mk-sum-val.clr-blue{color:#a5b4fc;}
+.mk-sum-val.clr-purple{color:#c4b5fd;}
+.mk-sum-val.clr-yellow{color:#fbbf24;}
+.mk-sum-lbl{font-size:0.65rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.4px;font-weight:600;}
+
+.mk-filter-row{display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
+.mk-filter-row label{font-size:0.72rem;color:var(--text-muted);font-weight:600;white-space:nowrap;}
+.mk-month-input{padding:8px 12px;background:#0D1829;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:0.82rem;font-family:'Poppins',sans-serif;outline:none;flex:1;min-width:130px;}
+.mk-month-input:focus{border-color:var(--gold);}
+.btn-mk-filter,.btn-mk-all{padding:8px 12px;border-radius:8px;font-size:0.75rem;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;white-space:nowrap;border:1px solid transparent;transition:all 0.2s;}
+.btn-mk-filter{background:rgba(155,89,182,0.12);border-color:rgba(155,89,182,0.3);color:#9b59b6;}
+.btn-mk-filter:hover{background:rgba(155,89,182,0.22);border-color:#9b59b6;}
+.btn-mk-all{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.1);color:var(--text-muted);}
+.btn-mk-all:hover{border-color:var(--gold);color:var(--gold);}
+
+.mk-list{max-height:320px;overflow-y:auto;margin-bottom:14px;display:flex;flex-direction:column;gap:8px;}
+.mk-list::-webkit-scrollbar{width:4px;}
+.mk-list::-webkit-scrollbar-thumb{background:rgba(155,89,182,0.3);border-radius:100px;}
+
+.mk-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;}
+.mk-item-left{flex:1;min-width:0;}
+.mk-client-name{font-size:0.88rem;font-weight:700;color:#fff;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mk-item-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:0.7rem;color:var(--text-muted);}
+.mk-item-meta span{display:flex;align-items:center;gap:3px;}
+.mk-item-meta i{font-size:0.65rem;color:var(--gold);opacity:0.7;}
+
+.mk-item-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0;}
+.mk-komisi-val{font-family:'Montserrat',sans-serif;font-size:0.92rem;font-weight:800;color:#c4b5fd;}
+.mk-status-badge{font-size:0.62rem;font-weight:700;padding:3px 8px;border-radius:100px;text-transform:uppercase;letter-spacing:0.3px;}
+.mk-st-ready{background:rgba(52,152,219,0.12);color:#3498db;border:1px solid rgba(52,152,219,0.25);}
+.mk-st-paid{background:rgba(37,211,102,0.12);color:#25d366;border:1px solid rgba(37,211,102,0.25);}
+.btn-mk-pay{padding:4px 10px;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.25);border-radius:7px;color:#25d366;font-size:0.65rem;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;transition:all 0.2s;}
+.btn-mk-pay:hover{background:rgba(37,211,102,0.25);border-color:#25d366;}
+
+.mk-empty{text-align:center;padding:30px 20px;color:var(--text-muted);}
+.mk-empty i{font-size:2rem;opacity:0.3;display:block;margin-bottom:10px;color:#9b59b6;}
+.mk-empty p{font-size:0.85rem;}
+
+.mk-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.btn-mk-pay-all{
+    flex:1;
+    padding:11px 16px;
+    background:rgba(37,211,102,0.12);
+    border:1px solid rgba(37,211,102,0.3);
+    border-radius:100px;
+    color:#25d366;
+    font-size:0.82rem;
+    font-weight:700;
+    font-family:'Poppins',sans-serif;
+    cursor:pointer;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:all 0.2s;
+}
+.btn-mk-pay-all.show{display:flex;}
+.btn-mk-pay-all:hover{background:rgba(37,211,102,0.22);}
+.btn-mk-slip{
+    flex:1;
+    padding:11px 16px;
+    background:linear-gradient(135deg,#9b59b6,#8e44ad);
+    color:#fff;
+    border:none;
+    border-radius:100px;
+    font-size:0.82rem;
+    font-weight:700;
+    font-family:'Poppins',sans-serif;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:all 0.2s;
+}
+.btn-mk-slip:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(155,89,182,0.4);}
+
+/* RESPONSIVE */
+@media (max-width:768px){
+    .dashboard-header{padding:20px 16px 30px;}
+    .header-title h1{font-size:1.1rem;}
+    .header-title p{font-size:0.7rem;}
+    .user-badge .user-name{display:none;}
+    .user-badge{padding:4px;}
+    .page-title-section{padding:20px 16px 0;}
+    .page-title-content h2{font-size:1.2rem;}
+    .main{padding:20px 16px 40px;}
+    .bottom-nav{padding:8px 10px;gap:2px;bottom:12px;}
+    .nav-item{padding:8px 10px;font-size:0.6rem;min-width:56px;}
+    .nav-item i{font-size:1rem;}
+}
+@media (max-width:640px){
+    .card-meta{grid-template-columns:1fr;}
+    .card-actions{flex-direction:column;}
+    .card-btn{width:100%;}
+    .filter-tab{padding:8px 14px;font-size:0.75rem;}
+    .mk-actions{flex-direction:column;}
+    .btn-mk-pay-all,.btn-mk-slip{width:100%;}
+}
+@media (max-width:400px){
+    .nav-item span{display:none;}
+    .nav-item{min-width:44px;padding:10px 12px;}
+    .nav-item i{font-size:1.2rem;}
 }
 </style>
 </head>
-<body class="reseller-page">
+<body>
 
+<!-- HEADER -->
 <header class="dashboard-header">
     <div class="header-container">
         <div class="header-brand">
             <div class="header-logo">
-                <img src="main-logo.jpg" alt="Logo"
-                     onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-weight:900;color:#d4a536;\'>I</div>'">
+                <img src="main-logo.jpg" alt="Logo" onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-weight:900;color:#d4a536;\'>I</div>'">
             </div>
             <div class="header-title">
                 <h1>Ibaadurrahmaan</h1>
@@ -292,10 +389,11 @@
     </div>
 </header>
 
+<!-- PAGE TITLE -->
 <section class="page-title-section">
     <div class="page-title-content">
         <h2><i class="fas fa-handshake"></i> Kelola Reseller</h2>
-        <p>Manajemen reseller, komisi & reward — tersimpan di Firebase</p>
+        <p>Manajemen data, komisi & reward semua reseller</p>
     </div>
     <a href="dashboard.html" class="back-to-dashboard">
         <i class="fas fa-arrow-left"></i>
@@ -303,889 +401,885 @@
     </a>
 </section>
 
-<div class="reseller-container">
-    <div class="stats-grid">
-        <div class="stat-card s-total">
-            <div class="stat-icon"><i class="fas fa-handshake"></i></div>
-            <div class="stat-number" id="stTotal">-</div>
-            <div class="stat-label">Total Reseller</div>
+<!-- MAIN -->
+<main class="main">
+    <div class="controls">
+        <div class="search-wrapper">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="Cari nama, kode, WA, atau email...">
+            <button class="search-clear" id="searchClear" onclick="clearSearch()">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
-        <div class="stat-card s-active">
-            <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
-            <div class="stat-number" id="stActive">-</div>
-            <div class="stat-label">Aktif</div>
-        </div>
-        <div class="stat-card s-closing">
-            <div class="stat-icon"><i class="fas fa-file-contract"></i></div>
-            <div class="stat-number" id="stClosing">-</div>
-            <div class="stat-label">Total Closing</div>
-        </div>
-        <div class="stat-card s-komisi">
-            <div class="stat-icon"><i class="fas fa-coins"></i></div>
-            <div class="stat-number" id="stKomisi">-</div>
-            <div class="stat-label">Total Komisi</div>
-        </div>
-        <div class="stat-card s-unpaid">
-            <div class="stat-icon"><i class="fas fa-clock"></i></div>
-            <div class="stat-number" id="stUnpaid">-</div>
-            <div class="stat-label">Komisi Unpaid</div>
+        
+        <div class="filter-tabs" id="filterTabs">
+            <button class="filter-tab active" data-status="all">
+                <i class="fas fa-list"></i>
+                <span>Semua</span>
+                <span class="count" id="countAll">0</span>
+            </button>
+            <button class="filter-tab" data-status="pending">
+                <i class="fas fa-clock"></i>
+                <span>Pending</span>
+                <span class="count" id="countPending">0</span>
+            </button>
+            <button class="filter-tab" data-status="active">
+                <i class="fas fa-check-circle"></i>
+                <span>Active</span>
+                <span class="count" id="countActive">0</span>
+            </button>
+            <button class="filter-tab" data-status="inactive">
+                <i class="fas fa-user-slash"></i>
+                <span>Inactive</span>
+                <span class="count" id="countInactive">0</span>
+            </button>
+            <button class="filter-tab" data-status="rejected">
+                <i class="fas fa-ban"></i>
+                <span>Rejected</span>
+                <span class="count" id="countRejected">0</span>
+            </button>
         </div>
     </div>
-
-    <div class="toolbar">
-        <div class="search-wrap">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" placeholder="Cari nama, kode, kota..." oninput="applyFilter()">
+    
+    <div class="result-info">
+        <div class="result-count">
+            <i class="fas fa-users"></i>
+            Menampilkan <b id="visibleCount">0</b> dari <b id="totalCount">0</b> reseller
         </div>
-        <button class="btn-refresh" id="btnRefresh" onclick="loadResellers()">
-            <i class="fas fa-sync-alt"></i> Refresh
-        </button>
-        <button class="btn-toolbar" onclick="openFormModal('add')">
-            <i class="fas fa-plus"></i> Tambah Reseller
-        </button>
     </div>
-
-    <div class="filter-tabs">
-        <button class="tab-btn active" data-filter="all" onclick="setTab(this)">Semua</button>
-        <button class="tab-btn" data-filter="active" onclick="setTab(this)">Aktif</button>
-        <button class="tab-btn" data-filter="inactive" onclick="setTab(this)">Inactive</button>
-        <button class="tab-btn" data-filter="suspended" onclick="setTab(this)">Suspended</button>
-    </div>
-
+    
     <div class="reseller-grid" id="resellerGrid">
-        <div class="loading-state">
-            <i class="fas fa-spinner"></i>
-            <p>Memuat data reseller...</p>
+        <div class="empty-state">
+            <i class="fas fa-spinner fa-spin"></i>
+            <h3>Memuat data...</h3>
+            <p>Mohon tunggu sebentar</p>
         </div>
     </div>
-</div>
+</main>
 
-<div class="modal-overlay" id="modalForm">
-    <div class="modal-box">
-        <div class="modal-head">
-            <h3><i class="fas fa-user-plus" id="modalFormIcon"></i><span id="modalFormTitle">Tambah Reseller</span></h3>
-            <button class="modal-close-btn" onclick="closeModal('modalForm')"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="modal-body">
-            <input type="hidden" id="editDocId" value="">
-            <div class="form-section-title"><i class="fas fa-user"></i> Data Reseller</div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label class="form-label"><i class="fas fa-user"></i> Nama <span class="required">*</span></label>
-                    <input type="text" class="form-input" id="fName" placeholder="Nama lengkap reseller">
-                </div>
-                <div class="form-group">
-                    <label class="form-label"><i class="fab fa-whatsapp"></i> WhatsApp <span class="required">*</span></label>
-                    <input type="text" class="form-input" id="fPhone" placeholder="08xxxxxxxxxx">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label class="form-label"><i class="fas fa-envelope"></i> Email</label>
-                    <input type="email" class="form-input" id="fEmail" placeholder="email@domain.com">
-                </div>
-                <div class="form-group">
-                    <label class="form-label"><i class="fas fa-map-marker-alt"></i> Kota</label>
-                    <input type="text" class="form-input" id="fCity" placeholder="Jakarta">
-                </div>
-            </div>
-
-            <div class="form-section-title"><i class="fas fa-layer-group"></i> Tier & Status</div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label class="form-label"><i class="fas fa-medal"></i> Tier</label>
-                    <select class="form-select" id="fTier">
-                        <option value="silver">🥉 Silver (15%)</option>
-                        <option value="gold">🥈 Gold (20% + Rp 100k)</option>
-                        <option value="platinum">🥇 Platinum (25% + Rp 200k)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label"><i class="fas fa-toggle-on"></i> Status</label>
-                    <select class="form-select" id="fStatus">
-                        <option value="active">Aktif</option>
-                        <option value="inactive">Inactive</option>
-                        <option value="suspended">Suspended</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-section-title"><i class="fas fa-university"></i> Info Bank (untuk Slip)</div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label class="form-label"><i class="fas fa-university"></i> Nama Bank</label>
-                    <input type="text" class="form-input" id="fBank" placeholder="BCA, BRI, Mandiri...">
-                </div>
-                <div class="form-group">
-                    <label class="form-label"><i class="fas fa-credit-card"></i> No. Rekening</label>
-                    <input type="text" class="form-input" id="fNorek" placeholder="1234567890">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="form-label"><i class="fas fa-user-check"></i> Atas Nama</label>
-                <input type="text" class="form-input" id="fAtasNama" placeholder="Nama pemilik rekening">
-            </div>
-            <div class="form-group">
-                <label class="form-label"><i class="fas fa-sticky-note"></i> Catatan</label>
-                <textarea class="form-textarea" id="fNotes" placeholder="Catatan tambahan..."></textarea>
-            </div>
-        </div>
-        <div class="modal-foot">
-            <button class="btn-cancel" onclick="closeModal('modalForm')">Batal</button>
-            <button class="btn-save" id="btnSave" onclick="saveReseller()"><i class="fas fa-save"></i> Simpan</button>
-        </div>
-    </div>
-</div>
-
-<div class="modal-overlay" id="modalReward">
-    <div class="modal-box">
-        <div class="modal-head">
-            <h3><i class="fas fa-trophy"></i><span id="modalRewardTitle">Reward Reseller</span></h3>
-            <button class="modal-close-btn" onclick="closeModal('modalReward')"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="modal-body">
-            <div id="rewardCurrentBox"></div>
-            <div class="form-section-title"><i class="fas fa-edit"></i> Update Reward</div>
-            <div class="form-group">
-                <label class="form-label"><i class="fas fa-money-bill-wave"></i> Jumlah Reward (Rp)</label>
-                <input type="text" class="form-input" id="fRewardAmount" placeholder="Rp 0" oninput="autoFormatRp(this)">
-            </div>
-            <div class="form-group">
-                <label class="form-label"><i class="fas fa-comment-alt"></i> Keterangan</label>
-                <input type="text" class="form-input" id="fRewardNote" placeholder="Bonus closing 5 client bulan ini...">
-            </div>
-            <div class="form-group">
-                <label class="form-label"><i class="fas fa-check-circle"></i> Status Reward</label>
-                <select class="form-select" id="fRewardStatus">
-                    <option value="unpaid">⏳ Belum Dibayar</option>
-                    <option value="paid">✅ Sudah Dibayar</option>
-                </select>
-            </div>
-        </div>
-        <div class="modal-foot">
-            <button class="btn-cancel" onclick="closeModal('modalReward')">Batal</button>
-            <button class="btn-save" onclick="saveReward()"><i class="fas fa-save"></i> Simpan Reward</button>
-        </div>
-    </div>
-</div>
-
-<div class="modal-overlay" id="modalKomisi">
-    <div class="modal-box modal-wide">
-        <div class="modal-head">
-            <h3><i class="fas fa-coins"></i><span id="modalKomisiTitle">Komisi Reseller</span></h3>
-            <button class="modal-close-btn" onclick="closeModal('modalKomisi')"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="modal-body">
-            <div class="mk-summary">
-                <div class="mk-sum-card">
-                    <span class="mk-sum-val clr-blue" id="mkClosing">-</span>
-                    <span class="mk-sum-lbl">Closing</span>
-                </div>
-                <div class="mk-sum-card">
-                    <span class="mk-sum-val clr-purple" id="mkEarned">-</span>
-                    <span class="mk-sum-lbl">Total Komisi</span>
-                </div>
-                <div class="mk-sum-card">
-                    <span class="mk-sum-val clr-yellow" id="mkUnpaid">-</span>
-                    <span class="mk-sum-lbl">Belum Dibayar</span>
-                </div>
-            </div>
-
-            <div class="mk-filter-row">
-                <label>📅 Filter:</label>
-                <input type="month" class="mk-month-input" id="mkMonthFilter" value="">
-                <button class="btn-mk-filter" onclick="renderKomisiList()"><i class="fas fa-filter"></i> Filter</button>
-                <button class="btn-mk-all" onclick="clearMkFilter()">All Time</button>
-            </div>
-
-            <div class="mk-list" id="mkList">
-                <div class="mk-empty">
-                    <span class="mk-empty-icon">⏳</span>
-                    <p>Loading...</p>
-                </div>
-            </div>
-        </div>
-        <div class="modal-foot">
-            <button class="btn-cancel" onclick="closeModal('modalKomisi')">Tutup</button>
-            <button class="btn-pay-all" id="btnPayAll" onclick="markAllKomisiPaid()" style="display:none;">
-                <i class="fas fa-check-double"></i> Bayar Semua
-            </button>
-            <button class="btn-slip" id="btnBuatSlip" onclick="goToSlip()">
-                <i class="fas fa-file-invoice-dollar"></i> Buat Slip
-            </button>
-        </div>
-    </div>
-</div>
-
+<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
-    <a href="dashboard.html" class="nav-item"><i class="fas fa-th-large"></i><span>Overview</span></a>
-    <a href="dashboard-slip.html" class="nav-item"><i class="fas fa-file-invoice-dollar"></i><span>Slip</span></a>
-    <a href="dashboard-reseller.html" class="nav-item active"><i class="fas fa-handshake"></i><span>Reseller</span></a>
-    <a href="dashboard-client.html" class="nav-item"><i class="fas fa-briefcase"></i><span>Client</span></a>
-    <a href="dashboard-laporan.html" class="nav-item"><i class="fas fa-chart-line"></i><span>Laporan</span></a>
+    <a href="dashboard.html" class="nav-item">
+        <i class="fas fa-th-large"></i>
+        <span>Overview</span>
+    </a>
+    <a href="dashboard-slip.html" class="nav-item">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <span>Slip</span>
+    </a>
+    <a href="dashboard-reseller.html" class="nav-item active">
+        <i class="fas fa-handshake"></i>
+        <span>Reseller</span>
+    </a>
+    <a href="dashboard-client.html" class="nav-item">
+        <i class="fas fa-briefcase"></i>
+        <span>Client</span>
+    </a>
+    <a href="dashboard-laporan.html" class="nav-item">
+        <i class="fas fa-chart-line"></i>
+        <span>Laporan</span>
+    </a>
 </nav>
 
+<!-- FIREBASE MODULE -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import {
-    getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc,
-    doc, query, orderBy, serverTimestamp, writeBatch
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyCYRygFt6uwCUiL_6-eoJHhUdkiumSwLzY",
-    authDomain: "ibaadurrahmaan-web.firebaseapp.com",
-    projectId: "ibaadurrahmaan-web",
-    storageBucket: "ibaadurrahmaan-web.firebasestorage.app",
-    messagingSenderId: "1066409450927",
-    appId: "1:1066409450927:web:3497135ea3a2c4ef77e35a"
-};
-
-const app = initializeApp(firebaseConfig);
-const db  = getFirestore(app);
-
-window.fbReseller = {
-    db, collection, getDocs, addDoc, updateDoc, deleteDoc,
-    doc, query, orderBy, serverTimestamp, writeBatch,
-    ready: true
-};
-
-document.dispatchEvent(new CustomEvent('firebaseReady'));
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { 
+        getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, getDoc, writeBatch
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    
+    const firebaseConfig = {
+        apiKey: "AIzaSyCYRygFt6uwCUiL_6-eoJHhUdkiumSwLzY",
+        authDomain: "ibaadurrahmaan-web.firebaseapp.com",
+        projectId: "ibaadurrahmaan-web",
+        storageBucket: "ibaadurrahmaan-web.firebasestorage.app",
+        messagingSenderId: "1066409450927",
+        appId: "1:1066409450927:web:3497135ea3a2c4ef77e35a"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    
+    window.firebase = {
+        db, collection, getDocs, doc, updateDoc, deleteDoc, getDoc, writeBatch,
+        ready: true
+    };
+    
+    document.dispatchEvent(new CustomEvent('firebaseReady'));
+    console.log('[FIREBASE] ✅ Ready');
 </script>
 
+<!-- SHARED DASHBOARD LOGIC -->
+<script src="dashboard.js"></script>
+
+<!-- ═══════════════════════════════════════════════
+     RESELLER MANAGEMENT + KOMISI INTEGRATION
+═══════════════════════════════════════════════ -->
 <script>
-const CREDENTIALS = { username:'owner', password:'ibaadurrahmaan2024' };
-function simpleHash(str){let hash=0;for(let i=0;i<str.length;i++){const char=str.charCodeAt(i);hash=((hash<<5)-hash)+char;hash=hash&hash;}return hash.toString(36)+str.length.toString(36);}
-function checkAuth(){
-    const s=localStorage.getItem('ibaad_session');
-    if(!s){window.location.href='dashboard-login.html';return false;}
-    try{
-        const d=JSON.parse(s);
-        if(Date.now()>d.expiry){localStorage.removeItem('ibaad_session');window.location.href='dashboard-login.html';return false;}
-        const valid=simpleHash(CREDENTIALS.username+CREDENTIALS.password);
-        if(d.token!==valid){localStorage.removeItem('ibaad_session');window.location.href='dashboard-login.html';return false;}
-        return d;
-    }catch(e){window.location.href='dashboard-login.html';return false;}
-}
-const session = checkAuth();
-if(session){
-    const un = session.username||'Owner';
-    const disp = un.charAt(0).toUpperCase()+un.slice(1);
-    document.getElementById('userName').textContent = disp;
-    document.getElementById('userAvatar').textContent = disp.charAt(0);
-}
+// ============================================================
+// 📋 RESELLER PAGE STATE
+// ============================================================
+let allResellers = [];
+let filteredResellers = [];
+let currentFilter = 'all';
+let searchQuery = '';
 
-function handleLogout(){
-    Swal.fire({
-        icon:'question',title:'Keluar Dashboard?',text:'Kamu akan diarahkan ke halaman login',
-        showCancelButton:true,confirmButtonText:'<i class="fas fa-sign-out-alt"></i> Ya, Keluar',
-        cancelButtonText:'Batal',customClass:{popup:'swal-premium'},reverseButtons:true,focusCancel:true
-    }).then(r=>{
-        if(r.isConfirmed){
-            localStorage.removeItem('ibaad_session');
-            window.location.href='dashboard-login.html';
-        }
-    });
-}
+// ═══ NEW: State untuk komisi ═══
+let allClientsForCommission = [];  // client dengan referral
+let mkCurrentResellerId = null;
+let mkCurrentResellerData = null;
 
-const COL_RESELLERS = 'resellers';
-const COL_CLIENTS   = 'clients';
-const TIER_CONFIG = {
-    silver  : { pct:15, bonus:0,      label:'Silver',   icon:'🥉', crown:''   },
-    gold    : { pct:20, bonus:100000, label:'Gold',     icon:'🥈', crown:'👑' },
-    platinum: { pct:25, bonus:200000, label:'Platinum', icon:'🥇', crown:'💎' }
+// TIER CONFIG untuk komisi closing
+const TIER_KOMISI = {
+    silver:   { pct: 15, bonus: 0,      label: 'Silver',   icon: '🥉' },
+    gold:     { pct: 20, bonus: 100000, label: 'Gold',     icon: '🥇' },
+    platinum: { pct: 25, bonus: 200000, label: 'Platinum', icon: '💎' }
 };
 
-let allResellers = [];
-let allClients = [];
-let currentFilter = 'all';
-let mkResellerId = '';
-let mkResellerData = {};
-let mkClientList = [];
-let rewardResellerId = null;
-
-function escHtml(str){if(!str) return ''; const d=document.createElement('div'); d.textContent=str; return d.innerHTML;}
-function toRp(num){if(!num||isNaN(num)) return 'Rp 0'; return 'Rp '+parseInt(num).toLocaleString('id-ID');}
-function parseRp(str){if(!str) return 0; const n=String(str).replace(/[^0-9]/g,''); return n?parseInt(n):0;}
-function autoFormatRp(input){let v=input.value.replace(/[^0-9]/g,''); input.value=v?'Rp '+parseInt(v).toLocaleString('id-ID'):'';}
-function safeWaNum(phone){return String(phone||'').replace(/^0/,'62').replace(/[^0-9]/g,'');}
-function formatDateID(ts){
-    if(!ts) return '-';
-    const months=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
-    let d;
-    if(ts.toDate) d=ts.toDate();
-    else if(ts.seconds) d=new Date(ts.seconds*1000);
-    else d=new Date(ts);
-    if(isNaN(d.getTime())) return '-';
-    return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
-}
-function getMonthLabel(){return new Date().toLocaleDateString('id-ID',{month:'short',year:'numeric'});}
-function getInitials(name){const p=(name||'?').trim().split(' '); return p.length>=2?(p[0][0]+p[1][0]).toUpperCase():(name||'?').substring(0,2).toUpperCase();}
-function calcCommission(totalValue, tier){
-    const cfg = TIER_CONFIG[tier] || TIER_CONFIG.silver;
-    const komisi = Math.round(totalValue * cfg.pct / 100);
-    return { pct:cfg.pct, bonus:cfg.bonus, komisi, total:komisi+cfg.bonus, tierLabel:cfg.label, tierIcon:cfg.icon };
-}
-
-async function loadResellers(){
-    const fb = window.fbReseller;
-    if(!fb || !fb.ready) return;
-    document.getElementById('btnRefresh').classList.add('spinning');
-
-    try{
-        const rSnap = await fb.getDocs(fb.query(fb.collection(fb.db, COL_RESELLERS), fb.orderBy('createdAt','desc')));
+// ============================================================
+// 🔄 LOAD RESELLERS (ORIGINAL - TIDAK DIUBAH)
+// ============================================================
+async function loadResellers() {
+    try {
+        await waitForFirebase();
+        
+        console.log('[RESELLER PAGE] Loading resellers...');
+        
+        const { db, collection, getDocs } = window.firebase;
+        const snapshot = await getDocs(collection(db, 'resellers'));
+        
         allResellers = [];
-        rSnap.forEach(d => allResellers.push({ id:d.id, ...d.data() }));
-
-        const cSnap = await fb.getDocs(fb.collection(fb.db, COL_CLIENTS));
-        allClients = [];
-        cSnap.forEach(d => {
-            const data = d.data();
-            if(data.referral && data.referral.resellerId) allClients.push({ id:d.id, ...data });
+        snapshot.forEach(docSnap => {
+            allResellers.push({ id: docSnap.id, ...docSnap.data() });
         });
-
-        updateGlobalStats();
-        applyFilter();
-    }catch(err){
-        Swal.fire({icon:'error',title:'Gagal Memuat',html:`Error: <code>${err.message}</code>`,customClass:{popup:'swal-premium'}});
-    }finally{
-        document.getElementById('btnRefresh').classList.remove('spinning');
+        
+        allResellers.sort((a, b) => {
+            const t1 = a.timestamp?.toDate?.().getTime() || 0;
+            const t2 = b.timestamp?.toDate?.().getTime() || 0;
+            return t2 - t1;
+        });
+        
+        // ═══ NEW: Load clients untuk komisi ═══
+        await loadClientsForCommission();
+        
+        updateCounts();
+        applyFilters();
+        
+        console.log('[RESELLER PAGE] ✅ Loaded:', allResellers.length, 'resellers');
+        
+    } catch (error) {
+        console.error('[RESELLER PAGE] ❌ Error:', error);
+        
+        let errorMsg = error.message;
+        let solution = 'Coba refresh halaman';
+        
+        if (error.code === 'permission-denied' || error.message.includes('permission')) {
+            errorMsg = 'Akses ditolak oleh Firestore Rules';
+            solution = 'Update Firestore Rules → allow read: if true;';
+        }
+        
+        document.getElementById('resellerGrid').innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-exclamation-triangle" style="color:#e74c3c;"></i>
+                <h3>Gagal Memuat Data</h3>
+                <p><strong style="color:#e74c3c;">${errorMsg}</strong><br><br>
+                <small style="color:#f39c12;">💡 ${solution}</small></p>
+            </div>
+        `;
     }
 }
 
-function getResellerClients(resellerId){
-    return allClients.filter(c => c.referral?.resellerId === resellerId);
+// ============================================================
+// 💼 NEW: LOAD CLIENTS FOR COMMISSION
+// ============================================================
+async function loadClientsForCommission() {
+    try {
+        const { db, collection, getDocs } = window.firebase;
+        const snap = await getDocs(collection(db, 'clients'));
+        
+        allClientsForCommission = [];
+        snap.forEach(d => {
+            const data = d.data();
+            if (data.referral && data.referral.resellerId) {
+                allClientsForCommission.push({ id: d.id, ...data });
+            }
+        });
+        
+        console.log('[KOMISI] ✅ Clients with referral:', allClientsForCommission.length);
+    } catch(err) {
+        console.error('[KOMISI] ❌ Error:', err);
+        allClientsForCommission = [];
+    }
 }
-function getKomisiSummary(resellerId){
-    const clients = getResellerClients(resellerId);
-    const reseller = allResellers.find(r => r.id === resellerId);
-    const tier = (reseller?.tier || 'silver').toLowerCase();
+
+// ============================================================
+// 💰 KOMISI HELPERS
+// ============================================================
+function parseRp(str) {
+    if (!str) return 0;
+    const n = String(str).replace(/[^0-9]/g, '');
+    return n ? parseInt(n) : 0;
+}
+
+function toRp(num) {
+    if (!num || isNaN(num)) return 'Rp 0';
+    return 'Rp ' + parseInt(num).toLocaleString('id-ID');
+}
+
+function calcKomisi(baseValue, tier) {
+    const cfg = TIER_KOMISI[tier] || TIER_KOMISI.silver;
+    const komisi = Math.round(baseValue * cfg.pct / 100);
+    return {
+        pct: cfg.pct,
+        bonus: cfg.bonus,
+        komisi: komisi,
+        total: komisi + cfg.bonus,
+        tierLabel: cfg.label,
+        tierIcon: cfg.icon
+    };
+}
+
+function getResellerClientsCommission(resellerId) {
+    return allClientsForCommission.filter(c => c.referral?.resellerId === resellerId);
+}
+
+function getKomisiSummary(resellerId, tier) {
+    const clients = getResellerClientsCommission(resellerId);
+    const tierUse = (tier || 'silver').toLowerCase();
+    
     const now = new Date();
-    const y = now.getFullYear();
-    const m = now.getMonth()+1;
-
-    let totalClosing=0,totalEarned=0,totalUnpaid=0,monthClosing=0,monthEarned=0,monthUnpaid=0;
-
-    clients.forEach(c=>{
-        if(c.paymentStatus !== 'paid_full') return;
+    const thisYear = now.getFullYear();
+    const thisMon = now.getMonth() + 1;
+    
+    let totalClosing = 0, totalEarned = 0, totalUnpaid = 0;
+    let monthClosing = 0, monthEarned = 0, monthUnpaid = 0;
+    
+    clients.forEach(c => {
+        if (c.paymentStatus !== 'paid_full') return;
+        
         const pd = c.priceDetail || {};
         const base = pd.basePrice || pd.total || parseRp(c.value) || 0;
-        const comm = calcCommission(base, tier);
+        const comm = calcKomisi(base, tierUse);
         const isPaid = c.referral?.commissionStatus === 'paid';
-
+        
         totalClosing++;
         totalEarned += comm.total;
-        if(!isPaid) totalUnpaid += comm.total;
-
+        if (!isPaid) totalUnpaid += comm.total;
+        
+        // Filter bulan
         let d = null;
-        if(c.paidAt?.toDate) d = c.paidAt.toDate();
-        else if(c.createdAt?.toDate) d = c.createdAt.toDate();
-        if(d && d.getFullYear()===y && (d.getMonth()+1)===m){
+        if (c.paidAt?.toDate) d = c.paidAt.toDate();
+        else if (c.createdAt?.toDate) d = c.createdAt.toDate();
+        
+        if (d && d.getFullYear() === thisYear && (d.getMonth() + 1) === thisMon) {
             monthClosing++;
             monthEarned += comm.total;
-            if(!isPaid) monthUnpaid += comm.total;
+            if (!isPaid) monthUnpaid += comm.total;
         }
     });
-
-    return { totalClosing,totalEarned,totalUnpaid,monthClosing,monthEarned,monthUnpaid };
+    
+    return { totalClosing, totalEarned, totalUnpaid, monthClosing, monthEarned, monthUnpaid };
 }
 
-function updateGlobalStats(){
-    document.getElementById('stTotal').textContent = allResellers.length;
-    document.getElementById('stActive').textContent = allResellers.filter(r=>r.status==='active').length;
-
-    let totalClosing=0,totalKomisi=0,totalUnpaid=0;
-    allResellers.forEach(r=>{
-        const s = getKomisiSummary(r.id);
-        totalClosing += s.totalClosing;
-        totalKomisi += s.totalEarned;
-        totalUnpaid += s.totalUnpaid;
-    });
-    document.getElementById('stClosing').textContent = totalClosing;
-    document.getElementById('stKomisi').textContent = toRp(totalKomisi);
-    document.getElementById('stUnpaid').textContent = toRp(totalUnpaid);
+// ============================================================
+// UPDATE COUNTS (ORIGINAL)
+// ============================================================
+function updateCounts() {
+    document.getElementById('countAll').textContent = allResellers.length;
+    document.getElementById('countPending').textContent = allResellers.filter(r => r.status === 'pending').length;
+    document.getElementById('countActive').textContent = allResellers.filter(r => r.status === 'active').length;
+    document.getElementById('countInactive').textContent = allResellers.filter(r => r.status === 'inactive').length;
+    document.getElementById('countRejected').textContent = allResellers.filter(r => r.status === 'rejected').length;
+    document.getElementById('totalCount').textContent = allResellers.length;
 }
 
-function setTab(btn){
-    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    currentFilter = btn.dataset.filter;
-    applyFilter();
-}
-
-function applyFilter(){
-    const q = document.getElementById('searchInput').value.toLowerCase();
-    let list = [...allResellers];
-    if(currentFilter !== 'all') list = list.filter(r => r.status === currentFilter);
-    if(q){
-        list = list.filter(r =>
-            (r.name && r.name.toLowerCase().includes(q)) ||
-            (r.kode && r.kode.toLowerCase().includes(q)) ||
-            (r.resellerCode && r.resellerCode.toLowerCase().includes(q)) ||
-            (r.city && r.city.toLowerCase().includes(q)) ||
-            ((r.phone||r.wa||'').includes(q))
+// ============================================================
+// APPLY FILTERS (ORIGINAL)
+// ============================================================
+function applyFilters() {
+    let result = currentFilter === 'all' 
+        ? [...allResellers] 
+        : allResellers.filter(r => r.status === currentFilter);
+    
+    if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        result = result.filter(r => 
+            (r.nama || '').toLowerCase().includes(q) ||
+            (r.resellerCode || '').toLowerCase().includes(q) ||
+            (r.wa || '').toLowerCase().includes(q) ||
+            (r.email || '').toLowerCase().includes(q)
         );
     }
-    renderResellers(list);
+    
+    filteredResellers = result;
+    document.getElementById('visibleCount').textContent = result.length;
+    renderResellers(result);
 }
 
-function renderResellers(list){
+// ============================================================
+// 🎨 RENDER RESELLER CARDS (dengan komisi widget baru)
+// ============================================================
+function renderResellers(resellers) {
     const grid = document.getElementById('resellerGrid');
-    if(!list.length){
+    
+    if (resellers.length === 0) {
         grid.innerHTML = `
             <div class="empty-state">
-                <span class="empty-icon">🤝</span>
-                <h3>Belum Ada Reseller</h3>
-                <p>Tambahkan reseller pertama Anda</p>
-                <button class="btn-empty-add" onclick="openFormModal('add')">
-                    <i class="fas fa-plus"></i> Tambah Reseller
+                <i class="fas fa-inbox"></i>
+                <h3>Tidak Ada Data</h3>
+                <p>${searchQuery ? 'Tidak ada reseller yang cocok dengan pencarian' : 'Belum ada reseller di kategori ini'}</p>
+            </div>
+        `;
+        return;
+    }
+    
+    let html = '';
+    resellers.forEach(data => {
+        const initial = (data.nama || '?').charAt(0).toUpperCase();
+        const status = data.status || 'pending';
+        
+        let dateStr = '-';
+        if (data.timestamp?.toDate) {
+            const date = data.timestamp.toDate();
+            dateStr = date.toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
+        }
+        
+        // ⭐ REWARD INFO (existing)
+        const progress = data.progress || {};
+        const modulesDone = (progress.modulesDone || []).length;
+        const sopDone = (progress.sopDone || []).length;
+        
+        const rewards = data.rewards || {};
+        const tier1 = rewards.tier1 || {};
+        const tier2 = rewards.tier2 || {};
+        
+        const totalEarned = (tier1.earned ? 50000 : 0) + (tier2.earned ? 100000 : 0);
+        const totalPaid = (tier1.paid ? 50000 : 0) + (tier2.paid ? 100000 : 0);
+        const totalPending = totalEarned - totalPaid;
+        
+        // Progress info bar (only for active)
+        let progressInfoHTML = '';
+        if (status === 'active') {
+            let rewardBadge = '';
+            if (totalPending > 0) {
+                rewardBadge = `<span class="progress-badge reward-pending">
+                    <i class="fas fa-money-bill-wave"></i> Rp ${totalPending.toLocaleString('id-ID')} BELUM BAYAR
+                </span>`;
+            } else if (totalPaid > 0) {
+                rewardBadge = `<span class="progress-badge reward-paid">
+                    <i class="fas fa-check-circle"></i> Rp ${totalPaid.toLocaleString('id-ID')} PAID
+                </span>`;
+            }
+            
+            progressInfoHTML = `
+                <div class="card-progress-info">
+                    <span class="progress-badge"><i class="fas fa-graduation-cap"></i> ${modulesDone}/15</span>
+                    <span class="progress-badge"><i class="fas fa-clipboard-check"></i> ${sopDone}/6</span>
+                    ${rewardBadge}
+                </div>
+            `;
+        }
+        
+        // ═══ NEW: KOMISI INFO WIDGET ═══
+        let komisiInfoHTML = '';
+        let komisiUnpaidTotal = 0;
+        
+        if (status === 'active') {
+            const tier = (data.tier || 'silver').toLowerCase();
+            const ks = getKomisiSummary(data.id, tier);
+            komisiUnpaidTotal = ks.totalUnpaid;
+            
+            let komisiBadge = '';
+            if (ks.totalUnpaid > 0) {
+                komisiBadge = `<span class="komisi-badge unpaid">
+                    <i class="fas fa-hourglass-half"></i> ${toRp(ks.totalUnpaid)} UNPAID
+                </span>`;
+            } else if (ks.totalEarned > 0) {
+                komisiBadge = `<span class="komisi-badge paid">
+                    <i class="fas fa-check-double"></i> Semua Lunas
+                </span>`;
+            }
+            
+            komisiInfoHTML = `
+                <div class="card-komisi-info">
+                    <span class="komisi-badge">
+                        <i class="fas fa-file-contract"></i> ${ks.totalClosing} Closing
+                    </span>
+                    <span class="komisi-badge earned">
+                        <i class="fas fa-coins"></i> ${toRp(ks.totalEarned)}
+                    </span>
+                    ${komisiBadge}
+                </div>
+            `;
+        }
+        
+        // Data untuk onclick
+        const dataStr = JSON.stringify({
+            id: data.id,
+            nama: data.nama || 'Tanpa Nama',
+            wa: data.wa || '',
+            resellerCode: data.resellerCode || '-'
+        }).replace(/"/g, '&quot;');
+        
+        // Buttons berdasarkan status
+        let buttons = '';
+        if (status === 'pending') {
+            buttons = `
+                <button class="card-btn approve" onclick='handleApprove(${dataStr})'>
+                    <i class="fas fa-check"></i>Approve
                 </button>
-            </div>`;
-        return;
-    }
-    grid.innerHTML = list.map(buildCard).join('');
-}
-
-function buildCard(r){
-    const tier = (r.tier || 'silver').toLowerCase();
-    const tierCfg = TIER_CONFIG[tier] || TIER_CONFIG.silver;
-    const status = r.status || 'inactive';
-    const ini = getInitials(r.name || '?');
-    const ks = getKomisiSummary(r.id);
-    const clientCount = getResellerClients(r.id).length;
-
-    const rewardHtml = (r.rewardAmount && r.rewardAmount > 0) ? `
-        <div class="reward-widget">
-            <div class="rw-info">
-                <div class="rw-amount"><i class="fas fa-trophy"></i>${toRp(r.rewardAmount)}</div>
-                <div class="rw-note">${escHtml(r.rewardNote || 'Reward bonus')}</div>
-            </div>
-            <span class="rw-status ${r.rewardStatus==='paid'?'rw-paid':'rw-unpaid'}">
-                ${r.rewardStatus==='paid'?'✓ Paid':'⏳ Unpaid'}
-            </span>
-        </div>` : '';
-
-    return `
-    <div class="reseller-card tier-${tier} status-${status}">
-        <div class="rc-head">
-            <div class="rc-avatar tier-${tier}">
-                ${ini}
-                ${tierCfg.crown ? `<span class="tier-crown">${tierCfg.crown}</span>` : ''}
-            </div>
-            <div class="rc-info">
-                <div class="rc-name">${escHtml(r.name || 'Unnamed')}</div>
-                <div class="rc-code">${escHtml(r.kode || r.resellerCode || '-')}</div>
-                <div class="rc-phone"><i class="fab fa-whatsapp"></i>${escHtml(r.phone || r.wa || '-')}</div>
-            </div>
-            <div class="rc-status-wrap">
-                <span class="rc-status ${status}">${status==='active'?'Aktif':status==='suspended'?'Suspended':'Inactive'}</span>
-                <span class="rc-tier-badge tier-badge-${tier}">${tierCfg.icon} ${tierCfg.label}</span>
-            </div>
-        </div>
-
-        <div class="rc-stats">
-            <div class="rc-stat-item">
-                <span class="rc-stat-num clr-blue">${clientCount}</span>
-                <span class="rc-stat-lbl">Client</span>
-            </div>
-            <div class="rc-stat-item">
-                <span class="rc-stat-num clr-purple">${ks.totalClosing}</span>
-                <span class="rc-stat-lbl">Closing</span>
-            </div>
-            <div class="rc-stat-item">
-                <span class="rc-stat-num clr-orange" style="font-size:0.76rem;">${toRp(ks.totalEarned)}</span>
-                <span class="rc-stat-lbl">Total Komisi</span>
-            </div>
-        </div>
-
-        <div class="komisi-widget">
-            <div class="kw-header">
-                <span class="kw-title"><i class="fas fa-coins"></i> Komisi Bulan Ini</span>
-                <span class="kw-month">${getMonthLabel()}</span>
-            </div>
-            <div class="kw-stats">
-                <div class="kw-stat">
-                    <span class="kw-val closing">${ks.monthClosing}</span>
-                    <span class="kw-lbl">Closing</span>
+                <button class="card-btn edit" onclick='handleEdit(${dataStr})'>
+                    <i class="fas fa-edit"></i>Edit
+                </button>
+                <button class="card-btn reject" onclick='handleReject(${dataStr})'>
+                    <i class="fas fa-times"></i>Reject
+                </button>
+            `;
+        } else if (status === 'active') {
+            const rewardNotifBadge = totalPending > 0 ? '<span class="badge-notif">!</span>' : '';
+            const komisiNotifBadge = komisiUnpaidTotal > 0 ? '<span class="badge-notif">!</span>' : '';
+            buttons = `
+                <button class="card-btn reward" onclick='handleReward("${data.id}")'>
+                    <i class="fas fa-trophy"></i>Reward${rewardNotifBadge}
+                </button>
+                <button class="card-btn komisi" onclick='openKomisiModal("${data.id}")'>
+                    <i class="fas fa-coins"></i>Komisi${komisiNotifBadge}
+                </button>
+                <button class="card-btn edit" onclick='handleEdit(${dataStr})'>
+                    <i class="fas fa-edit"></i>Edit
+                </button>
+                <button class="card-btn deactivate" onclick='handleDeactivate(${dataStr})'>
+                    <i class="fas fa-user-slash"></i>Non-Aktif
+                </button>
+            `;
+        } else if (status === 'inactive') {
+            buttons = `
+                <button class="card-btn reactivate" onclick='handleReactivate(${dataStr})'>
+                    <i class="fas fa-user-check"></i>Aktifkan
+                </button>
+                <button class="card-btn edit" onclick='handleEdit(${dataStr})'>
+                    <i class="fas fa-edit"></i>Edit
+                </button>
+                <button class="card-btn delete" onclick='handleDelete(${dataStr})'>
+                    <i class="fas fa-trash-alt"></i>Hapus
+                </button>
+            `;
+        } else if (status === 'rejected') {
+            buttons = `
+                <button class="card-btn detail" onclick='handleDetail(${dataStr})'>
+                    <i class="fas fa-eye"></i>Detail
+                </button>
+                <button class="card-btn delete" onclick='handleDelete(${dataStr})'>
+                    <i class="fas fa-trash-alt"></i>Hapus Permanen
+                </button>
+            `;
+        }
+        
+        html += `
+            <div class="reseller-card status-${status}">
+                <div class="card-header">
+                    <div class="card-avatar">${initial}</div>
+                    <div class="card-info">
+                        <div class="card-name">${data.nama || 'Tanpa Nama'}</div>
+                        <span class="card-code">${data.resellerCode || '-'}</span>
+                    </div>
+                    <span class="card-status ${status}">${status}</span>
                 </div>
-                <div class="kw-stat">
-                    <span class="kw-val earned" style="font-size:0.72rem;">${toRp(ks.monthEarned)}</span>
-                    <span class="kw-lbl">Earned</span>
+                
+                ${progressInfoHTML}
+                ${komisiInfoHTML}
+                
+                <div class="card-meta">
+                    <div class="card-meta-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>${data.wa || '-'}</span>
+                    </div>
+                    <div class="card-meta-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>${data.email || '-'}</span>
+                    </div>
+                    <div class="card-meta-item">
+                        <i class="fas fa-university"></i>
+                        <span>${data.bank || '-'}</span>
+                    </div>
+                    <div class="card-meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>${dateStr}</span>
+                    </div>
                 </div>
-                <div class="kw-stat">
-                    <span class="kw-val unpaid" style="font-size:0.72rem;">${toRp(ks.monthUnpaid)}</span>
-                    <span class="kw-lbl">Unpaid</span>
-                </div>
+                
+                <div class="card-actions">${buttons}</div>
             </div>
-        </div>
-
-        ${rewardHtml}
-
-        <div class="rc-actions">
-            <button class="rc-btn rcb-komisi" onclick="openKomisiModal('${r.id}')"><i class="fas fa-coins"></i> Komisi</button>
-            <button class="rc-btn rcb-reward" onclick="openRewardModal('${r.id}')"><i class="fas fa-trophy"></i> Reward</button>
-            <button class="rc-btn rcb-wa" onclick="waReseller('${r.id}')"><i class="fab fa-whatsapp"></i> Chat</button>
-            <button class="rc-btn rcb-edit" onclick="openFormModal('edit','${r.id}')"><i class="fas fa-edit"></i> Edit</button>
-            <button class="rc-btn rcb-del" onclick="deleteReseller('${r.id}')"><i class="fas fa-trash"></i></button>
-        </div>
-    </div>`;
-}
-
-function showOverlay(id){
-    const el = document.getElementById(id);
-    el.style.display = 'flex';
-    requestAnimationFrame(()=> el.classList.add('show'));
-    document.body.style.overflow = 'hidden';
-}
-function closeModal(id){
-    const el = document.getElementById(id);
-    el.classList.remove('show');
-    setTimeout(()=> el.style.display='none', 300);
-    document.body.style.overflow = '';
-}
-document.querySelectorAll('.modal-overlay').forEach(el=>{
-    el.addEventListener('click',e=>{ if(e.target===el) closeModal(el.id); });
-});
-
-function clearForm(){
-    ['fName','fPhone','fEmail','fCity','fBank','fNorek','fAtasNama','fNotes'].forEach(id=>{
-        const el=document.getElementById(id); if(el) el.value='';
+        `;
     });
-    document.getElementById('fTier').value='silver';
-    document.getElementById('fStatus').value='active';
-    document.getElementById('editDocId').value='';
+    
+    grid.innerHTML = html;
 }
 
-function openFormModal(mode, docId){
-    if(mode==='add'){
-        document.getElementById('modalFormTitle').textContent='Tambah Reseller';
-        document.getElementById('modalFormIcon').className='fas fa-user-plus';
-        clearForm();
-    }else{
-        const r = allResellers.find(x=>x.id===docId);
-        if(!r) return;
-        document.getElementById('modalFormTitle').textContent='Edit Reseller';
-        document.getElementById('modalFormIcon').className='fas fa-user-edit';
-        document.getElementById('editDocId').value=docId;
-        document.getElementById('fName').value=r.name||'';
-        document.getElementById('fPhone').value=r.phone||r.wa||'';
-        document.getElementById('fEmail').value=r.email||'';
-        document.getElementById('fCity').value=r.city||'';
-        document.getElementById('fTier').value=r.tier||'silver';
-        document.getElementById('fStatus').value=r.status||'active';
-        document.getElementById('fBank').value=r.bank||'';
-        document.getElementById('fNorek').value=r.norek||'';
-        document.getElementById('fAtasNama').value=r.atasNama||r.name||'';
-        document.getElementById('fNotes').value=r.notes||'';
-    }
-    showOverlay('modalForm');
-}
-
-async function saveReseller(){
-    const name = document.getElementById('fName').value.trim();
-    const phone = document.getElementById('fPhone').value.trim();
-    if(!name || !phone){
-        Swal.fire({icon:'warning',title:'Data Kurang',text:'Nama dan WhatsApp wajib diisi',customClass:{popup:'swal-premium'}});
+// ============================================================
+// 💼 OPEN KOMISI MODAL (NEW)
+// ============================================================
+async function openKomisiModal(resellerId) {
+    const reseller = allResellers.find(r => r.id === resellerId);
+    if (!reseller) {
+        Swal.fire({title:'Error', text:'Data tidak ditemukan', icon:'error', customClass:{popup:'swal-premium'}});
         return;
     }
-
-    const fb = window.fbReseller;
-    const docId = document.getElementById('editDocId').value;
-    const isEdit = !!docId;
-    const tier = document.getElementById('fTier').value;
-    const tierCfg = TIER_CONFIG[tier] || TIER_CONFIG.silver;
-
-    const payload = {
-        name,
-        phone,
-        wa: phone,
-        email: document.getElementById('fEmail').value.trim(),
-        city: document.getElementById('fCity').value.trim(),
-        tier,
-        komisiPersen: tierCfg.pct,
-        status: document.getElementById('fStatus').value,
-        bank: document.getElementById('fBank').value.trim(),
-        norek: document.getElementById('fNorek').value.trim(),
-        atasNama: document.getElementById('fAtasNama').value.trim() || name,
-        notes: document.getElementById('fNotes').value.trim(),
-        updatedAt: fb.serverTimestamp()
-    };
-
-    if(!isEdit){
-        const yr = new Date().getFullYear();
-        const rand = Math.floor(100000 + Math.random() * 900000);
-        payload.kode = `RSL-${yr}-${rand}`;
-        payload.resellerCode = payload.kode;
-        payload.createdAt = fb.serverTimestamp();
-        payload.rewardAmount = 0;
-        payload.rewardStatus = 'unpaid';
-    }
-
-    try{
-        if(isEdit) await fb.updateDoc(fb.doc(fb.db, COL_RESELLERS, docId), payload);
-        else await fb.addDoc(fb.collection(fb.db, COL_RESELLERS), payload);
-        closeModal('modalForm');
-        await loadResellers();
-    }catch(err){
-        Swal.fire({icon:'error',title:'Gagal Menyimpan',html:`Error: <code>${err.message}</code>`,customClass:{popup:'swal-premium'}});
-    }
-}
-
-function openRewardModal(resellerId){
-    rewardResellerId = resellerId;
-    const r = allResellers.find(x=>x.id===resellerId);
-    if(!r) return;
-    document.getElementById('modalRewardTitle').textContent = `Reward — ${r.name}`;
-    const hasReward = r.rewardAmount && r.rewardAmount > 0;
-    document.getElementById('rewardCurrentBox').innerHTML = hasReward ? `
-        <div style="background:rgba(243,156,18,0.08);border:1px solid rgba(243,156,18,0.2);border-radius:12px;padding:14px 16px;margin-bottom:16px;">
-            <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Reward Saat Ini</div>
-            <div style="font-family:'Montserrat',sans-serif;font-size:1.4rem;font-weight:800;color:#f39c12;margin-bottom:4px;">${toRp(r.rewardAmount)}</div>
-            <div style="font-size:0.78rem;color:var(--text-muted);">${escHtml(r.rewardNote||'-')}</div>
-        </div>` : '';
-    document.getElementById('fRewardAmount').value = r.rewardAmount ? toRp(r.rewardAmount) : '';
-    document.getElementById('fRewardNote').value = r.rewardNote || '';
-    document.getElementById('fRewardStatus').value = r.rewardStatus || 'unpaid';
-    showOverlay('modalReward');
-}
-
-async function saveReward(){
-    if(!rewardResellerId) return;
-    const fb = window.fbReseller;
-    try{
-        await fb.updateDoc(fb.doc(fb.db, COL_RESELLERS, rewardResellerId), {
-            rewardAmount: parseRp(document.getElementById('fRewardAmount').value),
-            rewardNote: document.getElementById('fRewardNote').value.trim(),
-            rewardStatus: document.getElementById('fRewardStatus').value,
-            updatedAt: fb.serverTimestamp()
-        });
-        closeModal('modalReward');
-        await loadResellers();
-    }catch(err){
-        Swal.fire({icon:'error',title:'Gagal Simpan',html:`Error: <code>${err.message}</code>`,customClass:{popup:'swal-premium'}});
-    }
-}
-
-function openKomisiModal(resellerId){
-    mkResellerId = resellerId;
-    mkResellerData = allResellers.find(r=>r.id===resellerId) || {};
-    mkClientList = getResellerClients(resellerId);
-
-    document.getElementById('modalKomisiTitle').textContent = `Komisi — ${mkResellerData.name || resellerId}`;
+    
+    mkCurrentResellerId = resellerId;
+    mkCurrentResellerData = reseller;
+    
+    const tier = (reseller.tier || 'silver').toLowerCase();
+    const tierCfg = TIER_KOMISI[tier];
+    
+    // Default bulan = bulan ini
     const now = new Date();
-    document.getElementById('mkMonthFilter').value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
-    showOverlay('modalKomisi');
-    renderKomisiList();
+    const defaultMonth = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+    
+    Swal.fire({
+        title: `💼 Komisi — ${reseller.nama}`,
+        html: `
+            <div style="text-align:left;font-family:'Poppins',sans-serif;">
+                <div style="background:rgba(155,89,182,0.08);border:1px solid rgba(155,89,182,0.2);border-radius:10px;padding:10px 14px;margin-bottom:14px;text-align:center;font-size:0.8rem;">
+                    Tier: <b style="color:#9b59b6;">${tierCfg.icon} ${tierCfg.label} (${tierCfg.pct}%${tierCfg.bonus>0?' + bonus '+toRp(tierCfg.bonus):''})</b>
+                </div>
+                
+                <div class="mk-summary">
+                    <div class="mk-sum-card">
+                        <span class="mk-sum-val clr-blue" id="mkClosing">-</span>
+                        <span class="mk-sum-lbl">Closing</span>
+                    </div>
+                    <div class="mk-sum-card">
+                        <span class="mk-sum-val clr-purple" id="mkEarned">-</span>
+                        <span class="mk-sum-lbl">Total Komisi</span>
+                    </div>
+                    <div class="mk-sum-card">
+                        <span class="mk-sum-val clr-yellow" id="mkUnpaid">-</span>
+                        <span class="mk-sum-lbl">Belum Bayar</span>
+                    </div>
+                </div>
+                
+                <div class="mk-filter-row">
+                    <label>📅 Filter:</label>
+                    <input type="month" class="mk-month-input" id="mkMonthFilter" value="${defaultMonth}">
+                    <button class="btn-mk-filter" onclick="renderKomisiList()">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                    <button class="btn-mk-all" onclick="clearMkFilter()">All Time</button>
+                </div>
+                
+                <div class="mk-list" id="mkList">
+                    <div class="mk-empty">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading...</p>
+                    </div>
+                </div>
+                
+                <div class="mk-actions">
+                    <button class="btn-mk-pay-all" id="btnMkPayAll" onclick="markAllKomisiPaid()">
+                        <i class="fas fa-check-double"></i> Bayar Semua Unpaid
+                    </button>
+                    <button class="btn-mk-slip" onclick="goToSlipFromKomisi()">
+                        <i class="fas fa-file-invoice-dollar"></i> Buat Slip
+                    </button>
+                </div>
+            </div>
+        `,
+        showCloseButton: true,
+        showConfirmButton: false,
+        width: '650px',
+        customClass: { popup: 'swal-premium' },
+        didOpen: () => {
+            renderKomisiList();
+        }
+    });
 }
-function clearMkFilter(){
-    document.getElementById('mkMonthFilter').value = '';
-    renderKomisiList();
-}
 
-function renderKomisiList(){
-    const monthVal = document.getElementById('mkMonthFilter').value;
-    const tier = (mkResellerData.tier || 'silver').toLowerCase();
-
-    let list = mkClientList.filter(c => c.paymentStatus === 'paid_full');
-
-    if(monthVal){
+// ============================================================
+// 🎨 RENDER KOMISI LIST
+// ============================================================
+function renderKomisiList() {
+    if (!mkCurrentResellerId) return;
+    
+    const monthVal = document.getElementById('mkMonthFilter')?.value || '';
+    const tier = (mkCurrentResellerData.tier || 'silver').toLowerCase();
+    
+    let list = getResellerClientsCommission(mkCurrentResellerId)
+        .filter(c => c.paymentStatus === 'paid_full');
+    
+    // Filter bulan
+    if (monthVal) {
         const [yr, mon] = monthVal.split('-').map(Number);
-        list = list.filter(c=>{
-            let d=null;
-            if(c.paidAt?.toDate) d=c.paidAt.toDate();
-            else if(c.createdAt?.toDate) d=c.createdAt.toDate();
-            if(!d) return false;
-            return d.getFullYear()===yr && (d.getMonth()+1)===mon;
+        list = list.filter(c => {
+            let d = null;
+            if (c.paidAt?.toDate) d = c.paidAt.toDate();
+            else if (c.createdAt?.toDate) d = c.createdAt.toDate();
+            if (!d) return false;
+            return d.getFullYear() === yr && (d.getMonth() + 1) === mon;
         });
     }
-
-    let totalKomisi=0,totalUnpaid=0;
-    list.forEach(c=>{
+    
+    // Hitung summary
+    let totalKomisi = 0, totalUnpaid = 0;
+    list.forEach(c => {
         const pd = c.priceDetail || {};
         const base = pd.basePrice || pd.total || parseRp(c.value) || 0;
-        const comm = calcCommission(base, tier);
-        const paid = c.referral?.commissionStatus === 'paid';
+        const comm = calcKomisi(base, tier);
+        const isPaid = c.referral?.commissionStatus === 'paid';
         totalKomisi += comm.total;
-        if(!paid) totalUnpaid += comm.total;
+        if (!isPaid) totalUnpaid += comm.total;
     });
-
-    document.getElementById('mkClosing').textContent = list.length;
-    document.getElementById('mkEarned').textContent = toRp(totalKomisi);
-    document.getElementById('mkUnpaid').textContent = toRp(totalUnpaid);
-    document.getElementById('btnPayAll').style.display = list.some(c=>c.referral?.commissionStatus!=='paid') ? 'flex' : 'none';
-
-    if(!list.length){
-        document.getElementById('mkList').innerHTML = `
+    
+    // Update summary
+    const mkClosing = document.getElementById('mkClosing');
+    const mkEarned = document.getElementById('mkEarned');
+    const mkUnpaid = document.getElementById('mkUnpaid');
+    if (mkClosing) mkClosing.textContent = list.length;
+    if (mkEarned) mkEarned.textContent = toRp(totalKomisi);
+    if (mkUnpaid) mkUnpaid.textContent = toRp(totalUnpaid);
+    
+    // Show/hide "Bayar Semua"
+    const btnPayAll = document.getElementById('btnMkPayAll');
+    if (btnPayAll) {
+        const hasUnpaid = list.some(c => c.referral?.commissionStatus !== 'paid');
+        btnPayAll.classList.toggle('show', hasUnpaid);
+    }
+    
+    // Render list
+    const mkList = document.getElementById('mkList');
+    if (!mkList) return;
+    
+    if (!list.length) {
+        mkList.innerHTML = `
             <div class="mk-empty">
-                <span class="mk-empty-icon">📭</span>
-                <p>Tidak ada closing di periode ini</p>
+                <i class="fas fa-inbox"></i>
+                <p>Tidak ada closing ${monthVal ? 'di periode ini' : ''}</p>
             </div>`;
         return;
     }
-
-    document.getElementById('mkList').innerHTML = list.map(c=>{
+    
+    mkList.innerHTML = list.map(c => {
         const pd = c.priceDetail || {};
         const base = pd.basePrice || pd.total || parseRp(c.value) || 0;
-        const comm = calcCommission(base, tier);
+        const comm = calcKomisi(base, tier);
         const isPaid = c.referral?.commissionStatus === 'paid';
-        const breakdown = comm.bonus > 0 ? `${comm.pct}% + bonus ${toRp(comm.bonus)}` : `${comm.pct}% dari ${toRp(base)}`;
+        
+        let dateStr = '-';
+        const d = c.paidAt?.toDate?.() || c.createdAt?.toDate?.();
+        if (d) dateStr = d.toLocaleDateString('id-ID', {day:'numeric', month:'short'});
+        
+        const breakdown = comm.bonus > 0 
+            ? `${comm.pct}% + ${toRp(comm.bonus)}` 
+            : `${comm.pct}% dari ${toRp(base)}`;
+        
         return `
-        <div class="mk-item">
-            <div class="mk-item-left">
-                <div class="mk-client-name">${escHtml(c.name || '-')}</div>
-                <div class="mk-item-meta">
-                    <span><i class="fas fa-code"></i> ${escHtml(c.project || '-')}</span>
-                    <span><i class="fas fa-money-bill-wave"></i> ${toRp(base)}</span>
-                    <span><i class="fas fa-calendar"></i> ${formatDateID(c.paidAt || c.createdAt)}</span>
-                    <span><i class="fas fa-medal"></i> ${comm.tierIcon} ${breakdown}</span>
+            <div class="mk-item">
+                <div class="mk-item-left">
+                    <div class="mk-client-name">${c.name || '-'}</div>
+                    <div class="mk-item-meta">
+                        <span><i class="fas fa-code"></i> ${(c.project || '-').substring(0, 20)}</span>
+                        <span><i class="fas fa-money-bill"></i> ${toRp(base)}</span>
+                        <span><i class="fas fa-calendar"></i> ${dateStr}</span>
+                        <span><i class="fas fa-medal"></i> ${breakdown}</span>
+                    </div>
+                </div>
+                <div class="mk-item-right">
+                    <span class="mk-komisi-val">${toRp(comm.total)}</span>
+                    <span class="mk-status-badge ${isPaid?'mk-st-paid':'mk-st-ready'}">
+                        ${isPaid?'✓ Paid':'💰 Ready'}
+                    </span>
+                    ${!isPaid ? `<button class="btn-mk-pay" onclick="markKomisiPaid('${c.id}')"><i class="fas fa-check"></i> Bayar</button>` : ''}
                 </div>
             </div>
-            <div class="mk-item-right">
-                <span class="mk-komisi-val">${toRp(comm.total)}</span>
-                <span class="mk-status-badge ${isPaid?'mk-st-paid':'mk-st-ready'}">${isPaid?'✓ Paid':'💰 Ready'}</span>
-                ${!isPaid ? `<button class="btn-mk-pay" onclick="markKomisiPaid('${c.id}')"><i class="fas fa-check"></i> Bayar</button>` : ''}
-            </div>
-        </div>`;
+        `;
     }).join('');
 }
 
-// FIX: DOT NOTATION
-async function markKomisiPaid(clientId){
-    const { isConfirmed } = await Swal.fire({
-        icon:'question',
-        title:'Bayar Komisi Ini?',
-        text:'Status komisi akan ditandai SUDAH DIBAYAR',
-        showCancelButton:true,
-        confirmButtonText:'Ya, Bayar',
-        cancelButtonText:'Batal',
-        customClass:{popup:'swal-premium'},
-        reverseButtons:true
+function clearMkFilter() {
+    const inp = document.getElementById('mkMonthFilter');
+    if (inp) inp.value = '';
+    renderKomisiList();
+}
+
+// ============================================================
+// ✅ MARK KOMISI PAID (dot notation!)
+// ============================================================
+async function markKomisiPaid(clientId) {
+    const result = await Swal.fire({
+        icon: 'question',
+        title: 'Bayar Komisi?',
+        text: 'Mark komisi client ini sebagai SUDAH DIBAYAR?',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, Bayar',
+        cancelButtonText: 'Batal',
+        customClass: { popup: 'swal-premium' },
+        reverseButtons: true
     });
-    if(!isConfirmed) return;
-
-    try{
-        const fb = window.fbReseller;
-        const ref = fb.doc(fb.db, COL_CLIENTS, clientId);
-
-        await fb.updateDoc(ref, {
+    
+    if (!result.isConfirmed) return;
+    
+    try {
+        const { db, doc, updateDoc } = window.firebase;
+        const ref = doc(db, 'clients', clientId);
+        
+        // DOT NOTATION!
+        await updateDoc(ref, {
             'referral.commissionStatus': 'paid',
-            'referral.commissionPaidAt': fb.serverTimestamp(),
-            updatedAt: fb.serverTimestamp()
+            'referral.commissionPaidAt': new Date(),
+            updatedAt: new Date()
         });
-
-        const idx = allClients.findIndex(c=>c.id===clientId);
-        if(idx!==-1){
-            allClients[idx].referral = allClients[idx].referral || {};
-            allClients[idx].referral.commissionStatus = 'paid';
+        
+        // Update local state
+        const idx = allClientsForCommission.findIndex(c => c.id === clientId);
+        if (idx !== -1) {
+            allClientsForCommission[idx].referral = allClientsForCommission[idx].referral || {};
+            allClientsForCommission[idx].referral.commissionStatus = 'paid';
+            allClientsForCommission[idx].referral.commissionPaidAt = new Date();
         }
-        const mkIdx = mkClientList.findIndex(c=>c.id===clientId);
-        if(mkIdx!==-1){
-            mkClientList[mkIdx].referral = mkClientList[mkIdx].referral || {};
-            mkClientList[mkIdx].referral.commissionStatus = 'paid';
-        }
-
+        
+        // Toast
+        const Toast = Swal.mixin({
+            toast: true, position: 'top-end', showConfirmButton: false,
+            timer: 2000, timerProgressBar: true,
+            customClass: { popup: 'swal-premium' }
+        });
+        Toast.fire({ icon: 'success', title: '✅ Komisi ditandai PAID!' });
+        
+        // Re-render
         renderKomisiList();
-        updateGlobalStats();
-        applyFilter();
-    }catch(err){
-        Swal.fire({icon:'error',title:'Gagal',html:`Error: <code>${err.message}</code>`,customClass:{popup:'swal-premium'}});
+        applyFilters(); // refresh card
+        
+    } catch(err) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: err.message,
+            customClass: { popup: 'swal-premium' }
+        });
     }
 }
 
-// FIX: DOT NOTATION
-async function markAllKomisiPaid(){
-    const monthVal = document.getElementById('mkMonthFilter').value;
-    let list = mkClientList.filter(c => c.paymentStatus==='paid_full' && c.referral?.commissionStatus!=='paid');
-
-    if(monthVal){
+// ============================================================
+// ✅ MARK ALL KOMISI PAID (batch dengan dot notation!)
+// ============================================================
+async function markAllKomisiPaid() {
+    if (!mkCurrentResellerId) return;
+    
+    const monthVal = document.getElementById('mkMonthFilter')?.value || '';
+    
+    let list = getResellerClientsCommission(mkCurrentResellerId)
+        .filter(c => c.paymentStatus === 'paid_full' && c.referral?.commissionStatus !== 'paid');
+    
+    if (monthVal) {
         const [yr, mon] = monthVal.split('-').map(Number);
-        list = list.filter(c=>{
-            let d=null;
-            if(c.paidAt?.toDate) d=c.paidAt.toDate();
-            else if(c.createdAt?.toDate) d=c.createdAt.toDate();
-            if(!d) return false;
-            return d.getFullYear()===yr && (d.getMonth()+1)===mon;
+        list = list.filter(c => {
+            let d = null;
+            if (c.paidAt?.toDate) d = c.paidAt.toDate();
+            else if (c.createdAt?.toDate) d = c.createdAt.toDate();
+            if (!d) return false;
+            return d.getFullYear() === yr && (d.getMonth() + 1) === mon;
         });
     }
-
-    if(!list.length) return;
-
-    const { isConfirmed } = await Swal.fire({
-        icon:'question',
-        title:`Bayar ${list.length} Komisi?`,
-        showCancelButton:true,
-        confirmButtonText:'Ya, Bayar Semua',
-        cancelButtonText:'Batal',
-        customClass:{popup:'swal-premium'},
-        reverseButtons:true
+    
+    if (!list.length) return;
+    
+    const result = await Swal.fire({
+        icon: 'question',
+        title: `Bayar ${list.length} Komisi?`,
+        text: 'Semua komisi yang belum dibayar akan ditandai PAID',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, Bayar Semua',
+        cancelButtonText: 'Batal',
+        customClass: { popup: 'swal-premium' },
+        reverseButtons: true
     });
-    if(!isConfirmed) return;
-
-    try{
-        const fb = window.fbReseller;
-        const batch = fb.writeBatch(fb.db);
-
-        list.forEach(c=>{
-            const ref = fb.doc(fb.db, COL_CLIENTS, c.id);
+    
+    if (!result.isConfirmed) return;
+    
+    try {
+        const { db, doc, writeBatch } = window.firebase;
+        const batch = writeBatch(db);
+        
+        list.forEach(c => {
+            const ref = doc(db, 'clients', c.id);
             batch.update(ref, {
                 'referral.commissionStatus': 'paid',
-                'referral.commissionPaidAt': fb.serverTimestamp(),
-                updatedAt: fb.serverTimestamp()
+                'referral.commissionPaidAt': new Date(),
+                updatedAt: new Date()
             });
         });
-
+        
         await batch.commit();
-
-        list.forEach(c=>{
-            const idx = allClients.findIndex(x=>x.id===c.id);
-            if(idx!==-1){
-                allClients[idx].referral = allClients[idx].referral || {};
-                allClients[idx].referral.commissionStatus = 'paid';
-            }
-            const midx = mkClientList.findIndex(x=>x.id===c.id);
-            if(midx!==-1){
-                mkClientList[midx].referral = mkClientList[midx].referral || {};
-                mkClientList[midx].referral.commissionStatus = 'paid';
+        
+        // Update local state
+        list.forEach(c => {
+            const idx = allClientsForCommission.findIndex(x => x.id === c.id);
+            if (idx !== -1) {
+                allClientsForCommission[idx].referral = allClientsForCommission[idx].referral || {};
+                allClientsForCommission[idx].referral.commissionStatus = 'paid';
             }
         });
-
+        
+        Swal.fire({
+            icon: 'success',
+            title: `✅ ${list.length} Komisi Dibayar!`,
+            customClass: { popup: 'swal-premium' },
+            timer: 2000, showConfirmButton: false, timerProgressBar: true,
+            toast: true, position: 'top-end'
+        });
+        
         renderKomisiList();
-        updateGlobalStats();
-        applyFilter();
-    }catch(err){
-        Swal.fire({icon:'error',title:'Gagal',html:`Error: <code>${err.message}</code>`,customClass:{popup:'swal-premium'}});
+        applyFilters();
+        
+    } catch(err) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: err.message,
+            customClass: { popup: 'swal-premium' }
+        });
     }
 }
 
-// FIX: KIRIM BULK COMPATIBLE KE SLIP
-function goToSlip(){
-    if(!mkResellerId) return;
-
-    const r = mkResellerData;
+// ============================================================
+// 📄 GO TO SLIP (dari modal komisi)
+// ============================================================
+function goToSlipFromKomisi() {
+    if (!mkCurrentResellerId || !mkCurrentResellerData) return;
+    
+    const r = mkCurrentResellerData;
     const tier = (r.tier || 'silver').toLowerCase();
-    const monthVal = document.getElementById('mkMonthFilter').value;
-
-    let list = mkClientList.filter(c => c.paymentStatus === 'paid_full');
-    if(monthVal){
+    const monthVal = document.getElementById('mkMonthFilter')?.value || '';
+    
+    let list = getResellerClientsCommission(mkCurrentResellerId)
+        .filter(c => c.paymentStatus === 'paid_full');
+    
+    if (monthVal) {
         const [yr, mon] = monthVal.split('-').map(Number);
-        list = list.filter(c=>{
-            let d=null;
-            if(c.paidAt?.toDate) d=c.paidAt.toDate();
-            else if(c.createdAt?.toDate) d=c.createdAt.toDate();
-            if(!d) return false;
-            return d.getFullYear()===yr && (d.getMonth()+1)===mon;
+        list = list.filter(c => {
+            let d = null;
+            if (c.paidAt?.toDate) d = c.paidAt.toDate();
+            else if (c.createdAt?.toDate) d = c.createdAt.toDate();
+            if (!d) return false;
+            return d.getFullYear() === yr && (d.getMonth() + 1) === mon;
         });
     }
-
-    if(!list.length){
-        Swal.fire({icon:'warning',title:'Tidak Ada Data',text:'Tidak ada closing untuk dibuat slip',customClass:{popup:'swal-premium'}});
+    
+    if (!list.length) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Tidak Ada Data',
+            text: 'Tidak ada closing untuk dibuat slip',
+            customClass: { popup: 'swal-premium' }
+        });
         return;
     }
-
-    const closings = list.map(c=>{
+    
+    // Build slip data
+    const closings = list.map(c => {
         const pd = c.priceDetail || {};
         const base = pd.basePrice || pd.total || parseRp(c.value) || 0;
-        const comm = calcCommission(base, tier);
+        const comm = calcKomisi(base, tier);
         return {
             clientId: c.id,
             client: c.name || '-',
@@ -1199,63 +1293,315 @@ function goToSlip(){
             total: comm.total,
             pct: comm.pct,
             isPaid: c.referral?.commissionStatus === 'paid',
-            tglClosing: c.paidAt?.toDate
-                ? c.paidAt.toDate().toISOString().split('T')[0]
-                : c.createdAt?.toDate
-                  ? c.createdAt.toDate().toISOString().split('T')[0]
-                  : new Date().toISOString().split('T')[0]
+            tglClosing: c.paidAt?.toDate?.().toISOString().split('T')[0] 
+                     || c.createdAt?.toDate?.().toISOString().split('T')[0] 
+                     || new Date().toISOString().split('T')[0]
         };
     });
-
+    
     const slipData = {
         mode: 'bulk',
-        resellerId: mkResellerId,
-        nama: r.name || '',
-        kode: r.kode || r.resellerCode || '',
+        resellerId: mkCurrentResellerId,
+        nama: r.nama || '',
+        kode: r.resellerCode || '',
         tier: tier,
         bank: r.bank || '',
         norek: r.norek || '',
-        atasNama: r.atasNama || r.name || '',
-        wa: r.phone || r.wa || '',
+        atasNama: r.atasNama || r.nama || '',
+        wa: r.wa || '',
         period: monthVal || '',
         tglBayar: new Date().toISOString().split('T')[0],
-        closings
+        closings: closings
     };
-
+    
     sessionStorage.setItem('slip_autofill', JSON.stringify(slipData));
     window.location.href = 'dashboard-slip.html?autofill=1';
 }
 
-function waReseller(resellerId){
-    const r = allResellers.find(x=>x.id===resellerId);
-    if(!r || !(r.phone||r.wa)) return;
-    const num = safeWaNum(r.phone||r.wa);
-    const msg = encodeURIComponent(`Halo *${r.name}* 👋\n\nAda informasi terbaru mengenai komisi & closing Anda. 😊`);
-    window.open(`https://wa.me/${num}?text=${msg}`, '_blank');
+// ============================================================
+// SEARCH & FILTER TABS (ORIGINAL)
+// ============================================================
+document.getElementById('searchInput').addEventListener('input', (e) => {
+    searchQuery = e.target.value.trim();
+    document.getElementById('searchClear').classList.toggle('show', searchQuery.length > 0);
+    applyFilters();
+});
+
+function clearSearch() {
+    document.getElementById('searchInput').value = '';
+    searchQuery = '';
+    document.getElementById('searchClear').classList.remove('show');
+    applyFilters();
 }
 
-function deleteReseller(resellerId){
-    const r = allResellers.find(x=>x.id===resellerId);
-    if(!r) return;
+document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentFilter = tab.dataset.status;
+        applyFilters();
+    });
+});
+
+// ============================================================
+// AUTO LOAD
+// ============================================================
+document.addEventListener('firebaseReady', () => {
+    console.log('[RESELLER PAGE] Firebase ready → load data');
+    loadResellers();
+});
+
+setTimeout(() => {
+    if (window.firebase?.ready && allResellers.length === 0) {
+        console.log('[RESELLER PAGE] Fallback load...');
+        loadResellers();
+    }
+}, 1500);
+
+// Expose to window
+window.openKomisiModal = openKomisiModal;
+window.renderKomisiList = renderKomisiList;
+window.clearMkFilter = clearMkFilter;
+window.markKomisiPaid = markKomisiPaid;
+window.markAllKomisiPaid = markAllKomisiPaid;
+window.goToSlipFromKomisi = goToSlipFromKomisi;
+</script>
+
+<!-- REWARD HANDLER (ORIGINAL - INTACT) -->
+<script>
+async function handleReward(resellerId) {
+    const reseller = allResellers.find(r => r.id === resellerId);
+    if (!reseller) {
+        Swal.fire({title:'Error', text:'Data tidak ditemukan', icon:'error', customClass:{popup:'swal-premium'}});
+        return;
+    }
+    
+    const progress = reseller.progress || {};
+    const modulesDone = (progress.modulesDone || []).length;
+    const sopDone = (progress.sopDone || []).length;
+    const modulesPct = (modulesDone / 15) * 100;
+    const sopPct = (sopDone / 6) * 100;
+    
+    const rewards = reseller.rewards || {};
+    const tier1 = rewards.tier1 || { earned: false, amount: 50000, paid: false };
+    const tier2 = rewards.tier2 || { earned: false, amount: 100000, paid: false };
+    
+    const totalEarned = (tier1.earned ? 50000 : 0) + (tier2.earned ? 100000 : 0);
+    const totalPaid = (tier1.paid ? 50000 : 0) + (tier2.paid ? 100000 : 0);
+    const totalPending = totalEarned - totalPaid;
+    
+    const fmtDate = (ts) => {
+        if (!ts) return '-';
+        try {
+            const d = ts.toDate ? ts.toDate() : new Date(ts.seconds ? ts.seconds*1000 : ts);
+            return d.toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
+        } catch(e) { return '-'; }
+    };
+    
+    const tier1HTML = `
+        <div class="reward-tier-card ${tier1.paid ? 'paid' : (tier1.earned ? 'earned' : '')}">
+            <div class="reward-tier-header">
+                <div class="reward-tier-name">🥈 Tier 1 — Belajar Selesai</div>
+                <div class="reward-tier-amount">Rp 50.000</div>
+            </div>
+            <div class="reward-tier-desc">Syarat: Selesai 15 modul</div>
+            ${!tier1.earned ? `
+                <span class="reward-tier-status status-locked-tier">
+                    🔒 Progress: ${modulesDone}/15 modul
+                </span>
+            ` : tier1.paid ? `
+                <span class="reward-tier-status status-paid-tier">
+                    ✅ SUDAH DIBAYAR — ${fmtDate(tier1.paidAt)}
+                </span>
+            ` : `
+                <span class="reward-tier-status status-earned-tier">
+                    💰 EARNED ${fmtDate(tier1.earnedAt)} — BELUM DIBAYAR
+                </span>
+                <br>
+                <button class="btn-mark-paid" onclick="markRewardPaid('${resellerId}', 'tier1')">
+                    <i class="fas fa-check-circle"></i> Tandai Sudah Dibayar
+                </button>
+            `}
+        </div>
+    `;
+    
+    const tier2HTML = `
+        <div class="reward-tier-card ${tier2.paid ? 'paid' : (tier2.earned ? 'earned' : '')}">
+            <div class="reward-tier-header">
+                <div class="reward-tier-name">🥇 Tier 2 — Siap Jualan</div>
+                <div class="reward-tier-amount">Rp 100.000</div>
+            </div>
+            <div class="reward-tier-desc">Syarat: Selesai 15 modul + 6 SOP</div>
+            ${!tier2.earned ? `
+                <span class="reward-tier-status status-locked-tier">
+                    🔒 Modul: ${modulesDone}/15 | SOP: ${sopDone}/6
+                </span>
+            ` : tier2.paid ? `
+                <span class="reward-tier-status status-paid-tier">
+                    ✅ SUDAH DIBAYAR — ${fmtDate(tier2.paidAt)}
+                </span>
+            ` : `
+                <span class="reward-tier-status status-earned-tier">
+                    💰 EARNED ${fmtDate(tier2.earnedAt)} — BELUM DIBAYAR
+                </span>
+                <br>
+                <button class="btn-mark-paid" onclick="markRewardPaid('${resellerId}', 'tier2')">
+                    <i class="fas fa-check-circle"></i> Tandai Sudah Dibayar
+                </button>
+            `}
+        </div>
+    `;
+    
+    const contentHTML = `
+        <div class="swal-reward-content">
+            <div class="reward-modal-section">
+                <div class="reward-modal-title"><i class="fas fa-chart-bar"></i> Progress</div>
+                <div class="reward-progress-item">
+                    <span class="label">📚 Modul</span>
+                    <div class="bar"><div class="bar-fill" style="width:${modulesPct}%"></div></div>
+                    <span class="value">${modulesDone}/15</span>
+                </div>
+                <div class="reward-progress-item">
+                    <span class="label">📋 SOP</span>
+                    <div class="bar"><div class="bar-fill" style="width:${sopPct}%"></div></div>
+                    <span class="value">${sopDone}/6</span>
+                </div>
+            </div>
+            
+            <div class="reward-modal-section">
+                <div class="reward-modal-title"><i class="fas fa-trophy"></i> Reward Status</div>
+                ${tier1HTML}
+                ${tier2HTML}
+            </div>
+            
+            <div class="reward-modal-section">
+                <div class="reward-modal-title"><i class="fas fa-money-check-alt"></i> Ringkasan</div>
+                <div class="reward-summary">
+                    <div class="summary-box">
+                        <div class="label">Earned</div>
+                        <div class="value">Rp ${totalEarned.toLocaleString('id-ID')}</div>
+                    </div>
+                    <div class="summary-box paid">
+                        <div class="label">Paid</div>
+                        <div class="value">Rp ${totalPaid.toLocaleString('id-ID')}</div>
+                    </div>
+                    <div class="summary-box pending">
+                        <div class="label">Pending</div>
+                        <div class="value">Rp ${totalPending.toLocaleString('id-ID')}</div>
+                    </div>
+                </div>
+                
+                <button class="btn-send-link" onclick="sendStarterKitLink('${reseller.wa || ''}', '${(reseller.nama||'').replace(/'/g,'')}', '${reseller.resellerCode || ''}')">
+                    <i class="fab fa-whatsapp"></i> Kirim Link Starter Kit ke WA
+                </button>
+            </div>
+        </div>
+    `;
+    
     Swal.fire({
-        icon:'warning',
-        title:'Hapus Reseller?',
-        html:`Reseller <b style="color:#e74c3c;">${escHtml(r.name)}</b> akan dihapus permanen.`,
-        showCancelButton:true,
-        confirmButtonText:'Ya, Hapus',
-        cancelButtonText:'Batal',
-        customClass:{popup:'swal-premium'},
-        reverseButtons:true
-    }).then(async res=>{
-        if(!res.isConfirmed) return;
-        const fb = window.fbReseller;
-        await fb.deleteDoc(fb.doc(fb.db, COL_RESELLERS, resellerId));
-        await loadResellers();
+        title: `🏆 ${reseller.nama || 'Reseller'}`,
+        html: contentHTML,
+        showCloseButton: true,
+        showConfirmButton: false,
+        width: '600px',
+        customClass: { popup: 'swal-premium' }
     });
 }
 
-document.addEventListener('firebaseReady', loadResellers);
-if(window.fbReseller && window.fbReseller.ready) loadResellers();
+async function markRewardPaid(resellerId, tier) {
+    const result = await Swal.fire({
+        title: 'Konfirmasi Pembayaran',
+        text: `Yakin sudah transfer reward ${tier === 'tier1' ? 'Rp 50.000' : 'Rp 100.000'} ke reseller?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: '✅ Ya, Sudah Bayar',
+        cancelButtonText: 'Batal',
+        customClass: { popup: 'swal-premium' }
+    });
+    
+    if (!result.isConfirmed) return;
+    
+    try {
+        const { db, doc, updateDoc } = window.firebase;
+        
+        const updateData = {};
+        updateData[`rewards.${tier}.paid`] = true;
+        updateData[`rewards.${tier}.paidAt`] = new Date();
+        
+        await updateDoc(doc(db, 'resellers', resellerId), updateData);
+        
+        const idx = allResellers.findIndex(r => r.id === resellerId);
+        if (idx !== -1) {
+            allResellers[idx].rewards = allResellers[idx].rewards || {};
+            allResellers[idx].rewards[tier] = allResellers[idx].rewards[tier] || {};
+            allResellers[idx].rewards[tier].paid = true;
+            allResellers[idx].rewards[tier].paidAt = new Date();
+        }
+        
+        Swal.fire({
+            title: '✅ Berhasil!',
+            text: 'Reward berhasil ditandai sebagai sudah dibayar',
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false,
+            customClass: { popup: 'swal-premium' }
+        });
+        
+        applyFilters();
+        setTimeout(() => handleReward(resellerId), 1000);
+        
+    } catch (err) {
+        console.error('[MARK PAID] Error:', err);
+        Swal.fire({
+            title: 'Gagal!',
+            text: 'Terjadi kesalahan: ' + err.message,
+            icon: 'error',
+            customClass: { popup: 'swal-premium' }
+        });
+    }
+}
+
+function sendStarterKitLink(wa, nama, code) {
+    if (!wa || !code) {
+        Swal.fire({title:'Error', text:'Data WA atau kode reseller tidak lengkap', icon:'error', customClass:{popup:'swal-premium'}});
+        return;
+    }
+    
+    let phone = wa.replace(/[^0-9]/g, '');
+    if (phone.startsWith('0')) phone = '62' + phone.substring(1);
+    if (!phone.startsWith('62')) phone = '62' + phone;
+    
+    const baseURL = 'https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web';
+    const starterKitURL = `${baseURL}/starter-kit.html?code=${code}`;
+    
+    const message = `Halo ${nama}! 🎉
+
+Selamat, kamu sudah terdaftar sebagai reseller Ibaadurrahmaan!
+
+📚 *Yuk mulai belajar & earn reward!*
+${starterKitURL}
+
+🏆 *Reward yang menanti kamu:*
+🥈 Rp 50.000 — Setelah selesai 15 modul
+🥇 Rp 100.000 — Setelah selesai 15 modul + 6 SOP
+
+Progress kamu akan tersimpan otomatis di sistem kami.
+Setelah earn reward, admin akan hubungi kamu untuk transfer.
+
+Semangat belajar! 🚀
+
+_— Tim Ibaadurrahmaan_`;
+    
+    const waURL = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(waURL, '_blank');
+}
+
+window.handleReward = handleReward;
+window.markRewardPaid = markRewardPaid;
+window.sendStarterKitLink = sendStarterKitLink;
+
+console.log('[REWARD HANDLER] ✅ Loaded');
 </script>
+
 </body>
 </html>
