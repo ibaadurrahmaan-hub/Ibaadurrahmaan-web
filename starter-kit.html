@@ -764,9 +764,11 @@
     }
 }
     
-/* ═══════════════════════════════════════════════════════
-   TIER KOMISI — 4 CARDS
+    /* ═══════════════════════════════════════════════════════
+   TIER KOMISI — 4 CARDS + GLOW EFFECT
 ════════════════════════════════════════════════════════ */
+
+/* ── Grid Layout ── */
 .kit-tier-grid{
     display:grid;
     grid-template-columns:repeat(4, 1fr);   /* Desktop: 4 kolom */
@@ -774,97 +776,175 @@
     margin-top:32px;
 }
 
+/* ── Tier Card ── */
 .kit-tier-card{
     background:var(--card-bg);
     border:1px solid var(--border);
     border-radius:16px;
-    padding:24px 16px;
+    padding:28px 16px 24px;
     text-align:center;
-    transition:all 0.3s;
+    transition:all 0.4s ease;
     backdrop-filter:blur(10px);
     position:relative;
     overflow:hidden;
 }
 
+.kit-tier-card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:60%;
+    height:2px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity:0;
+    transition:opacity 0.3s;
+}
+
 .kit-tier-card:hover{
-    transform:translateY(-4px);
+    transform:translateY(-6px);
     border-color:var(--gold);
-    box-shadow:0 8px 32px rgba(201,168,76,0.15);
+    box-shadow:0 12px 40px rgba(201,168,76,0.25);
 }
 
+.kit-tier-card:hover::before{
+    opacity:1;
+}
+
+/* ── Tier Icon (Medal/Diamond) ── */
 .kit-tier-icon{
-    font-size:2.2rem;
+    font-size:2.4rem;
     line-height:1;
-    margin-bottom:10px;
+    margin-bottom:12px;
+    filter:drop-shadow(0 4px 12px rgba(0,0,0,0.4));
 }
 
+/* ── Tier Name ── */
 .kit-tier-name{
     font-size:1rem;
     font-weight:800;
     color:var(--gold);
-    margin-bottom:12px;
-    letter-spacing:0.5px;
+    margin-bottom:16px;
+    letter-spacing:1px;
+    text-transform:uppercase;
 }
 
+/* ═══════════════════════════════════════════════════════
+   ⭐ TIER COMMISSION — BOLD + GLOW + PULSE + SHINE
+════════════════════════════════════════════════════════ */
 .kit-tier-commission{
-    font-size:2.2rem;
-    font-weight:800;
-    color:#fff;
+    font-size:2.6rem;
+    font-weight:900;                    /* Extra bold */
     line-height:1;
-    margin-bottom:6px;
-    background:linear-gradient(135deg, var(--gold-light), var(--gold));
+    margin-bottom:8px;
+    letter-spacing:-1px;
+    display:inline-block;
+    position:relative;
+    
+    /* Gradient gold text */
+    background:linear-gradient(135deg, 
+        #F0C96B 0%, 
+        #FFE9A3 25%, 
+        #C9A84C 50%, 
+        #FFE9A3 75%, 
+        #F0C96B 100%);
+    background-size:200% auto;
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
     background-clip:text;
+    color:transparent;
+    
+    /* Glow effect (multi-layer drop-shadow) */
+    filter:
+        drop-shadow(0 0 12px rgba(240, 201, 107, 0.6))
+        drop-shadow(0 0 24px rgba(201, 168, 76, 0.4));
+    
+    /* Combined animations: pulse + shine */
+    animation:
+        tierPulse 2.5s ease-in-out infinite,
+        tierShine 3s linear infinite;
 }
 
+/* ── Pulse Animation (scale + glow intensity) ── */
+@keyframes tierPulse{
+    0%, 100%{
+        transform:scale(1);
+        filter:
+            drop-shadow(0 0 10px rgba(240, 201, 107, 0.5))
+            drop-shadow(0 0 20px rgba(201, 168, 76, 0.3));
+    }
+    50%{
+        transform:scale(1.08);
+        filter:
+            drop-shadow(0 0 20px rgba(240, 201, 107, 0.9))
+            drop-shadow(0 0 40px rgba(201, 168, 76, 0.6))
+            drop-shadow(0 0 60px rgba(240, 201, 107, 0.3));
+    }
+}
+
+/* ── Shine Animation (gradient moving) ── */
+@keyframes tierShine{
+    0%{background-position:0% center;}
+    100%{background-position:200% center;}
+}
+
+/* ── Commission Label ── */
 .kit-tier-commission-label{
-    font-size:0.72rem;
+    font-size:0.75rem;
     color:var(--text-muted);
-    margin-bottom:14px;
+    margin-bottom:16px;
     line-height:1.3;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
 }
 
+/* ── Requirement (Divider Line) ── */
 .kit-tier-req{
-    font-size:0.72rem;
+    font-size:0.75rem;
     color:var(--text-muted);
-    padding-top:12px;
+    padding-top:14px;
     border-top:1px solid var(--border);
     line-height:1.4;
+    font-weight:500;
 }
 
-/* Responsive Tier Grid */
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════════ */
 @media (max-width:768px){
     .kit-tier-grid{
         grid-template-columns:repeat(2, 1fr);   /* Tablet: 2 kolom */
         gap:12px;
     }
     
-    .kit-tier-card{padding:20px 12px;}
-    .kit-tier-icon{font-size:1.9rem; margin-bottom:8px;}
-    .kit-tier-name{font-size:0.95rem;}
-    .kit-tier-commission{font-size:1.9rem;}
-    .kit-tier-commission-label{font-size:0.68rem; margin-bottom:12px;}
-    .kit-tier-req{font-size:0.68rem;}
+    .kit-tier-card{padding:24px 12px 20px;}
+    .kit-tier-icon{font-size:2rem; margin-bottom:10px;}
+    .kit-tier-name{font-size:0.95rem; margin-bottom:14px;}
+    .kit-tier-commission{font-size:2.3rem;}
+    .kit-tier-commission-label{font-size:0.7rem; margin-bottom:14px;}
+    .kit-tier-req{font-size:0.7rem;}
 }
 
 @media (max-width:480px){
     .kit-tier-grid{
-        grid-template-columns:repeat(2, 1fr);   /* Mobile: tetap 2 kolom */
+        grid-template-columns:repeat(2, 1fr);
         gap:10px;
     }
     
-    .kit-tier-card{padding:18px 10px;}
-    .kit-tier-icon{font-size:1.7rem;}
-    .kit-tier-name{font-size:0.88rem; margin-bottom:10px;}
-    .kit-tier-commission{font-size:1.7rem;}
-    .kit-tier-commission-label{font-size:0.65rem;}
-    .kit-tier-req{font-size:0.65rem; padding-top:10px;}
+    .kit-tier-card{padding:22px 10px 18px;}
+    .kit-tier-icon{font-size:1.9rem; margin-bottom:8px;}
+    .kit-tier-name{font-size:0.88rem; margin-bottom:12px;}
+    .kit-tier-commission{font-size:2rem; letter-spacing:-0.5px;}
+    .kit-tier-commission-label{font-size:0.68rem;}
+    .kit-tier-req{font-size:0.68rem; padding-top:12px;}
 }
 
 @media (max-width:360px){
-    .kit-tier-commission{font-size:1.5rem;}
+    .kit-tier-commission{font-size:1.8rem;}
     .kit-tier-name{font-size:0.82rem;}
+    .kit-tier-card{padding:20px 8px 16px;}
 }
     
     /* ── SCRIPT TEMPLATES ── */
@@ -2482,141 +2562,303 @@ Makasih banyak ya Kak! 🤝</div>
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
 
-<!-- Firebase Config Anda -->
+<!-- ═══════════════════════════════════════════════════
+     FIREBASE SDK & CONFIG
+════════════════════════════════════════════════════ -->
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
 <script src="firebase-config.js"></script>
 <script src="script.js"></script>
 
+
+<!-- ═══════════════════════════════════════════════════
+     STARTER KIT — SATU SCRIPT SAJA (JANGAN NESTED!)
+════════════════════════════════════════════════════ -->
 <script>
 /* ============================================================
-   STARTER KIT — PAGE SCRIPTS
+   STARTER KIT — PAGE SCRIPTS (All-in-One)
    ============================================================ */
 
 const TOTAL_MODULES = 15;
+const TOTAL_SOP     = 6;
 
-/* ── Load saved state ── */
-function loadState(){
-    // Load reseller code
-    const code = localStorage.getItem('kit_reseller_code') || '';
-    const codeInput = document.getElementById('resellerCode');
-    if(codeInput) codeInput.value = code;
+// State reseller aktif
+let currentReseller   = null;
+let currentResellerId = null;
+let debounceTimer;
+
+
+/* ═══════════════════════════════════════════════════
+   INIT — Runs when DOM ready
+═══════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
     
-    // Load module progress
-    const done = JSON.parse(localStorage.getItem('kit_modules') || '[]');
-    done.forEach(mod => {
+    // 1. Setup input reseller code
+    const codeInput = document.getElementById('resellerCode');
+    if(codeInput){
+        // Load saved code
+        const savedCode = localStorage.getItem('kit_reseller_code') || '';
+        if(savedCode){
+            codeInput.value = savedCode;
+            // Auto verify
+            setTimeout(() => verifyID(savedCode), 500);
+        }
+        
+        // Listener input
+        codeInput.addEventListener('input', function(){
+            this.value = this.value.toUpperCase();
+            localStorage.setItem('kit_reseller_code', this.value);
+            
+            clearTimeout(debounceTimer);
+            const id = this.value.trim();
+            
+            if(id.length < 8){
+                const status = document.getElementById('codeStatus');
+                if(status) status.classList.remove('show');
+                currentReseller = null;
+                currentResellerId = null;
+                return;
+            }
+            
+            debounceTimer = setTimeout(() => verifyID(id), 800);
+        });
+    }
+    
+    // 2. Load MODUL saved state (localStorage)
+    const localMod = JSON.parse(localStorage.getItem('kit_modules') || '[]');
+    localMod.forEach(mod => {
         const card = document.querySelector(`.kit-module-card[data-mod="${mod}"]`);
         if(card) card.classList.add('completed');
     });
     
-    // Load checklist
-    const checks = JSON.parse(localStorage.getItem('kit_checks') || '[]');
-    document.querySelectorAll('.kit-check-item').forEach((item, i) => {
-        if(checks[i]) item.classList.add('done');
-    });
-    
-    updateProgress();
-}
-
-/* ── Save reseller code ── */
-document.addEventListener('DOMContentLoaded', () => {
-    const codeInput = document.getElementById('resellerCode');
-    if(codeInput){
-        codeInput.addEventListener('input', function(){
-            this.value = this.value.toUpperCase();
-            localStorage.setItem('kit_reseller_code', this.value);
-        });
-    }
-    loadState();
-});
-
-/* ── Toggle Module ── */
-function toggleModule(card){
-    card.classList.toggle('completed');
-    
-    // Save
-    const done = [];
-    document.querySelectorAll('.kit-module-card.completed').forEach(c => {
-        done.push(c.dataset.mod);
-    });
-    localStorage.setItem('kit_modules', JSON.stringify(done));
-    
-    updateProgress();
-}
-
-/* ── Update Progress Bar ── */
-function updateProgress(){
-    const done = document.querySelectorAll('.kit-module-card.completed').length;
-    const pct = (done / TOTAL_MODULES * 100).toFixed(0);
-    
-    const countEl = document.getElementById('progressCount');
-    const fillEl  = document.getElementById('progressFill');
-    
-    if(countEl) countEl.textContent = `${done}/${TOTAL_MODULES}`;
-    if(fillEl)  fillEl.style.width = pct + '%';
-}
-
-<script>
-/* ═══ Toggle SOP Function ═══ */
-function toggleSOP(card){
-    card.classList.toggle('completed');
-    
-    const done = [];
-    document.querySelectorAll('.kit-sop-card.completed').forEach(c => {
-        done.push(parseInt(c.dataset.sop));
-    });
-    done.sort((a,b) => a - b);
-    
-    // Save ke localStorage
-    localStorage.setItem('kit_sop', JSON.stringify(done));
-    
-    // Update progress bar SOP
-    updateSOPProgress();
-    
-    // Save ke Firestore jika ID valid
-    if(typeof currentResellerId !== 'undefined' && currentResellerId){
-        DB.updateProgressSOP(currentResellerId, done).then(result => {
-            if(result.success && typeof Utils !== 'undefined'){
-                Utils.showToast(`Progress SOP tersimpan (${result.persentase}%)`, 'success');
-            }
-        });
-    }
-}
-
-/* ═══ Update SOP Progress Bar ═══ */
-function updateSOPProgress(){
-    const done  = document.querySelectorAll('.kit-sop-card.completed').length;
-    const total = 6;
-    const pct   = Math.round((done / total) * 100);
-    
-    const countEl = document.getElementById('sopCount');
-    const fillEl  = document.getElementById('sopFill');
-    const descEl  = document.getElementById('sopDesc');
-    
-    if(countEl) countEl.textContent = `${done}/${total}`;
-    if(fillEl)  fillEl.style.width = pct + '%';
-    
-    if(descEl){
-        if(done === 0)      descEl.textContent = 'Centang SOP yang sudah dilaksanakan';
-        else if(done < 3)   descEl.textContent = `📋 ${done}/6 SOP dilaksanakan`;
-        else if(done < 6)   descEl.textContent = `⚡ Bagus! Tinggal ${6-done} SOP lagi`;
-        else                descEl.textContent = `✅ Semua 6 SOP dilaksanakan!`;
-    }
-}
-
-/* ═══ Load SOP saved state saat page ready ═══ */
-document.addEventListener('DOMContentLoaded', () => {
+    // 3. Load SOP saved state (localStorage)
     const localSOP = JSON.parse(localStorage.getItem('kit_sop') || '[]');
     localSOP.forEach(sop => {
         const card = document.querySelector(`.kit-sop-card[data-sop="${sop}"]`);
         if(card) card.classList.add('completed');
     });
+    
+    // 4. Load Checklist saved state
+    const checks = JSON.parse(localStorage.getItem('kit_checks') || '[]');
+    document.querySelectorAll('.kit-check-item').forEach((item, i) => {
+        if(checks[i]) item.classList.add('done');
+    });
+    
+    // 5. Update all UI
+    updateProgress();
     updateSOPProgress();
 });
-</script>
-/* ── Toggle Checklist ── */
+
+
+/* ═══════════════════════════════════════════════════
+   VERIFIKASI ID RESELLER (Firebase)
+═══════════════════════════════════════════════════ */
+async function verifyID(code){
+    const codeStatus = document.getElementById('codeStatus');
+    if(!codeStatus) return;
+    
+    // Safety check: DB harus ada
+    if(typeof DB === 'undefined'){
+        console.warn('DB not loaded, skip verification');
+        return;
+    }
+    
+    // Loading state
+    codeStatus.className = 'kit-code-status show loading';
+    codeStatus.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memverifikasi ID Reseller...';
+    
+    try {
+        const reseller = await DB.getResellerByCode(code);
+        
+        if(reseller){
+            currentReseller   = reseller;
+            currentResellerId = reseller.id;
+            
+            codeStatus.className = 'kit-code-status show valid';
+            codeStatus.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <div>
+                    Selamat datang, <b>${reseller.nama || reseller.name || 'Reseller'}</b>! 
+                    Tier: <b>${(reseller.tier || 'silver').toUpperCase()}</b><br>
+                    <small>Progress akan tersimpan otomatis ke database.</small>
+                </div>
+            `;
+            
+            // Load progress dari Firestore
+            await loadProgressFromFirestore(reseller.id);
+            
+            if(typeof Utils !== 'undefined'){
+                Utils.showToast(`Selamat datang, ${reseller.nama || 'Reseller'}!`, 'success');
+            }
+        } else {
+            currentReseller = null;
+            currentResellerId = null;
+            codeStatus.className = 'kit-code-status show invalid';
+            codeStatus.innerHTML = `
+                <i class="fas fa-times-circle"></i>
+                <div>
+                    ID Reseller tidak ditemukan atau tidak aktif.<br>
+                    <a href="reseller.html">Daftar sebagai reseller resmi →</a>
+                </div>
+            `;
+        }
+    } catch(err){
+        console.error('[verifyID error]', err);
+        codeStatus.className = 'kit-code-status show invalid';
+        codeStatus.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Gagal verifikasi: ${err.message}`;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   LOAD PROGRESS DARI FIRESTORE
+═══════════════════════════════════════════════════ */
+async function loadProgressFromFirestore(resellerId){
+    if(typeof DB === 'undefined') return;
+    
+    try {
+        const progress = await DB.getResellerProgress(resellerId);
+        if(!progress) return;
+        
+        // Reset semua
+        document.querySelectorAll('.kit-module-card.completed').forEach(c => c.classList.remove('completed'));
+        document.querySelectorAll('.kit-sop-card.completed').forEach(c => c.classList.remove('completed'));
+        
+        // Apply modul
+        const modulSelesai = progress.progressBelajar.modulSelesai || [];
+        modulSelesai.forEach(mod => {
+            const card = document.querySelector(`.kit-module-card[data-mod="${mod}"]`);
+            if(card) card.classList.add('completed');
+        });
+        
+        // Apply SOP
+        const sopSelesai = progress.progressSOP.sopDilaksanakan || [];
+        sopSelesai.forEach(sop => {
+            const card = document.querySelector(`.kit-sop-card[data-sop="${sop}"]`);
+            if(card) card.classList.add('completed');
+        });
+        
+        updateProgress();
+        updateSOPProgress();
+    } catch(err){
+        console.error('[loadProgressFromFirestore]', err);
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   TOGGLE MODUL
+═══════════════════════════════════════════════════ */
+async function toggleModule(card){
+    try {
+        card.classList.toggle('completed');
+        
+        const done = [];
+        document.querySelectorAll('.kit-module-card.completed').forEach(c => {
+            done.push(parseInt(c.dataset.mod));
+        });
+        done.sort((a,b) => a - b);
+        
+        // Save local
+        localStorage.setItem('kit_modules', JSON.stringify(done));
+        updateProgress();
+        
+        // Save Firestore
+        if(typeof DB !== 'undefined' && currentResellerId){
+            const result = await DB.updateProgressBelajar(currentResellerId, done);
+            if(result.success && typeof Utils !== 'undefined'){
+                Utils.showToast(`Progress belajar tersimpan (${result.persentase}%)`, 'success');
+            }
+        }
+    } catch(err){
+        console.error('[toggleModule error]', err);
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   TOGGLE SOP
+═══════════════════════════════════════════════════ */
+async function toggleSOP(card){
+    try {
+        card.classList.toggle('completed');
+        
+        const done = [];
+        document.querySelectorAll('.kit-sop-card.completed').forEach(c => {
+            done.push(parseInt(c.dataset.sop));
+        });
+        done.sort((a,b) => a - b);
+        
+        // Save local
+        localStorage.setItem('kit_sop', JSON.stringify(done));
+        updateSOPProgress();
+        
+        // Save Firestore
+        if(typeof DB !== 'undefined' && currentResellerId){
+            const result = await DB.updateProgressSOP(currentResellerId, done);
+            if(result.success && typeof Utils !== 'undefined'){
+                Utils.showToast(`Progress SOP tersimpan (${result.persentase}%)`, 'success');
+            }
+        }
+    } catch(err){
+        console.error('[toggleSOP error]', err);
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   UPDATE PROGRESS BAR — MODUL
+═══════════════════════════════════════════════════ */
+function updateProgress(){
+    const done = document.querySelectorAll('.kit-module-card.completed').length;
+    const pct  = Math.round((done / TOTAL_MODULES) * 100);
+    
+    const countEl = document.getElementById('progressCount');
+    const fillEl  = document.getElementById('progressFill');
+    const descEl  = document.getElementById('progressDesc');
+    
+    if(countEl) countEl.textContent = `${done}/${TOTAL_MODULES}`;
+    if(fillEl)  fillEl.style.width = pct + '%';
+    
+    if(descEl){
+        if(done === 0)       descEl.textContent = 'Centang modul yang sudah Anda pelajari';
+        else if(done < 5)    descEl.textContent = `🌱 Baru mulai! ${done}/15 modul.`;
+        else if(done < 10)   descEl.textContent = `🚀 Progress bagus! ${done}/15 modul.`;
+        else if(done < 15)   descEl.textContent = `💎 Hampir sampai! Tinggal ${15-done} modul.`;
+        else                 descEl.textContent = `🏆 Selamat! Semua 15 modul selesai!`;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   UPDATE PROGRESS BAR — SOP
+═══════════════════════════════════════════════════ */
+function updateSOPProgress(){
+    const done = document.querySelectorAll('.kit-sop-card.completed').length;
+    const pct  = Math.round((done / TOTAL_SOP) * 100);
+    
+    const countEl = document.getElementById('sopCount');
+    const fillEl  = document.getElementById('sopFill');
+    const descEl  = document.getElementById('sopDesc');
+    
+    if(countEl) countEl.textContent = `${done}/${TOTAL_SOP}`;
+    if(fillEl)  fillEl.style.width = pct + '%';
+    
+    if(descEl){
+        if(done === 0)       descEl.textContent = 'Centang SOP yang sudah dilaksanakan';
+        else if(done < 3)    descEl.textContent = `📋 ${done}/6 SOP dilaksanakan`;
+        else if(done < 6)    descEl.textContent = `⚡ Bagus! Tinggal ${6-done} SOP lagi`;
+        else                 descEl.textContent = `✅ Semua 6 SOP dilaksanakan!`;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   TOGGLE CHECKLIST 30 HARI
+═══════════════════════════════════════════════════ */
 function toggleCheck(item){
     item.classList.toggle('done');
     
-    // Save
     const states = [];
     document.querySelectorAll('.kit-check-item').forEach(el => {
         states.push(el.classList.contains('done'));
@@ -2624,53 +2866,79 @@ function toggleCheck(item){
     localStorage.setItem('kit_checks', JSON.stringify(states));
 }
 
-/* ── Script Tabs ── */
+
+/* ═══════════════════════════════════════════════════
+   SCRIPT TABS
+═══════════════════════════════════════════════════ */
 function switchTab(tabId, btn){
     document.querySelectorAll('.kit-script-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.kit-script-tab').forEach(el => el.classList.remove('active'));
     
-    document.getElementById('tab-' + tabId).classList.add('active');
+    const target = document.getElementById('tab-' + tabId);
+    if(target) target.classList.add('active');
     btn.classList.add('active');
 }
 
-/* ── Copy Script with Reseller Code ── */
+
+/* ═══════════════════════════════════════════════════
+   COPY SCRIPT WITH RESELLER CODE
+═══════════════════════════════════════════════════ */
 function copyScript(textId, btn){
-    const code = document.getElementById('resellerCode').value.trim();
-    const el   = document.getElementById(textId);
-    let text   = el.innerText;
+    const codeInput = document.getElementById('resellerCode');
+    const code      = codeInput ? codeInput.value.trim() : '';
+    const el        = document.getElementById(textId);
+    if(!el) return;
     
-    // Append reseller code if exists
+    let text = el.innerText;
+    
     if(code){
-        text += `\n\n—\nRef Reseller: ${code}`;
+        text += `\n\n—\nRef ID Reseller: ${code}`;
     }
     
-    navigator.clipboard.writeText(text).then(() => {
-        btn.classList.add('copied');
-        btn.innerHTML = '<i class="fas fa-check"></i> Berhasil Dicopy!';
-        
-        setTimeout(() => {
-            btn.classList.remove('copied');
-            btn.innerHTML = '<i class="fas fa-copy"></i> Copy + Tambah Kode';
-        }, 2500);
-    }).catch(() => {
-        // Fallback
+    // Try clipboard API
+    if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(() => {
+            btn.classList.add('copied');
+            btn.innerHTML = '<i class="fas fa-check"></i> Berhasil Dicopy!';
+            
+            if(typeof Utils !== 'undefined'){
+                Utils.showToast('Script berhasil disalin!', 'success');
+            }
+            
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.innerHTML = '<i class="fas fa-copy"></i> Copy + Tambah Kode';
+            }, 2500);
+        }).catch(fallbackCopy);
+    } else {
+        fallbackCopy();
+    }
+    
+    function fallbackCopy(){
         const ta = document.createElement('textarea');
         ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
         document.body.appendChild(ta);
         ta.select();
-        document.execCommand('copy');
+        try { document.execCommand('copy'); } catch(e){}
         document.body.removeChild(ta);
         
         btn.innerHTML = '<i class="fas fa-check"></i> Dicopy!';
         setTimeout(() => {
             btn.innerHTML = '<i class="fas fa-copy"></i> Copy + Tambah Kode';
         }, 2000);
-    });
+    }
 }
 
-/* ── FAQ Accordion ── */
+
+/* ═══════════════════════════════════════════════════
+   FAQ ACCORDION
+═══════════════════════════════════════════════════ */
 function toggleFaq(btn){
     const item = btn.closest('.kit-faq-item');
+    if(!item) return;
+    
     const isOpen = item.classList.contains('open');
     
     // Close all
@@ -2679,6 +2947,7 @@ function toggleFaq(btn){
     // Toggle current
     if(!isOpen) item.classList.add('open');
 }
+
 </script>
 
 </body>
