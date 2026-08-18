@@ -431,6 +431,36 @@
     .tag-intermediate{background:rgba(234,179,8,0.2);color:#FCD34D;}
     .tag-advanced{background:rgba(239,68,68,0.2);color:#FCA5A5;}
     
+    /* ── Module Detail List ── */
+.kit-module-detail{
+    list-style:none;
+    padding:0;
+    margin:12px 0 0 0;
+    display:grid;
+    gap:8px;
+}
+
+.kit-module-detail li{
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+    font-size:0.78rem;
+    color:var(--text-muted);
+    line-height:1.5;
+}
+
+.kit-module-detail li::before{
+    content:'✓';
+    color:var(--gold);
+    font-weight:700;
+    flex-shrink:0;
+    margin-top:1px;
+}
+
+.kit-module-card.completed .kit-module-detail li::before{
+    color:var(--gold-light);
+}
+
     /* ── SOP CARDS ── */
     .kit-sop-grid{
         display:grid;
@@ -1076,218 +1106,338 @@
             <h2 class="kit-section-title">15 Modul <span class="text-gold">Pembelajaran</span></h2>
             <p class="kit-section-sub">Dari nol sampai closing pertama dalam 30 hari</p>
         </div>
+<div class="kit-modules-grid" id="modulesGrid">
+    
+    <!-- Modul 1 -->
+    <div class="kit-module-card" data-mod="1" onclick="toggleModule(this)">
+        <div class="kit-module-top">
+            <span class="kit-module-num">MODUL 01</span>
+            <div class="kit-module-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="kit-module-icon">🌐</div>
+        <div class="kit-module-title">Mengenal Bisnis Web Designer</div>
+        <div class="kit-module-desc">
+            Pahami industri, potensi pasar, dan kenapa bisnis ini menjanjikan di era digital.
+            <ul class="kit-module-detail">
+                <li>Kenali tren digitalisasi UMKM Indonesia</li>
+                <li>Data: 64 juta UMKM, baru 13% punya website</li>
+                <li>Peluang pasar website Rp 5-50 juta/project</li>
+                <li>Kenapa reseller web designer itu low-risk high-reward</li>
+                <li>Perbedaan web designer vs freelancer vs agency</li>
+            </ul>
+        </div>
+        <span class="kit-module-tag tag-basic">BASIC</span>
+    </div>
 
-        <div class="kit-modules-grid" id="modulesGrid">
-            <!-- Modul 1 -->
-            <div class="kit-module-card" data-mod="1" onclick="toggleModule(this)">
-                <div class="kit-module-top">
-                    <span class="kit-module-num">MODUL 01</span>
-                    <div class="kit-module-check">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
-                <div class="kit-module-icon">🌐</div>
-                <div class="kit-module-title">Mengenal Bisnis Web Designer</div>
-                <div class="kit-module-desc">Pahami industri, potensi pasar, dan kenapa bisnis ini menjanjikan di era digital.</div>
-                <span class="kit-module-tag tag-basic">BASIC</span>
-            </div>
+    <!-- Modul 2 -->
+    <div class="kit-module-card" data-mod="2" onclick="toggleModule(this)">
+        <div class="kit-module-top">
+            <span class="kit-module-num">MODUL 02</span>
+            <div class="kit-module-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="kit-module-icon">🎯</div>
+        <div class="kit-module-title">Mengenal Produk Ibaadurrahmaan</div>
+        <div class="kit-module-desc">
+            Detail setiap paket, fitur unggulan, dan cara membandingkan dengan kompetitor.
+            <ul class="kit-module-detail">
+                <li>Pelajari 3 paket: Starter, Business, Premium</li>
+                <li>Hafal fitur & benefit setiap paket</li>
+                <li>Studi 5+ contoh portfolio yang sudah dibuat</li>
+                <li>Pahami perbedaan Landing Page vs Multi-page</li>
+                <li>Kenali proses produksi (3-7 hari kerja)</li>
+                <li>Cara menjawab "apa bedanya sama kompetitor?"</li>
+            </ul>
+        </div>
+        <span class="kit-module-tag tag-basic">BASIC</span>
+    </div>
 
-            <!-- Modul 2 -->
-            <div class="kit-module-card" data-mod="2" onclick="toggleModule(this)">
-                <div class="kit-module-top">
-                    <span class="kit-module-num">MODUL 02</span>
-                    <div class="kit-module-check">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
-                <div class="kit-module-icon">🎯</div>
-                <div class="kit-module-title">Mengenal Produk Ibaadurrahmaan</div>
-                <div class="kit-module-desc">Detail setiap paket, fitur unggulan, teknologi yang digunakan, dan cara membandingkan dengan kompetitor.</div>
-                <span class="kit-module-tag tag-basic">BASIC</span>
-            </div>
+    <!-- Modul 3 -->
+    <div class="kit-module-card" data-mod="3" onclick="toggleModule(this)">
+        <div class="kit-module-top">
+            <span class="kit-module-num">MODUL 03</span>
+            <div class="kit-module-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="kit-module-icon">👥</div>
+        <div class="kit-module-title">Identifikasi Target Pasar</div>
+        <div class="kit-module-desc">
+            Siapa calon customer ideal dan segmentasi yang tepat untuk jualan lebih mudah.
+            <ul class="kit-module-detail">
+                <li>Identifikasi 5 kategori bisnis yang butuh website</li>
+                <li>Pahami pain point mereka (tidak punya toko online, kalah saing)</li>
+                <li>Tentukan lokasi target market</li>
+                <li>Susun customer persona (usia, bisnis, budget)</li>
+                <li>List 20+ prospek awal dari lingkaran sendiri</li>
+                <li>Cari prospek dari Google Maps: UMKM tanpa website</li>
+            </ul>
+        </div>
+        <span class="kit-module-tag tag-basic">BASIC</span>
+    </div>
 
-            <!-- Modul 3 -->
-            <div class="kit-module-card" data-mod="3" onclick="toggleModule(this)">
-                <div class="kit-module-top">
-                    <span class="kit-module-num">MODUL 03</span>
-                    <div class="kit-module-check">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
-                <div class="kit-module-icon">👥</div>
-                <div class="kit-module-title">Identifikasi Target Pasar</div>
-                <div class="kit-module-desc">Siapa calon customer ideal, cara riset pasar, dan segmentasi yang tepat untuk jualan lebih mudah.</div>
-                <span class="kit-module-tag tag-basic">BASIC</span>
-            </div>
+    <!-- Modul 4 -->
+    <div class="kit-module-card" data-mod="4" onclick="toggleModule(this)">
+        <div class="kit-module-top">
+            <span class="kit-module-num">MODUL 04</span>
+            <div class="kit-module-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="kit-module-icon">💬</div>
+        <div class="kit-module-title">Script Opening WhatsApp</div>
+        <div class="kit-module-desc">
+            Template pesan pembuka yang terbukti dapat respons tinggi.
+            <ul class="kit-module-detail">
+                <li>Script opening chat pertama (warm & cold market)</li>
+                <li>Script menjawab "berapa harga?"</li>
+                <li>Teknik hook 3 detik pertama yang menarik</li>
+                <li>Hindari kesalahan fatal: langsung kirim brosur</li>
+                <li>Formula AIDA: Attention, Interest, Desire, Action</li>
+                <li>Contoh pesan yang dapat 60%+ reply rate</li>
+            </ul>
+        </div>
+        <span class="kit-module-tag tag-basic">BASIC</span>
+    </div>
 
-            <!-- Modul 4 -->
-            <div class="kit-module-card" data-mod="4" onclick="toggleModule(this)">
-                <div class="kit-module-top">
-                    <span class="kit-module-num">MODUL 04</span>
-                    <div class="kit-module-check">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
-                <div class="kit-module-icon">💬</div>
-                <div class="kit-module-title">Script Opening WhatsApp</div>
-                <div class="kit-module-desc">Template pesan pembuka yang terbukti dapat respons. Hindari pesan yang langsung ditolak.</div>
-                <span class="kit-module-tag tag-basic">BASIC</span>
-            </div>
+    <!-- Modul 5 -->
+    <div class="kit-module-card" data-mod="5" onclick="toggleModule(this)">
+        <div class="kit-module-top">
+            <span class="kit-module-num">MODUL 05</span>
+            <div class="kit-module-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="kit-module-icon">🛡️</div>
+        <div class="kit-module-title">Mengatasi Keberatan (Objection)</div>
+        <div class="kit-module-desc">
+            Cara elegan mengubah penolakan jadi closing.
+            <ul class="kit-module-detail">
+                <li>"Mahal" → Jelaskan ROI & value jangka panjang</li>
+                <li>"Nanti dulu" → Ciptakan urgency (slot terbatas)</li>
+                <li>"Pikir-pikir dulu" → Berikan garansi & testimoni</li>
+                <li>"Bisa diskon?" → Tawarkan paket yang lebih sesuai</li>
+                <li>"Bikin sendiri aja" → Bandingkan waktu vs hasil</li>
+                <li>Mindset: penolakan = proses, bukan akhir</li>
+            </ul>
+        </div>
+        <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
+    </div>
 
-            <!-- Modul 5 -->
-            <div class="kit-module-card" data-mod="5" onclick="toggleModule(this)">
-                <div class="kit-module-top">
-                    <span class="kit-module-num">MODUL 05</span>
-                    <div class="kit-module-check">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
-                <div class="kit-module-icon">🛡️</div>
-                <div class="kit-module-title">Mengatasi Keberatan (Objection)</div>
-                <div class="kit-module-desc">"Mahal", "nanti dulu", "pikir-pikir dulu" — cara elegan mengubah penolakan jadi closing.</div>
-                <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
-            </div>
+    <!-- Modul 6 -->
+    <div class="kit-module-card" data-mod="6" onclick="toggleModule(this)">
+        <div class="kit-module-top">
+            <span class="kit-module-num">MODUL 06</span>
+            <div class="kit-module-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="kit-module-icon">📱</div>
+        <div class="kit-module-title">Personal Branding di Media Sosial</div>
+        <div class="kit-module-desc">
+            Bangun profil kredibel sebagai web reseller profesional.
+            <ul class="kit-module-detail">
+                <li>Setup WhatsApp Business + katalog produk</li>
+                <li>Buat akun Instagram bisnis yang profesional</li>
+                <li>Optimasi bio, highlight, dan foto profil</li>
+                <li>Setup Facebook Page dengan CTA WhatsApp</li>
+                <li>Bikin konten TikTok edukasi tentang website</li>
+                <li>Konsisten warna & style brand di semua platform</li>
+            </ul>
+        </div>
+        <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
+    </div>
 
-            <!-- Modul 6 -->
-            <div class="kit-module-card" data-mod="6" onclick="toggleModule(this)">
-                <div class="kit-module-top">
-                    <span class="kit-module-num">MODUL 06</span>
-                    <div class="kit-module-check">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
-                <div class="kit-module-icon">📱</div>
-                <div class="kit-module-title">Personal Branding di Media Sosial</div>
-                <div class="kit-module-desc">Bangun profil yang kredibel di WA, Instagram & TikTok sebagai web reseller profesional.</div>
-                <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
-            </div>
+    <!-- Modul 7 -->
+    <div class="kit-module-card" data-mod="7" onclick="toggleModule(this)">
+        <div class="kit-module-top">
+            <span class="kit-module-num">MODUL 07</span>
+            <div class="kit-module-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="kit-module-icon">📸</div>
+        <div class="kit-module-title">Konten Marketing Organik</div>
+        <div class="kit-module-desc">
+            Buat konten yang menarik prospek tanpa bayar iklan.
+            <ul class="kit-module-detail">
+                <li>Formula 3-2-1: 3 edukasi, 2 portfolio, 1 jualan</li>
+                <li>Rencana 30 konten (edukasi, portfolio, testimoni)</li>
+                <li>Template Canva untuk feed & story Instagram</li>
+                <li>Jadwal posting: minimal 1x per hari</li>
+                <li>Hook & CTA yang bikin orang DM</li>
+                <li>Cara repost portfolio tanpa terasa hard-selling</li>
+            </ul>
+        </div>
+        <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
+    </div>
 
-            <!-- Modul 7 -->
-            <div class="kit-module-card" data-mod="7" onclick="toggleModule(this)">
-                <div class="kit-module-top">
-                    <span class="kit-module-num">MODUL 07</span>
-                    <div class="kit-module-check">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
-                <div class="kit-module-icon">📸</div>
-                <div class="kit-module-title">Konten Marketing Organik</div>
-                <div class="kit-module-desc">Cara buat konten feed, story, dan reels yang menarik prospek tanpa bayar iklan.</div>
-                <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
-            </div>
+    <!-- Modul 8 -->
+    <div class="kit-module-card" data-mod="8" onclick="toggleModule(this)">
+        <div class="kit-module-top">
+            <span class="kit-module-num">MODUL 08</span>
+            <div class="kit-module-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="kit-module-icon">🔄</div>
+        <div class="kit-module-title">Follow-up Tanpa Terasa Spam</div>
+        <div class="kit-module-desc">
+            Sistem follow-up 7 hari yang natural dan efektif.
+            <ul class="kit-module-detail">
+                <li>Script follow-up hari ke-1 (reminder ringan)</li>
+                <li>Script follow-up hari ke-3 (tambah value/info)</li>
+                <li>Script follow-up hari ke-7 (urgency slot)</li>
+                <li>Script follow-up hari ke-14 (last call)</li>
+                <li>Konsisten follow-up minimal 5x per prospek</li>
+                <li>80% penjualan terjadi di follow-up ke-5 sampai ke-12</li>
+            </ul>
+        </div>
+        <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
+    </div>
 
-            <!-- Modul 8 -->
-            <div class="kit-module-card" data-mod="8" onclick="toggleModule(this)">
-                <div class="kit-module-top">
-                    <span class="kit-module-num">MODUL 08</span>
-                    <div class="kit-module-check">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
-                <div class="kit-module-icon">🔄</div>
-                <div class="kit-module-title">Follow-up Tanpa Terasa Spam</div>
-                <div class="kit-module-desc">Sistem follow-up 7 hari yang natural sehingga prospek tidak kabur dan justru mendekat.</div>
-                <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
-            </div>
+    <!-- Modul 9 -->
+    <div class="kit-module-card" data-mod="9" onclick="toggleModule(this)">
+        <div class="kit-module-top">
+            <span class="kit-module-num">MODUL 09</span>
+            <div class="kit-module-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="kit-module-icon">🤝</div>
+        <div class="kit-module-title">Teknik Closing yang Efektif</div>
+        <div class="kit-module-desc">
+            Kapan waktu tepat closing dan teknik urgensi yang tidak memaksa.
+            <ul class="kit-module-detail">
+                <li>Kenali buying signal dari prospek (tanya detail, minta diskon)</li>
+                <li>Teknik "assumptive close" — anggap sudah deal</li>
+                <li>Teknik "alternative close" — "Mau paket A atau B?"</li>
+                <li>Beri social proof: portfolio + testimoni serupa</li>
+                <li>Cara minta keputusan tanpa terasa memaksa</li>
+                <li>Script closing dengan urgency & scarcity</li>
+            </ul>
+        </div>
+        <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
+    </div>
 
-            <!-- Modul 9 -->
-            <div class="kit-module-card" data-mod="9" onclick="toggleModule(this)">
-                <div class="kit-module-top">
-                    <span class="kit-module-num">MODUL 09</span>
-                    <div class="kit-module-check">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
-                <div class="kit-module-icon">🤝</div>
-                <div class="kit-module-title">Teknik Closing yang Efektif</div>
-                <div class="kit-module-desc">Kapan waktu tepat closing, cara minta keputusan, dan teknik urgensi yang tidak memaksa.</div>
-                <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
-            </div>
+    <!-- Modul 10 -->
+    <div class="kit-module-card" data-mod="10" onclick="toggleModule(this)">
+        <div class="kit-module-top">
+            <span class="kit-module-num">MODUL 10</span>
+            <div class="kit-module-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="kit-module-icon">⚙️</div>
+        <div class="kit-module-title">Alur Pemesanan & Pembayaran</div>
+        <div class="kit-module-desc">
+            Dari order masuk sampai serah terima website ke klien.
+            <ul class="kit-module-detail">
+                <li>Client transfer DP 50% ke rekening owner</li>
+                <li>Reseller lapor ke owner + bukti transfer</li>
+                <li>Owner mulai produksi (3-7 hari kerja)</li>
+                <li>Client pelunasan 50% sebelum web live</li>
+                <li>Serah terima website + garansi 30 hari</li>
+                <li>Reseller jangan pernah terima uang ke rekening pribadi</li>
+            </ul>
+        </div>
+        <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
+    </div>
 
-            <!-- Modul 10 -->
-            <div class="kit-module-card" data-mod="10" onclick="toggleModule(this)">
-                <div class="kit-module-top">
-                    <span class="kit-module-num">MODUL 10</span>
-                    <div class="kit-module-check">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
-                <div class="kit-module-icon">⚙️</div>
-                <div class="kit-module-title">Alur Pemesanan & Pembayaran</div>
-                <div class="kit-module-desc">Dari order masuk, rekap ke admin, konfirmasi pembayaran, sampai serah terima website ke klien.</div>
-                <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
-            </div>
+    <!-- Modul 11 -->
+    <div class="kit-module-card" data-mod="11" onclick="toggleModule(this)">
+        <div class="kit-module-top">
+            <span class="kit-module-num">MODUL 11</span>
+            <div class="kit-module-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="kit-module-icon">⭐</div>
+        <div class="kit-module-title">After-Sales & Testimoni</div>
+        <div class="kit-module-desc">
+            Cara maintain hubungan pasca-closing dan ubah klien jadi referral aktif.
+            <ul class="kit-module-detail">
+                <li>Chat ucapan terima kasih setelah website live</li>
+                <li>Minta testimoni di hari ke-3 setelah serah terima</li>
+                <li>Tawarkan maintenance bulanan (upsell)</li>
+                <li>Follow up di anniversary bisnis client</li>
+                <li>Referral program: minta kenalan yang butuh website</li>
+                <li>Client existing 5x lebih mudah closing lagi</li>
+            </ul>
+        </div>
+        <span class="kit-module-tag tag-advanced">ADVANCED</span>
+    </div>
 
-            <!-- Modul 11 -->
-            <div class="kit-module-card" data-mod="11" onclick="toggleModule(this)">
-                <div class="kit-module-top">
-                    <span class="kit-module-num">MODUL 11</span>
-                    <div class="kit-module-check">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
-                <div class="kit-module-icon">⭐</div>
-                <div class="kit-module-title">After-Sales & Testimoni</div>
-                <div class="kit-module-desc">Cara maintain hubungan pasca-closing, minta testimoni, dan ubah klien jadi referral aktif.</div>
-                <span class="kit-module-tag tag-advanced">ADVANCED</span>
-            </div>
+    <!-- Modul 12 -->
+    <div class="kit-module-card" data-mod="12" onclick="toggleModule(this)">
+        <div class="kit-module-top">
+            <span class="kit-module-num">MODUL 12</span>
+            <div class="kit-module-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="kit-module-icon">📊</div>
+        <div class="kit-module-title">Tracking Komisi & Pembukuan</div>
+        <div class="kit-module-desc">
+            Cara track komisi, rekap penjualan, dan kelola cashflow.
+            <ul class="kit-module-detail">
+                <li>Simpan database prospek di Google Sheets</li>
+                <li>Kategorikan: Hot, Warm, Cold, Dead lead</li>
+                <li>Catat setiap closing: tanggal, paket, nominal, komisi</li>
+                <li>Set reminder follow-up otomatis</li>
+                <li>Track conversion rate per bulan</li>
+                <li>Slip komisi dikirim via WhatsApp setiap payout</li>
+            </ul>
+        </div>
+        <span class="kit-module-tag tag-advanced">ADVANCED</span>
+    </div>
 
-            <!-- Modul 12 -->
-            <div class="kit-module-card" data-mod="12" onclick="toggleModule(this)">
-                <div class="kit-module-top">
-                    <span class="kit-module-num">MODUL 12</span>
-                    <div class="kit-module-check">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
-                <div class="kit-module-icon">📊</div>
-                <div class="kit-module-title">Tracking Komisi & Pembukuan</div>
-                <div class="kit-module-desc">Cara track komisi, rekap penjualan bulanan, dan kelola cashflow dari bisnis reseller.</div>
-                <span class="kit-module-tag tag-advanced">ADVANCED</span>
-            </div>
+    <!-- Modul 13 -->
+    <div class="kit-module-card" data-mod="13" onclick="toggleModule(this)">
+        <div class="kit-module-top">
+            <span class="kit-module-num">MODUL 13</span>
+            <div class="kit-module-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="kit-module-icon">🔗</div>
+        <div class="kit-module-title">Ekspansi via Komunitas & Network</div>
+        <div class="kit-module-desc">
+            Masuk komunitas bisnis untuk menemukan prospek berkualitas tinggi.
+            <ul class="kit-module-detail">
+                <li>Join grup Facebook UMKM & entrepreneur lokal</li>
+                <li>Aktif di komunitas bisnis WhatsApp</li>
+                <li>Kolaborasi dengan reseller lain (beda produk)</li>
+                <li>Ikut event offline: bazar, seminar, networking</li>
+                <li>Jadi pembicara/narasumber tentang digital marketing</li>
+                <li>Build authority: jadi problem solver, bukan sales</li>
+            </ul>
+        </div>
+        <span class="kit-module-tag tag-advanced">ADVANCED</span>
+    </div>
 
-            <!-- Modul 13 -->
-            <div class="kit-module-card" data-mod="13" onclick="toggleModule(this)">
-                <div class="kit-module-top">
-                    <span class="kit-module-num">MODUL 13</span>
-                    <div class="kit-module-check">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
-                <div class="kit-module-icon">🔗</div>
-                <div class="kit-module-title">Ekspansi via Komunitas & Network</div>
-                <div class="kit-module-desc">Cara masuk komunitas bisnis, UMKM, dan profesional untuk menemukan prospek berkualitas tinggi.</div>
-                <span class="kit-module-tag tag-advanced">ADVANCED</span>
-            </div>
+    <!-- Modul 14 -->
+    <div class="kit-module-card" data-mod="14" onclick="toggleModule(this)">
+        <div class="kit-module-top">
+            <span class="kit-module-num">MODUL 14</span>
+            <div class="kit-module-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="kit-module-icon">📈</div>
+        <div class="kit-module-title">Scale-Up: Dari Reseller ke Tim</div>
+        <div class="kit-module-desc">
+            Bangun tim sub-reseller dan tingkatkan penghasilan berlipat.
+            <ul class="kit-module-detail">
+                <li>Rekrut sub-reseller dari network Anda</li>
+                <li>Duplikasi sistem & starter kit ke tim</li>
+                <li>Buat grup WhatsApp khusus tim reseller</li>
+                <li>Investasi iklan berbayar (FB/IG Ads) untuk scale</li>
+                <li>Target: 3-5 closing/bulan untuk naik tier Gold</li>
+                <li>Long-term: passive income dari tim sub-reseller</li>
+            </ul>
+        </div>
+        <span class="kit-module-tag tag-advanced">ADVANCED</span>
+    </div>
 
-            <!-- Modul 14 -->
-            <div class="kit-module-card" data-mod="14" onclick="toggleModule(this)">
-                <div class="kit-module-top">
-                    <span class="kit-module-num">MODUL 14</span>
-                    <div class="kit-module-check">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
-                <div class="kit-module-icon">📈</div>
-                <div class="kit-module-title">Scale-Up: Dari Reseller ke Tim</div>
-                <div class="kit-module-desc">Bangun tim sub-reseller sendiri, duplikasi sistem, dan tingkatkan penghasilan berlipat ganda.</div>
-                <span class="kit-module-tag tag-advanced">ADVANCED</span>
-            </div>
+    <!-- Modul 15 -->
+    <div class="kit-module-card" data-mod="15" onclick="toggleModule(this)">
+        <div class="kit-module-top">
+            <span class="kit-module-num">MODUL 15</span>
+            <div class="kit-module-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="kit-module-icon">🏆</div>
+        <div class="kit-module-title">Mindset Reseller Sukses</div>
+        <div class="kit-module-desc">
+            Mental konsisten dan kebiasaan harian reseller berpenghasilan tinggi.
+            <ul class="kit-module-detail">
+                <li>Reseller = solusi, bukan sekedar penjual</li>
+                <li>Fokus pada value, bukan harga</li>
+                <li>Handle penolakan sebagai pembelajaran</li>
+                <li>Set target harian: 10 prospek baru per hari</li>
+                <li>Review performance setiap minggu</li>
+                <li>Konsistensi mengalahkan bakat — terus bergerak!</li>
+            </ul>
+        </div>
+        <span class="kit-module-tag tag-advanced">ADVANCED</span>
+    </div>
 
-            <!-- Modul 15 -->
-            <div class="kit-module-card" data-mod="15" onclick="toggleModule(this)">
-                <div class="kit-module-top">
-                    <span class="kit-module-num">MODUL 15</span>
-                    <div class="kit-module-check">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
-                <div class="kit-module-icon">🏆</div>
-                <div class="kit-module-title">Mindset Reseller Sukses</div>
-                <div class="kit-module-desc">Mental konsisten, cara recover dari rejection, dan kebiasaan harian reseller berpenghasilan tinggi.</div>
-                <span class="kit-module-tag tag-advanced">ADVANCED</span>
-            </div>
-        </div><!-- /kit-modules-grid -->
+</div><!-- /kit-modules-grid -->
     </div>
 </section>
 
@@ -1893,4 +2043,4 @@ function toggleFaq(btn){
 </script>
 
 </body>
-</html>
+</html
