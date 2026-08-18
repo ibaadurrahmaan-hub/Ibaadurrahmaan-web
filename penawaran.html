@@ -882,14 +882,12 @@ body{
 </head>
 <body>
 
+<!-- ⭐ Auto-Injected Navbar (via script.js) -->
+<div id="auto-navbar"></div>
 
 <!-- ==================== HEADER ==================== -->
 <header class="hero-header">
     <div class="hero-badge">📋 Proposal Penawaran</div>
-    
-    <div class="hero-logo">
-        <img src="main-logo.png" alt="Ibaadurrahmaan Logo">
-    </div>
     
     <h1 class="hero-title">Penawaran <span>Website Profesional</span></h1>
     <p class="hero-subtitle">Solusi digital yang tepat untuk kebutuhan bisnis Anda</p>
@@ -1141,6 +1139,49 @@ body{
 </div>
 
 
+<!-- ==================== MOBILE BOTTOM NAV (Konsisten) ==================== -->
+<nav class="mobile-nav" id="mobileNav">
+    <a href="index.html" class="mnav-item" data-page="index">
+        <i class="fas fa-home"></i>
+        <span>Beranda</span>
+    </a>
+    
+    <button class="mnav-item" data-page="layanan" onclick="openMobileSheet('layanan')">
+        <i class="fas fa-briefcase"></i>
+        <span>Layanan</span>
+    </button>
+    
+    <button class="mnav-item" data-page="paket" onclick="openMobileSheet('paket')">
+        <i class="fas fa-tag"></i>
+        <span>Paket</span>
+    </button>
+    
+    <button class="mnav-item mnav-highlight" data-page="reseller" onclick="openMobileSheet('reseller')">
+        <i class="fas fa-fire"></i>
+        <span>Reseller</span>
+    </button>
+    
+    <a href="faq.html" class="mnav-item" data-page="faq">
+        <i class="fas fa-question-circle"></i>
+        <span>FAQ</span>
+    </a>
+</nav>
+
+
+<!-- ==================== BOTTOM SHEET (untuk tombol Layanan/Paket/Reseller) ==================== -->
+<div class="mobile-sheet-overlay" id="mobileSheetOverlay" onclick="closeMobileSheet()"></div>
+
+<div class="mobile-sheet" id="mobileSheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+        <h3 class="sheet-title" id="sheetTitle"></h3>
+        <button class="sheet-close" onclick="closeMobileSheet()" aria-label="Tutup">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="sheet-content" id="sheetContent"></div>
+</div>
+
 <script>
 // ====================================================
 // AMBIL PARAMETER DARI URL
@@ -1346,6 +1387,9 @@ function askQuestion() {
     window.open(`https://wa.me/6281401643188?text=${waMsg}`, '_blank');
 }
 </script>
+
+<!-- ⭐ WAJIB: Load script.js utama (Auto-navbar, Mobile sheet, dll) -->
+<script src="script.js"></script>
 
 </body>
 </html>
