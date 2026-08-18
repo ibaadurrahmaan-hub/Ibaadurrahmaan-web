@@ -764,110 +764,107 @@
     }
 }
     
-
-/* ============================================
-   Tier Cards
-   ============================================ */
+/* ═══════════════════════════════════════════════════════
+   TIER KOMISI — 4 CARDS
+════════════════════════════════════════════════════════ */
 .kit-tier-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-    margin-bottom:40px;
+    grid-template-columns:repeat(4, 1fr);   /* Desktop: 4 kolom */
+    gap:14px;
+    margin-top:32px;
 }
 
 .kit-tier-card{
-    background:var(--grad-card);
+    background:var(--card-bg);
     border:1px solid var(--border);
-    border-radius:var(--radius-lg);
-    padding:28px 24px;
+    border-radius:16px;
+    padding:24px 16px;
     text-align:center;
-    transition:all 0.4s var(--ease);
+    transition:all 0.3s;
+    backdrop-filter:blur(10px);
     position:relative;
     overflow:hidden;
 }
 
 .kit-tier-card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 10px 30px rgba(0,0,0,0.3);
-}
-
-.kit-tier-card.featured{
+    transform:translateY(-4px);
     border-color:var(--gold);
-    background:linear-gradient(180deg,rgba(212,165,54,0.12),rgba(212,165,54,0.02));
-    box-shadow:0 0 40px rgba(212,165,54,0.15);
+    box-shadow:0 8px 32px rgba(201,168,76,0.15);
 }
 
-.kit-tier-card.featured::before{
-    content:'⭐ POPULER';
-    position:absolute;
-    top:0;left:0;right:0;
-    padding:6px;
-    background:var(--grad-gold-shine);
-    color:var(--bg);
-    font-size:0.68rem;
-    font-weight:800;
-    letter-spacing:2px;
-    text-align:center;
-}
-
-.kit-tier-card.featured{padding-top:44px;}
-
-.kit-tier-emoji{
-    font-size:3rem;
-    margin-bottom:12px;
-    display:block;
-    filter:drop-shadow(0 4px 12px rgba(212,165,54,0.3));
+.kit-tier-icon{
+    font-size:2.2rem;
+    line-height:1;
+    margin-bottom:10px;
 }
 
 .kit-tier-name{
-    font-family:'Montserrat',sans-serif;
-    font-size:1.3rem;
-    font-weight:900;
+    font-size:1rem;
+    font-weight:800;
     color:var(--gold);
-    letter-spacing:3px;
-    margin-bottom:8px;
+    margin-bottom:12px;
+    letter-spacing:0.5px;
 }
 
 .kit-tier-commission{
-    font-family:'Montserrat',sans-serif;
-    font-size:2.5rem;
-    font-weight:900;
-    background:var(--grad-gold-shine);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
+    font-size:2.2rem;
+    font-weight:800;
+    color:#fff;
     line-height:1;
     margin-bottom:6px;
+    background:linear-gradient(135deg, var(--gold-light), var(--gold));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+}
+
+.kit-tier-commission-label{
+    font-size:0.72rem;
+    color:var(--text-muted);
+    margin-bottom:14px;
+    line-height:1.3;
 }
 
 .kit-tier-req{
-    color:var(--text-dim);
-    font-size:0.85rem;
-    margin-bottom:20px;
-}
-
-.kit-tier-list{
-    list-style:none;
-    padding:16px 0 0;
-    border-top:1px solid var(--border);
-    text-align:left;
-    margin:0;
-}
-
-.kit-tier-list li{
-    padding:8px 0;
+    font-size:0.72rem;
     color:var(--text-muted);
-    font-size:0.88rem;
-    display:flex;
-    align-items:flex-start;
-    gap:8px;
+    padding-top:12px;
+    border-top:1px solid var(--border);
+    line-height:1.4;
 }
 
-.kit-tier-list li i{
-    color:var(--gold);
-    font-size:0.8rem;
-    margin-top:3px;
-    flex-shrink:0;
+/* Responsive Tier Grid */
+@media (max-width:768px){
+    .kit-tier-grid{
+        grid-template-columns:repeat(2, 1fr);   /* Tablet: 2 kolom */
+        gap:12px;
+    }
+    
+    .kit-tier-card{padding:20px 12px;}
+    .kit-tier-icon{font-size:1.9rem; margin-bottom:8px;}
+    .kit-tier-name{font-size:0.95rem;}
+    .kit-tier-commission{font-size:1.9rem;}
+    .kit-tier-commission-label{font-size:0.68rem; margin-bottom:12px;}
+    .kit-tier-req{font-size:0.68rem;}
+}
+
+@media (max-width:480px){
+    .kit-tier-grid{
+        grid-template-columns:repeat(2, 1fr);   /* Mobile: tetap 2 kolom */
+        gap:10px;
+    }
+    
+    .kit-tier-card{padding:18px 10px;}
+    .kit-tier-icon{font-size:1.7rem;}
+    .kit-tier-name{font-size:0.88rem; margin-bottom:10px;}
+    .kit-tier-commission{font-size:1.7rem;}
+    .kit-tier-commission-label{font-size:0.65rem;}
+    .kit-tier-req{font-size:0.65rem; padding-top:10px;}
+}
+
+@media (max-width:360px){
+    .kit-tier-commission{font-size:1.5rem;}
+    .kit-tier-name{font-size:0.82rem;}
 }
     
     /* ── SCRIPT TEMPLATES ── */
@@ -1250,6 +1247,155 @@
         background:linear-gradient(90deg,transparent,var(--border),transparent);
         margin:0 20px;
     }
+
+/* ═══════════════════════════════════════════════════════
+   REWARD COMING SOON TEASER
+════════════════════════════════════════════════════════ */
+.kit-reward-teaser{
+    background:linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.04));
+    border:2px dashed rgba(201,168,76,0.4);
+    border-radius:16px;
+    padding:24px 20px;
+    backdrop-filter:blur(10px);
+    margin-top:16px;
+}
+
+.kit-reward-header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:20px;
+    padding-bottom:16px;
+    border-bottom:1px solid rgba(201,168,76,0.2);
+}
+
+.kit-reward-header > i{
+    font-size:2rem;
+    color:var(--gold);
+    filter:drop-shadow(0 0 10px rgba(201,168,76,0.5));
+    flex-shrink:0;
+}
+
+.kit-reward-title{
+    font-size:1rem;
+    font-weight:800;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+    line-height:1.3;
+    margin-bottom:4px;
+}
+
+.badge-soon{
+    background:linear-gradient(135deg, #F59E0B, #DC2626);
+    color:#fff;
+    font-size:0.6rem;
+    padding:3px 10px;
+    border-radius:50px;
+    letter-spacing:1px;
+    font-weight:800;
+    animation:pulse-soon 2s ease-in-out infinite;
+    white-space:nowrap;
+}
+
+@keyframes pulse-soon{
+    0%,100%{opacity:1; transform:scale(1);}
+    50%{opacity:0.85; transform:scale(1.05);}
+}
+
+.kit-reward-sub{
+    font-size:0.8rem;
+    color:var(--text-muted);
+    line-height:1.4;
+    margin:0;
+}
+
+/* Grid Reward Items */
+.kit-reward-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));
+    gap:10px;
+    margin-bottom:16px;
+}
+
+.kit-reward-item{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:12px 14px;
+    transition:all 0.3s;
+}
+
+.kit-reward-item:hover{
+    border-color:var(--gold);
+    background:rgba(201,168,76,0.08);
+    transform:translateY(-2px);
+}
+
+.kit-reward-icon{
+    font-size:1.6rem;
+    flex-shrink:0;
+    line-height:1;
+    margin-top:2px;
+}
+
+.kit-reward-item > div:last-child{
+    flex:1;
+    min-width:0;
+}
+
+.kit-reward-item b{
+    color:#fff;
+    font-size:0.85rem;
+    display:block;
+    margin-bottom:3px;
+    line-height:1.3;
+}
+
+.kit-reward-item p{
+    font-size:0.72rem;
+    color:var(--text-muted);
+    line-height:1.4;
+    margin:0;
+}
+
+/* Footer */
+.kit-reward-footer{
+    background:rgba(0,0,0,0.25);
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:0.75rem;
+    color:var(--text-muted);
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    line-height:1.5;
+}
+
+.kit-reward-footer i{
+    color:var(--gold);
+    font-size:0.9rem;
+    margin-top:2px;
+    flex-shrink:0;
+}
+
+/* Responsive */
+@media (max-width:480px){
+    .kit-reward-teaser{padding:20px 16px;}
+    .kit-reward-header{gap:12px;}
+    .kit-reward-header > i{font-size:1.7rem;}
+    .kit-reward-title{font-size:0.95rem;}
+    .kit-reward-list{grid-template-columns:1fr; gap:8px;}
+    .kit-reward-item{padding:12px;}
+    .kit-reward-icon{font-size:1.5rem;}
+    .kit-reward-item b{font-size:0.82rem;}
+    .kit-reward-item p{font-size:0.7rem;}
+}
 
     </style>
 </head>
@@ -2408,6 +2554,64 @@ function updateProgress(){
     if(fillEl)  fillEl.style.width = pct + '%';
 }
 
+<script>
+/* ═══ Toggle SOP Function ═══ */
+function toggleSOP(card){
+    card.classList.toggle('completed');
+    
+    const done = [];
+    document.querySelectorAll('.kit-sop-card.completed').forEach(c => {
+        done.push(parseInt(c.dataset.sop));
+    });
+    done.sort((a,b) => a - b);
+    
+    // Save ke localStorage
+    localStorage.setItem('kit_sop', JSON.stringify(done));
+    
+    // Update progress bar SOP
+    updateSOPProgress();
+    
+    // Save ke Firestore jika ID valid
+    if(typeof currentResellerId !== 'undefined' && currentResellerId){
+        DB.updateProgressSOP(currentResellerId, done).then(result => {
+            if(result.success && typeof Utils !== 'undefined'){
+                Utils.showToast(`Progress SOP tersimpan (${result.persentase}%)`, 'success');
+            }
+        });
+    }
+}
+
+/* ═══ Update SOP Progress Bar ═══ */
+function updateSOPProgress(){
+    const done  = document.querySelectorAll('.kit-sop-card.completed').length;
+    const total = 6;
+    const pct   = Math.round((done / total) * 100);
+    
+    const countEl = document.getElementById('sopCount');
+    const fillEl  = document.getElementById('sopFill');
+    const descEl  = document.getElementById('sopDesc');
+    
+    if(countEl) countEl.textContent = `${done}/${total}`;
+    if(fillEl)  fillEl.style.width = pct + '%';
+    
+    if(descEl){
+        if(done === 0)      descEl.textContent = 'Centang SOP yang sudah dilaksanakan';
+        else if(done < 3)   descEl.textContent = `📋 ${done}/6 SOP dilaksanakan`;
+        else if(done < 6)   descEl.textContent = `⚡ Bagus! Tinggal ${6-done} SOP lagi`;
+        else                descEl.textContent = `✅ Semua 6 SOP dilaksanakan!`;
+    }
+}
+
+/* ═══ Load SOP saved state saat page ready ═══ */
+document.addEventListener('DOMContentLoaded', () => {
+    const localSOP = JSON.parse(localStorage.getItem('kit_sop') || '[]');
+    localSOP.forEach(sop => {
+        const card = document.querySelector(`.kit-sop-card[data-sop="${sop}"]`);
+        if(card) card.classList.add('completed');
+    });
+    updateSOPProgress();
+});
+</script>
 /* ── Toggle Checklist ── */
 function toggleCheck(item){
     item.classList.toggle('done');
