@@ -1878,6 +1878,229 @@ function showEarnedToast(emoji, title, subtitle, amount) {
 
 console.log('[REWARD SYNC] Module loaded ✅');
 </script>
+<!-- ═══════════════════════════════════════════════════
+     🏆 REWARD SYNC — Firestore Integration
+════════════════════════════════════════════════════ -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { 
+    getFirestore, doc, updateDoc, 
+    query, collection, where, getDocs, serverTimestamp 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCYRygFt6uwCUiL_6-eoJHhUdkiumSwLzY",
+    authDomain: "ibaadurrahmaan-web.firebaseapp.com",
+    projectId: "ibaadurrahmaan-web",
+    storageBucket: "ibaadurrahmaan-web.firebasestorage.app",
+    messagingSenderId: "1066409450927",
+    appId: "1:1066409450927:web:3497135ea3a2c4ef77e35a"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const REWARD_CONFIG = {
+    MODULES_TOTAL: 15,
+    SOP_TOTAL: 6,
+    TIER1_AMOUNT: 50000,
+    TIER2_AMOUNT: 100000
+};
+
+let currentReseller = null;
+let syncTimeout = null;
+let isSyncing = false;
+
+window.addEventListener('load', async () => {
+    const code = new URLSearchParams(window.location.search).get('code');
+    
+    if (!code) {
+        showStatus('offline', '👀 Mode Preview');
+        return;
+    }
+    
+    showStatus('syncing', '⏳ Menghubungkan...');
+    
+    try {
+        const q = query(collection(db, 'resellers'), where('resellerCode', '==', code));
+        const snap = await getDocs(q);
+        
+        if (snap.empty) {
+            showStatus('error', '❌ Kode tidak dikenali');
+            return;
+        }
+        
+        currentReseller = { id: snap.docs[0].id, ...snap.docs[0].data() };
+        
+        if (currentReseller.progress) {
+            applyProgressToUI(currentReseller.progress);
+        }
+        
+        showStatus('online', `🟢 ${currentReseller.nama || 'Reseller'}`);
+        startWatching();
+        
+    } catch (err) {
+        console.error('[REWARD SYNC] Init error:', err);
+        showStatus('error', '⚠️ Gagal sync');
+    }
+});
+
+function applyProgressToUI(progress) {
+    const modulesDone = progress.modulesDone || [];
+    const sopDone = progress.sopDone || [];
+    
+    document.querySelectorAll('.kit-module-card').forEach((card, i) => {
+        if (modulesDone.includes(i + 1)) card.classList.add('completed');
+    });
+    
+    document.querySelectorAll('.kit-sop-card').forEach((card, i) => {
+        if (sopDone.includes(i + 1)) card.classList.add('completed');
+    });
+    
+    ['updateProgress', 'updateRewardWidget', 'updateAll'].forEach(fn => {
+        if (typeof window[fn] === 'function') {
+            try { window[fn](); } catch(e){}
+        }
+    });
+}
+
+function startWatching() {
+    const observer = new MutationObserver((mutations) => {
+        const hasClassChange = mutations.some(m => 
+            m.type === 'attributes' && m.attributeName === 'class'
+        );
+        if (hasClassChange) debouncedSync();
+    });
+    
+    document.querySelectorAll('.kit-module-card, .kit-sop-card').forEach(card => {
+        observer.observe(card, { attributes: true, attributeFilter: ['class'] });
+    });
+}
+
+function debouncedSync() {
+    if (syncTimeout) clearTimeout(syncTimeout);
+    syncTimeout = setTimeout(() => syncToFirestore(), 1200);
+}
+
+async function syncToFirestore() {
+    if (!currentReseller || isSyncing) return;
+    
+    isSyncing = true;
+    showStatus('syncing', '💾 Menyimpan...');
+    
+    try {
+        const modulesDone = [];
+        document.querySelectorAll('.kit-module-card').forEach((card, i) => {
+            if (card.classList.contains('completed')) modulesDone.push(i + 1);
+        });
+        
+        const sopDone = [];
+        document.querySelectorAll('.kit-sop-card').forEach((card, i) => {
+            if (card.classList.contains('completed')) sopDone.push(i + 1);
+        });
+        
+        const tier1Eligible = modulesDone.length >= REWARD_CONFIG.MODULES_TOTAL;
+        const tier2Eligible = tier1Eligible && sopDone.length >= REWARD_CONFIG.SOP_TOTAL;
+        
+        const existingRewards = currentReseller.rewards || {};
+        const tier1WasEarned = existingRewards.tier1?.earned === true;
+        const tier2WasEarned = existingRewards.tier2?.earned === true;
+        
+        const updateData = {
+            'progress.modulesDone': modulesDone,
+            'progress.sopDone': sopDone,
+            'progress.lastUpdated': serverTimestamp()
+        };
+        
+        if (tier1Eligible && !tier1WasEarned) {
+            updateData['rewards.tier1'] = {
+                earned: true,
+                earnedAt: new Date(),
+                amount: REWARD_CONFIG.TIER1_AMOUNT,
+                paid: false,
+                paidAt: null
+            };
+        }
+        
+        if (tier2Eligible && !tier2WasEarned) {
+            updateData['rewards.tier2'] = {
+                earned: true,
+                earnedAt: new Date(),
+                amount: REWARD_CONFIG.TIER2_AMOUNT,
+                paid: false,
+                paidAt: null
+            };
+        }
+        
+        await updateDoc(doc(db, 'resellers', currentReseller.id), updateData);
+        
+        currentReseller.progress = { modulesDone, sopDone };
+        currentReseller.rewards = currentReseller.rewards || {};
+        if (tier1Eligible) {
+            currentReseller.rewards.tier1 = { earned: true, amount: REWARD_CONFIG.TIER1_AMOUNT, paid: existingRewards.tier1?.paid || false };
+        }
+        if (tier2Eligible) {
+            currentReseller.rewards.tier2 = { earned: true, amount: REWARD_CONFIG.TIER2_AMOUNT, paid: existingRewards.tier2?.paid || false };
+        }
+        
+        if (tier1Eligible && !tier1WasEarned) {
+            showEarnedToast('🥈', 'Tier 1 EARNED!', 'Belajar Selesai', REWARD_CONFIG.TIER1_AMOUNT);
+        }
+        if (tier2Eligible && !tier2WasEarned) {
+            setTimeout(() => {
+                showEarnedToast('🥇', 'Tier 2 EARNED!', 'Siap Jualan', REWARD_CONFIG.TIER2_AMOUNT);
+            }, tier1Eligible && !tier1WasEarned ? 4500 : 0);
+        }
+        
+        showStatus('online', `🟢 ${currentReseller.nama || 'Reseller'}`);
+        
+    } catch (err) {
+        console.error('[REWARD SYNC] Sync error:', err);
+        showStatus('error', '⚠️ Gagal simpan');
+    } finally {
+        isSyncing = false;
+    }
+}
+
+function showStatus(status, text) {
+    let el = document.getElementById('rewardSyncStatus');
+    if (!el) {
+        el = document.createElement('div');
+        el.id = 'rewardSyncStatus';
+        el.className = 'reward-sync-indicator';
+        document.body.appendChild(el);
+    }
+    el.className = `reward-sync-indicator status-${status}`;
+    el.textContent = text;
+}
+
+function showEarnedToast(emoji, title, subtitle, amount) {
+    const toast = document.createElement('div');
+    toast.className = 'reward-earned-toast';
+    toast.innerHTML = `
+        <span class="icon">${emoji}</span>
+        <h3>${title}</h3>
+        <p>${subtitle}</p>
+        <div class="amount">Rp ${amount.toLocaleString('id-ID')}</div>
+    `;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.transition = 'opacity 0.5s, transform 0.5s';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translate(-50%,-50%) scale(0.8)';
+        setTimeout(() => toast.remove(), 500);
+    }, 4000);
+}
+
+console.log('[REWARD SYNC] Module loaded ✅');
+</script>
+
+
+<!-- ═══════════════════════════════════════════════════
+     🏆 REWARD HANDLER — Admin Modal (Regular Script)
+════════════════════════════════════════════════════ -->
+<script>
 // ═══════════════════════════════════════════════════════
 // 🏆 REWARD HANDLER — Modal detail reward
 // ═══════════════════════════════════════════════════════
@@ -1910,7 +2133,6 @@ async function handleReward(resellerId) {
         } catch(e) { return '-'; }
     };
     
-    // Tier 1 card
     const tier1HTML = `
         <div class="reward-tier-card ${tier1.paid ? 'paid' : (tier1.earned ? 'earned' : '')}">
             <div class="reward-tier-header">
@@ -1938,7 +2160,6 @@ async function handleReward(resellerId) {
         </div>
     `;
     
-    // Tier 2 card
     const tier2HTML = `
         <div class="reward-tier-card ${tier2.paid ? 'paid' : (tier2.earned ? 'earned' : '')}">
             <div class="reward-tier-header">
@@ -1969,7 +2190,6 @@ async function handleReward(resellerId) {
     const contentHTML = `
         <div class="swal-reward-content">
             
-            <!-- PROGRESS -->
             <div class="reward-modal-section">
                 <div class="reward-modal-title">
                     <i class="fas fa-chart-bar"></i> Progress
@@ -1986,7 +2206,6 @@ async function handleReward(resellerId) {
                 </div>
             </div>
             
-            <!-- REWARD TIERS -->
             <div class="reward-modal-section">
                 <div class="reward-modal-title">
                     <i class="fas fa-trophy"></i> Reward Status
@@ -1995,7 +2214,6 @@ async function handleReward(resellerId) {
                 ${tier2HTML}
             </div>
             
-            <!-- SUMMARY -->
             <div class="reward-modal-section">
                 <div class="reward-modal-title">
                     <i class="fas fa-money-check-alt"></i> Ringkasan
@@ -2058,7 +2276,6 @@ async function markRewardPaid(resellerId, tier) {
         
         await updateDoc(doc(db, 'resellers', resellerId), updateData);
         
-        // Update local state
         const idx = allResellers.findIndex(r => r.id === resellerId);
         if (idx !== -1) {
             allResellers[idx].rewards = allResellers[idx].rewards || {};
@@ -2076,7 +2293,6 @@ async function markRewardPaid(resellerId, tier) {
             customClass: { popup: 'swal-premium' }
         });
         
-        // Refresh view
         applyFilters();
         setTimeout(() => handleReward(resellerId), 1000);
         
@@ -2100,12 +2316,10 @@ function sendStarterKitLink(wa, nama, code) {
         return;
     }
     
-    // Format nomor WA (hilangkan 0 awal, ganti dengan 62)
     let phone = wa.replace(/[^0-9]/g, '');
     if (phone.startsWith('0')) phone = '62' + phone.substring(1);
     if (!phone.startsWith('62')) phone = '62' + phone;
     
-    // BASE URL — SESUAIKAN DENGAN DOMAIN ANDA
     const baseURL = 'https://ibaadurrahmaan-hub.github.io';
     const starterKitURL = `${baseURL}/starter-kit.html?code=${code}`;
     
@@ -2135,5 +2349,11 @@ _— Tim Ibaadurrahmaan_`;
 window.handleReward = handleReward;
 window.markRewardPaid = markRewardPaid;
 window.sendStarterKitLink = sendStarterKitLink;
+
+console.log('[REWARD HANDLER] ✅ Loaded');
+</script>
+
+</body>
+</html>
 </body>
 </html>
