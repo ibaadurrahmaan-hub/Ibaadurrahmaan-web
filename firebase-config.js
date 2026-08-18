@@ -256,6 +256,84 @@ const DB = {
     }
   },
 
+  // ── PROGRESS BELAJAR & SOP ───────────────────────────────────
+
+  /**
+   * Update progress belajar reseller
+   * @param {string} resellerId - Document ID reseller
+   * @param {Array<number>} modulSelesai - Array nomor modul yang selesai
+   */
+  async updateProgressBelajar(resellerId, modulSelesai) {
+    try {
+      const total      = 15;
+      const persentase = Math.round((modulSelesai.length / total) * 100);
+      const now        = firebase.firestore.FieldValue.serverTimestamp();
+
+      await db.collection('resellers').doc(resellerId).update({
+        'progressBelajar.modulSelesai': modulSelesai,
+        'progressBelajar.totalModul':   total,
+        'progressBelajar.persentase':   persentase,
+        'progressBelajar.lastUpdate':   now,
+        updatedAt: now
+      });
+
+      return { success: true, persentase };
+    } catch (err) {
+      console.error('[DB.updateProgressBelajar]', err);
+      return { success: false, error: err.message };
+    }
+  },
+
+  /**
+   * Update progress SOP reseller
+   * @param {string} resellerId - Document ID reseller
+   * @param {Array<number>} sopDilaksanakan - Array nomor SOP yang dilaksanakan
+   */
+  async updateProgressSOP(resellerId, sopDilaksanakan) {
+    try {
+      const total      = 6;
+      const persentase = Math.round((sopDilaksanakan.length / total) * 100);
+      const now        = firebase.firestore.FieldValue.serverTimestamp();
+
+      await db.collection('resellers').doc(resellerId).update({
+        'progressSOP.sopDilaksanakan': sopDilaksanakan,
+        'progressSOP.totalSOP':        total,
+        'progressSOP.persentase':      persentase,
+        'progressSOP.lastUpdate':      now,
+        updatedAt: now
+      });
+
+      return { success: true, persentase };
+    } catch (err) {
+      console.error('[DB.updateProgressSOP]', err);
+      return { success: false, error: err.message };
+    }
+  },
+
+  /**
+   * Ambil progress belajar & SOP reseller
+   * @param {string} resellerId - Document ID reseller
+   */
+  async getResellerProgress(resellerId) {
+    try {
+      const doc = await db.collection('resellers').doc(resellerId).get();
+      if (!doc.exists) return null;
+
+      const data = doc.data();
+      return {
+        progressBelajar: data.progressBelajar || {
+          modulSelesai: [], totalModul: 15, persentase: 0
+        },
+        progressSOP: data.progressSOP || {
+          sopDilaksanakan: [], totalSOP: 6, persentase: 0
+        }
+      };
+    } catch (err) {
+      console.error('[DB.getResellerProgress]', err);
+      return null;
+    }
+  },
+
   // ── ORDER ────────────────────────────────────────────────────
 
   /**
