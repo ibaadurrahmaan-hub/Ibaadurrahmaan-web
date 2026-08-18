@@ -2136,6 +2136,114 @@ letter-spacing: 2px;          /* Extra bold */
     .reward-total-amount{font-size:1.7rem;}
     .reward-total-label{font-size:0.68rem;}
 }
+
+/* ═══════════════════════════════════════════════════════
+   REWARD SYNC — Status Indicator
+════════════════════════════════════════════════════════ */
+.reward-sync-indicator{
+    position:fixed;
+    top:80px;
+    right:16px;
+    z-index:9999;
+    background:rgba(15,30,51,0.95);
+    backdrop-filter:blur(10px);
+    border:1px solid var(--border);
+    color:#fff;
+    padding:8px 14px;
+    border-radius:100px;
+    font-size:0.72rem;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    box-shadow:0 4px 20px rgba(0,0,0,0.4);
+    animation:syncFadeIn 0.4s ease;
+    max-width:200px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+@keyframes syncFadeIn{
+    from{opacity:0; transform:translateY(-10px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.reward-sync-indicator.status-online{
+    border-color:rgba(37,211,102,0.4);
+    color:#25D366;
+}
+
+.reward-sync-indicator.status-syncing{
+    border-color:rgba(59,130,246,0.4);
+    color:#60A5FA;
+}
+
+.reward-sync-indicator.status-error{
+    border-color:rgba(239,68,68,0.4);
+    color:#F87171;
+}
+
+.reward-sync-indicator.status-offline{
+    border-color:var(--border);
+    color:var(--text-muted);
+}
+
+/* Badge earned toast notification */
+.reward-earned-toast{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:99999;
+    background:linear-gradient(135deg, #F0C96B, #C9A84C);
+    color:#000;
+    padding:24px 32px;
+    border-radius:20px;
+    box-shadow:0 20px 60px rgba(201,168,76,0.5);
+    text-align:center;
+    max-width:320px;
+    animation:earnedPop 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.reward-earned-toast .icon{
+    font-size:3rem;
+    margin-bottom:12px;
+    display:block;
+    animation:trophy-bounce 1s ease infinite;
+}
+
+.reward-earned-toast h3{
+    font-size:1.2rem;
+    font-weight:900;
+    margin-bottom:8px;
+}
+
+.reward-earned-toast p{
+    font-size:0.9rem;
+    line-height:1.4;
+}
+
+.reward-earned-toast .amount{
+    font-size:1.8rem;
+    font-weight:900;
+    margin-top:10px;
+}
+
+@keyframes earnedPop{
+    0%{transform:translate(-50%,-50%) scale(0.5); opacity:0;}
+    100%{transform:translate(-50%,-50%) scale(1); opacity:1;}
+}
+
+@media (max-width:480px){
+    .reward-sync-indicator{
+        top:70px;
+        right:12px;
+        font-size:0.68rem;
+        padding:6px 12px;
+        max-width:160px;
+    }
+}
     </style>
 </head>
 
@@ -4013,7 +4121,282 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 </script>
+<!-- ═══════════════════════════════════════════════════
+     🏆 REWARD SYNC — Firestore Integration
+════════════════════════════════════════════════════ -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { 
+    getFirestore, doc, updateDoc, 
+    query, collection, where, getDocs, serverTimestamp 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+const firebaseConfig = {
+    apiKey: "AIzaSyCYRygFt6uwCUiL_6-eoJHhUdkiumSwLzY",
+    authDomain: "ibaadurrahmaan-web.firebaseapp.com",
+    projectId: "ibaadurrahmaan-web",
+    storageBucket: "ibaadurrahmaan-web.firebasestorage.app",
+    messagingSenderId: "1066409450927",
+    appId: "1:1066409450927:web:3497135ea3a2c4ef77e35a"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ═══ REWARD CONFIG ═══
+const REWARD_CONFIG = {
+    MODULES_TOTAL: 15,
+    SOP_TOTAL: 6,
+    TIER1_AMOUNT: 50000,   // 15 modul
+    TIER2_AMOUNT: 100000   // 15 modul + 6 SOP
+};
+
+// ═══ STATE ═══
+let currentReseller = null;
+let syncTimeout = null;
+let isSyncing = false;
+
+// ═══════════════════════════════════════════════════
+// 🚀 INIT — Baca URL parameter, load reseller
+// ═══════════════════════════════════════════════════
+window.addEventListener('load', async () => {
+    const code = new URLSearchParams(window.location.search).get('code');
+    
+    if (!code) {
+        showStatus('offline', '👀 Mode Preview');
+        console.log('[REWARD SYNC] No code, skipping sync');
+        return;
+    }
+    
+    console.log('[REWARD SYNC] Reseller code:', code);
+    showStatus('syncing', '⏳ Menghubungkan...');
+    
+    try {
+        const q = query(collection(db, 'resellers'), where('resellerCode', '==', code));
+        const snap = await getDocs(q);
+        
+        if (snap.empty) {
+            showStatus('error', '❌ Kode tidak dikenali');
+            console.warn('[REWARD SYNC] Reseller not found:', code);
+            return;
+        }
+        
+        currentReseller = { id: snap.docs[0].id, ...snap.docs[0].data() };
+        console.log('[REWARD SYNC] ✅ Reseller loaded:', currentReseller.nama);
+        
+        // Load progress from Firestore → apply to UI
+        if (currentReseller.progress) {
+            applyProgressToUI(currentReseller.progress);
+        }
+        
+        showStatus('online', `🟢 ${currentReseller.nama || 'Reseller'}`);
+        
+        // Watch for progress changes
+        startWatching();
+        
+    } catch (err) {
+        console.error('[REWARD SYNC] Init error:', err);
+        showStatus('error', '⚠️ Gagal sync');
+    }
+});
+
+// ═══════════════════════════════════════════════════
+// 📥 LOAD progress dari Firestore → apply ke UI
+// ═══════════════════════════════════════════════════
+function applyProgressToUI(progress) {
+    const modulesDone = progress.modulesDone || [];
+    const sopDone = progress.sopDone || [];
+    
+    // Apply ke module cards
+    document.querySelectorAll('.kit-module-card').forEach((card, i) => {
+        const num = i + 1;
+        if (modulesDone.includes(num)) {
+            card.classList.add('completed');
+        }
+    });
+    
+    // Apply ke SOP cards
+    document.querySelectorAll('.kit-sop-card').forEach((card, i) => {
+        const num = i + 1;
+        if (sopDone.includes(num)) {
+            card.classList.add('completed');
+        }
+    });
+    
+    // Trigger existing update function kalau ada
+    ['updateProgress', 'updateRewardWidget', 'updateAll'].forEach(fn => {
+        if (typeof window[fn] === 'function') {
+            try { window[fn](); } catch(e){}
+        }
+    });
+    
+    console.log('[REWARD SYNC] Applied:', {
+        modules: modulesDone.length,
+        sop: sopDone.length
+    });
+}
+
+// ═══════════════════════════════════════════════════
+// 👀 WATCH — Deteksi perubahan class 'completed'
+// ═══════════════════════════════════════════════════
+function startWatching() {
+    const observer = new MutationObserver((mutations) => {
+        // Filter hanya perubahan class
+        const hasClassChange = mutations.some(m => 
+            m.type === 'attributes' && m.attributeName === 'class'
+        );
+        if (hasClassChange) {
+            debouncedSync();
+        }
+    });
+    
+    document.querySelectorAll('.kit-module-card, .kit-sop-card').forEach(card => {
+        observer.observe(card, { attributes: true, attributeFilter: ['class'] });
+    });
+    
+    console.log('[REWARD SYNC] Watching progress changes...');
+}
+
+// Debounced sync (tunggu 1.2 detik setelah user berhenti klik)
+function debouncedSync() {
+    if (syncTimeout) clearTimeout(syncTimeout);
+    syncTimeout = setTimeout(() => syncToFirestore(), 1200);
+}
+
+// ═══════════════════════════════════════════════════
+// 💾 SYNC — Kirim progress ke Firestore
+// ═══════════════════════════════════════════════════
+async function syncToFirestore() {
+    if (!currentReseller || isSyncing) return;
+    
+    isSyncing = true;
+    showStatus('syncing', '💾 Menyimpan...');
+    
+    try {
+        // Collect completed modules & SOP
+        const modulesDone = [];
+        document.querySelectorAll('.kit-module-card').forEach((card, i) => {
+            if (card.classList.contains('completed')) modulesDone.push(i + 1);
+        });
+        
+        const sopDone = [];
+        document.querySelectorAll('.kit-sop-card').forEach((card, i) => {
+            if (card.classList.contains('completed')) sopDone.push(i + 1);
+        });
+        
+        // Check reward eligibility
+        const tier1Eligible = modulesDone.length >= REWARD_CONFIG.MODULES_TOTAL;
+        const tier2Eligible = tier1Eligible && sopDone.length >= REWARD_CONFIG.SOP_TOTAL;
+        
+        const existingRewards = currentReseller.rewards || {};
+        const tier1WasEarned = existingRewards.tier1?.earned === true;
+        const tier2WasEarned = existingRewards.tier2?.earned === true;
+        
+        // Build update data
+        const updateData = {
+            'progress.modulesDone': modulesDone,
+            'progress.sopDone': sopDone,
+            'progress.lastUpdated': serverTimestamp()
+        };
+        
+        // Award Tier 1 if newly earned
+        if (tier1Eligible && !tier1WasEarned) {
+            updateData['rewards.tier1'] = {
+                earned: true,
+                earnedAt: new Date(),
+                amount: REWARD_CONFIG.TIER1_AMOUNT,
+                paid: false,
+                paidAt: null
+            };
+        }
+        
+        // Award Tier 2 if newly earned
+        if (tier2Eligible && !tier2WasEarned) {
+            updateData['rewards.tier2'] = {
+                earned: true,
+                earnedAt: new Date(),
+                amount: REWARD_CONFIG.TIER2_AMOUNT,
+                paid: false,
+                paidAt: null
+            };
+        }
+        
+        await updateDoc(doc(db, 'resellers', currentReseller.id), updateData);
+        
+        // Update local state
+        currentReseller.progress = { modulesDone, sopDone };
+        currentReseller.rewards = currentReseller.rewards || {};
+        if (tier1Eligible) {
+            currentReseller.rewards.tier1 = { earned: true, amount: REWARD_CONFIG.TIER1_AMOUNT, paid: existingRewards.tier1?.paid || false };
+        }
+        if (tier2Eligible) {
+            currentReseller.rewards.tier2 = { earned: true, amount: REWARD_CONFIG.TIER2_AMOUNT, paid: existingRewards.tier2?.paid || false };
+        }
+        
+        // Show earned toast
+        if (tier1Eligible && !tier1WasEarned) {
+            showEarnedToast('🥈', 'Tier 1 EARNED!', 'Belajar Selesai', REWARD_CONFIG.TIER1_AMOUNT);
+        }
+        if (tier2Eligible && !tier2WasEarned) {
+            setTimeout(() => {
+                showEarnedToast('🥇', 'Tier 2 EARNED!', 'Siap Jualan', REWARD_CONFIG.TIER2_AMOUNT);
+            }, tier1Eligible && !tier1WasEarned ? 4500 : 0);
+        }
+        
+        console.log('[REWARD SYNC] ✅ Synced:', { modules: modulesDone.length, sop: sopDone.length });
+        showStatus('online', `🟢 ${currentReseller.nama || 'Reseller'}`);
+        
+    } catch (err) {
+        console.error('[REWARD SYNC] Sync error:', err);
+        showStatus('error', '⚠️ Gagal simpan');
+    } finally {
+        isSyncing = false;
+    }
+}
+
+// ═══════════════════════════════════════════════════
+// 🎨 UI HELPERS
+// ═══════════════════════════════════════════════════
+function showStatus(status, text) {
+    let el = document.getElementById('rewardSyncStatus');
+    if (!el) {
+        el = document.createElement('div');
+        el.id = 'rewardSyncStatus';
+        el.className = 'reward-sync-indicator';
+        document.body.appendChild(el);
+    }
+    el.className = `reward-sync-indicator status-${status}`;
+    el.textContent = text;
+}
+
+function showEarnedToast(emoji, title, subtitle, amount) {
+    const toast = document.createElement('div');
+    toast.className = 'reward-earned-toast';
+    toast.innerHTML = `
+        <span class="icon">${emoji}</span>
+        <h3>${title}</h3>
+        <p>${subtitle}</p>
+        <div class="amount">Rp ${amount.toLocaleString('id-ID')}</div>
+    `;
+    document.body.appendChild(toast);
+    
+    // Auto remove after 4 seconds
+    setTimeout(() => {
+        toast.style.transition = 'opacity 0.5s, transform 0.5s';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translate(-50%,-50%) scale(0.8)';
+        setTimeout(() => toast.remove(), 500);
+    }, 4000);
+    
+    // Play sound (optional)
+    try {
+        const audio = new Audio('data:audio/wav;base64,UklGRhwMAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YfgLAACA');
+        audio.play().catch(()=>{});
+    } catch(e){}
+}
+
+console.log('[REWARD SYNC] Module loaded ✅');
+</script>
 
 </body>
-</html
+</html 
