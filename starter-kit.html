@@ -764,74 +764,111 @@
     }
 }
     
-    /* ── TIER CARDS ── */
-    .kit-tier-grid{
-        display:grid;
-        grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-        gap:16px;
-    }
-    
-    .kit-tier-card{
-        background:var(--card-bg);
-        border:2px solid var(--border);
-        border-radius:var(--radius);
-        padding:28px 24px;
-        text-align:center;
-        backdrop-filter:blur(10px);
-        transition:all 0.3s;
-        position:relative;
-        overflow:hidden;
-    }
-    
-    .kit-tier-card.active{
-        border-color:var(--gold);
-        box-shadow:0 0 40px rgba(201,168,76,0.2);
-    }
-    
-    .kit-tier-card.active::after{
-        content:'TIER ANDA';
-        position:absolute;
-        top:12px;
-        right:-20px;
-        background:var(--gold);
-        color:#000;
-        font-size:0.6rem;
-        font-weight:800;
-        padding:4px 28px;
-        transform:rotate(45deg);
-        letter-spacing:1px;
-    }
-    
-    .kit-tier-icon{font-size:2.5rem;margin-bottom:12px;}
-    
-    .kit-tier-name{
-        font-size:1.1rem;
-        font-weight:800;
-        color:#fff;
-        margin-bottom:8px;
-    }
-    
-    .kit-tier-commission{
-        font-size:2rem;
-        font-weight:800;
-        color:var(--gold);
-        margin-bottom:4px;
-    }
-    
-    .kit-tier-commission-label{
-        font-size:0.75rem;
-        color:var(--text-muted);
-        margin-bottom:16px;
-    }
-    
-    .kit-tier-req{
-        font-size:0.8rem;
-        color:var(--text-muted);
-        padding:8px;
-        background:rgba(255,255,255,0.04);
-        border-radius:8px;
-        line-height:1.5;
-    }
+
+/* ============================================
+   Tier Cards
+   ============================================ */
+.kit-tier-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    margin-bottom:40px;
+}
+
+.kit-tier-card{
+    background:var(--grad-card);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:28px 24px;
+    text-align:center;
+    transition:all 0.4s var(--ease);
+    position:relative;
+    overflow:hidden;
+}
+
+.kit-tier-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+.kit-tier-card.featured{
+    border-color:var(--gold);
+    background:linear-gradient(180deg,rgba(212,165,54,0.12),rgba(212,165,54,0.02));
+    box-shadow:0 0 40px rgba(212,165,54,0.15);
+}
+
+.kit-tier-card.featured::before{
+    content:'⭐ POPULER';
+    position:absolute;
+    top:0;left:0;right:0;
+    padding:6px;
+    background:var(--grad-gold-shine);
+    color:var(--bg);
+    font-size:0.68rem;
+    font-weight:800;
+    letter-spacing:2px;
+    text-align:center;
+}
+
+.kit-tier-card.featured{padding-top:44px;}
+
+.kit-tier-emoji{
+    font-size:3rem;
+    margin-bottom:12px;
+    display:block;
+    filter:drop-shadow(0 4px 12px rgba(212,165,54,0.3));
+}
+
+.kit-tier-name{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.3rem;
+    font-weight:900;
+    color:var(--gold);
+    letter-spacing:3px;
+    margin-bottom:8px;
+}
+
+.kit-tier-commission{
+    font-family:'Montserrat',sans-serif;
+    font-size:2.5rem;
+    font-weight:900;
+    background:var(--grad-gold-shine);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    line-height:1;
+    margin-bottom:6px;
+}
+
+.kit-tier-req{
+    color:var(--text-dim);
+    font-size:0.85rem;
+    margin-bottom:20px;
+}
+
+.kit-tier-list{
+    list-style:none;
+    padding:16px 0 0;
+    border-top:1px solid var(--border);
+    text-align:left;
+    margin:0;
+}
+
+.kit-tier-list li{
+    padding:8px 0;
+    color:var(--text-muted);
+    font-size:0.88rem;
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+}
+
+.kit-tier-list li i{
+    color:var(--gold);
+    font-size:0.8rem;
+    margin-top:3px;
+    flex-shrink:0;
+}
     
     /* ── SCRIPT TEMPLATES ── */
     .kit-script-tabs{
@@ -1977,7 +2014,7 @@
 
 Saya <span class="kit-script-vars">[Nama Anda]</span>, reseller resmi Ibaadurrahmaan Web Designer.
 
-Perkenalkan — kami menyediakan jasa pembuatan website profesional untuk UMKM, toko online, dan bisnis lokal, mulai dari Rp 750.000 saja.
+Perkenalkan — kami menyediakan jasa pembuatan website profesional untuk UMKM, toko online, dan bisnis lokal, mulai dari Rp 1,5 Juta.
 
 Boleh saya tanya, Kak — saat ini apakah bisnisnya sudah punya website? 🙏</div>
                 <button class="kit-copy-btn" onclick="copyScript('text-opening', this)">
