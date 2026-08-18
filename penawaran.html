@@ -208,7 +208,7 @@ body{
 .container{
     max-width:800px;
     margin:0 auto;
-    padding:40px 20px;
+    padding:32px 20px 16px;
 }
 
 
@@ -271,7 +271,7 @@ body{
 
 /* ==================== SECTION TITLE ==================== */
 .section{
-    margin-bottom:32px;
+    margin-bottom:24px;
 }
 
 .section-title{
@@ -290,6 +290,11 @@ body{
 .section-title i{
     color:var(--gold);
     font-size:1.4rem;
+}
+
+/* Section terakhir - jarak lebih pendek ke footer */
+.section:last-of-type{
+    margin-bottom:16px;
 }
 
 
@@ -668,11 +673,13 @@ body{
 /* ==================== FOOTER ==================== */
 .footer-info{
     text-align:center;
-    padding:20px;
+    padding:16px 20px 8px;
     color:var(--text-muted);
     font-size:0.8rem;
-    margin-top:30px;
+    margin-top:8px;
 }
+
+.footer-info p{margin-bottom:4px;}
 
 .footer-info p{margin-bottom:6px;}
 
@@ -767,16 +774,16 @@ body{
 .fab-wa{
     position:fixed;
     right:16px;
-    bottom:230px;
-    width:56px;
-    height:56px;
+    bottom:170px;
+    width:52px;
+    height:52px;
     background:linear-gradient(135deg,#25D366,#128C7E);
     color:#fff;
     border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:1.8rem;
+    font-size:1.6rem;
     text-decoration:none;
     box-shadow:0 8px 24px rgba(37,211,102,0.4);
     z-index:97;
@@ -858,13 +865,28 @@ body{
     }
     
     /* FAB */
-    .fab-wa{
-        right:12px;
-        bottom:210px;
-        width:50px;
-        height:50px;
-        font-size:1.6rem;
-    }
+/* FAB - Naik lebih tinggi biar tidak nabrak tombol Terima */
+.fab-wa{
+    right:12px;
+    bottom:165px;
+    width:46px;
+    height:46px;
+    font-size:1.4rem;
+}
+
+body{
+    padding-bottom:180px;
+}
+
+/* Section terakhir - jarak minimal */
+.section:last-of-type{
+    margin-bottom:12px;
+}
+
+.footer-info{
+    padding:12px 16px 4px;
+    margin-top:4px;
+}
     
     body{
         padding-bottom:200px;
@@ -884,12 +906,17 @@ body{
         font-size:0.85rem;
     }
     
-    .fab-wa{
-        width:44px;
-        height:44px;
-        font-size:1.4rem;
-        bottom:200px;
-    }
+.fab-wa{
+    width:42px;
+    height:42px;
+    font-size:1.3rem;
+    bottom:160px;
+    right:10px;
+}
+
+body{
+    padding-bottom:170px;
+}
 }
 
 
@@ -1144,17 +1171,30 @@ body{
     </div>
     
     
-    <!-- Footer Info -->
-    <div class="footer-info">
-        <p><b>Ibaadurrahmaan Web Designer</b></p>
-        <p>📱 WhatsApp: +62 814-0164-3188</p>
-        <p>📧 Email: hello@ibaadurrahmaan.com</p>
-        <p style="margin-top:12px;font-size:0.72rem;opacity:0.6;">
-            Proposal ini bersifat rahasia. Mohon tidak dibagikan tanpa izin.
-        </p>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <div class="footer-brand">
+        <img src="main-logo.png" alt="Logo Ibaadurrahmaan Web Designer">
+      </div>
+      
+      <div class="footer-social">
+        <a href="https://wa.me/6281401643188" title="WhatsApp" aria-label="Chat WhatsApp">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:ibadurrohman1428@gmail.com" title="Email" aria-label="Kirim Email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </div>
+      
+      <div class="footer-copy">
+        <p>© 2026 Ibaadurrahmaan. Dibuat dengan ❤️ untuk bisnis Indonesia.</p>
+      </div>
     </div>
-    
-</div>
+  </div>
+</footer>
 
 
 <!-- ==================== FLOATING WHATSAPP ==================== -->
