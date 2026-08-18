@@ -461,27 +461,71 @@
     color:var(--gold-light);
 }
 
-    /* ── SOP CARDS ── */
-    .kit-sop-grid{
-        display:grid;
-        grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-        gap:16px;
-    }
-    
-    .kit-sop-card{
-        background:var(--card-bg);
-        border:1px solid var(--border);
-        border-radius:var(--radius);
-        padding:24px;
-        backdrop-filter:blur(10px);
-        transition:all 0.3s;
-    }
-    
-    .kit-sop-card:hover{
-        border-color:var(--gold);
-        transform:translateY(-2px);
-    }
-    
+/* ═══ SOP CARD — CLICKABLE + CHECK ═══ */
+.kit-sop-card{
+    position:relative;
+    cursor:pointer;
+    transition:all 0.3s;
+    padding-top:24px;
+}
+
+.kit-sop-card:hover{
+    transform:translateY(-2px);
+}
+
+.kit-sop-card.completed{
+    border-color:rgba(34,197,94,0.5) !important;
+    background:rgba(34,197,94,0.05) !important;
+}
+
+/* Untuk card success/danger tetap punya highlight completed */
+.kit-sop-card.danger.completed{
+    background:linear-gradient(rgba(34,197,94,0.05), rgba(239,68,68,0.05)) !important;
+}
+
+.kit-sop-card.success.completed{
+    background:rgba(34,197,94,0.1) !important;
+}
+
+/* Checkbox bulat kanan atas */
+.kit-sop-check{
+    position:absolute;
+    top:16px;
+    right:16px;
+    width:28px;
+    height:28px;
+    border:2px solid var(--border);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all 0.3s;
+    background:rgba(0,0,0,0.25);
+    z-index:2;
+}
+
+.kit-sop-check i{
+    font-size:0.8rem;
+    display:none;
+    color:#fff;
+}
+
+.kit-sop-card.completed .kit-sop-check{
+    background:#22C55E;
+    border-color:#22C55E;
+    box-shadow:0 0 12px rgba(34,197,94,0.4);
+}
+
+.kit-sop-card.completed .kit-sop-check i{
+    display:block;
+}
+
+/* Prevent link/text selection saat klik card */
+.kit-sop-card,
+.kit-sop-card * {
+    user-select:none;
+    -webkit-user-select:none;
+}
     .kit-sop-icon{
         width:48px;
         height:48px;
@@ -1034,49 +1078,54 @@
 
 </section><!-- /kit-hero -->
 
-
 <!-- ═══════════════════════════════════════════════════
-     KODE RESELLER
+     ID RESELLER
 ════════════════════════════════════════════════════ -->
 <section class="kit-section">
     <div class="kit-container">
         <div class="kit-section-header">
-            <span class="kit-section-badge">🎫 KODE RESELLER</span>
-            <h2 class="kit-section-title">Kode <span class="text-gold">Anda</span></h2>
-            <p class="kit-section-sub">Kode ini otomatis tertambah saat copy script WhatsApp</p>
+            <span class="kit-section-badge">🆔 IDENTITAS RESELLER</span>
+            <h2 class="kit-section-title">ID <span class="text-gold">Reseller</span></h2>
+            <p class="kit-section-sub">Identitas resmi Anda untuk tracking progress & sistem reward</p>
         </div>
 
         <div class="kit-reseller-code">
             <div class="kit-code-label">
                 <i class="fas fa-id-card"></i>
-                KODE RESELLER ANDA
+                ID RESELLER ANDA
             </div>
-            <input
-                type="text"
-                class="kit-code-input"
-                id="resellerCode"
-                placeholder="MASUKKAN KODE"
-                maxlength="20"
-            >
+            <input type="text" 
+                   class="kit-code-input" 
+                   id="resellerCode" 
+                   placeholder="RSL-2026-XXXXXX"
+                   maxlength="20">
+            
+            <!-- Status verifikasi -->
+            <div class="kit-code-status" id="codeStatus"></div>
+            
             <p class="kit-code-hint">
-                Kode otomatis ditambahkan saat copy script ke WhatsApp.<br>
-                <b>Belum punya kode?</b>
-                <a href="reseller.html">Daftar dulu →</a>
+                <b>Fungsi ID Reseller:</b><br>
+                ✓ Otomatis tertambah saat copy script WhatsApp<br>
+                ✓ Track progress belajar & pelaksanaan SOP ke database<br>
+                ✓ Data kinerja untuk sistem reward<br><br>
+                <b>Belum punya ID?</b>
+                <a href="reseller.html">Daftar sebagai reseller resmi →</a>
             </p>
         </div>
     </div>
 </section>
 
-
 <!-- ═══════════════════════════════════════════════════
-     PROGRESS BELAJAR
+     PROGRESS BELAJAR & SOP + REWARD TEASER
 ════════════════════════════════════════════════════ -->
 <section class="kit-section">
     <div class="kit-container">
+        
+        <!-- Progress Belajar -->
         <div class="kit-progress-section">
             <div class="kit-progress-header">
                 <div class="kit-progress-title">
-                    <i class="fas fa-chart-line"></i>
+                    <i class="fas fa-graduation-cap"></i>
                     <span>Progress Belajar</span>
                 </div>
                 <div class="kit-progress-count" id="progressCount">0/15</div>
@@ -1084,17 +1133,87 @@
             <div class="kit-progress-bar">
                 <div class="kit-progress-fill" id="progressFill"></div>
             </div>
-            <p class="kit-progress-desc">
-                <i class="fas fa-info-circle"></i>
-                Centang modul yang sudah dipelajari — progress tersimpan otomatis
-            </p>
+            <div class="kit-progress-desc" id="progressDesc">
+                Centang modul yang sudah Anda pelajari
+            </div>
         </div>
+        
+        <br>
+        
+        <!-- Progress SOP -->
+        <div class="kit-progress-section">
+            <div class="kit-progress-header">
+                <div class="kit-progress-title">
+                    <i class="fas fa-clipboard-check"></i>
+                    <span>Progress SOP</span>
+                </div>
+                <div class="kit-progress-count" id="sopCount">0/6</div>
+            </div>
+            <div class="kit-progress-bar">
+                <div class="kit-progress-fill" id="sopFill"></div>
+            </div>
+            <div class="kit-progress-desc" id="sopDesc">
+                Centang SOP yang sudah Anda pahami & laksanakan
+            </div>
+        </div>
+        
+        <br>
+        
+        <!-- ⭐ INFO REWARD COMING SOON -->
+        <div class="kit-reward-teaser">
+            <div class="kit-reward-header">
+                <i class="fas fa-trophy"></i>
+                <div>
+                    <div class="kit-reward-title">
+                        Sistem Reward <span class="badge-soon">COMING SOON</span>
+                    </div>
+                    <div class="kit-reward-sub">
+                        Belajar & bekerja keras — reward menanti Anda!
+                    </div>
+                </div>
+            </div>
+            
+            <div class="kit-reward-list">
+                <div class="kit-reward-item">
+                    <div class="kit-reward-icon">🥉</div>
+                    <div>
+                        <b>Rookie Badge</b>
+                        <p>Selesaikan 5 modul pembelajaran</p>
+                    </div>
+                </div>
+                <div class="kit-reward-item">
+                    <div class="kit-reward-icon">🥈</div>
+                    <div>
+                        <b>Learner Badge</b>
+                        <p>Selesai 10 modul + 3 SOP</p>
+                    </div>
+                </div>
+                <div class="kit-reward-item">
+                    <div class="kit-reward-icon">🥇</div>
+                    <div>
+                        <b>Graduate + Sertifikat</b>
+                        <p>15 modul + 6 SOP + 1 closing</p>
+                    </div>
+                </div>
+                <div class="kit-reward-item">
+                    <div class="kit-reward-icon">💎</div>
+                    <div>
+                        <b>Top Performer + Bonus</b>
+                        <p>10+ closing/bulan konsisten</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="kit-reward-footer">
+                <i class="fas fa-database"></i>
+                Progress Anda tersimpan di database resmi Ibaadurrahmaan Firestore.
+            </div>
+        </div>
+        
     </div>
 </section>
 
-
 <div class="kit-divider"></div>
-
 
 <!-- ═══════════════════════════════════════════════════
      LEARNING PATH — 15 MODUL
@@ -1454,110 +1573,133 @@
         </div>
         
         <div class="kit-sop-grid">
-            
-            <div class="kit-sop-card">
-                <span class="kit-sop-icon">🎯</span>
-                <h4 class="kit-sop-title">1. Onboarding Reseller Baru</h4>
-                <ol class="kit-sop-list">
-                    <li>Daftar via form registrasi reseller di website</li>
-                    <li>Verifikasi identitas (KTP + WhatsApp aktif)</li>
-                    <li>Tanda tangan MoU digital via Google Form</li>
-                    <li>Terima kode reseller unik (format: IBR-XXX-XXXX)</li>
-                    <li>Akses starter kit lengkap (15 modul + 6 SOP)</li>
-                    <li>Bergabung ke grup WhatsApp reseller resmi</li>
-                    <li>Onboarding call 30 menit dengan owner</li>
-                    <li>Setup profil WhatsApp Business & media sosial</li>
-                    <li>Mulai prospecting di minggu pertama</li>
-                </ol>
-            </div>
-            
-            <div class="kit-sop-card">
-                <span class="kit-sop-icon">💼</span>
-                <h4 class="kit-sop-title">2. Alur Closing Client</h4>
-                <ol class="kit-sop-list">
-                    <li>Reseller prospecting & opening chat ke calon klien</li>
-                    <li>Identifikasi kebutuhan klien (jenis bisnis, fitur, budget)</li>
-                    <li>Kirim portfolio + rekomendasi paket yang cocok</li>
-                    <li>Handle objection & follow-up (max 14 hari aktif)</li>
-                    <li>Klien setuju → arahkan transfer DP 50% ke rekening owner</li>
-                    <li>Reseller lapor ke owner via WA: nama klien + bukti transfer + paket</li>
-                    <li>Owner konfirmasi & mulai produksi (3-7 hari kerja)</li>
-                    <li>Reseller update progress ke klien secara berkala</li>
-                    <li>Website selesai → klien pelunasan 50% sisa</li>
-                    <li>Serah terima website + garansi revisi 30 hari</li>
-                    <li>Reseller minta testimoni dari klien</li>
-                </ol>
-            </div>
-            
-            <div class="kit-sop-card">
-                <span class="kit-sop-icon">💰</span>
-                <h4 class="kit-sop-title">3. Sistem Komisi & Pembayaran</h4>
-                <ol class="kit-sop-list">
-                    <li>Komisi dihitung dari total pembayaran klien (setelah lunas 100%)</li>
-                    <li>Tier Starter: 15% komisi per closing</li>
-                    <li>Tier Silver: 18% komisi (3-5 closing/bulan)</li>
-                    <li>Tier Gold: 21% komisi (6-9 closing/bulan)</li>
-                    <li>Tier Diamond: 25% komisi (10+ closing/bulan)</li>
-                    <li>Payout standar: tanggal 1-5 bulan berikutnya</li>
-                    <li>Opsi payout langsung per closing (request ke owner)</li>
-                    <li>Slip komisi digital dikirim via WhatsApp</li>
-                    <li>Transfer ke rekening reseller (bank/e-wallet)</li>
-                    <li>Semua transaksi tercatat & bisa diaudit kapan saja</li>
-                </ol>
-            </div>
-            
-            <div class="kit-sop-card">
-                <span class="kit-sop-icon">💬</span>
-                <h4 class="kit-sop-title">4. Etika Komunikasi</h4>
-                <ol class="kit-sop-list">
-                    <li>Selalu ramah, profesional, dan solutif — no drama</li>
-                    <li>Balas chat prospek maksimal 2 jam saat jam kerja (08.00-21.00)</li>
-                    <li>Di luar jam kerja → balas pagi berikutnya + minta maaf</li>
-                    <li>Jangan janjikan hal di luar SOP (gratis domain seumur hidup, dll)</li>
-                    <li>Konsultasi ke owner untuk request khusus atau custom project</li>
-                    <li>Dilarang perang harga atau rebut prospek sesama reseller</li>
-                    <li>Gunakan bahasa Indonesia yang baik, hindari typo berlebihan</li>
-                    <li>Jaga nama baik & reputasi brand Ibaadurrahmaan</li>
-                    <li>Jika ada masalah dengan klien → eskalasi ke owner, jangan handle sendiri</li>
-                </ol>
-            </div>
-            
-            <div class="kit-sop-card danger">
-                <span class="kit-sop-icon">⚠️</span>
-                <h4 class="kit-sop-title">5. Larangan Keras Reseller</h4>
-                <ol class="kit-sop-list">
-                    <li>Jual di bawah harga resmi yang sudah ditetapkan</li>
-                    <li>Klaim portfolio atau hasil kerja orang lain sebagai milik sendiri</li>
-                    <li>Terima pembayaran klien ke rekening pribadi reseller</li>
-                    <li>Janjikan revisi tak terbatas atau fitur di luar paket</li>
-                    <li>Cetak, edit, atau manipulasi MoU secara sepihak</li>
-                    <li>Rekrut reseller dengan skema MLM piramida</li>
-                    <li>Memberikan data klien ke pihak ketiga tanpa izin</li>
-                    <li>Menjelek-jelekkan kompetitor atau sesama reseller</li>
-                    <li>Mengatasnamakan owner untuk janji yang tidak disepakati</li>
-                    <li><b>Konsekuensi: MoU dibatalkan sepihak + blacklist permanen</b></li>
-                </ol>
-            </div>
-            
-            <div class="kit-sop-card success">
-                <span class="kit-sop-icon">✅</span>
-                <h4 class="kit-sop-title">6. Hak & Benefit Reseller</h4>
-                <ol class="kit-sop-list">
-                    <li>Dapat komisi sesuai tier & kesepakatan MoU</li>
-                    <li>Akses starter kit lengkap (15 modul + SOP + script)</li>
-                    <li>Support 1-on-1 langsung dari owner via WhatsApp</li>
-                    <li>Update materi, training, dan webinar gratis</li>
-                    <li>Naik tier otomatis sesuai jumlah closing per bulan</li>
-                    <li>Sertifikat reseller resmi setelah 10 closing</li>
-                    <li>Prioritas info promo & diskon khusus reseller</li>
-                    <li>Dapat materi marketing (gambar, video, caption) siap posting</li>
-                    <li>Konsultasi gratis untuk strategi penjualan & closing</li>
-                    <li>Peluang jadi koordinator reseller wilayah (untuk top performer)</li>
-                </ol>
-            </div>
-            
+    
+    <!-- SOP 1 -->
+    <div class="kit-sop-card" data-sop="1" onclick="toggleSOP(this)">
+        <span class="kit-sop-icon">🎯</span>
+        <h4 class="kit-sop-title">1. Onboarding Reseller Baru</h4>
+        <ol class="kit-sop-list">
+            <li>Daftar via form registrasi reseller di website</li>
+            <li>Verifikasi identitas (KTP + WhatsApp aktif)</li>
+            <li>Tanda tangan MoU digital via Google Form</li>
+            <li>Terima ID Reseller unik (format: RSL-YYYY-XXXXXX)</li>
+            <li>Akses starter kit lengkap (15 modul + 6 SOP)</li>
+            <li>Bergabung ke grup WhatsApp reseller resmi</li>
+            <li>Onboarding call 30 menit dengan owner</li>
+            <li>Setup profil WhatsApp Business & media sosial</li>
+            <li>Mulai prospecting di minggu pertama</li>
+        </ol>
+        <div class="kit-sop-check">
+            <i class="fas fa-check"></i>
         </div>
     </div>
+    
+    <!-- SOP 2 -->
+    <div class="kit-sop-card" data-sop="2" onclick="toggleSOP(this)">
+        <span class="kit-sop-icon">💼</span>
+        <h4 class="kit-sop-title">2. Alur Closing Client</h4>
+        <ol class="kit-sop-list">
+            <li>Reseller prospecting & opening chat ke calon klien</li>
+            <li>Identifikasi kebutuhan klien (jenis bisnis, fitur, budget)</li>
+            <li>Kirim portfolio + rekomendasi paket yang cocok</li>
+            <li>Handle objection & follow-up (max 14 hari aktif)</li>
+            <li>Klien setuju → arahkan transfer DP 50% ke rekening owner</li>
+            <li>Reseller lapor ke owner via WA: nama klien + bukti transfer + paket</li>
+            <li>Owner konfirmasi & mulai produksi (3-7 hari kerja)</li>
+            <li>Reseller update progress ke klien secara berkala</li>
+            <li>Website selesai → klien pelunasan 50% sisa</li>
+            <li>Serah terima website + garansi revisi 30 hari</li>
+            <li>Reseller minta testimoni dari klien</li>
+        </ol>
+        <div class="kit-sop-check">
+            <i class="fas fa-check"></i>
+        </div>
+    </div>
+    
+    <!-- SOP 3 -->
+    <div class="kit-sop-card" data-sop="3" onclick="toggleSOP(this)">
+        <span class="kit-sop-icon">💰</span>
+        <h4 class="kit-sop-title">3. Sistem Komisi & Pembayaran</h4>
+        <ol class="kit-sop-list">
+            <li>Komisi dihitung dari total pembayaran klien (setelah lunas 100%)</li>
+            <li>Tier Silver: 10-15% komisi (base rate)</li>
+            <li>Tier Gold: base rate + 2% bonus</li>
+            <li>Tier Platinum: base rate + 5% bonus</li>
+            <li>Tier Diamond: base rate + 8% bonus</li>
+            <li>Payout standar: tanggal 1-5 bulan berikutnya</li>
+            <li>Opsi payout langsung per closing (request ke owner)</li>
+            <li>Slip komisi digital dikirim via WhatsApp</li>
+            <li>Transfer ke rekening reseller (bank/e-wallet)</li>
+            <li>Semua transaksi tercatat & bisa diaudit kapan saja</li>
+        </ol>
+        <div class="kit-sop-check">
+            <i class="fas fa-check"></i>
+        </div>
+    </div>
+    
+    <!-- SOP 4 -->
+    <div class="kit-sop-card" data-sop="4" onclick="toggleSOP(this)">
+        <span class="kit-sop-icon">💬</span>
+        <h4 class="kit-sop-title">4. Etika Komunikasi</h4>
+        <ol class="kit-sop-list">
+            <li>Selalu ramah, profesional, dan solutif — no drama</li>
+            <li>Balas chat prospek maksimal 2 jam saat jam kerja (08.00-21.00)</li>
+            <li>Di luar jam kerja → balas pagi berikutnya + minta maaf</li>
+            <li>Jangan janjikan hal di luar SOP (gratis domain seumur hidup, dll)</li>
+            <li>Konsultasi ke owner untuk request khusus atau custom project</li>
+            <li>Dilarang perang harga atau rebut prospek sesama reseller</li>
+            <li>Gunakan bahasa Indonesia yang baik, hindari typo berlebihan</li>
+            <li>Jaga nama baik & reputasi brand Ibaadurrahmaan</li>
+            <li>Jika ada masalah dengan klien → eskalasi ke owner, jangan handle sendiri</li>
+        </ol>
+        <div class="kit-sop-check">
+            <i class="fas fa-check"></i>
+        </div>
+    </div>
+    
+    <!-- SOP 5 -->
+    <div class="kit-sop-card danger" data-sop="5" onclick="toggleSOP(this)">
+        <span class="kit-sop-icon">⚠️</span>
+        <h4 class="kit-sop-title">5. Larangan Keras Reseller</h4>
+        <ol class="kit-sop-list">
+            <li>Jual di bawah harga resmi yang sudah ditetapkan</li>
+            <li>Klaim portfolio atau hasil kerja orang lain sebagai milik sendiri</li>
+            <li>Terima pembayaran klien ke rekening pribadi reseller</li>
+            <li>Janjikan revisi tak terbatas atau fitur di luar paket</li>
+            <li>Cetak, edit, atau manipulasi MoU secara sepihak</li>
+            <li>Rekrut reseller dengan skema MLM piramida</li>
+            <li>Memberikan data klien ke pihak ketiga tanpa izin</li>
+            <li>Menjelek-jelekkan kompetitor atau sesama reseller</li>
+            <li>Mengatasnamakan owner untuk janji yang tidak disepakati</li>
+            <li><b>Konsekuensi: MoU dibatalkan sepihak + blacklist permanen</b></li>
+        </ol>
+        <div class="kit-sop-check">
+            <i class="fas fa-check"></i>
+        </div>
+    </div>
+    
+    <!-- SOP 6 -->
+    <div class="kit-sop-card success" data-sop="6" onclick="toggleSOP(this)">
+        <span class="kit-sop-icon">✅</span>
+        <h4 class="kit-sop-title">6. Hak & Benefit Reseller</h4>
+        <ol class="kit-sop-list">
+            <li>Dapat komisi sesuai tier & kesepakatan MoU</li>
+            <li>Akses starter kit lengkap (15 modul + SOP + script)</li>
+            <li>Support 1-on-1 langsung dari owner via WhatsApp</li>
+            <li>Update materi, training, dan webinar gratis</li>
+            <li>Naik tier otomatis sesuai jumlah closing per bulan</li>
+            <li>Sertifikat reseller resmi setelah 10 closing</li>
+            <li>Prioritas info promo & diskon khusus reseller</li>
+            <li>Dapat materi marketing (gambar, video, caption) siap posting</li>
+            <li>Konsultasi gratis untuk strategi penjualan & closing</li>
+            <li>Peluang jadi koordinator reseller wilayah (untuk top performer)</li>
+        </ol>
+        <div class="kit-sop-check">
+            <i class="fas fa-check"></i>
+        </div>
+    </div>
+    
+</div>
 </section>
 
 
@@ -1964,8 +2106,10 @@ Makasih banyak ya Kak! 🤝</div>
 </div>
 
 
-<!-- ════════════════ SCRIPTS ════════════════ -->
-<script src="script.js"></script>
+<!-- ════════════════compat.js"></script>
+
+<!-- Firebase Config Anda -->
+<script src="firebase-config.js"></script>
 
 <script>
 /* ============================================================
