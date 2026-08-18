@@ -1,1631 +1,408 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Starter Kit Reseller — Ibaadurrahmaan Web Designer</title>
-    <meta name="description" content="Starter Kit lengkap untuk reseller Ibaadurrahmaan Web Designer. 15 modul, 6 SOP, panduan 30 hari sukses.">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="main-logo.png" type="image/png">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="style.css">
-    
-    <style>
-    /* ============================================================
-       STARTER KIT — PAGE SPECIFIC CSS
-       ============================================================ */
-    
-    /* ── VARIABLES ── */
-    :root{
-        --gold:#C9A84C;
-        --gold-light:#F0C96B;
-        --gold-dark:#A07830;
-        --bg:#050B18;
-        --bg2:#0A1428;
-        --bg3:#0F1E33;
-        --text:#E8EDF5;
-        --text-muted:#8899AA;
-        --border:rgba(201,168,76,0.2);
-        --card-bg:rgba(15,30,51,0.8);
-        --radius:16px;
-        --shadow:0 8px 32px rgba(0,0,0,0.4);
-    }
-    
-    /* ── BASE ── */
-    *{box-sizing:border-box;margin:0;padding:0;}
-    
-    body.kit-page{
-        font-family:'Plus Jakarta Sans',sans-serif;
-        background:var(--bg);
-        color:var(--text);
-        min-height:100vh;
-        overflow-x:hidden;
-    }
-    
-    .text-gold{color:var(--gold);}
-    
-    /* ── HERO ── */
-    .kit-hero{
-        background:linear-gradient(180deg,#0F1E33 0%,#050B18 60%,var(--bg) 100%);
-        padding:150px 20px 80px;
-        text-align:center;
-        position:relative;
-        overflow:hidden;
-    }
-    
-    .kit-hero::before{
-        content:'';
-        position:absolute;
-        top:-200px;
-        left:50%;
-        transform:translateX(-50%);
-        width:600px;
-        height:600px;
-        background:radial-gradient(circle,rgba(201,168,76,0.12) 0%,transparent 70%);
-        pointer-events:none;
-    }
-    
-    /* Badge */
-    .kit-hero-badge{
-        display:inline-flex;
-        align-items:center;
-        gap:8px;
-        background:linear-gradient(135deg,rgba(201,168,76,0.2),rgba(201,168,76,0.1));
-        border:1px solid var(--gold);
-        color:var(--gold-light);
-        padding:8px 20px;
-        border-radius:50px;
-        font-size:0.75rem;
-        font-weight:700;
-        letter-spacing:2px;
-        margin-bottom:24px;
-    }
-    
-    /* Title */
-    .kit-hero h1{
-        font-size:clamp(2rem,6vw,3.5rem);
-        font-weight:800;
-        line-height:1.15;
-        margin-bottom:20px;
-        color:#fff;
-    }
-    
-    /* Subtitle */
-    .kit-hero-sub{
-        font-size:1rem;
-        color:var(--text-muted);
-        max-width:560px;
-        margin:0 auto 40px;
-        line-height:1.7;
-    }
-    
-    /* Stats */
-    .kit-hero-stats{
-        display:flex;
-        justify-content:center;
-        gap:12px;
-        flex-wrap:wrap;
-    }
-    
-    .kit-hero-stat{
-        background:rgba(255,255,255,0.05);
-        border:1px solid var(--border);
-        border-radius:12px;
-        padding:16px 24px;
-        min-width:80px;
-        text-align:center;
-        backdrop-filter:blur(10px);
-    }
-    
-    .kit-hero-stat-num{
-        font-size:1.8rem;
-        font-weight:800;
-        color:var(--gold);
-        line-height:1;
-    }
-    
-    .kit-hero-stat-label{
-        font-size:0.72rem;
-        color:var(--text-muted);
-        margin-top:4px;
-        font-weight:600;
-        text-transform:uppercase;
-        letter-spacing:1px;
-    }
-    
-    /* ── SECTIONS ── */
-    .kit-section{
-        padding:60px 0;
-    }
-    
-    .kit-section:nth-child(even){
-        background:rgba(255,255,255,0.02);
-    }
-    
-    .kit-container{
-        max-width:900px;
-        margin:0 auto;
-        padding:0 20px;
-    }
-    
-    .kit-section-header{
-        text-align:center;
-        margin-bottom:40px;
-    }
-    
-    .kit-section-badge{
-        display:inline-block;
-        background:linear-gradient(135deg,rgba(201,168,76,0.2),rgba(201,168,76,0.1));
-        border:1px solid var(--border);
-        color:var(--gold);
-        padding:6px 16px;
-        border-radius:50px;
-        font-size:0.75rem;
-        font-weight:700;
-        letter-spacing:1.5px;
-        margin-bottom:16px;
-    }
-    
-    .kit-section-title{
-        font-size:clamp(1.5rem,4vw,2.2rem);
-        font-weight:800;
-        margin-bottom:12px;
-        color:#fff;
-    }
-    
-    .kit-section-sub{
-        color:var(--text-muted);
-        font-size:0.95rem;
-        max-width:500px;
-        margin:0 auto;
-        line-height:1.6;
-    }
-    
-    /* ── RESELLER CODE ── */
-    .kit-reseller-code{
-        background:var(--card-bg);
-        border:2px solid var(--border);
-        border-radius:var(--radius);
-        padding:32px;
-        text-align:center;
-        max-width:500px;
-        margin:0 auto;
-        backdrop-filter:blur(20px);
-    }
-    
-    .kit-code-label{
-        font-size:0.75rem;
-        font-weight:700;
-        letter-spacing:2px;
-        color:var(--text-muted);
-        margin-bottom:16px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        gap:8px;
-    }
-    
-    .kit-code-input{
-        width:100%;
-        background:rgba(201,168,76,0.08);
-        border:2px solid var(--border);
-        border-radius:12px;
-        padding:16px 20px;
-        font-size:1.4rem;
-        font-weight:800;
-        color:var(--gold-light);
-        text-align:center;
-        letter-spacing:4px;
-        text-transform:uppercase;
-        outline:none;
-        transition:border-color 0.3s;
-        font-family:'Plus Jakarta Sans',sans-serif;
-    }
-    
-    .kit-code-input:focus{
-        border-color:var(--gold);
-        background:rgba(201,168,76,0.12);
-    }
-    
-    .kit-code-input::placeholder{
-        color:rgba(201,168,76,0.3);
-        font-size:1rem;
-        letter-spacing:2px;
-    }
-    
-    .kit-code-hint{
-        font-size:0.8rem;
-        color:var(--text-muted);
-        margin-top:12px;
-        line-height:1.6;
-    }
-    
-    .kit-code-hint a{
-        color:var(--gold);
-        text-decoration:none;
-        font-weight:600;
-    }
-    
-    /* ── PROGRESS ── */
-    .kit-progress-section{
-        background:var(--card-bg);
-        border:1px solid var(--border);
-        border-radius:var(--radius);
-        padding:28px 32px;
-        backdrop-filter:blur(20px);
-    }
-    
-    .kit-progress-header{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        margin-bottom:16px;
-    }
-    
-    .kit-progress-title{
-        display:flex;
-        align-items:center;
-        gap:10px;
-        font-weight:700;
-        color:#fff;
-        font-size:1.05rem;
-    }
-    
-    .kit-progress-title i{color:var(--gold);}
-    
-    .kit-progress-count{
-        font-size:0.9rem;
-        font-weight:700;
-        color:var(--gold);
-        background:rgba(201,168,76,0.15);
-        padding:4px 12px;
-        border-radius:50px;
-    }
-    
-    .kit-progress-bar{
-        height:8px;
-        background:rgba(255,255,255,0.08);
-        border-radius:99px;
-        overflow:hidden;
-        margin-bottom:12px;
-    }
-    
-    .kit-progress-fill{
-        height:100%;
-        background:linear-gradient(90deg,var(--gold-dark),var(--gold-light));
-        border-radius:99px;
-        width:0%;
-        transition:width 0.6s ease;
-    }
-    
-    .kit-progress-desc{
-        font-size:0.8rem;
-        color:var(--text-muted);
-    }
-    
-    /* ── LEARNING PATH ── */
-    .kit-modules-grid{
-        display:grid;
-        grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-        gap:16px;
-    }
-    
-    .kit-module-card{
-        background:var(--card-bg);
-        border:1px solid var(--border);
-        border-radius:var(--radius);
-        padding:20px;
-        cursor:pointer;
-        transition:all 0.3s ease;
-        backdrop-filter:blur(10px);
-        position:relative;
-        overflow:hidden;
-    }
-    
-    .kit-module-card::before{
-        content:'';
-        position:absolute;
-        top:0;
-        left:0;
-        right:0;
-        height:3px;
-        background:linear-gradient(90deg,var(--gold-dark),var(--gold-light));
-        opacity:0;
-        transition:opacity 0.3s;
-    }
-    
-    .kit-module-card:hover{
-        border-color:var(--gold);
-        transform:translateY(-4px);
-        box-shadow:0 12px 40px rgba(201,168,76,0.15);
-    }
-    
-    .kit-module-card:hover::before{opacity:1;}
-    
-    .kit-module-card.completed{
-        border-color:rgba(201,168,76,0.5);
-        background:rgba(201,168,76,0.08);
-    }
-    
-    .kit-module-card.completed::before{opacity:1;}
-    
-    .kit-module-top{
-        display:flex;
-        justify-content:space-between;
-        align-items:flex-start;
-        margin-bottom:12px;
-    }
-    
-    .kit-module-num{
-        font-size:0.7rem;
-        font-weight:700;
-        color:var(--text-muted);
-        letter-spacing:1px;
-    }
-    
-    .kit-module-check{
-        width:24px;
-        height:24px;
-        border:2px solid var(--border);
-        border-radius:50%;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        transition:all 0.3s;
-        flex-shrink:0;
-    }
-    
-    .kit-module-card.completed .kit-module-check{
-        background:var(--gold);
-        border-color:var(--gold);
-        color:#000;
-    }
-    
-    .kit-module-check i{
-        font-size:0.7rem;
-        display:none;
-    }
-    
-    .kit-module-card.completed .kit-module-check i{display:block;}
-    
-    .kit-module-icon{
-        font-size:1.8rem;
-        margin-bottom:10px;
-    }
-    
-    .kit-module-title{
-        font-size:0.95rem;
-        font-weight:700;
-        color:#fff;
-        margin-bottom:6px;
-        line-height:1.3;
-    }
-    
-    .kit-module-desc{
-        font-size:0.8rem;
-        color:var(--text-muted);
-        line-height:1.5;
-    }
-    
-    .kit-module-tag{
-        display:inline-block;
-        margin-top:12px;
-        font-size:0.7rem;
-        font-weight:700;
-        padding:3px 10px;
-        border-radius:50px;
-        letter-spacing:0.5px;
-    }
-    
-    .tag-basic{background:rgba(59,130,246,0.2);color:#60A5FA;}
-    .tag-intermediate{background:rgba(234,179,8,0.2);color:#FCD34D;}
-    .tag-advanced{background:rgba(239,68,68,0.2);color:#FCA5A5;}
-    
-    /* ── Module Detail List ── */
-.kit-module-detail{
-    list-style:none;
-    padding:0;
-    margin:12px 0 0 0;
-    display:grid;
-    gap:8px;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050B18">
+<title>Kelola Reseller | Dashboard Ibaadurrahmaan</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="main-logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+:root{
+    --bg:#050B18;
+    --bg-card:#0F1E33;
+    --gold:#d4a536;
+    --gold-glow:rgba(212,165,54,0.3);
+    --text:#fff;
+    --text-muted:#8a94a6;
+    --border:rgba(255,255,255,0.08);
+    --grad-card:linear-gradient(145deg,#0F1E33,#0A1626);
+    --grad-gold-shine:linear-gradient(135deg,#d4a536,#e8bd52,#c19a2e);
+    --radius-lg:16px;
+    --ease:cubic-bezier(0.4,0,0.2,1);
 }
 
-.kit-module-detail li{
-    display:flex;
-    align-items:flex-start;
-    gap:8px;
-    font-size:0.78rem;
-    color:var(--text-muted);
-    line-height:1.5;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
-.kit-module-detail li::before{
-    content:'✓';
-    color:var(--gold);
-    font-weight:700;
-    flex-shrink:0;
-    margin-top:1px;
-}
-
-.kit-module-card.completed .kit-module-detail li::before{
-    color:var(--gold-light);
-}
-/* ═══════════════════════════════════════════════════════
-   SOP SECTION — COMPLETE STYLE
-════════════════════════════════════════════════════════ */
-
-/* ── Section Wrapper ── */
-.kit-sop-section{
-    padding:60px 0;
-    background:rgba(255,255,255,0.02);
-}
-
-/* ── Grid Layout ── */
-.kit-sop-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
-    gap:16px;
-    margin-top:32px;
-}
-
-/* ── SOP Card Base ── */
-.kit-sop-card{
-    position:relative;
-    background:var(--card-bg);
-    border:1px solid var(--border);
-    border-radius:16px;
-    padding:24px 20px 20px;
-    cursor:pointer;
-    transition:all 0.3s ease;
-    backdrop-filter:blur(10px);
-    overflow:hidden;
-}
-
-.kit-sop-card:hover{
-    transform:translateY(-3px);
-    border-color:var(--gold);
-    box-shadow:0 8px 32px rgba(201,168,76,0.15);
-}
-
-/* ── SOP Icon ── */
-.kit-sop-icon{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    width:44px;
-    height:44px;
-    border-radius:12px;
-    background:linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.1));
-    border:1px solid var(--border);
-    font-size:1.3rem;
-    color:var(--gold);
-    margin-bottom:14px;
-    line-height:1;
-}
-
-/* ── SOP Title ── */
-.kit-sop-title{
-    font-size:1rem;
-    font-weight:700;
-    color:#fff;
-    margin:0 0 14px 0;
-    line-height:1.3;
-    padding-right:36px;   /* space untuk checkbox */
-}
-
-/* ── SOP List (Ordered) ── */
-.kit-sop-list{
-    list-style:decimal;
-    padding-left:20px;
-    margin:0;
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-}
-
-.kit-sop-list li{
-    font-size:0.82rem;
-    color:var(--text-muted);
-    line-height:1.55;
-    padding-left:4px;
-}
-
-.kit-sop-list li::marker{
-    color:var(--gold);
-    font-weight:700;
-    font-size:0.8rem;
-}
-
-.kit-sop-list li b{
-    color:#F87171;
-    font-weight:700;
-}
-
-/* ── SOP Description (jika masih pakai) ── */
-.kit-sop-desc{
-    font-size:0.82rem;
-    color:var(--text-muted);
-    line-height:1.6;
-    margin:0 0 12px 0;
-}
-
-/* ── SOP Button (jika masih pakai) ── */
-.kit-sop-btn{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    margin-top:16px;
-    font-size:0.8rem;
-    font-weight:700;
-    color:var(--gold);
-    text-decoration:none;
-    background:rgba(201,168,76,0.1);
-    border:1px solid var(--border);
-    padding:8px 16px;
-    border-radius:8px;
-    transition:all 0.3s;
-}
-
-.kit-sop-btn:hover{
-    background:rgba(201,168,76,0.2);
-    border-color:var(--gold);
-}
-
-/* ── Card Variants: DANGER (SOP 5 - Larangan) ── */
-.kit-sop-card.danger{
-    border-color:rgba(239,68,68,0.3);
-    background:linear-gradient(135deg, rgba(239,68,68,0.05), var(--card-bg));
-}
-
-.kit-sop-card.danger .kit-sop-icon{
-    background:linear-gradient(135deg, rgba(239,68,68,0.2), rgba(239,68,68,0.08));
-    border-color:rgba(239,68,68,0.4);
-    color:#F87171;
-}
-
-/* ── Card Variants: SUCCESS (SOP 6 - Hak) ── */
-.kit-sop-card.success{
-    border-color:rgba(34,197,94,0.3);
-    background:linear-gradient(135deg, rgba(34,197,94,0.05), var(--card-bg));
-}
-
-.kit-sop-card.success .kit-sop-icon{
-    background:linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.08));
-    border-color:rgba(34,197,94,0.4);
-    color:#4ADE80;
-}
-
-/* ── Completed State ── */
-.kit-sop-card.completed{
-    border-color:rgba(34,197,94,0.6) !important;
-    background:linear-gradient(135deg, rgba(34,197,94,0.08), var(--card-bg)) !important;
-}
-
-.kit-sop-card.completed .kit-sop-title{
-    color:#4ADE80;
-}
-
-/* Danger + completed = campur warna */
-.kit-sop-card.danger.completed{
-    background:linear-gradient(135deg, rgba(34,197,94,0.06), rgba(239,68,68,0.04)) !important;
-}
-
-/* Success + completed = lebih gelap hijau */
-.kit-sop-card.success.completed{
-    background:rgba(34,197,94,0.12) !important;
-}
-
-/* ── Checkbox Bulat Kanan Atas ── */
-.kit-sop-check{
-    position:absolute;
-    top:16px;
-    right:16px;
-    width:26px;
-    height:26px;
-    border:2px solid var(--border);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:all 0.3s ease;
-    background:rgba(0,0,0,0.35);
-    z-index:2;
-}
-
-.kit-sop-check i{
-    font-size:0.72rem;
-    display:none;
-    color:#fff;
-}
-
-.kit-sop-card.completed .kit-sop-check{
-    background:#22C55E;
-    border-color:#22C55E;
-    box-shadow:0 0 12px rgba(34,197,94,0.5);
-    transform:scale(1.05);
-}
-
-.kit-sop-card.completed .kit-sop-check i{
-    display:block;
-}
-
-/* ── Prevent text selection saat klik card ── */
-.kit-sop-card,
-.kit-sop-card * {
-    -webkit-tap-highlight-color:transparent;
-    user-select:none;
-    -webkit-user-select:none;
-}
-
-/* Text di list boleh dipilih (untuk copy) */
-.kit-sop-list,
-.kit-sop-list *,
-.kit-sop-desc{
-    user-select:text;
-    -webkit-user-select:text;
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Poppins',sans-serif;
+    min-height:100vh;
+    padding-bottom:100px;
+    background-image:
+        radial-gradient(circle at 10% 10%,rgba(212,165,54,0.08),transparent 40%),
+        radial-gradient(circle at 90% 90%,rgba(212,165,54,0.05),transparent 40%);
 }
 
 
-/* ═══════════════════════════════════════════════════════
-   RESPONSIVE
-════════════════════════════════════════════════════════ */
-@media (max-width: 768px){
-    .kit-sop-section{padding:40px 0;}
-    
-    .kit-sop-grid{
-        grid-template-columns:1fr;
-        gap:14px;
-        margin-top:24px;
-    }
-    
-    .kit-sop-card{
-        padding:20px 18px 18px;
-    }
-    
-    .kit-sop-icon{
-        width:40px;
-        height:40px;
-        font-size:1.2rem;
-        margin-bottom:12px;
-    }
-    
-    .kit-sop-title{
-        font-size:0.95rem;
-        margin-bottom:12px;
-        padding-right:32px;
-    }
-    
-    .kit-sop-list{
-        padding-left:18px;
-        gap:6px;
-    }
-    
-    .kit-sop-list li{
-        font-size:0.8rem;
-        line-height:1.5;
-    }
-    
-    .kit-sop-check{
-        top:14px;
-        right:14px;
-        width:24px;
-        height:24px;
-    }
-    
-    .kit-sop-check i{
-        font-size:0.68rem;
-    }
-}
-
-@media (max-width: 480px){
-    .kit-sop-card{
-        padding:18px 16px 16px;
-    }
-    
-    .kit-sop-title{
-        font-size:0.9rem;
-    }
-    
-    .kit-sop-list li{
-        font-size:0.78rem;
-    }
-    
-    .kit-sop-icon{
-        width:38px;
-        height:38px;
-        font-size:1.15rem;
-    }
-}
-
-@media (max-width: 380px){
-    .kit-sop-list li{
-        font-size:0.75rem;
-        line-height:1.45;
-    }
-    
-    .kit-sop-title{
-        font-size:0.88rem;
-    }
-    
-    .kit-sop-icon{
-        width:36px;
-        height:36px;
-        font-size:1.1rem;
-    }
-}
-    
-    /* ═══════════════════════════════════════════════════════
-   TIER KOMISI — 4 CARDS + GLOW EFFECT
-════════════════════════════════════════════════════════ */
-
-/* ── Grid Layout ── */
-.kit-tier-grid{
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);   /* Desktop: 4 kolom */
-    gap:14px;
-    margin-top:32px;
-}
-
-/* ── Tier Card ── */
-.kit-tier-card{
-    background:var(--card-bg);
-    border:1px solid var(--border);
-    border-radius:16px;
-    padding:28px 16px 24px;
-    text-align:center;
-    transition:all 0.4s ease;
-    backdrop-filter:blur(10px);
+/* ==================== DASHBOARD HEADER ==================== */
+.dashboard-header{
+    background:linear-gradient(135deg,#0F1E33 0%,#050B18 100%);
+    padding:32px 20px 40px;
+    border-bottom:2px solid var(--gold);
     position:relative;
     overflow:hidden;
 }
 
-.kit-tier-card::before{
+.dashboard-header::before{
     content:'';
     position:absolute;
-    top:0;
-    left:50%;
-    transform:translateX(-50%);
-    width:60%;
-    height:2px;
-    background:linear-gradient(90deg, transparent, var(--gold), transparent);
-    opacity:0;
-    transition:opacity 0.3s;
+    inset:0;
+    background:radial-gradient(circle at center,rgba(212,165,54,0.1),transparent 70%);
 }
 
-.kit-tier-card:hover{
-    transform:translateY(-6px);
-    border-color:var(--gold);
-    box-shadow:0 12px 40px rgba(201,168,76,0.25);
-}
-
-.kit-tier-card:hover::before{
-    opacity:1;
-}
-
-/* ── Tier Icon (Medal/Diamond) ── */
-.kit-tier-icon{
-    font-size:2.4rem;
-    line-height:1;
-    margin-bottom:12px;
-    filter:drop-shadow(0 4px 12px rgba(0,0,0,0.4));
-}
-
-/* ── Tier Name ── */
-.kit-tier-name{
-    font-size:1rem;
-    font-weight:800;
-    color:var(--gold);
-    margin-bottom:16px;
-    letter-spacing:1px;
-    text-transform:uppercase;
-}
-
-/* ═══════════════════════════════════════════════════════
-   ⭐ TIER COMMISSION — BOLD + GLOW + PULSE + SHINE
-════════════════════════════════════════════════════════ */
-.kit-tier-commission{
-font-family: 'Bebas Neue', 'Impact', sans-serif;
-font-size: 3.8rem;
-font-weight: 400;
-letter-spacing: 2px;          /* Extra bold */
-    line-height:1;
-    margin-bottom:8px;
-    
-    display:inline-block;
+.header-container{
+    max-width:1200px;
+    margin:0 auto;
     position:relative;
-    
-    /* Gradient gold text */
-    background:linear-gradient(135deg, 
-        #F0C96B 0%, 
-        #FFE9A3 25%, 
-        #C9A84C 50%, 
-        #FFE9A3 75%, 
-        #F0C96B 100%);
-    background-size:200% auto;
+    z-index:2;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.header-brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.header-logo{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:#fff;
+    padding:4px;
+    box-shadow:0 4px 15px var(--gold-glow);
+    border:2px solid var(--gold);
+    box-sizing:border-box;
+    overflow:hidden;
+    flex-shrink:0;
+}
+
+.header-logo img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    border-radius:50%;
+}
+
+.header-title h1{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.3rem;
+    font-weight:900;
+    background:linear-gradient(135deg,var(--gold),#e8bd52);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
     background-clip:text;
-    color:transparent;
-    
-    /* Glow effect (multi-layer drop-shadow) */
-    filter:
-        drop-shadow(0 0 12px rgba(240, 201, 107, 0.6))
-        drop-shadow(0 0 24px rgba(201, 168, 76, 0.4));
-    
-    /* Combined animations: pulse + shine */
-    animation:
-        tierPulse 2.5s ease-in-out infinite,
-        tierShine 3s linear infinite;
+    margin-bottom:2px;
 }
 
-/* ── Pulse Animation (scale + glow intensity) ── */
-@keyframes tierPulse{
-    0%, 100%{
-        transform:scale(1);
-        filter:
-            drop-shadow(0 0 10px rgba(240, 201, 107, 0.5))
-            drop-shadow(0 0 20px rgba(201, 168, 76, 0.3));
-    }
-    50%{
-        transform:scale(1.08);
-        filter:
-            drop-shadow(0 0 20px rgba(240, 201, 107, 0.9))
-            drop-shadow(0 0 40px rgba(201, 168, 76, 0.6))
-            drop-shadow(0 0 60px rgba(240, 201, 107, 0.3));
-    }
-}
-
-/* ── Shine Animation (gradient moving) ── */
-@keyframes tierShine{
-    0%{background-position:0% center;}
-    100%{background-position:200% center;}
-}
-
-/* ── Commission Label ── */
-.kit-tier-commission-label{
-    font-size:0.75rem;
+.header-title p{
     color:var(--text-muted);
-    margin-bottom:16px;
-    line-height:1.3;
-    text-transform:uppercase;
+    font-size:0.78rem;
     letter-spacing:0.5px;
+    text-transform:uppercase;
 }
 
-/* ── Requirement (Divider Line) ── */
-.kit-tier-req{
-    font-size:0.75rem;
-    color:var(--text-muted);
-    padding-top:14px;
-    border-top:1px solid var(--border);
-    line-height:1.4;
-    font-weight:500;
-}
-
-
-/* ═══════════════════════════════════════════════════════
-   RESPONSIVE
-════════════════════════════════════════════════════════ */
-@media (max-width:768px){
-    .kit-tier-grid{
-        grid-template-columns:repeat(2, 1fr);   /* Tablet: 2 kolom */
-        gap:12px;
-    }
-    
-    .kit-tier-card{padding:24px 12px 20px;}
-    .kit-tier-icon{font-size:2rem; margin-bottom:10px;}
-    .kit-tier-name{font-size:0.95rem; margin-bottom:14px;}
-    .kit-tier-commission{font-size:3.2rem;}
-    .kit-tier-commission-label{font-size:0.7rem; margin-bottom:14px;}
-    .kit-tier-req{font-size:0.7rem;}
-}
-
-@media (max-width:480px){
-    .kit-tier-grid{
-        grid-template-columns:repeat(2, 1fr);
-        gap:10px;
-    }
-    
-    .kit-tier-card{padding:22px 10px 18px;}
-    .kit-tier-icon{font-size:1.9rem; margin-bottom:8px;}
-    .kit-tier-name{font-size:0.88rem; margin-bottom:12px;}
-    .kit-tier-commission{font-size:2.8rem; letter-spacing:-0.5px;}
-    .kit-tier-commission-label{font-size:0.68rem;}
-    .kit-tier-req{font-size:0.68rem; padding-top:12px;}
-}
-
-@media (max-width:360px){
-    .kit-tier-commission{font-size:2.4rem;}
-    .kit-tier-name{font-size:0.82rem;}
-    .kit-tier-card{padding:20px 8px 16px;}
-}
-    
-    /* ── SCRIPT TEMPLATES ── */
-    .kit-script-tabs{
-        display:flex;
-        gap:8px;
-        flex-wrap:wrap;
-        margin-bottom:24px;
-    }
-    
-    .kit-script-tab{
-        padding:8px 20px;
-        border-radius:50px;
-        border:1px solid var(--border);
-        background:transparent;
-        color:var(--text-muted);
-        font-size:0.85rem;
-        font-weight:600;
-        cursor:pointer;
-        transition:all 0.3s;
-        font-family:'Plus Jakarta Sans',sans-serif;
-    }
-    
-    .kit-script-tab.active,
-    .kit-script-tab:hover{
-        background:var(--gold);
-        border-color:var(--gold);
-        color:#000;
-    }
-    
-    .kit-script-content{
-        display:none;
-    }
-    
-    .kit-script-content.active{
-        display:block;
-    }
-    
-    .kit-script-box{
-        background:rgba(0,0,0,0.3);
-        border:1px solid var(--border);
-        border-radius:var(--radius);
-        padding:24px;
-        position:relative;
-    }
-    
-    .kit-script-label{
-        font-size:0.7rem;
-        font-weight:700;
-        color:var(--text-muted);
-        letter-spacing:2px;
-        margin-bottom:12px;
-        display:flex;
-        align-items:center;
-        gap:8px;
-    }
-    
-    .kit-script-text{
-        font-size:0.9rem;
-        color:var(--text);
-        line-height:1.8;
-        white-space:pre-wrap;
-        font-family:'Plus Jakarta Sans',sans-serif;
-    }
-    
-    .kit-script-vars{
-        color:var(--gold);
-        font-style:italic;
-    }
-    
-    .kit-copy-btn{
-        margin-top:16px;
-        display:inline-flex;
-        align-items:center;
-        gap:8px;
-        background:linear-gradient(135deg,var(--gold-dark),var(--gold));
-        color:#000;
-        padding:12px 24px;
-        border-radius:10px;
-        border:none;
-        font-size:0.85rem;
-        font-weight:700;
-        cursor:pointer;
-        transition:all 0.3s;
-        font-family:'Plus Jakarta Sans',sans-serif;
-        letter-spacing:0.5px;
-    }
-    
-    .kit-copy-btn:hover{
-        transform:translateY(-2px);
-        box-shadow:0 8px 24px rgba(201,168,76,0.4);
-    }
-    
-    .kit-copy-btn.copied{
-        background:linear-gradient(135deg,#065F46,#059669);
-        color:#fff;
-    }
-    
-    /* ── CHECKLIST ── */
-    .kit-checklist{
-        display:grid;
-        gap:10px;
-    }
-    
-    .kit-check-item{
-        display:flex;
-        align-items:flex-start;
-        gap:12px;
-        background:var(--card-bg);
-        border:1px solid var(--border);
-        border-radius:12px;
-        padding:16px 20px;
-        cursor:pointer;
-        transition:all 0.3s;
-        backdrop-filter:blur(10px);
-    }
-    
-    .kit-check-item:hover{border-color:rgba(201,168,76,0.4);}
-    
-    .kit-check-item.done{
-        border-color:rgba(201,168,76,0.4);
-        background:rgba(201,168,76,0.06);
-    }
-    
-    .kit-check-box{
-        width:22px;
-        height:22px;
-        border:2px solid var(--border);
-        border-radius:6px;
-        flex-shrink:0;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        transition:all 0.3s;
-        margin-top:1px;
-    }
-    
-    .kit-check-item.done .kit-check-box{
-        background:var(--gold);
-        border-color:var(--gold);
-        color:#000;
-    }
-    
-    .kit-check-box i{
-        font-size:0.65rem;
-        display:none;
-    }
-    
-    .kit-check-item.done .kit-check-box i{display:block;}
-    
-    .kit-check-text{flex:1;}
-    
-    .kit-check-title{
-        font-size:0.9rem;
-        font-weight:700;
-        color:#fff;
-        margin-bottom:4px;
-    }
-    
-    .kit-check-item.done .kit-check-title{
-        color:var(--text-muted);
-        text-decoration:line-through;
-    }
-    
-    .kit-check-desc{
-        font-size:0.78rem;
-        color:var(--text-muted);
-        line-height:1.5;
-    }
-    
-    /* ── FAQ ── */
-    .kit-faq{display:grid;gap:8px;}
-    
-    .kit-faq-item{
-        background:var(--card-bg);
-        border:1px solid var(--border);
-        border-radius:12px;
-        overflow:hidden;
-        backdrop-filter:blur(10px);
-    }
-    
-    .kit-faq-q{
-        width:100%;
-        background:none;
-        border:none;
-        padding:18px 20px;
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        cursor:pointer;
-        text-align:left;
-        font-family:'Plus Jakarta Sans',sans-serif;
-        gap:12px;
-    }
-    
-    .kit-faq-q-text{
-        font-size:0.9rem;
-        font-weight:600;
-        color:#fff;
-    }
-    
-    .kit-faq-icon{
-        color:var(--gold);
-        transition:transform 0.3s;
-        flex-shrink:0;
-        font-size:0.9rem;
-    }
-    
-    .kit-faq-item.open .kit-faq-icon{transform:rotate(180deg);}
-    
-    .kit-faq-a{
-        max-height:0;
-        overflow:hidden;
-        transition:max-height 0.4s ease;
-    }
-    
-    .kit-faq-item.open .kit-faq-a{max-height:300px;}
-    
-    .kit-faq-a-inner{
-        padding:0 20px 18px;
-        font-size:0.85rem;
-        color:var(--text-muted);
-        line-height:1.7;
-        border-top:1px solid var(--border);
-        padding-top:16px;
-    }
-    
-    /* ── CTA ── */
-    .kit-cta{
-        background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(201,168,76,0.05));
-        border:1px solid var(--border);
-        border-radius:20px;
-        padding:48px 32px;
-        text-align:center;
-        position:relative;
-        overflow:hidden;
-    }
-    
-    .kit-cta::before{
-        content:'';
-        position:absolute;
-        top:-100px;
-        left:50%;
-        transform:translateX(-50%);
-        width:400px;
-        height:400px;
-        background:radial-gradient(circle,rgba(201,168,76,0.1) 0%,transparent 70%);
-        pointer-events:none;
-    }
-    
-    .kit-cta-title{
-        font-size:clamp(1.5rem,4vw,2rem);
-        font-weight:800;
-        color:#fff;
-        margin-bottom:12px;
-    }
-    
-    .kit-cta-sub{
-        color:var(--text-muted);
-        margin-bottom:28px;
-        font-size:0.95rem;
-        max-width:400px;
-        margin-left:auto;
-        margin-right:auto;
-    }
-    
-    .kit-cta-btns{
-        display:flex;
-        gap:12px;
-        justify-content:center;
-        flex-wrap:wrap;
-    }
-    
-    .kit-btn-primary{
-        display:inline-flex;
-        align-items:center;
-        gap:8px;
-        background:linear-gradient(135deg,var(--gold-dark),var(--gold-light));
-        color:#000;
-        padding:14px 28px;
-        border-radius:12px;
-        font-size:0.9rem;
-        font-weight:700;
-        text-decoration:none;
-        transition:all 0.3s;
-        letter-spacing:0.3px;
-    }
-    
-    .kit-btn-primary:hover{
-        transform:translateY(-3px);
-        box-shadow:0 12px 32px rgba(201,168,76,0.4);
-    }
-    
-    .kit-btn-secondary{
-        display:inline-flex;
-        align-items:center;
-        gap:8px;
-        background:transparent;
-        color:var(--gold);
-        border:2px solid var(--border);
-        padding:14px 28px;
-        border-radius:12px;
-        font-size:0.9rem;
-        font-weight:700;
-        text-decoration:none;
-        transition:all 0.3s;
-    }
-    
-    .kit-btn-secondary:hover{
-        border-color:var(--gold);
-        background:rgba(201,168,76,0.1);
-        transform:translateY(-2px);
-    }
-    
-    /* ── FLOATING WA ── */
-    .fab-wa{
-        position:fixed;
-        bottom:90px;
-        right:20px;
-        z-index:999;
-        width:56px;
-        height:56px;
-        border-radius:50%;
-        background:linear-gradient(135deg,#25D366,#128C7E);
-        color:#fff;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        font-size:1.4rem;
-        text-decoration:none;
-        box-shadow:0 4px 20px rgba(37,211,102,0.5);
-        transition:all 0.3s;
-    }
-    
-    .fab-wa:hover{
-        transform:scale(1.1) translateY(-4px);
-        box-shadow:0 8px 32px rgba(37,211,102,0.6);
-    }
-    
-    @media(min-width:769px){
-        .fab-wa{bottom:32px;}
-    }
-    
-    /* ── RESPONSIVE ── */
-    @media(max-width:768px){
-        .kit-hero{padding:130px 20px 60px;}
-        .kit-hero h1{font-size:2rem;}
-        .kit-hero-stat{padding:12px 16px;min-width:70px;}
-        .kit-hero-stat-num{font-size:1.5rem;}
-        
-        .kit-section{padding:40px 0;}
-        
-        .kit-reseller-code{padding:24px 20px;}
-        .kit-code-input{font-size:1.2rem;letter-spacing:3px;}
-        
-        .kit-progress-section{padding:20px;}
-        
-        .kit-modules-grid{grid-template-columns:1fr;}
-        .kit-sop-grid{grid-template-columns:1fr;}
-        .kit-tier-grid{grid-template-columns:1fr 1fr;}
-        
-        .kit-cta{padding:32px 20px;}
-        .kit-cta-btns{flex-direction:column;align-items:stretch;}
-        .kit-btn-primary,.kit-btn-secondary{justify-content:center;}
-    }
-    
-    @media(max-width:480px){
-        .kit-hero-stats{gap:8px;}
-        .kit-hero-stat{padding:10px 12px;min-width:60px;}
-        .kit-hero-stat-num{font-size:1.3rem;}
-        .kit-tier-grid{grid-template-columns:1fr;}
-    }
-    
-    /* ── SCROLL PADDING (untuk fixed navbar) ── */
-    html{scroll-padding-top:90px;}
-    
-    /* ── DIVIDER ── */
-    .kit-divider{
-        height:1px;
-        background:linear-gradient(90deg,transparent,var(--border),transparent);
-        margin:0 20px;
-    }
-
-/* ═══════════════════════════════════════════════════════
-   REWARD COMING SOON TEASER
-════════════════════════════════════════════════════════ */
-.kit-reward-teaser{
-    background:linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.04));
-    border:2px dashed rgba(201,168,76,0.4);
-    border-radius:16px;
-    padding:24px 20px;
-    backdrop-filter:blur(10px);
-    margin-top:16px;
-}
-
-.kit-reward-header{
+.header-actions{
     display:flex;
     align-items:center;
-    gap:14px;
-    margin-bottom:20px;
-    padding-bottom:16px;
-    border-bottom:1px solid rgba(201,168,76,0.2);
-}
-
-.kit-reward-header > i{
-    font-size:2rem;
-    color:var(--gold);
-    filter:drop-shadow(0 0 10px rgba(201,168,76,0.5));
-    flex-shrink:0;
-}
-
-.kit-reward-title{
-    font-size:1rem;
-    font-weight:800;
-    color:#fff;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    flex-wrap:wrap;
-    line-height:1.3;
-    margin-bottom:4px;
-}
-
-.badge-soon{
-    background:linear-gradient(135deg, #F59E0B, #DC2626);
-    color:#fff;
-    font-size:0.6rem;
-    padding:3px 10px;
-    border-radius:50px;
-    letter-spacing:1px;
-    font-weight:800;
-    animation:pulse-soon 2s ease-in-out infinite;
-    white-space:nowrap;
-}
-
-@keyframes pulse-soon{
-    0%,100%{opacity:1; transform:scale(1);}
-    50%{opacity:0.85; transform:scale(1.05);}
-}
-
-.kit-reward-sub{
-    font-size:0.8rem;
-    color:var(--text-muted);
-    line-height:1.4;
-    margin:0;
-}
-
-/* Grid Reward Items */
-.kit-reward-list{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));
-    gap:10px;
-    margin-bottom:16px;
-}
-
-.kit-reward-item{
-    display:flex;
-    align-items:flex-start;
     gap:12px;
-    background:rgba(255,255,255,0.03);
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:12px 14px;
-    transition:all 0.3s;
 }
 
-.kit-reward-item:hover{
-    border-color:var(--gold);
-    background:rgba(201,168,76,0.08);
-    transform:translateY(-2px);
-}
-
-.kit-reward-icon{
-    font-size:1.6rem;
-    flex-shrink:0;
-    line-height:1;
-    margin-top:2px;
-}
-
-.kit-reward-item > div:last-child{
-    flex:1;
-    min-width:0;
-}
-
-.kit-reward-item b{
-    color:#fff;
-    font-size:0.85rem;
-    display:block;
-    margin-bottom:3px;
-    line-height:1.3;
-}
-
-.kit-reward-item p{
-    font-size:0.72rem;
-    color:var(--text-muted);
-    line-height:1.4;
-    margin:0;
-}
-
-/* Footer */
-.kit-reward-footer{
-    background:rgba(0,0,0,0.25);
-    border-radius:10px;
-    padding:12px 14px;
-    font-size:0.75rem;
-    color:var(--text-muted);
-    display:flex;
-    align-items:flex-start;
-    gap:10px;
-    line-height:1.5;
-}
-
-.kit-reward-footer i{
-    color:var(--gold);
-    font-size:0.9rem;
-    margin-top:2px;
-    flex-shrink:0;
-}
-
-/* Responsive */
-@media (max-width:480px){
-    .kit-reward-teaser{padding:20px 16px;}
-    .kit-reward-header{gap:12px;}
-    .kit-reward-header > i{font-size:1.7rem;}
-    .kit-reward-title{font-size:0.95rem;}
-    .kit-reward-list{grid-template-columns:1fr; gap:8px;}
-    .kit-reward-item{padding:12px;}
-    .kit-reward-icon{font-size:1.5rem;}
-    .kit-reward-item b{font-size:0.82rem;}
-    .kit-reward-item p{font-size:0.7rem;}
-}
-
-/* ═══════════════════════════════════════════════════════
-   REWARD WIDGET — Interactive Calculator (COMPLETE)
-════════════════════════════════════════════════════════ */
-
-.kit-reward-widget{
-    background:linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.02));
-    border:2px dashed rgba(201,168,76,0.4);
-    border-radius:20px;
-    padding:28px 24px;
-    backdrop-filter:blur(10px);
-    max-width:700px;
-    margin:0 auto;
-}
-
-/* ── Header ── */
-.reward-widget-header{
+.user-badge{
     display:flex;
     align-items:center;
-    gap:16px;
-    margin-bottom:24px;
-    padding-bottom:20px;
-    border-bottom:1px solid rgba(201,168,76,0.2);
+    gap:10px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid var(--border);
+    padding:8px 14px 8px 8px;
+    border-radius:100px;
 }
 
-.reward-widget-icon{
-    width:56px;
-    height:56px;
-    border-radius:14px;
-    background:linear-gradient(135deg, #F0C96B, #C9A84C);
+.user-avatar{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),#c19a2e);
+    color:var(--bg);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:1.8rem;
-    color:#000;
-    flex-shrink:0;
-    box-shadow:0 4px 20px rgba(201,168,76,0.4);
-    animation:trophy-bounce 2s ease-in-out infinite;
-}
-
-@keyframes trophy-bounce{
-    0%, 100%{transform:translateY(0);}
-    50%{transform:translateY(-4px);}
-}
-
-.reward-widget-title{
-    font-size:1.15rem;
     font-weight:800;
+    font-size:0.85rem;
+    flex-shrink:0;
+}
+
+.user-name{
+    font-size:0.82rem;
+    font-weight:700;
+    color:var(--text);
+}
+
+.logout-btn{
+    background:rgba(231,76,60,0.15);
+    border:1px solid rgba(231,76,60,0.3);
+    color:#ff6b5b;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all 0.2s;
+    font-size:0.95rem;
+}
+
+.logout-btn:hover{
+    background:#e74c3c;
     color:#fff;
+    transform:scale(1.05);
+}
+
+
+/* ==================== PAGE TITLE SECTION ==================== */
+.page-title-section{
+    max-width:1200px;
+    margin:0 auto;
+    padding:24px 20px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+}
+
+.page-title-content{
+    flex:1;
+    min-width:200px;
+}
+
+.page-title-content h2{
+    font-family:'Montserrat',sans-serif;
+    font-size:1.5rem;
+    font-weight:900;
+    color:var(--text);
     margin-bottom:4px;
     display:flex;
     align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-    line-height:1.3;
+    gap:12px;
 }
 
-.reward-widget-sub{
-    font-size:0.82rem;
+.page-title-content h2 i{
+    color:var(--gold);
+}
+
+.page-title-content p{
     color:var(--text-muted);
-    line-height:1.4;
+    font-size:0.85rem;
 }
 
-/* ── Status Section ── */
-.reward-status{
-    background:rgba(0,0,0,0.25);
-    border-radius:14px;
-    padding:18px;
+.back-to-dashboard{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    color:var(--text-muted);
+    text-decoration:none;
+    font-size:0.85rem;
+    font-weight:600;
+    padding:10px 18px;
+    background:rgba(255,255,255,0.03);
+    backdrop-filter:blur(10px);
+    border-radius:100px;
+    border:1px solid var(--border);
+    transition:all 0.3s var(--ease);
+}
+
+.back-to-dashboard:hover{
+    color:var(--gold);
+    border-color:var(--gold);
+    background:rgba(212,165,54,0.08);
+}
+
+
+/* ==================== MAIN ==================== */
+.main{
+    max-width:1200px;
+    margin:0 auto;
+    padding:24px 20px;
+}
+
+
+/* ==================== SEARCH & FILTER ==================== */
+.controls{
+    background:linear-gradient(145deg,var(--bg-card),#0A1626);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:20px;
     margin-bottom:20px;
 }
 
-.reward-status-title{
-    font-size:0.8rem;
-    font-weight:700;
+.search-wrapper{
+    position:relative;
+    margin-bottom:16px;
+}
+
+.search-input{
+    width:100%;
+    background:#0D1829;
+    border:1.5px solid rgba(255,255,255,0.08);
+    color:var(--text);
+    padding:14px 16px 14px 48px;
+    border-radius:12px;
+    font-family:'Poppins',sans-serif;
+    font-size:0.95rem;
+    transition:all 0.3s;
+}
+
+.search-input:focus{
+    outline:none;
+    border-color:var(--gold);
+    box-shadow:0 0 0 3px rgba(212,165,54,0.1);
+    background:#12233d;
+}
+
+.search-input::placeholder{
+    color:var(--text-muted);
+}
+
+.search-icon{
+    position:absolute;
+    left:16px;
+    top:50%;
+    transform:translateY(-50%);
     color:var(--gold);
-    margin-bottom:14px;
-    letter-spacing:0.5px;
-    text-transform:uppercase;
-    display:flex;
+    font-size:1rem;
+}
+
+.search-clear{
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(231,76,60,0.15);
+    border:1px solid rgba(231,76,60,0.3);
+    color:#e74c3c;
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    cursor:pointer;
+    display:none;
     align-items:center;
-    gap:8px;
+    justify-content:center;
+    font-size:0.75rem;
+    transition:all 0.2s;
 }
 
-.reward-status-list{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-}
+.search-clear.show{display:flex;}
 
-.reward-status-item{
-    display:grid;
-    grid-template-columns:100px 1fr 70px;
-    align-items:center;
-    gap:12px;
-}
-
-.reward-status-label{
-    font-size:0.78rem;
+.search-clear:hover{
+    background:#e74c3c;
     color:#fff;
-    font-weight:600;
+}
+
+
+/* Filter Tabs */
+.filter-tabs{
     display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:4px;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+}
+
+.filter-tabs::-webkit-scrollbar{display:none;}
+
+.filter-tab{
+    padding:10px 18px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid var(--border);
+    color:var(--text-muted);
+    border-radius:100px;
+    font-size:0.82rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.3s;
+    display:inline-flex;
     align-items:center;
     gap:6px;
     white-space:nowrap;
+    font-family:'Poppins',sans-serif;
+    flex-shrink:0;
 }
 
-.reward-status-label i{
+.filter-tab:hover{
+    background:rgba(212,165,54,0.1);
     color:var(--gold);
-    font-size:0.85rem;
-    width:16px;
-    text-align:center;
+    border-color:rgba(212,165,54,0.2);
 }
 
-.reward-status-bar{
-    height:8px;
-    background:rgba(255,255,255,0.06);
-    border-radius:99px;
-    overflow:hidden;
-    position:relative;
-    min-width:60px;
+.filter-tab.active{
+    background:linear-gradient(135deg,var(--gold),#c19a2e);
+    color:var(--bg);
+    border-color:var(--gold);
+    box-shadow:0 4px 12px var(--gold-glow);
 }
 
-.reward-status-fill{
-    height:100%;
-    background:linear-gradient(90deg, var(--gold-dark), var(--gold-light));
-    border-radius:99px;
-    transition:width 0.8s ease;
-    box-shadow:0 0 8px rgba(201,168,76,0.4);
+.filter-tab .count{
+    background:rgba(0,0,0,0.15);
+    padding:2px 8px;
+    border-radius:100px;
+    font-size:0.72rem;
+    font-weight:800;
 }
 
-.reward-status-value{
-    font-size:0.78rem;
-    font-weight:700;
+.filter-tab:not(.active) .count{
+    background:rgba(212,165,54,0.15);
     color:var(--gold);
-    text-align:right;
-    white-space:nowrap;
 }
 
-/* ── Badge Cards ── */
-.reward-badges{
+
+/* ==================== RESULT INFO ==================== */
+.result-info{
     display:flex;
-    flex-direction:column;
-    gap:12px;
-    margin-bottom:20px;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 4px;
+    color:var(--text-muted);
+    font-size:0.85rem;
 }
 
-.reward-badge-card{
-    background:rgba(255,255,255,0.03);
+.result-count{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.result-count b{
+    color:var(--gold);
+    font-weight:800;
+}
+
+
+/* ==================== RESELLER GRID ==================== */
+.reseller-grid{
+    display:grid;
+    gap:12px;
+    margin-bottom:24px;
+}
+
+.reseller-card{
+    background:linear-gradient(145deg,var(--bg-card),#0A1626);
     border:1px solid var(--border);
     border-radius:14px;
     padding:16px;
@@ -1634,2387 +411,1729 @@ letter-spacing: 2px;          /* Extra bold */
     overflow:hidden;
 }
 
-.reward-badge-card:hover{
-    transform:translateX(4px);
-    border-color:var(--gold);
-    background:rgba(201,168,76,0.06);
+.reseller-card:hover{
+    border-color:rgba(212,165,54,0.3);
+    transform:translateY(-2px);
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
-.reward-badge-card.earned{
-    border-color:#22C55E;
-    background:linear-gradient(135deg, rgba(34,197,94,0.1), rgba(34,197,94,0.03));
-}
+.reseller-card.status-pending{border-left:3px solid #f39c12;}
+.reseller-card.status-active{border-left:3px solid #25d366;}
+.reseller-card.status-inactive{border-left:3px solid #f39c12;}
+.reseller-card.status-rejected{border-left:3px solid #e74c3c;}
 
-.reward-badge-card.earned::before{
-    content:'✓ EARNED';
-    position:absolute;
-    top:8px;
-    right:-30px;
-    background:#22C55E;
-    color:#fff;
-    font-size:0.6rem;
-    font-weight:800;
-    padding:2px 30px;
-    transform:rotate(45deg);
-    letter-spacing:1px;
-    z-index:1;
-}
-
-.reward-badge-top{
-    display:grid;
-    grid-template-columns:auto 1fr auto;
+.card-header{
+    display:flex;
     align-items:center;
-    gap:14px;
+    gap:12px;
     margin-bottom:12px;
 }
 
-.reward-badge-icon{
-    font-size:2.5rem;
-    line-height:1;
-    filter:drop-shadow(0 4px 12px rgba(0,0,0,0.4));
-    display:block;
-}
-
-.reward-badge-info{
-    min-width:0;
-    overflow:hidden;
-}
-
-.reward-badge-name{
-    font-size:0.95rem;
-    font-weight:800;
-    color:#fff;
-    line-height:1.25;
-    margin-bottom:4px;
-}
-
-.reward-badge-req{
-    font-size:0.72rem;
-    color:var(--text-muted);
-    line-height:1.35;
-}
-
-.reward-badge-status{
+.card-avatar{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),#c19a2e);
+    color:var(--bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
+    font-size:1.1rem;
     flex-shrink:0;
-    align-self:flex-start;
 }
 
-.status-locked{
+.card-info{flex:1;min-width:0;}
+
+.card-name{
+    font-weight:700;
+    color:var(--text);
+    font-size:1rem;
+    margin-bottom:4px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.card-code{
+    font-family:'Montserrat',monospace;
+    background:rgba(212,165,54,0.1);
+    color:var(--gold);
+    padding:3px 10px;
+    border-radius:6px;
     font-size:0.72rem;
     font-weight:700;
-    color:var(--gold);
-    background:rgba(201,168,76,0.15);
-    padding:5px 11px;
-    border-radius:50px;
-    white-space:nowrap;
-    border:1px solid rgba(201,168,76,0.3);
     display:inline-block;
 }
 
-.status-earned{
-    font-size:0.72rem;
-    font-weight:800;
-    color:#fff;
-    background:linear-gradient(135deg, #22C55E, #16A34A);
+.card-status{
     padding:5px 12px;
-    border-radius:50px;
-    white-space:nowrap;
-    box-shadow:0 4px 12px rgba(34,197,94,0.4);
-    display:inline-block;
-}
-
-.reward-badge-progress-bar{
-    height:6px;
-    background:rgba(255,255,255,0.08);
-    border-radius:99px;
-    overflow:hidden;
-    margin-bottom:10px;
-}
-
-.reward-badge-progress-fill{
-    height:100%;
-    background:linear-gradient(90deg, var(--gold-dark), var(--gold-light));
-    border-radius:99px;
-    transition:width 0.8s ease;
-}
-
-.reward-badge-card.earned .reward-badge-progress-fill{
-    background:linear-gradient(90deg, #16A34A, #22C55E);
-}
-
-.reward-badge-hint{
-    font-size:0.72rem;
-    color:var(--text-muted);
-    line-height:1.4;
-    margin-bottom:10px;
-    font-style:italic;
-}
-
-.reward-badge-prize{
-    font-size:0.78rem;
-    color:#fff;
-    padding-top:10px;
-    border-top:1px dashed rgba(201,168,76,0.2);
-    line-height:1.4;
-}
-
-.reward-badge-prize b{
-    color:var(--gold-light);
-    font-weight:800;
-}
-
-/* ── Total Reward ── */
-.reward-total{
-    background:linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05));
-    border:2px solid rgba(201,168,76,0.4);
-    border-radius:14px;
-    padding:22px 18px;
-    text-align:center;
-    margin-bottom:16px;
-    position:relative;
-    overflow:hidden;
-}
-
-.reward-total::before{
-    content:'';
-    position:absolute;
-    top:-50%;
-    left:-50%;
-    width:200%;
-    height:200%;
-    background:radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 60%);
-    animation:shimmer 4s ease-in-out infinite;
-    pointer-events:none;
-}
-
-@keyframes shimmer{
-    0%, 100%{transform:rotate(0deg);}
-    50%{transform:rotate(180deg);}
-}
-
-.reward-total-label{
-    font-size:0.75rem;
+    border-radius:100px;
+    font-size:0.7rem;
     font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    flex-shrink:0;
+}
+
+.card-status.pending{background:rgba(243,156,18,0.15);color:#f39c12;border:1px solid rgba(243,156,18,0.3);}
+.card-status.active{background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);}
+.card-status.inactive{background:rgba(243,156,18,0.15);color:#f39c12;border:1px solid rgba(243,156,18,0.3);}
+.card-status.rejected{background:rgba(231,76,60,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);}
+
+.card-meta{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    padding:12px;
+    background:rgba(255,255,255,0.02);
+    border-radius:10px;
+    margin-bottom:12px;
+    font-size:0.78rem;
+}
+
+.card-meta-item{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    color:var(--text-muted);
+    min-width:0;
+}
+
+.card-meta-item i{
     color:var(--gold);
+    font-size:0.85rem;
+    flex-shrink:0;
+}
+
+.card-meta-item span{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.card-actions{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+}
+
+.card-btn{
+    flex:1;
+    min-width:80px;
+    padding:8px 12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-family:'Poppins',sans-serif;
+    font-size:0.78rem;
+    font-weight:700;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    transition:all 0.2s;
+}
+
+.card-btn i{font-size:0.85rem;}
+
+.card-btn.detail{
+    background:rgba(52,152,219,0.15);
+    color:#3498db;
+    border:1px solid rgba(52,152,219,0.3);
+}
+.card-btn.detail:hover{background:#3498db;color:#fff;}
+
+.card-btn.edit{
+    background:rgba(212,165,54,0.15);
+    color:#d4a536;
+    border:1px solid rgba(212,165,54,0.3);
+}
+.card-btn.edit:hover{background:#d4a536;color:#050B18;}
+
+.card-btn.approve{
+    background:rgba(37,211,102,0.15);
+    color:#25d366;
+    border:1px solid rgba(37,211,102,0.3);
+}
+.card-btn.approve:hover{background:#25d366;color:#fff;}
+
+.card-btn.reject{
+    background:rgba(231,76,60,0.15);
+    color:#e74c3c;
+    border:1px solid rgba(231,76,60,0.3);
+}
+.card-btn.reject:hover{background:#e74c3c;color:#fff;}
+
+.card-btn.deactivate{
+    background:rgba(243,156,18,0.15);
+    color:#f39c12;
+    border:1px solid rgba(243,156,18,0.3);
+}
+.card-btn.deactivate:hover{background:#f39c12;color:#fff;}
+
+.card-btn.reactivate{
+    background:rgba(37,211,102,0.15);
+    color:#25d366;
+    border:1px solid rgba(37,211,102,0.3);
+}
+.card-btn.reactivate:hover{background:#25d366;color:#fff;}
+
+.card-btn.delete{
+    background:rgba(150,40,27,0.2);
+    color:#c0392b;
+    border:1px solid rgba(150,40,27,0.4);
+}
+.card-btn.delete:hover{background:#c0392b;color:#fff;}
+
+
+/* Empty State */
+.empty-state{
+    text-align:center;
+    padding:60px 20px;
+    color:var(--text-muted);
+}
+
+.empty-state i{
+    font-size:4rem;
+    opacity:0.3;
+    margin-bottom:16px;
+    color:var(--gold);
+}
+
+.empty-state h3{
+    font-family:'Montserrat',sans-serif;
+    color:var(--text);
+    margin-bottom:8px;
+}
+
+.empty-state p{
+    font-size:0.9rem;
+    line-height:1.6;
+}
+
+
+/* ==================== BOTTOM NAVBAR ==================== */
+.bottom-nav{
+    position:fixed;
+    bottom:16px;
+    left:50%;
+    transform:translateX(-50%);
+    background:rgba(15,30,51,0.95);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border:1px solid var(--border);
+    border-radius:100px;
+    padding:10px 14px;
+    display:flex;
+    gap:6px;
+    z-index:1000;
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.4),
+        0 0 30px rgba(212,165,54,0.15);
+    max-width:calc(100% - 32px);
+    overflow-x:auto;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+}
+
+.bottom-nav::-webkit-scrollbar{display:none;}
+
+.nav-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+    padding:8px 14px;
+    color:var(--text-muted);
+    text-decoration:none;
+    border-radius:100px;
+    font-size:0.68rem;
+    font-weight:700;
+    transition:all 0.3s ease;
+    min-width:64px;
+    cursor:pointer;
+    flex-shrink:0;
+    font-family:'Poppins',sans-serif;
+    border:none;
+    background:transparent;
+    letter-spacing:0.3px;
+}
+
+.nav-item i{
+    font-size:1.1rem;
+    transition:transform 0.3s ease;
+}
+
+.nav-item:hover{color:var(--gold);}
+.nav-item:hover i{transform:translateY(-2px);}
+
+.nav-item.active{
+    background:linear-gradient(135deg,var(--gold),#c19a2e);
+    color:var(--bg);
+    box-shadow:0 4px 12px var(--gold-glow);
+}
+
+.nav-item.active i{color:var(--bg);}
+
+
+/* ==================== SWEETALERT PREMIUM ==================== */
+.swal-premium{
+    background:linear-gradient(145deg,#0F1E33,#0A1626) !important;
+    border:1px solid rgba(212,165,54,0.3) !important;
+    border-radius:20px !important;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.6),
+        0 0 40px rgba(212,165,54,0.15) !important;
+    color:#fff !important;
+    font-family:'Poppins',sans-serif !important;
+}
+
+.swal-premium .swal2-title{
+    color:#d4a536 !important;
+    font-family:'Montserrat',sans-serif !important;
+    font-weight:800 !important;
+    font-size:1.4rem !important;
+}
+
+.swal-premium .swal2-html-container{
+    color:rgba(255,255,255,0.85) !important;
+    font-size:0.95rem !important;
+    line-height:1.6 !important;
+}
+
+.swal-premium .swal2-input,
+.swal-premium .swal2-textarea,
+.swal-premium .swal2-select{
+    background:#0D1829 !important;
+    border:1.5px solid rgba(212,165,54,0.2) !important;
+    color:#fff !important;
+    border-radius:10px !important;
+    font-family:'Poppins',sans-serif !important;
+}
+
+.swal-premium .swal2-input:focus,
+.swal-premium .swal2-textarea:focus,
+.swal-premium .swal2-select:focus{
+    border-color:#d4a536 !important;
+    box-shadow:0 0 0 3px rgba(212,165,54,0.1) !important;
+}
+
+.swal-premium .swal2-icon{
+    border-color:#d4a536 !important;
+    color:#d4a536 !important;
+}
+
+.swal-premium .swal2-icon.swal2-success{border-color:#25d366 !important;}
+.swal-premium .swal2-icon.swal2-success .swal2-success-line-tip,
+.swal-premium .swal2-icon.swal2-success .swal2-success-line-long{background-color:#25d366 !important;}
+.swal-premium .swal2-icon.swal2-success .swal2-success-ring{border-color:rgba(37,211,102,0.3) !important;}
+
+.swal-premium .swal2-icon.swal2-error{border-color:#e74c3c !important;color:#e74c3c !important;}
+.swal-premium .swal2-icon.swal2-error [class^=swal2-x-mark-line]{background-color:#e74c3c !important;}
+
+.swal-premium .swal2-icon.swal2-warning{border-color:#f39c12 !important;color:#f39c12 !important;}
+.swal-premium .swal2-icon.swal2-info{border-color:#3498db !important;color:#3498db !important;}
+.swal-premium .swal2-icon.swal2-question{border-color:#d4a536 !important;color:#d4a536 !important;}
+
+.swal-premium .swal2-confirm{
+    background:linear-gradient(135deg,#d4a536,#c19a2e) !important;
+    color:#050B18 !important;
+    border:none !important;
+    border-radius:100px !important;
+    padding:12px 30px !important;
+    font-weight:800 !important;
+    font-family:'Poppins',sans-serif !important;
+    font-size:0.9rem !important;
+    box-shadow:0 6px 20px rgba(212,165,54,0.4) !important;
+    text-transform:uppercase !important;
+    letter-spacing:0.5px !important;
+    transition:all 0.3s ease !important;
+}
+
+.swal-premium .swal2-confirm:hover{
+    transform:translateY(-2px) !important;
+    box-shadow:0 8px 25px rgba(212,165,54,0.5) !important;
+}
+
+.swal-premium .swal2-cancel{
+    background:rgba(255,255,255,0.08) !important;
+    color:#fff !important;
+    border:1px solid rgba(255,255,255,0.15) !important;
+    border-radius:100px !important;
+    padding:12px 30px !important;
+    font-weight:700 !important;
+    font-family:'Poppins',sans-serif !important;
+    font-size:0.9rem !important;
+    text-transform:uppercase !important;
+    letter-spacing:0.5px !important;
+    margin-right:12px !important;
+}
+
+.swal-premium .swal2-cancel:hover{
+    background:rgba(231,76,60,0.15) !important;
+    border-color:rgba(231,76,60,0.4) !important;
+    color:#ff6b5b !important;
+}
+
+.swal-premium .swal2-timer-progress-bar{
+    background:linear-gradient(90deg,#d4a536,#e8bd52) !important;
+    height:4px !important;
+}
+
+.swal-premium .swal2-close{
+    color:rgba(255,255,255,0.4) !important;
+    font-size:2rem !important;
+}
+
+.swal-premium .swal2-close:hover{
+    color:#d4a536 !important;
+    transform:rotate(90deg) !important;
+}
+
+.swal-premium .swal2-validation-message{
+    background:rgba(231,76,60,0.1) !important;
+    color:#ff6b5b !important;
+    border-radius:8px !important;
+}
+
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width:768px){
+    .dashboard-header{padding:20px 16px 30px;}
+    .header-title h1{font-size:1.1rem;}
+    .header-title p{font-size:0.7rem;}
+    .user-badge .user-name{display:none;}
+    .user-badge{padding:4px;}
+    
+    .page-title-section{padding:20px 16px 0;}
+    .page-title-content h2{font-size:1.2rem;}
+    
+    .main{padding:20px 16px 40px;}
+    
+    .bottom-nav{
+        padding:8px 10px;
+        gap:2px;
+        bottom:12px;
+    }
+    
+    .nav-item{
+        padding:8px 10px;
+        font-size:0.6rem;
+        min-width:56px;
+    }
+    
+    .nav-item i{font-size:1rem;}
+}
+
+@media (max-width:640px){
+    .card-meta{grid-template-columns:1fr;}
+    .card-actions{flex-direction:column;}
+    .card-btn{width:100%;}
+    .filter-tab{padding:8px 14px;font-size:0.75rem;}
+}
+
+@media (max-width:400px){
+    .nav-item span{display:none;}
+    
+    .nav-item{
+        min-width:44px;
+        padding:10px 12px;
+    }
+    
+    .nav-item i{font-size:1.2rem;}
+}
+
+/* ═══════════════════════════════════════════════════════
+   REWARD INTEGRATION - Admin Dashboard
+════════════════════════════════════════════════════════ */
+
+/* Progress bar mini di card reseller */
+.card-progress-info{
+    display:flex;
+    gap:10px;
+    padding:10px 12px;
+    background:rgba(212,165,54,0.05);
+    border:1px solid rgba(212,165,54,0.15);
+    border-radius:10px;
+    margin-bottom:12px;
+    flex-wrap:wrap;
+    font-size:0.75rem;
+}
+
+.progress-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    color:var(--text-muted);
+    font-weight:600;
+}
+
+.progress-badge i{
+    color:var(--gold);
+    font-size:0.85rem;
+}
+
+.progress-badge.reward-pending{
+    color:#f39c12;
+    background:rgba(243,156,18,0.1);
+    padding:2px 8px;
+    border-radius:6px;
+}
+
+.progress-badge.reward-paid{
+    color:#25d366;
+    background:rgba(37,211,102,0.1);
+    padding:2px 8px;
+    border-radius:6px;
+}
+
+/* Button reward */
+.card-btn.reward{
+    background:linear-gradient(135deg, rgba(212,165,54,0.2), rgba(212,165,54,0.1));
+    color:#d4a536;
+    border:1px solid rgba(212,165,54,0.4);
+    position:relative;
+}
+
+.card-btn.reward:hover{
+    background:linear-gradient(135deg, #d4a536, #c19a2e);
+    color:#050B18;
+}
+
+.card-btn.reward .badge-notif{
+    position:absolute;
+    top:-6px;
+    right:-6px;
+    background:#e74c3c;
+    color:#fff;
+    font-size:0.6rem;
+    font-weight:800;
+    padding:2px 6px;
+    border-radius:100px;
+    border:2px solid var(--bg-card);
+}
+
+/* SweetAlert Reward Modal Custom */
+.swal-reward-content{
+    text-align:left;
+    color:#fff;
+    font-family:'Poppins',sans-serif;
+}
+
+.reward-modal-section{
+    background:rgba(0,0,0,0.25);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:14px;
+    margin-bottom:12px;
+}
+
+.reward-modal-title{
+    font-size:0.75rem;
+    font-weight:800;
+    color:var(--gold);
+    text-transform:uppercase;
     letter-spacing:1px;
     margin-bottom:10px;
     display:flex;
     align-items:center;
-    justify-content:center;
-    gap:8px;
-    position:relative;
-    z-index:1;
+    gap:6px;
 }
 
-.reward-total-amount{
-    font-size:2.6rem;
-    font-weight:900;
-    line-height:1;
+.reward-progress-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
     margin-bottom:8px;
-    letter-spacing:-1px;
-    display:inline-block;
+    font-size:0.85rem;
+}
+
+.reward-progress-item .label{
+    min-width:80px;
+    color:rgba(255,255,255,0.85);
+    font-weight:600;
+}
+
+.reward-progress-item .bar{
+    flex:1;
+    height:8px;
+    background:rgba(255,255,255,0.08);
+    border-radius:99px;
+    overflow:hidden;
+}
+
+.reward-progress-item .bar-fill{
+    height:100%;
+    background:linear-gradient(90deg, var(--gold), #e8bd52);
+    border-radius:99px;
+    transition:width 0.5s;
+}
+
+.reward-progress-item .value{
+    min-width:55px;
+    text-align:right;
+    color:var(--gold);
+    font-weight:800;
+    font-size:0.8rem;
+}
+
+.reward-tier-card{
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:14px;
+    margin-bottom:10px;
     position:relative;
-    z-index:1;
-    
-    background:linear-gradient(135deg, 
-        #F0C96B 0%, 
-        #FFE9A3 25%, 
-        #C9A84C 50%, 
-        #FFE9A3 75%, 
-        #F0C96B 100%);
-    background-size:200% auto;
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    background-clip:text;
-    color:transparent;
-    
-    filter:
-        drop-shadow(0 0 15px rgba(240,201,107,0.7))
-        drop-shadow(0 0 30px rgba(201,168,76,0.4));
-    
-    animation:
-        rewardTotalPulse 2.5s ease-in-out infinite,
-        rewardTotalShine 3s linear infinite;
 }
 
-@keyframes rewardTotalPulse{
-    0%, 100%{
-        transform:scale(1);
-        filter:
-            drop-shadow(0 0 12px rgba(240,201,107,0.5))
-            drop-shadow(0 0 25px rgba(201,168,76,0.3));
-    }
-    50%{
-        transform:scale(1.05);
-        filter:
-            drop-shadow(0 0 22px rgba(240,201,107,0.9))
-            drop-shadow(0 0 45px rgba(201,168,76,0.6))
-            drop-shadow(0 0 65px rgba(240,201,107,0.3));
-    }
+.reward-tier-card.earned{
+    border-color:rgba(37,211,102,0.4);
+    background:linear-gradient(135deg, rgba(37,211,102,0.08), rgba(255,255,255,0.02));
 }
 
-@keyframes rewardTotalShine{
-    0%{background-position:0% center;}
-    100%{background-position:200% center;}
+.reward-tier-card.paid{
+    border-color:rgba(212,165,54,0.4);
+    background:linear-gradient(135deg, rgba(212,165,54,0.1), rgba(255,255,255,0.02));
 }
 
-.reward-total-extra{
+.reward-tier-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:8px;
+}
+
+.reward-tier-name{
+    font-size:0.9rem;
+    font-weight:800;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.reward-tier-amount{
+    font-size:1rem;
+    font-weight:900;
+    color:var(--gold);
+}
+
+.reward-tier-desc{
     font-size:0.75rem;
     color:var(--text-muted);
-    line-height:1.5;
-    position:relative;
-    z-index:1;
+    margin-bottom:10px;
 }
 
-/* ── Tips ── */
-.reward-tips{
-    background:rgba(59,130,246,0.1);
-    border:1px solid rgba(59,130,246,0.3);
-    border-radius:10px;
-    padding:12px 14px;
-    display:flex;
-    align-items:flex-start;
-    gap:10px;
-    margin-bottom:16px;
-}
-
-.reward-tips i{
-    color:#60A5FA;
-    font-size:1rem;
-    margin-top:2px;
-    flex-shrink:0;
-}
-
-.reward-tips > div{
-    font-size:0.78rem;
-    color:#fff;
-    line-height:1.5;
-}
-
-.reward-tips b{
-    color:#60A5FA;
-}
-
-/* ── CTA Buttons ── */
-.reward-cta{
-    display:flex;
-    gap:10px;
-    margin-bottom:16px;
-    flex-wrap:wrap;
-}
-
-.reward-btn-primary{
-    flex:1;
-    min-width:180px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    background:linear-gradient(135deg, var(--gold-dark), var(--gold-light));
-    color:#000;
-    padding:14px 20px;
-    border-radius:12px;
-    font-size:0.88rem;
-    font-weight:800;
-    text-decoration:none;
-    transition:all 0.3s;
-    letter-spacing:0.3px;
-}
-
-.reward-btn-primary:hover{
-    transform:translateY(-2px);
-    box-shadow:0 8px 24px rgba(201,168,76,0.4);
-}
-
-.reward-btn-secondary{
-    flex:1;
-    min-width:180px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    background:transparent;
-    color:#25D366;
-    border:2px solid #25D366;
-    padding:12px 20px;
-    border-radius:12px;
-    font-size:0.88rem;
+.reward-tier-status{
+    font-size:0.75rem;
+    padding:5px 10px;
+    border-radius:100px;
     font-weight:700;
-    text-decoration:none;
+    display:inline-block;
+}
+
+.status-locked-tier{
+    background:rgba(255,255,255,0.05);
+    color:var(--text-muted);
+}
+
+.status-earned-tier{
+    background:rgba(243,156,18,0.15);
+    color:#f39c12;
+    border:1px solid rgba(243,156,18,0.3);
+}
+
+.status-paid-tier{
+    background:rgba(37,211,102,0.15);
+    color:#25d366;
+    border:1px solid rgba(37,211,102,0.3);
+}
+
+.btn-mark-paid{
+    background:linear-gradient(135deg, #25d366, #128c7e);
+    color:#fff;
+    border:none;
+    padding:8px 16px;
+    border-radius:8px;
+    font-weight:700;
+    cursor:pointer;
+    font-size:0.8rem;
+    font-family:'Poppins',sans-serif;
+    margin-top:8px;
+    transition:all 0.2s;
+}
+
+.btn-mark-paid:hover{
+    transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(37,211,102,0.4);
+}
+
+.reward-summary{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:8px;
+    margin-top:12px;
+}
+
+.summary-box{
+    background:rgba(0,0,0,0.3);
+    border-radius:10px;
+    padding:10px;
+    text-align:center;
+}
+
+.summary-box .label{
+    font-size:0.65rem;
+    color:var(--text-muted);
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin-bottom:4px;
+}
+
+.summary-box .value{
+    font-size:0.85rem;
+    font-weight:800;
+    color:#fff;
+}
+
+.summary-box.pending .value{color:#f39c12;}
+.summary-box.paid .value{color:#25d366;}
+
+.btn-send-link{
+    width:100%;
+    background:linear-gradient(135deg, #25D366, #128C7E);
+    color:#fff;
+    border:none;
+    padding:12px 16px;
+    border-radius:10px;
+    font-weight:800;
+    cursor:pointer;
+    font-size:0.85rem;
+    font-family:'Poppins',sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    margin-top:12px;
     transition:all 0.3s;
 }
 
-.reward-btn-secondary:hover{
-    background:#25D366;
-    color:#fff;
+.btn-send-link:hover{
     transform:translateY(-2px);
-    box-shadow:0 8px 24px rgba(37,211,102,0.3);
+    box-shadow:0 6px 20px rgba(37,211,102,0.4);
 }
-
-/* ── Footer Note ── */
-.reward-footer-note{
-    background:rgba(0,0,0,0.25);
-    border-radius:10px;
-    padding:12px 14px;
-    font-size:0.72rem;
-    color:var(--text-muted);
-    display:flex;
-    align-items:flex-start;
-    gap:10px;
-    line-height:1.5;
-}
-
-.reward-footer-note i{
-    color:var(--gold);
-    font-size:0.85rem;
-    margin-top:2px;
-    flex-shrink:0;
-}
-
-/* ═══════════════════════════════════════════════════════
-   RESPONSIVE — Tablet (≤768px)
-════════════════════════════════════════════════════════ */
-@media (max-width:768px){
-    .kit-reward-widget{
-        padding:22px 16px;
-        border-radius:18px;
-    }
-    
-    .reward-widget-header{
-        gap:12px;
-        margin-bottom:18px;
-        padding-bottom:16px;
-    }
-    
-    .reward-widget-icon{
-        width:48px;
-        height:48px;
-        font-size:1.5rem;
-        border-radius:12px;
-    }
-    
-    .reward-widget-title{
-        font-size:1rem;
-        gap:8px;
-    }
-    
-    .reward-widget-sub{
-        font-size:0.75rem;
-    }
-    
-    .reward-status{padding:14px 12px;}
-    
-    .reward-status-title{
-        font-size:0.75rem;
-        margin-bottom:12px;
-    }
-    
-    .reward-status-item{
-        grid-template-columns:85px 1fr 60px;
-        gap:10px;
-    }
-    
-    .reward-status-label{font-size:0.75rem;}
-    .reward-status-label i{font-size:0.8rem;}
-    .reward-status-value{font-size:0.75rem;}
-    
-    .reward-badge-card{padding:14px 12px;}
-    
-    .reward-badge-top{
-        gap:12px;
-        margin-bottom:10px;
-    }
-    
-    .reward-badge-icon{font-size:2.2rem;}
-    .reward-badge-name{font-size:0.9rem;}
-    .reward-badge-req{font-size:0.7rem;}
-    
-    .status-locked,
-    .status-earned{
-        font-size:0.68rem;
-        padding:4px 9px;
-    }
-    
-    .reward-badge-hint,
-    .reward-badge-prize{font-size:0.72rem;}
-    
-    .reward-total{padding:18px 14px;}
-    .reward-total-amount{font-size:2.3rem;}
-    .reward-total-extra{font-size:0.72rem;}
-    
-    .reward-cta{
-        flex-direction:column;
-        gap:8px;
-    }
-    
-    .reward-btn-primary,
-    .reward-btn-secondary{
-        width:100%;
-        min-width:0;
-        padding:12px 16px;
-        font-size:0.85rem;
-    }
-    
-    .reward-footer-note{
-        font-size:0.7rem;
-        padding:10px 12px;
-    }
-}
-
-/* ═══════════════════════════════════════════════════════
-   RESPONSIVE — Mobile (≤480px)
-════════════════════════════════════════════════════════ */
-@media (max-width:480px){
-    .kit-reward-widget{
-        padding:20px 14px;
-        border-radius:16px;
-    }
-    
-    .reward-widget-header{
-        flex-direction:column;
-        text-align:center;
-        gap:12px;
-        padding-bottom:14px;
-    }
-    
-    .reward-widget-title{
-        justify-content:center;
-        font-size:0.98rem;
-    }
-    
-    .reward-status-item{
-        grid-template-columns:75px 1fr 55px;
-        gap:8px;
-    }
-    
-    .reward-status-label{font-size:0.72rem;}
-    .reward-status-value{font-size:0.72rem;}
-    
-    .reward-badge-top{gap:10px;}
-    .reward-badge-icon{font-size:2rem;}
-    .reward-badge-name{font-size:0.87rem;}
-    .reward-badge-req{font-size:0.68rem;}
-    
-    .status-locked,
-    .status-earned{
-        font-size:0.65rem;
-        padding:3px 8px;
-    }
-    
-    .reward-badge-hint,
-    .reward-badge-prize{font-size:0.7rem;}
-    
-    .reward-total-amount{font-size:2rem; letter-spacing:-0.5px;}
-    .reward-total-extra{font-size:0.68rem;}
-    
-    .reward-tips{padding:10px 12px;}
-    .reward-tips > div{font-size:0.72rem;}
-}
-
-/* ═══════════════════════════════════════════════════════
-   RESPONSIVE — Small Mobile (≤380px)
-════════════════════════════════════════════════════════ */
-@media (max-width:380px){
-    .kit-reward-widget{padding:18px 12px;}
-    
-    .reward-status-item{
-        grid-template-columns:35px 1fr 55px;
-        gap:8px;
-    }
-    
-    .reward-status-label span{
-        display:none;
-    }
-    
-    .reward-status-label{justify-content:center;}
-    .reward-status-label i{font-size:1rem;}
-    
-    .reward-badge-icon{font-size:1.8rem;}
-    .reward-badge-name{font-size:0.82rem;}
-    .reward-badge-req{font-size:0.65rem;}
-    
-    .reward-total-amount{font-size:1.7rem;}
-    .reward-total-label{font-size:0.68rem;}
-}
-
-    </style>
+</style>
 </head>
+<body>
 
-<body class="kit-page">
-
-<!-- ⭐ Auto-Injected Navbar (via script.js) -->
-<div id="auto-navbar"></div>
-
-
-<!-- ═══════════════════════════════════════════════════
-     HERO
-════════════════════════════════════════════════════ -->
-<section class="kit-hero">
-
-    <!-- Badge -->
-    <div class="kit-hero-badge">
-        <i class="fas fa-gem"></i>
-        <span>EXCLUSIVE RESELLER KIT</span>
-    </div>
-
-    <!-- Title -->
-    <h1>
-        Starter Kit<br>
-        <span class="text-gold">Reseller Success</span>
-    </h1>
-
-    <!-- Subtitle -->
-    <p class="kit-hero-sub">
-        Panduan lengkap 30 hari + 15 modul pembelajaran + SOP resmi
-        untuk sukses jadi reseller Ibaadurrahmaan Web Designer.
-    </p>
-
-    <!-- Stats -->
-    <div class="kit-hero-stats">
-        <div class="kit-hero-stat">
-            <div class="kit-hero-stat-num">15</div>
-            <div class="kit-hero-stat-label">Modul</div>
-        </div>
-        <div class="kit-hero-stat">
-            <div class="kit-hero-stat-num">6</div>
-            <div class="kit-hero-stat-label">SOP</div>
-        </div>
-        <div class="kit-hero-stat">
-            <div class="kit-hero-stat-num">30</div>
-            <div class="kit-hero-stat-label">Hari</div>
-        </div>
-        <div class="kit-hero-stat">
-            <div class="kit-hero-stat-num">25%</div>
-            <div class="kit-hero-stat-label">Max Komisi</div>
-        </div>
-    </div>
-
-</section><!-- /kit-hero -->
-
-<!-- ═══════════════════════════════════════════════════
-     ID RESELLER
-════════════════════════════════════════════════════ -->
-<section class="kit-section">
-    <div class="kit-container">
-        <div class="kit-section-header">
-            <span class="kit-section-badge">🆔 IDENTITAS RESELLER</span>
-            <h2 class="kit-section-title">ID <span class="text-gold">Reseller</span></h2>
-            <p class="kit-section-sub">Identitas resmi Anda untuk tracking progress & sistem reward</p>
-        </div>
-
-        <div class="kit-reseller-code">
-            <div class="kit-code-label">
-                <i class="fas fa-id-card"></i>
-                ID RESELLER ANDA
+<!-- Dashboard Header -->
+<header class="dashboard-header">
+    <div class="header-container">
+        <div class="header-brand">
+            <div class="header-logo">
+                <img src="main-logo.jpg" alt="Logo" onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-weight:900;color:#d4a536;\'>I</div>'">
             </div>
+            <div class="header-title">
+                <h1>Ibaadurrahmaan</h1>
+                <p>Owner Dashboard</p>
+            </div>
+        </div>
+        
+        <div class="header-actions">
+            <div class="user-badge">
+                <div class="user-avatar" id="userAvatar">O</div>
+                <span class="user-name" id="userName">Owner</span>
+            </div>
+            <button class="logout-btn" onclick="handleLogout()" title="Logout">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+
+<!-- Page Title -->
+<section class="page-title-section">
+    <div class="page-title-content">
+        <h2><i class="fas fa-handshake"></i> Kelola Reseller</h2>
+        <p>Manajemen data & status semua reseller</p>
+    </div>
+    <a href="dashboard.html" class="back-to-dashboard">
+        <i class="fas fa-arrow-left"></i>
+        <span>Dashboard</span>
+    </a>
+</section>
+
+
+<main class="main">
+    
+    <!-- Search & Filter -->
+    <div class="controls">
+        <div class="search-wrapper">
+            <i class="fas fa-search search-icon"></i>
             <input type="text" 
-                   class="kit-code-input" 
-                   id="resellerCode" 
-                   placeholder="RSL-2026-XXXXXX"
-                   maxlength="20">
-            
-            <!-- Status verifikasi -->
-            <div class="kit-code-status" id="codeStatus"></div>
-            
-            <p class="kit-code-hint">
-                <b>Fungsi ID Reseller:</b><br>
-                ✓ Otomatis tertambah saat copy script WhatsApp<br>
-                ✓ Track progress belajar & pelaksanaan SOP ke database<br>
-                ✓ Data kinerja untuk sistem reward<br><br>
-                <b>Belum punya ID?</b>
-                <a href="reseller.html">Daftar sebagai reseller resmi →</a>
-            </p>
-        </div>
-    </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════
-     PROGRESS BELAJAR & SOP + REWARD TEASER
-════════════════════════════════════════════════════ -->
-<section class="kit-section">
-    <div class="kit-container">
-        
-        <!-- Progress Belajar -->
-        <div class="kit-progress-section">
-            <div class="kit-progress-header">
-                <div class="kit-progress-title">
-                    <i class="fas fa-graduation-cap"></i>
-                    <span>Progress Belajar</span>
-                </div>
-                <div class="kit-progress-count" id="progressCount">0/15</div>
-            </div>
-            <div class="kit-progress-bar">
-                <div class="kit-progress-fill" id="progressFill"></div>
-            </div>
-            <div class="kit-progress-desc" id="progressDesc">
-                Centang modul yang sudah Anda pelajari
-            </div>
+                   id="searchInput" 
+                   class="search-input" 
+                   placeholder="Cari nama, kode, WA, atau email...">
+            <button class="search-clear" id="searchClear" onclick="clearSearch()">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
         
-        <br>
-        
-        <!-- Progress SOP -->
-        <div class="kit-progress-section">
-            <div class="kit-progress-header">
-                <div class="kit-progress-title">
-                    <i class="fas fa-clipboard-check"></i>
-                    <span>Progress SOP</span>
-                </div>
-                <div class="kit-progress-count" id="sopCount">0/6</div>
-            </div>
-            <div class="kit-progress-bar">
-                <div class="kit-progress-fill" id="sopFill"></div>
-            </div>
-            <div class="kit-progress-desc" id="sopDesc">
-                Centang SOP yang sudah Anda pahami & laksanakan
-            </div>
-        </div>
-        
-        <br>
-       
-       <!-- ═══════════════════════════════════════════════════
-     REWARD WIDGET — Interactive Calculator
-════════════════════════════════════════════════════ -->
-<section class="kit-section" id="reward">
-    <div class="kit-container">
-        
-        <div class="kit-reward-widget">
-            
-            <!-- ═══ Header ═══ -->
-            <div class="reward-widget-header">
-                <div class="reward-widget-icon">
-                    <i class="fas fa-trophy"></i>
-                </div>
-                <div>
-                    <div class="reward-widget-title">
-                        Reward Kamu <span class="badge-soon">COMING Q2 2026</span>
-                    </div>
-                    <div class="reward-widget-sub">
-                        Semakin banyak progress, semakin besar reward yang menanti!
-                    </div>
-                </div>
-            </div>
-            
-            <!-- ═══ Status Progress (Auto-fetched) ═══ -->
-            <div class="reward-status">
-                <div class="reward-status-title">
-                    <i class="fas fa-chart-bar"></i> Status Kamu Sekarang
-                </div>
-                
-                <div class="reward-status-list">
-                    
-                    <!-- Item 1 - Modul -->
-                    <div class="reward-status-item">
-                        <div class="reward-status-label">
-                            <i class="fas fa-graduation-cap"></i> <span>Modul</span>
-                        </div>
-                        <div class="reward-status-bar">
-                            <div class="reward-status-fill" id="rewardModulBar" style="width:0%"></div>
-                        </div>
-                        <div class="reward-status-value" id="rewardModulValue">0/15</div>
-                    </div>
-                    
-                    <!-- Item 2 - SOP -->
-                    <div class="reward-status-item">
-                        <div class="reward-status-label">
-                            <i class="fas fa-clipboard-check"></i> <span>SOP</span>
-                        </div>
-                        <div class="reward-status-bar">
-                            <div class="reward-status-fill" id="rewardSopBar" style="width:0%"></div>
-                        </div>
-                        <div class="reward-status-value" id="rewardSopValue">0/6</div>
-                    </div>
-                    
-                    <!-- Item 3 - Closing -->
-                    <div class="reward-status-item">
-                        <div class="reward-status-label">
-                            <i class="fas fa-briefcase"></i> <span>Closing</span>
-                        </div>
-                        <div class="reward-status-bar">
-                            <div class="reward-status-fill" id="rewardClosingBar" style="width:0%"></div>
-                        </div>
-                        <div class="reward-status-value" id="rewardClosingValue">0 bulan ini</div>
-                    </div>
-                    
-                </div>
-                <!-- END .reward-status-list -->
-                
-            </div>
-            <!-- END .reward-status -->
-            
-            <!-- ═══ Badge Progress Cards ═══ -->
-            <div class="reward-badges" id="rewardBadges">
-                
-                <!-- Rookie Badge -->
-                <div class="reward-badge-card" data-badge="rookie">
-                    <div class="reward-badge-top">
-                        <div class="reward-badge-icon">🥉</div>
-                        <div class="reward-badge-info">
-                            <div class="reward-badge-name">Rookie Badge</div>
-                            <div class="reward-badge-req">5 modul selesai</div>
-                        </div>
-                        <div class="reward-badge-status" id="statusRookie">
-                            <span class="status-locked">🔒 0%</span>
-                        </div>
-                    </div>
-                    <div class="reward-badge-progress-bar">
-                        <div class="reward-badge-progress-fill" id="progressRookie" style="width:0%"></div>
-                    </div>
-                    <div class="reward-badge-hint" id="hintRookie">
-                        Selesaikan 5 modul untuk earn badge ini
-                    </div>
-                    <div class="reward-badge-prize">
-                        🎁 <b>Rp 50.000</b> + Sticker Digital
-                    </div>
-                </div>
-                
-                <!-- Learner Badge -->
-                <div class="reward-badge-card" data-badge="learner">
-                    <div class="reward-badge-top">
-                        <div class="reward-badge-icon">🥈</div>
-                        <div class="reward-badge-info">
-                            <div class="reward-badge-name">Learner Badge</div>
-                            <div class="reward-badge-req">10 modul + 3 SOP</div>
-                        </div>
-                        <div class="reward-badge-status" id="statusLearner">
-                            <span class="status-locked">🔒 0%</span>
-                        </div>
-                    </div>
-                    <div class="reward-badge-progress-bar">
-                        <div class="reward-badge-progress-fill" id="progressLearner" style="width:0%"></div>
-                    </div>
-                    <div class="reward-badge-hint" id="hintLearner">
-                        Selesaikan 10 modul + 3 SOP untuk earn badge ini
-                    </div>
-                    <div class="reward-badge-prize">
-                        🎁 <b>Rp 100.000</b> + Akses Grup VIP
-                    </div>
-                </div>
-                
-                <!-- Graduate Badge -->
-                <div class="reward-badge-card" data-badge="graduate">
-                    <div class="reward-badge-top">
-                        <div class="reward-badge-icon">🥇</div>
-                        <div class="reward-badge-info">
-                            <div class="reward-badge-name">Graduate + Sertifikat</div>
-                            <div class="reward-badge-req">15 modul + 6 SOP + 1 closing</div>
-                        </div>
-                        <div class="reward-badge-status" id="statusGraduate">
-                            <span class="status-locked">🔒 0%</span>
-                        </div>
-                    </div>
-                    <div class="reward-badge-progress-bar">
-                        <div class="reward-badge-progress-fill" id="progressGraduate" style="width:0%"></div>
-                    </div>
-                    <div class="reward-badge-hint" id="hintGraduate">
-                        Selesaikan semua modul + SOP + minimal 1 closing
-                    </div>
-                    <div class="reward-badge-prize">
-                        🎁 <b>Rp 250.000</b> + Sertifikat Resmi
-                    </div>
-                </div>
-                
-                <!-- Top Performer -->
-                <div class="reward-badge-card" data-badge="top">
-                    <div class="reward-badge-top">
-                        <div class="reward-badge-icon">💎</div>
-                        <div class="reward-badge-info">
-                            <div class="reward-badge-name">Top Performer</div>
-                            <div class="reward-badge-req">10+ closing/bulan</div>
-                        </div>
-                        <div class="reward-badge-status" id="statusTop">
-                            <span class="status-locked">🔒 0%</span>
-                        </div>
-                    </div>
-                    <div class="reward-badge-progress-bar">
-                        <div class="reward-badge-progress-fill" id="progressTop" style="width:0%"></div>
-                    </div>
-                    <div class="reward-badge-hint" id="hintTop">
-                        Butuh 10+ closing dalam 1 bulan
-                    </div>
-                    <div class="reward-badge-prize">
-                        🎁 <b>Rp 2.000.000</b> + Merchandise Ekslusif
-                    </div>
-                </div>
-                
-            </div>
-            <!-- END .reward-badges -->
-            
-            <!-- ═══ Total Potensi ═══ -->
-            <div class="reward-total">
-                <div class="reward-total-label">
-                    <i class="fas fa-sack-dollar"></i> TOTAL POTENSI REWARD
-                </div>
-                <div class="reward-total-amount" id="totalRewardAmount">
-                    Rp 2.400.000
-                </div>
-                <div class="reward-total-extra">
-                    + Sertifikat + Akses Grup VIP + Merchandise
-                </div>
-            </div>
-            
-            <!-- ═══ Tips ═══ -->
-            <div class="reward-tips" id="rewardTips">
-                <i class="fas fa-lightbulb"></i>
-                <div>
-                    <b>💡 Tips:</b> <span id="tipsText">Mulai selesaikan modul pertama untuk earn Rookie Badge!</span>
-                </div>
-            </div>
-            
-            <!-- ═══ CTA ═══ -->
-            <div class="reward-cta">
-                <a href="#modul" class="reward-btn-primary">
-                    <i class="fas fa-book-open"></i>
-                    Lanjut Belajar Sekarang
-                </a>
-                <a href="https://wa.me/6281401643188?text=Halo%20Admin,%20saya%20mau%20info%20lebih%20lanjut%20soal%20reward%20reseller" 
-                   class="reward-btn-secondary" target="_blank" rel="noopener">
-                    <i class="fab fa-whatsapp"></i>
-                    Info Reward
-                </a>
-            </div>
-            
-            <!-- ═══ Footer Info ═══ -->
-            <div class="reward-footer-note">
-                <i class="fas fa-info-circle"></i>
-                Sistem reward akan diaktifkan Q2 2026. Progress kamu sudah tersimpan otomatis di database Ibaadurrahmaan Firestore.
-            </div>
-            
-        </div>
-        <!-- END .kit-reward-widget -->
-        
-    </div>
-    <!-- END .kit-container -->
-</section>
-
-<div class="kit-divider"></div>
-
-<!-- ═══════════════════════════════════════════════════
-     LEARNING PATH — 15 MODUL
-════════════════════════════════════════════════════ -->
-<section class="kit-section" id="modul">
-    <div class="kit-container">
-        <div class="kit-section-header">
-            <span class="kit-section-badge">📚 LEARNING PATH</span>
-            <h2 class="kit-section-title">15 Modul <span class="text-gold">Pembelajaran</span></h2>
-            <p class="kit-section-sub">Dari nol sampai closing pertama dalam 30 hari</p>
-        </div>
-<div class="kit-modules-grid" id="modulesGrid">
-    
-    <!-- Modul 1 -->
-    <div class="kit-module-card" data-mod="1" onclick="toggleModule(this)">
-        <div class="kit-module-top">
-            <span class="kit-module-num">MODUL 01</span>
-            <div class="kit-module-check"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="kit-module-icon">🌐</div>
-        <div class="kit-module-title">Mengenal Bisnis Web Designer</div>
-        <div class="kit-module-desc">
-            Pahami industri, potensi pasar, dan kenapa bisnis ini menjanjikan di era digital.
-            <ul class="kit-module-detail">
-                <li>Kenali tren digitalisasi UMKM Indonesia</li>
-                <li>Data: 64 juta UMKM, baru 13% punya website</li>
-                <li>Peluang pasar website Rp 5-50 juta/project</li>
-                <li>Kenapa reseller web designer itu low-risk high-reward</li>
-                <li>Perbedaan web designer vs freelancer vs agency</li>
-            </ul>
-        </div>
-        <span class="kit-module-tag tag-basic">BASIC</span>
-    </div>
-
-    <!-- Modul 2 -->
-    <div class="kit-module-card" data-mod="2" onclick="toggleModule(this)">
-        <div class="kit-module-top">
-            <span class="kit-module-num">MODUL 02</span>
-            <div class="kit-module-check"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="kit-module-icon">🎯</div>
-        <div class="kit-module-title">Mengenal Produk Ibaadurrahmaan</div>
-        <div class="kit-module-desc">
-            Detail setiap paket, fitur unggulan, dan cara membandingkan dengan kompetitor.
-            <ul class="kit-module-detail">
-                <li>Pelajari 3 paket: Starter, Business, Premium</li>
-                <li>Hafal fitur & benefit setiap paket</li>
-                <li>Studi 5+ contoh portfolio yang sudah dibuat</li>
-                <li>Pahami perbedaan Landing Page vs Multi-page</li>
-                <li>Kenali proses produksi (3-7 hari kerja)</li>
-                <li>Cara menjawab "apa bedanya sama kompetitor?"</li>
-            </ul>
-        </div>
-        <span class="kit-module-tag tag-basic">BASIC</span>
-    </div>
-
-    <!-- Modul 3 -->
-    <div class="kit-module-card" data-mod="3" onclick="toggleModule(this)">
-        <div class="kit-module-top">
-            <span class="kit-module-num">MODUL 03</span>
-            <div class="kit-module-check"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="kit-module-icon">👥</div>
-        <div class="kit-module-title">Identifikasi Target Pasar</div>
-        <div class="kit-module-desc">
-            Siapa calon customer ideal dan segmentasi yang tepat untuk jualan lebih mudah.
-            <ul class="kit-module-detail">
-                <li>Identifikasi 5 kategori bisnis yang butuh website</li>
-                <li>Pahami pain point mereka (tidak punya toko online, kalah saing)</li>
-                <li>Tentukan lokasi target market</li>
-                <li>Susun customer persona (usia, bisnis, budget)</li>
-                <li>List 20+ prospek awal dari lingkaran sendiri</li>
-                <li>Cari prospek dari Google Maps: UMKM tanpa website</li>
-            </ul>
-        </div>
-        <span class="kit-module-tag tag-basic">BASIC</span>
-    </div>
-
-    <!-- Modul 4 -->
-    <div class="kit-module-card" data-mod="4" onclick="toggleModule(this)">
-        <div class="kit-module-top">
-            <span class="kit-module-num">MODUL 04</span>
-            <div class="kit-module-check"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="kit-module-icon">💬</div>
-        <div class="kit-module-title">Script Opening WhatsApp</div>
-        <div class="kit-module-desc">
-            Template pesan pembuka yang terbukti dapat respons tinggi.
-            <ul class="kit-module-detail">
-                <li>Script opening chat pertama (warm & cold market)</li>
-                <li>Script menjawab "berapa harga?"</li>
-                <li>Teknik hook 3 detik pertama yang menarik</li>
-                <li>Hindari kesalahan fatal: langsung kirim brosur</li>
-                <li>Formula AIDA: Attention, Interest, Desire, Action</li>
-                <li>Contoh pesan yang dapat 60%+ reply rate</li>
-            </ul>
-        </div>
-        <span class="kit-module-tag tag-basic">BASIC</span>
-    </div>
-
-    <!-- Modul 5 -->
-    <div class="kit-module-card" data-mod="5" onclick="toggleModule(this)">
-        <div class="kit-module-top">
-            <span class="kit-module-num">MODUL 05</span>
-            <div class="kit-module-check"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="kit-module-icon">🛡️</div>
-        <div class="kit-module-title">Mengatasi Keberatan (Objection)</div>
-        <div class="kit-module-desc">
-            Cara elegan mengubah penolakan jadi closing.
-            <ul class="kit-module-detail">
-                <li>"Mahal" → Jelaskan ROI & value jangka panjang</li>
-                <li>"Nanti dulu" → Ciptakan urgency (slot terbatas)</li>
-                <li>"Pikir-pikir dulu" → Berikan garansi & testimoni</li>
-                <li>"Bisa diskon?" → Tawarkan paket yang lebih sesuai</li>
-                <li>"Bikin sendiri aja" → Bandingkan waktu vs hasil</li>
-                <li>Mindset: penolakan = proses, bukan akhir</li>
-            </ul>
-        </div>
-        <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
-    </div>
-
-    <!-- Modul 6 -->
-    <div class="kit-module-card" data-mod="6" onclick="toggleModule(this)">
-        <div class="kit-module-top">
-            <span class="kit-module-num">MODUL 06</span>
-            <div class="kit-module-check"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="kit-module-icon">📱</div>
-        <div class="kit-module-title">Personal Branding di Media Sosial</div>
-        <div class="kit-module-desc">
-            Bangun profil kredibel sebagai web reseller profesional.
-            <ul class="kit-module-detail">
-                <li>Setup WhatsApp Business + katalog produk</li>
-                <li>Buat akun Instagram bisnis yang profesional</li>
-                <li>Optimasi bio, highlight, dan foto profil</li>
-                <li>Setup Facebook Page dengan CTA WhatsApp</li>
-                <li>Bikin konten TikTok edukasi tentang website</li>
-                <li>Konsisten warna & style brand di semua platform</li>
-            </ul>
-        </div>
-        <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
-    </div>
-
-    <!-- Modul 7 -->
-    <div class="kit-module-card" data-mod="7" onclick="toggleModule(this)">
-        <div class="kit-module-top">
-            <span class="kit-module-num">MODUL 07</span>
-            <div class="kit-module-check"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="kit-module-icon">📸</div>
-        <div class="kit-module-title">Konten Marketing Organik</div>
-        <div class="kit-module-desc">
-            Buat konten yang menarik prospek tanpa bayar iklan.
-            <ul class="kit-module-detail">
-                <li>Formula 3-2-1: 3 edukasi, 2 portfolio, 1 jualan</li>
-                <li>Rencana 30 konten (edukasi, portfolio, testimoni)</li>
-                <li>Template Canva untuk feed & story Instagram</li>
-                <li>Jadwal posting: minimal 1x per hari</li>
-                <li>Hook & CTA yang bikin orang DM</li>
-                <li>Cara repost portfolio tanpa terasa hard-selling</li>
-            </ul>
-        </div>
-        <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
-    </div>
-
-    <!-- Modul 8 -->
-    <div class="kit-module-card" data-mod="8" onclick="toggleModule(this)">
-        <div class="kit-module-top">
-            <span class="kit-module-num">MODUL 08</span>
-            <div class="kit-module-check"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="kit-module-icon">🔄</div>
-        <div class="kit-module-title">Follow-up Tanpa Terasa Spam</div>
-        <div class="kit-module-desc">
-            Sistem follow-up 7 hari yang natural dan efektif.
-            <ul class="kit-module-detail">
-                <li>Script follow-up hari ke-1 (reminder ringan)</li>
-                <li>Script follow-up hari ke-3 (tambah value/info)</li>
-                <li>Script follow-up hari ke-7 (urgency slot)</li>
-                <li>Script follow-up hari ke-14 (last call)</li>
-                <li>Konsisten follow-up minimal 5x per prospek</li>
-                <li>80% penjualan terjadi di follow-up ke-5 sampai ke-12</li>
-            </ul>
-        </div>
-        <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
-    </div>
-
-    <!-- Modul 9 -->
-    <div class="kit-module-card" data-mod="9" onclick="toggleModule(this)">
-        <div class="kit-module-top">
-            <span class="kit-module-num">MODUL 09</span>
-            <div class="kit-module-check"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="kit-module-icon">🤝</div>
-        <div class="kit-module-title">Teknik Closing yang Efektif</div>
-        <div class="kit-module-desc">
-            Kapan waktu tepat closing dan teknik urgensi yang tidak memaksa.
-            <ul class="kit-module-detail">
-                <li>Kenali buying signal dari prospek (tanya detail, minta diskon)</li>
-                <li>Teknik "assumptive close" — anggap sudah deal</li>
-                <li>Teknik "alternative close" — "Mau paket A atau B?"</li>
-                <li>Beri social proof: portfolio + testimoni serupa</li>
-                <li>Cara minta keputusan tanpa terasa memaksa</li>
-                <li>Script closing dengan urgency & scarcity</li>
-            </ul>
-        </div>
-        <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
-    </div>
-
-    <!-- Modul 10 -->
-    <div class="kit-module-card" data-mod="10" onclick="toggleModule(this)">
-        <div class="kit-module-top">
-            <span class="kit-module-num">MODUL 10</span>
-            <div class="kit-module-check"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="kit-module-icon">⚙️</div>
-        <div class="kit-module-title">Alur Pemesanan & Pembayaran</div>
-        <div class="kit-module-desc">
-            Dari order masuk sampai serah terima website ke klien.
-            <ul class="kit-module-detail">
-                <li>Client transfer DP 50% ke rekening owner</li>
-                <li>Reseller lapor ke owner + bukti transfer</li>
-                <li>Owner mulai produksi (3-7 hari kerja)</li>
-                <li>Client pelunasan 50% sebelum web live</li>
-                <li>Serah terima website + garansi 30 hari</li>
-                <li>Reseller jangan pernah terima uang ke rekening pribadi</li>
-            </ul>
-        </div>
-        <span class="kit-module-tag tag-intermediate">INTERMEDIATE</span>
-    </div>
-
-    <!-- Modul 11 -->
-    <div class="kit-module-card" data-mod="11" onclick="toggleModule(this)">
-        <div class="kit-module-top">
-            <span class="kit-module-num">MODUL 11</span>
-            <div class="kit-module-check"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="kit-module-icon">⭐</div>
-        <div class="kit-module-title">After-Sales & Testimoni</div>
-        <div class="kit-module-desc">
-            Cara maintain hubungan pasca-closing dan ubah klien jadi referral aktif.
-            <ul class="kit-module-detail">
-                <li>Chat ucapan terima kasih setelah website live</li>
-                <li>Minta testimoni di hari ke-3 setelah serah terima</li>
-                <li>Tawarkan maintenance bulanan (upsell)</li>
-                <li>Follow up di anniversary bisnis client</li>
-                <li>Referral program: minta kenalan yang butuh website</li>
-                <li>Client existing 5x lebih mudah closing lagi</li>
-            </ul>
-        </div>
-        <span class="kit-module-tag tag-advanced">ADVANCED</span>
-    </div>
-
-    <!-- Modul 12 -->
-    <div class="kit-module-card" data-mod="12" onclick="toggleModule(this)">
-        <div class="kit-module-top">
-            <span class="kit-module-num">MODUL 12</span>
-            <div class="kit-module-check"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="kit-module-icon">📊</div>
-        <div class="kit-module-title">Tracking Komisi & Pembukuan</div>
-        <div class="kit-module-desc">
-            Cara track komisi, rekap penjualan, dan kelola cashflow.
-            <ul class="kit-module-detail">
-                <li>Simpan database prospek di Google Sheets</li>
-                <li>Kategorikan: Hot, Warm, Cold, Dead lead</li>
-                <li>Catat setiap closing: tanggal, paket, nominal, komisi</li>
-                <li>Set reminder follow-up otomatis</li>
-                <li>Track conversion rate per bulan</li>
-                <li>Slip komisi dikirim via WhatsApp setiap payout</li>
-            </ul>
-        </div>
-        <span class="kit-module-tag tag-advanced">ADVANCED</span>
-    </div>
-
-    <!-- Modul 13 -->
-    <div class="kit-module-card" data-mod="13" onclick="toggleModule(this)">
-        <div class="kit-module-top">
-            <span class="kit-module-num">MODUL 13</span>
-            <div class="kit-module-check"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="kit-module-icon">🔗</div>
-        <div class="kit-module-title">Ekspansi via Komunitas & Network</div>
-        <div class="kit-module-desc">
-            Masuk komunitas bisnis untuk menemukan prospek berkualitas tinggi.
-            <ul class="kit-module-detail">
-                <li>Join grup Facebook UMKM & entrepreneur lokal</li>
-                <li>Aktif di komunitas bisnis WhatsApp</li>
-                <li>Kolaborasi dengan reseller lain (beda produk)</li>
-                <li>Ikut event offline: bazar, seminar, networking</li>
-                <li>Jadi pembicara/narasumber tentang digital marketing</li>
-                <li>Build authority: jadi problem solver, bukan sales</li>
-            </ul>
-        </div>
-        <span class="kit-module-tag tag-advanced">ADVANCED</span>
-    </div>
-
-    <!-- Modul 14 -->
-    <div class="kit-module-card" data-mod="14" onclick="toggleModule(this)">
-        <div class="kit-module-top">
-            <span class="kit-module-num">MODUL 14</span>
-            <div class="kit-module-check"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="kit-module-icon">📈</div>
-        <div class="kit-module-title">Scale-Up: Dari Reseller ke Tim</div>
-        <div class="kit-module-desc">
-            Bangun tim sub-reseller dan tingkatkan penghasilan berlipat.
-            <ul class="kit-module-detail">
-                <li>Rekrut sub-reseller dari network Anda</li>
-                <li>Duplikasi sistem & starter kit ke tim</li>
-                <li>Buat grup WhatsApp khusus tim reseller</li>
-                <li>Investasi iklan berbayar (FB/IG Ads) untuk scale</li>
-                <li>Target: 3-5 closing/bulan untuk naik tier Gold</li>
-                <li>Long-term: passive income dari tim sub-reseller</li>
-            </ul>
-        </div>
-        <span class="kit-module-tag tag-advanced">ADVANCED</span>
-    </div>
-
-    <!-- Modul 15 -->
-    <div class="kit-module-card" data-mod="15" onclick="toggleModule(this)">
-        <div class="kit-module-top">
-            <span class="kit-module-num">MODUL 15</span>
-            <div class="kit-module-check"><i class="fas fa-check"></i></div>
-        </div>
-        <div class="kit-module-icon">🏆</div>
-        <div class="kit-module-title">Mindset Reseller Sukses</div>
-        <div class="kit-module-desc">
-            Mental konsisten dan kebiasaan harian reseller berpenghasilan tinggi.
-            <ul class="kit-module-detail">
-                <li>Reseller = solusi, bukan sekedar penjual</li>
-                <li>Fokus pada value, bukan harga</li>
-                <li>Handle penolakan sebagai pembelajaran</li>
-                <li>Set target harian: 10 prospek baru per hari</li>
-                <li>Review performance setiap minggu</li>
-                <li>Konsistensi mengalahkan bakat — terus bergerak!</li>
-            </ul>
-        </div>
-        <span class="kit-module-tag tag-advanced">ADVANCED</span>
-    </div>
-
-</div><!-- /kit-modules-grid -->
-    </div>
-</section>
-
-
-<div class="kit-divider"></div>
-
-<!-- ===== SOP RESELLER ===== -->
-<section class="kit-sop-section">
-    <div class="kit-container">
-        <div class="kit-section-header">
-            <div class="kit-section-badge">📋 STANDARD OPERATING PROCEDURE</div>
-            <h2 class="kit-section-title">SOP Reseller <span class="text-gold">Resmi</span></h2>
-            <p class="kit-section-sub">Aturan main & workflow yang wajib diikuti semua reseller</p>
-        </div>
-        
-        <div class="kit-sop-grid">
-    
-    <!-- SOP 1 -->
-    <div class="kit-sop-card" data-sop="1" onclick="toggleSOP(this)">
-        <span class="kit-sop-icon">🎯</span>
-        <h4 class="kit-sop-title">1. Onboarding Reseller Baru</h4>
-        <ol class="kit-sop-list">
-            <li>Daftar via form registrasi reseller di website</li>
-            <li>Verifikasi identitas (KTP + WhatsApp aktif)</li>
-            <li>Tanda tangan MoU digital via Google Form</li>
-            <li>Terima ID Reseller unik (format: RSL-YYYY-XXXXXX)</li>
-            <li>Akses starter kit lengkap (15 modul + 6 SOP)</li>
-            <li>Bergabung ke grup WhatsApp reseller resmi</li>
-            <li>Onboarding call 30 menit dengan owner</li>
-            <li>Setup profil WhatsApp Business & media sosial</li>
-            <li>Mulai prospecting di minggu pertama</li>
-        </ol>
-        <div class="kit-sop-check">
-            <i class="fas fa-check"></i>
+        <div class="filter-tabs" id="filterTabs">
+            <button class="filter-tab active" data-status="all">
+                <i class="fas fa-list"></i>
+                <span>Semua</span>
+                <span class="count" id="countAll">0</span>
+            </button>
+            <button class="filter-tab" data-status="pending">
+                <i class="fas fa-clock"></i>
+                <span>Pending</span>
+                <span class="count" id="countPending">0</span>
+            </button>
+            <button class="filter-tab" data-status="active">
+                <i class="fas fa-check-circle"></i>
+                <span>Active</span>
+                <span class="count" id="countActive">0</span>
+            </button>
+            <button class="filter-tab" data-status="inactive">
+                <i class="fas fa-user-slash"></i>
+                <span>Inactive</span>
+                <span class="count" id="countInactive">0</span>
+            </button>
+            <button class="filter-tab" data-status="rejected">
+                <i class="fas fa-ban"></i>
+                <span>Rejected</span>
+                <span class="count" id="countRejected">0</span>
+            </button>
         </div>
     </div>
     
-    <!-- SOP 2 -->
-    <div class="kit-sop-card" data-sop="2" onclick="toggleSOP(this)">
-        <span class="kit-sop-icon">💼</span>
-        <h4 class="kit-sop-title">2. Alur Closing Client</h4>
-        <ol class="kit-sop-list">
-            <li>Reseller prospecting & opening chat ke calon klien</li>
-            <li>Identifikasi kebutuhan klien (jenis bisnis, fitur, budget)</li>
-            <li>Kirim portfolio + rekomendasi paket yang cocok</li>
-            <li>Handle objection & follow-up (max 14 hari aktif)</li>
-            <li>Klien setuju → arahkan transfer DP 50% ke rekening owner</li>
-            <li>Reseller lapor ke owner via WA: nama klien + bukti transfer + paket</li>
-            <li>Owner konfirmasi & mulai produksi (3-7 hari kerja)</li>
-            <li>Reseller update progress ke klien secara berkala</li>
-            <li>Website selesai → klien pelunasan 50% sisa</li>
-            <li>Serah terima website + garansi revisi 30 hari</li>
-            <li>Reseller minta testimoni dari klien</li>
-        </ol>
-        <div class="kit-sop-check">
-            <i class="fas fa-check"></i>
+    <!-- Result Info -->
+    <div class="result-info">
+        <div class="result-count">
+            <i class="fas fa-users"></i>
+            Menampilkan <b id="visibleCount">0</b> dari <b id="totalCount">0</b> reseller
         </div>
     </div>
     
-    <!-- SOP 3 -->
-    <div class="kit-sop-card" data-sop="3" onclick="toggleSOP(this)">
-        <span class="kit-sop-icon">💰</span>
-        <h4 class="kit-sop-title">3. Sistem Komisi & Pembayaran</h4>
-        <ol class="kit-sop-list">
-            <li>Komisi dihitung dari total pembayaran klien (setelah lunas 100%)</li>
-            <li>Tier Silver: 10-15% komisi (base rate)</li>
-            <li>Tier Gold: base rate + 2% bonus</li>
-            <li>Tier Platinum: base rate + 5% bonus</li>
-            <li>Tier Diamond: base rate + 8% bonus</li>
-            <li>Payout standar: tanggal 1-5 bulan berikutnya</li>
-            <li>Opsi payout langsung per closing (request ke owner)</li>
-            <li>Slip komisi digital dikirim via WhatsApp</li>
-            <li>Transfer ke rekening reseller (bank/e-wallet)</li>
-            <li>Semua transaksi tercatat & bisa diaudit kapan saja</li>
-        </ol>
-        <div class="kit-sop-check">
-            <i class="fas fa-check"></i>
+    <!-- Reseller Grid -->
+    <div class="reseller-grid" id="resellerGrid">
+        <div class="empty-state">
+            <i class="fas fa-spinner fa-spin"></i>
+            <h3>Memuat data...</h3>
+            <p>Mohon tunggu sebentar</p>
         </div>
     </div>
     
-    <!-- SOP 4 -->
-    <div class="kit-sop-card" data-sop="4" onclick="toggleSOP(this)">
-        <span class="kit-sop-icon">💬</span>
-        <h4 class="kit-sop-title">4. Etika Komunikasi</h4>
-        <ol class="kit-sop-list">
-            <li>Selalu ramah, profesional, dan solutif — no drama</li>
-            <li>Balas chat prospek maksimal 2 jam saat jam kerja (08.00-21.00)</li>
-            <li>Di luar jam kerja → balas pagi berikutnya + minta maaf</li>
-            <li>Jangan janjikan hal di luar SOP (gratis domain seumur hidup, dll)</li>
-            <li>Konsultasi ke owner untuk request khusus atau custom project</li>
-            <li>Dilarang perang harga atau rebut prospek sesama reseller</li>
-            <li>Gunakan bahasa Indonesia yang baik, hindari typo berlebihan</li>
-            <li>Jaga nama baik & reputasi brand Ibaadurrahmaan</li>
-            <li>Jika ada masalah dengan klien → eskalasi ke owner, jangan handle sendiri</li>
-        </ol>
-        <div class="kit-sop-check">
-            <i class="fas fa-check"></i>
-        </div>
-    </div>
-    
-    <!-- SOP 5 -->
-    <div class="kit-sop-card danger" data-sop="5" onclick="toggleSOP(this)">
-        <span class="kit-sop-icon">⚠️</span>
-        <h4 class="kit-sop-title">5. Larangan Keras Reseller</h4>
-        <ol class="kit-sop-list">
-            <li>Jual di bawah harga resmi yang sudah ditetapkan</li>
-            <li>Klaim portfolio atau hasil kerja orang lain sebagai milik sendiri</li>
-            <li>Terima pembayaran klien ke rekening pribadi reseller</li>
-            <li>Janjikan revisi tak terbatas atau fitur di luar paket</li>
-            <li>Cetak, edit, atau manipulasi MoU secara sepihak</li>
-            <li>Rekrut reseller dengan skema MLM piramida</li>
-            <li>Memberikan data klien ke pihak ketiga tanpa izin</li>
-            <li>Menjelek-jelekkan kompetitor atau sesama reseller</li>
-            <li>Mengatasnamakan owner untuk janji yang tidak disepakati</li>
-            <li><b>Konsekuensi: MoU dibatalkan sepihak + blacklist permanen</b></li>
-        </ol>
-        <div class="kit-sop-check">
-            <i class="fas fa-check"></i>
-        </div>
-    </div>
-    
-    <!-- SOP 6 -->
-    <div class="kit-sop-card success" data-sop="6" onclick="toggleSOP(this)">
-        <span class="kit-sop-icon">✅</span>
-        <h4 class="kit-sop-title">6. Hak & Benefit Reseller</h4>
-        <ol class="kit-sop-list">
-            <li>Dapat komisi sesuai tier & kesepakatan MoU</li>
-            <li>Akses starter kit lengkap (15 modul + SOP + script)</li>
-            <li>Support 1-on-1 langsung dari owner via WhatsApp</li>
-            <li>Update materi, training, dan webinar gratis</li>
-            <li>Naik tier otomatis sesuai jumlah closing per bulan</li>
-            <li>Sertifikat reseller resmi setelah 10 closing</li>
-            <li>Prioritas info promo & diskon khusus reseller</li>
-            <li>Dapat materi marketing (gambar, video, caption) siap posting</li>
-            <li>Konsultasi gratis untuk strategi penjualan & closing</li>
-            <li>Peluang jadi koordinator reseller wilayah (untuk top performer)</li>
-        </ol>
-        <div class="kit-sop-check">
-            <i class="fas fa-check"></i>
-        </div>
-    </div>
-    
-</div>
-</section>
-
-
-<div class="kit-divider"></div>
-
-
-<!-- ═══════════════════════════════════════════════════
-     TIER & KOMISI
-════════════════════════════════════════════════════ -->
-<section class="kit-section" id="tier">
-    <div class="kit-container">
-        <div class="kit-section-header">
-            <span class="kit-section-badge">💰 TIER KOMISI</span>
-            <h2 class="kit-section-title">Sistem <span class="text-gold">Komisi</span></h2>
-            <p class="kit-section-sub">Makin banyak closing, makin besar komisi yang kamu dapat</p>
-        </div>
-
-        <div class="kit-tier-grid">
-            <div class="kit-tier-card">
-                <div class="kit-tier-icon">🥉</div>
-                <div class="kit-tier-name">Starter</div>
-                <div class="kit-tier-commission">15%</div>
-                <div class="kit-tier-commission-label">komisi per closing</div>
-                <div class="kit-tier-req">0–2 closing/bulan</div>
-            </div>
-
-            <div class="kit-tier-card">
-                <div class="kit-tier-icon">🥈</div>
-                <div class="kit-tier-name">Silver</div>
-                <div class="kit-tier-commission">18%</div>
-                <div class="kit-tier-commission-label">komisi per closing</div>
-                <div class="kit-tier-req">3–5 closing/bulan</div>
-            </div>
-
-            <div class="kit-tier-card">
-                <div class="kit-tier-icon">🥇</div>
-                <div class="kit-tier-name">Gold</div>
-                <div class="kit-tier-commission">21%</div>
-                <div class="kit-tier-commission-label">komisi per closing</div>
-                <div class="kit-tier-req">6–9 closing/bulan</div>
-            </div>
-
-            <div class="kit-tier-card">
-                <div class="kit-tier-icon">💎</div>
-                <div class="kit-tier-name">Diamond</div>
-                <div class="kit-tier-commission">25%</div>
-                <div class="kit-tier-commission-label">komisi per closing</div>
-                <div class="kit-tier-req">10+ closing/bulan</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<div class="kit-divider"></div>
-
-
-<!-- ═══════════════════════════════════════════════════
-     SCRIPT TEMPLATES
-════════════════════════════════════════════════════ -->
-<section class="kit-section" id="scripts">
-    <div class="kit-container">
-        <div class="kit-section-header">
-            <span class="kit-section-badge">💬 SCRIPT TEMPLATES</span>
-            <h2 class="kit-section-title">Script <span class="text-gold">Siap Pakai</span></h2>
-            <p class="kit-section-sub">Copy, sesuaikan nama klien, dan langsung kirim — kode reseller otomatis tertambah</p>
-        </div>
-
-        <!-- Tabs -->
-        <div class="kit-script-tabs">
-            <button class="kit-script-tab active" onclick="switchTab('opening',this)">Opening</button>
-            <button class="kit-script-tab" onclick="switchTab('followup',this)">Follow-Up</button>
-            <button class="kit-script-tab" onclick="switchTab('objection',this)">Objection</button>
-            <button class="kit-script-tab" onclick="switchTab('closing',this)">Closing</button>
-            <button class="kit-script-tab" onclick="switchTab('aftersales',this)">After-Sales</button>
-        </div>
-
-        <!-- Opening -->
-        <div class="kit-script-content active" id="tab-opening">
-            <div class="kit-script-box">
-                <div class="kit-script-label">
-                    <i class="fas fa-comment"></i> SCRIPT OPENING — KENALAN PERTAMA
-                </div>
-                <div class="kit-script-text" id="text-opening">Assalamu'alaikum Kak <span class="kit-script-vars">[Nama]</span> 👋
-
-Saya <span class="kit-script-vars">[Nama Anda]</span>, reseller resmi Ibaadurrahmaan Web Designer.
-
-Perkenalkan — kami menyediakan jasa pembuatan website profesional untuk UMKM, toko online, dan bisnis lokal, mulai dari Rp 1,5 Juta.
-
-Boleh saya tanya, Kak — saat ini apakah bisnisnya sudah punya website? 🙏</div>
-                <button class="kit-copy-btn" onclick="copyScript('text-opening', this)">
-                    <i class="fas fa-copy"></i> Copy + Tambah Kode
-                </button>
-            </div>
-        </div>
-
-        <!-- Follow-Up -->
-        <div class="kit-script-content" id="tab-followup">
-            <div class="kit-script-box">
-                <div class="kit-script-label">
-                    <i class="fas fa-redo"></i> SCRIPT FOLLOW-UP — HARI KE-3
-                </div>
-                <div class="kit-script-text" id="text-followup">Halo Kak <span class="kit-script-vars">[Nama]</span> 😊
-
-Mau follow-up sedikit soal info website kemarin...
-
-Kebetulan minggu ini masih ada slot pengerjaan yang kosong, dan tim kami sedang ada promo khusus untuk yang order bulan ini.
-
-Kalau Kakak ada pertanyaan atau mau lihat contoh hasil kerja kami, boleh banget langsung tanya — free konsultasi ya Kak 🙏
-
-Ditunggu kabarnya 🌟</div>
-                <button class="kit-copy-btn" onclick="copyScript('text-followup', this)">
-                    <i class="fas fa-copy"></i> Copy + Tambah Kode
-                </button>
-            </div>
-        </div>
-
-        <!-- Objection -->
-        <div class="kit-script-content" id="tab-objection">
-            <div class="kit-script-box">
-                <div class="kit-script-label">
-                    <i class="fas fa-shield-alt"></i> SCRIPT OBJECTION — "MAHAL"
-                </div>
-                <div class="kit-script-text" id="text-objection">Wah, saya paham Kak 😊
-
-Memang kalau dilihat sekarang terasa besar — tapi coba kita hitung bareng ya Kak:
-
-Website aktif bisa tarik 5–10 customer baru per bulan. Kalau 1 customer aja spending Rp 200.000, dalam sebulan sudah balik modal, Kak 💡
-
-Dan website ini juga bukan biaya sekali — ini *investasi* yang kerja 24 jam, bahkan saat Kakak tidur sekalipun 🌙
-
-Mau saya bantu pilih paket yang paling sesuai budget dulu? 🙏</div>
-                <button class="kit-copy-btn" onclick="copyScript('text-objection', this)">
-                    <i class="fas fa-copy"></i> Copy + Tambah Kode
-                </button>
-            </div>
-        </div>
-
-        <!-- Closing -->
-        <div class="kit-script-content" id="tab-closing">
-            <div class="kit-script-box">
-                <div class="kit-script-label">
-                    <i class="fas fa-handshake"></i> SCRIPT CLOSING — MINTA KEPUTUSAN
-                </div>
-                <div class="kit-script-text" id="text-closing">Kak <span class="kit-script-vars">[Nama]</span>, sepertinya sudah cocok ya dengan paket <span class="kit-script-vars">[Nama Paket]</span> 😊
-
-Kalau Kakak mau lanjut hari ini, saya bisa langsung koordinasikan ke tim dan slot pengerjaan bisa dijamin mulai minggu ini.
-
-Untuk DP-nya bisa transfer ke rekening admin ya Kak — saya kirimkan detailnya sekarang.
-
-Gimana Kak, kita lanjut? 🙏✨</div>
-                <button class="kit-copy-btn" onclick="copyScript('text-closing', this)">
-                    <i class="fas fa-copy"></i> Copy + Tambah Kode
-                </button>
-            </div>
-        </div>
-
-        <!-- After-Sales -->
-        <div class="kit-script-content" id="tab-aftersales">
-            <div class="kit-script-box">
-                <div class="kit-script-label">
-                    <i class="fas fa-star"></i> SCRIPT AFTER-SALES — MINTA TESTIMONI
-                </div>
-                <div class="kit-script-text" id="text-aftersales">Halo Kak <span class="kit-script-vars">[Nama]</span> 😊
-
-Alhamdulillah website-nya sudah live ya — semoga sukses buat bisnisnya Kak 🌟
-
-Boleh saya minta tolong sedikit? Kalau Kakak puas dengan hasilnya, sangat berarti banget kalau Kakak mau tulis testimoni singkat — bebas mau di WA, Google Review, atau Instagram 🙏
-
-Testimoni Kakak bisa bantu banyak orang UMKM lain yang lagi cari website terpercaya 💛
-
-Makasih banyak ya Kak! 🤝</div>
-                <button class="kit-copy-btn" onclick="copyScript('text-aftersales', this)">
-                    <i class="fas fa-copy"></i> Copy + Tambah Kode
-                </button>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-
-<div class="kit-divider"></div>
-
-
-<!-- ═══════════════════════════════════════════════════
-     CHECKLIST 30 HARI
-════════════════════════════════════════════════════ -->
-<section class="kit-section" id="checklist">
-    <div class="kit-container">
-        <div class="kit-section-header">
-            <span class="kit-section-badge">✅ ACTION PLAN</span>
-            <h2 class="kit-section-title">Checklist <span class="text-gold">30 Hari</span></h2>
-            <p class="kit-section-sub">Ikuti langkah ini dan closing pertama menanti di akhir bulan</p>
-        </div>
-
-        <div class="kit-checklist" id="checklist30">
-
-            <div class="kit-check-item" onclick="toggleCheck(this)">
-                <div class="kit-check-box"><i class="fas fa-check"></i></div>
-                <div class="kit-check-text">
-                    <div class="kit-check-title">Minggu 1 — Setup & Belajar Produk</div>
-                    <div class="kit-check-desc">Pelajari modul 1–5, hafal fitur tiap paket, update profil WA & Instagram jadi reseller profesional.</div>
-                </div>
-            </div>
-
-            <div class="kit-check-item" onclick="toggleCheck(this)">
-                <div class="kit-check-box"><i class="fas fa-check"></i></div>
-                <div class="kit-check-text">
-                    <div class="kit-check-title">Minggu 2 — Mulai Prospecting</div>
-                    <div class="kit-check-desc">Hubungi 10 prospek per hari, gunakan script opening, posting konten pertama di sosmed.</div>
-                </div>
-            </div>
-
-            <div class="kit-check-item" onclick="toggleCheck(this)">
-                <div class="kit-check-box"><i class="fas fa-check"></i></div>
-                <div class="kit-check-text">
-                    <div class="kit-check-title">Minggu 3 — Follow-Up & Closing</div>
-                    <div class="kit-check-desc">Jalankan follow-up sistematik, handle objection, dan push closing untuk yang sudah tertarik.</div>
-                </div>
-            </div>
-
-            <div class="kit-check-item" onclick="toggleCheck(this)">
-                <div class="kit-check-box"><i class="fas fa-check"></i></div>
-                <div class="kit-check-text">
-                    <div class="kit-check-title">Minggu 4 — Evaluasi & Scale-Up</div>
-                    <div class="kit-check-desc">Review hasil, minta testimoni klien pertama, rencana ekspansi bulan depan, dan cek tier komisi.</div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-
-<div class="kit-divider"></div>
-
-
-<!-- ═══════════════════════════════════════════════════
-     FAQ
-════════════════════════════════════════════════════ -->
-<section class="kit-section" id="faq">
-    <div class="kit-container">
-        <div class="kit-section-header">
-            <span class="kit-section-badge">❓ FAQ</span>
-            <h2 class="kit-section-title">Pertanyaan <span class="text-gold">Umum</span></h2>
-        </div>
-
-        <div class="kit-faq">
-
-            <div class="kit-faq-item">
-                <button class="kit-faq-q" onclick="toggleFaq(this)">
-                    <span class="kit-faq-q-text">Berapa komisi yang saya dapat per closing?</span>
-                    <i class="fas fa-chevron-down kit-faq-icon"></i>
-                </button>
-                <div class="kit-faq-a">
-                    <div class="kit-faq-a-inner">
-                        Komisi mulai dari 15% (Tier Starter) hingga 25% (Tier Diamond) tergantung jumlah closing per bulan. Contoh: paket Rp 1.500.000 × 15% = komisi Rp 225.000 per closing.
-                    </div>
-                </div>
-            </div>
-
-            <div class="kit-faq-item">
-                <button class="kit-faq-q" onclick="toggleFaq(this)">
-                    <span class="kit-faq-q-text">Kapan komisi dicairkan?</span>
-                    <i class="fas fa-chevron-down kit-faq-icon"></i>
-                </button>
-                <div class="kit-faq-a">
-                    <div class="kit-faq-a-inner">
-                        Komisi dicairkan setiap tanggal 1–5 bulan berikutnya, setelah pembayaran dari klien sudah lunas dan website selesai diserahkan. Request komisi via WhatsApp admin.
-                    </div>
-                </div>
-            </div>
-
-            <div class="kit-faq-item">
-                <button class="kit-faq-q" onclick="toggleFaq(this)">
-                    <span class="kit-faq-q-text">Apakah saya perlu modal untuk jadi reseller?</span>
-                    <i class="fas fa-chevron-down kit-faq-icon"></i>
-                </button>
-                <div class="kit-faq-a">
-                    <div class="kit-faq-a-inner">
-                        Tidak perlu modal sama sekali! Anda hanya bertugas mencarikan klien dan menerima order. Tim kami yang mengerjakan website-nya. Modal Anda hanya waktu dan semangat 🔥
-                    </div>
-                </div>
-            </div>
-
-            <div class="kit-faq-item">
-                <button class="kit-faq-q" onclick="toggleFaq(this)">
-                    <span class="kit-faq-q-text">Bagaimana cara konfirmasi order ke admin?</span>
-                    <i class="fas fa-chevron-down kit-faq-icon"></i>
-                </button>
-                <div class="kit-faq-a">
-                    <div class="kit-faq-a-inner">
-                        Kirim pesan ke admin via WhatsApp dengan format: Nama Klien, Paket yang dipilih, No HP Klien, dan kode reseller Anda. Admin akan langsung follow-up klien dalam 1×24 jam.
-                    </div>
-                </div>
-            </div>
-
-            <div class="kit-faq-item">
-                <button class="kit-faq-q" onclick="toggleFaq(this)">
-                    <span class="kit-faq-q-text">Berapa lama website selesai dikerjakan?</span>
-                    <i class="fas fa-chevron-down kit-faq-icon"></i>
-                </button>
-                <div class="kit-faq-a">
-                    <div class="kit-faq-a-inner">
-                        Estimasi pengerjaan 5–14 hari kerja tergantung paket dan kelengkapan data dari klien. Anda bisa pantau status proyek dengan tanya ke admin kapan saja.
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-
-<div class="kit-divider"></div>
-
-
-<!-- ═══════════════════════════════════════════════════
-     CTA FINAL
-════════════════════════════════════════════════════ -->
-<section class="kit-section">
-    <div class="kit-container">
-        <div class="kit-cta">
-            <div class="kit-cta-title">
-                Siap Closing <span class="text-gold">Pertama?</span> 🚀
-            </div>
-            <p class="kit-cta-sub">
-                Hubungi admin sekarang — dapatkan support langsung dan mulai perjalanan reseller Anda hari ini.
-            </p>
-            <div class="kit-cta-btns">
-                <a href="https://wa.me/6281401643188" class="kit-btn-primary" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                    Chat Admin Sekarang
-                </a>
-                <a href="reseller.html" class="kit-btn-secondary">
-                    <i class="fas fa-user-plus"></i>
-                    Daftar Reseller
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-bottom">
-            <div class="footer-brand">
-                <img src="main-logo.png" alt="Ibaadurrahmaan" style="height:60px;">
-            </div>
-            <div class="footer-copy">
-                <p>© 2026 Ibaadurrahmaan. Starter Kit for Reseller.</p>
-            </div>
-        </div>
-    </div>
-</footer>
-
-
-
-<!-- ════════════════ FLOATING WA ════════════════ -->
-<a href="https://wa.me/6281401643188" class="fab-wa" aria-label="Chat WhatsApp" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-</a>
-
-
-<!-- ════════════════ MOBILE BOTTOM NAV ════════════════ -->
-<nav class="mobile-nav" id="mobileNav">
-    <a href="index.html" class="mnav-item" data-page="index">
-        <i class="fas fa-home"></i>
-        <span>Beranda</span>
+</main>
+
+
+<!-- ============================================
+     📱 BOTTOM NAV (UPDATED - Konsisten semua halaman)
+     ============================================ -->
+<nav class="bottom-nav">
+    <a href="dashboard.html" class="nav-item">
+        <i class="fas fa-th-large"></i>
+        <span>Overview</span>
     </a>
-    <button class="mnav-item" data-page="layanan" onclick="openMobileSheet('layanan')">
-        <i class="fas fa-briefcase"></i>
-        <span>Layanan</span>
-    </button>
-    <button class="mnav-item" data-page="paket" onclick="openMobileSheet('paket')">
-        <i class="fas fa-tag"></i>
-        <span>Paket</span>
-    </button>
-    <button class="mnav-item mnav-highlight" data-page="reseller" onclick="openMobileSheet('reseller')">
-        <i class="fas fa-fire"></i>
+    <a href="dashboard-slip.html" class="nav-item">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <span>Slip</span>
+    </a>
+    <a href="dashboard-reseller.html" class="nav-item active">
+        <i class="fas fa-handshake"></i>
         <span>Reseller</span>
-    </button>
-    <a href="faq.html" class="mnav-item" data-page="faq">
-        <i class="fas fa-question-circle"></i>
-        <span>FAQ</span>
     </a>
+    <a href="dashboard-client.html" class="nav-item">
+        <i class="fas fa-briefcase"></i>
+        <span>Client</span>
+    </a>
+    
+<a href="dashboard-laporan.html" class="nav-item">
+    <i class="fas fa-chart-line"></i>
+    <span>Laporan</span>
+</a>
 </nav>
 
 
-<!-- ════════════════ BOTTOM SHEET ════════════════ -->
-<div class="mobile-sheet-overlay" id="mobileSheetOverlay" onclick="closeMobileSheet()"></div>
-<div class="mobile-sheet" id="mobileSheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-header">
-        <h3 class="sheet-title" id="sheetTitle"></h3>
-        <button class="sheet-close" onclick="closeMobileSheet()" aria-label="Tutup">
-            <i class="fas fa-times"></i>
-        </button>
-    </div>
-    <div class="sheet-content" id="sheetContent"></div>
-</div>
-
-<!-- Firebase SDK (compat) -->
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
-
-<!-- ═══════════════════════════════════════════════════
-     FIREBASE SDK & CONFIG
-════════════════════════════════════════════════════ -->
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
-<script src="firebase-config.js"></script>
-<script src="script.js"></script>
-
-
-<!-- ═══════════════════════════════════════════════════
-     STARTER KIT — SATU SCRIPT SAJA (JANGAN NESTED!)
-════════════════════════════════════════════════════ -->
-<script>
-/* ============================================================
-   STARTER KIT — PAGE SCRIPTS (All-in-One)
-   ============================================================ */
-
-const TOTAL_MODULES = 15;
-const TOTAL_SOP     = 6;
-
-// State reseller aktif
-let currentReseller   = null;
-let currentResellerId = null;
-let debounceTimer;
-
-
-/* ═══════════════════════════════════════════════════
-   INIT — Runs when DOM ready
-═══════════════════════════════════════════════════ */
-document.addEventListener('DOMContentLoaded', () => {
+<!-- ==================== FIREBASE MODULE ==================== -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { 
+        getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, getDoc
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
     
-    // 1. Setup input reseller code
-    const codeInput = document.getElementById('resellerCode');
-    if(codeInput){
-        // Load saved code
-        const savedCode = localStorage.getItem('kit_reseller_code') || '';
-        if(savedCode){
-            codeInput.value = savedCode;
-            // Auto verify
-            setTimeout(() => verifyID(savedCode), 500);
-        }
-        
-        // Listener input
-        codeInput.addEventListener('input', function(){
-            this.value = this.value.toUpperCase();
-            localStorage.setItem('kit_reseller_code', this.value);
-            
-            clearTimeout(debounceTimer);
-            const id = this.value.trim();
-            
-            if(id.length < 8){
-                const status = document.getElementById('codeStatus');
-                if(status) status.classList.remove('show');
-                currentReseller = null;
-                currentResellerId = null;
-                return;
-            }
-            
-            debounceTimer = setTimeout(() => verifyID(id), 800);
-        });
-    }
+    const firebaseConfig = {
+        apiKey: "AIzaSyCYRygFt6uwCUiL_6-eoJHhUdkiumSwLzY",
+        authDomain: "ibaadurrahmaan-web.firebaseapp.com",
+        projectId: "ibaadurrahmaan-web",
+        storageBucket: "ibaadurrahmaan-web.firebasestorage.app",
+        messagingSenderId: "1066409450927",
+        appId: "1:1066409450927:web:3497135ea3a2c4ef77e35a"
+    };
     
-    // 2. Load MODUL saved state (localStorage)
-    const localMod = JSON.parse(localStorage.getItem('kit_modules') || '[]');
-    localMod.forEach(mod => {
-        const card = document.querySelector(`.kit-module-card[data-mod="${mod}"]`);
-        if(card) card.classList.add('completed');
-    });
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
     
-    // 3. Load SOP saved state (localStorage)
-    const localSOP = JSON.parse(localStorage.getItem('kit_sop') || '[]');
-    localSOP.forEach(sop => {
-        const card = document.querySelector(`.kit-sop-card[data-sop="${sop}"]`);
-        if(card) card.classList.add('completed');
-    });
+    window.firebase = {
+        db, collection, getDocs, doc, updateDoc, deleteDoc, getDoc,
+        ready: true
+    };
     
-    // 4. Load Checklist saved state
-    const checks = JSON.parse(localStorage.getItem('kit_checks') || '[]');
-    document.querySelectorAll('.kit-check-item').forEach((item, i) => {
-        if(checks[i]) item.classList.add('done');
-    });
-    
-    // 5. Update all UI
-    updateProgress();
-    updateSOPProgress();
-});
-
-
-/* ═══════════════════════════════════════════════════
-   VERIFIKASI ID RESELLER (Firebase)
-═══════════════════════════════════════════════════ */
-async function verifyID(code){
-    const codeStatus = document.getElementById('codeStatus');
-    if(!codeStatus) return;
-    
-    // Safety check: DB harus ada
-    if(typeof DB === 'undefined'){
-        console.warn('DB not loaded, skip verification');
-        return;
-    }
-    
-    // Loading state
-    codeStatus.className = 'kit-code-status show loading';
-    codeStatus.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memverifikasi ID Reseller...';
-    
-    try {
-        const reseller = await DB.getResellerByCode(code);
-        
-        if(reseller){
-            currentReseller   = reseller;
-            currentResellerId = reseller.id;
-            
-            codeStatus.className = 'kit-code-status show valid';
-            codeStatus.innerHTML = `
-                <i class="fas fa-check-circle"></i>
-                <div>
-                    Selamat datang, <b>${reseller.nama || reseller.name || 'Reseller'}</b>! 
-                    Tier: <b>${(reseller.tier || 'silver').toUpperCase()}</b><br>
-                    <small>Progress akan tersimpan otomatis ke database.</small>
-                </div>
-            `;
-            
-            // Load progress dari Firestore
-            await loadProgressFromFirestore(reseller.id);
-            
-            if(typeof Utils !== 'undefined'){
-                Utils.showToast(`Selamat datang, ${reseller.nama || 'Reseller'}!`, 'success');
-            }
-        } else {
-            currentReseller = null;
-            currentResellerId = null;
-            codeStatus.className = 'kit-code-status show invalid';
-            codeStatus.innerHTML = `
-                <i class="fas fa-times-circle"></i>
-                <div>
-                    ID Reseller tidak ditemukan atau tidak aktif.<br>
-                    <a href="reseller.html">Daftar sebagai reseller resmi →</a>
-                </div>
-            `;
-        }
-    } catch(err){
-        console.error('[verifyID error]', err);
-        codeStatus.className = 'kit-code-status show invalid';
-        codeStatus.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Gagal verifikasi: ${err.message}`;
-    }
-}
-
-
-/* ═══════════════════════════════════════════════════
-   LOAD PROGRESS DARI FIRESTORE
-═══════════════════════════════════════════════════ */
-async function loadProgressFromFirestore(resellerId){
-    if(typeof DB === 'undefined') return;
-    
-    try {
-        const progress = await DB.getResellerProgress(resellerId);
-        if(!progress) return;
-        
-        // Reset semua
-        document.querySelectorAll('.kit-module-card.completed').forEach(c => c.classList.remove('completed'));
-        document.querySelectorAll('.kit-sop-card.completed').forEach(c => c.classList.remove('completed'));
-        
-        // Apply modul
-        const modulSelesai = progress.progressBelajar.modulSelesai || [];
-        modulSelesai.forEach(mod => {
-            const card = document.querySelector(`.kit-module-card[data-mod="${mod}"]`);
-            if(card) card.classList.add('completed');
-        });
-        
-        // Apply SOP
-        const sopSelesai = progress.progressSOP.sopDilaksanakan || [];
-        sopSelesai.forEach(sop => {
-            const card = document.querySelector(`.kit-sop-card[data-sop="${sop}"]`);
-            if(card) card.classList.add('completed');
-        });
-        
-        updateProgress();
-        updateSOPProgress();
-        updateRewardWidget();   // ⭐ TAMBAH INI
-    } catch(err){
-        console.error('[loadProgressFromFirestore]', err);
-    }
-}
-
-
-/* ═══════════════════════════════════════════════════
-   TOGGLE MODUL
-═══════════════════════════════════════════════════ */
-async function toggleModule(card){
-    try {
-        card.classList.toggle('completed');
-        
-        const done = [];
-        document.querySelectorAll('.kit-module-card.completed').forEach(c => {
-            done.push(parseInt(c.dataset.mod));
-        });
-        done.sort((a,b) => a - b);
-        
-        localStorage.setItem('kit_modules', JSON.stringify(done));
-        updateProgress();
-        updateRewardWidget();   // ⭐ TAMBAH INI
-        
-        if(typeof DB !== 'undefined' && currentResellerId){
-            const result = await DB.updateProgressBelajar(currentResellerId, done);
-            if(result.success && typeof Utils !== 'undefined'){
-                Utils.showToast(`Progress belajar tersimpan (${result.persentase}%)`, 'success');
-            }
-        }
-    } catch(err){
-        console.error('[toggleModule error]', err);
-    }
-}
-
-async function toggleSOP(card){
-    try {
-        card.classList.toggle('completed');
-        
-        const done = [];
-        document.querySelectorAll('.kit-sop-card.completed').forEach(c => {
-            done.push(parseInt(c.dataset.sop));
-        });
-        done.sort((a,b) => a - b);
-        
-        localStorage.setItem('kit_sop', JSON.stringify(done));
-        updateSOPProgress();
-        updateRewardWidget();   // ⭐ TAMBAH INI
-        
-        if(typeof DB !== 'undefined' && currentResellerId){
-            const result = await DB.updateProgressSOP(currentResellerId, done);
-            if(result.success && typeof Utils !== 'undefined'){
-                Utils.showToast(`Progress SOP tersimpan (${result.persentase}%)`, 'success');
-            }
-        }
-    } catch(err){
-        console.error('[toggleSOP error]', err);
-    }
-}
-
-/* ═══════════════════════════════════════════════════
-   TOGGLE SOP
-═══════════════════════════════════════════════════ */
-async function toggleSOP(card){
-    try {
-        card.classList.toggle('completed');
-        
-        const done = [];
-        document.querySelectorAll('.kit-sop-card.completed').forEach(c => {
-            done.push(parseInt(c.dataset.sop));
-        });
-        done.sort((a,b) => a - b);
-        
-        // Save local
-        localStorage.setItem('kit_sop', JSON.stringify(done));
-        updateSOPProgress();
-        
-        // Save Firestore
-        if(typeof DB !== 'undefined' && currentResellerId){
-            const result = await DB.updateProgressSOP(currentResellerId, done);
-            if(result.success && typeof Utils !== 'undefined'){
-                Utils.showToast(`Progress SOP tersimpan (${result.persentase}%)`, 'success');
-            }
-        }
-    } catch(err){
-        console.error('[toggleSOP error]', err);
-    }
-}
-
-
-/* ═══════════════════════════════════════════════════
-   UPDATE PROGRESS BAR — MODUL
-═══════════════════════════════════════════════════ */
-function updateProgress(){
-    const done = document.querySelectorAll('.kit-module-card.completed').length;
-    const pct  = Math.round((done / TOTAL_MODULES) * 100);
-    
-    const countEl = document.getElementById('progressCount');
-    const fillEl  = document.getElementById('progressFill');
-    const descEl  = document.getElementById('progressDesc');
-    
-    if(countEl) countEl.textContent = `${done}/${TOTAL_MODULES}`;
-    if(fillEl)  fillEl.style.width = pct + '%';
-    
-    if(descEl){
-        if(done === 0)       descEl.textContent = 'Centang modul yang sudah Anda pelajari';
-        else if(done < 5)    descEl.textContent = `🌱 Baru mulai! ${done}/15 modul.`;
-        else if(done < 10)   descEl.textContent = `🚀 Progress bagus! ${done}/15 modul.`;
-        else if(done < 15)   descEl.textContent = `💎 Hampir sampai! Tinggal ${15-done} modul.`;
-        else                 descEl.textContent = `🏆 Selamat! Semua 15 modul selesai!`;
-    }
-}
-
-
-/* ═══════════════════════════════════════════════════
-   UPDATE PROGRESS BAR — SOP
-═══════════════════════════════════════════════════ */
-function updateSOPProgress(){
-    const done = document.querySelectorAll('.kit-sop-card.completed').length;
-    const pct  = Math.round((done / TOTAL_SOP) * 100);
-    
-    const countEl = document.getElementById('sopCount');
-    const fillEl  = document.getElementById('sopFill');
-    const descEl  = document.getElementById('sopDesc');
-    
-    if(countEl) countEl.textContent = `${done}/${TOTAL_SOP}`;
-    if(fillEl)  fillEl.style.width = pct + '%';
-    
-    if(descEl){
-        if(done === 0)       descEl.textContent = 'Centang SOP yang sudah dilaksanakan';
-        else if(done < 3)    descEl.textContent = `📋 ${done}/6 SOP dilaksanakan`;
-        else if(done < 6)    descEl.textContent = `⚡ Bagus! Tinggal ${6-done} SOP lagi`;
-        else                 descEl.textContent = `✅ Semua 6 SOP dilaksanakan!`;
-    }
-}
-
-
-/* ═══════════════════════════════════════════════════
-   TOGGLE CHECKLIST 30 HARI
-═══════════════════════════════════════════════════ */
-function toggleCheck(item){
-    item.classList.toggle('done');
-    
-    const states = [];
-    document.querySelectorAll('.kit-check-item').forEach(el => {
-        states.push(el.classList.contains('done'));
-    });
-    localStorage.setItem('kit_checks', JSON.stringify(states));
-}
-
-
-/* ═══════════════════════════════════════════════════
-   SCRIPT TABS
-═══════════════════════════════════════════════════ */
-function switchTab(tabId, btn){
-    document.querySelectorAll('.kit-script-content').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.kit-script-tab').forEach(el => el.classList.remove('active'));
-    
-    const target = document.getElementById('tab-' + tabId);
-    if(target) target.classList.add('active');
-    btn.classList.add('active');
-}
-
-
-/* ═══════════════════════════════════════════════════
-   COPY SCRIPT WITH RESELLER CODE
-═══════════════════════════════════════════════════ */
-function copyScript(textId, btn){
-    const codeInput = document.getElementById('resellerCode');
-    const code      = codeInput ? codeInput.value.trim() : '';
-    const el        = document.getElementById(textId);
-    if(!el) return;
-    
-    let text = el.innerText;
-    
-    if(code){
-        text += `\n\n—\nRef ID Reseller: ${code}`;
-    }
-    
-    // Try clipboard API
-    if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(text).then(() => {
-            btn.classList.add('copied');
-            btn.innerHTML = '<i class="fas fa-check"></i> Berhasil Dicopy!';
-            
-            if(typeof Utils !== 'undefined'){
-                Utils.showToast('Script berhasil disalin!', 'success');
-            }
-            
-            setTimeout(() => {
-                btn.classList.remove('copied');
-                btn.innerHTML = '<i class="fas fa-copy"></i> Copy + Tambah Kode';
-            }, 2500);
-        }).catch(fallbackCopy);
-    } else {
-        fallbackCopy();
-    }
-    
-    function fallbackCopy(){
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand('copy'); } catch(e){}
-        document.body.removeChild(ta);
-        
-        btn.innerHTML = '<i class="fas fa-check"></i> Dicopy!';
-        setTimeout(() => {
-            btn.innerHTML = '<i class="fas fa-copy"></i> Copy + Tambah Kode';
-        }, 2000);
-    }
-}
-
-
-/* ═══════════════════════════════════════════════════
-   FAQ ACCORDION
-═══════════════════════════════════════════════════ */
-function toggleFaq(btn){
-    const item = btn.closest('.kit-faq-item');
-    if(!item) return;
-    
-    const isOpen = item.classList.contains('open');
-    
-    // Close all
-    document.querySelectorAll('.kit-faq-item').forEach(el => el.classList.remove('open'));
-    
-    // Toggle current
-    if(!isOpen) item.classList.add('open');
-}
-
-/* ═══════════════════════════════════════════════════
-   REWARD WIDGET — Auto Calculator
-═══════════════════════════════════════════════════ */
-
-// Config badge & prize
-const REWARD_CONFIG = {
-    rookie: {
-        name: 'Rookie Badge',
-        icon: '🥉',
-        requirements: { modul: 5, sop: 0, closing: 0 },
-        prize: 50000,
-        extra: 'Sticker Digital'
-    },
-    learner: {
-        name: 'Learner Badge',
-        icon: '🥈',
-        requirements: { modul: 10, sop: 3, closing: 0 },
-        prize: 100000,
-        extra: 'Akses Grup VIP'
-    },
-    graduate: {
-        name: 'Graduate + Sertifikat',
-        icon: '🥇',
-        requirements: { modul: 15, sop: 6, closing: 1 },
-        prize: 250000,
-        extra: 'Sertifikat Resmi'
-    },
-    top: {
-        name: 'Top Performer',
-        icon: '💎',
-        requirements: { modul: 0, sop: 0, closing: 10 },
-        prize: 2000000,
-        extra: 'Merchandise Ekslusif'
-    }
-};
-
-/* ── Update Reward Widget ── */
-function updateRewardWidget(){
-    // Ambil progress current dari DOM/state
-    const modul = document.querySelectorAll('.kit-module-card.completed').length;
-    const sop = document.querySelectorAll('.kit-sop-card.completed').length;
-    
-    // Closing: dari currentReseller (jika ada) atau 0
-    let closing = 0;
-    if(currentReseller && currentReseller.totalClosing){
-        closing = currentReseller.totalClosing;
-    }
-    
-    // Update status bars
-    updateStatusBar('rewardModulBar', 'rewardModulValue', modul, 15, 'modul');
-    updateStatusBar('rewardSopBar', 'rewardSopValue', sop, 6, 'SOP');
-    updateStatusBar('rewardClosingBar', 'rewardClosingValue', closing, 10, 'closing');
-    
-    // Update each badge
-    let totalPotensi = 0;
-    let earnedBadges = [];
-    let nextBadge = null;
-    let minPercent = 100;
-    
-    Object.keys(REWARD_CONFIG).forEach(key => {
-        const badge = REWARD_CONFIG[key];
-        const percent = calculateBadgePercent(badge.requirements, modul, sop, closing);
-        const earned = percent >= 100;
-        
-        // Update UI
-        updateBadgeCard(key, percent, earned, badge.requirements, modul, sop, closing);
-        
-        // Totalkan potensi
-        totalPotensi += badge.prize;
-        
-        if(earned){
-            earnedBadges.push(badge.name);
-        } else if(percent < minPercent && percent > 0){
-            minPercent = percent;
-            nextBadge = { key, badge, percent };
-        } else if(!nextBadge){
-            nextBadge = { key, badge, percent };
-        }
-    });
-    
-    // Update total
-    const totalEl = document.getElementById('totalRewardAmount');
-    if(totalEl){
-        totalEl.textContent = formatRupiah(totalPotensi);
-    }
-    
-    // Update tips
-    updateTips(modul, sop, closing, nextBadge, earnedBadges);
-}
-
-/* ── Update Status Bar Helper ── */
-function updateStatusBar(barId, valueId, current, total, label){
-    const percent = Math.min(100, Math.round((current / total) * 100));
-    const bar = document.getElementById(barId);
-    const val = document.getElementById(valueId);
-    
-    if(bar) bar.style.width = percent + '%';
-    if(val){
-        if(label === 'closing'){
-            val.textContent = `${current} bulan ini`;
-        } else {
-            val.textContent = `${current}/${total}`;
-        }
-    }
-}
-
-/* ── Calculate Badge Percent ── */
-function calculateBadgePercent(req, modul, sop, closing){
-    const parts = [];
-    
-    if(req.modul > 0){
-        parts.push(Math.min(100, (modul / req.modul) * 100));
-    }
-    if(req.sop > 0){
-        parts.push(Math.min(100, (sop / req.sop) * 100));
-    }
-    if(req.closing > 0){
-        parts.push(Math.min(100, (closing / req.closing) * 100));
-    }
-    
-    if(parts.length === 0) return 0;
-    
-    // Average
-    const avg = parts.reduce((a,b) => a+b, 0) / parts.length;
-    return Math.round(avg);
-}
-
-/* ── Update Badge Card UI ── */
-function updateBadgeCard(key, percent, earned, req, modul, sop, closing){
-    const card = document.querySelector(`.reward-badge-card[data-badge="${key}"]`);
-    if(!card) return;
-    
-    // Status badge
-    const statusEl = document.getElementById(`status${capitalize(key)}`);
-    if(statusEl){
-        if(earned){
-            statusEl.innerHTML = `<span class="status-earned">✅ EARNED</span>`;
-            card.classList.add('earned');
-        } else {
-            statusEl.innerHTML = `<span class="status-locked">🔒 ${percent}%</span>`;
-            card.classList.remove('earned');
-        }
-    }
-    
-    // Progress bar
-    const progressEl = document.getElementById(`progress${capitalize(key)}`);
-    if(progressEl) progressEl.style.width = percent + '%';
-    
-    // Hint text
-    const hintEl = document.getElementById(`hint${capitalize(key)}`);
-    if(hintEl){
-        if(earned){
-            hintEl.innerHTML = `<b style="color:#4ADE80">🎉 Badge sudah earned! Chat admin untuk claim.</b>`;
-        } else {
-            const needs = [];
-            if(req.modul > 0 && modul < req.modul){
-                needs.push(`${req.modul - modul} modul`);
-            }
-            if(req.sop > 0 && sop < req.sop){
-                needs.push(`${req.sop - sop} SOP`);
-            }
-            if(req.closing > 0 && closing < req.closing){
-                needs.push(`${req.closing - closing} closing`);
-            }
-            hintEl.textContent = `Butuh: ${needs.join(', ')} lagi`;
-        }
-    }
-}
-
-/* ── Update Tips ── */
-function updateTips(modul, sop, closing, nextBadge, earned){
-    const tipsEl = document.getElementById('tipsText');
-    if(!tipsEl) return;
-    
-    if(earned.length === 4){
-        tipsEl.innerHTML = `🏆 <b>Luar biasa!</b> Semua badge sudah earned. Kamu adalah top reseller Ibaadurrahmaan!`;
-        return;
-    }
-    
-    if(modul === 0 && sop === 0){
-        tipsEl.textContent = 'Mulai dengan modul pertama untuk unlock Rookie Badge!';
-        return;
-    }
-    
-    if(nextBadge){
-        const req = nextBadge.badge.requirements;
-        const needs = [];
-        if(req.modul > 0 && modul < req.modul){
-            needs.push(`${req.modul - modul} modul lagi`);
-        }
-        if(req.sop > 0 && sop < req.sop){
-            needs.push(`${req.sop - sop} SOP lagi`);
-        }
-        if(req.closing > 0 && closing < req.closing){
-            needs.push(`${req.closing - closing} closing lagi`);
-        }
-        
-        tipsEl.innerHTML = `Selesaikan <b>${needs.join(' & ')}</b> untuk earn <b>${nextBadge.badge.name}</b>!`;
-    }
-}
-
-/* ── Utility ── */
-function formatRupiah(num){
-    return 'Rp ' + num.toLocaleString('id-ID');
-}
-
-function capitalize(str){
-    return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-/* ── Auto-update saat modul/SOP toggle ── */
-// Panggil di akhir toggleModule() dan toggleSOP()
-// (Sudah dihandle karena kita bisa hook ke fungsi existing)
-
-/* ── Hook ke DOMContentLoaded ── */
-document.addEventListener('DOMContentLoaded', () => {
-    // Update pertama kali saat page load
-    setTimeout(updateRewardWidget, 300);
-});
-
+    document.dispatchEvent(new CustomEvent('firebaseReady'));
+    console.log('[FIREBASE] ✅ Ready');
 </script>
 
 
+<!-- ==================== SHARED DASHBOARD LOGIC ==================== -->
+<script src="dashboard.js"></script>
+
+
+<!-- ==================== PAGE-SPECIFIC LOGIC ==================== -->
+<script>
+// ============================================================
+// 📋 RESELLER MANAGEMENT PAGE - Specific Logic
+// ============================================================
+
+let allResellers = [];
+let filteredResellers = [];
+let currentFilter = 'all';
+let searchQuery = '';
+
+
+// ============================================================
+// 🔄 LOAD RESELLERS (Full List)
+// ============================================================
+async function loadResellers() {
+    try {
+        await waitForFirebase();
+        
+        console.log('[RESELLER PAGE] Loading resellers...');
+        
+        const { db, collection, getDocs } = window.firebase;
+        const snapshot = await getDocs(collection(db, 'resellers'));
+        
+        allResellers = [];
+        snapshot.forEach(docSnap => {
+            allResellers.push({ id: docSnap.id, ...docSnap.data() });
+        });
+        
+        // Sort by timestamp DESC (terbaru dulu)
+        allResellers.sort((a, b) => {
+            const t1 = a.timestamp?.toDate?.().getTime() || 0;
+            const t2 = b.timestamp?.toDate?.().getTime() || 0;
+            return t2 - t1;
+        });
+        
+        updateCounts();
+        applyFilters();
+        
+        console.log('[RESELLER PAGE] ✅ Loaded:', allResellers.length, 'resellers');
+        
+    } catch (error) {
+        console.error('[RESELLER PAGE] ❌ Error:', error);
+        
+        let errorMsg = error.message;
+        let solution = 'Coba refresh halaman';
+        
+        if (error.code === 'permission-denied' || error.message.includes('permission')) {
+            errorMsg = 'Akses ditolak oleh Firestore Rules';
+            solution = 'Update Firestore Rules → allow read: if true;';
+        }
+        
+        document.getElementById('resellerGrid').innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-exclamation-triangle" style="color:#e74c3c;"></i>
+                <h3>Gagal Memuat Data</h3>
+                <p><strong style="color:#e74c3c;">${errorMsg}</strong><br><br>
+                <small style="color:#f39c12;">💡 ${solution}</small></p>
+            </div>
+        `;
+    }
+}
+
+
+// ============================================================
+// 🔢 UPDATE COUNTS (Filter Tabs)
+// ============================================================
+function updateCounts() {
+    document.getElementById('countAll').textContent = allResellers.length;
+    document.getElementById('countPending').textContent = allResellers.filter(r => r.status === 'pending').length;
+    document.getElementById('countActive').textContent = allResellers.filter(r => r.status === 'active').length;
+    document.getElementById('countInactive').textContent = allResellers.filter(r => r.status === 'inactive').length;
+    document.getElementById('countRejected').textContent = allResellers.filter(r => r.status === 'rejected').length;
+    document.getElementById('totalCount').textContent = allResellers.length;
+}
+
+
+// ============================================================
+// 🔍 APPLY FILTERS (Search + Status Tab)
+// ============================================================
+function applyFilters() {
+    let result = currentFilter === 'all' 
+        ? [...allResellers] 
+        : allResellers.filter(r => r.status === currentFilter);
+    
+    if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        result = result.filter(r => 
+            (r.nama || '').toLowerCase().includes(q) ||
+            (r.resellerCode || '').toLowerCase().includes(q) ||
+            (r.wa || '').toLowerCase().includes(q) ||
+            (r.email || '').toLowerCase().includes(q)
+        );
+    }
+    
+    filteredResellers = result;
+    document.getElementById('visibleCount').textContent = result.length;
+    renderResellers(result);
+}
+
+
+// ============================================================
+// 🎨 RENDER RESELLER CARDS
+// ============================================================
+function renderResellers(resellers) {
+    const grid = document.getElementById('resellerGrid');
+    
+    if (resellers.length === 0) {
+        grid.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-inbox"></i>
+                <h3>Tidak Ada Data</h3>
+                <p>${searchQuery ? 'Tidak ada reseller yang cocok dengan pencarian' : 'Belum ada reseller di kategori ini'}</p>
+            </div>
+        `;
+        return;
+    }
+    
+    let html = '';
+    resellers.forEach(data => {
+        const initial = (data.nama || '?').charAt(0).toUpperCase();
+        const status = data.status || 'pending';
+        
+        let dateStr = '-';
+        if (data.timestamp?.toDate) {
+            const date = data.timestamp.toDate();
+            dateStr = date.toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
+        }
+        
+        // ⭐ REWARD INFO
+        const progress = data.progress || {};
+        const modulesDone = (progress.modulesDone || []).length;
+        const sopDone = (progress.sopDone || []).length;
+        
+        const rewards = data.rewards || {};
+        const tier1 = rewards.tier1 || {};
+        const tier2 = rewards.tier2 || {};
+        
+        const totalEarned = (tier1.earned ? 50000 : 0) + (tier2.earned ? 100000 : 0);
+        const totalPaid = (tier1.paid ? 50000 : 0) + (tier2.paid ? 100000 : 0);
+        const totalPending = totalEarned - totalPaid;
+        
+        // Progress info bar
+        let progressInfoHTML = '';
+        if (status === 'active') {
+            let rewardBadge = '';
+            if (totalPending > 0) {
+                rewardBadge = `<span class="progress-badge reward-pending">
+                    <i class="fas fa-money-bill-wave"></i> Rp ${totalPending.toLocaleString('id-ID')} BELUM BAYAR
+                </span>`;
+            } else if (totalPaid > 0) {
+                rewardBadge = `<span class="progress-badge reward-paid">
+                    <i class="fas fa-check-circle"></i> Rp ${totalPaid.toLocaleString('id-ID')} PAID
+                </span>`;
+            }
+            
+            progressInfoHTML = `
+                <div class="card-progress-info">
+                    <span class="progress-badge"><i class="fas fa-graduation-cap"></i> ${modulesDone}/15</span>
+                    <span class="progress-badge"><i class="fas fa-clipboard-check"></i> ${sopDone}/6</span>
+                    ${rewardBadge}
+                </div>
+            `;
+        }
+        
+        // Data untuk onclick
+        const dataStr = JSON.stringify({
+            id: data.id,
+            nama: data.nama || 'Tanpa Nama',
+            wa: data.wa || '',
+            resellerCode: data.resellerCode || '-'
+        }).replace(/"/g, '&quot;');
+        
+        // Buttons berdasarkan status
+        let buttons = '';
+        if (status === 'pending') {
+            buttons = `
+                <button class="card-btn approve" onclick='handleApprove(${dataStr})'>
+                    <i class="fas fa-check"></i>Approve
+                </button>
+                <button class="card-btn edit" onclick='handleEdit(${dataStr})'>
+                    <i class="fas fa-edit"></i>Edit
+                </button>
+                <button class="card-btn reject" onclick='handleReject(${dataStr})'>
+                    <i class="fas fa-times"></i>Reject
+                </button>
+            `;
+        } else if (status === 'active') {
+            const notifBadge = totalPending > 0 ? '<span class="badge-notif">!</span>' : '';
+            buttons = `
+                <button class="card-btn reward" onclick='handleReward("${data.id}")'>
+                    <i class="fas fa-trophy"></i>Reward${notifBadge}
+                </button>
+                <button class="card-btn edit" onclick='handleEdit(${dataStr})'>
+                    <i class="fas fa-edit"></i>Edit
+                </button>
+                <button class="card-btn deactivate" onclick='handleDeactivate(${dataStr})'>
+                    <i class="fas fa-user-slash"></i>Non-Aktif
+                </button>
+            `;
+        } else if (status === 'inactive') {
+            buttons = `
+                <button class="card-btn reactivate" onclick='handleReactivate(${dataStr})'>
+                    <i class="fas fa-user-check"></i>Aktifkan
+                </button>
+                <button class="card-btn edit" onclick='handleEdit(${dataStr})'>
+                    <i class="fas fa-edit"></i>Edit
+                </button>
+                <button class="card-btn delete" onclick='handleDelete(${dataStr})'>
+                    <i class="fas fa-trash-alt"></i>Hapus
+                </button>
+            `;
+        } else if (status === 'rejected') {
+            buttons = `
+                <button class="card-btn detail" onclick='handleDetail(${dataStr})'>
+                    <i class="fas fa-eye"></i>Detail
+                </button>
+                <button class="card-btn delete" onclick='handleDelete(${dataStr})'>
+                    <i class="fas fa-trash-alt"></i>Hapus Permanen
+                </button>
+            `;
+        }
+        
+        html += `
+            <div class="reseller-card status-${status}">
+                <div class="card-header">
+                    <div class="card-avatar">${initial}</div>
+                    <div class="card-info">
+                        <div class="card-name">${data.nama || 'Tanpa Nama'}</div>
+                        <span class="card-code">${data.resellerCode || '-'}</span>
+                    </div>
+                    <span class="card-status ${status}">${status}</span>
+                </div>
+                
+                ${progressInfoHTML}
+                
+                <div class="card-meta">
+                    <div class="card-meta-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>${data.wa || '-'}</span>
+                    </div>
+                    <div class="card-meta-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>${data.email || '-'}</span>
+                    </div>
+                    <div class="card-meta-item">
+                        <i class="fas fa-university"></i>
+                        <span>${data.bank || '-'}</span>
+                    </div>
+                    <div class="card-meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>${dateStr}</span>
+                    </div>
+                </div>
+                
+                <div class="card-actions">${buttons}</div>
+            </div>
+        `;
+    });
+    
+    grid.innerHTML = html;
+}
+
+
+// ============================================================
+// 🔍 SEARCH INPUT HANDLER
+// ============================================================
+document.getElementById('searchInput').addEventListener('input', (e) => {
+    searchQuery = e.target.value.trim();
+    document.getElementById('searchClear').classList.toggle('show', searchQuery.length > 0);
+    applyFilters();
+});
+
+
+function clearSearch() {
+    document.getElementById('searchInput').value = '';
+    searchQuery = '';
+    document.getElementById('searchClear').classList.remove('show');
+    applyFilters();
+}
+
+
+// ============================================================
+// 🎯 FILTER TABS HANDLER
+// ============================================================
+document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentFilter = tab.dataset.status;
+        applyFilters();
+    });
+});
+
+
+// ============================================================
+// 🚀 AUTO LOAD
+// ============================================================
+document.addEventListener('firebaseReady', () => {
+    console.log('[RESELLER PAGE] Firebase ready → load data');
+    loadResellers();
+});
+
+// Fallback: kalau firebaseReady event kelewat
+setTimeout(() => {
+    if (window.firebase?.ready && allResellers.length === 0) {
+        console.log('[RESELLER PAGE] Fallback load...');
+        loadResellers();
+    }
+}, 1500);
+</script>
+<!-- ═══════════════════════════════════════════════════
+     🏆 REWARD SYNC — Firestore Integration
+════════════════════════════════════════════════════ -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { 
+    getFirestore, doc, updateDoc, 
+    query, collection, where, getDocs, serverTimestamp 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCYRygFt6uwCUiL_6-eoJHhUdkiumSwLzY",
+    authDomain: "ibaadurrahmaan-web.firebaseapp.com",
+    projectId: "ibaadurrahmaan-web",
+    storageBucket: "ibaadurrahmaan-web.firebasestorage.app",
+    messagingSenderId: "1066409450927",
+    appId: "1:1066409450927:web:3497135ea3a2c4ef77e35a"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ═══ REWARD CONFIG ═══
+const REWARD_CONFIG = {
+    MODULES_TOTAL: 15,
+    SOP_TOTAL: 6,
+    TIER1_AMOUNT: 50000,   // 15 modul
+    TIER2_AMOUNT: 100000   // 15 modul + 6 SOP
+};
+
+// ═══ STATE ═══
+let currentReseller = null;
+let syncTimeout = null;
+let isSyncing = false;
+
+// ═══════════════════════════════════════════════════
+// 🚀 INIT — Baca URL parameter, load reseller
+// ═══════════════════════════════════════════════════
+window.addEventListener('load', async () => {
+    const code = new URLSearchParams(window.location.search).get('code');
+    
+    if (!code) {
+        showStatus('offline', '👀 Mode Preview');
+        console.log('[REWARD SYNC] No code, skipping sync');
+        return;
+    }
+    
+    console.log('[REWARD SYNC] Reseller code:', code);
+    showStatus('syncing', '⏳ Menghubungkan...');
+    
+    try {
+        const q = query(collection(db, 'resellers'), where('resellerCode', '==', code));
+        const snap = await getDocs(q);
+        
+        if (snap.empty) {
+            showStatus('error', '❌ Kode tidak dikenali');
+            console.warn('[REWARD SYNC] Reseller not found:', code);
+            return;
+        }
+        
+        currentReseller = { id: snap.docs[0].id, ...snap.docs[0].data() };
+        console.log('[REWARD SYNC] ✅ Reseller loaded:', currentReseller.nama);
+        
+        // Load progress from Firestore → apply to UI
+        if (currentReseller.progress) {
+            applyProgressToUI(currentReseller.progress);
+        }
+        
+        showStatus('online', `🟢 ${currentReseller.nama || 'Reseller'}`);
+        
+        // Watch for progress changes
+        startWatching();
+        
+    } catch (err) {
+        console.error('[REWARD SYNC] Init error:', err);
+        showStatus('error', '⚠️ Gagal sync');
+    }
+});
+
+// ═══════════════════════════════════════════════════
+// 📥 LOAD progress dari Firestore → apply ke UI
+// ═══════════════════════════════════════════════════
+function applyProgressToUI(progress) {
+    const modulesDone = progress.modulesDone || [];
+    const sopDone = progress.sopDone || [];
+    
+    // Apply ke module cards
+    document.querySelectorAll('.kit-module-card').forEach((card, i) => {
+        const num = i + 1;
+        if (modulesDone.includes(num)) {
+            card.classList.add('completed');
+        }
+    });
+    
+    // Apply ke SOP cards
+    document.querySelectorAll('.kit-sop-card').forEach((card, i) => {
+        const num = i + 1;
+        if (sopDone.includes(num)) {
+            card.classList.add('completed');
+        }
+    });
+    
+    // Trigger existing update function kalau ada
+    ['updateProgress', 'updateRewardWidget', 'updateAll'].forEach(fn => {
+        if (typeof window[fn] === 'function') {
+            try { window[fn](); } catch(e){}
+        }
+    });
+    
+    console.log('[REWARD SYNC] Applied:', {
+        modules: modulesDone.length,
+        sop: sopDone.length
+    });
+}
+
+// ═══════════════════════════════════════════════════
+// 👀 WATCH — Deteksi perubahan class 'completed'
+// ═══════════════════════════════════════════════════
+function startWatching() {
+    const observer = new MutationObserver((mutations) => {
+        // Filter hanya perubahan class
+        const hasClassChange = mutations.some(m => 
+            m.type === 'attributes' && m.attributeName === 'class'
+        );
+        if (hasClassChange) {
+            debouncedSync();
+        }
+    });
+    
+    document.querySelectorAll('.kit-module-card, .kit-sop-card').forEach(card => {
+        observer.observe(card, { attributes: true, attributeFilter: ['class'] });
+    });
+    
+    console.log('[REWARD SYNC] Watching progress changes...');
+}
+
+// Debounced sync (tunggu 1.2 detik setelah user berhenti klik)
+function debouncedSync() {
+    if (syncTimeout) clearTimeout(syncTimeout);
+    syncTimeout = setTimeout(() => syncToFirestore(), 1200);
+}
+
+// ═══════════════════════════════════════════════════
+// 💾 SYNC — Kirim progress ke Firestore
+// ═══════════════════════════════════════════════════
+async function syncToFirestore() {
+    if (!currentReseller || isSyncing) return;
+    
+    isSyncing = true;
+    showStatus('syncing', '💾 Menyimpan...');
+    
+    try {
+        // Collect completed modules & SOP
+        const modulesDone = [];
+        document.querySelectorAll('.kit-module-card').forEach((card, i) => {
+            if (card.classList.contains('completed')) modulesDone.push(i + 1);
+        });
+        
+        const sopDone = [];
+        document.querySelectorAll('.kit-sop-card').forEach((card, i) => {
+            if (card.classList.contains('completed')) sopDone.push(i + 1);
+        });
+        
+        // Check reward eligibility
+        const tier1Eligible = modulesDone.length >= REWARD_CONFIG.MODULES_TOTAL;
+        const tier2Eligible = tier1Eligible && sopDone.length >= REWARD_CONFIG.SOP_TOTAL;
+        
+        const existingRewards = currentReseller.rewards || {};
+        const tier1WasEarned = existingRewards.tier1?.earned === true;
+        const tier2WasEarned = existingRewards.tier2?.earned === true;
+        
+        // Build update data
+        const updateData = {
+            'progress.modulesDone': modulesDone,
+            'progress.sopDone': sopDone,
+            'progress.lastUpdated': serverTimestamp()
+        };
+        
+        // Award Tier 1 if newly earned
+        if (tier1Eligible && !tier1WasEarned) {
+            updateData['rewards.tier1'] = {
+                earned: true,
+                earnedAt: new Date(),
+                amount: REWARD_CONFIG.TIER1_AMOUNT,
+                paid: false,
+                paidAt: null
+            };
+        }
+        
+        // Award Tier 2 if newly earned
+        if (tier2Eligible && !tier2WasEarned) {
+            updateData['rewards.tier2'] = {
+                earned: true,
+                earnedAt: new Date(),
+                amount: REWARD_CONFIG.TIER2_AMOUNT,
+                paid: false,
+                paidAt: null
+            };
+        }
+        
+        await updateDoc(doc(db, 'resellers', currentReseller.id), updateData);
+        
+        // Update local state
+        currentReseller.progress = { modulesDone, sopDone };
+        currentReseller.rewards = currentReseller.rewards || {};
+        if (tier1Eligible) {
+            currentReseller.rewards.tier1 = { earned: true, amount: REWARD_CONFIG.TIER1_AMOUNT, paid: existingRewards.tier1?.paid || false };
+        }
+        if (tier2Eligible) {
+            currentReseller.rewards.tier2 = { earned: true, amount: REWARD_CONFIG.TIER2_AMOUNT, paid: existingRewards.tier2?.paid || false };
+        }
+        
+        // Show earned toast
+        if (tier1Eligible && !tier1WasEarned) {
+            showEarnedToast('🥈', 'Tier 1 EARNED!', 'Belajar Selesai', REWARD_CONFIG.TIER1_AMOUNT);
+        }
+        if (tier2Eligible && !tier2WasEarned) {
+            setTimeout(() => {
+                showEarnedToast('🥇', 'Tier 2 EARNED!', 'Siap Jualan', REWARD_CONFIG.TIER2_AMOUNT);
+            }, tier1Eligible && !tier1WasEarned ? 4500 : 0);
+        }
+        
+        console.log('[REWARD SYNC] ✅ Synced:', { modules: modulesDone.length, sop: sopDone.length });
+        showStatus('online', `🟢 ${currentReseller.nama || 'Reseller'}`);
+        
+    } catch (err) {
+        console.error('[REWARD SYNC] Sync error:', err);
+        showStatus('error', '⚠️ Gagal simpan');
+    } finally {
+        isSyncing = false;
+    }
+}
+
+// ═══════════════════════════════════════════════════
+// 🎨 UI HELPERS
+// ═══════════════════════════════════════════════════
+function showStatus(status, text) {
+    let el = document.getElementById('rewardSyncStatus');
+    if (!el) {
+        el = document.createElement('div');
+        el.id = 'rewardSyncStatus';
+        el.className = 'reward-sync-indicator';
+        document.body.appendChild(el);
+    }
+    el.className = `reward-sync-indicator status-${status}`;
+    el.textContent = text;
+}
+
+function showEarnedToast(emoji, title, subtitle, amount) {
+    const toast = document.createElement('div');
+    toast.className = 'reward-earned-toast';
+    toast.innerHTML = `
+        <span class="icon">${emoji}</span>
+        <h3>${title}</h3>
+        <p>${subtitle}</p>
+        <div class="amount">Rp ${amount.toLocaleString('id-ID')}</div>
+    `;
+    document.body.appendChild(toast);
+    
+    // Auto remove after 4 seconds
+    setTimeout(() => {
+        toast.style.transition = 'opacity 0.5s, transform 0.5s';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translate(-50%,-50%) scale(0.8)';
+        setTimeout(() => toast.remove(), 500);
+    }, 4000);
+    
+    // Play sound (optional)
+    try {
+        const audio = new Audio('data:audio/wav;base64,UklGRhwMAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YfgLAACA');
+        audio.play().catch(()=>{});
+    } catch(e){}
+}
+
+console.log('[REWARD SYNC] Module loaded ✅');
+</script>
+// ═══════════════════════════════════════════════════════
+// 🏆 REWARD HANDLER — Modal detail reward
+// ═══════════════════════════════════════════════════════
+async function handleReward(resellerId) {
+    const reseller = allResellers.find(r => r.id === resellerId);
+    if (!reseller) {
+        Swal.fire({title:'Error', text:'Data tidak ditemukan', icon:'error', customClass:{popup:'swal-premium'}});
+        return;
+    }
+    
+    const progress = reseller.progress || {};
+    const modulesDone = (progress.modulesDone || []).length;
+    const sopDone = (progress.sopDone || []).length;
+    const modulesPct = (modulesDone / 15) * 100;
+    const sopPct = (sopDone / 6) * 100;
+    
+    const rewards = reseller.rewards || {};
+    const tier1 = rewards.tier1 || { earned: false, amount: 50000, paid: false };
+    const tier2 = rewards.tier2 || { earned: false, amount: 100000, paid: false };
+    
+    const totalEarned = (tier1.earned ? 50000 : 0) + (tier2.earned ? 100000 : 0);
+    const totalPaid = (tier1.paid ? 50000 : 0) + (tier2.paid ? 100000 : 0);
+    const totalPending = totalEarned - totalPaid;
+    
+    const fmtDate = (ts) => {
+        if (!ts) return '-';
+        try {
+            const d = ts.toDate ? ts.toDate() : new Date(ts.seconds ? ts.seconds*1000 : ts);
+            return d.toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
+        } catch(e) { return '-'; }
+    };
+    
+    // Tier 1 card
+    const tier1HTML = `
+        <div class="reward-tier-card ${tier1.paid ? 'paid' : (tier1.earned ? 'earned' : '')}">
+            <div class="reward-tier-header">
+                <div class="reward-tier-name">🥈 Tier 1 — Belajar Selesai</div>
+                <div class="reward-tier-amount">Rp 50.000</div>
+            </div>
+            <div class="reward-tier-desc">Syarat: Selesai 15 modul</div>
+            ${!tier1.earned ? `
+                <span class="reward-tier-status status-locked-tier">
+                    🔒 Progress: ${modulesDone}/15 modul
+                </span>
+            ` : tier1.paid ? `
+                <span class="reward-tier-status status-paid-tier">
+                    ✅ SUDAH DIBAYAR — ${fmtDate(tier1.paidAt)}
+                </span>
+            ` : `
+                <span class="reward-tier-status status-earned-tier">
+                    💰 EARNED ${fmtDate(tier1.earnedAt)} — BELUM DIBAYAR
+                </span>
+                <br>
+                <button class="btn-mark-paid" onclick="markRewardPaid('${resellerId}', 'tier1')">
+                    <i class="fas fa-check-circle"></i> Tandai Sudah Dibayar
+                </button>
+            `}
+        </div>
+    `;
+    
+    // Tier 2 card
+    const tier2HTML = `
+        <div class="reward-tier-card ${tier2.paid ? 'paid' : (tier2.earned ? 'earned' : '')}">
+            <div class="reward-tier-header">
+                <div class="reward-tier-name">🥇 Tier 2 — Siap Jualan</div>
+                <div class="reward-tier-amount">Rp 100.000</div>
+            </div>
+            <div class="reward-tier-desc">Syarat: Selesai 15 modul + 6 SOP</div>
+            ${!tier2.earned ? `
+                <span class="reward-tier-status status-locked-tier">
+                    🔒 Modul: ${modulesDone}/15 | SOP: ${sopDone}/6
+                </span>
+            ` : tier2.paid ? `
+                <span class="reward-tier-status status-paid-tier">
+                    ✅ SUDAH DIBAYAR — ${fmtDate(tier2.paidAt)}
+                </span>
+            ` : `
+                <span class="reward-tier-status status-earned-tier">
+                    💰 EARNED ${fmtDate(tier2.earnedAt)} — BELUM DIBAYAR
+                </span>
+                <br>
+                <button class="btn-mark-paid" onclick="markRewardPaid('${resellerId}', 'tier2')">
+                    <i class="fas fa-check-circle"></i> Tandai Sudah Dibayar
+                </button>
+            `}
+        </div>
+    `;
+    
+    const contentHTML = `
+        <div class="swal-reward-content">
+            
+            <!-- PROGRESS -->
+            <div class="reward-modal-section">
+                <div class="reward-modal-title">
+                    <i class="fas fa-chart-bar"></i> Progress
+                </div>
+                <div class="reward-progress-item">
+                    <span class="label">📚 Modul</span>
+                    <div class="bar"><div class="bar-fill" style="width:${modulesPct}%"></div></div>
+                    <span class="value">${modulesDone}/15</span>
+                </div>
+                <div class="reward-progress-item">
+                    <span class="label">📋 SOP</span>
+                    <div class="bar"><div class="bar-fill" style="width:${sopPct}%"></div></div>
+                    <span class="value">${sopDone}/6</span>
+                </div>
+            </div>
+            
+            <!-- REWARD TIERS -->
+            <div class="reward-modal-section">
+                <div class="reward-modal-title">
+                    <i class="fas fa-trophy"></i> Reward Status
+                </div>
+                ${tier1HTML}
+                ${tier2HTML}
+            </div>
+            
+            <!-- SUMMARY -->
+            <div class="reward-modal-section">
+                <div class="reward-modal-title">
+                    <i class="fas fa-money-check-alt"></i> Ringkasan
+                </div>
+                <div class="reward-summary">
+                    <div class="summary-box">
+                        <div class="label">Earned</div>
+                        <div class="value">Rp ${totalEarned.toLocaleString('id-ID')}</div>
+                    </div>
+                    <div class="summary-box paid">
+                        <div class="label">Paid</div>
+                        <div class="value">Rp ${totalPaid.toLocaleString('id-ID')}</div>
+                    </div>
+                    <div class="summary-box pending">
+                        <div class="label">Pending</div>
+                        <div class="value">Rp ${totalPending.toLocaleString('id-ID')}</div>
+                    </div>
+                </div>
+                
+                <button class="btn-send-link" onclick="sendStarterKitLink('${reseller.wa || ''}', '${(reseller.nama||'').replace(/'/g,'')}', '${reseller.resellerCode || ''}')">
+                    <i class="fab fa-whatsapp"></i> Kirim Link Starter Kit ke WA
+                </button>
+            </div>
+            
+        </div>
+    `;
+    
+    Swal.fire({
+        title: `🏆 ${reseller.nama || 'Reseller'}`,
+        html: contentHTML,
+        showCloseButton: true,
+        showConfirmButton: false,
+        width: '600px',
+        customClass: { popup: 'swal-premium' }
+    });
+}
+
+// ═══════════════════════════════════════════════════════
+// 💵 MARK REWARD AS PAID
+// ═══════════════════════════════════════════════════════
+async function markRewardPaid(resellerId, tier) {
+    const result = await Swal.fire({
+        title: 'Konfirmasi Pembayaran',
+        text: `Yakin sudah transfer reward ${tier === 'tier1' ? 'Rp 50.000' : 'Rp 100.000'} ke reseller?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: '✅ Ya, Sudah Bayar',
+        cancelButtonText: 'Batal',
+        customClass: { popup: 'swal-premium' }
+    });
+    
+    if (!result.isConfirmed) return;
+    
+    try {
+        const { db, doc, updateDoc } = window.firebase;
+        
+        const updateData = {};
+        updateData[`rewards.${tier}.paid`] = true;
+        updateData[`rewards.${tier}.paidAt`] = new Date();
+        
+        await updateDoc(doc(db, 'resellers', resellerId), updateData);
+        
+        // Update local state
+        const idx = allResellers.findIndex(r => r.id === resellerId);
+        if (idx !== -1) {
+            allResellers[idx].rewards = allResellers[idx].rewards || {};
+            allResellers[idx].rewards[tier] = allResellers[idx].rewards[tier] || {};
+            allResellers[idx].rewards[tier].paid = true;
+            allResellers[idx].rewards[tier].paidAt = new Date();
+        }
+        
+        Swal.fire({
+            title: '✅ Berhasil!',
+            text: 'Reward berhasil ditandai sebagai sudah dibayar',
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false,
+            customClass: { popup: 'swal-premium' }
+        });
+        
+        // Refresh view
+        applyFilters();
+        setTimeout(() => handleReward(resellerId), 1000);
+        
+    } catch (err) {
+        console.error('[MARK PAID] Error:', err);
+        Swal.fire({
+            title: 'Gagal!',
+            text: 'Terjadi kesalahan: ' + err.message,
+            icon: 'error',
+            customClass: { popup: 'swal-premium' }
+        });
+    }
+}
+
+// ═══════════════════════════════════════════════════════
+// 🔗 KIRIM LINK STARTER KIT VIA WA
+// ═══════════════════════════════════════════════════════
+function sendStarterKitLink(wa, nama, code) {
+    if (!wa || !code) {
+        Swal.fire({title:'Error', text:'Data WA atau kode reseller tidak lengkap', icon:'error', customClass:{popup:'swal-premium'}});
+        return;
+    }
+    
+    // Format nomor WA (hilangkan 0 awal, ganti dengan 62)
+    let phone = wa.replace(/[^0-9]/g, '');
+    if (phone.startsWith('0')) phone = '62' + phone.substring(1);
+    if (!phone.startsWith('62')) phone = '62' + phone;
+    
+    // BASE URL — SESUAIKAN DENGAN DOMAIN ANDA
+    const baseURL = 'https://ibaadurrahmaan-hub.github.io';
+    const starterKitURL = `${baseURL}/starter-kit.html?code=${code}`;
+    
+    const message = `Halo ${nama}! 🎉
+
+Selamat, kamu sudah terdaftar sebagai reseller Ibaadurrahmaan!
+
+📚 *Yuk mulai belajar & earn reward!*
+${starterKitURL}
+
+🏆 *Reward yang menanti kamu:*
+🥈 Rp 50.000 — Setelah selesai 15 modul
+🥇 Rp 100.000 — Setelah selesai 15 modul + 6 SOP
+
+Progress kamu akan tersimpan otomatis di sistem kami.
+Setelah earn reward, admin akan hubungi kamu untuk transfer.
+
+Semangat belajar! 🚀
+
+_— Tim Ibaadurrahmaan_`;
+    
+    const waURL = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(waURL, '_blank');
+}
+
+// Expose ke window agar bisa dipanggil dari HTML onclick
+window.handleReward = handleReward;
+window.markRewardPaid = markRewardPaid;
+window.sendStarterKitLink = sendStarterKitLink;
 </body>
-</html
+</html>
