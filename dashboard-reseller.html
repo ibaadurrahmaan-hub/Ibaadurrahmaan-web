@@ -843,6 +843,286 @@ body{
     
     .nav-item i{font-size:1.2rem;}
 }
+
+/* ═══════════════════════════════════════════════════════
+   REWARD INTEGRATION - Admin Dashboard
+════════════════════════════════════════════════════════ */
+
+/* Progress bar mini di card reseller */
+.card-progress-info{
+    display:flex;
+    gap:10px;
+    padding:10px 12px;
+    background:rgba(212,165,54,0.05);
+    border:1px solid rgba(212,165,54,0.15);
+    border-radius:10px;
+    margin-bottom:12px;
+    flex-wrap:wrap;
+    font-size:0.75rem;
+}
+
+.progress-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    color:var(--text-muted);
+    font-weight:600;
+}
+
+.progress-badge i{
+    color:var(--gold);
+    font-size:0.85rem;
+}
+
+.progress-badge.reward-pending{
+    color:#f39c12;
+    background:rgba(243,156,18,0.1);
+    padding:2px 8px;
+    border-radius:6px;
+}
+
+.progress-badge.reward-paid{
+    color:#25d366;
+    background:rgba(37,211,102,0.1);
+    padding:2px 8px;
+    border-radius:6px;
+}
+
+/* Button reward */
+.card-btn.reward{
+    background:linear-gradient(135deg, rgba(212,165,54,0.2), rgba(212,165,54,0.1));
+    color:#d4a536;
+    border:1px solid rgba(212,165,54,0.4);
+    position:relative;
+}
+
+.card-btn.reward:hover{
+    background:linear-gradient(135deg, #d4a536, #c19a2e);
+    color:#050B18;
+}
+
+.card-btn.reward .badge-notif{
+    position:absolute;
+    top:-6px;
+    right:-6px;
+    background:#e74c3c;
+    color:#fff;
+    font-size:0.6rem;
+    font-weight:800;
+    padding:2px 6px;
+    border-radius:100px;
+    border:2px solid var(--bg-card);
+}
+
+/* SweetAlert Reward Modal Custom */
+.swal-reward-content{
+    text-align:left;
+    color:#fff;
+    font-family:'Poppins',sans-serif;
+}
+
+.reward-modal-section{
+    background:rgba(0,0,0,0.25);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:14px;
+    margin-bottom:12px;
+}
+
+.reward-modal-title{
+    font-size:0.75rem;
+    font-weight:800;
+    color:var(--gold);
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.reward-progress-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:8px;
+    font-size:0.85rem;
+}
+
+.reward-progress-item .label{
+    min-width:80px;
+    color:rgba(255,255,255,0.85);
+    font-weight:600;
+}
+
+.reward-progress-item .bar{
+    flex:1;
+    height:8px;
+    background:rgba(255,255,255,0.08);
+    border-radius:99px;
+    overflow:hidden;
+}
+
+.reward-progress-item .bar-fill{
+    height:100%;
+    background:linear-gradient(90deg, var(--gold), #e8bd52);
+    border-radius:99px;
+    transition:width 0.5s;
+}
+
+.reward-progress-item .value{
+    min-width:55px;
+    text-align:right;
+    color:var(--gold);
+    font-weight:800;
+    font-size:0.8rem;
+}
+
+.reward-tier-card{
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:14px;
+    margin-bottom:10px;
+    position:relative;
+}
+
+.reward-tier-card.earned{
+    border-color:rgba(37,211,102,0.4);
+    background:linear-gradient(135deg, rgba(37,211,102,0.08), rgba(255,255,255,0.02));
+}
+
+.reward-tier-card.paid{
+    border-color:rgba(212,165,54,0.4);
+    background:linear-gradient(135deg, rgba(212,165,54,0.1), rgba(255,255,255,0.02));
+}
+
+.reward-tier-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:8px;
+}
+
+.reward-tier-name{
+    font-size:0.9rem;
+    font-weight:800;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.reward-tier-amount{
+    font-size:1rem;
+    font-weight:900;
+    color:var(--gold);
+}
+
+.reward-tier-desc{
+    font-size:0.75rem;
+    color:var(--text-muted);
+    margin-bottom:10px;
+}
+
+.reward-tier-status{
+    font-size:0.75rem;
+    padding:5px 10px;
+    border-radius:100px;
+    font-weight:700;
+    display:inline-block;
+}
+
+.status-locked-tier{
+    background:rgba(255,255,255,0.05);
+    color:var(--text-muted);
+}
+
+.status-earned-tier{
+    background:rgba(243,156,18,0.15);
+    color:#f39c12;
+    border:1px solid rgba(243,156,18,0.3);
+}
+
+.status-paid-tier{
+    background:rgba(37,211,102,0.15);
+    color:#25d366;
+    border:1px solid rgba(37,211,102,0.3);
+}
+
+.btn-mark-paid{
+    background:linear-gradient(135deg, #25d366, #128c7e);
+    color:#fff;
+    border:none;
+    padding:8px 16px;
+    border-radius:8px;
+    font-weight:700;
+    cursor:pointer;
+    font-size:0.8rem;
+    font-family:'Poppins',sans-serif;
+    margin-top:8px;
+    transition:all 0.2s;
+}
+
+.btn-mark-paid:hover{
+    transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(37,211,102,0.4);
+}
+
+.reward-summary{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:8px;
+    margin-top:12px;
+}
+
+.summary-box{
+    background:rgba(0,0,0,0.3);
+    border-radius:10px;
+    padding:10px;
+    text-align:center;
+}
+
+.summary-box .label{
+    font-size:0.65rem;
+    color:var(--text-muted);
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin-bottom:4px;
+}
+
+.summary-box .value{
+    font-size:0.85rem;
+    font-weight:800;
+    color:#fff;
+}
+
+.summary-box.pending .value{color:#f39c12;}
+.summary-box.paid .value{color:#25d366;}
+
+.btn-send-link{
+    width:100%;
+    background:linear-gradient(135deg, #25D366, #128C7E);
+    color:#fff;
+    border:none;
+    padding:12px 16px;
+    border-radius:10px;
+    font-weight:800;
+    cursor:pointer;
+    font-size:0.85rem;
+    font-family:'Poppins',sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    margin-top:12px;
+    transition:all 0.3s;
+}
+
+.btn-send-link:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 20px rgba(37,211,102,0.4);
+}
 </style>
 </head>
 <body>
@@ -1140,7 +1420,43 @@ function renderResellers(resellers) {
             dateStr = date.toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
         }
         
-        // Escape data untuk onclick
+        // ⭐ REWARD INFO
+        const progress = data.progress || {};
+        const modulesDone = (progress.modulesDone || []).length;
+        const sopDone = (progress.sopDone || []).length;
+        
+        const rewards = data.rewards || {};
+        const tier1 = rewards.tier1 || {};
+        const tier2 = rewards.tier2 || {};
+        
+        const totalEarned = (tier1.earned ? 50000 : 0) + (tier2.earned ? 100000 : 0);
+        const totalPaid = (tier1.paid ? 50000 : 0) + (tier2.paid ? 100000 : 0);
+        const totalPending = totalEarned - totalPaid;
+        
+        // Progress info bar
+        let progressInfoHTML = '';
+        if (status === 'active') {
+            let rewardBadge = '';
+            if (totalPending > 0) {
+                rewardBadge = `<span class="progress-badge reward-pending">
+                    <i class="fas fa-money-bill-wave"></i> Rp ${totalPending.toLocaleString('id-ID')} BELUM BAYAR
+                </span>`;
+            } else if (totalPaid > 0) {
+                rewardBadge = `<span class="progress-badge reward-paid">
+                    <i class="fas fa-check-circle"></i> Rp ${totalPaid.toLocaleString('id-ID')} PAID
+                </span>`;
+            }
+            
+            progressInfoHTML = `
+                <div class="card-progress-info">
+                    <span class="progress-badge"><i class="fas fa-graduation-cap"></i> ${modulesDone}/15</span>
+                    <span class="progress-badge"><i class="fas fa-clipboard-check"></i> ${sopDone}/6</span>
+                    ${rewardBadge}
+                </div>
+            `;
+        }
+        
+        // Data untuk onclick
         const dataStr = JSON.stringify({
             id: data.id,
             nama: data.nama || 'Tanpa Nama',
@@ -1163,9 +1479,10 @@ function renderResellers(resellers) {
                 </button>
             `;
         } else if (status === 'active') {
+            const notifBadge = totalPending > 0 ? '<span class="badge-notif">!</span>' : '';
             buttons = `
-                <button class="card-btn detail" onclick='handleDetail(${dataStr})'>
-                    <i class="fas fa-eye"></i>Detail
+                <button class="card-btn reward" onclick='handleReward("${data.id}")'>
+                    <i class="fas fa-trophy"></i>Reward${notifBadge}
                 </button>
                 <button class="card-btn edit" onclick='handleEdit(${dataStr})'>
                     <i class="fas fa-edit"></i>Edit
@@ -1207,6 +1524,8 @@ function renderResellers(resellers) {
                     </div>
                     <span class="card-status ${status}">${status}</span>
                 </div>
+                
+                ${progressInfoHTML}
                 
                 <div class="card-meta">
                     <div class="card-meta-item">
@@ -1282,6 +1601,264 @@ setTimeout(() => {
         loadResellers();
     }
 }, 1500);
+
+// ═══════════════════════════════════════════════════════
+// 🏆 REWARD HANDLER — Modal detail reward
+// ═══════════════════════════════════════════════════════
+async function handleReward(resellerId) {
+    const reseller = allResellers.find(r => r.id === resellerId);
+    if (!reseller) {
+        Swal.fire({title:'Error', text:'Data tidak ditemukan', icon:'error', customClass:{popup:'swal-premium'}});
+        return;
+    }
+    
+    const progress = reseller.progress || {};
+    const modulesDone = (progress.modulesDone || []).length;
+    const sopDone = (progress.sopDone || []).length;
+    const modulesPct = (modulesDone / 15) * 100;
+    const sopPct = (sopDone / 6) * 100;
+    
+    const rewards = reseller.rewards || {};
+    const tier1 = rewards.tier1 || { earned: false, amount: 50000, paid: false };
+    const tier2 = rewards.tier2 || { earned: false, amount: 100000, paid: false };
+    
+    const totalEarned = (tier1.earned ? 50000 : 0) + (tier2.earned ? 100000 : 0);
+    const totalPaid = (tier1.paid ? 50000 : 0) + (tier2.paid ? 100000 : 0);
+    const totalPending = totalEarned - totalPaid;
+    
+    const fmtDate = (ts) => {
+        if (!ts) return '-';
+        try {
+            const d = ts.toDate ? ts.toDate() : new Date(ts.seconds ? ts.seconds*1000 : ts);
+            return d.toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
+        } catch(e) { return '-'; }
+    };
+    
+    // Tier 1 card
+    const tier1HTML = `
+        <div class="reward-tier-card ${tier1.paid ? 'paid' : (tier1.earned ? 'earned' : '')}">
+            <div class="reward-tier-header">
+                <div class="reward-tier-name">🥈 Tier 1 — Belajar Selesai</div>
+                <div class="reward-tier-amount">Rp 50.000</div>
+            </div>
+            <div class="reward-tier-desc">Syarat: Selesai 15 modul</div>
+            ${!tier1.earned ? `
+                <span class="reward-tier-status status-locked-tier">
+                    🔒 Progress: ${modulesDone}/15 modul
+                </span>
+            ` : tier1.paid ? `
+                <span class="reward-tier-status status-paid-tier">
+                    ✅ SUDAH DIBAYAR — ${fmtDate(tier1.paidAt)}
+                </span>
+            ` : `
+                <span class="reward-tier-status status-earned-tier">
+                    💰 EARNED ${fmtDate(tier1.earnedAt)} — BELUM DIBAYAR
+                </span>
+                <br>
+                <button class="btn-mark-paid" onclick="markRewardPaid('${resellerId}', 'tier1')">
+                    <i class="fas fa-check-circle"></i> Tandai Sudah Dibayar
+                </button>
+            `}
+        </div>
+    `;
+    
+    // Tier 2 card
+    const tier2HTML = `
+        <div class="reward-tier-card ${tier2.paid ? 'paid' : (tier2.earned ? 'earned' : '')}">
+            <div class="reward-tier-header">
+                <div class="reward-tier-name">🥇 Tier 2 — Siap Jualan</div>
+                <div class="reward-tier-amount">Rp 100.000</div>
+            </div>
+            <div class="reward-tier-desc">Syarat: Selesai 15 modul + 6 SOP</div>
+            ${!tier2.earned ? `
+                <span class="reward-tier-status status-locked-tier">
+                    🔒 Modul: ${modulesDone}/15 | SOP: ${sopDone}/6
+                </span>
+            ` : tier2.paid ? `
+                <span class="reward-tier-status status-paid-tier">
+                    ✅ SUDAH DIBAYAR — ${fmtDate(tier2.paidAt)}
+                </span>
+            ` : `
+                <span class="reward-tier-status status-earned-tier">
+                    💰 EARNED ${fmtDate(tier2.earnedAt)} — BELUM DIBAYAR
+                </span>
+                <br>
+                <button class="btn-mark-paid" onclick="markRewardPaid('${resellerId}', 'tier2')">
+                    <i class="fas fa-check-circle"></i> Tandai Sudah Dibayar
+                </button>
+            `}
+        </div>
+    `;
+    
+    const contentHTML = `
+        <div class="swal-reward-content">
+            
+            <!-- PROGRESS -->
+            <div class="reward-modal-section">
+                <div class="reward-modal-title">
+                    <i class="fas fa-chart-bar"></i> Progress
+                </div>
+                <div class="reward-progress-item">
+                    <span class="label">📚 Modul</span>
+                    <div class="bar"><div class="bar-fill" style="width:${modulesPct}%"></div></div>
+                    <span class="value">${modulesDone}/15</span>
+                </div>
+                <div class="reward-progress-item">
+                    <span class="label">📋 SOP</span>
+                    <div class="bar"><div class="bar-fill" style="width:${sopPct}%"></div></div>
+                    <span class="value">${sopDone}/6</span>
+                </div>
+            </div>
+            
+            <!-- REWARD TIERS -->
+            <div class="reward-modal-section">
+                <div class="reward-modal-title">
+                    <i class="fas fa-trophy"></i> Reward Status
+                </div>
+                ${tier1HTML}
+                ${tier2HTML}
+            </div>
+            
+            <!-- SUMMARY -->
+            <div class="reward-modal-section">
+                <div class="reward-modal-title">
+                    <i class="fas fa-money-check-alt"></i> Ringkasan
+                </div>
+                <div class="reward-summary">
+                    <div class="summary-box">
+                        <div class="label">Earned</div>
+                        <div class="value">Rp ${totalEarned.toLocaleString('id-ID')}</div>
+                    </div>
+                    <div class="summary-box paid">
+                        <div class="label">Paid</div>
+                        <div class="value">Rp ${totalPaid.toLocaleString('id-ID')}</div>
+                    </div>
+                    <div class="summary-box pending">
+                        <div class="label">Pending</div>
+                        <div class="value">Rp ${totalPending.toLocaleString('id-ID')}</div>
+                    </div>
+                </div>
+                
+                <button class="btn-send-link" onclick="sendStarterKitLink('${reseller.wa || ''}', '${(reseller.nama||'').replace(/'/g,'')}', '${reseller.resellerCode || ''}')">
+                    <i class="fab fa-whatsapp"></i> Kirim Link Starter Kit ke WA
+                </button>
+            </div>
+            
+        </div>
+    `;
+    
+    Swal.fire({
+        title: `🏆 ${reseller.nama || 'Reseller'}`,
+        html: contentHTML,
+        showCloseButton: true,
+        showConfirmButton: false,
+        width: '600px',
+        customClass: { popup: 'swal-premium' }
+    });
+}
+
+// ═══════════════════════════════════════════════════════
+// 💵 MARK REWARD AS PAID
+// ═══════════════════════════════════════════════════════
+async function markRewardPaid(resellerId, tier) {
+    const result = await Swal.fire({
+        title: 'Konfirmasi Pembayaran',
+        text: `Yakin sudah transfer reward ${tier === 'tier1' ? 'Rp 50.000' : 'Rp 100.000'} ke reseller?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: '✅ Ya, Sudah Bayar',
+        cancelButtonText: 'Batal',
+        customClass: { popup: 'swal-premium' }
+    });
+    
+    if (!result.isConfirmed) return;
+    
+    try {
+        const { db, doc, updateDoc } = window.firebase;
+        
+        const updateData = {};
+        updateData[`rewards.${tier}.paid`] = true;
+        updateData[`rewards.${tier}.paidAt`] = new Date();
+        
+        await updateDoc(doc(db, 'resellers', resellerId), updateData);
+        
+        // Update local state
+        const idx = allResellers.findIndex(r => r.id === resellerId);
+        if (idx !== -1) {
+            allResellers[idx].rewards = allResellers[idx].rewards || {};
+            allResellers[idx].rewards[tier] = allResellers[idx].rewards[tier] || {};
+            allResellers[idx].rewards[tier].paid = true;
+            allResellers[idx].rewards[tier].paidAt = new Date();
+        }
+        
+        Swal.fire({
+            title: '✅ Berhasil!',
+            text: 'Reward berhasil ditandai sebagai sudah dibayar',
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false,
+            customClass: { popup: 'swal-premium' }
+        });
+        
+        // Refresh view
+        applyFilters();
+        setTimeout(() => handleReward(resellerId), 1000);
+        
+    } catch (err) {
+        console.error('[MARK PAID] Error:', err);
+        Swal.fire({
+            title: 'Gagal!',
+            text: 'Terjadi kesalahan: ' + err.message,
+            icon: 'error',
+            customClass: { popup: 'swal-premium' }
+        });
+    }
+}
+
+// ═══════════════════════════════════════════════════════
+// 🔗 KIRIM LINK STARTER KIT VIA WA
+// ═══════════════════════════════════════════════════════
+function sendStarterKitLink(wa, nama, code) {
+    if (!wa || !code) {
+        Swal.fire({title:'Error', text:'Data WA atau kode reseller tidak lengkap', icon:'error', customClass:{popup:'swal-premium'}});
+        return;
+    }
+    
+    // Format nomor WA (hilangkan 0 awal, ganti dengan 62)
+    let phone = wa.replace(/[^0-9]/g, '');
+    if (phone.startsWith('0')) phone = '62' + phone.substring(1);
+    if (!phone.startsWith('62')) phone = '62' + phone;
+    
+    // BASE URL — SESUAIKAN DENGAN DOMAIN ANDA
+    const baseURL = 'https://ibaadurrahmaan-hub.github.io';
+    const starterKitURL = `${baseURL}/starter-kit.html?code=${code}`;
+    
+    const message = `Halo ${nama}! 🎉
+
+Selamat, kamu sudah terdaftar sebagai reseller Ibaadurrahmaan!
+
+📚 *Yuk mulai belajar & earn reward!*
+${starterKitURL}
+
+🏆 *Reward yang menanti kamu:*
+🥈 Rp 50.000 — Setelah selesai 15 modul
+🥇 Rp 100.000 — Setelah selesai 15 modul + 6 SOP
+
+Progress kamu akan tersimpan otomatis di sistem kami.
+Setelah earn reward, admin akan hubungi kamu untuk transfer.
+
+Semangat belajar! 🚀
+
+_— Tim Ibaadurrahmaan_`;
+    
+    const waURL = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(waURL, '_blank');
+}
+
+// Expose ke window agar bisa dipanggil dari HTML onclick
+window.handleReward = handleReward;
+window.markRewardPaid = markRewardPaid;
+window.sendStarterKitLink = sendStarterKitLink;
 </script>
 
 </body>
