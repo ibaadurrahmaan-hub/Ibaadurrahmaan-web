@@ -1479,6 +1479,505 @@ letter-spacing: 2px;          /* Extra bold */
     .kit-reward-item p{font-size:0.7rem;}
 }
 
+/* ═══════════════════════════════════════════════════════
+   REWARD WIDGET — Interactive Calculator
+════════════════════════════════════════════════════════ */
+
+.kit-reward-widget{
+    background:linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.02));
+    border:2px dashed rgba(201,168,76,0.4);
+    border-radius:20px;
+    padding:28px 24px;
+    backdrop-filter:blur(10px);
+    max-width:700px;
+    margin:0 auto;
+}
+
+/* ── Header ── */
+.reward-widget-header{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-bottom:24px;
+    padding-bottom:20px;
+    border-bottom:1px solid rgba(201,168,76,0.2);
+}
+
+.reward-widget-icon{
+    width:56px;
+    height:56px;
+    border-radius:14px;
+    background:linear-gradient(135deg, #F0C96B, #C9A84C);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.8rem;
+    color:#000;
+    flex-shrink:0;
+    box-shadow:0 4px 20px rgba(201,168,76,0.4);
+    animation:trophy-bounce 2s ease-in-out infinite;
+}
+
+@keyframes trophy-bounce{
+    0%, 100%{transform:translateY(0);}
+    50%{transform:translateY(-4px);}
+}
+
+.reward-widget-title{
+    font-size:1.15rem;
+    font-weight:800;
+    color:#fff;
+    margin-bottom:4px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    line-height:1.3;
+}
+
+.reward-widget-sub{
+    font-size:0.82rem;
+    color:var(--text-muted);
+    line-height:1.4;
+}
+
+/* ── Status Section ── */
+.reward-status{
+    background:rgba(0,0,0,0.25);
+    border-radius:14px;
+    padding:18px;
+    margin-bottom:20px;
+}
+
+.reward-status-title{
+    font-size:0.8rem;
+    font-weight:700;
+    color:var(--gold);
+    margin-bottom:14px;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.reward-status-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.reward-status-item{
+    display:grid;
+    grid-template-columns:100px 1fr auto;
+    align-items:center;
+    gap:12px;
+}
+
+.reward-status-label{
+    font-size:0.78rem;
+    color:#fff;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.reward-status-label i{
+    color:var(--gold);
+    font-size:0.85rem;
+}
+
+.reward-status-bar{
+    height:8px;
+    background:rgba(255,255,255,0.06);
+    border-radius:99px;
+    overflow:hidden;
+    position:relative;
+}
+
+.reward-status-fill{
+    height:100%;
+    background:linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+    border-radius:99px;
+    transition:width 0.8s ease;
+    box-shadow:0 0 8px rgba(201,168,76,0.4);
+}
+
+.reward-status-value{
+    font-size:0.78rem;
+    font-weight:700;
+    color:var(--gold);
+    min-width:60px;
+    text-align:right;
+}
+
+/* ── Badge Cards ── */
+.reward-badges{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.reward-badge-card{
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:14px 16px;
+    transition:all 0.3s;
+    position:relative;
+    overflow:hidden;
+}
+
+.reward-badge-card:hover{
+    transform:translateX(4px);
+    border-color:var(--gold);
+    background:rgba(201,168,76,0.06);
+}
+
+/* Badge state — EARNED */
+.reward-badge-card.earned{
+    border-color:#22C55E;
+    background:linear-gradient(135deg, rgba(34,197,94,0.1), rgba(34,197,94,0.03));
+}
+
+.reward-badge-card.earned::before{
+    content:'✓ EARNED';
+    position:absolute;
+    top:8px;
+    right:-30px;
+    background:#22C55E;
+    color:#fff;
+    font-size:0.6rem;
+    font-weight:800;
+    padding:2px 30px;
+    transform:rotate(45deg);
+    letter-spacing:1px;
+}
+
+.reward-badge-top{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:10px;
+}
+
+.reward-badge-icon{
+    font-size:2rem;
+    flex-shrink:0;
+    line-height:1;
+    filter:drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+}
+
+.reward-badge-info{
+    flex:1;
+    min-width:0;
+}
+
+.reward-badge-name{
+    font-size:0.95rem;
+    font-weight:800;
+    color:#fff;
+    line-height:1.2;
+    margin-bottom:3px;
+}
+
+.reward-badge-req{
+    font-size:0.72rem;
+    color:var(--text-muted);
+    line-height:1.3;
+}
+
+.reward-badge-status{
+    flex-shrink:0;
+}
+
+.status-locked{
+    font-size:0.78rem;
+    font-weight:700;
+    color:var(--gold);
+    background:rgba(201,168,76,0.15);
+    padding:4px 10px;
+    border-radius:50px;
+    white-space:nowrap;
+}
+
+.status-earned{
+    font-size:0.75rem;
+    font-weight:800;
+    color:#fff;
+    background:linear-gradient(135deg, #22C55E, #16A34A);
+    padding:5px 12px;
+    border-radius:50px;
+    white-space:nowrap;
+    box-shadow:0 4px 12px rgba(34,197,94,0.4);
+}
+
+.reward-badge-progress-bar{
+    height:6px;
+    background:rgba(255,255,255,0.08);
+    border-radius:99px;
+    overflow:hidden;
+    margin-bottom:8px;
+}
+
+.reward-badge-progress-fill{
+    height:100%;
+    background:linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+    border-radius:99px;
+    transition:width 0.8s ease;
+}
+
+.reward-badge-card.earned .reward-badge-progress-fill{
+    background:linear-gradient(90deg, #16A34A, #22C55E);
+}
+
+.reward-badge-hint{
+    font-size:0.72rem;
+    color:var(--text-muted);
+    line-height:1.4;
+    margin-bottom:8px;
+    font-style:italic;
+}
+
+.reward-badge-prize{
+    font-size:0.78rem;
+    color:#fff;
+    padding-top:8px;
+    border-top:1px dashed rgba(201,168,76,0.2);
+    line-height:1.4;
+}
+
+.reward-badge-prize b{
+    color:var(--gold-light);
+    font-weight:800;
+}
+
+/* ── Total Reward ── */
+.reward-total{
+    background:linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05));
+    border:2px solid rgba(201,168,76,0.4);
+    border-radius:14px;
+    padding:20px;
+    text-align:center;
+    margin-bottom:16px;
+    position:relative;
+    overflow:hidden;
+}
+
+.reward-total::before{
+    content:'';
+    position:absolute;
+    top:-50%;
+    left:-50%;
+    width:200%;
+    height:200%;
+    background:radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 60%);
+    animation:shimmer 4s ease-in-out infinite;
+    pointer-events:none;
+}
+
+@keyframes shimmer{
+    0%, 100%{transform:rotate(0deg);}
+    50%{transform:rotate(180deg);}
+}
+
+.reward-total-label{
+    font-size:0.75rem;
+    font-weight:700;
+    color:var(--gold);
+    letter-spacing:1px;
+    margin-bottom:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+}
+
+.reward-total-amount{
+    font-size:2rem;
+    font-weight:900;
+    background:linear-gradient(135deg, #F0C96B, #FFE9A3, #C9A84C);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    line-height:1;
+    margin-bottom:6px;
+    filter:drop-shadow(0 0 15px rgba(240,201,107,0.5));
+    position:relative;
+    z-index:1;
+}
+
+.reward-total-extra{
+    font-size:0.75rem;
+    color:var(--text-muted);
+    line-height:1.4;
+    position:relative;
+    z-index:1;
+}
+
+/* ── Tips ── */
+.reward-tips{
+    background:rgba(59,130,246,0.1);
+    border:1px solid rgba(59,130,246,0.3);
+    border-radius:10px;
+    padding:12px 14px;
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-bottom:16px;
+}
+
+.reward-tips i{
+    color:#60A5FA;
+    font-size:1rem;
+    margin-top:2px;
+    flex-shrink:0;
+}
+
+.reward-tips > div{
+    font-size:0.78rem;
+    color:#fff;
+    line-height:1.5;
+}
+
+.reward-tips b{
+    color:#60A5FA;
+}
+
+/* ── CTA Buttons ── */
+.reward-cta{
+    display:flex;
+    gap:10px;
+    margin-bottom:16px;
+    flex-wrap:wrap;
+}
+
+.reward-btn-primary{
+    flex:1;
+    min-width:180px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    background:linear-gradient(135deg, var(--gold-dark), var(--gold-light));
+    color:#000;
+    padding:14px 20px;
+    border-radius:12px;
+    font-size:0.88rem;
+    font-weight:800;
+    text-decoration:none;
+    transition:all 0.3s;
+    letter-spacing:0.3px;
+}
+
+.reward-btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px rgba(201,168,76,0.4);
+}
+
+.reward-btn-secondary{
+    flex:1;
+    min-width:180px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    background:transparent;
+    color:#25D366;
+    border:2px solid #25D366;
+    padding:12px 20px;
+    border-radius:12px;
+    font-size:0.88rem;
+    font-weight:700;
+    text-decoration:none;
+    transition:all 0.3s;
+}
+
+.reward-btn-secondary:hover{
+    background:#25D366;
+    color:#fff;
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px rgba(37,211,102,0.3);
+}
+
+/* ── Footer Note ── */
+.reward-footer-note{
+    background:rgba(0,0,0,0.25);
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:0.72rem;
+    color:var(--text-muted);
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    line-height:1.5;
+}
+
+.reward-footer-note i{
+    color:var(--gold);
+    font-size:0.85rem;
+    margin-top:2px;
+    flex-shrink:0;
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════════ */
+@media (max-width:768px){
+    .kit-reward-widget{
+        padding:24px 18px;
+    }
+    
+    .reward-widget-header{gap:12px; margin-bottom:20px;}
+    .reward-widget-icon{width:48px; height:48px; font-size:1.5rem;}
+    .reward-widget-title{font-size:1rem;}
+    .reward-widget-sub{font-size:0.78rem;}
+    
+    .reward-status{padding:14px;}
+    .reward-status-item{grid-template-columns:80px 1fr auto; gap:10px;}
+    .reward-status-label{font-size:0.72rem;}
+    .reward-status-value{font-size:0.72rem;}
+    
+    .reward-badge-icon{font-size:1.7rem;}
+    .reward-badge-name{font-size:0.88rem;}
+    .reward-badge-req{font-size:0.68rem;}
+    .status-locked, .status-earned{font-size:0.7rem;}
+    
+    .reward-total-amount{font-size:1.7rem;}
+    
+    .reward-cta{flex-direction:column;}
+    .reward-btn-primary, .reward-btn-secondary{width:100%;}
+}
+
+@media (max-width:480px){
+    .kit-reward-widget{
+        padding:20px 14px;
+        border-radius:16px;
+    }
+    
+    .reward-widget-header{
+        flex-direction:column;
+        text-align:center;
+        gap:10px;
+    }
+    
+    .reward-status-item{
+        grid-template-columns:1fr;
+        gap:6px;
+    }
+    
+    .reward-status-value{
+        text-align:left;
+    }
+    
+    .reward-badge-top{gap:10px;}
+    .reward-badge-icon{font-size:1.5rem;}
+    .reward-total-amount{font-size:1.5rem;}
+}
+
     </style>
 </head>
 
@@ -1613,56 +2112,205 @@ letter-spacing: 2px;          /* Extra bold */
         </div>
         
         <br>
+        <!-- ═══════════════════════════════════════════════════
+     REWARD WIDGET — Interactive Calculator
+════════════════════════════════════════════════════ -->
+<section class="kit-section" id="reward">
+    <div class="kit-container">
         
-        <!-- ⭐ INFO REWARD COMING SOON -->
-        <div class="kit-reward-teaser">
-            <div class="kit-reward-header">
-                <i class="fas fa-trophy"></i>
+        <div class="kit-reward-widget">
+            
+            <!-- Header -->
+            <div class="reward-widget-header">
+                <div class="reward-widget-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
                 <div>
-                    <div class="kit-reward-title">
-                        Sistem Reward <span class="badge-soon">COMING SOON</span>
+                    <div class="reward-widget-title">
+                        Reward Kamu <span class="badge-soon">COMING Q2 2026</span>
                     </div>
-                    <div class="kit-reward-sub">
-                        Belajar & bekerja keras — reward menanti Anda!
-                    </div>
-                </div>
-            </div>
-            
-            <div class="kit-reward-list">
-                <div class="kit-reward-item">
-                    <div class="kit-reward-icon">🥉</div>
-                    <div>
-                        <b>Rookie Badge</b>
-                        <p>Selesaikan 5 modul pembelajaran</p>
-                    </div>
-                </div>
-                <div class="kit-reward-item">
-                    <div class="kit-reward-icon">🥈</div>
-                    <div>
-                        <b>Learner Badge</b>
-                        <p>Selesai 10 modul + 3 SOP</p>
-                    </div>
-                </div>
-                <div class="kit-reward-item">
-                    <div class="kit-reward-icon">🥇</div>
-                    <div>
-                        <b>Graduate + Sertifikat</b>
-                        <p>15 modul + 6 SOP + 1 closing</p>
-                    </div>
-                </div>
-                <div class="kit-reward-item">
-                    <div class="kit-reward-icon">💎</div>
-                    <div>
-                        <b>Top Performer + Bonus</b>
-                        <p>10+ closing/bulan konsisten</p>
+                    <div class="reward-widget-sub">
+                        Semakin banyak progress, semakin besar reward yang menanti!
                     </div>
                 </div>
             </div>
             
-            <div class="kit-reward-footer">
-                <i class="fas fa-database"></i>
-                Progress Anda tersimpan di database resmi Ibaadurrahmaan Firestore.
+            <!-- Status Progress (Auto-fetched) -->
+            <div class="reward-status">
+                <div class="reward-status-title">
+                    <i class="fas fa-chart-bar"></i> Status Kamu Sekarang
+                </div>
+                
+                <div class="reward-status-list">
+                    <div class="reward-status-item">
+                        <div class="reward-status-label">
+                            <i class="fas fa-graduation-cap"></i> Modul
+                        </div>
+                        <div class="reward-status-bar">
+                            <div class="reward-status-fill" id="rewardModulBar" style="width:0%"></div>
+                        </div>
+                        <div class="reward-status-value" id="rewardModulValue">0/15</div>
+                    </div>
+                    
+                    <div class="reward-status-item">
+                        <div class="reward-status-label">
+                            <i class="fas fa-clipboard-check"></i> SOP
+                        </div>
+                        <div class="reward-status-bar">
+                            <div class="reward-status-fill" id="rewardSopBar" style="width:0%"></div>
+                        </div>
+                        <div class="reward-status-value" id="rewardSopValue">0/6</div>
+                    </div>
+                    
+                    <div class="reward-status-item">
+                        <div class="reward-status-label">
+                            <i class="fas fa-briefcase"></i> Closing
+                        </div>
+                        <div class="reward-status-bar">
+                            <div class="reward-status-fill" id="rewardClosingBar" style="width:0%"></div>
+                        </div>
+                        <div class="reward-status-value" id="rewardClosingValue">0 bulan ini</div>
+                    </div>
+                </div>
             </div>
+            
+            <!-- Badge Progress Cards -->
+            <div class="reward-badges" id="rewardBadges">
+                
+                <!-- Rookie Badge -->
+                <div class="reward-badge-card" data-badge="rookie">
+                    <div class="reward-badge-top">
+                        <div class="reward-badge-icon">🥉</div>
+                        <div class="reward-badge-info">
+                            <div class="reward-badge-name">Rookie Badge</div>
+                            <div class="reward-badge-req">5 modul selesai</div>
+                        </div>
+                        <div class="reward-badge-status" id="statusRookie">
+                            <span class="status-locked">🔒 0%</span>
+                        </div>
+                    </div>
+                    <div class="reward-badge-progress-bar">
+                        <div class="reward-badge-progress-fill" id="progressRookie" style="width:0%"></div>
+                    </div>
+                    <div class="reward-badge-hint" id="hintRookie">
+                        Selesaikan 5 modul untuk earn badge ini
+                    </div>
+                    <div class="reward-badge-prize">
+                        🎁 <b>Rp 50.000</b> + Sticker Digital
+                    </div>
+                </div>
+                
+                <!-- Learner Badge -->
+                <div class="reward-badge-card" data-badge="learner">
+                    <div class="reward-badge-top">
+                        <div class="reward-badge-icon">🥈</div>
+                        <div class="reward-badge-info">
+                            <div class="reward-badge-name">Learner Badge</div>
+                            <div class="reward-badge-req">10 modul + 3 SOP</div>
+                        </div>
+                        <div class="reward-badge-status" id="statusLearner">
+                            <span class="status-locked">🔒 0%</span>
+                        </div>
+                    </div>
+                    <div class="reward-badge-progress-bar">
+                        <div class="reward-badge-progress-fill" id="progressLearner" style="width:0%"></div>
+                    </div>
+                    <div class="reward-badge-hint" id="hintLearner">
+                        Selesaikan 10 modul + 3 SOP untuk earn badge ini
+                    </div>
+                    <div class="reward-badge-prize">
+                        🎁 <b>Rp 100.000</b> + Akses Grup VIP
+                    </div>
+                </div>
+                
+                <!-- Graduate Badge -->
+                <div class="reward-badge-card" data-badge="graduate">
+                    <div class="reward-badge-top">
+                        <div class="reward-badge-icon">🥇</div>
+                        <div class="reward-badge-info">
+                            <div class="reward-badge-name">Graduate + Sertifikat</div>
+                            <div class="reward-badge-req">15 modul + 6 SOP + 1 closing</div>
+                        </div>
+                        <div class="reward-badge-status" id="statusGraduate">
+                            <span class="status-locked">🔒 0%</span>
+                        </div>
+                    </div>
+                    <div class="reward-badge-progress-bar">
+                        <div class="reward-badge-progress-fill" id="progressGraduate" style="width:0%"></div>
+                    </div>
+                    <div class="reward-badge-hint" id="hintGraduate">
+                        Selesaikan semua modul + SOP + minimal 1 closing
+                    </div>
+                    <div class="reward-badge-prize">
+                        🎁 <b>Rp 250.000</b> + Sertifikat Resmi
+                    </div>
+                </div>
+                
+                <!-- Top Performer -->
+                <div class="reward-badge-card" data-badge="top">
+                    <div class="reward-badge-top">
+                        <div class="reward-badge-icon">💎</div>
+                        <div class="reward-badge-info">
+                            <div class="reward-badge-name">Top Performer</div>
+                            <div class="reward-badge-req">10+ closing/bulan</div>
+                        </div>
+                        <div class="reward-badge-status" id="statusTop">
+                            <span class="status-locked">🔒 0%</span>
+                        </div>
+                    </div>
+                    <div class="reward-badge-progress-bar">
+                        <div class="reward-badge-progress-fill" id="progressTop" style="width:0%"></div>
+                    </div>
+                    <div class="reward-badge-hint" id="hintTop">
+                        Butuh 10+ closing dalam 1 bulan
+                    </div>
+                    <div class="reward-badge-prize">
+                        🎁 <b>Rp 2.000.000</b> + Merchandise Ekslusif
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- Total Potensi -->
+            <div class="reward-total">
+                <div class="reward-total-label">
+                    <i class="fas fa-sack-dollar"></i> TOTAL POTENSI REWARD
+                </div>
+                <div class="reward-total-amount" id="totalRewardAmount">
+                    Rp 2.400.000
+                </div>
+                <div class="reward-total-extra">
+                    + Sertifikat + Akses Grup VIP + Merchandise
+                </div>
+            </div>
+            
+            <!-- Tips -->
+            <div class="reward-tips" id="rewardTips">
+                <i class="fas fa-lightbulb"></i>
+                <div>
+                    <b>💡 Tips:</b> <span id="tipsText">Mulai selesaikan modul pertama untuk earn Rookie Badge!</span>
+                </div>
+            </div>
+            
+            <!-- CTA -->
+            <div class="reward-cta">
+                <a href="#modul" class="reward-btn-primary">
+                    <i class="fas fa-book-open"></i>
+                    Lanjut Belajar Sekarang
+                </a>
+                <a href="https://wa.me/6281401643188?text=Halo%20Admin,%20saya%20mau%20info%20lebih%20lanjut%20soal%20reward%20reseller" 
+                   class="reward-btn-secondary" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    Info Reward
+                </a>
+            </div>
+            
+            <!-- Footer Info -->
+            <div class="reward-footer-note">
+                <i class="fas fa-info-circle"></i>
+                Sistem reward akan diaktifkan Q2 2026. Progress kamu sudah tersimpan otomatis di database Ibaadurrahmaan Firestore.
+            </div>
+            
         </div>
         
     </div>
@@ -2742,6 +3390,7 @@ async function loadProgressFromFirestore(resellerId){
         
         updateProgress();
         updateSOPProgress();
+        updateRewardWidget();   // ⭐ TAMBAH INI
     } catch(err){
         console.error('[loadProgressFromFirestore]', err);
     }
@@ -2761,11 +3410,10 @@ async function toggleModule(card){
         });
         done.sort((a,b) => a - b);
         
-        // Save local
         localStorage.setItem('kit_modules', JSON.stringify(done));
         updateProgress();
+        updateRewardWidget();   // ⭐ TAMBAH INI
         
-        // Save Firestore
         if(typeof DB !== 'undefined' && currentResellerId){
             const result = await DB.updateProgressBelajar(currentResellerId, done);
             if(result.success && typeof Utils !== 'undefined'){
@@ -2777,6 +3425,30 @@ async function toggleModule(card){
     }
 }
 
+async function toggleSOP(card){
+    try {
+        card.classList.toggle('completed');
+        
+        const done = [];
+        document.querySelectorAll('.kit-sop-card.completed').forEach(c => {
+            done.push(parseInt(c.dataset.sop));
+        });
+        done.sort((a,b) => a - b);
+        
+        localStorage.setItem('kit_sop', JSON.stringify(done));
+        updateSOPProgress();
+        updateRewardWidget();   // ⭐ TAMBAH INI
+        
+        if(typeof DB !== 'undefined' && currentResellerId){
+            const result = await DB.updateProgressSOP(currentResellerId, done);
+            if(result.success && typeof Utils !== 'undefined'){
+                Utils.showToast(`Progress SOP tersimpan (${result.persentase}%)`, 'success');
+            }
+        }
+    } catch(err){
+        console.error('[toggleSOP error]', err);
+    }
+}
 
 /* ═══════════════════════════════════════════════════
    TOGGLE SOP
@@ -2950,7 +3622,228 @@ function toggleFaq(btn){
     if(!isOpen) item.classList.add('open');
 }
 
+/* ═══════════════════════════════════════════════════
+   REWARD WIDGET — Auto Calculator
+═══════════════════════════════════════════════════ */
+
+// Config badge & prize
+const REWARD_CONFIG = {
+    rookie: {
+        name: 'Rookie Badge',
+        icon: '🥉',
+        requirements: { modul: 5, sop: 0, closing: 0 },
+        prize: 50000,
+        extra: 'Sticker Digital'
+    },
+    learner: {
+        name: 'Learner Badge',
+        icon: '🥈',
+        requirements: { modul: 10, sop: 3, closing: 0 },
+        prize: 100000,
+        extra: 'Akses Grup VIP'
+    },
+    graduate: {
+        name: 'Graduate + Sertifikat',
+        icon: '🥇',
+        requirements: { modul: 15, sop: 6, closing: 1 },
+        prize: 250000,
+        extra: 'Sertifikat Resmi'
+    },
+    top: {
+        name: 'Top Performer',
+        icon: '💎',
+        requirements: { modul: 0, sop: 0, closing: 10 },
+        prize: 2000000,
+        extra: 'Merchandise Ekslusif'
+    }
+};
+
+/* ── Update Reward Widget ── */
+function updateRewardWidget(){
+    // Ambil progress current dari DOM/state
+    const modul = document.querySelectorAll('.kit-module-card.completed').length;
+    const sop = document.querySelectorAll('.kit-sop-card.completed').length;
+    
+    // Closing: dari currentReseller (jika ada) atau 0
+    let closing = 0;
+    if(currentReseller && currentReseller.totalClosing){
+        closing = currentReseller.totalClosing;
+    }
+    
+    // Update status bars
+    updateStatusBar('rewardModulBar', 'rewardModulValue', modul, 15, 'modul');
+    updateStatusBar('rewardSopBar', 'rewardSopValue', sop, 6, 'SOP');
+    updateStatusBar('rewardClosingBar', 'rewardClosingValue', closing, 10, 'closing');
+    
+    // Update each badge
+    let totalPotensi = 0;
+    let earnedBadges = [];
+    let nextBadge = null;
+    let minPercent = 100;
+    
+    Object.keys(REWARD_CONFIG).forEach(key => {
+        const badge = REWARD_CONFIG[key];
+        const percent = calculateBadgePercent(badge.requirements, modul, sop, closing);
+        const earned = percent >= 100;
+        
+        // Update UI
+        updateBadgeCard(key, percent, earned, badge.requirements, modul, sop, closing);
+        
+        // Totalkan potensi
+        totalPotensi += badge.prize;
+        
+        if(earned){
+            earnedBadges.push(badge.name);
+        } else if(percent < minPercent && percent > 0){
+            minPercent = percent;
+            nextBadge = { key, badge, percent };
+        } else if(!nextBadge){
+            nextBadge = { key, badge, percent };
+        }
+    });
+    
+    // Update total
+    const totalEl = document.getElementById('totalRewardAmount');
+    if(totalEl){
+        totalEl.textContent = formatRupiah(totalPotensi);
+    }
+    
+    // Update tips
+    updateTips(modul, sop, closing, nextBadge, earnedBadges);
+}
+
+/* ── Update Status Bar Helper ── */
+function updateStatusBar(barId, valueId, current, total, label){
+    const percent = Math.min(100, Math.round((current / total) * 100));
+    const bar = document.getElementById(barId);
+    const val = document.getElementById(valueId);
+    
+    if(bar) bar.style.width = percent + '%';
+    if(val){
+        if(label === 'closing'){
+            val.textContent = `${current} bulan ini`;
+        } else {
+            val.textContent = `${current}/${total}`;
+        }
+    }
+}
+
+/* ── Calculate Badge Percent ── */
+function calculateBadgePercent(req, modul, sop, closing){
+    const parts = [];
+    
+    if(req.modul > 0){
+        parts.push(Math.min(100, (modul / req.modul) * 100));
+    }
+    if(req.sop > 0){
+        parts.push(Math.min(100, (sop / req.sop) * 100));
+    }
+    if(req.closing > 0){
+        parts.push(Math.min(100, (closing / req.closing) * 100));
+    }
+    
+    if(parts.length === 0) return 0;
+    
+    // Average
+    const avg = parts.reduce((a,b) => a+b, 0) / parts.length;
+    return Math.round(avg);
+}
+
+/* ── Update Badge Card UI ── */
+function updateBadgeCard(key, percent, earned, req, modul, sop, closing){
+    const card = document.querySelector(`.reward-badge-card[data-badge="${key}"]`);
+    if(!card) return;
+    
+    // Status badge
+    const statusEl = document.getElementById(`status${capitalize(key)}`);
+    if(statusEl){
+        if(earned){
+            statusEl.innerHTML = `<span class="status-earned">✅ EARNED</span>`;
+            card.classList.add('earned');
+        } else {
+            statusEl.innerHTML = `<span class="status-locked">🔒 ${percent}%</span>`;
+            card.classList.remove('earned');
+        }
+    }
+    
+    // Progress bar
+    const progressEl = document.getElementById(`progress${capitalize(key)}`);
+    if(progressEl) progressEl.style.width = percent + '%';
+    
+    // Hint text
+    const hintEl = document.getElementById(`hint${capitalize(key)}`);
+    if(hintEl){
+        if(earned){
+            hintEl.innerHTML = `<b style="color:#4ADE80">🎉 Badge sudah earned! Chat admin untuk claim.</b>`;
+        } else {
+            const needs = [];
+            if(req.modul > 0 && modul < req.modul){
+                needs.push(`${req.modul - modul} modul`);
+            }
+            if(req.sop > 0 && sop < req.sop){
+                needs.push(`${req.sop - sop} SOP`);
+            }
+            if(req.closing > 0 && closing < req.closing){
+                needs.push(`${req.closing - closing} closing`);
+            }
+            hintEl.textContent = `Butuh: ${needs.join(', ')} lagi`;
+        }
+    }
+}
+
+/* ── Update Tips ── */
+function updateTips(modul, sop, closing, nextBadge, earned){
+    const tipsEl = document.getElementById('tipsText');
+    if(!tipsEl) return;
+    
+    if(earned.length === 4){
+        tipsEl.innerHTML = `🏆 <b>Luar biasa!</b> Semua badge sudah earned. Kamu adalah top reseller Ibaadurrahmaan!`;
+        return;
+    }
+    
+    if(modul === 0 && sop === 0){
+        tipsEl.textContent = 'Mulai dengan modul pertama untuk unlock Rookie Badge!';
+        return;
+    }
+    
+    if(nextBadge){
+        const req = nextBadge.badge.requirements;
+        const needs = [];
+        if(req.modul > 0 && modul < req.modul){
+            needs.push(`${req.modul - modul} modul lagi`);
+        }
+        if(req.sop > 0 && sop < req.sop){
+            needs.push(`${req.sop - sop} SOP lagi`);
+        }
+        if(req.closing > 0 && closing < req.closing){
+            needs.push(`${req.closing - closing} closing lagi`);
+        }
+        
+        tipsEl.innerHTML = `Selesaikan <b>${needs.join(' & ')}</b> untuk earn <b>${nextBadge.badge.name}</b>!`;
+    }
+}
+
+/* ── Utility ── */
+function formatRupiah(num){
+    return 'Rp ' + num.toLocaleString('id-ID');
+}
+
+function capitalize(str){
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+/* ── Auto-update saat modul/SOP toggle ── */
+// Panggil di akhir toggleModule() dan toggleSOP()
+// (Sudah dihandle karena kita bisa hook ke fungsi existing)
+
+/* ── Hook ke DOMContentLoaded ── */
+document.addEventListener('DOMContentLoaded', () => {
+    // Update pertama kali saat page load
+    setTimeout(updateRewardWidget, 300);
+});
+
 </script>
+
 
 </body>
 </html
