@@ -962,6 +962,7 @@
 <!-- ═══════════════════════════════════════════════════
      HERO
 ════════════════════════════════════════════════════ -->
+<section class="kit-hero">
 
     <!-- Badge -->
     <div class="kit-hero-badge">
@@ -1765,7 +1766,8 @@ const TOTAL_MODULES = 15;
 function loadState(){
     // Load reseller code
     const code = localStorage.getItem('kit_reseller_code') || '';
-    document.getElementById('resellerCode').value = code;
+    const codeInput = document.getElementById('resellerCode');
+    if(codeInput) codeInput.value = code;
     
     // Load module progress
     const done = JSON.parse(localStorage.getItem('kit_modules') || '[]');
@@ -1784,9 +1786,15 @@ function loadState(){
 }
 
 /* ── Save reseller code ── */
-document.getElementById('resellerCode').addEventListener('input', function(){
-    localStorage.setItem('kit_reseller_code', this.value.toUpperCase());
-    this.value = this.value.toUpperCase();
+document.addEventListener('DOMContentLoaded', () => {
+    const codeInput = document.getElementById('resellerCode');
+    if(codeInput){
+        codeInput.addEventListener('input', function(){
+            this.value = this.value.toUpperCase();
+            localStorage.setItem('kit_reseller_code', this.value);
+        });
+    }
+    loadState();
 });
 
 /* ── Toggle Module ── */
@@ -1808,8 +1816,11 @@ function updateProgress(){
     const done = document.querySelectorAll('.kit-module-card.completed').length;
     const pct = (done / TOTAL_MODULES * 100).toFixed(0);
     
-    document.getElementById('progressCount').textContent = `${done}/${TOTAL_MODULES}`;
-    document.getElementById('progressFill').style.width = pct + '%';
+    const countEl = document.getElementById('progressCount');
+    const fillEl  = document.getElementById('progressFill');
+    
+    if(countEl) countEl.textContent = `${done}/${TOTAL_MODULES}`;
+    if(fillEl)  fillEl.style.width = pct + '%';
 }
 
 /* ── Toggle Checklist ── */
@@ -1879,10 +1890,6 @@ function toggleFaq(btn){
     // Toggle current
     if(!isOpen) item.classList.add('open');
 }
-
-/* ── Init ── */
-document.addEventListener('DOMContentLoaded', loadState);
-
 </script>
 
 </body>
