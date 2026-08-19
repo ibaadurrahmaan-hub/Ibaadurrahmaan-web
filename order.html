@@ -73,171 +73,98 @@
 }
 </script>
 
-
 <style>
-
 /* ============================================
-   🎯 FIX v8.6: Order Page — Navbar Spacing
+   ORDER HEADER SPACING
    ============================================ */
-
-/* Kasih space untuk navbar auto-inject */
 .order-header {
-    margin-top: 90px !important;   /* Desktop */
+    margin-top: 90px !important;
 }
-
 @media (max-width: 768px) {
-    .order-header {
-        margin-top: 80px !important;
-    }
+    .order-header { margin-top: 80px !important; }
 }
-
 @media (max-width: 480px) {
-    .order-header {
-        margin-top: 70px !important;
-    }
+    .order-header { margin-top: 70px !important; }
 }
-
-/* Progress steps container padding biar tidak mepet */
 .progress-steps {
     padding-top: 8px !important;
 }
-
-/* Header inner biar tidak overlap */
 .header-inner {
     padding: 12px 20px !important;
 }
 
 /* ============================================
-   📱 WHATSAPP CONFIRM MODAL
+   CUSTOM DROPDOWN — FIXED STYLES
    ============================================ */
-.wa-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(12px);
-  z-index: 99999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+.cs-arrow {
+    transition: transform 0.25s ease;
+    display: inline-block;
 }
-.wa-modal-overlay.show { opacity: 1; visibility: visible; }
-
-.wa-modal-box {
-  background: linear-gradient(145deg, #0F1E33, #0A1626);
-  border: 2px solid #25d366;
-  border-radius: 24px;
-  padding: 40px 32px 32px;
-  max-width: 480px;
-  width: 100%;
-  text-align: center;
-  transform: translateY(30px) scale(0.95);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 60px rgba(37,211,102,0.2);
-  position: relative;
+.custom-select.open .cs-arrow {
+    transform: rotate(180deg);
 }
-.wa-modal-overlay.show .wa-modal-box { transform: translateY(0) scale(1); }
-
-.wa-modal-icon {
-  width: 80px; height: 80px;
-  margin: 0 auto 20px;
-  background: linear-gradient(135deg, #25d366, #128c7e);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2.4rem; color: #fff;
-  box-shadow: 0 12px 40px rgba(37,211,102,0.5);
-  animation: iconBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+.cs-menu {
+    max-height: 260px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
-@keyframes iconBounce {
-  0%   { transform: scale(0) rotate(-180deg); }
-  100% { transform: scale(1) rotate(0deg); }
+.cs-menu::-webkit-scrollbar {
+    width: 4px;
+}
+.cs-menu::-webkit-scrollbar-track {
+    background: transparent;
+}
+.cs-menu::-webkit-scrollbar-thumb {
+    background: rgba(212, 165, 54, 0.4);
+    border-radius: 4px;
+}
+.cs-option.highlighted {
+    background: rgba(212, 165, 54, 0.15);
+    color: #d4a536;
+}
+.cs-option.selected {
+    background: rgba(212, 165, 54, 0.1);
+    color: #d4a536;
+}
+.cs-value.has-value {
+    color: #fff;
 }
 
-.wa-modal-title {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.5rem; font-weight: 900;
-  color: #fff; margin-bottom: 12px;
+/* Field validation states */
+.field-error {
+    border-color: #e74c3c !important;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.15) !important;
 }
-.wa-modal-desc {
-  color: rgba(255,255,255,0.75);
-  font-size: 0.92rem; line-height: 1.6;
-  margin-bottom: 20px;
+.field-valid {
+    border-color: #25d366 !important;
 }
-.wa-modal-desc strong { color: #25d366; }
-.wa-modal-desc b { color: #d4a536; }
-
-.wa-modal-order-id {
-  display: inline-block;
-  padding: 10px 20px;
-  background: rgba(212,165,54,0.12);
-  border: 1px solid rgba(212,165,54,0.3);
-  border-radius: 100px;
-  font-family: 'Montserrat', monospace;
-  font-size: 0.88rem; font-weight: 800;
-  color: #d4a536;
-  margin-bottom: 24px;
+.field-error-msg {
+    color: #e74c3c;
+    font-size: 0.78rem;
+    margin-top: 4px;
+    display: block;
+    font-family: 'Poppins', sans-serif;
 }
 
-.wa-modal-actions {
-  display: flex; gap: 12px;
-  margin-bottom: 20px;
-}
-.wa-modal-btn {
-  flex: 1; padding: 14px 20px;
-  border: none; border-radius: 100px;
-  font-size: 0.9rem; font-weight: 800;
-  font-family: 'Poppins', sans-serif;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  transition: all 0.3s ease;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
-.wa-btn-later {
-  background: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.7);
-  border: 1px solid rgba(255,255,255,0.12);
-}
-.wa-btn-later:hover { background: rgba(255,255,255,0.1); color: #fff; }
-.wa-btn-send {
-  background: linear-gradient(135deg, #25d366, #128c7e);
-  color: #fff;
-  box-shadow: 0 8px 24px rgba(37,211,102,0.4);
-}
-.wa-btn-send:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(37,211,102,0.6);
-}
-
-.wa-modal-note {
-  color: rgba(255,255,255,0.5);
-  font-size: 0.78rem;
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-}
-.wa-modal-note i { color: #d4a536; }
-
-@media (max-width: 480px) {
-  .wa-modal-box { padding: 32px 24px 24px; }
-  .wa-modal-actions { flex-direction: column; }
-  .wa-modal-btn { width: 100%; }
-}
-
-/* Firebase status badge */
+/* ============================================
+   FIREBASE STATUS BADGE
+   ============================================ */
 .firebase-status {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 16px;
-  border: 1px solid;
-  border-radius: 100px;
-  font-size: 0.82rem; font-weight: 600;
-  margin: 12px 0 24px;
-  font-family: 'Poppins', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1px solid;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin: 12px 0 24px;
+    font-family: 'Poppins', sans-serif;
 }
 
-/* ═══════════════════════════════════════════
-   📄 PDF MODE - Optimize untuk A4 Portrait
-   ═══════════════════════════════════════════ */
+/* ============================================
+   PDF MODE
+   ============================================ */
 .pdf-mode {
     width: 800px !important;
     max-width: 800px !important;
@@ -250,33 +177,17 @@
     font-size: 11px !important;
     line-height: 1.4 !important;
 }
-
-.pdf-mode h1,
-.pdf-mode h2 {
+.pdf-mode h1, .pdf-mode h2 {
     font-size: 1.4rem !important;
-    line-height: 1.3 !important;
-    word-wrap: break-word !important;
 }
-
-.pdf-mode h3,
-.pdf-mode h4 {
+.pdf-mode h3, .pdf-mode h4 {
     font-size: 1rem !important;
 }
-
-.pdf-mode .invoice-grid,
-.pdf-mode .invoice-info-grid {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 16px !important;
-}
-
-/* ═══ 🔥 PDF: Force Instruksi Pembayaran jadi Vertical Stack ═══ */
 .pdf-mode .ipb-grid {
     display: flex !important;
     flex-direction: column !important;
     gap: 8px !important;
-    grid-template-columns: 1fr !important;
 }
-
 .pdf-mode .ipb-item {
     display: flex !important;
     justify-content: space-between !important;
@@ -287,100 +198,24 @@
     border-radius: 8px !important;
     width: 100% !important;
     page-break-inside: avoid !important;
-    break-inside: avoid !important;
 }
-
 .pdf-mode .ipb-item.highlight {
     background: linear-gradient(135deg, #d4a536, #c19a2e) !important;
     color: #fff !important;
     border-color: #c19a2e !important;
 }
-
 .pdf-mode .ipb-item.highlight * {
     color: #fff !important;
 }
-
-.pdf-mode .ipb-label {
-    font-size: 11px !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.5px !important;
-}
-
-.pdf-mode .ipb-value {
-    font-size: 13px !important;
-    font-weight: 800 !important;
-}
-
-.pdf-mode .invoice-payment-box {
-    padding: 14px !important;
-    margin: 12px 0 !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-}
-
-.pdf-mode .ipb-header {
-    margin-bottom: 12px !important;
-    padding-bottom: 8px !important;
-    border-bottom: 1px solid #f0e5c8 !important;
-}
-
-.pdf-mode .ipb-deadline {
-    margin-top: 12px !important;
-    padding: 10px 14px !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-}
-
 .pdf-mode table {
     width: 100% !important;
     font-size: 11px !important;
     border-collapse: collapse !important;
-    margin: 10px 0 !important;
 }
-
-.pdf-mode table th,
-.pdf-mode table td {
+.pdf-mode table th, .pdf-mode table td {
     padding: 6px 8px !important;
-    word-break: break-word !important;
-    white-space: normal !important;
     font-size: 10.5px !important;
-    line-height: 1.3 !important;
 }
-
-.pdf-mode table th:nth-child(1),
-.pdf-mode table td:nth-child(1) { width: 30% !important; }
-.pdf-mode table th:nth-child(2),
-.pdf-mode table td:nth-child(2) { width: 40% !important; }
-.pdf-mode table th:nth-child(3),
-.pdf-mode table td:nth-child(3) { width: 30% !important; text-align: right !important; }
-
-.pdf-mode .status-badge,
-.pdf-mode .invoice-status {
-    font-size: 10px !important;
-    padding: 4px 10px !important;
-    white-space: nowrap !important;
-}
-
-.pdf-mode .invoice-number,
-.pdf-mode .inv-number {
-    font-size: 0.85rem !important;
-    word-break: break-all !important;
-}
-
-.pdf-mode .total-row,
-.pdf-mode .summary-total { font-size: 1.1rem !important; }
-
-.pdf-mode .total-amount,
-.pdf-mode .summary-total .value {
-    font-size: 1.2rem !important;
-    word-break: break-all !important;
-}
-
-.pdf-mode * {
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-}
-
 .pdf-mode .no-pdf,
 .pdf-mode .btn-copy,
 .pdf-mode .btn-download,
@@ -388,367 +223,77 @@
 .pdf-mode button {
     display: none !important;
 }
-
-.pdf-mode .invoice-header {
-    flex-wrap: wrap !important;
-    gap: 12px !important;
-    margin-bottom: 12px !important;
-    padding-bottom: 8px !important;
+.pdf-mode * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
 }
 
-.pdf-mode .brand-title,
-.pdf-mode .brand-subtitle {
-    font-size: 1.1rem !important;
-    white-space: normal !important;
-    word-wrap: break-word !important;
-}
-
-.pdf-mode .invoice-section,
-.pdf-mode section,
-.pdf-mode .invoice-grid {
-    margin-bottom: 12px !important;
-    padding: 8px !important;
-}
-
-.pdf-mode .invoice-summary,
-.pdf-mode .summary-section {
-    margin-top: 8px !important;
-    padding: 10px !important;
-}
-.pdf-mode .summary-row {
-    padding: 4px 0 !important;
-    font-size: 11px !important;
-}
-
-.pdf-mode .payment-box {
-    padding: 10px !important;
-    margin-top: 10px !important;
-}
-
-.pdf-mode br + br { display: none !important; }
-.pdf-mode p:empty { display: none !important; }
-
-.pdf-mode .invoice-summary,
-.pdf-mode .total-section {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-}
-
-/* ═══════════════════════════════════════════
-   🖨️ PRINT MEDIA - Optimize untuk Print/Save PDF
-   ═══════════════════════════════════════════ */
+/* ============================================
+   PRINT MEDIA
+   ============================================ */
 @media print {
-    /* Hide semua yang tidak perlu */
-    .order-header,
-    .progress-steps,
-    .success-icon,
-    .success-title,
-    .success-desc,
-    .firebase-status,
-    .success-actions,
-    .tracking-card,
-    .back-shop,
-    .toast,
-    .processing-overlay,
-    .pdf-loading,
-    .btn-copy,
-    .btn-download,
-    .btn-print,
-    .btn-wa,
-    .btn-primary,
-    .btn-outline,
-    .no-print,
-    button:not(.pkg-select-btn) {
+    .order-header, .progress-steps, .success-icon,
+    .success-title, .success-desc, .firebase-status,
+    .success-actions, .tracking-card, .back-shop,
+    .toast, .processing-overlay, .pdf-loading,
+    .btn-copy, .btn-download, .btn-print, .btn-wa,
+    .btn-primary, .btn-outline, .no-print, button {
         display: none !important;
     }
-    
-    /* Body & container */
     html, body {
         background: #ffffff !important;
         margin: 0 !important;
         padding: 0 !important;
-        width: 100% !important;
-        color: #333 !important;
     }
-    
-    .order-main,
-    .container,
-    .success-section {
-        padding: 0 !important;
-        margin: 0 !important;
-        max-width: 100% !important;
-        width: 100% !important;
-        background: #fff !important;
+    .order-step:not(#step4) {
+        display: none !important;
     }
-    
-    /* Invoice Card jadi full-width, no shadow */
-    #invoiceCard,
-    .invoice-card {
+    #step4 {
+        display: block !important;
+    }
+    #invoiceCard {
         width: 100% !important;
-        max-width: 100% !important;
         margin: 0 !important;
         padding: 15mm 10mm !important;
         box-shadow: none !important;
         border: none !important;
-        border-radius: 0 !important;
         background: #fff !important;
-        color: #333 !important;
-        font-size: 11pt !important;
-        page-break-inside: auto !important;
     }
-    
-    /* Force text color hitam */
-    #invoiceCard,
-    #invoiceCard p,
-    #invoiceCard span,
-    #invoiceCard td,
-    #invoiceCard th,
-    #invoiceCard div {
-        color: #333 !important;
-    }
-    
-    /* Heading tetap gold */
-    #invoiceCard h1,
-    #invoiceCard h2,
-    #invoiceCard h3,
-    #invoiceCard h4,
-    .inv-brand-name,
-    .total-amount,
-    .inv-paynow {
-        color: #d4a536 !important;
-    }
-    
-    /* Header invoice */
-    .invoice-header {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: flex-start !important;
-        flex-wrap: wrap !important;
-        gap: 10px !important;
-        padding-bottom: 10px !important;
-        margin-bottom: 15px !important;
-        border-bottom: 2px solid #d4a536 !important;
-    }
-    
-    /* Info grid 2 kolom */
-    .invoice-info-grid {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 20px !important;
-        margin-bottom: 15px !important;
-    }
-    
-    /* Tabel */
-    .invoice-table {
-        width: 100% !important;
-        border-collapse: collapse !important;
-        font-size: 10pt !important;
-        margin: 10px 0 !important;
-    }
-    
-    .invoice-table thead {
-        background: #d4a536 !important;
-        color: #fff !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-    
-    .invoice-table th {
-        color: #fff !important;
-        padding: 8px 10px !important;
-        text-align: left !important;
-    }
-    
-    .invoice-table td {
-        padding: 8px 10px !important;
-        border-bottom: 1px solid #eee !important;
-    }
-    
-    /* Totals */
-    .invoice-totals {
-        background: #faf6ed !important;
-        padding: 12px 16px !important;
-        border-radius: 8px !important;
-        margin: 15px 0 !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-    
-    .grand-total {
-        font-size: 13pt !important;
-        font-weight: 800 !important;
-        padding: 8px 0 !important;
-        border-top: 2px solid #d4a536 !important;
-        margin-top: 8px !important;
-    }
-    
-    .payment-now-row {
-        background: #faf6ed !important;
-        padding: 8px 12px !important;
-        border-radius: 6px !important;
-        margin-top: 6px !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-    
-    /* ═══ PAYMENT BOX — KUNCI ═══ */
-    .invoice-payment-box {
-        background: #fff9e6 !important;
-        border: 1px solid #f0e5c8 !important;
-        border-radius: 8px !important;
-        padding: 12px 16px !important;
-        margin: 15px 0 !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-    }
-    
-    /* Grid jadi vertical stack biar rapi */
     .ipb-grid {
         display: flex !important;
         flex-direction: column !important;
         gap: 6px !important;
-        margin: 10px 0 !important;
     }
-    
     .ipb-item {
         display: flex !important;
         justify-content: space-between !important;
-        align-items: center !important;
         width: 100% !important;
         padding: 8px 12px !important;
-        background: #fff !important;
-        border: 1px solid #f0e5c8 !important;
-        border-radius: 6px !important;
-        font-size: 10pt !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-    
-    .ipb-item.highlight {
-        background: #d4a536 !important;
-        border-color: #c19a2e !important;
-        color: #fff !important;
-    }
-    
-    .ipb-item.highlight * {
-        color: #fff !important;
-    }
-    
-    .ipb-label {
-        font-size: 9pt !important;
-        font-weight: 600 !important;
-    }
-    
-    .ipb-value {
-        font-size: 11pt !important;
-        font-weight: 800 !important;
-    }
-    
-    .ipb-deadline {
-        margin-top: 10px !important;
-        padding: 8px 12px !important;
-        background: #fff !important;
-        border-left: 3px solid #d4a536 !important;
-        font-size: 9pt !important;
         page-break-inside: avoid !important;
     }
-    
-    /* Next steps */
-    .invoice-nextsteps {
-        margin: 15px 0 !important;
-        padding: 12px 16px !important;
-        background: #f9f9f9 !important;
-        border-radius: 8px !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        page-break-inside: avoid !important;
-    }
-    
-    .invoice-nextsteps ol {
-        padding-left: 20px !important;
-        font-size: 10pt !important;
-    }
-    
-    .invoice-nextsteps li {
-        padding: 3px 0 !important;
-    }
-    
-    /* Footer */
-    .invoice-footer {
-        text-align: center !important;
-        padding-top: 12px !important;
-        border-top: 1px solid #eee !important;
-        font-size: 9pt !important;
-        color: #666 !important;
-        margin-top: 15px !important;
-        page-break-inside: avoid !important;
-    }
-    
-    .invoice-footer p {
-        margin: 3px 0 !important;
-        color: #666 !important;
-    }
-    
-    .invoice-footer .inv-small {
-        font-size: 8pt !important;
-        font-style: italic !important;
-        color: #999 !important;
-    }
-    
-    /* Force page color exact */
     * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
     }
-    
-    /* @page setup */
     @page {
         size: A4 portrait;
         margin: 10mm 8mm;
     }
-    
-    /* Avoid break di elemen tertentu */
-    tr, .ipb-item, .inv-total-row {
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-    }
-    
-    /* Force new page kalau perlu */
-    .invoice-payment-box {
-        page-break-before: auto !important;
-    }
 }
-
-@media print {
-    .order-step, .order-step:not(#step4) {
-        display: none !important;
-    }
-    
-    #step4 {
-        display: block !important;
-    }
-}
-
 </style>
 
-<!-- 📄 html2pdf.js — untuk generate PDF invoice -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 
 <body>
 
-
-<!-- ⭐ Auto-Injected Navbar (via script.js) -->
+<!-- Auto-Injected Navbar -->
 <div id="auto-navbar"></div>
-
 
 <!-- ==================== ORDER HEADER ==================== -->
 <header class="order-header">
   <div class="container header-inner">
-    
-    
+
     <!-- Progress Steps -->
     <div class="progress-steps">
       <div class="step active" data-step="1">
@@ -771,13 +316,13 @@
         <span>Selesai</span>
       </div>
     </div>
-    
+
     <!-- Secure Badge -->
     <div class="header-secure">
       <i class="fas fa-shield-alt"></i>
       <span>Secure Order</span>
     </div>
-    
+
   </div>
 </header>
 
@@ -1011,44 +556,48 @@
               <h2><i class="fas fa-briefcase"></i> Informasi Bisnis</h2>
             </div>
             <div class="form-row">
+              <!-- DROPDOWN JENIS BISNIS — FIXED -->
               <div class="form-group">
                 <label>Jenis Bisnis *</label>
-                <div class="custom-select" data-name="businessType">
-                  <button type="button" class="cs-trigger" onclick="toggleDropdown(this)">
+                <div class="custom-select" id="selectBusinessType">
+                  <button type="button" class="cs-trigger">
                     <span class="cs-value">Pilih jenis bisnis</span>
                     <i class="fas fa-chevron-down cs-arrow"></i>
                   </button>
                   <div class="cs-menu">
-                    <div class="cs-option" data-value="UMKM / Toko Online" onclick="selectOption(this)"><i class="fas fa-store"></i> UMKM / Toko Online</div>
-                    <div class="cs-option" data-value="Restoran / Cafe / F&B" onclick="selectOption(this)"><i class="fas fa-utensils"></i> Restoran / Cafe / F&B</div>
-                    <div class="cs-option" data-value="Salon / Beauty / Spa" onclick="selectOption(this)"><i class="fas fa-spa"></i> Salon / Beauty / Spa</div>
-                    <div class="cs-option" data-value="Klinik / Kesehatan" onclick="selectOption(this)"><i class="fas fa-heartbeat"></i> Klinik / Kesehatan</div>
-                    <div class="cs-option" data-value="Sekolah / Pendidikan" onclick="selectOption(this)"><i class="fas fa-graduation-cap"></i> Sekolah / Pendidikan</div>
-                    <div class="cs-option" data-value="Property / Real Estate" onclick="selectOption(this)"><i class="fas fa-home"></i> Property / Real Estate</div>
-                    <div class="cs-option" data-value="Konsultan / Jasa Profesional" onclick="selectOption(this)"><i class="fas fa-briefcase"></i> Konsultan / Jasa Profesional</div>
-                    <div class="cs-option" data-value="Corporate / Perusahaan" onclick="selectOption(this)"><i class="fas fa-building"></i> Corporate / Perusahaan</div>
-                    <div class="cs-option" data-value="Event Organizer" onclick="selectOption(this)"><i class="fas fa-calendar-alt"></i> Event Organizer</div>
-                    <div class="cs-option" data-value="Lainnya" onclick="selectOption(this)"><i class="fas fa-ellipsis-h"></i> Lainnya</div>
+                    <div class="cs-option" data-value="UMKM / Toko Online"><i class="fas fa-store"></i> UMKM / Toko Online</div>
+                    <div class="cs-option" data-value="Restoran / Cafe / F&B"><i class="fas fa-utensils"></i> Restoran / Cafe / F&B</div>
+                    <div class="cs-option" data-value="Salon / Beauty / Spa"><i class="fas fa-spa"></i> Salon / Beauty / Spa</div>
+                    <div class="cs-option" data-value="Klinik / Kesehatan"><i class="fas fa-heartbeat"></i> Klinik / Kesehatan</div>
+                    <div class="cs-option" data-value="Sekolah / Pendidikan"><i class="fas fa-graduation-cap"></i> Sekolah / Pendidikan</div>
+                    <div class="cs-option" data-value="Property / Real Estate"><i class="fas fa-home"></i> Property / Real Estate</div>
+                    <div class="cs-option" data-value="Konsultan / Jasa Profesional"><i class="fas fa-briefcase"></i> Konsultan / Jasa Profesional</div>
+                    <div class="cs-option" data-value="Corporate / Perusahaan"><i class="fas fa-building"></i> Corporate / Perusahaan</div>
+                    <div class="cs-option" data-value="Event Organizer"><i class="fas fa-calendar-alt"></i> Event Organizer</div>
+                    <div class="cs-option" data-value="Lainnya"><i class="fas fa-ellipsis-h"></i> Lainnya</div>
                   </div>
-                  <input type="hidden" id="businessType" required>
+                  <input type="hidden" id="businessType">
                 </div>
               </div>
+
+              <!-- DROPDOWN WEBSITE — FIXED -->
               <div class="form-group">
                 <label>Website Sudah Ada?</label>
-                <div class="custom-select" data-name="hasWebsite">
-                  <button type="button" class="cs-trigger" onclick="toggleDropdown(this)">
+                <div class="custom-select" id="selectHasWebsite">
+                  <button type="button" class="cs-trigger">
                     <span class="cs-value">Pilih opsi</span>
                     <i class="fas fa-chevron-down cs-arrow"></i>
                   </button>
                   <div class="cs-menu">
-                    <div class="cs-option" data-value="Belum, ini pertama kali" onclick="selectOption(this)"><i class="fas fa-star"></i> Belum, ini pertama kali</div>
-                    <div class="cs-option" data-value="Sudah, ingin redesign" onclick="selectOption(this)"><i class="fas fa-paint-brush"></i> Sudah, ingin redesign</div>
-                    <div class="cs-option" data-value="Sudah, ingin tambah fitur" onclick="selectOption(this)"><i class="fas fa-plus-circle"></i> Sudah, ingin tambah fitur</div>
+                    <div class="cs-option" data-value="Belum, ini pertama kali"><i class="fas fa-star"></i> Belum, ini pertama kali</div>
+                    <div class="cs-option" data-value="Sudah, ingin redesign"><i class="fas fa-paint-brush"></i> Sudah, ingin redesign</div>
+                    <div class="cs-option" data-value="Sudah, ingin tambah fitur"><i class="fas fa-plus-circle"></i> Sudah, ingin tambah fitur</div>
                   </div>
                   <input type="hidden" id="hasWebsite">
                 </div>
               </div>
             </div>
+
             <div class="form-group">
               <label>Deskripsi Bisnis / Kebutuhan *</label>
               <textarea id="description" placeholder="Ceritakan sedikit tentang bisnis Anda dan apa yang Anda butuhkan dari website ini..." rows="4" required></textarea>
@@ -1214,7 +763,7 @@
             </div>
             <div class="coupon-result" id="couponResult"></div>
             <div class="coupon-hints">
-              <p>💡 Coba: 
+              <p>💡 Coba:
                 <button onclick="document.getElementById('couponInput').value='HEMAT10';applyCoupon()">HEMAT10</button>
                 <button onclick="document.getElementById('couponInput').value='NEWCLIENT';applyCoupon()">NEWCLIENT</button>
                 <button onclick="document.getElementById('couponInput').value='RESELLER';applyCoupon()">RESELLER</button>
@@ -1306,7 +855,7 @@
             <button class="btn-outline" onclick="goToStep(2)">
               <i class="fas fa-arrow-left"></i> Kembali
             </button>
-            <button class="btn-primary btn-pay" onclick="placeOrder()">
+            <button class="btn-primary btn-pay" id="btnPlaceOrder" onclick="placeOrder()">
               <i class="fas fa-lock"></i>
               <span>Buat Pesanan</span>
             </button>
@@ -1583,7 +1132,6 @@
   </div>
 </div>
 
-
 <!-- PDF Loading Overlay -->
 <div class="pdf-loading" id="pdfLoading">
   <div class="pdf-loading-spinner"></div>
@@ -1592,38 +1140,32 @@
 </div>
 
 
-<!-- ==================== MOBILE BOTTOM NAV (Konsisten) ==================== -->
+<!-- ==================== MOBILE BOTTOM NAV ==================== -->
 <nav class="mobile-nav" id="mobileNav">
     <a href="index.html" class="mnav-item" data-page="index">
         <i class="fas fa-home"></i>
         <span>Beranda</span>
     </a>
-    
     <button class="mnav-item" data-page="layanan" onclick="openMobileSheet('layanan')">
         <i class="fas fa-briefcase"></i>
         <span>Layanan</span>
     </button>
-    
     <button class="mnav-item" data-page="paket" onclick="openMobileSheet('paket')">
         <i class="fas fa-tag"></i>
         <span>Paket</span>
     </button>
-    
     <button class="mnav-item mnav-highlight" data-page="reseller" onclick="openMobileSheet('reseller')">
         <i class="fas fa-fire"></i>
         <span>Reseller</span>
     </button>
-    
     <a href="faq.html" class="mnav-item" data-page="faq">
         <i class="fas fa-question-circle"></i>
         <span>FAQ</span>
     </a>
 </nav>
 
-
-<!-- ==================== BOTTOM SHEET (untuk tombol Layanan/Paket/Reseller) ==================== -->
+<!-- Bottom Sheet -->
 <div class="mobile-sheet-overlay" id="mobileSheetOverlay" onclick="closeMobileSheet()"></div>
-
 <div class="mobile-sheet" id="mobileSheet">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
@@ -1635,8 +1177,6 @@
     <div class="sheet-content" id="sheetContent"></div>
 </div>
 
-
-
 <!-- ==================== FOOTER ==================== -->
 <footer class="footer">
   <div class="container">
@@ -1644,7 +1184,6 @@
       <div class="footer-brand">
         <img src="main-logo.png" alt="Logo Ibaadurrahmaan Web Designer">
       </div>
-      
       <div class="footer-social">
         <a href="https://wa.me/6281401643188" title="WhatsApp" aria-label="Chat WhatsApp">
           <i class="fab fa-whatsapp" aria-hidden="true"></i>
@@ -1653,7 +1192,6 @@
           <i class="fas fa-envelope" aria-hidden="true"></i>
         </a>
       </div>
-      
       <div class="footer-copy">
         <p>© 2026 Ibaadurrahmaan. Dibuat dengan ❤️ untuk bisnis Indonesia.</p>
       </div>
@@ -1661,26 +1199,20 @@
   </div>
 </footer>
 
-
-<!-- ==================== FLOATING WHATSAPP ==================== -->
+<!-- Floating WhatsApp -->
 <a href="https://wa.me/6281401643188" class="fab-wa" aria-label="Chat WhatsApp">
   <i class="fab fa-whatsapp"></i>
 </a>
 
+
 <!-- ==========================================
-     🔥 FIREBASE SDK (Modular v10)
+     🔥 FIREBASE SDK
      ========================================== -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {
-    getFirestore,
-    collection,
-    addDoc,
-    getDocs,
-    query,
-    where,
-    limit,
-    serverTimestamp
+    getFirestore, collection, addDoc,
+    getDocs, query, where, limit, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -1697,7 +1229,8 @@ const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 
 window.fbOrder = {
-    db, collection, addDoc, getDocs, query, where, limit, serverTimestamp,
+    db, collection, addDoc, getDocs,
+    query, where, limit, serverTimestamp,
     ready: true
 };
 
@@ -1710,6 +1243,8 @@ document.dispatchEvent(new CustomEvent('fbOrderReady'));
      🧠 MAIN SCRIPT
      ========================================== -->
 <script>
+'use strict';
+
 // ============================================
 // STATE
 // ============================================
@@ -1720,65 +1255,206 @@ let couponCode       = '';
 let deadlineFee      = 0;
 let selectedDeadline = 'Standard (7-14 hari)';
 let paymentType      = 'full';
-let selectedBank = { name:'BRI', account:'042301024084503', holder:'a.n. Syarif Iswandi' };
+let selectedBank     = { name:'BRI', account:'042301024084503', holder:'a.n. Syarif Iswandi' };
 let selectedPayment  = 'Transfer Bank';
 let verifiedReseller = null;
 let _currentOrderId  = null;
+let isSubmitting     = false;
 
 
 // ============================================
-// CUSTOM DROPDOWN
+// CUSTOM DROPDOWN — FIXED v2
 // ============================================
-function toggleDropdown(trigger) {
-  const select = trigger.closest('.custom-select');
-  const isOpen = select.classList.contains('open');
-  document.querySelectorAll('.custom-select.open').forEach(s => {
-    if (s !== select) s.classList.remove('open');
-  });
-  select.classList.toggle('open', !isOpen);
+
+/**
+ * Tutup semua dropdown yang sedang terbuka
+ */
+function closeAllDropdowns() {
+    document.querySelectorAll('.custom-select.open').forEach(sel => {
+        sel.classList.remove('open');
+        const arrow = sel.querySelector('.cs-arrow');
+        if (arrow) arrow.style.transform = 'rotate(0deg)';
+    });
 }
 
-function selectOption(option) {
-  const select  = option.closest('.custom-select');
-  const trigger = select.querySelector('.cs-trigger');
-  const valueEl = trigger.querySelector('.cs-value');
-  const hidden  = select.querySelector('input[type="hidden"]');
-  const value   = option.dataset.value;
-  const label   = option.textContent.trim();
+/**
+ * Buka sebuah dropdown
+ */
+function openDropdown(selectEl) {
+    if (!selectEl) return;
+    selectEl.classList.add('open');
+    const arrow = selectEl.querySelector('.cs-arrow');
+    if (arrow) arrow.style.transform = 'rotate(180deg)';
 
-  valueEl.textContent = label;
-  valueEl.classList.add('has-value');
-  if (hidden) hidden.value = value;
-
-  select.querySelectorAll('.cs-option').forEach(o => o.classList.remove('selected'));
-  option.classList.add('selected');
-  select.classList.remove('open');
-  if (hidden) hidden.dispatchEvent(new Event('change', { bubbles: true }));
+    // Scroll ke item yang sudah dipilih
+    const selected = selectEl.querySelector('.cs-option.selected');
+    if (selected) {
+        setTimeout(() => selected.scrollIntoView({ block: 'nearest' }), 50);
+    }
 }
 
-document.addEventListener('click', e => {
-  if (!e.target.closest('.custom-select'))
-    document.querySelectorAll('.custom-select.open').forEach(s => s.classList.remove('open'));
-});
+/**
+ * Pilih sebuah option dari dropdown
+ */
+function pickOption(selectEl, optionEl) {
+    if (!selectEl || !optionEl) return;
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape')
-    document.querySelectorAll('.custom-select.open').forEach(s => s.classList.remove('open'));
-});
+    const value   = optionEl.dataset.value;
+    const trigger = selectEl.querySelector('.cs-trigger');
+    const valueEl = trigger ? trigger.querySelector('.cs-value') : null;
+    const hidden  = selectEl.querySelector('input[type="hidden"]');
+
+    // Update label di trigger — salin icon + teks
+    if (valueEl) {
+        const icon = optionEl.querySelector('i');
+        valueEl.innerHTML = '';
+        if (icon) {
+            const iconClone = icon.cloneNode(true);
+            iconClone.style.marginRight = '6px';
+            valueEl.appendChild(iconClone);
+        }
+        valueEl.appendChild(document.createTextNode(value));
+        valueEl.classList.add('has-value');
+    }
+
+    // Isi hidden input
+    if (hidden) {
+        hidden.value = value;
+        hidden.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    // Tandai option aktif
+    selectEl.querySelectorAll('.cs-option').forEach(o => o.classList.remove('selected', 'highlighted'));
+    optionEl.classList.add('selected');
+
+    // Tutup dropdown
+    closeAllDropdowns();
+}
+
+/**
+ * Handler utama — delegasi event dari document
+ * Pakai capture:true agar dieksekusi SEBELUM event bubble ke listener lain
+ */
+function handleDropdownEvent(e) {
+    const trigger  = e.target.closest('.cs-trigger');
+    const option   = e.target.closest('.cs-option');
+    const inSelect = e.target.closest('.custom-select');
+
+    // Klik di luar → tutup semua
+    if (!inSelect) {
+        closeAllDropdowns();
+        return;
+    }
+
+    // Klik trigger → toggle
+    if (trigger) {
+        e.preventDefault();
+        e.stopPropagation();
+        const parentSelect = trigger.closest('.custom-select');
+        const isOpen = parentSelect.classList.contains('open');
+        closeAllDropdowns();
+        if (!isOpen) openDropdown(parentSelect);
+        return;
+    }
+
+    // Klik option → pilih
+    if (option) {
+        e.preventDefault();
+        e.stopPropagation();
+        const parentSelect = option.closest('.custom-select');
+        pickOption(parentSelect, option);
+        return;
+    }
+}
+
+/**
+ * Navigasi keyboard untuk dropdown
+ */
+function handleDropdownKeyboard(e) {
+    const openSelect = document.querySelector('.custom-select.open');
+    if (!openSelect) return;
+
+    const options = [...openSelect.querySelectorAll('.cs-option')];
+    const current = openSelect.querySelector('.cs-option.highlighted')
+                 || openSelect.querySelector('.cs-option.selected');
+    let idx = options.indexOf(current);
+
+    switch (e.key) {
+        case 'Escape':
+            closeAllDropdowns();
+            openSelect.querySelector('.cs-trigger')?.focus();
+            break;
+
+        case 'ArrowDown':
+            e.preventDefault();
+            idx = Math.min(idx + 1, options.length - 1);
+            highlightOption(options, idx);
+            break;
+
+        case 'ArrowUp':
+            e.preventDefault();
+            idx = Math.max(idx - 1, 0);
+            highlightOption(options, idx);
+            break;
+
+        case 'Enter':
+        case ' ':
+            if (current) {
+                e.preventDefault();
+                pickOption(openSelect, options[idx >= 0 ? idx : 0]);
+            }
+            break;
+    }
+}
+
+function highlightOption(options, idx) {
+    options.forEach(o => o.classList.remove('highlighted'));
+    if (options[idx]) {
+        options[idx].classList.add('highlighted');
+        options[idx].scrollIntoView({ block: 'nearest' });
+    }
+}
+
+/**
+ * Init — pasang listener sekali saja
+ */
+function initDropdowns() {
+    // capture:true → eksekusi sebelum listener biasa
+    document.addEventListener('click',   handleDropdownEvent,   true);
+    document.addEventListener('keydown', handleDropdownKeyboard, false);
+    console.log('✅ Dropdown initialized');
+}
 
 
 // ============================================
 // FORMAT HELPERS
 // ============================================
 function formatRp(n) {
-  return 'Rp ' + n.toLocaleString('id-ID');
+    return 'Rp ' + Number(n).toLocaleString('id-ID');
 }
 
+let _orderCounter = 0;
 function generateOrderId() {
-  const d = new Date();
-  const date = d.getFullYear().toString() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
-  const rand = Math.floor(1000 + Math.random() * 9000);
-  return 'INV-' + date + '-' + rand;
+    const d   = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    const date = `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}`;
+    const time = `${pad(d.getHours())}${pad(d.getMinutes())}`;
+    const rand = Math.random().toString(36).substr(2, 4).toUpperCase();
+    _orderCounter++;
+    return `INV-${date}${time}-${rand}${_orderCounter}`;
+}
+
+function sanitizeInput(str, maxLen = 200) {
+    if (typeof str !== 'string') return '';
+    return str.trim().slice(0, maxLen).replace(/[<>'"]/g, '').replace(/\s+/g, ' ');
+}
+
+function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+}
+
+function validatePhone(phone) {
+    return /^[0-9]{8,15}$/.test(phone.replace(/[\s\-().]/g, ''));
 }
 
 
@@ -1786,17 +1462,20 @@ function generateOrderId() {
 // CALCULATIONS
 // ============================================
 function calculate() {
-  const pkgPrice    = selectedPkg ? parseInt(selectedPkg.dataset.price) : 0;
-  const addonsTotal = selectedAddons.reduce((s, a) => s + parseInt(a.dataset.price), 0);
-  const subtotal    = pkgPrice + addonsTotal;
-  const withDl      = subtotal + deadlineFee;
-  const couponAmt   = couponDiscount > 0 ? Math.round(withDl * couponDiscount / 100) : 0;
-  const afterCoupon = withDl - couponAmt;
-  const fullpayDisc = paymentType === 'full' ? Math.round(afterCoupon * 0.05) : 0;
-  const total       = afterCoupon - fullpayDisc;
-  const payNow      = paymentType === 'full' ? total : Math.round(total * 0.5);
-  const remaining   = paymentType === 'dp' ? total - payNow : 0;
-  return { pkgPrice, addonsPrice: addonsTotal, subtotal, couponAmt, fullpayDisc, total, payNow, remaining };
+    const pkgPrice    = selectedPkg ? parseInt(selectedPkg.dataset.price) : 0;
+    const addonsTotal = selectedAddons.reduce((s, a) => s + parseInt(a.dataset.price || 0), 0);
+    const subtotal    = pkgPrice + addonsTotal;
+
+    // Kupon hanya berlaku untuk subtotal (bukan ongkos pengiriman)
+    const couponAmt   = couponDiscount > 0 ? Math.round(subtotal * couponDiscount / 100) : 0;
+    const afterCoupon = subtotal - couponAmt + deadlineFee;
+
+    const fullpayDisc = paymentType === 'full' ? Math.round(afterCoupon * 0.05) : 0;
+    const total       = afterCoupon - fullpayDisc;
+    const payNow      = paymentType === 'full' ? total : Math.round(total * 0.5);
+    const remaining   = total - payNow;
+
+    return { pkgPrice, addonsPrice: addonsTotal, subtotal, couponAmt, fullpayDisc, total, payNow, remaining };
 }
 
 
@@ -1804,70 +1483,73 @@ function calculate() {
 // RENDER SUMMARY
 // ============================================
 function renderSummary() {
-  const c = calculate();
+    const c = calculate();
 
-  for (let i = 2; i <= 3; i++) {
-    const pkgEl   = document.getElementById('summaryPackage' + i);
-    const addonEl = document.getElementById('summaryAddons' + i);
+    [2, 3].forEach(i => {
+        const pkgEl   = document.getElementById('summaryPackage' + i);
+        const addonEl = document.getElementById('summaryAddons' + i);
 
-    if (pkgEl && selectedPkg) {
-      pkgEl.innerHTML = `
-        <div class="si-package">
-          <div class="si-pkg-name">${selectedPkg.dataset.name}</div>
-          <div class="si-pkg-price">${formatRp(c.pkgPrice)}</div>
-        </div>`;
+        if (pkgEl) {
+            pkgEl.innerHTML = selectedPkg ? `
+                <div class="si-package">
+                    <div class="si-pkg-name">${selectedPkg.dataset.name}</div>
+                    <div class="si-pkg-price">${formatRp(c.pkgPrice)}</div>
+                </div>` : '';
+        }
+
+        if (addonEl) {
+            let html = '';
+            if (selectedAddons.length > 0) {
+                html += '<div class="si-addons-title">Add-ons:</div>';
+                html += selectedAddons.map(a => `
+                    <div class="si-addon">
+                        <span>+ ${a.dataset.name}</span>
+                        <span>${parseInt(a.dataset.price) > 0 ? formatRp(parseInt(a.dataset.price)) : 'FREE'}</span>
+                    </div>`).join('');
+            }
+            if (verifiedReseller) {
+                html += `<div class="si-reseller">
+                    <i class="fas fa-user-tag"></i>
+                    <span>Reseller: ${verifiedReseller.name} (${verifiedReseller.code})</span>
+                </div>`;
+            }
+            addonEl.innerHTML = html;
+        }
+
+        const get = id => document.getElementById(id + i);
+
+        if (get('subtotal'))    get('subtotal').textContent    = formatRp(c.subtotal);
+        if (get('total'))       get('total').textContent       = formatRp(c.total);
+        if (get('deadlineFee')) get('deadlineFee').textContent = formatRp(deadlineFee);
+        if (get('discountAmt')) get('discountAmt').textContent = '-' + formatRp(c.couponAmt);
+
+        const dlRow = document.getElementById('deadlineRow' + i);
+        if (dlRow) dlRow.style.display = deadlineFee > 0 ? 'flex' : 'none';
+
+        const dcRow = document.getElementById('discountRow' + i);
+        if (dcRow) dcRow.style.display = c.couponAmt > 0 ? 'flex' : 'none';
+    });
+
+    // Step 3 — diskon bayar lunas
+    const fpRow  = document.getElementById('fullpayRow');
+    const fpDisc = document.getElementById('fullpayDisc');
+    if (fpRow && fpDisc) {
+        fpRow.style.display = c.fullpayDisc > 0 ? 'flex' : 'none';
+        fpDisc.textContent  = '-' + formatRp(c.fullpayDisc);
     }
 
-    if (addonEl) {
-      let html = '';
-      if (selectedAddons.length > 0) {
-        html += '<div class="si-addons-title">Add-ons:</div>' + selectedAddons.map(a => `
-          <div class="si-addon">
-            <span>+ ${a.dataset.name}</span>
-            <span>${parseInt(a.dataset.price) > 0 ? formatRp(parseInt(a.dataset.price)) : 'FREE'}</span>
-          </div>`).join('');
-      }
-      if (verifiedReseller) {
-        html += `
-          <div class="si-reseller">
-            <i class="fas fa-user-tag"></i>
-            <span>Reseller: ${verifiedReseller.name} (${verifiedReseller.code})</span>
-          </div>`;
-      }
-      addonEl.innerHTML = html;
+    const pna = document.getElementById('payNowAmt');
+    if (pna) pna.textContent = formatRp(c.payNow);
+
+    const remRow = document.getElementById('remainingRow');
+    const remAmt = document.getElementById('remainingAmt');
+    if (remRow && remAmt) {
+        remRow.style.display = c.remaining > 0 ? 'flex' : 'none';
+        remAmt.textContent   = formatRp(c.remaining);
     }
 
-    const el = id => document.getElementById(id + i);
-    if (el('subtotal'))    el('subtotal').textContent    = formatRp(c.subtotal);
-    if (el('total'))       el('total').textContent       = formatRp(c.total);
-    if (el('deadlineFee')) el('deadlineFee').textContent = formatRp(deadlineFee);
-    if (el('discountAmt')) el('discountAmt').textContent = '-' + formatRp(c.couponAmt);
-
-    const dlr = document.getElementById('deadlineRow' + i);
-    if (dlr) dlr.style.display = deadlineFee > 0 ? 'flex' : 'none';
-    const dcr = document.getElementById('discountRow' + i);
-    if (dcr) dcr.style.display = c.couponAmt > 0 ? 'flex' : 'none';
-  }
-
-  const fpr = document.getElementById('fullpayRow');
-  const fpd = document.getElementById('fullpayDisc');
-  if (fpr && fpd) {
-    fpr.style.display = c.fullpayDisc > 0 ? 'flex' : 'none';
-    fpd.textContent   = '-' + formatRp(c.fullpayDisc);
-  }
-
-  const pna = document.getElementById('payNowAmt');
-  if (pna) pna.textContent = formatRp(c.payNow);
-
-  const rr = document.getElementById('remainingRow');
-  const ra = document.getElementById('remainingAmt');
-  if (rr && ra) {
-    rr.style.display = c.remaining > 0 ? 'flex' : 'none';
-    ra.textContent   = formatRp(c.remaining);
-  }
-
-  const pa = document.getElementById('payAmount');
-  if (pa) pa.textContent = formatRp(c.payNow);
+    const payAmt = document.getElementById('payAmount');
+    if (payAmt) payAmt.textContent = formatRp(c.payNow);
 }
 
 
@@ -1875,193 +1557,196 @@ function renderSummary() {
 // PACKAGE SELECTION
 // ============================================
 function selectPackage(btn) {
-  const card = btn.closest('.package-card');
-  document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
-  card.classList.add('selected');
-  selectedPkg = card;
-  document.getElementById('continueBtn1').disabled = false;
-  showToast('Paket dipilih: ' + card.dataset.name);
-  renderSummary();
+    const card = btn.closest('.package-card');
+    document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedPkg = card;
+
+    const continueBtn = document.getElementById('continueBtn1');
+    if (continueBtn) continueBtn.disabled = false;
+
+    showToast('✅ Paket dipilih: ' + card.dataset.name);
+    renderSummary();
 }
 
 
 // ============================================
 // ADDONS
 // ============================================
-document.querySelectorAll('.addon-card input').forEach(cb => {
-  cb.addEventListener('change', () => {
-    const card = cb.closest('.addon-card');
-    if (cb.checked) {
-      card.classList.add('checked');
-      selectedAddons.push(cb);
-    } else {
-      card.classList.remove('checked');
-      selectedAddons = selectedAddons.filter(a => a !== cb);
-    }
-    renderSummary();
-  });
-});
+function initAddons() {
+    document.querySelectorAll('.addon-card input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', () => {
+            const card = cb.closest('.addon-card');
+            if (cb.checked) {
+                card.classList.add('checked');
+                if (!selectedAddons.includes(cb)) selectedAddons.push(cb);
+            } else {
+                card.classList.remove('checked');
+                selectedAddons = selectedAddons.filter(a => a !== cb);
+            }
+            renderSummary();
+        });
+    });
+}
 
 
 // ============================================
 // DEADLINE
 // ============================================
-document.querySelectorAll('input[name="deadline"]').forEach(r => {
-  r.addEventListener('change', () => {
-    const fees  = { standard:0, fast:500000, express:1000000 };
-    const names = { standard:'Standard (7-14 hari)', fast:'Fast Track (3-5 hari)', express:'Express (24-48 jam)' };
-    deadlineFee      = fees[r.value]  || 0;
-    selectedDeadline = names[r.value] || 'Standard';
-    document.querySelectorAll('.deadline-option').forEach(o => o.classList.remove('active'));
-    r.closest('.deadline-option').classList.add('active');
-    renderSummary();
-  });
-});
+function initDeadlines() {
+    document.querySelectorAll('input[name="deadline"]').forEach(r => {
+        r.addEventListener('change', () => {
+            const fees  = { standard:0, fast:500000, express:1000000 };
+            const names = {
+                standard: 'Standard (7-14 hari)',
+                fast:     'Fast Track (3-5 hari)',
+                express:  'Express (24-48 jam)'
+            };
+            deadlineFee      = fees[r.value]  || 0;
+            selectedDeadline = names[r.value] || 'Standard (7-14 hari)';
+
+            document.querySelectorAll('.deadline-option').forEach(o => o.classList.remove('active'));
+            r.closest('.deadline-option').classList.add('active');
+            renderSummary();
+        });
+    });
+}
 
 
 // ============================================
-// 🔥 RESELLER VERIFICATION
+// RESELLER VERIFICATION
 // ============================================
 async function verifyReseller() {
-  const input  = document.getElementById('resellerCode');
-  const result = document.getElementById('resellerResult');
-  const btn    = document.getElementById('verifyResellerBtn');
-  const code   = input.value.trim().toUpperCase();
+    const input  = document.getElementById('resellerCode');
+    const result = document.getElementById('resellerResult');
+    const btn    = document.getElementById('verifyResellerBtn');
+    const code   = input.value.trim().toUpperCase();
 
-  if (!code) {
-    result.innerHTML = `
-      <div class="reseller-hint">
-        <i class="fas fa-info-circle"></i>
-        <span>Masukkan kode reseller terlebih dahulu. Belum punya? <a href="reseller.html" target="_blank">Daftar di sini</a></span>
-      </div>`;
-    return;
-  }
-
-  if (!window.fbOrder || !window.fbOrder.ready) {
-    result.innerHTML = `
-      <div class="reseller-error">
-        <i class="fas fa-exclamation-triangle"></i>
-        <span>Sistem belum siap. Refresh halaman dan coba lagi.</span>
-      </div>`;
-    return;
-  }
-
-  btn.classList.add('loading');
-  btn.querySelector('i').className = 'fas fa-spinner fa-spin';
-  btn.querySelector('span').textContent = 'Checking...';
-
-  try {
-    const fb = window.fbOrder;
-    const q = fb.query(
-      fb.collection(fb.db, 'resellers'),
-      fb.where('resellerCode', '==', code),
-      fb.where('status', '==', 'active'),
-      fb.limit(1)
-    );
-
-    const snap = await fb.getDocs(q);
-
-    btn.classList.remove('loading');
-    btn.querySelector('i').className = 'fas fa-search';
-    btn.querySelector('span').textContent = 'Verifikasi';
-
-    if (!snap.empty) {
-      const docSnap = snap.docs[0];
-      const data    = docSnap.data();
-
-      let sinceYear = '2025';
-      if (data.createdDate) {
-        const parts = data.createdDate.split('/');
-        if (parts.length === 3) sinceYear = parts[2];
-      } else if (data.timestamp?.toDate) {
-        sinceYear = data.timestamp.toDate().getFullYear().toString();
-      }
-
-      const tierRaw = (data.tier || 'silver').toLowerCase();
-      const tierLabel = tierRaw.charAt(0).toUpperCase() + tierRaw.slice(1) + ' Reseller';
-
-      verifiedReseller = {
-        id          : docSnap.id,
-        code        : code,
-        name        : data.nama || data.name || 'Reseller',
-        tier        : tierLabel,
-        tierRaw     : tierRaw,
-        since       : sinceYear,
-        phone       : data.wa || '',
-        email       : data.email || '',
-        paymentType : data.paymentType || 'per-closing',
-        paymentLabel: data.paymentLabel || 'Per Closing',
-        bank        : data.bank || '',
-        norek       : data.norek || '',
-        atasNama    : data.atasNama || ''
-      };
-
-      input.value = code;
-      input.readOnly = true;
-      input.style.opacity = '0.7';
-
-      result.innerHTML = `
-        <div class="reseller-success">
-          <i class="fas fa-check-circle"></i>
-          <div class="rs-info">
-            <div class="rs-name">${verifiedReseller.name}</div>
-            <div class="rs-detail">${verifiedReseller.tier} • Kode: ${code} • Sejak ${sinceYear}</div>
-          </div>
-          <button type="button" class="btn-remove-reseller" onclick="removeReseller()" title="Hapus kode reseller">
-            <i class="fas fa-times"></i>
-          </button>
+    if (!code) {
+        result.innerHTML = `<div class="reseller-hint">
+            <i class="fas fa-info-circle"></i>
+            <span>Masukkan kode reseller. Belum punya? <a href="reseller.html" target="_blank">Daftar di sini</a></span>
         </div>`;
-
-      showToast('✅ Kode terverifikasi: ' + verifiedReseller.name);
-
-    } else {
-      verifiedReseller = null;
-      result.innerHTML = `
-        <div class="reseller-error">
-          <i class="fas fa-times-circle"></i>
-          <span>Kode "<b>${code}</b>" tidak ditemukan. Periksa kembali atau <a href="reseller.html" target="_blank" style="color:#e74c3c;text-decoration:underline;">daftar jadi reseller</a>.</span>
-        </div>`;
+        return;
     }
 
-  } catch (err) {
-    console.error('❌ Verify reseller error:', err);
-
-    btn.classList.remove('loading');
-    btn.querySelector('i').className = 'fas fa-search';
-    btn.querySelector('span').textContent = 'Verifikasi';
-
-    verifiedReseller = null;
-
-    const errMsg = err.message || String(err);
-    if (errMsg.includes('index') || errMsg.includes('failed-precondition')) {
-      const linkMatch = errMsg.match(/https:\/\/[^\s]+/);
-      const link = linkMatch ? linkMatch[0] : '#';
-      result.innerHTML = `
-        <div class="reseller-error">
-          <i class="fas fa-exclamation-triangle"></i>
-          <span>Firestore butuh composite index. <a href="${link}" target="_blank" style="color:#e74c3c;text-decoration:underline;font-weight:700;">Klik di sini</a> untuk auto-create index.</span>
+    if (!window.fbOrder || !window.fbOrder.ready) {
+        result.innerHTML = `<div class="reseller-error">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>Sistem belum siap. Refresh halaman dan coba lagi.</span>
         </div>`;
-    } else {
-      result.innerHTML = `
-        <div class="reseller-error">
-          <i class="fas fa-times-circle"></i>
-          <span>Gagal verifikasi: ${errMsg}</span>
-        </div>`;
+        return;
     }
-  }
 
-  renderSummary();
+    // Loading state
+    btn.disabled = true;
+    btn.querySelector('i').className = 'fas fa-spinner fa-spin';
+    btn.querySelector('span').textContent = 'Checking...';
+
+    try {
+        const fb = window.fbOrder;
+        const q  = fb.query(
+            fb.collection(fb.db, 'resellers'),
+            fb.where('resellerCode', '==', code),
+            fb.where('status', '==', 'active'),
+            fb.limit(1)
+        );
+        const snap = await fb.getDocs(q);
+
+        if (!snap.empty) {
+            const data = snap.docs[0].data();
+            const id   = snap.docs[0].id;
+
+            let sinceYear = '2025';
+            if (data.createdDate) {
+                const parts = data.createdDate.split('/');
+                if (parts.length === 3) sinceYear = parts[2];
+            } else if (data.timestamp?.toDate) {
+                sinceYear = data.timestamp.toDate().getFullYear().toString();
+            }
+
+            const tierRaw   = (data.tier || 'silver').toLowerCase();
+            const tierLabel = tierRaw.charAt(0).toUpperCase() + tierRaw.slice(1) + ' Reseller';
+
+            verifiedReseller = {
+                id, code,
+                name        : data.nama || data.name || 'Reseller',
+                tier        : tierLabel,
+                tierRaw,
+                since       : sinceYear,
+                phone       : data.wa    || '',
+                email       : data.email || '',
+                paymentType : data.paymentType  || 'per-closing',
+                paymentLabel: data.paymentLabel || 'Per Closing',
+                bank        : data.bank     || '',
+                norek       : data.norek    || '',
+                atasNama    : data.atasNama || ''
+            };
+
+            input.readOnly    = true;
+            input.style.opacity = '0.7';
+
+            result.innerHTML = `<div class="reseller-success">
+                <i class="fas fa-check-circle"></i>
+                <div class="rs-info">
+                    <div class="rs-name">${verifiedReseller.name}</div>
+                    <div class="rs-detail">${verifiedReseller.tier} • Kode: ${code} • Sejak ${sinceYear}</div>
+                </div>
+                <button type="button" class="btn-remove-reseller" onclick="removeReseller()" title="Hapus kode">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>`;
+
+            showToast('✅ Kode terverifikasi: ' + verifiedReseller.name);
+
+        } else {
+            verifiedReseller = null;
+            result.innerHTML = `<div class="reseller-error">
+                <i class="fas fa-times-circle"></i>
+                <span>Kode "<b>${code}</b>" tidak ditemukan atau tidak aktif.</span>
+            </div>`;
+        }
+
+    } catch (err) {
+        console.error('❌ Verify reseller error:', err);
+        verifiedReseller = null;
+
+        const errMsg   = err.message || String(err);
+        const linkMatch = errMsg.match(/https:\/\/[^\s]+/);
+        const link     = linkMatch ? linkMatch[0] : '#';
+
+        if (errMsg.includes('index') || errMsg.includes('failed-precondition')) {
+            result.innerHTML = `<div class="reseller-error">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Firestore butuh index. <a href="${link}" target="_blank" style="color:#e74c3c;font-weight:700;text-decoration:underline;">Klik untuk buat index</a>, lalu coba lagi.</span>
+            </div>`;
+        } else {
+            result.innerHTML = `<div class="reseller-error">
+                <i class="fas fa-times-circle"></i>
+                <span>Gagal verifikasi: ${errMsg}</span>
+            </div>`;
+        }
+    } finally {
+        btn.disabled = false;
+        btn.querySelector('i').className = 'fas fa-search';
+        btn.querySelector('span').textContent = 'Verifikasi';
+    }
+
+    renderSummary();
 }
 
 function removeReseller() {
-  verifiedReseller = null;
-  const input = document.getElementById('resellerCode');
-  input.value = '';
-  input.readOnly = false;
-  input.style.opacity = '1';
-  document.getElementById('resellerResult').innerHTML = '';
-  showToast('Kode reseller dihapus');
-  renderSummary();
+    verifiedReseller = null;
+    const input = document.getElementById('resellerCode');
+    if (input) {
+        input.value       = '';
+        input.readOnly    = false;
+        input.style.opacity = '1';
+    }
+    const result = document.getElementById('resellerResult');
+    if (result) result.innerHTML = '';
+    showToast('Kode reseller dihapus');
+    renderSummary();
 }
 
 
@@ -2069,26 +1754,33 @@ function removeReseller() {
 // COUPON
 // ============================================
 function applyCoupon() {
-  const code   = document.getElementById('couponInput').value.trim().toUpperCase();
-  const result = document.getElementById('couponResult');
-  const coupons = {
-    'HEMAT10':   { discount:10, label:'Diskon 10%' },
-    'NEWCLIENT': { discount:15, label:'Diskon 15% untuk client baru' },
-    'RESELLER':  { discount:20, label:'Diskon reseller 20%' },
-    'IBAAD25':   { discount:25, label:'Diskon 25% spesial!' }
-  };
+    const code   = (document.getElementById('couponInput')?.value || '').trim().toUpperCase();
+    const result = document.getElementById('couponResult');
 
-  if (coupons[code]) {
-    couponDiscount = coupons[code].discount;
-    couponCode     = code;
-    result.innerHTML = `<div class="coupon-success"><i class="fas fa-check-circle"></i> Kode <b>${code}</b> berhasil! ${coupons[code].label}</div>`;
-    showToast('Voucher berhasil digunakan!');
-  } else {
-    couponDiscount = 0;
-    couponCode     = '';
-    result.innerHTML = `<div class="coupon-error"><i class="fas fa-times-circle"></i> Kode voucher tidak valid</div>`;
-  }
-  renderSummary();
+    const coupons = {
+        'HEMAT10':   { discount:10, label:'Diskon 10%' },
+        'NEWCLIENT': { discount:15, label:'Diskon 15% untuk client baru' },
+        'RESELLER':  { discount:20, label:'Diskon reseller 20%' },
+        'IBAAD25':   { discount:25, label:'Diskon 25% spesial!' }
+    };
+
+    if (coupons[code]) {
+        couponDiscount = coupons[code].discount;
+        couponCode     = code;
+        if (result) result.innerHTML = `<div class="coupon-success">
+            <i class="fas fa-check-circle"></i>
+            Kode <b>${code}</b> berhasil! ${coupons[code].label}
+        </div>`;
+        showToast('🎉 Voucher berhasil digunakan!');
+    } else {
+        couponDiscount = 0;
+        couponCode     = '';
+        if (result) result.innerHTML = `<div class="coupon-error">
+            <i class="fas fa-times-circle"></i>
+            Kode voucher tidak valid
+        </div>`;
+    }
+    renderSummary();
 }
 
 
@@ -2096,226 +1788,285 @@ function applyCoupon() {
 // PAYMENT
 // ============================================
 function selectPaymentType(radio) {
-  document.querySelectorAll('.pt-option').forEach(o => o.classList.remove('active'));
-  radio.closest('.pt-option').classList.add('active');
-  paymentType = radio.value;
-  renderSummary();
+    document.querySelectorAll('.pt-option').forEach(o => o.classList.remove('active'));
+    radio.closest('.pt-option').classList.add('active');
+    paymentType = radio.value;
+    renderSummary();
 }
 
 function selectPayment(radio) {
-  document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('active'));
-  radio.closest('.payment-option').classList.add('active');
-  const names = { bank_transfer:'Transfer Bank', ewallet:'E-Wallet', qris:'QRIS', cc:'Kartu Kredit' };
-  selectedPayment = names[radio.value] || 'Transfer Bank';
-  document.getElementById('paymentDetail').style.display = radio.value === 'bank_transfer' ? 'block' : 'none';
+    document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('active'));
+    radio.closest('.payment-option').classList.add('active');
+    const names = {
+        bank_transfer: 'Transfer Bank',
+        ewallet      : 'E-Wallet',
+        qris         : 'QRIS',
+        cc           : 'Kartu Kredit'
+    };
+    selectedPayment = names[radio.value] || 'Transfer Bank';
+    const detail = document.getElementById('paymentDetail');
+    if (detail) detail.style.display = radio.value === 'bank_transfer' ? 'block' : 'none';
 }
 
 function selectBank(el, name, account, holder) {
-  document.querySelectorAll('.bank-option').forEach(o => o.classList.remove('active'));
-  el.classList.add('active');
-  selectedBank = { name, account, holder };
-  document.getElementById('bankName').textContent    = name;
-  document.getElementById('bankAccount').textContent = account;
-  document.getElementById('bankHolder').textContent  = holder;
+    document.querySelectorAll('.bank-option').forEach(o => o.classList.remove('active'));
+    el.classList.add('active');
+    selectedBank = { name, account, holder };
+    document.getElementById('bankName').textContent    = name;
+    document.getElementById('bankAccount').textContent = account;
+    document.getElementById('bankHolder').textContent  = holder;
+}
+
+
+// ============================================
+// FORM VALIDATION
+// ============================================
+function validateStep3Fields() {
+    const name  = sanitizeInput(document.getElementById('fullName')?.value || '');
+    const email = (document.getElementById('email')?.value || '').trim();
+    const phone = (document.getElementById('phone')?.value || '').replace(/[\s\-]/g, '');
+    const bizType = (document.getElementById('businessType')?.value || '').trim();
+    const desc  = (document.getElementById('description')?.value || '').trim();
+
+    if (name.length < 2) {
+        showToast('⚠️ Nama lengkap minimal 2 karakter!');
+        document.getElementById('fullName')?.focus();
+        return false;
+    }
+    if (!validateEmail(email)) {
+        showToast('⚠️ Format email tidak valid!');
+        document.getElementById('email')?.focus();
+        return false;
+    }
+    if (!validatePhone(phone)) {
+        showToast('⚠️ Nomor WhatsApp tidak valid (8-15 digit angka)!');
+        document.getElementById('phone')?.focus();
+        return false;
+    }
+    if (!bizType) {
+        showToast('⚠️ Pilih jenis bisnis terlebih dahulu!');
+        const sel = document.getElementById('selectBusinessType');
+        if (sel) {
+            sel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => openDropdown(sel), 400);
+        }
+        return false;
+    }
+    if (desc.length < 10) {
+        showToast('⚠️ Deskripsi bisnis minimal 10 karakter!');
+        document.getElementById('description')?.focus();
+        return false;
+    }
+    return true;
 }
 
 
 // ============================================
 // STEP NAVIGATION
 // ============================================
+function updateStepIndicators(n) {
+    document.querySelectorAll('.step').forEach(s => {
+        const sn = parseInt(s.dataset.step);
+        s.classList.toggle('active', sn <= n);
+        s.classList.toggle('done',   sn <  n);
+    });
+    document.querySelectorAll('.step-line').forEach((l, i) => {
+        l.classList.toggle('active', i < n - 1);
+    });
+}
+
 function goToStep(n) {
-  if (n === 2 && !selectedPkg) {
-    showToast('Pilih paket terlebih dahulu!');
-    return;
-  }
-
-  if (n === 3) {
-    const required = ['fullName', 'email', 'phone', 'businessType', 'description'];
-    for (let id of required) {
-      const el = document.getElementById(id);
-      if (el && !el.value.trim()) {
-        showToast('Lengkapi semua data yang wajib diisi!');
-        const cs = el.closest('.custom-select');
-        if (cs) { cs.querySelector('.cs-trigger').focus(); cs.classList.add('open'); }
-        else { el.focus(); }
+    // Guard step 2
+    if (n === 2 && !selectedPkg) {
+        showToast('⚠️ Pilih paket terlebih dahulu!');
         return;
-      }
     }
-  }
 
-  document.querySelectorAll('.order-step').forEach(s => s.classList.add('hidden'));
-  document.getElementById('step' + n).classList.remove('hidden');
+    // Guard step 3 — validasi form
+    if (n === 3 && !validateStep3Fields()) {
+        return;
+    }
 
-  document.querySelectorAll('.step').forEach(s => {
-    const sn = parseInt(s.dataset.step);
-    s.classList.toggle('active', sn <= n);
-    s.classList.toggle('done',   sn <  n);
-  });
+    // Hide semua step
+    document.querySelectorAll('.order-step').forEach(s => s.classList.add('hidden'));
+    const target = document.getElementById('step' + n);
+    if (target) target.classList.remove('hidden');
 
-  document.querySelectorAll('.step-line').forEach((l, i) => {
-    l.classList.toggle('active', i < n - 1);
-  });
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  renderSummary();
+    updateStepIndicators(n);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    renderSummary();
 }
 
 
 // ============================================
-// 🔥 PLACE ORDER
+// PLACE ORDER
 // ============================================
 async function placeOrder() {
-  if (!document.getElementById('agreeTerms').checked) {
-    showToast('Setujui Syarat & Ketentuan terlebih dahulu');
-    return;
-  }
+    if (isSubmitting) {
+        showToast('⏳ Pesanan sedang diproses...');
+        return;
+    }
 
-  const overlay = document.getElementById('processingOverlay');
-  const titleEl = document.getElementById('processingTitle');
-  const descEl  = document.getElementById('processingDesc');
+    if (!document.getElementById('agreeTerms')?.checked) {
+        showToast('⚠️ Setujui Syarat & Ketentuan terlebih dahulu!');
+        return;
+    }
 
-  overlay.classList.add('show');
-  titleEl.textContent = 'Menyimpan Pesanan...';
-  descEl.textContent  = 'Mengirim data ke database, mohon tunggu';
+    isSubmitting = true;
+    const payBtn = document.getElementById('btnPlaceOrder');
+    if (payBtn) {
+        payBtn.disabled = true;
+        payBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Memproses...</span>';
+    }
 
-  const orderId   = generateOrderId();
-  _currentOrderId = orderId;
+    const overlay  = document.getElementById('processingOverlay');
+    const titleEl  = document.getElementById('processingTitle');
+    const descEl   = document.getElementById('processingDesc');
 
-  const c          = calculate();
-  const name       = document.getElementById('fullName').value.trim();
-  const company    = document.getElementById('companyName').value.trim();
-  const email      = document.getElementById('email').value.trim();
-  const phone      = document.getElementById('phone').value.trim();
-  const bizType    = document.getElementById('businessType').value.trim();
-  const desc       = document.getElementById('description').value.trim();
-  const reference  = document.getElementById('reference').value.trim();
-  const hasWebsite = document.getElementById('hasWebsite').value.trim();
-  const dlValue    = document.querySelector('input[name="deadline"]:checked')?.value || 'standard';
+    if (overlay) overlay.classList.add('show');
+    if (titleEl) titleEl.textContent = 'Menyimpan Pesanan...';
+    if (descEl)  descEl.textContent  = 'Mohon jangan tutup halaman ini';
 
-  const phoneNorm = phone.startsWith('0') ? phone : '0' + phone;
-  const phoneRaw  = '+62' + phone.replace(/^0/, '');
-
-  const addonsArr = selectedAddons.map(a => ({
-    name : a.dataset.name,
-    price: parseInt(a.dataset.price)
-  }));
-
-  const paymentStatus = 'pending';
-  const dpAmount = 0;
-  const paidAmount = 0;
-
-  const clientData = {
-    orderId, name,
-    company : company || '',
-    phone   : phoneNorm, phoneRaw, email,
-    project : selectedPkg.dataset.name,
-    paketKey: selectedPkg.dataset.pkg,
-    value   : 'Rp ' + c.pkgPrice.toLocaleString('id-ID'),
-    description : desc,
-    reference   : reference || '',
-    businessType: bizType   || '',
-    hasWebsite  : hasWebsite|| '',
-    addons      : addonsArr,
-    deadline    : selectedDeadline,
-    deadlineKey : dlValue,
-    priceDetail : {
-      basePrice   : c.pkgPrice,
-      addonsTotal : c.addonsPrice,
-      subtotal    : c.subtotal,
-      deadlineFee : deadlineFee,
-      couponCode  : couponCode || '',
-      couponDisc  : c.couponAmt,
-      fullpayDisc : c.fullpayDisc,
-      total       : c.total,
-      payNow      : c.payNow,
-      remaining   : c.remaining,
-      paymentType : paymentType
-    },
-    paymentMethod : selectedPayment,
-    bankName      : selectedBank.name,
-    bankAccount   : selectedBank.account,
-    bankHolder    : selectedBank.holder,
-    paymentStatus : paymentStatus,
-    dpAmount      : dpAmount,
-    paidAmount    : paidAmount,
-    referralCode  : verifiedReseller ? verifiedReseller.code : '',
-    referralName  : verifiedReseller ? verifiedReseller.name : '',
-    referralTier  : verifiedReseller ? verifiedReseller.tierRaw : '',
-    referral: verifiedReseller ? {
-      resellerId       : verifiedReseller.id,
-      resellerName     : verifiedReseller.name,
-      referralCode     : verifiedReseller.code,
-      resellerTier     : verifiedReseller.tierRaw,
-      paymentSchedule  : verifiedReseller.paymentType,
-      resellerPhone    : verifiedReseller.phone,
-      commissionStatus : 'pending'
-    } : null,
-    voucherCode   : couponCode || '',
-    status        : 'pending',
-    source        : 'order_form_website',
-    notes         : '[Website Order] ' + (desc || 'Order via order.html'),
-    createdAt     : window.fbOrder?.serverTimestamp() || new Date().toISOString(),
-    updatedAt     : window.fbOrder?.serverTimestamp() || new Date().toISOString()
-  };
-
-  let savedToFirebase = false;
-  let firebaseDocId = null;
-
-  if (window.fbOrder && window.fbOrder.ready) {
     try {
-      titleEl.textContent = 'Menyimpan ke Database...';
-      descEl.textContent  = 'Mohon jangan tutup halaman ini';
+        const orderId   = generateOrderId();
+        _currentOrderId = orderId;
+        const c         = calculate();
 
-      const docRef = await window.fbOrder.addDoc(
-        window.fbOrder.collection(window.fbOrder.db, 'clients'),
-        clientData
-      );
+        const name    = sanitizeInput(document.getElementById('fullName')?.value    || '');
+        const company = sanitizeInput(document.getElementById('companyName')?.value || '');
+        const email   = (document.getElementById('email')?.value   || '').trim().toLowerCase();
+        const phone   = (document.getElementById('phone')?.value   || '').replace(/[\s\-]/g, '');
+        const bizType = (document.getElementById('businessType')?.value || '').trim();
+        const desc    = sanitizeInput(document.getElementById('description')?.value || '', 500);
+        const ref     = (document.getElementById('reference')?.value  || '').trim();
+        const hasWeb  = (document.getElementById('hasWebsite')?.value  || '').trim();
+        const dlValue = document.querySelector('input[name="deadline"]:checked')?.value || 'standard';
 
-      savedToFirebase = true;
-      firebaseDocId = docRef.id;
-      console.log('✅ Firebase OK! Doc ID:', docRef.id, '| Order ID:', orderId);
-      if (verifiedReseller) {
-        console.log('🎁 Referral tercatat:', verifiedReseller.name, '(' + verifiedReseller.code + ')');
-      }
-    } catch (fbErr) {
-      console.error('❌ Firebase error:', fbErr);
-      savedToFirebase = false;
+        const phoneNorm = phone.startsWith('0') ? phone : '0' + phone;
+        const phoneRaw  = '+62' + phone.replace(/^0/, '');
+
+        const addonsArr = selectedAddons.map(a => ({
+            name : a.dataset.name,
+            price: parseInt(a.dataset.price || 0)
+        }));
+
+        const clientData = {
+            orderId, name,
+            company     : company || '',
+            phone       : phoneNorm,
+            phoneRaw,
+            email,
+            project     : selectedPkg.dataset.name,
+            paketKey    : selectedPkg.dataset.pkg,
+            value       : 'Rp ' + c.pkgPrice.toLocaleString('id-ID'),
+            description : desc,
+            reference   : ref  || '',
+            businessType: bizType || '',
+            hasWebsite  : hasWeb  || '',
+            addons      : addonsArr,
+            deadline    : selectedDeadline,
+            deadlineKey : dlValue,
+            priceDetail : {
+                basePrice   : c.pkgPrice,
+                addonsTotal : c.addonsPrice,
+                subtotal    : c.subtotal,
+                deadlineFee : deadlineFee,
+                couponCode  : couponCode || '',
+                couponDisc  : c.couponAmt,
+                fullpayDisc : c.fullpayDisc,
+                total       : c.total,
+                payNow      : c.payNow,
+                remaining   : c.remaining,
+                paymentType : paymentType
+            },
+            paymentMethod : selectedPayment,
+            bankName      : selectedBank.name,
+            bankAccount   : selectedBank.account,
+            bankHolder    : selectedBank.holder,
+            paymentStatus : 'pending',
+            dpAmount      : 0,
+            paidAmount    : 0,
+            referralCode  : verifiedReseller ? verifiedReseller.code : '',
+            referralName  : verifiedReseller ? verifiedReseller.name : '',
+            referralTier  : verifiedReseller ? verifiedReseller.tierRaw : '',
+            referral      : verifiedReseller ? {
+                resellerId      : verifiedReseller.id,
+                resellerName    : verifiedReseller.name,
+                referralCode    : verifiedReseller.code,
+                resellerTier    : verifiedReseller.tierRaw,
+                paymentSchedule : verifiedReseller.paymentType,
+                resellerPhone   : verifiedReseller.phone,
+                commissionStatus: 'pending'
+            } : null,
+            voucherCode : couponCode || '',
+            status      : 'pending',
+            source      : 'order_form_website',
+            notes       : '[Website Order] ' + (desc || 'Order via order.html'),
+            createdAt   : window.fbOrder?.serverTimestamp() || new Date().toISOString(),
+            updatedAt   : window.fbOrder?.serverTimestamp() || new Date().toISOString()
+        };
+
+        let savedToFirebase = false;
+
+        if (window.fbOrder && window.fbOrder.ready) {
+            try {
+                if (titleEl) titleEl.textContent = 'Menyimpan ke Database...';
+                const docRef = await window.fbOrder.addDoc(
+                    window.fbOrder.collection(window.fbOrder.db, 'clients'),
+                    clientData
+                );
+                savedToFirebase = true;
+                console.log('✅ Firebase OK! Doc ID:', docRef.id, '| Order ID:', orderId);
+            } catch (fbErr) {
+                console.error('❌ Firebase error:', fbErr);
+            }
+        }
+
+        if (titleEl) titleEl.textContent = 'Membuat Invoice...';
+        if (descEl)  descEl.textContent  = 'Hampir selesai!';
+        await new Promise(r => setTimeout(r, 600));
+
+        if (overlay) overlay.classList.remove('show');
+
+        generateInvoice(orderId);
+        goToStep(4);
+
+        // Status badge Firebase
+        const statusEl   = document.getElementById('firebaseStatus');
+        const statusText = document.getElementById('firebaseStatusText');
+        if (statusEl && statusText) {
+            statusEl.style.display = 'inline-flex';
+            if (savedToFirebase) {
+                statusEl.style.cssText += ';background:rgba(37,211,102,0.12);border-color:rgba(37,211,102,0.3);color:#25d366';
+                statusEl.querySelector('i').style.color = '#25d366';
+                statusText.textContent = 'Pesanan tersimpan di database ✓';
+            } else {
+                statusEl.style.cssText += ';background:rgba(243,156,18,0.12);border-color:rgba(243,156,18,0.3);color:#f39c12';
+                statusEl.querySelector('i').style.color = '#f39c12';
+                statusText.textContent = 'Pesanan diproses — konfirmasi via WhatsApp';
+            }
+        }
+
+        // Auto buka WA setelah 2 detik
+        setTimeout(() => {
+            const waLink = document.getElementById('waConfirm');
+            if (waLink && waLink.href && waLink.href !== '#') {
+                window.open(waLink.href, '_blank');
+                showToast('📱 WhatsApp dibuka otomatis');
+            }
+        }, 2000);
+
+    } catch (err) {
+        console.error('❌ placeOrder error:', err);
+        showToast('❌ Terjadi kesalahan: ' + err.message);
+        if (overlay) overlay.classList.remove('show');
+    } finally {
+        isSubmitting = false;
+        if (payBtn) {
+            payBtn.disabled = false;
+            payBtn.innerHTML = '<i class="fas fa-lock"></i> <span>Buat Pesanan</span>';
+        }
     }
-  }
-
-  titleEl.textContent = 'Membuat Invoice...';
-  descEl.textContent  = 'Hampir selesai!';
-
-  await new Promise(r => setTimeout(r, 600));
-  overlay.classList.remove('show');
-
-  generateInvoice(orderId);
-  goToStep(4);
-
-  const statusEl   = document.getElementById('firebaseStatus');
-  const statusText = document.getElementById('firebaseStatusText');
-  if (statusEl && statusText) {
-    statusEl.style.display = 'inline-flex';
-    if (savedToFirebase) {
-      statusEl.style.background  = 'rgba(37,211,102,0.12)';
-      statusEl.style.borderColor = 'rgba(37,211,102,0.3)';
-      statusEl.style.color = '#25d366';
-      statusEl.querySelector('i').style.color = '#25d366';
-      statusText.textContent = 'Pesanan tersimpan di database ✓';
-    } else {
-      statusEl.style.background  = 'rgba(243,156,18,0.12)';
-      statusEl.style.borderColor = 'rgba(243,156,18,0.3)';
-      statusEl.style.color = '#f39c12';
-      statusEl.querySelector('i').style.color = '#f39c12';
-      statusText.textContent = 'Pesanan diproses (konfirmasi via WhatsApp)';
-    }
-  }
-
-  setTimeout(() => {
-    const waUrl = document.getElementById('waConfirm').href;
-    window.open(waUrl, '_blank');
-    showToast('WhatsApp dibuka otomatis 📱');
-  }, 2000);
 }
 
 
@@ -2323,283 +2074,270 @@ async function placeOrder() {
 // GENERATE INVOICE
 // ============================================
 function generateInvoice(orderId) {
-  if (!orderId) orderId = _currentOrderId || generateOrderId();
+    if (!orderId) orderId = _currentOrderId || generateOrderId();
 
-  const now      = new Date();
-  const deadline = new Date(now.getTime() + 24 * 60 * 60 * 1000);
-  const tlDays   = { standard:14, fast:5, express:2 };
-  const dlVal    = document.querySelector('input[name="deadline"]:checked')?.value || 'standard';
-  const estimate = new Date(now.getTime() + (tlDays[dlVal] || 14) * 24 * 60 * 60 * 1000);
-  const c        = calculate();
+    const now      = new Date();
+    const deadline = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+    const tlDays   = { standard:14, fast:5, express:2 };
+    const dlVal    = document.querySelector('input[name="deadline"]:checked')?.value || 'standard';
+    const estimate = new Date(now.getTime() + (tlDays[dlVal] || 14) * 24 * 60 * 60 * 1000);
+    const c        = calculate();
 
-  const name    = document.getElementById('fullName').value;
-  const company = document.getElementById('companyName').value;
-  const email   = document.getElementById('email').value;
-  const phone   = document.getElementById('phone').value;
-  const bizType = document.getElementById('businessType').value;
-  const desc    = document.getElementById('description').value;
-  const resellerInfo = verifiedReseller
-    ? `${verifiedReseller.name} (${verifiedReseller.code})`
-    : null;
+    const name    = document.getElementById('fullName')?.value    || '';
+    const company = document.getElementById('companyName')?.value || '';
+    const email   = document.getElementById('email')?.value       || '';
+    const phone   = document.getElementById('phone')?.value       || '';
+    const resellerInfo = verifiedReseller
+        ? `${verifiedReseller.name} (${verifiedReseller.code})`
+        : null;
 
-  document.getElementById('invNumber').textContent   = orderId;
-  document.getElementById('invName').textContent     = name;
-  document.getElementById('invCompany').textContent  = company || '-';
-  document.getElementById('invEmail').textContent    = email;
-  document.getElementById('invPhone').textContent    = '+62 ' + phone;
-  document.getElementById('invDate').textContent     = now.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
-  document.getElementById('invTimeline').textContent = selectedDeadline;
-  document.getElementById('invEstimate').textContent = estimate.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
-  document.getElementById('invPayment').textContent  = selectedPayment + ' (' + selectedBank.name + ')';
+    // Header invoice
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
 
-  if (resellerInfo) {
-    document.getElementById('invResellerRow').style.display = 'flex';
-    document.getElementById('invReseller').textContent      = resellerInfo;
-  } else {
-    document.getElementById('invResellerRow').style.display = 'none';
-  }
+    set('invNumber',  orderId);
+    set('invName',    name);
+    set('invCompany', company || '-');
+    set('invEmail',   email);
+    set('invPhone',   '+62 ' + phone);
+    set('invDate',    now.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' }));
+    set('invTimeline', selectedDeadline);
+    set('invEstimate', estimate.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' }));
+    set('invPayment',  selectedPayment + ' (' + selectedBank.name + ')');
 
-  let tableHtml = `
-    <tr>
-      <td><b>${selectedPkg.dataset.name}</b></td>
-      <td>Website ${selectedPkg.dataset.pkg} package</td>
-      <td style="text-align:right"><b>${formatRp(c.pkgPrice)}</b></td>
-    </tr>`;
+    const resellerRow = document.getElementById('invResellerRow');
+    if (resellerRow) resellerRow.style.display = resellerInfo ? 'flex' : 'none';
+    set('invReseller', resellerInfo || '-');
 
-  selectedAddons.forEach(a => {
-    tableHtml += `
-      <tr>
-        <td>+ ${a.dataset.name}</td>
-        <td>Add-on service</td>
-        <td style="text-align:right">${parseInt(a.dataset.price) > 0 ? formatRp(parseInt(a.dataset.price)) : 'FREE'}</td>
-      </tr>`;
-  });
+    // Table items
+    let tableHtml = `
+        <tr>
+            <td><b>${selectedPkg.dataset.name}</b></td>
+            <td>Website ${selectedPkg.dataset.pkg} package</td>
+            <td style="text-align:right"><b>${formatRp(c.pkgPrice)}</b></td>
+        </tr>`;
 
-  if (deadlineFee > 0) {
-    tableHtml += `
-      <tr>
-        <td>+ ${selectedDeadline}</td>
-        <td>Prioritas pengerjaan</td>
-        <td style="text-align:right">${formatRp(deadlineFee)}</td>
-      </tr>`;
-  }
-
-  if (resellerInfo) {
-    tableHtml += `
-      <tr>
-        <td><i class="fas fa-user-tag" style="color:#d4a536;margin-right:6px"></i>Kode Reseller</td>
-        <td>${verifiedReseller.code} — ${verifiedReseller.name} (${verifiedReseller.tier})</td>
-        <td style="text-align:right;color:#25d366;">Verified ✓</td>
-      </tr>`;
-  }
-
-  document.getElementById('invTableBody').innerHTML = tableHtml;
-
-  document.getElementById('invSubtotal').textContent = formatRp(c.subtotal);
-  document.getElementById('invTotal').textContent    = formatRp(c.total);
-  document.getElementById('invPayNow').textContent   = formatRp(c.payNow);
-  document.getElementById('invPayTotal').textContent = formatRp(c.payNow);
-
-  if (deadlineFee > 0) {
-    document.getElementById('invDeadlineRow').style.display = 'flex';
-    document.getElementById('invDeadlineFee').textContent   = formatRp(deadlineFee);
-  }
-  if (c.couponAmt > 0) {
-    document.getElementById('invDiscountRow').style.display = 'flex';
-    document.getElementById('invDiscount').textContent      = '-' + formatRp(c.couponAmt);
-  }
-  if (c.fullpayDisc > 0) {
-    document.getElementById('invFullpayRow').style.display  = 'flex';
-    document.getElementById('invFullpay').textContent       = '-' + formatRp(c.fullpayDisc);
-  }
-  if (c.remaining > 0) {
-    document.getElementById('invRemainingRow').style.display = 'flex';
-    document.getElementById('invRemaining').textContent      = formatRp(c.remaining);
-  }
-
-  document.getElementById('invBankName').textContent   = selectedBank.name;
-  document.getElementById('invBankAcc').textContent    = selectedBank.account;
-  document.getElementById('invBankHolder').textContent = selectedBank.holder;
-  document.getElementById('invDeadline').textContent   = deadline.toLocaleString('id-ID', { day:'numeric', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit' });
-  document.getElementById('trackTime1').textContent    = now.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' }) + ' WIB';
-
-  // WhatsApp Message
-  const waLines = [];
-  waLines.push("Assalamu'alaikum Ibaadurrahmaan,");
-  waLines.push("");
-  waLines.push("Saya sudah membuat pesanan melalui website. Berikut detailnya:");
-  waLines.push("");
-  waLines.push("━━━━━━━━━━━━━━━━━━━━");
-  waLines.push("📋 *INVOICE*");
-  waLines.push("━━━━━━━━━━━━━━━━━━━━");
-  waLines.push("No. Invoice : " + orderId);
-  waLines.push("Tanggal     : " + now.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' }));
-  waLines.push("");
-  waLines.push("━━━━━━━━━━━━━━━━━━━━");
-  waLines.push("👤 *DATA PEMESAN*");
-  waLines.push("━━━━━━━━━━━━━━━━━━━━");
-  waLines.push("Nama      : " + name);
-  if (company) waLines.push("Perusahaan: " + company);
-  waLines.push("Email     : " + email);
-  waLines.push("WhatsApp  : +62" + phone);
-  if (bizType) waLines.push("Bisnis    : " + bizType);
-  waLines.push("");
-
-  if (verifiedReseller) {
-    waLines.push("━━━━━━━━━━━━━━━━━━━━");
-    waLines.push("🤝 *KODE RESELLER*");
-    waLines.push("━━━━━━━━━━━━━━━━━━━━");
-    waLines.push("Kode     : " + verifiedReseller.code);
-    waLines.push("Reseller : " + verifiedReseller.name);
-    waLines.push("Tier     : " + verifiedReseller.tier);
-    waLines.push("");
-  }
-
-  waLines.push("━━━━━━━━━━━━━━━━━━━━");
-  waLines.push("📦 *DETAIL PESANAN*");
-  waLines.push("━━━━━━━━━━━━━━━━━━━━");
-  waLines.push("Paket    : *" + selectedPkg.dataset.name + "*");
-  waLines.push("Harga    : " + formatRp(c.pkgPrice));
-
-  if (selectedAddons.length > 0) {
-    waLines.push("");
-    waLines.push("📎 Add-ons:");
     selectedAddons.forEach(a => {
-      const p = parseInt(a.dataset.price);
-      waLines.push("  • " + a.dataset.name + " — " + (p > 0 ? formatRp(p) : 'FREE'));
+        tableHtml += `
+            <tr>
+                <td>+ ${a.dataset.name}</td>
+                <td>Add-on service</td>
+                <td style="text-align:right">${parseInt(a.dataset.price) > 0 ? formatRp(parseInt(a.dataset.price)) : 'FREE'}</td>
+            </tr>`;
     });
-  }
 
-  waLines.push("");
-  waLines.push("Timeline : " + selectedDeadline);
+    if (deadlineFee > 0) {
+        tableHtml += `
+            <tr>
+                <td>+ ${selectedDeadline}</td>
+                <td>Prioritas pengerjaan</td>
+                <td style="text-align:right">${formatRp(deadlineFee)}</td>
+            </tr>`;
+    }
 
-  if (desc) {
-    waLines.push("");
-    waLines.push("📝 Kebutuhan:");
-    waLines.push(desc);
-  }
+    if (resellerInfo) {
+        tableHtml += `
+            <tr>
+                <td><i class="fas fa-user-tag" style="color:#d4a536;margin-right:6px"></i>Kode Reseller</td>
+                <td>${verifiedReseller.code} — ${verifiedReseller.name} (${verifiedReseller.tier})</td>
+                <td style="text-align:right;color:#25d366">Verified ✓</td>
+            </tr>`;
+    }
 
-  waLines.push("");
-  waLines.push("━━━━━━━━━━━━━━━━━━━━");
-  waLines.push("💰 *RINCIAN HARGA*");
-  waLines.push("━━━━━━━━━━━━━━━━━━━━");
-  waLines.push("Subtotal      : " + formatRp(c.subtotal));
-  if (deadlineFee > 0) waLines.push("Fast Delivery : " + formatRp(deadlineFee));
-  if (c.couponAmt > 0) waLines.push("Diskon (" + couponCode + ")  : -" + formatRp(c.couponAmt));
-  if (c.fullpayDisc > 0) waLines.push("Diskon Lunas 5%: -" + formatRp(c.fullpayDisc));
-  waLines.push("");
-  waLines.push("*TOTAL          : " + formatRp(c.total) + "*");
-  waLines.push("*Bayar Sekarang : " + formatRp(c.payNow) + "*");
-  if (c.remaining > 0) waLines.push("Sisa Pelunasan : " + formatRp(c.remaining));
-  waLines.push("");
-  waLines.push("━━━━━━━━━━━━━━━━━━━━");
-  waLines.push("💳 *PEMBAYARAN*");
-  waLines.push("━━━━━━━━━━━━━━━━━━━━");
-  waLines.push("Metode : " + selectedPayment);
-  waLines.push("Bank   : " + selectedBank.name);
-  waLines.push("Rek.   : " + selectedBank.account);
-  waLines.push("a.n.   : " + selectedBank.holder);
-  waLines.push("");
-  waLines.push("Saya akan segera melakukan transfer & mengirim bukti pembayaran.");
-  waLines.push("");
-  waLines.push("Jazaakumullahu khairan 🙏");
+    const tbody = document.getElementById('invTableBody');
+    if (tbody) tbody.innerHTML = tableHtml;
 
-  const waText = encodeURIComponent(waLines.join('\n'));
-  document.getElementById('waConfirm').href = 'https://wa.me/6281401643188?text=' + waText;
+    // Totals
+    set('invSubtotal', formatRp(c.subtotal));
+    set('invTotal',    formatRp(c.total));
+    set('invPayNow',   formatRp(c.payNow));
+    set('invPayTotal', formatRp(c.payNow));
+
+    const showRow = (id, show) => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = show ? 'flex' : 'none';
+    };
+
+    showRow('invDeadlineRow', deadlineFee > 0);
+    set('invDeadlineFee', formatRp(deadlineFee));
+
+    showRow('invDiscountRow', c.couponAmt > 0);
+    set('invDiscount', '-' + formatRp(c.couponAmt));
+
+    showRow('invFullpayRow', c.fullpayDisc > 0);
+    set('invFullpay', '-' + formatRp(c.fullpayDisc));
+
+    showRow('invRemainingRow', c.remaining > 0);
+    set('invRemaining', formatRp(c.remaining));
+
+    // Payment info
+    set('invBankName',   selectedBank.name);
+    set('invBankAcc',    selectedBank.account);
+    set('invBankHolder', selectedBank.holder);
+    set('invDeadline',   deadline.toLocaleString('id-ID', {
+        day:'numeric', month:'long', year:'numeric',
+        hour:'2-digit', minute:'2-digit'
+    }));
+    set('trackTime1', now.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' }) + ' WIB');
+
+    // Build WhatsApp message
+    buildWhatsAppMessage(orderId, c, now, name, company, email, phone, resellerInfo);
 }
 
 
 // ============================================
-// 📄 DOWNLOAD INVOICE AS PDF
+// BUILD WHATSAPP MESSAGE
 // ============================================
+function buildWhatsAppMessage(orderId, c, now, name, company, email, phone, resellerInfo) {
+    const bizType = document.getElementById('businessType')?.value || '';
+    const desc    = document.getElementById('description')?.value  || '';
+
+    const lines = [];
+    lines.push("Assalamu'alaikum Ibaadurrahmaan,");
+    lines.push('');
+    lines.push('Saya sudah membuat pesanan melalui website. Berikut detailnya:');
+    lines.push('');
+    lines.push('━━━━━━━━━━━━━━━━━━━━');
+    lines.push('📋 *INVOICE*');
+    lines.push('━━━━━━━━━━━━━━━━━━━━');
+    lines.push('No. Invoice : ' + orderId);
+    lines.push('Tanggal     : ' + now.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' }));
+    lines.push('');
+    lines.push('━━━━━━━━━━━━━━━━━━━━');
+    lines.push('👤 *DATA PEMESAN*');
+    lines.push('━━━━━━━━━━━━━━━━━━━━');
+    lines.push('Nama      : ' + name);
+    if (company) lines.push('Perusahaan: ' + company);
+    lines.push('Email     : ' + email);
+    lines.push('WhatsApp  : +62' + phone);
+    if (bizType) lines.push('Bisnis    : ' + bizType);
+    lines.push('');
+
+    if (verifiedReseller) {
+        lines.push('━━━━━━━━━━━━━━━━━━━━');
+        lines.push('🤝 *KODE RESELLER*');
+        lines.push('━━━━━━━━━━━━━━━━━━━━');
+        lines.push('Kode     : ' + verifiedReseller.code);
+        lines.push('Reseller : ' + verifiedReseller.name);
+        lines.push('Tier     : ' + verifiedReseller.tier);
+        lines.push('');
+    }
+
+    lines.push('━━━━━━━━━━━━━━━━━━━━');
+    lines.push('📦 *DETAIL PESANAN*');
+    lines.push('━━━━━━━━━━━━━━━━━━━━');
+    lines.push('Paket    : *' + selectedPkg.dataset.name + '*');
+    lines.push('Harga    : ' + formatRp(c.pkgPrice));
+
+    if (selectedAddons.length > 0) {
+        lines.push('');
+        lines.push('📎 Add-ons:');
+        selectedAddons.forEach(a => {
+            const p = parseInt(a.dataset.price);
+            lines.push('  • ' + a.dataset.name + ' — ' + (p > 0 ? formatRp(p) : 'FREE'));
+        });
+    }
+
+    lines.push('');
+    lines.push('Timeline : ' + selectedDeadline);
+
+    if (desc) {
+        lines.push('');
+        lines.push('📝 Kebutuhan:');
+        lines.push(desc);
+    }
+
+    lines.push('');
+    lines.push('━━━━━━━━━━━━━━━━━━━━');
+    lines.push('💰 *RINCIAN HARGA*');
+    lines.push('━━━━━━━━━━━━━━━━━━━━');
+    lines.push('Subtotal       : ' + formatRp(c.subtotal));
+    if (deadlineFee > 0)  lines.push('Fast Delivery  : ' + formatRp(deadlineFee));
+    if (c.couponAmt > 0)  lines.push('Diskon (' + couponCode + ')   : -' + formatRp(c.couponAmt));
+    if (c.fullpayDisc > 0) lines.push('Diskon Lunas 5%: -' + formatRp(c.fullpayDisc));
+    lines.push('');
+    lines.push('*TOTAL           : ' + formatRp(c.total) + '*');
+    lines.push('*Bayar Sekarang  : ' + formatRp(c.payNow) + '*');
+    if (c.remaining > 0) lines.push('Sisa Pelunasan : ' + formatRp(c.remaining));
+    lines.push('');
+    lines.push('━━━━━━━━━━━━━━━━━━━━');
+    lines.push('💳 *PEMBAYARAN*');
+    lines.push('━━━━━━━━━━━━━━━━━━━━');
+    lines.push('Metode : ' + selectedPayment);
+    lines.push('Bank   : ' + selectedBank.name);
+    lines.push('Rek.   : ' + selectedBank.account);
+    lines.push('a.n.   : ' + selectedBank.holder);
+    lines.push('');
+    lines.push('Saya akan segera melakukan transfer & mengirim bukti pembayaran.');
+    lines.push('');
+    lines.push('Jazaakumullahu khairan 🙏');
+
+    const waText = encodeURIComponent(lines.join('\n'));
+    const waLink = document.getElementById('waConfirm');
+    if (waLink) waLink.href = 'https://wa.me/6281401643188?text=' + waText;
+}
 
 
+// ============================================
+// DOWNLOAD INVOICE PDF
+// ============================================
 async function downloadInvoice() {
     const invoiceEl = document.getElementById('invoiceCard');
     if (!invoiceEl) return;
-    
-    const filename = 'Invoice-' + (document.getElementById('invNumber')?.textContent || 'invoice') + '.pdf';
-    
-    const loading = document.getElementById('pdfLoading');
+
+    const filename  = 'Invoice-' + (document.getElementById('invNumber')?.textContent || 'invoice') + '.pdf';
+    const loading   = document.getElementById('pdfLoading');
+
     if (loading) loading.classList.add('show');
-    
     document.body.classList.add('html2pdf-active');
     invoiceEl.classList.add('pdf-mode');
-    
+
     await new Promise(r => setTimeout(r, 500));
-    
-    const actualHeightPx = invoiceEl.scrollHeight;
-    const contentWidth = 820; // 800px content + 20px margin
-    const contentHeight = actualHeightPx + 40; // + padding
-    
-    console.log('📏 PDF size:', contentWidth + 'px × ' + contentHeight + 'px');
-    
+
+    const actualH = invoiceEl.scrollHeight;
+    const pdfW    = 820;
+    const pdfH    = actualH + 40;
+
     const options = {
-        margin       : 0,
-        filename     : filename,
-        image        : { type: 'jpeg', quality: 0.95 },
-        html2canvas  : {
-            scale       : 2,
-            useCORS     : true,
-            allowTaint  : true,
-            logging     : false,
-            windowWidth : 800,
-            width       : 800,
+        margin  : 0,
+        filename: filename,
+        image   : { type: 'jpeg', quality: 0.95 },
+        html2canvas: {
+            scale          : 2,
+            useCORS        : true,
+            allowTaint     : true,
+            logging        : false,
+            windowWidth    : 800,
+            width          : 800,
             backgroundColor: '#ffffff',
-            scrollY     : 0,
-            scrollX     : 0,
-            onclone     : (clonedDoc) => {
+            scrollY        : 0,
+            scrollX        : 0,
+            onclone: (clonedDoc) => {
                 const target = clonedDoc.getElementById('invoiceCard');
                 if (!target) return;
-                
-                target.style.width = '800px';
-                target.style.maxWidth = '800px';
-                target.style.margin = '0';
-                target.style.padding = '20px';
-                target.style.background = '#ffffff';
-                target.style.color = '#333333';
-                target.style.boxShadow = 'none';
-                target.style.minHeight = 'auto';
-                target.style.height = 'auto';
-                target.style.display = 'block';
-                target.style.visibility = 'visible';
-                target.style.opacity = '1';
-                
+                target.style.cssText = 'width:800px;max-width:800px;margin:0;padding:20px;background:#ffffff;color:#333;box-shadow:none;border-radius:0;display:block;';
                 const ipbGrid = target.querySelector('.ipb-grid');
                 if (ipbGrid) {
-                    ipbGrid.style.display = 'flex';
-                    ipbGrid.style.flexDirection = 'column';
-                    ipbGrid.style.gap = '8px';
+                    ipbGrid.style.cssText = 'display:flex;flex-direction:column;gap:8px;';
                 }
-                
                 target.querySelectorAll('.ipb-item').forEach(item => {
-                    item.style.display = 'flex';
-                    item.style.justifyContent = 'space-between';
-                    item.style.alignItems = 'center';
-                    item.style.width = '100%';
-                    item.style.padding = '10px 14px';
+                    item.style.cssText = 'display:flex;justify-content:space-between;align-items:center;width:100%;padding:10px 14px;';
                 });
-                
-                target.querySelectorAll('br + br, p:empty, div:empty').forEach(el => {
-                    el.style.display = 'none';
-                });
-                
                 clonedDoc.querySelectorAll(
-                    '.order-header, .progress-steps, .success-icon, .success-title, ' +
-                    '.success-desc, .firebase-status, .success-actions, .tracking-card, ' +
-                    '.back-shop, .toast, .processing-overlay, .pdf-loading'
+                    '.order-header,.progress-steps,.success-icon,.success-title,' +
+                    '.success-desc,.firebase-status,.success-actions,.tracking-card,' +
+                    '.back-shop,.toast,.processing-overlay,.pdf-loading'
                 ).forEach(el => el.style.display = 'none');
             }
         },
-        jsPDF        : {
-            unit        : 'px',           // ⭐ PX unit
-            format      : [contentWidth, contentHeight],  // ⭐ Match content
-            orientation : 'portrait',
-            compress    : true,
-            hotfixes    : ['px_scaling']  // ⭐ Fix scaling
+        jsPDF: {
+            unit       : 'px',
+            format     : [pdfW, pdfH],
+            orientation: 'portrait',
+            compress   : true,
+            hotfixes   : ['px_scaling']
         }
     };
-    
+
     try {
         await html2pdf().set(options).from(invoiceEl).save();
         showToast('✅ Invoice berhasil diunduh!');
@@ -2614,23 +2352,17 @@ async function downloadInvoice() {
 }
 
 
-// ═══════════════════════════════════════════
-// 🖨️ PRINT INVOICE
-// ═══════════════════════════════════════════
+// ============================================
+// PRINT INVOICE
+// ============================================
 function printInvoice() {
     const invoiceEl = document.getElementById('invoiceCard');
-    if (!invoiceEl) {
-        showToast('❌ Invoice tidak ditemukan');
-        return;
-    }
-    
+    if (!invoiceEl) { showToast('❌ Invoice tidak ditemukan'); return; }
+
     const filename = 'Invoice-' + (document.getElementById('invNumber')?.textContent || 'invoice');
-    
-    // Deteksi mobile
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    
+
     if (isMobile) {
-        // Mobile: print langsung halaman ini
         showToast('💡 Pilih "Simpan sebagai PDF" di dialog print');
         invoiceEl.classList.add('pdf-mode');
         setTimeout(() => {
@@ -2638,72 +2370,46 @@ function printInvoice() {
             setTimeout(() => invoiceEl.classList.remove('pdf-mode'), 1500);
         }, 500);
     } else {
-        // Desktop: pakai popup window
         openPrintWindow(invoiceEl, filename);
     }
 }
 
-
-// ═══════════════════════════════════════════
-// 🖨️ PRINT WINDOW (Desktop)
-// ═══════════════════════════════════════════
 function openPrintWindow(invoiceEl, filename) {
-    if (!invoiceEl) {
-        showToast('❌ Invoice tidak ditemukan');
-        return;
-    }
-    
     const invoiceHTML = invoiceEl.outerHTML;
-    
-    // Ambil CSS
+
     let stylesheetLinks = '';
-    let inlineStyles = '';
-    
+    let inlineStyles    = '';
     Array.from(document.styleSheets).forEach(sheet => {
         try {
             if (sheet.href) {
                 stylesheetLinks += '<link rel="stylesheet" href="' + sheet.href + '">\n';
             } else if (sheet.cssRules) {
-                const rules = Array.from(sheet.cssRules).map(r => r.cssText).join('\n');
-                inlineStyles += rules + '\n';
+                inlineStyles += Array.from(sheet.cssRules).map(r => r.cssText).join('\n') + '\n';
             }
         } catch(e) {
-            if (sheet.href) {
-                stylesheetLinks += '<link rel="stylesheet" href="' + sheet.href + '">\n';
-            }
+            if (sheet.href) stylesheetLinks += '<link rel="stylesheet" href="' + sheet.href + '">\n';
         }
     });
-    
-    const printCSS = 
+
+    const printCSS =
         '*{box-sizing:border-box;margin:0;padding:0;}' +
-        'html,body{background:#f0f0f0!important;font-family:Poppins,Arial,sans-serif;color:#333;line-height:1.5;padding:20px 16px;}' +
-        '.print-guide{max-width:800px;margin:0 auto 20px;padding:20px;background:linear-gradient(135deg,#d4a536,#c19a2e);color:#fff;border-radius:16px;text-align:center;box-shadow:0 8px 25px rgba(212,165,54,0.4);}' +
+        'html,body{background:#f0f0f0!important;font-family:Poppins,Arial,sans-serif;color:#333;padding:20px 16px;}' +
+        '.print-guide{max-width:800px;margin:0 auto 20px;padding:20px;background:linear-gradient(135deg,#d4a536,#c19a2e);color:#fff;border-radius:16px;text-align:center;}' +
         '.print-guide h3{margin:0 0 12px;font-size:1.1rem;font-weight:800;color:#fff!important;}' +
-        '.print-guide p{margin:8px 0;font-size:0.88rem;opacity:0.95;line-height:1.6;color:#fff!important;}' +
-        '.print-guide button{margin-top:12px;padding:14px 32px;background:#fff;color:#d4a536;border:none;border-radius:100px;font-weight:800;cursor:pointer;font-size:1rem;box-shadow:0 4px 15px rgba(0,0,0,0.2);}' +
-        '#invoiceCard{background:#fff!important;max-width:800px;margin:0 auto;padding:40px;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.15);color:#333!important;}' +
+        '.print-guide p{margin:8px 0;font-size:0.88rem;color:#fff!important;}' +
+        '.print-guide button{margin-top:12px;padding:14px 32px;background:#fff;color:#d4a536;border:none;border-radius:100px;font-weight:800;cursor:pointer;font-size:1rem;}' +
+        '#invoiceCard{background:#fff!important;max-width:800px;margin:0 auto;padding:40px;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.15);}' +
         '#invoiceCard *{color:#333!important;}' +
         '#invoiceCard h1,#invoiceCard h2,#invoiceCard h3,#invoiceCard h4{color:#d4a536!important;}' +
-        '@media (max-width:768px){body{padding:12px 8px;}#invoiceCard{padding:20px 16px!important;border-radius:8px!important;}}' +
-        '@media print{*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}html,body{background:#fff!important;padding:0!important;margin:0!important;}.print-guide{display:none!important;}#invoiceCard{padding:12mm 10mm!important;box-shadow:none!important;border-radius:0!important;max-width:100%!important;margin:0!important;}@page{size:A4 portrait;margin:10mm 8mm;}}';
-    
-    // Script content — split "script" tag biar aman di string
-    const scriptContent = 
-        "document.addEventListener('DOMContentLoaded', function() {" +
-            "var btn = document.getElementById('btnPrint');" +
-            "if (btn) {" +
-                "btn.addEventListener('click', function() {" +
-                    "setTimeout(function() { window.print(); }, 300);" +
-                "});" +
-            "}" +
-        "});" +
-        "window.addEventListener('load', function() { window.focus(); });";
-    
-    const fullHTML = 
-        '<!DOCTYPE html>' +
-        '<html lang="id"><head>' +
-        '<meta charset="UTF-8">' +
-        '<meta name="viewport" content="width=device-width, initial-scale=1.0">' +
+        '@media print{*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}.print-guide{display:none!important;}#invoiceCard{padding:12mm 10mm!important;box-shadow:none!important;max-width:100%!important;margin:0!important;}@page{size:A4 portrait;margin:10mm 8mm;}}';
+
+    const scriptContent =
+        "document.getElementById('btnPrint')?.addEventListener('click',function(){setTimeout(function(){window.print();},300);});" +
+        "window.addEventListener('load',function(){window.focus();});";
+
+    const fullHTML =
+        '<!DOCTYPE html><html lang="id"><head>' +
+        '<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">' +
         '<title>' + filename + '</title>' +
         '<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">' +
         '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">' +
@@ -2722,14 +2428,12 @@ function openPrintWindow(invoiceEl, filename) {
         invoiceHTML +
         '<scr' + 'ipt>' + scriptContent + '</scr' + 'ipt>' +
         '</body></html>';
-    
+
     const win = window.open('', '_blank', 'width=900,height=1000,scrollbars=yes,resizable=yes');
-    
-    if (!win || win.closed || typeof win.closed === 'undefined') {
-        showToast('❌ Popup diblokir. Izinkan popup untuk lanjut.');
+    if (!win || win.closed) {
+        showToast('❌ Popup diblokir. Izinkan popup di browser Anda.');
         return;
     }
-    
     try {
         win.document.open();
         win.document.write(fullHTML);
@@ -2737,7 +2441,6 @@ function openPrintWindow(invoiceEl, filename) {
         win.focus();
         showToast('✅ Jendela print terbuka');
     } catch(err) {
-        console.error('Print window error:', err);
         showToast('❌ Gagal buka window: ' + err.message);
     }
 }
@@ -2747,76 +2450,104 @@ function openPrintWindow(invoiceEl, filename) {
 // UTILS
 // ============================================
 function copyText(id) {
-  const text    = document.getElementById(id).textContent;
-  const cleaned = text.replace(/[^0-9]/g, '');
-  navigator.clipboard.writeText(cleaned || text)
-    .then(() => showToast('Berhasil disalin!'))
-    .catch(() => showToast('Copy: ' + text));
+    const el   = document.getElementById(id);
+    if (!el) return;
+    const text = el.textContent;
+    const clean = text.replace(/[^0-9]/g, '');
+    navigator.clipboard.writeText(clean || text)
+        .then(() => showToast('✅ Berhasil disalin!'))
+        .catch(() => showToast('Salin: ' + text));
 }
 
 function showToast(text) {
-  const toast = document.getElementById('toast');
-  document.getElementById('toastText').textContent = text;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2500);
+    const toast = document.getElementById('toast');
+    const label = document.getElementById('toastText');
+    if (!toast || !label) return;
+    label.textContent = text;
+    toast.classList.add('show');
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => toast.classList.remove('show'), 2800);
+}
+
+function debounce(fn, ms) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), ms);
+    };
 }
 
 
 // ============================================
-// INIT
+// INIT — DOMContentLoaded
 // ============================================
-renderSummary();
-
 document.addEventListener('DOMContentLoaded', () => {
-  const resellerInput = document.getElementById('resellerCode');
-  if (resellerInput) {
-    resellerInput.addEventListener('keydown', e => {
-      if (e.key === 'Enter') { e.preventDefault(); verifyReseller(); }
-    });
-    resellerInput.addEventListener('input', () => {
-      resellerInput.value = resellerInput.value.toUpperCase();
-    });
-  }
+
+    // 1. Init dropdown system
+    initDropdowns();
+
+    // 2. Init addons
+    initAddons();
+
+    // 3. Init deadlines
+    initDeadlines();
+
+    // 4. Reseller input — uppercase + Enter
+    const resellerInput = document.getElementById('resellerCode');
+    if (resellerInput) {
+        resellerInput.addEventListener('input', () => {
+            resellerInput.value = resellerInput.value.toUpperCase();
+        });
+        resellerInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter') { e.preventDefault(); verifyReseller(); }
+        });
+    }
+
+    // 5. Coupon input — Enter
+    const couponInput = document.getElementById('couponInput');
+    if (couponInput) {
+        couponInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter') { e.preventDefault(); applyCoupon(); }
+        });
+    }
+
+    // 6. Initial render
+    renderSummary();
+
+    // 7. URL params
+    const params     = new URLSearchParams(window.location.search);
+    const pkgParam   = params.get('pkg');
+    const refParam   = params.get('ref') || params.get('reseller');
+
+    if (pkgParam) {
+        setTimeout(() => {
+            const card = document.querySelector('.package-card[data-pkg="' + pkgParam + '"]');
+            if (card) card.querySelector('.pkg-select-btn')?.click();
+        }, 150);
+    }
+
+    if (refParam && resellerInput) {
+        resellerInput.value = refParam.toUpperCase();
+        const tryVerify = () => {
+            if (window.fbOrder && window.fbOrder.ready) {
+                verifyReseller();
+            } else {
+                setTimeout(tryVerify, 300);
+            }
+        };
+        setTimeout(tryVerify, 800);
+    }
+
+    console.log('✅ Order page initialized');
 });
 
-// URL param: auto select package
-const urlParams = new URLSearchParams(window.location.search);
-const pkgParam  = urlParams.get('pkg');
-if (pkgParam) {
-  setTimeout(() => {
-    const card = document.querySelector('.package-card[data-pkg="' + pkgParam + '"]');
-    if (card) card.querySelector('.pkg-select-btn').click();
-  }, 100);
-}
-
-// URL param: auto fill reseller code
-const resellerParam = urlParams.get('ref') || urlParams.get('reseller');
-if (resellerParam) {
-  setTimeout(() => {
-    const input = document.getElementById('resellerCode');
-    if (input) {
-      input.value = resellerParam.toUpperCase();
-      const tryVerify = () => {
-        if (window.fbOrder && window.fbOrder.ready) {
-          verifyReseller();
-        } else {
-          setTimeout(tryVerify, 300);
-        }
-      };
-      tryVerify();
-    }
-  }, 800);
-}
-
 document.addEventListener('fbOrderReady', () => {
-  console.log('✅ Firebase siap menerima order & verifikasi reseller!');
+    console.log('🔥 Firebase siap menerima order & verifikasi reseller!');
 });
 </script>
 
-
-<!-- ⭐ WAJIB: Load script.js utama (Auto-navbar, Mobile sheet, dll) -->
+<!-- Load script.js utama -->
 <script src="script.js"></script>
-
 
 </body>
 </html>
