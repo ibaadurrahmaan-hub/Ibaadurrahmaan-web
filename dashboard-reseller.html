@@ -1260,9 +1260,11 @@ function goToSlipFromKomisi() {
     const tier = (r.tier || 'silver').toLowerCase();
     const monthVal = document.getElementById('mkMonthFilter')?.value || '';
     
+    // ═══ 1. AMBIL DATA CLOSING (yg lunas & belum dibayar komisi) ═══
     let list = getResellerClientsCommission(mkCurrentResellerId)
         .filter(c => c.paymentStatus === 'paid_full');
     
+    // Filter by month kalau ada
     if (monthVal) {
         const [yr, mon] = monthVal.split('-').map(Number);
         list = list.filter(c => {
@@ -1274,42 +1276,139 @@ function goToSlipFromKomisi() {
         });
     }
     
-    if (!list.length) {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Tidak Ada Data',
-            text: 'Tidak ada closing untuk dibuat slip',
-            customClass: { popup: 'swal-premium' }
-        });
-        return;
-    }
-    
+    // ═══ 2. TRANSFORM CLOSINGS ═══
     const closings = list.map(c => {
         const pd = c.priceDetail || {};
         const base = pd.basePrice || pd.total || parseRp(c.value) || 0;
         const comm = calcKomisi(base, tier);
         return {
-            clientId: c.id, client: c.name || '-', clientName: c.name || '-',
-            project: c.project || '-', paket: base,
-            paketName: c.project || 'Custom Project',
-            basePrice: base, komisi: comm.komisi, bonus: comm.bonus,
-            total: comm.total, pct: comm.pct,
-            isPaid: c.referral?.commissionStatus === 'paid',
+            clientId  : c.id,
+            client    : c.name || '-',
+            clientName: c.name || '-',
+            project   : c.project || '-',
+            paket     : base,
+            paketName : c.project || 'Custom Project',
+            basePrice : base,
+            komisi    : comm.komisi,
+            bonus     : comm.bonus,          // Bonus tier (per closing)
+            total     : comm.total,
+            pct       : comm.pct,
+            isPaid    : c.referral?.commissionStatus === 'paid',
             tglClosing: c.paidAt?.toDate?.().toISOString().split('T')[0] 
                      || c.createdAt?.toDate?.().toISOString().split('T')[0] 
                      || new Date().toISOString().split('T')[0]
         };
     });
     
+    // ═══ 3. AMBIL DATA REWARD (Tier 1 & Tier 2) ═══
+    const rewards = [];
+    const resellerRewards = r.rewards || {};
+    const tier1 = resellerRewards.tier1 || {};
+    const tier2 = resellerRewards.tier2 || {};
+    
+    // Reward Tier 1: Sudah earned tapi belum paid
+    if (tier1.earned && !tier1.paid) {
+        rewards.push({
+            id      : 'reward_tier1',
+            type    : 'reward_module',
+            icon    : '🥈',
+            name    : 'Reward Tier 1',
+            desc    : 'Menyelesaikan 15 modul pembelajaran',
+            amount  : tier1.amount || 50000,
+            earnedAt: tier1.earnedAt || null
+        });
+    }
+    
+    // Reward Tier 2: Sudah earned tapi belum paid
+    if (tier2.earned && !tier2.paid) {
+        rewards.push({
+            id      : 'reward_tier2',
+            type    : 'reward_sop',
+            icon    : '🥇',
+            name    : 'Reward Tier 2',
+            desc    : 'Menyelesaikan 15 modul + 6 SOP',
+            amount  : tier2.amount || 100000,
+            earnedAt: tier2.earnedAt || null
+        });
+    }
+    
+    // ═══ 4. AMBIL DATA BONUS LAINNYA (dari collection reseller_bonuses) ═══
+    // Format: bonuses adalah array di document reseller / di collection terpisah
+    const bonuses = [];
+    const resellerBonuses = r.bonuses || [];  // Array kalau ada
+    
+    resellerBonuses.forEach(b => {
+        // Hanya masukkan bonus yang belum dibayar
+        if (!b.paid) {
+            bonuses.push({
+                id     : b.id || 'bonus_' + Date.now(),
+                type   : b.type || 'custom',
+                icon   : b.icon || '🎁',
+                name   : b.name || 'Bonus',
+                desc   : b.desc || '',
+                amount : parseInt(b.amount) || 0,
+                addedAt: b.addedAt || null
+            });
+        }
+    });
+    
+    // ═══ 5. VALIDASI: HARUS ADA MINIMAL 1 ITEM ═══
+    if (closings.length === 0 && rewards.length === 0 && bonuses.length === 0) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Tidak Ada Data',
+            html: `
+                <div style="text-align:left;font-size:0.88rem;line-height:1.6;">
+                    Tidak ada yang bisa dibayarkan untuk periode ini:<br>
+                    <ul style="margin:8px 0;padding-left:24px;color:rgba(255,255,255,0.7);">
+                        <li>❌ Tidak ada closing lunas</li>
+                        <li>❌ Tidak ada reward pending</li>
+                        <li>❌ Tidak ada bonus pending</li>
+                    </ul>
+                </div>
+            `,
+            customClass: { popup: 'swal-premium' }
+        });
+        return;
+    }
+    
+    // ═══ 6. HITUNG TOTAL ═══
+    const totalKomisi = closings.reduce((s, c) => s + c.total, 0);
+    const totalReward = rewards.reduce((s, r) => s + r.amount, 0);
+    const totalBonus  = bonuses.reduce((s, b) => s + b.amount, 0);
+    const grandTotal  = totalKomisi + totalReward + totalBonus;
+    
+    // ═══ 7. BUILD SLIP DATA ═══
     const slipData = {
-        mode: 'bulk', resellerId: mkCurrentResellerId,
-        nama: r.nama || '', kode: r.resellerCode || '',
-        tier: tier, bank: r.bank || '', norek: r.norek || '',
-        atasNama: r.atasNama || r.nama || '', wa: r.wa || '',
-        period: monthVal || '',
-        tglBayar: new Date().toISOString().split('T')[0],
-        closings: closings
+        mode        : 'bulk',
+        resellerId  : mkCurrentResellerId,
+        nama        : r.nama || '',
+        kode        : r.resellerCode || '',
+        tier        : tier,
+        bank        : r.bank || '',
+        norek       : r.norek || '',
+        atasNama    : r.atasNama || r.nama || '',
+        wa          : r.wa || '',
+        period      : monthVal || '',
+        tglBayar    : new Date().toISOString().split('T')[0],
+        
+        // Data closings (komisi)
+        closings    : closings,
+        totalKomisi : totalKomisi,
+        
+        // ⭐ NEW: Data reward
+        rewards     : rewards,
+        totalReward : totalReward,
+        
+        // ⭐ NEW: Data bonus
+        bonuses     : bonuses,
+        totalBonus  : totalBonus,
+        
+        // ⭐ NEW: Grand total
+        grandTotal  : grandTotal
     };
+    
+    console.log('📤 Slip data:', slipData);
     
     sessionStorage.setItem('slip_autofill', JSON.stringify(slipData));
     window.location.href = 'dashboard-slip.html?autofill=1';
