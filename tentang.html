@@ -280,25 +280,67 @@ body {
     margin-bottom: 60px;
 }
 
+/* ═══════════════════════════════════════
+   SECTION TITLE (Fixed - No Bullet)
+═══════════════════════════════════════ */
 .section-title {
     font-family: 'Montserrat', sans-serif;
     font-size: clamp(1.4rem, 3vw, 2rem);
     font-weight: 900;
     color: var(--text);
-    margin-bottom: 16px;
+    margin: 0 0 20px 0;
+    padding: 0 0 16px 0;
+    border-bottom: 2px solid var(--gold);
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding-bottom: 14px;
-    border-bottom: 2px solid var(--gold);
+    gap: 12px;
+    list-style: none;
+    line-height: 1.2;
 }
 
-.section-title i {
+.section-title .st-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(212,165,54,0.15);
+    border: 1px solid rgba(212,165,54,0.3);
+    border-radius: 12px;
     color: var(--gold);
-    font-size: 1.4rem;
+    flex-shrink: 0;
 }
 
-.section-title span { color: var(--gold); }
+.section-title .st-icon i {
+    font-size: 1.15rem;
+}
+
+.section-title .st-text {
+    flex: 1;
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+}
+
+.section-title .st-text b {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+}
+
+/* Reset list default di dalam section */
+.section-block ul,
+.section-block ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.section-block ul.vm-list {
+    margin-top: 12px;
+}
 
 /* ═══════════════════════════════════════
    STORY SECTION
@@ -335,6 +377,8 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    position: relative;
+    z-index: 1;
 }
 
 .story-image .owner-name {
@@ -352,6 +396,7 @@ body {
     font-weight: 800;
     text-align: center;
     border: 1px solid rgba(212,165,54,0.3);
+    z-index: 2;
 }
 
 .story-image .owner-name small {
@@ -376,6 +421,10 @@ body {
 .story-content p b {
     color: var(--gold);
     font-weight: 700;
+}
+
+.story-content p:empty {
+    display: none;
 }
 
 /* ═══════════════════════════════════════
@@ -758,6 +807,16 @@ body {
     .btn-cta { width: 100%; justify-content: center; }
     .timeline-wrap::before { left: 20px; }
     .timeline-year { width: 40px; height: 40px; font-size: 0.7rem; }
+    
+    /* Section title mobile */
+    .section-title .st-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+    }
+    .section-title .st-icon i {
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -765,6 +824,9 @@ body {
     .stats-grid { grid-template-columns: 1fr 1fr; }
     .stat-number { font-size: 1.8rem; }
     .stat-label { font-size: 0.75rem; }
+    .hero-tentang { padding: 100px 12px 32px; }
+    .hero-title-tentang { font-size: 1.5rem; }
+    .hero-badge { font-size: 0.68rem; padding: 6px 16px; }
 }
 
 /* Custom classes untuk navbar auto-inject */
@@ -789,28 +851,6 @@ body {
     flex-direction: column;
     line-height: 1;
 }
-
-/* Fix bullet aneh di section-title */
-.section-title span {
-    color: var(--gold);
-    list-style: none;  /* Hilangkan bullet */
-}
-
-/* Reset list default */
-.section-block ul,
-.section-block ol {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-/* Section title jangan pakai list style */
-.section-title {
-    list-style: none;
-    padding: 0;
-    padding-bottom: 14px;
-}
-
 </style>
 </head>
 <body>
@@ -844,14 +884,14 @@ body {
     <!-- ═══ STORY / TENTANG KAMI ═══ -->
     <div class="section-block">
         <h2 class="section-title">
-            <i class="fas fa-book-open"></i>
-            Cerita <span>Kami</span>
+            <span class="st-icon"><i class="fas fa-book-open"></i></span>
+            <span class="st-text">Cerita <b>Kami</b></span>
         </h2>
         
         <div class="story-grid">
             <div class="story-image">
                 <!-- ⭐ GANTI dengan foto owner asli -->
-                <!-- <img src="images/owner.jpg" alt="Owner Ibaadurrahmaan" class="owner-photo"> -->
+                <!-- <img src="owner.jpg" alt="Ibaadurrohman - Founder" class="owner-photo"> -->
                 <div class="owner-name">
                     Ibaadurrohman
                     <small>Founder & Web Designer</small>
@@ -891,8 +931,8 @@ body {
     <!-- ═══ VISI & MISI ═══ -->
     <div class="section-block">
         <h2 class="section-title">
-            <i class="fas fa-bullseye"></i>
-            Visi & <span>Misi</span>
+            <span class="st-icon"><i class="fas fa-bullseye"></i></span>
+            <span class="st-text">Visi & <b>Misi</b></span>
         </h2>
         
         <div class="vm-grid">
@@ -929,8 +969,8 @@ body {
     <!-- ═══ NILAI / PRINSIP ═══ -->
     <div class="section-block">
         <h2 class="section-title">
-            <i class="fas fa-gem"></i>
-            Nilai <span>Kami</span>
+            <span class="st-icon"><i class="fas fa-gem"></i></span>
+            <span class="st-text">Nilai <b>Kami</b></span>
         </h2>
         
         <div class="values-grid">
@@ -987,8 +1027,8 @@ body {
     <!-- ═══ STATISTIK ═══ -->
     <div class="section-block">
         <h2 class="section-title">
-            <i class="fas fa-chart-line"></i>
-            Pencapaian <span>Kami</span>
+            <span class="st-icon"><i class="fas fa-chart-line"></i></span>
+            <span class="st-text">Pencapaian <b>Kami</b></span>
         </h2>
         
         <div class="stats-box">
@@ -1016,8 +1056,8 @@ body {
     <!-- ═══ TIMELINE / PERJALANAN ═══ -->
     <div class="section-block">
         <h2 class="section-title">
-            <i class="fas fa-history"></i>
-            Perjalanan <span>Kami</span>
+            <span class="st-icon"><i class="fas fa-history"></i></span>
+            <span class="st-text">Perjalanan <b>Kami</b></span>
         </h2>
         
         <div class="timeline-wrap">
@@ -1103,32 +1143,36 @@ body {
 </div>
 
 
-
-<!-- ==================== FOOTER ==================== -->
+<!-- ═══════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════ -->
 <footer class="footer">
-  <div class="container">
-    <div class="footer-bottom">
-      <div class="footer-brand">
-        <img src="main-logo.png" alt="Logo Ibaadurrahmaan Web Designer">
-      </div>
-      
-      <div class="footer-social">
-        <a href="https://wa.me/6281401643188" title="WhatsApp" aria-label="Chat WhatsApp">
-          <i class="fab fa-whatsapp" aria-hidden="true"></i>
-        </a>
-        <a href="mailto:ibadurrohman1428@gmail.com" title="Email" aria-label="Kirim Email">
-          <i class="fas fa-envelope" aria-hidden="true"></i>
-        </a>
-      </div>
-      
-      <div class="footer-copy">
-        <p>© 2026 Ibaadurrahmaan. Dibuat dengan ❤️ untuk bisnis Indonesia.</p>
-      </div>
+    <div class="container">
+        <div class="footer-bottom">
+            <div class="footer-brand">
+                <img src="main-logo.png" alt="Logo Ibaadurrahmaan Web Designer">
+            </div>
+            
+            <div class="footer-social">
+                <a href="https://wa.me/6281401643188" title="WhatsApp" aria-label="Chat WhatsApp">
+                    <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                </a>
+                <a href="mailto:ibadurrohman1428@gmail.com" title="Email" aria-label="Kirim Email">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                </a>
+            </div>
+            
+            <div class="footer-copy">
+                <p>© 2026 Ibaadurrahmaan. Dibuat dengan ❤️ untuk bisnis Indonesia.</p>
+            </div>
+        </div>
     </div>
-  </div>
 </footer>
 
-<!-- ==================== MOBILE BOTTOM NAV (Konsisten) ==================== -->
+
+<!-- ═══════════════════════════════════════
+     MOBILE BOTTOM NAV
+═══════════════════════════════════════ -->
 <nav class="mobile-nav" id="mobileNav">
     <a href="index.html" class="mnav-item" data-page="index">
         <i class="fas fa-home"></i>
@@ -1157,7 +1201,6 @@ body {
 </nav>
 
 
-
 <!-- ═══════════════════════════════════════
      MOBILE BOTTOM SHEET
 ═══════════════════════════════════════ -->
@@ -1182,6 +1225,26 @@ body {
    class="fab-wa" aria-label="Chat WhatsApp" target="_blank">
     <i class="fab fa-whatsapp"></i>
 </a>
+
+
+<!-- ═══════════════════════════════════════
+     QUICK FIX: FORCE ACTIVE MENU LAYANAN
+═══════════════════════════════════════ -->
+<script>
+// Force active menu Layanan di halaman tentang
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        document.querySelectorAll('.mnav-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        const layananBtn = document.querySelector('.mnav-item[data-page="layanan"]');
+        if (layananBtn) {
+            layananBtn.classList.add('active');
+            console.log('✅ Menu Layanan aktif di halaman Tentang');
+        }
+    }, 300);
+});
+</script>
 
 
 <!-- ⭐ WAJIB: Load script.js utama -->
