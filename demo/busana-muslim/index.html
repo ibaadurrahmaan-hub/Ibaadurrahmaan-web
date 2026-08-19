@@ -590,16 +590,17 @@ body.no-scroll { overflow: hidden; }
     gap: 16px;
 }
 
+/* ═══ CATEGORY CARDS - WITH REAL IMAGES ═══ */
 .cat-card {
     background: linear-gradient(145deg, var(--card), rgba(22,33,62,0.5));
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 28px 16px;
-    text-align: center;
+    overflow: hidden;
     cursor: pointer;
     transition: all 0.3s;
     text-decoration: none;
     display: block;
+    position: relative;
 }
 
 .cat-card:hover {
@@ -608,25 +609,119 @@ body.no-scroll { overflow: hidden; }
     box-shadow: 0 12px 30px rgba(0,0,0,0.3);
 }
 
-.cat-icon {
-    font-size: 2.5rem;
+.cat-img {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(212,117,140,0.05));
+}
+
+.cat-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
     display: block;
-    margin-bottom: 12px;
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+.cat-card:hover .cat-img img {
+    transform: scale(1.15);
+}
+
+.cat-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, 
+        rgba(15,15,35,0.1) 0%,
+        rgba(15,15,35,0.4) 60%,
+        rgba(15,15,35,0.85) 100%);
+    z-index: 1;
+    transition: all 0.3s;
+}
+
+.cat-card:hover .cat-overlay {
+    background: linear-gradient(180deg, 
+        rgba(201,168,76,0.15) 0%,
+        rgba(15,15,35,0.5) 60%,
+        rgba(15,15,35,0.9) 100%);
+}
+
+.cat-icon-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 4rem;
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(212,117,140,0.05));
+}
+
+.cat-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    z-index: 2;
+    text-align: center;
 }
 
 .cat-name {
-    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
     color: var(--white);
-    font-size: 0.95rem;
+    font-size: 1.15rem;
     margin-bottom: 4px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    letter-spacing: 0.5px;
 }
 
 .cat-count {
-    color: var(--text-muted);
-    font-size: 0.75rem;
+    display: inline-block;
+    padding: 3px 10px;
+    background: rgba(201,168,76,0.85);
+    color: var(--dark);
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 100px;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(4px);
 }
 
+/* Category card - featured/hot badge (optional) */
+.cat-card .cat-badge-hot {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: linear-gradient(135deg, var(--pink), #b85874);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    z-index: 3;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(212,117,140,0.4);
+}
+
+/* Mobile: image lebih compact */
+@media (max-width: 480px) {
+    .cat-img {
+        aspect-ratio: 1 / 1;
+    }
+    .cat-name {
+        font-size: 1rem;
+    }
+    .cat-count {
+        font-size: 0.65rem;
+        padding: 2px 8px;
+    }
+    .cat-info {
+        padding: 12px;
+    }
+}
 
 /* ═══════════════════════════
    PRODUCTS
@@ -1665,29 +1760,58 @@ body.no-scroll { overflow: hidden; }
             <p class="section-desc">Temukan busana muslim sesuai kebutuhan Anda</p>
         </div>
         
-        <div class="cat-grid">
-            <a href="#koleksi" class="cat-card" onclick="filterByCategory('gamis')">
-                <span class="cat-icon">👗</span>
-                <div class="cat-name">Gamis</div>
-                <div class="cat-count">24 Produk</div>
-            </a>
-            <a href="#koleksi" class="cat-card" onclick="filterByCategory('hijab')">
-                <span class="cat-icon">🧕</span>
-                <div class="cat-name">Hijab</div>
-                <div class="cat-count">36 Produk</div>
-            </a>
-            <a href="#koleksi" class="cat-card" onclick="filterByCategory('khimar')">
-                <span class="cat-icon">🧣</span>
-                <div class="cat-name">Khimar</div>
-                <div class="cat-count">18 Produk</div>
-            </a>
-            <a href="#koleksi" class="cat-card" onclick="filterByCategory('abaya')">
-                <span class="cat-icon">👘</span>
-                <div class="cat-name">Abaya</div>
-                <div class="cat-count">12 Produk</div>
-            </a>
-        </div>
+       <div class="cat-grid">
+  <a href="#koleksi" class="cat-card" onclick="filterByCategory('gamis')">
+    <span class="cat-badge-hot">🔥 HOT</span>  <!-- ← Tambah ini -->
+    <div class="cat-img">
+        <img src="gamis.jpg" alt="Gamis">
+        <div class="cat-overlay"></div>
     </div>
+    <div class="cat-info">
+        <div class="cat-name">Gamis</div>
+        <div class="cat-count">24 Produk</div>
+    </div>
+</a>
+    
+    <a href="#koleksi" class="cat-card" onclick="filterByCategory('hijab')">
+        <div class="cat-img">
+            <img src="hijab.jpg"
+                 alt="Hijab" loading="lazy"
+                 onerror="this.parentElement.innerHTML='<span class=cat-icon-fallback>🧕</span>'">
+            <div class="cat-overlay"></div>
+        </div>
+        <div class="cat-info">
+            <div class="cat-name">Hijab</div>
+            <div class="cat-count">36 Produk</div>
+        </div>
+    </a>
+    
+    <a href="#koleksi" class="cat-card" onclick="filterByCategory('khimar')">
+        <div class="cat-img">
+            <img src="khimar.jpg" 
+                 alt="Khimar" loading="lazy"
+                 onerror="this.parentElement.innerHTML='<span class=cat-icon-fallback>🧣</span>'">
+            <div class="cat-overlay"></div>
+        </div>
+        <div class="cat-info">
+            <div class="cat-name">Khimar</div>
+            <div class="cat-count">18 Produk</div>
+        </div>
+    </a>
+    
+    <a href="#koleksi" class="cat-card" onclick="filterByCategory('abaya')">
+        <div class="cat-img">
+            <img src="abaya.jpg" 
+                 alt="Abaya" loading="lazy"
+                 onerror="this.parentElement.innerHTML='<span class=cat-icon-fallback>👘</span>'">
+            <div class="cat-overlay"></div>
+        </div>
+        <div class="cat-info">
+            <div class="cat-name">Abaya</div>
+            <div class="cat-count">12 Produk</div>
+        </div>
+    </a>
+</div>
 </section>
 
 <!-- Products -->
