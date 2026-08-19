@@ -324,19 +324,26 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('%cChat WA: 081401643188', 'color: #25D366; font-size: 12px;');
     console.log('%c🚀 v8.5 - Auto Navbar Ready', 'color: #D4A536; font-size: 11px; font-style: italic;');
 }); 
-
 /* ============================================
-   📱 MOBILE SHEET CONTENT DATA (Optional - kalau pakai dropdown mobile)
+   📱 MOBILE SHEET CONTENT DATA
    ============================================ */
 
 const SHEET_CONTENT = {
     
     // ═══════════════════════════════
-    // 🏢 LAYANAN
+    // 🏢 LAYANAN (dengan Tentang & Demo Dropdown)
     // ═══════════════════════════════
     layanan: {
         title: '<i class="fas fa-briefcase" style="color:var(--gold)"></i> Layanan Kami',
         items: [
+            { 
+                url:     'tentang.html',         
+                icon:    'fa-info-circle',       
+                iconCls: 'icon-gold',            
+                title:   'Tentang Kami',         
+                desc:    'Cerita, visi & misi kami',
+                featured: true 
+            },
             { 
                 url:     'layanan.html',  
                 icon:    'fa-briefcase', 
@@ -359,12 +366,11 @@ const SHEET_CONTENT = {
                 desc:    'Katalog design siap pakai' 
             },
             { 
-                // ⭐ Item ini buka SUB-MENU (bukan link langsung)
                 icon:    'fa-globe',     
                 iconCls: 'icon-cyan',   
                 title:   'Live Demo',       
                 desc:    'Coba 6+ website interaktif',
-                subMenu: 'demoList',       // ← Kunci sub-menu
+                subMenu: 'demoList',
                 badge:   '6+'
             }
         ]
@@ -403,7 +409,7 @@ const SHEET_CONTENT = {
     },
     
     // ═══════════════════════════════
-    // 🤝 RESELLER
+    // 🤝 RESELLER (4 items lengkap)
     // ═══════════════════════════════
     reseller: {
         title: '<i class="fas fa-handshake" style="color:var(--gold)"></i> Program Reseller',
@@ -413,23 +419,31 @@ const SHEET_CONTENT = {
                 icon:    'fa-info-circle',    
                 iconCls: 'icon-gold',   
                 title:   'Info Reseller',    
-                desc:    'Benefit & tier komisi' 
+                desc:    'Benefit, tier komisi & keuntungan' 
+            },
+            { 
+                url:     'daftar-reseller.html',    
+                icon:    'fa-user-plus',      
+                iconCls: 'icon-green',  
+                title:   'Daftar Sekarang',      
+                desc:    'Gabung dan mulai earning!',
+                badge:   'HOT',
+                featured: true 
             },
             { 
                 url:     'starter-kit.html',     
                 icon:    'fa-gift',           
-                iconCls: 'icon-green',  
+                iconCls: 'icon-purple',  
                 title:   'Starter Kit',      
                 desc:    'Marketing materials gratis',
-                badge:   'FREE',
-                featured: true 
+                badge:   'FREE'
             },
             { 
                 url:     'mou-reseller.html',    
                 icon:    'fa-file-signature', 
                 iconCls: 'icon-blue',   
                 title:   'MoU Kerja Sama',   
-                desc:    'Perjanjian & syarat' 
+                desc:    'Perjanjian & syarat resmi' 
             }
         ]
     },
@@ -439,7 +453,7 @@ const SHEET_CONTENT = {
     // ═══════════════════════════════
     demoList: {
         title:  '<i class="fas fa-globe" style="color:var(--gold)"></i> Live Demo Templates',
-        parent: 'layanan',    // ← Untuk back button (kembali ke sheet Layanan)
+        parent: 'layanan',
         items: [
             { 
                 url:     'demo/busana-muslim/index.html', 
@@ -491,7 +505,6 @@ const SHEET_CONTENT = {
     
 };
 
-
 /* ============================================
    🖥️ DESKTOP NAVBAR DROPDOWN (kalau ada)
    ============================================ */
@@ -529,7 +542,7 @@ document.addEventListener('keydown', e => {
 });
 
 /* ============================================
-   📱 MOBILE BOTTOM SHEET (dengan Sub-Menu Support)
+   📱 MOBILE BOTTOM SHEET (Sub-Menu Support)
    ============================================ */
 let sheetHistory = [];
 
@@ -537,6 +550,7 @@ function openMobileSheet(type, fromSubMenu = false) {
     const data = SHEET_CONTENT[type];
     if (!data) return;
     
+    // Reset history kalau bukan dari sub-menu
     if (!fromSubMenu) {
         sheetHistory = [];
     }
@@ -547,7 +561,7 @@ function openMobileSheet(type, fromSubMenu = false) {
         item.classList.remove('active');
     });
     
-    // Set active ke parent (kalau sub-menu, active-kan parent-nya)
+    // Set active ke parent (kalau sub-menu, active parent-nya)
     const parentType = data.parent || type;
     const activeBtn = document.querySelector(`.mnav-item[data-page="${parentType}"]`);
     if (activeBtn) activeBtn.classList.add('active');
@@ -592,7 +606,7 @@ function openMobileSheet(type, fromSubMenu = false) {
             ? '<i class="fas fa-check-circle" style="color:#25d366;margin-left:6px;font-size:0.9rem;"></i>' 
             : '';
         
-        // ⭐ Kalau item punya subMenu → render sebagai BUTTON
+        // ⭐ Item dengan subMenu → render sebagai BUTTON
         if (item.subMenu) {
             return `
                 <button type="button" class="sheet-link ${extraCls}" onclick="openMobileSheet('${item.subMenu}', true)">
