@@ -3699,6 +3699,69 @@ a.fab-wa .fab.fa-whatsapp,
     font-weight: 800;
 }
 
+/* ═══ SHEET BACK BUTTON ═══ */
+.sheet-back-btn {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border, rgba(255,255,255,0.08));
+    color: var(--text-muted, #8a94a6);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-right: 10px;
+    font-size: 0.85rem;
+    vertical-align: middle;
+    padding: 0;
+}
+
+.sheet-back-btn:hover {
+    background: rgba(212,165,54,0.15);
+    color: var(--gold, #d4a536);
+    border-color: rgba(212,165,54,0.4);
+    transform: translateX(-3px);
+}
+
+/* ═══ SHEET LINK sebagai BUTTON ═══ */
+button.sheet-link {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-family: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+/* ═══ ICON COLORS TAMBAHAN ═══ */
+.dd-icon.icon-orange { 
+    background: linear-gradient(135deg, #f39c12, #e67e22); 
+    color: #fff; 
+}
+.dd-icon.icon-pink { 
+    background: linear-gradient(135deg, #d4758c, #b85874); 
+    color: #fff; 
+}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes slideInFromRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInFromLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInFromBottom {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
 /* ==================================================
    END OF STYLE.CSS v8.4
    ================================================== */
