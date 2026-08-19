@@ -38,6 +38,8 @@ body {
     overflow-x: hidden;
 }
 
+body.no-scroll { overflow: hidden; }
+
 
 /* ═══════════════════════════
    NAVBAR
@@ -75,9 +77,7 @@ body {
     text-decoration: none;
 }
 
-.nav-brand-icon {
-    font-size: 1.8rem;
-}
+.nav-brand-icon { font-size: 1.8rem; }
 
 .nav-brand-name {
     font-family: 'Playfair Display', serif;
@@ -110,6 +110,7 @@ body {
     font-weight: 600;
     transition: color 0.3s;
     position: relative;
+    cursor: pointer;
 }
 
 .nav-links a:hover,
@@ -128,6 +129,12 @@ body {
     border-radius: 2px;
 }
 
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .nav-cart {
     position: relative;
     background: rgba(201,168,76,0.15);
@@ -143,11 +150,13 @@ body {
     cursor: pointer;
     transition: all 0.3s;
     text-decoration: none;
+    border: none;
 }
 
 .nav-cart:hover {
     background: var(--primary-light);
     color: var(--dark);
+    transform: scale(1.05);
 }
 
 .cart-count {
@@ -158,22 +167,216 @@ body {
     color: white;
     font-size: 0.6rem;
     font-weight: 800;
-    width: 18px;
+    min-width: 18px;
     height: 18px;
-    border-radius: 50%;
+    padding: 0 4px;
+    border-radius: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 2px solid var(--darker);
+    animation: cartPulse 1s ease-in-out;
+}
+
+@keyframes cartPulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
 }
 
 .nav-menu-btn {
     display: none;
-    background: none;
-    border: none;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.3);
     color: var(--primary-light);
-    font-size: 1.4rem;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    font-size: 1.2rem;
     cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.nav-menu-btn:hover {
+    background: var(--primary-light);
+    color: var(--dark);
+}
+
+
+/* ═══════════════════════════
+   MOBILE MENU DRAWER
+═══════════════════════════ */
+.mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(6px);
+    z-index: 1998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    width: 300px;
+    max-width: 85%;
+    height: 100vh;
+    background: linear-gradient(180deg, var(--dark), var(--darker));
+    border-left: 1px solid rgba(201,168,76,0.2);
+    z-index: 1999;
+    transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+    overflow-y: auto;
+    box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+}
+
+.mobile-menu.show { right: 0; }
+
+.mm-header {
+    padding: 22px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, rgba(201,168,76,0.1), transparent);
+}
+
+.mm-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mm-brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--primary-light);
+}
+
+.mm-close {
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 50%;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.mm-close:hover {
+    background: rgba(231,76,60,0.15);
+    color: #ff6b5b;
+    transform: rotate(90deg);
+}
+
+.mm-nav {
+    padding: 16px 12px;
+    list-style: none;
+}
+
+.mm-nav li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.92rem;
+    border-radius: 10px;
+    transition: all 0.25s;
+    margin-bottom: 4px;
+}
+
+.mm-nav li a i {
+    width: 24px;
+    color: var(--primary-light);
+    font-size: 1rem;
+}
+
+.mm-nav li a:hover,
+.mm-nav li a.active {
+    background: rgba(201,168,76,0.12);
+    color: var(--primary-light);
+    padding-left: 22px;
+}
+
+.mm-nav li a.active {
+    background: linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.05));
+    border-left: 3px solid var(--primary-light);
+}
+
+.mm-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 8px 20px 16px;
+}
+
+.mm-cta {
+    padding: 0 16px 24px;
+}
+
+.mm-cta a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 13px;
+    background: var(--success);
+    color: white;
+    text-decoration: none;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    transition: all 0.3s;
+}
+
+.mm-cta a:hover {
+    background: #20BA5A;
+    transform: translateY(-2px);
+}
+
+.mm-social {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.mm-social a {
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.05);
+    color: var(--text-muted);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.mm-social a:hover {
+    background: var(--primary-light);
+    color: var(--dark);
+    transform: translateY(-3px);
 }
 
 
@@ -247,9 +450,7 @@ body {
     z-index: 2;
 }
 
-.hero-title span {
-    color: var(--primary-light);
-}
+.hero-title span { color: var(--primary-light); }
 
 .hero-subtitle {
     font-size: 1.05rem;
@@ -309,7 +510,6 @@ body {
     transform: translateY(-3px);
 }
 
-/* Trust Bar */
 .trust-bar {
     display: flex;
     justify-content: center;
@@ -480,6 +680,12 @@ body {
     overflow: hidden;
     transition: all 0.3s;
     position: relative;
+    animation: fadeInUp 0.5s ease both;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .product-card:hover {
@@ -506,14 +712,22 @@ body {
 .badge-hot { background: #f39c12; color: var(--dark); }
 
 .product-img {
-    height: 240px;
+    height: 280px;
     background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(212,117,140,0.05));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 5rem;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
+}
+
+.product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-img img {
+    transform: scale(1.08);
 }
 
 .product-img::after {
@@ -524,14 +738,14 @@ body {
     right: 0;
     height: 60px;
     background: linear-gradient(transparent, var(--card));
+    pointer-events: none;
 }
 
 .product-actions-overlay {
     position: absolute;
-    bottom: 0;
+    bottom: 12px;
     left: 0;
     right: 0;
-    padding: 12px;
     display: flex;
     justify-content: center;
     gap: 8px;
@@ -565,12 +779,24 @@ body {
     color: var(--dark);
 }
 
-.pao-btn.quick { background: rgba(255,255,255,0.15); color: white; backdrop-filter: blur(10px); }
-.pao-btn.wish { background: rgba(255,255,255,0.15); color: white; backdrop-filter: blur(10px); }
+.pao-btn.quick,
+.pao-btn.wish {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    backdrop-filter: blur(10px);
+}
+
+.pao-btn.wish.active {
+    background: var(--pink);
+    color: white;
+}
+
 .pao-btn:hover { transform: scale(1.15); }
 
 .product-body {
     padding: 16px 18px 20px;
+    position: relative;
+    z-index: 2;
 }
 
 .product-category {
@@ -621,12 +847,14 @@ body {
     font-weight: 800;
     font-size: 1.1rem;
     color: var(--primary-light);
+    display: block;
 }
 
 .product-price-old {
     font-size: 0.78rem;
     color: var(--text-muted);
     text-decoration: line-through;
+    display: block;
 }
 
 .product-btn-cart {
@@ -643,11 +871,229 @@ body {
     display: flex;
     align-items: center;
     gap: 5px;
+    white-space: nowrap;
 }
 
 .product-btn-cart:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+
+/* ═══════════════════════════
+   CART DRAWER
+═══════════════════════════ */
+.cart-drawer {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 380px;
+    max-width: 100%;
+    height: 100vh;
+    background: linear-gradient(180deg, var(--dark), var(--darker));
+    border-left: 1px solid rgba(201,168,76,0.2);
+    z-index: 1999;
+    transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+}
+
+.cart-drawer.show { right: 0; }
+
+.cart-header {
+    padding: 22px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, rgba(201,168,76,0.1), transparent);
+}
+
+.cart-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--primary-light);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cart-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px;
+}
+
+.cart-body::-webkit-scrollbar { width: 4px; }
+.cart-body::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 100px; }
+
+.cart-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+}
+
+.cart-empty i {
+    font-size: 3.5rem;
+    color: rgba(201,168,76,0.2);
+    margin-bottom: 16px;
+    display: block;
+}
+
+.cart-empty p {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.cart-item {
+    display: flex;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--border);
+}
+
+.cart-item-img {
+    width: 70px;
+    height: 90px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.05);
+    flex-shrink: 0;
+}
+
+.cart-item-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cart-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.cart-item-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cart-item-cat {
+    font-size: 0.68rem;
+    color: var(--primary-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+.cart-item-price {
+    color: var(--primary-light);
+    font-weight: 800;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
+
+.qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.qty-btn {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid var(--border);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-size: 0.75rem;
+}
+
+.qty-btn:hover {
+    background: var(--primary-light);
+    color: var(--dark);
+}
+
+.qty-val {
+    min-width: 24px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.cart-item-remove {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 0.85rem;
+    padding: 6px;
+    align-self: flex-start;
+    transition: all 0.2s;
+}
+
+.cart-item-remove:hover { transform: scale(1.2); }
+
+.cart-footer {
+    padding: 20px;
+    border-top: 1px solid var(--border);
+    background: rgba(0,0,0,0.2);
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.cart-total-label {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.cart-total-val {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--primary-light);
+}
+
+.btn-checkout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px;
+    background: var(--success);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.btn-checkout:hover {
+    background: #20BA5A;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37,211,102,0.4);
 }
 
 
@@ -964,7 +1410,7 @@ body {
     border-radius: 100px;
     font-size: 0.72rem;
     font-weight: 800;
-    z-index: 999;
+    z-index: 990;
     box-shadow: 0 4px 15px rgba(231,76,60,0.4);
     display: flex;
     align-items: center;
@@ -974,8 +1420,35 @@ body {
     letter-spacing: 0.5px;
 }
 
-.demo-badge:hover {
-    transform: scale(1.05);
+.demo-badge:hover { transform: scale(1.05); }
+
+
+/* ═══════════════════════════
+   TOAST NOTIFICATION
+═══════════════════════════ */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+    color: var(--dark);
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    z-index: 3000;
+    box-shadow: 0 10px 30px rgba(201,168,76,0.4);
+    opacity: 0;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 
@@ -993,19 +1466,21 @@ body {
 
 @media (max-width: 768px) {
     .nav-links { display: none; }
-    .nav-menu-btn { display: block; }
+    .nav-menu-btn { display: flex; }
     .hero { padding: 110px 16px 60px; }
     .hero-title { font-size: 1.8rem; }
     .trust-bar { gap: 16px; }
     .trust-item { font-size: 0.75rem; }
     .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .product-img { height: 180px; font-size: 3.5rem; }
+    .product-img { height: 220px; }
     .product-body { padding: 12px 14px 16px; }
-    .product-name { font-size: 0.88rem; }
+    .product-name { font-size: 0.85rem; }
     .product-price { font-size: 0.95rem; }
     .product-btn-cart span { display: none; }
+    .product-btn-cart { padding: 8px 12px; }
     .promo-title { font-size: 1.4rem; }
     .section-title { font-size: 1.4rem; }
+    .cart-drawer { width: 100%; }
 }
 
 @media (max-width: 480px) {
@@ -1014,6 +1489,7 @@ body {
     .feat-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
     .feat-card { padding: 18px 12px; }
     .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .product-img { height: 180px; }
     .hero-actions { flex-direction: column; align-items: center; }
     .btn { width: 100%; max-width: 280px; justify-content: center; }
     .cta-box { padding: 32px 20px; }
@@ -1026,8 +1502,14 @@ body {
 <!-- Demo Badge -->
 <a href="../../template.html" class="demo-badge">
     <i class="fas fa-palette"></i>
-    DEMO TEMPLATE — Ibaadurrahmaan
+    DEMO — Ibaadurrahmaan
 </a>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg">Berhasil!</span>
+</div>
 
 <!-- Navbar -->
 <nav class="navbar" id="navbar">
@@ -1048,17 +1530,98 @@ body {
             <li><a href="#kontak">Kontak</a></li>
         </ul>
         
-        <div style="display:flex;align-items:center;gap:10px;">
-            <a href="#" class="nav-cart">
+        <div class="nav-right">
+            <button class="nav-cart" onclick="toggleCart()">
                 <i class="fas fa-shopping-bag"></i>
-                <span class="cart-count">3</span>
-            </a>
-            <button class="nav-menu-btn" onclick="alert('Mobile menu coming soon!')">
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+            <button class="nav-menu-btn" onclick="toggleMobileMenu()">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
     </div>
 </nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay" id="mmOverlay" onclick="closeMobileMenu()"></div>
+<aside class="mobile-menu" id="mobileMenu">
+    <div class="mm-header">
+        <div class="mm-brand">
+            <span style="font-size:1.6rem;">🧕</span>
+            <div class="mm-brand-name">Zahra Muslimah</div>
+        </div>
+        <button class="mm-close" onclick="closeMobileMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <ul class="mm-nav">
+        <li><a href="#" class="active" onclick="closeMobileMenu()">
+            <i class="fas fa-home"></i> Beranda
+        </a></li>
+        <li><a href="#koleksi" onclick="closeMobileMenu()">
+            <i class="fas fa-th-large"></i> Koleksi Produk
+        </a></li>
+        <li><a href="#promo" onclick="closeMobileMenu()">
+            <i class="fas fa-fire"></i> Promo Spesial
+        </a></li>
+        <li><a href="#testimoni" onclick="closeMobileMenu()">
+            <i class="fas fa-star"></i> Testimoni
+        </a></li>
+        <li><a href="#kontak" onclick="closeMobileMenu()">
+            <i class="fas fa-envelope"></i> Kontak Kami
+        </a></li>
+    </ul>
+    
+    <div class="mm-divider"></div>
+    
+    <div class="mm-cta">
+        <a href="https://wa.me/6281401643188" target="_blank">
+            <i class="fab fa-whatsapp"></i> Chat WhatsApp
+        </a>
+    </div>
+    
+    <div class="mm-social">
+        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" title="Shopee"><i class="fas fa-shopping-bag"></i></a>
+    </div>
+</aside>
+
+<!-- Cart Drawer -->
+<aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+        <div class="cart-title">
+            <i class="fas fa-shopping-bag"></i> Keranjang Belanja
+        </div>
+        <button class="mm-close" onclick="toggleCart()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <div class="cart-body" id="cartBody">
+        <div class="cart-empty">
+            <i class="fas fa-shopping-bag"></i>
+            <p>Keranjang kamu masih kosong</p>
+            <button class="btn btn-outline" onclick="toggleCart()">
+                Mulai Belanja
+            </button>
+        </div>
+    </div>
+    
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+        <div class="cart-total">
+            <span class="cart-total-label">Total Belanja:</span>
+            <span class="cart-total-val" id="cartTotal">Rp 0</span>
+        </div>
+        <button class="btn-checkout" onclick="checkoutWA()">
+            <i class="fab fa-whatsapp"></i>
+            Checkout via WhatsApp
+        </button>
+    </div>
+</aside>
 
 <!-- Hero -->
 <section class="hero">
@@ -1103,22 +1666,22 @@ body {
         </div>
         
         <div class="cat-grid">
-            <a href="#koleksi" class="cat-card">
+            <a href="#koleksi" class="cat-card" onclick="filterByCategory('gamis')">
                 <span class="cat-icon">👗</span>
                 <div class="cat-name">Gamis</div>
                 <div class="cat-count">24 Produk</div>
             </a>
-            <a href="#koleksi" class="cat-card">
+            <a href="#koleksi" class="cat-card" onclick="filterByCategory('hijab')">
                 <span class="cat-icon">🧕</span>
                 <div class="cat-name">Hijab</div>
                 <div class="cat-count">36 Produk</div>
             </a>
-            <a href="#koleksi" class="cat-card">
+            <a href="#koleksi" class="cat-card" onclick="filterByCategory('khimar')">
                 <span class="cat-icon">🧣</span>
                 <div class="cat-name">Khimar</div>
                 <div class="cat-count">18 Produk</div>
             </a>
-            <a href="#koleksi" class="cat-card">
+            <a href="#koleksi" class="cat-card" onclick="filterByCategory('abaya')">
                 <span class="cat-icon">👘</span>
                 <div class="cat-name">Abaya</div>
                 <div class="cat-count">12 Produk</div>
@@ -1137,171 +1700,15 @@ body {
         </div>
         
         <div class="product-filter">
-            <button class="filter-btn active">Semua</button>
-            <button class="filter-btn">Gamis</button>
-            <button class="filter-btn">Hijab</button>
-            <button class="filter-btn">Khimar</button>
-            <button class="filter-btn">Abaya</button>
+            <button class="filter-btn active" data-filter="all">Semua</button>
+            <button class="filter-btn" data-filter="gamis">Gamis</button>
+            <button class="filter-btn" data-filter="hijab">Hijab</button>
+            <button class="filter-btn" data-filter="khimar">Khimar</button>
+            <button class="filter-btn" data-filter="abaya">Abaya</button>
         </div>
         
-        <div class="product-grid">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <span class="product-badge badge-new">NEW</span>
-                <div class="product-img">👗
-                    <div class="product-actions-overlay">
-                        <button class="pao-btn cart" title="Keranjang"><i class="fas fa-shopping-cart"></i></button>
-                        <button class="pao-btn quick" title="Quick View"><i class="fas fa-eye"></i></button>
-                        <button class="pao-btn wish" title="Wishlist"><i class="fas fa-heart"></i></button>
-                    </div>
-                </div>
-                <div class="product-body">
-                    <div class="product-category">GAMIS</div>
-                    <h3 class="product-name">Gamis Syar'i Alana Premium</h3>
-                    <div class="product-rating">
-                        <div class="stars">★★★★★</div>
-                        <span class="rating-text">(128)</span>
-                    </div>
-                    <div class="product-price-row">
-                        <div>
-                            <span class="product-price">Rp 185.000</span>
-                            <span class="product-price-old">Rp 250.000</span>
-                        </div>
-                        <button class="product-btn-cart"><i class="fas fa-cart-plus"></i> <span>Beli</span></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 2 -->
-            <div class="product-card">
-                <span class="product-badge badge-hot">🔥 HOT</span>
-                <div class="product-img">🧕
-                    <div class="product-actions-overlay">
-                        <button class="pao-btn cart"><i class="fas fa-shopping-cart"></i></button>
-                        <button class="pao-btn quick"><i class="fas fa-eye"></i></button>
-                        <button class="pao-btn wish"><i class="fas fa-heart"></i></button>
-                    </div>
-                </div>
-                <div class="product-body">
-                    <div class="product-category">HIJAB</div>
-                    <h3 class="product-name">Hijab Pashmina Voal Premium</h3>
-                    <div class="product-rating">
-                        <div class="stars">★★★★★</div>
-                        <span class="rating-text">(256)</span>
-                    </div>
-                    <div class="product-price-row">
-                        <div>
-                            <span class="product-price">Rp 65.000</span>
-                            <span class="product-price-old">Rp 95.000</span>
-                        </div>
-                        <button class="product-btn-cart"><i class="fas fa-cart-plus"></i> <span>Beli</span></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="product-card">
-                <div class="product-img">🧣
-                    <div class="product-actions-overlay">
-                        <button class="pao-btn cart"><i class="fas fa-shopping-cart"></i></button>
-                        <button class="pao-btn quick"><i class="fas fa-eye"></i></button>
-                        <button class="pao-btn wish"><i class="fas fa-heart"></i></button>
-                    </div>
-                </div>
-                <div class="product-body">
-                    <div class="product-category">KHIMAR</div>
-                    <h3 class="product-name">Khimar Ceruti 2 Layer</h3>
-                    <div class="product-rating">
-                        <div class="stars">★★★★☆</div>
-                        <span class="rating-text">(89)</span>
-                    </div>
-                    <div class="product-price-row">
-                        <div>
-                            <span class="product-price">Rp 95.000</span>
-                        </div>
-                        <button class="product-btn-cart"><i class="fas fa-cart-plus"></i> <span>Beli</span></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 4 -->
-            <div class="product-card">
-                <span class="product-badge badge-sale">SALE 30%</span>
-                <div class="product-img">👘
-                    <div class="product-actions-overlay">
-                        <button class="pao-btn cart"><i class="fas fa-shopping-cart"></i></button>
-                        <button class="pao-btn quick"><i class="fas fa-eye"></i></button>
-                        <button class="pao-btn wish"><i class="fas fa-heart"></i></button>
-                    </div>
-                </div>
-                <div class="product-body">
-                    <div class="product-category">ABAYA</div>
-                    <h3 class="product-name">Abaya Turki Exclusive</h3>
-                    <div class="product-rating">
-                        <div class="stars">★★★★★</div>
-                        <span class="rating-text">(64)</span>
-                    </div>
-                    <div class="product-price-row">
-                        <div>
-                            <span class="product-price">Rp 250.000</span>
-                            <span class="product-price-old">Rp 350.000</span>
-                        </div>
-                        <button class="product-btn-cart"><i class="fas fa-cart-plus"></i> <span>Beli</span></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 5 -->
-            <div class="product-card">
-                <span class="product-badge badge-new">NEW</span>
-                <div class="product-img">👗
-                    <div class="product-actions-overlay">
-                        <button class="pao-btn cart"><i class="fas fa-shopping-cart"></i></button>
-                        <button class="pao-btn quick"><i class="fas fa-eye"></i></button>
-                        <button class="pao-btn wish"><i class="fas fa-heart"></i></button>
-                    </div>
-                </div>
-                <div class="product-body">
-                    <div class="product-category">GAMIS</div>
-                    <h3 class="product-name">Gamis Wolfis Plisket Modern</h3>
-                    <div class="product-rating">
-                        <div class="stars">★★★★★</div>
-                        <span class="rating-text">(198)</span>
-                    </div>
-                    <div class="product-price-row">
-                        <div>
-                            <span class="product-price">Rp 165.000</span>
-                        </div>
-                        <button class="product-btn-cart"><i class="fas fa-cart-plus"></i> <span>Beli</span></button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 6 -->
-            <div class="product-card">
-                <div class="product-img">🧕
-                    <div class="product-actions-overlay">
-                        <button class="pao-btn cart"><i class="fas fa-shopping-cart"></i></button>
-                        <button class="pao-btn quick"><i class="fas fa-eye"></i></button>
-                        <button class="pao-btn wish"><i class="fas fa-heart"></i></button>
-                    </div>
-                </div>
-                <div class="product-body">
-                    <div class="product-category">HIJAB</div>
-                    <h3 class="product-name">Hijab Segi Empat Motif</h3>
-                    <div class="product-rating">
-                        <div class="stars">★★★★☆</div>
-                        <span class="rating-text">(72)</span>
-                    </div>
-                    <div class="product-price-row">
-                        <div>
-                            <span class="product-price">Rp 45.000</span>
-                            <span class="product-price-old">Rp 65.000</span>
-                        </div>
-                        <button class="product-btn-cart"><i class="fas fa-cart-plus"></i> <span>Beli</span></button>
-                    </div>
-                </div>
-            </div>
+        <div class="product-grid" id="productGrid">
+            <!-- Rendered by JS -->
         </div>
     </div>
 </section>
@@ -1435,12 +1842,483 @@ body {
 
 
 <script>
-// Navbar scroll effect
+// ═══════════════════════════════════════
+// PRODUCT DATABASE
+// ═══════════════════════════════════════
+const products = [
+    // GAMIS
+    {
+        id: 1,
+        name: "Gamis Syar'i Alana Premium",
+        category: "gamis",
+        price: 185000,
+        oldPrice: 250000,
+        rating: 5,
+        reviews: 128,
+        badge: "new",
+        badgeText: "NEW",
+        img: "https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600&h=800&fit=crop&auto=format"
+    },
+    {
+        id: 2,
+        name: "Gamis Wolfis Plisket Modern",
+        category: "gamis",
+        price: 165000,
+        oldPrice: null,
+        rating: 5,
+        reviews: 198,
+        badge: null,
+        img: "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=600&h=800&fit=crop&auto=format"
+    },
+    {
+        id: 3,
+        name: "Gamis Katun Rayon Bordir",
+        category: "gamis",
+        price: 145000,
+        oldPrice: 195000,
+        rating: 4,
+        reviews: 87,
+        badge: "sale",
+        badgeText: "SALE",
+        img: "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=600&h=800&fit=crop&auto=format"
+    },
+    {
+        id: 4,
+        name: "Gamis Ceruti Babydoll Elegant",
+        category: "gamis",
+        price: 225000,
+        oldPrice: null,
+        rating: 5,
+        reviews: 156,
+        badge: "hot",
+        badgeText: "🔥 HOT",
+        img: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=600&h=800&fit=crop&auto=format"
+    },
+    
+    // HIJAB
+    {
+        id: 5,
+        name: "Hijab Pashmina Voal Premium",
+        category: "hijab",
+        price: 65000,
+        oldPrice: 95000,
+        rating: 5,
+        reviews: 256,
+        badge: "hot",
+        badgeText: "🔥 HOT",
+        img: "https://images.unsplash.com/photo-1611601679761-de29ab35d0d1?w=600&h=800&fit=crop&auto=format"
+    },
+    {
+        id: 6,
+        name: "Hijab Segi Empat Motif",
+        category: "hijab",
+        price: 45000,
+        oldPrice: 65000,
+        rating: 4,
+        reviews: 72,
+        badge: "sale",
+        badgeText: "SALE",
+        img: "https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?w=600&h=800&fit=crop&auto=format"
+    },
+    {
+        id: 7,
+        name: "Hijab Bergo Instan Anti Tembus",
+        category: "hijab",
+        price: 55000,
+        oldPrice: null,
+        rating: 5,
+        reviews: 143,
+        badge: "new",
+        badgeText: "NEW",
+        img: "https://images.unsplash.com/photo-1584285405429-136bf988919c?w=600&h=800&fit=crop&auto=format"
+    },
+    {
+        id: 8,
+        name: "Hijab Ceruti Diamond Italiano",
+        category: "hijab",
+        price: 75000,
+        oldPrice: null,
+        rating: 4,
+        reviews: 98,
+        badge: null,
+        img: "https://images.unsplash.com/photo-1595761096819-b8d17a02898f?w=600&h=800&fit=crop&auto=format"
+    },
+    
+    // KHIMAR
+    {
+        id: 9,
+        name: "Khimar Ceruti 2 Layer",
+        category: "khimar",
+        price: 95000,
+        oldPrice: null,
+        rating: 4,
+        reviews: 89,
+        badge: null,
+        img: "https://images.unsplash.com/photo-1597516345069-3a2f2c74ba43?w=600&h=800&fit=crop&auto=format"
+    },
+    {
+        id: 10,
+        name: "Khimar Syar'i Instan Panjang",
+        category: "khimar",
+        price: 115000,
+        oldPrice: 150000,
+        rating: 5,
+        reviews: 167,
+        badge: "sale",
+        badgeText: "SALE",
+        img: "https://images.unsplash.com/photo-1611601679761-de29ab35d0d1?w=600&h=800&fit=crop&auto=format"
+    },
+    {
+        id: 11,
+        name: "Khimar Wolfis Plain Elegant",
+        category: "khimar",
+        price: 85000,
+        oldPrice: null,
+        rating: 5,
+        reviews: 76,
+        badge: "new",
+        badgeText: "NEW",
+        img: "https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?w=600&h=800&fit=crop&auto=format"
+    },
+    {
+        id: 12,
+        name: "Khimar Ceruti Layer Renda",
+        category: "khimar",
+        price: 135000,
+        oldPrice: null,
+        rating: 5,
+        reviews: 112,
+        badge: "hot",
+        badgeText: "🔥 HOT",
+        img: "https://images.unsplash.com/photo-1584285405429-136bf988919c?w=600&h=800&fit=crop&auto=format"
+    },
+    
+    // ABAYA
+    {
+        id: 13,
+        name: "Abaya Turki Exclusive",
+        category: "abaya",
+        price: 250000,
+        oldPrice: 350000,
+        rating: 5,
+        reviews: 64,
+        badge: "sale",
+        badgeText: "SALE 30%",
+        img: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=600&h=800&fit=crop&auto=format"
+    },
+    {
+        id: 14,
+        name: "Abaya Saudi Premium Ceruti",
+        category: "abaya",
+        price: 285000,
+        oldPrice: null,
+        rating: 5,
+        reviews: 92,
+        badge: "hot",
+        badgeText: "🔥 HOT",
+        img: "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=600&h=800&fit=crop&auto=format"
+    },
+    {
+        id: 15,
+        name: "Abaya Dubai Motif Bordir",
+        category: "abaya",
+        price: 320000,
+        oldPrice: null,
+        rating: 5,
+        reviews: 45,
+        badge: "new",
+        badgeText: "NEW",
+        img: "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=600&h=800&fit=crop&auto=format"
+    },
+    {
+        id: 16,
+        name: "Abaya Hitam Klasik Elegant",
+        category: "abaya",
+        price: 195000,
+        oldPrice: 265000,
+        rating: 4,
+        reviews: 128,
+        badge: "sale",
+        badgeText: "SALE",
+        img: "https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600&h=800&fit=crop&auto=format"
+    }
+];
+
+let cart = [];
+let wishlist = [];
+let currentFilter = 'all';
+
+// ═══════════════════════════════════════
+// RENDER PRODUCTS
+// ═══════════════════════════════════════
+function renderProducts(filter = 'all') {
+    const grid = document.getElementById('productGrid');
+    const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+    
+    if (filtered.length === 0) {
+        grid.innerHTML = `
+            <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted);">
+                <i class="fas fa-search" style="font-size:3rem;opacity:0.3;margin-bottom:16px;display:block;"></i>
+                <p>Tidak ada produk di kategori ini</p>
+            </div>
+        `;
+        return;
+    }
+    
+    grid.innerHTML = filtered.map((p, idx) => `
+        <div class="product-card" style="animation-delay:${idx * 0.05}s;">
+            ${p.badge ? `<span class="product-badge badge-${p.badge}">${p.badgeText}</span>` : ''}
+            <div class="product-img">
+                <img src="${p.img}" alt="${p.name}" loading="lazy" 
+                     onerror="this.style.display='none';this.parentElement.innerHTML+='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;font-size:5rem;\\'>${p.category === 'gamis' ? '👗' : p.category === 'hijab' ? '🧕' : p.category === 'khimar' ? '🧣' : '👘'}</div>'">
+                <div class="product-actions-overlay">
+                    <button class="pao-btn cart" onclick="addToCart(${p.id})" title="Tambah ke Keranjang">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
+                    <button class="pao-btn quick" onclick="quickOrder(${p.id})" title="Order via WA">
+                        <i class="fab fa-whatsapp"></i>
+                    </button>
+                    <button class="pao-btn wish ${wishlist.includes(p.id) ? 'active' : ''}" 
+                            onclick="toggleWishlist(${p.id}, this)" title="Wishlist">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="product-body">
+                <div class="product-category">${p.category.toUpperCase()}</div>
+                <h3 class="product-name">${p.name}</h3>
+                <div class="product-rating">
+                    <div class="stars">${'★'.repeat(p.rating)}${'☆'.repeat(5 - p.rating)}</div>
+                    <span class="rating-text">(${p.reviews})</span>
+                </div>
+                <div class="product-price-row">
+                    <div>
+                        <span class="product-price">Rp ${formatRp(p.price)}</span>
+                        ${p.oldPrice ? `<span class="product-price-old">Rp ${formatRp(p.oldPrice)}</span>` : ''}
+                    </div>
+                    <button class="product-btn-cart" onclick="addToCart(${p.id})">
+                        <i class="fas fa-cart-plus"></i> <span>Beli</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function formatRp(n) {
+    return n.toLocaleString('id-ID');
+}
+
+// ═══════════════════════════════════════
+// FILTER
+// ═══════════════════════════════════════
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        renderProducts(currentFilter);
+    });
+});
+
+function filterByCategory(cat) {
+    currentFilter = cat;
+    document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.filter === cat);
+    });
+    renderProducts(cat);
+    setTimeout(() => {
+        document.getElementById('koleksi').scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+}
+
+// ═══════════════════════════════════════
+// CART
+// ═══════════════════════════════════════
+function addToCart(id) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+    
+    const existing = cart.find(item => item.id === id);
+    if (existing) {
+        existing.qty++;
+    } else {
+        cart.push({ ...product, qty: 1 });
+    }
+    
+    updateCartUI();
+    showToast(`✓ ${product.name} ditambahkan ke keranjang`);
+}
+
+function removeFromCart(id) {
+    cart = cart.filter(item => item.id !== id);
+    updateCartUI();
+}
+
+function updateQty(id, delta) {
+    const item = cart.find(i => i.id === id);
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) {
+        removeFromCart(id);
+    } else {
+        updateCartUI();
+    }
+}
+
+function updateCartUI() {
+    const count = cart.reduce((sum, i) => sum + i.qty, 0);
+    const total = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+    
+    // Update badge
+    const cartCountEl = document.getElementById('cartCount');
+    cartCountEl.textContent = count;
+    cartCountEl.style.display = count > 0 ? 'flex' : 'none';
+    
+    // Update body
+    const body = document.getElementById('cartBody');
+    const footer = document.getElementById('cartFooter');
+    
+    if (cart.length === 0) {
+        body.innerHTML = `
+            <div class="cart-empty">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Keranjang kamu masih kosong</p>
+                <button class="btn btn-outline" onclick="toggleCart()">
+                    Mulai Belanja
+                </button>
+            </div>
+        `;
+        footer.style.display = 'none';
+    } else {
+        body.innerHTML = cart.map(item => `
+            <div class="cart-item">
+                <div class="cart-item-img">
+                    <img src="${item.img}" alt="${item.name}" 
+                         onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;font-size:2rem;\\'>${item.category === 'gamis' ? '👗' : item.category === 'hijab' ? '🧕' : item.category === 'khimar' ? '🧣' : '👘'}</div>'">
+                </div>
+                <div class="cart-item-info">
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-cat">${item.category}</div>
+                    <div class="cart-item-price">Rp ${formatRp(item.price)}</div>
+                    <div class="qty-controls">
+                        <button class="qty-btn" onclick="updateQty(${item.id}, -1)">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <span class="qty-val">${item.qty}</span>
+                        <button class="qty-btn" onclick="updateQty(${item.id}, 1)">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <button class="cart-item-remove" onclick="removeFromCart(${item.id})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `).join('');
+        
+        document.getElementById('cartTotal').textContent = 'Rp ' + formatRp(total);
+        footer.style.display = 'block';
+    }
+}
+
+function toggleCart() {
+    document.getElementById('cartDrawer').classList.toggle('show');
+    document.getElementById('mmOverlay').classList.toggle('show');
+    document.body.classList.toggle('no-scroll');
+}
+
+function checkoutWA() {
+    if (cart.length === 0) return;
+    
+    let msg = `Assalamu'alaikum, saya ingin memesan:\n\n`;
+    let total = 0;
+    
+    cart.forEach((item, i) => {
+        const subtotal = item.price * item.qty;
+        total += subtotal;
+        msg += `${i+1}. *${item.name}*\n`;
+        msg += `   Kategori: ${item.category.toUpperCase()}\n`;
+        msg += `   Qty: ${item.qty} pcs\n`;
+        msg += `   Harga: Rp ${formatRp(item.price)}\n`;
+        msg += `   Subtotal: *Rp ${formatRp(subtotal)}*\n\n`;
+    });
+    
+    msg += `━━━━━━━━━━━━━━━━━\n`;
+    msg += `*TOTAL: Rp ${formatRp(total)}*\n\n`;
+    msg += `Mohon info total dengan ongkir & cara pembayaran. Terima kasih! 🙏`;
+    
+    const url = `https://wa.me/6281401643188?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+}
+
+// ═══════════════════════════════════════
+// QUICK ORDER (langsung WA per produk)
+// ═══════════════════════════════════════
+function quickOrder(id) {
+    const p = products.find(x => x.id === id);
+    if (!p) return;
+    
+    const msg = `Assalamu'alaikum, saya tertarik dengan produk:\n\n` +
+                `📦 *${p.name}*\n` +
+                `🏷️ Kategori: ${p.category.toUpperCase()}\n` +
+                `💰 Harga: *Rp ${formatRp(p.price)}*\n\n` +
+                `Bisa info detail (ukuran, warna, stok)? Terima kasih 🙏`;
+    
+    window.open(`https://wa.me/6281401643188?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+// ═══════════════════════════════════════
+// WISHLIST
+// ═══════════════════════════════════════
+function toggleWishlist(id, btn) {
+    if (wishlist.includes(id)) {
+        wishlist = wishlist.filter(x => x !== id);
+        btn.classList.remove('active');
+        showToast('💔 Dihapus dari wishlist');
+    } else {
+        wishlist.push(id);
+        btn.classList.add('active');
+        showToast('❤️ Ditambahkan ke wishlist');
+    }
+}
+
+// ═══════════════════════════════════════
+// MOBILE MENU
+// ═══════════════════════════════════════
+function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.add('show');
+    document.getElementById('mmOverlay').classList.add('show');
+    document.body.classList.add('no-scroll');
+}
+
+function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('show');
+    document.getElementById('cartDrawer').classList.remove('show');
+    document.getElementById('mmOverlay').classList.remove('show');
+    document.body.classList.remove('no-scroll');
+}
+
+// ═══════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════
+function showToast(msg) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ═══════════════════════════════════════
+// NAVBAR SCROLL
+// ═══════════════════════════════════════
 window.addEventListener('scroll', () => {
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
 });
 
-// Countdown timer
+// ═══════════════════════════════════════
+// COUNTDOWN TIMER
+// ═══════════════════════════════════════
 function startTimer() {
     const endDate = new Date();
     endDate.setDate(endDate.getDate() + 7);
@@ -1460,14 +2338,17 @@ function startTimer() {
         document.getElementById('timerSecs').textContent = String(secs).padStart(2,'0');
     }, 1000);
 }
-startTimer();
 
-// Filter buttons
-document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-    });
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+renderProducts();
+startTimer();
+updateCartUI();
+
+// Close menu with ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMobileMenu();
 });
 </script>
 
