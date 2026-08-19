@@ -206,7 +206,7 @@ body {
    HERO SECTION
 ═══════════════════════════════════════ */
 .hero-tentang {
-    padding: 100px 20px 60px;
+    padding: 130px 20px 60px;
     background: linear-gradient(135deg, #0F1E33 0%, #050B18 100%);
     text-align: center;
     position: relative;
@@ -746,7 +746,7 @@ body {
 }
 
 @media (max-width: 640px) {
-    .hero-tentang { padding: 80px 16px 40px; }
+    .hero-tentang { padding: 110px 16px 40px; }
     .container-tentang { padding: 40px 16px; }
     .section-block { margin-bottom: 40px; }
     .story-image { max-width: 300px; margin: 0 auto; }
@@ -789,6 +789,28 @@ body {
     flex-direction: column;
     line-height: 1;
 }
+
+/* Fix bullet aneh di section-title */
+.section-title span {
+    color: var(--gold);
+    list-style: none;  /* Hilangkan bullet */
+}
+
+/* Reset list default */
+.section-block ul,
+.section-block ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Section title jangan pakai list style */
+.section-title {
+    list-style: none;
+    padding: 0;
+    padding-bottom: 14px;
+}
+
 </style>
 </head>
 <body>
