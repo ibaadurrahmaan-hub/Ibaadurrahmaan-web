@@ -330,26 +330,81 @@ document.addEventListener('DOMContentLoaded', () => {
    ============================================ */
 
 const SHEET_CONTENT = {
+    
+    // ═══════════════════════════════
+    // 🏢 LAYANAN
+    // ═══════════════════════════════
     layanan: {
         title: '<i class="fas fa-briefcase" style="color:var(--gold)"></i> Layanan Kami',
         items: [
-            { url:'layanan.html',  icon:'fa-briefcase', iconCls:'icon-blue',   title:'Layanan Kami',    desc:'Overview semua jasa' },
-            { url:'portfolio.html',icon:'fa-images',    iconCls:'icon-purple', title:'Portfolio',       desc:'Karya-karya terbaik' },
-            { url:'template.html', icon:'fa-palette',   iconCls:'icon-green',  title:'Template Website',desc:'Katalog design siap pakai' },
-            { url:'demo/',         icon:'fa-globe',     iconCls:'icon-cyan',   title:'Live Demo',       desc:'Coba website interaktif' }
+            { 
+                url:     'layanan.html',  
+                icon:    'fa-briefcase', 
+                iconCls: 'icon-blue',   
+                title:   'Layanan Kami',    
+                desc:    'Overview semua jasa' 
+            },
+            { 
+                url:     'portfolio.html',
+                icon:    'fa-images',    
+                iconCls: 'icon-purple', 
+                title:   'Portfolio',       
+                desc:    'Karya-karya terbaik' 
+            },
+            { 
+                url:     'template.html', 
+                icon:    'fa-palette',   
+                iconCls: 'icon-green',  
+                title:   'Template Website',
+                desc:    'Katalog design siap pakai' 
+            },
+            { 
+                // ⭐ Item ini buka SUB-MENU (bukan link langsung)
+                icon:    'fa-globe',     
+                iconCls: 'icon-cyan',   
+                title:   'Live Demo',       
+                desc:    'Coba 6+ website interaktif',
+                subMenu: 'demoList',       // ← Kunci sub-menu
+                badge:   '6+'
+            }
         ]
     },
     
+    // ═══════════════════════════════
+    // 💰 PAKET & ORDER
+    // ═══════════════════════════════
     paket: {
         title: '<i class="fas fa-tag" style="color:var(--gold)"></i> Paket & Order',
         items: [
-            { url:'paket.html',     icon:'fa-tag',           iconCls:'icon-gold',   title:'Paket & Harga',    desc:'3 pilihan sesuai kebutuhan' },
-            { url:'order.html',     icon:'fa-shopping-cart', iconCls:'icon-green',  title:'Order Sekarang',   desc:'Mulai project kamu!', badge:'HOT', featured:true },
-            { url:'penawaran.html', icon:'fa-file-contract', iconCls:'icon-purple', title:'Penawaran Personal',desc:'Custom offer spesial' }
+            { 
+                url:     'paket.html',     
+                icon:    'fa-tag',           
+                iconCls: 'icon-gold',   
+                title:   'Paket & Harga',    
+                desc:    '3 pilihan sesuai kebutuhan' 
+            },
+            { 
+                url:     'order.html',     
+                icon:    'fa-shopping-cart', 
+                iconCls: 'icon-green',  
+                title:   'Order Sekarang',   
+                desc:    'Mulai project kamu!', 
+                badge:   'HOT', 
+                featured: true 
+            },
+            { 
+                url:     'penawaran.html', 
+                icon:    'fa-file-contract', 
+                iconCls: 'icon-purple', 
+                title:   'Penawaran Personal',
+                desc:    'Custom offer spesial' 
+            }
         ]
     },
     
-    // ⭐ RESELLER — Opsi A: 3 items clean & simple
+    // ═══════════════════════════════
+    // 🤝 RESELLER
+    // ═══════════════════════════════
     reseller: {
         title: '<i class="fas fa-handshake" style="color:var(--gold)"></i> Program Reseller',
         items: [
@@ -377,7 +432,63 @@ const SHEET_CONTENT = {
                 desc:    'Perjanjian & syarat' 
             }
         ]
+    },
+    
+    // ═══════════════════════════════
+    // 🌐 DEMO LIST (Sub-Menu dari Layanan)
+    // ═══════════════════════════════
+    demoList: {
+        title:  '<i class="fas fa-globe" style="color:var(--gold)"></i> Live Demo Templates',
+        parent: 'layanan',    // ← Untuk back button (kembali ke sheet Layanan)
+        items: [
+            { 
+                url:     'demo/busana-muslim/index.html', 
+                icon:    'fa-mosque',
+                iconCls: 'icon-gold', 
+                title:   'Toko Busana Muslim', 
+                desc:    'E-commerce fashion syar\'i',
+                badge:   'NEW',
+                featured: true
+            },
+            { 
+                url:     'demo/travel-umrah/index.html', 
+                icon:    'fa-kaaba',
+                iconCls: 'icon-green',  
+                title:   'Travel Umrah', 
+                desc:    'Website travel & paket umrah' 
+            },
+            { 
+                url:     'demo/wifi-provider/index.html', 
+                icon:    'fa-wifi',
+                iconCls: 'icon-cyan',   
+                title:   'WiFi Provider', 
+                desc:    'Company profile + registrasi online',
+                badge:   'HOT'
+            },
+            { 
+                url:     'demo/restaurant-1/index.html', 
+                icon:    'fa-utensils',
+                iconCls: 'icon-orange', 
+                title:   'Restaurant Modern', 
+                desc:    'Landing page F&B elegan' 
+            },
+            { 
+                url:     'demo/corporate-1/index.html', 
+                icon:    'fa-briefcase',
+                iconCls: 'icon-blue',   
+                title:   'Corporate Premium', 
+                desc:    'Company profile professional' 
+            },
+            { 
+                url:     'demo/fashion-1/index.html', 
+                icon:    'fa-shopping-bag',
+                iconCls: 'icon-pink',   
+                title:   'Fashion Store', 
+                desc:    'E-commerce boutique elegant' 
+            }
+        ]
     }
+    
 };
 
 
@@ -417,24 +528,30 @@ document.addEventListener('keydown', e => {
     }
 });
 
-
 /* ============================================
-   📱 MOBILE BOTTOM SHEET (kalau pakai)
+   📱 MOBILE BOTTOM SHEET (dengan Sub-Menu Support)
    ============================================ */
-function openMobileSheet(type) {
+let sheetHistory = [];
+
+function openMobileSheet(type, fromSubMenu = false) {
     const data = SHEET_CONTENT[type];
     if (!data) return;
     
-    // Reset active
+    if (!fromSubMenu) {
+        sheetHistory = [];
+    }
+    sheetHistory.push(type);
+    
+    // Reset active nav
     document.querySelectorAll('.mnav-item').forEach(item => {
         item.classList.remove('active');
     });
     
-    // Set active ke tombol yang di-klik
-    const activeBtn = document.querySelector(`.mnav-item[data-page="${type}"]`);
+    // Set active ke parent (kalau sub-menu, active-kan parent-nya)
+    const parentType = data.parent || type;
+    const activeBtn = document.querySelector(`.mnav-item[data-page="${parentType}"]`);
     if (activeBtn) activeBtn.classList.add('active');
     
-    // Render sheet
     const sheetTitle = document.getElementById('sheetTitle');
     const sheetContent = document.getElementById('sheetContent');
     const overlay = document.getElementById('mobileSheetOverlay');
@@ -442,30 +559,56 @@ function openMobileSheet(type) {
     
     if (!sheetTitle || !sheetContent || !overlay || !sheet) return;
     
-    sheetTitle.innerHTML = data.title;
+    // ⭐ TITLE dengan Back Button kalau sub-menu
+    if (data.parent) {
+        sheetTitle.innerHTML = `
+            <button class="sheet-back-btn" onclick="backToSheet('${data.parent}')" aria-label="Kembali">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            ${data.title}
+        `;
+    } else {
+        sheetTitle.innerHTML = data.title;
+    }
     
-    // ⭐ Deteksi URL saat ini biar bisa mark active di sheet
-    const currentPath = window.location.pathname.split('/').pop().toLowerCase();
+    // Deteksi URL saat ini
+    const currentPath = window.location.pathname.split('/').slice(-2).join('/').toLowerCase();
     
     sheetContent.innerHTML = data.items.map(item => {
         let extraCls = '';
         if (item.featured) extraCls = 'featured';
         if (item.featuredGold) extraCls = 'featured-gold';
         
-        // ⭐ Cek apakah item ini adalah halaman aktif
-        const itemPath = item.url.split('/').pop().toLowerCase();
-        const isCurrentPage = (itemPath === currentPath);
+        // Cek current page
+        const itemPath = (item.url || '').split('/').slice(-2).join('/').toLowerCase();
+        const isCurrentPage = item.url && (itemPath === currentPath);
         if (isCurrentPage) extraCls += ' current-page';
         
         let badge = '';
         if (item.badge) badge = `<span class="dd-badge">${item.badge}</span>`;
         if (item.badgeGold) badge = `<span class="dd-badge dd-badge-gold">${item.badgeGold}</span>`;
         
-        // ⭐ Checkmark hijau kalau current page
         const currentIndicator = isCurrentPage 
             ? '<i class="fas fa-check-circle" style="color:#25d366;margin-left:6px;font-size:0.9rem;"></i>' 
             : '';
         
+        // ⭐ Kalau item punya subMenu → render sebagai BUTTON
+        if (item.subMenu) {
+            return `
+                <button type="button" class="sheet-link ${extraCls}" onclick="openMobileSheet('${item.subMenu}', true)">
+                    <div class="sheet-link-icon dd-icon ${item.iconCls}">
+                        <i class="fas ${item.icon}"></i>
+                    </div>
+                    <div class="sheet-link-text">
+                        <div class="sheet-link-title">${item.title} ${badge}</div>
+                        <div class="sheet-link-desc">${item.desc}</div>
+                    </div>
+                    <i class="fas fa-chevron-right sheet-link-arrow"></i>
+                </button>
+            `;
+        }
+        
+        // Item biasa (link)
         return `
             <a href="${item.url}" class="sheet-link ${extraCls}">
                 <div class="sheet-link-icon dd-icon ${item.iconCls}">
@@ -483,6 +626,25 @@ function openMobileSheet(type) {
     overlay.classList.add('show');
     sheet.classList.add('show');
     document.body.style.overflow = 'hidden';
+    
+    // Animation
+    if (fromSubMenu) {
+        sheetContent.style.animation = 'slideInFromRight 0.3s ease';
+    } else {
+        sheetContent.style.animation = 'slideInFromBottom 0.3s ease';
+    }
+}
+
+/* ⬅️ Back to parent sheet */
+function backToSheet(parentType) {
+    sheetHistory.pop();
+    
+    const sheetContent = document.getElementById('sheetContent');
+    if (sheetContent) sheetContent.style.animation = 'slideInFromLeft 0.3s ease';
+    
+    setTimeout(() => {
+        openMobileSheet(parentType, false);
+    }, 50);
 }
 
 function closeMobileSheet() {
@@ -493,7 +655,8 @@ function closeMobileSheet() {
     if (sheet) sheet.classList.remove('show');
     document.body.style.overflow = '';
     
-    // ⭐ Restore active state ke URL saat ini
+    sheetHistory = [];
+    
     if (typeof initActiveNav === 'function') {
         initActiveNav();
     }
