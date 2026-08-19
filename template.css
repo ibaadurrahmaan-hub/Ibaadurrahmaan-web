@@ -1352,3 +1352,17 @@
     flex-wrap: wrap;
   }
 }
+
+/* Mockup Busana Muslim */
+.tpl-mockup-hijab {
+    background: linear-gradient(145deg, #1a1a2e, #0f0f23);
+}
+
+.tpl-mockup-hijab .tpl-mockup-hero {
+    background: linear-gradient(135deg, rgba(212,165,54,0.15), rgba(212,165,54,0.05));
+    border: 1px solid rgba(212,165,54,0.2);
+}
+
+.tpl-mockup-hijab .tpl-mockup-hero h4 {
+    color: #d4a536;
+}
