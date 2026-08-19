@@ -3637,85 +3637,28 @@ a.fab-wa .fab.fa-whatsapp,
     font-weight: 800;
 }
 
-/* ============================================
-   📱 FIX v8.7: Bottom Sheet Content Scrollable
-   ============================================ */
+/* ═══════════════════════════════════════════════════════
+   📱 MOBILE SHEET — SUB-MENU SUPPORT
+   ═══════════════════════════════════════════════════════ */
 
-/* Container sheet: max-height dan flex layout */
-.mobile-sheet {
-    max-height: 85vh !important;
-    display: flex !important;
-    flex-direction: column !important;
-    overflow: hidden !important;
-    padding-bottom: 100px !important;  /* ⭐ Space untuk mobile nav bawah */
-}
-
-/* Header sheet: fixed di atas */
-.sheet-handle,
-.sheet-header {
-    flex-shrink: 0 !important;
-}
-
-/* Content sheet: bisa di-scroll */
-.sheet-content {
-    flex: 1 1 auto !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
-    padding-bottom: 20px !important;
-    min-height: 100px;
-}
-
-/* Scrollbar styling (opsional, biar cantik) */
-.sheet-content::-webkit-scrollbar {
-    width: 4px;
-}
-
-.sheet-content::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.sheet-content::-webkit-scrollbar-thumb {
-    background: rgba(212, 165, 54, 0.3);
-    border-radius: 4px;
-}
-
-.sheet-content::-webkit-scrollbar-thumb:hover {
-    background: rgba(212, 165, 54, 0.5);
-}
-
-
-/* ============================================
-   ✨ Current Page Indicator (Highlight di Sheet)
-   ============================================ */
-.sheet-link.current-page {
-    background: linear-gradient(90deg, rgba(37,211,102,0.12), rgba(37,211,102,0.03)) !important;
-    border-color: rgba(37,211,102,0.35) !important;
-    box-shadow: 0 4px 12px rgba(37,211,102,0.15);
-}
-
-.sheet-link.current-page .sheet-link-title {
-    color: #25d366 !important;
-    font-weight: 800;
-}
-
-/* ═══ SHEET BACK BUTTON ═══ */
+/* Back Button di Sheet Header */
 .sheet-back-btn {
     background: rgba(255,255,255,0.06);
     border: 1px solid var(--border, rgba(255,255,255,0.08));
     color: var(--text-muted, #8a94a6);
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
     margin-right: 10px;
     font-size: 0.85rem;
     vertical-align: middle;
     padding: 0;
+    flex-shrink: 0;
 }
 
 .sheet-back-btn:hover {
@@ -3725,7 +3668,11 @@ a.fab-wa .fab.fa-whatsapp,
     transform: translateX(-3px);
 }
 
-/* ═══ SHEET LINK sebagai BUTTON ═══ */
+.sheet-back-btn:active {
+    transform: translateX(-1px) scale(0.95);
+}
+
+/* Sheet Link sebagai BUTTON (untuk sub-menu trigger) */
 button.sheet-link {
     width: 100%;
     background: none;
@@ -3736,30 +3683,76 @@ button.sheet-link {
     cursor: pointer;
 }
 
-/* ═══ ICON COLORS TAMBAHAN ═══ */
+/* Chevron pada button subMenu (indikator ada sub-menu) */
+button.sheet-link .sheet-link-arrow {
+    color: var(--gold, #d4a536);
+    opacity: 0.7;
+    transition: transform 0.3s ease;
+}
+
+button.sheet-link:hover .sheet-link-arrow {
+    transform: translateX(4px);
+    opacity: 1;
+}
+
+/* Icon Colors Tambahan (untuk kategori baru) */
 .dd-icon.icon-orange { 
     background: linear-gradient(135deg, #f39c12, #e67e22); 
     color: #fff; 
 }
+
 .dd-icon.icon-pink { 
     background: linear-gradient(135deg, #d4758c, #b85874); 
     color: #fff; 
 }
 
-/* ═══ ANIMATIONS ═══ */
+.dd-icon.icon-cyan { 
+    background: linear-gradient(135deg, #3498db, #2980b9); 
+    color: #fff; 
+}
+
+/* ═══════════════════════════════════════════════════════
+   ✨ ANIMATIONS
+   ═══════════════════════════════════════════════════════ */
 @keyframes slideInFromRight {
-    from { opacity: 0; transform: translateX(30px); }
-    to   { opacity: 1; transform: translateX(0); }
+    from { 
+        opacity: 0; 
+        transform: translateX(30px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateX(0); 
+    }
 }
 
 @keyframes slideInFromLeft {
-    from { opacity: 0; transform: translateX(-30px); }
-    to   { opacity: 1; transform: translateX(0); }
+    from { 
+        opacity: 0; 
+        transform: translateX(-30px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateX(0); 
+    }
 }
 
 @keyframes slideInFromBottom {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* Sheet Title dengan Back Button */
+.sheet-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: nowrap;
 }
 
 /* ==================================================
