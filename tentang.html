@@ -298,6 +298,19 @@ body {
     line-height: 1.2;
 }
 
+/* ⭐ TAMBAH INI: Hilangkan bullet pseudo-element */
+.section-title::before,
+.section-title::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* ⭐ TAMBAH INI: Hilangkan p kosong */
+.section-block p:empty,
+.section-block div:empty {
+    display: none !important;
+}
+
 .section-title .st-icon {
     display: inline-flex;
     align-items: center;
@@ -310,7 +323,6 @@ body {
     color: var(--gold);
     flex-shrink: 0;
 }
-
 .section-title .st-icon i {
     font-size: 1.15rem;
 }
@@ -888,15 +900,17 @@ body {
             <span class="st-text">Cerita <b>Kami</b></span>
         </h2>
         
-        <div class="story-grid">
-            <div class="story-image">
-                <!-- ⭐ GANTI dengan foto owner asli -->
-                <!-- <img src="owner.jpg" alt="Ibaadurrohman - Founder" class="owner-photo"> -->
-                <div class="owner-name">
-                    Ibaadurrohman
-                    <small>Founder & Web Designer</small>
-                </div>
-            </div>
+       <div class="story-image">
+    <img src="owner.jpg" 
+         alt="Ibaadurrohman - Founder Ibaadurrahmaan Web Designer" 
+         class="owner-photo"
+         loading="lazy"
+         onerror="this.style.display='none';console.log('❌ Foto owner tidak ditemukan');">
+    <div class="owner-name">
+        Ibaadurrohman
+        <small>Founder & Web Designer</small>
+    </div>
+</div>
             
             <div class="story-content">
                 <p>
