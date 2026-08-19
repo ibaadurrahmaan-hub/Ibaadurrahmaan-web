@@ -35,6 +35,7 @@ function initActiveNav() {
     // Halaman sub akan bikin parent-nya jadi active
     const PAGE_GROUP_MAP = {
         // ═══ Group: LAYANAN ═══
+    'tentang'        : 'layanan',
         'portfolio'      : 'layanan',
         'template'       : 'layanan',
         'demo'           : 'layanan',
