@@ -291,27 +291,25 @@ document.dispatchEvent(new CustomEvent('firebaseReady'));
     .nav-item i{font-size:1.2rem;}
     .slip-preview{padding:16px 10px;font-size:0.78rem;}
 }
-
-/* ═══ REWARD & BONUS SECTION di SLIP ═══ */
-.slip-reward-section,
-.slip-bonus-section {
-    margin-top: 20px;
+/* ═══ REWARD & BONUS SECTIONS DI SLIP ═══ */
+.slip-extra-section {
+    margin: 20px 0;
     padding: 16px 18px;
     border-radius: 10px;
     border-left: 4px solid;
 }
 
-.slip-reward-section {
+.slip-extra-section.reward {
     background: linear-gradient(135deg, #fff9e6, #fef5d3);
     border-left-color: #d4a536;
 }
 
-.slip-bonus-section {
+.slip-extra-section.bonus {
     background: linear-gradient(135deg, #ede9fe, #ddd6fe);
     border-left-color: #9b59b6;
 }
 
-.slip-section-header {
+.slip-extra-header {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -322,114 +320,104 @@ document.dispatchEvent(new CustomEvent('firebaseReady'));
     letter-spacing: 1px;
     margin-bottom: 12px;
     padding-bottom: 8px;
-    border-bottom: 1px dashed rgba(0,0,0,0.1);
+    border-bottom: 1px dashed rgba(0,0,0,0.15);
 }
 
-.slip-reward-section .slip-section-header {
-    color: #d4a536;
-}
+.slip-extra-section.reward .slip-extra-header { color: #b8860b; }
+.slip-extra-section.bonus  .slip-extra-header { color: #7c3aed; }
 
-.slip-bonus-section .slip-section-header {
-    color: #9b59b6;
-}
-
-.slip-item-list {
+.slip-extra-list {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.slip-item-row {
+.slip-extra-row {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 12px;
-    padding: 8px 12px;
-    background: rgba(255,255,255,0.5);
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.6);
     border-radius: 8px;
     font-size: 0.85rem;
 }
 
-.slip-item-info {
+.slip-extra-info {
     flex: 1;
     min-width: 0;
 }
 
-.slip-item-name {
+.slip-extra-name {
     font-weight: 700;
     color: #333;
     display: flex;
     align-items: center;
     gap: 6px;
     line-height: 1.3;
+    margin-bottom: 2px;
 }
 
-.slip-item-name .item-emoji {
-    font-size: 1.05rem;
+.slip-extra-name .emo {
+    font-size: 1.1rem;
+    line-height: 1;
 }
 
-.slip-item-desc {
+.slip-extra-desc {
     font-size: 0.72rem;
     color: #666;
     font-style: italic;
-    margin-top: 2px;
+    line-height: 1.4;
 }
 
-.slip-item-amount {
+.slip-extra-amount {
     font-family: 'Montserrat', monospace;
     font-weight: 800;
-    color: #d4a536;
     white-space: nowrap;
     font-size: 0.92rem;
 }
 
-.slip-bonus-section .slip-item-amount {
-    color: #9b59b6;
-}
+.slip-extra-section.reward .slip-extra-amount { color: #b8860b; }
+.slip-extra-section.bonus  .slip-extra-amount { color: #7c3aed; }
 
-.slip-item-subtotal {
+.slip-extra-subtotal {
     margin-top: 10px;
-    padding-top: 8px;
-    border-top: 1px solid rgba(0,0,0,0.1);
+    padding-top: 10px;
+    border-top: 1px solid rgba(0,0,0,0.15);
     display: flex;
     justify-content: space-between;
     font-weight: 800;
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     font-family: 'Poppins', sans-serif;
 }
 
-.slip-reward-section .slip-item-subtotal { color: #d4a536; }
-.slip-bonus-section .slip-item-subtotal { color: #9b59b6; }
+.slip-extra-section.reward .slip-extra-subtotal { color: #b8860b; }
+.slip-extra-section.bonus  .slip-extra-subtotal { color: #7c3aed; }
 
-/* Grand Summary Row - dengan breakdown per kategori */
+/* Breakdown baris di summary */
 .slip-summary-breakdown {
     display: flex;
     justify-content: space-between;
     padding: 6px 0;
-    font-size: 0.85rem;
-    color: #666;
+    font-size: 0.9rem;
+    color: #555;
+    border-bottom: 1px dashed rgba(212,165,54,0.15);
 }
-
+.slip-summary-breakdown:last-child { border-bottom: none; }
 .slip-summary-breakdown .value {
     font-family: 'Montserrat', monospace;
     font-weight: 700;
     color: #333;
 }
 
-.slip-summary-breakdown.komisi .label::before { content: '💼 '; }
-.slip-summary-breakdown.reward .label::before { content: '🎓 '; }
-.slip-summary-breakdown.bonus .label::before  { content: '🎁 '; }
-
-/* Print/PDF mode */
+/* Print mode support */
 @media print {
-    .slip-reward-section,
-    .slip-bonus-section {
+    .slip-extra-section {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
         page-break-inside: avoid !important;
     }
 }
-
 
 </style>
 </head>
@@ -902,8 +890,7 @@ function generateMonthlySlip() {
         periode : document.getElementById('fieldPeriode').value,
         tglBayar: document.getElementById('fieldTglBayar').value,
         closings: getClosings(),
-        
-        // ⭐ NEW: Ambil reward & bonus dari _slipExtraData (global)
+        // ⭐ Ambil dari global
         rewards : _slipExtraData?.rewards || [],
         bonuses : _slipExtraData?.bonuses || []
     };
@@ -911,13 +898,13 @@ function generateMonthlySlip() {
     const tierInfo = getTierName(data.tier);
     const slipNo = generateSlipNo('monthly');
     
-    // ═══ HITUNG KOMISI ═══
-    let totalKomisi = 0, totalBonus = 0;
+    // ═══ HITUNG KOMISI CLOSING ═══
+    let totalKomisi = 0, totalBonusTier = 0;
     const rowsHTML = data.closings.map(c => {
         const komisi = (c.paket * data.tier) / 100;
-        const bonus  = tierInfo.bonus;
+        const bonusT = tierInfo.bonus;
         totalKomisi += komisi;
-        totalBonus  += bonus;
+        totalBonusTier += bonusT;
         return `<tr>
             <td class="center">${c.no}</td>
             <td>${c.client}</td>
@@ -925,42 +912,42 @@ function generateMonthlySlip() {
             <td class="right">${formatRp(c.paket)}</td>
             <td class="center">${data.tier}%</td>
             <td class="right">${formatRp(komisi)}</td>
-            <td class="right">${formatRp(bonus)}</td>
+            <td class="right">${formatRp(bonusT)}</td>
         </tr>`;
     }).join('');
     
-    const totalKomisiAll = totalKomisi + totalBonus;
+    const totalKomisiAll = totalKomisi + totalBonusTier;
     
     // ═══ HITUNG REWARD ═══
     const totalReward = data.rewards.reduce((s, r) => s + (r.amount || 0), 0);
     
-    // ═══ HITUNG BONUS LAINNYA ═══
+    // ═══ HITUNG BONUS ═══
     const totalBonusExtra = data.bonuses.reduce((s, b) => s + (b.amount || 0), 0);
     
     // ═══ GRAND TOTAL ═══
     const grandTotal = totalKomisiAll + totalReward + totalBonusExtra;
     
-    // ═══ RENDER REWARD SECTION ═══
+    // ═══ RENDER: REWARD SECTION ═══
     const rewardHTML = data.rewards.length > 0 ? `
-        <div class="slip-reward-section">
-            <div class="slip-section-header">
+        <div class="slip-extra-section reward">
+            <div class="slip-extra-header">
                 <i class="fas fa-graduation-cap"></i>
                 <span>🎓 Reward Pembelajaran & SOP</span>
             </div>
-            <div class="slip-item-list">
+            <div class="slip-extra-list">
                 ${data.rewards.map(r => `
-                    <div class="slip-item-row">
-                        <div class="slip-item-info">
-                            <div class="slip-item-name">
-                                <span class="item-emoji">${r.icon || '🎁'}</span>
+                    <div class="slip-extra-row">
+                        <div class="slip-extra-info">
+                            <div class="slip-extra-name">
+                                <span class="emo">${r.icon || '🎁'}</span>
                                 <span>${r.name}</span>
                             </div>
-                            ${r.desc ? `<div class="slip-item-desc">${r.desc}</div>` : ''}
+                            ${r.desc ? `<div class="slip-extra-desc">${r.desc}</div>` : ''}
                         </div>
-                        <div class="slip-item-amount">${formatRp(r.amount)}</div>
+                        <div class="slip-extra-amount">${formatRp(r.amount)}</div>
                     </div>
                 `).join('')}
-                <div class="slip-item-subtotal">
+                <div class="slip-extra-subtotal">
                     <span>Subtotal Reward</span>
                     <span>${formatRp(totalReward)}</span>
                 </div>
@@ -968,27 +955,27 @@ function generateMonthlySlip() {
         </div>
     ` : '';
     
-    // ═══ RENDER BONUS SECTION ═══
+    // ═══ RENDER: BONUS SECTION ═══
     const bonusHTML = data.bonuses.length > 0 ? `
-        <div class="slip-bonus-section">
-            <div class="slip-section-header">
+        <div class="slip-extra-section bonus">
+            <div class="slip-extra-header">
                 <i class="fas fa-gift"></i>
                 <span>🎁 Bonus Lainnya</span>
             </div>
-            <div class="slip-item-list">
+            <div class="slip-extra-list">
                 ${data.bonuses.map(b => `
-                    <div class="slip-item-row">
-                        <div class="slip-item-info">
-                            <div class="slip-item-name">
-                                <span class="item-emoji">${b.icon || '🎁'}</span>
+                    <div class="slip-extra-row">
+                        <div class="slip-extra-info">
+                            <div class="slip-extra-name">
+                                <span class="emo">${b.icon || '🎁'}</span>
                                 <span>${b.name}</span>
                             </div>
-                            ${b.desc ? `<div class="slip-item-desc">${b.desc}</div>` : ''}
+                            ${b.desc ? `<div class="slip-extra-desc">${b.desc}</div>` : ''}
                         </div>
-                        <div class="slip-item-amount">${formatRp(b.amount)}</div>
+                        <div class="slip-extra-amount">${formatRp(b.amount)}</div>
                     </div>
                 `).join('')}
-                <div class="slip-item-subtotal">
+                <div class="slip-extra-subtotal">
                     <span>Subtotal Bonus</span>
                     <span>${formatRp(totalBonusExtra)}</span>
                 </div>
@@ -996,26 +983,27 @@ function generateMonthlySlip() {
         </div>
     ` : '';
     
-    // ═══ RENDER SUMMARY BREAKDOWN ═══
+    // ═══ RENDER: SUMMARY BREAKDOWN ═══
     const summaryBreakdownHTML = `
-        <div class="slip-summary-breakdown komisi">
-            <span class="label">Komisi Closing (${data.closings.length} closing)</span>
+        <div class="slip-summary-breakdown">
+            <span class="label">💼 Komisi Closing (${data.closings.length} closing)</span>
             <span class="value">${formatRp(totalKomisiAll)}</span>
         </div>
         ${totalReward > 0 ? `
-            <div class="slip-summary-breakdown reward">
-                <span class="label">Reward Pembelajaran (${data.rewards.length} item)</span>
+            <div class="slip-summary-breakdown">
+                <span class="label">🎓 Reward Pembelajaran (${data.rewards.length} item)</span>
                 <span class="value">${formatRp(totalReward)}</span>
             </div>
         ` : ''}
         ${totalBonusExtra > 0 ? `
-            <div class="slip-summary-breakdown bonus">
-                <span class="label">Bonus Lainnya (${data.bonuses.length} item)</span>
+            <div class="slip-summary-breakdown">
+                <span class="label">🎁 Bonus Lainnya (${data.bonuses.length} item)</span>
                 <span class="value">${formatRp(totalBonusExtra)}</span>
             </div>
         ` : ''}
     `;
     
+    // ═══ RENDER FINAL SLIP ═══
     document.getElementById('slipPreview').innerHTML = `
         <div class="slip-doc-header">
             <div class="slip-brand">
@@ -1055,8 +1043,8 @@ function generateMonthlySlip() {
             </div>
         </div>
 
-        <!-- ═══ KOMISI CLOSING ═══ -->
-        <div class="slip-detail-title">💼 Komisi Closing (${data.closings.length} closing)</div>
+        <!-- ═══ KOMISI CLOSING TABLE ═══ -->
+        <div class="slip-detail-title">💼 Detail Komisi Closing (${data.closings.length} closing)</div>
         <table class="slip-table">
             <thead>
                 <tr>
@@ -1080,7 +1068,7 @@ function generateMonthlySlip() {
         <!-- ═══ ⭐ BONUS SECTION ═══ -->
         ${bonusHTML}
 
-        <!-- ═══ SUMMARY ═══ -->
+        <!-- ═══ SUMMARY DENGAN BREAKDOWN ═══ -->
         <div class="slip-summary">
             ${summaryBreakdownHTML}
             <div class="slip-summary-total">
@@ -1263,76 +1251,83 @@ function sendToWA() {
     const tierInfo = getTierName(tier);
     let message = '';
 
-    if (currentMode === 'monthly') {
-        const periode = formatPeriode(document.getElementById('fieldPeriode').value);
-        const tglBayar = formatDate(document.getElementById('fieldTglBayar').value);
-        const closings = getClosings();
-        const totalKomisi = closings.reduce((sum, c) => sum + (c.paket * tier) / 100, 0);
-        const totalBonusTier = closings.length * tierInfo.bonus;
-        const totalKomisiAll = totalKomisi + totalBonusTier;
-        
-        // ⭐ NEW: Reward & Bonus
-        const rewards = _slipExtraData?.rewards || [];
-        const bonuses = _slipExtraData?.bonuses || [];
-        const totalReward = rewards.reduce((s, r) => s + r.amount, 0);
-        const totalBonus  = bonuses.reduce((s, b) => s + b.amount, 0);
-        const grandTotal  = totalKomisiAll + totalReward + totalBonus;
-        
-        // Build message
-        message = `Halo *${nama}* 👋\n\n`;
-        message += `🎉 *SLIP KOMISI BULANAN* 🎉\n\n`;
-        message += `📅 Periode: *${periode}*\n`;
-        message += `📆 Tanggal Bayar: *${tglBayar}*\n\n`;
-        
-        // KOMISI CLOSING
-        message += `━━━━━━━━━━━━━━━━━━━━\n`;
-        message += `💼 *KOMISI CLOSING*\n`;
-        message += `━━━━━━━━━━━━━━━━━━━━\n`;
-        message += `• Jumlah Closing: ${closings.length}\n`;
-        message += `• Tier: ${tierInfo.name} (${tier}%)\n`;
-        message += `• Total Komisi: Rp ${totalKomisi.toLocaleString('id-ID')}\n`;
-        if (totalBonusTier > 0) {
-            message += `• Bonus Tier: Rp ${totalBonusTier.toLocaleString('id-ID')}\n`;
-        }
-        message += `• *Subtotal: Rp ${totalKomisiAll.toLocaleString('id-ID')}*\n`;
-        
-        // ⭐ REWARD
-        if (rewards.length > 0) {
-            message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
-            message += `🎓 *REWARD PEMBELAJARAN*\n`;
-            message += `━━━━━━━━━━━━━━━━━━━━\n`;
-            rewards.forEach(r => {
-                message += `${r.icon || '🎁'} ${r.name}: Rp ${r.amount.toLocaleString('id-ID')}\n`;
-                if (r.desc) message += `   _${r.desc}_\n`;
-            });
-            message += `• *Subtotal: Rp ${totalReward.toLocaleString('id-ID')}*\n`;
-        }
-        
-        // ⭐ BONUS
-        if (bonuses.length > 0) {
-            message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
-            message += `🎁 *BONUS LAINNYA*\n`;
-            message += `━━━━━━━━━━━━━━━━━━━━\n`;
-            bonuses.forEach(b => {
-                message += `${b.icon || '🎁'} ${b.name}: Rp ${b.amount.toLocaleString('id-ID')}\n`;
-                if (b.desc) message += `   _${b.desc}_\n`;
-            });
-            message += `• *Subtotal: Rp ${totalBonus.toLocaleString('id-ID')}*\n`;
-        }
-        
-        // GRAND TOTAL
-        message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
-        message += `💰 *GRAND TOTAL DIBAYAR:*\n`;
-        message += `*Rp ${grandTotal.toLocaleString('id-ID')}*\n`;
-        message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
-        
-        message += `Silakan cek rekening kamu ya!\n`;
-        message += `Barakallahu fiik atas kerja samanya 🙏\n\n`;
-        message += `- Ibaadurrahmaan Web Designer`;
-    } else {
-        // Single mode — sama seperti sebelumnya
-        // ... (kode existing)
+if(currentMode==='monthly'){
+    const periode = formatPeriode(document.getElementById('fieldPeriode').value);
+    const tglBayar = formatDate(document.getElementById('fieldTglBayar').value);
+    const closings = getClosings();
+    const totalKomisi = closings.reduce((sum,c)=>sum+(c.paket*tier)/100,0);
+    const totalBonusTier = closings.length*tierInfo.bonus;
+    const totalKomisiAll = totalKomisi+totalBonusTier;
+    
+    // ⭐ Reward & Bonus dari global var
+    const rewards = _slipExtraData?.rewards || [];
+    const bonuses = _slipExtraData?.bonuses || [];
+    const totalReward = rewards.reduce((s,r)=>s+(r.amount||0),0);
+    const totalBonusExtra = bonuses.reduce((s,b)=>s+(b.amount||0),0);
+    const grandTotal = totalKomisiAll+totalReward+totalBonusExtra;
+    
+    // ═══ BUILD MESSAGE ═══
+    message = `Halo *${nama}* 👋\n\n`;
+    message += `🎉 *SLIP KOMISI BULANAN* 🎉\n\n`;
+    message += `📅 Periode: *${periode}*\n`;
+    message += `📆 Tanggal Bayar: *${tglBayar}*\n\n`;
+    
+    // KOMISI CLOSING
+    message += `━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `💼 *KOMISI CLOSING*\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `• Jumlah Closing: ${closings.length}\n`;
+    message += `• Tier: ${tierInfo.name} (${tier}%)\n`;
+    message += `• Komisi: Rp ${totalKomisi.toLocaleString('id-ID')}\n`;
+    if(totalBonusTier > 0){
+        message += `• Bonus Tier: Rp ${totalBonusTier.toLocaleString('id-ID')}\n`;
     }
+    message += `• *Subtotal: Rp ${totalKomisiAll.toLocaleString('id-ID')}*\n`;
+    
+    // ⭐ REWARD PEMBELAJARAN
+    if(rewards.length > 0){
+        message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+        message += `🎓 *REWARD PEMBELAJARAN*\n`;
+        message += `━━━━━━━━━━━━━━━━━━━━\n`;
+        rewards.forEach(r => {
+            message += `${r.icon || '🎁'} ${r.name}\n`;
+            if(r.desc) message += `   _${r.desc}_\n`;
+            message += `   💰 Rp ${r.amount.toLocaleString('id-ID')}\n\n`;
+        });
+        message += `• *Subtotal Reward: Rp ${totalReward.toLocaleString('id-ID')}*\n`;
+    }
+    
+    // ⭐ BONUS LAINNYA
+    if(bonuses.length > 0){
+        message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+        message += `🎁 *BONUS LAINNYA*\n`;
+        message += `━━━━━━━━━━━━━━━━━━━━\n`;
+        bonuses.forEach(b => {
+            message += `${b.icon || '🎁'} ${b.name}\n`;
+            if(b.desc) message += `   _${b.desc}_\n`;
+            message += `   💰 Rp ${b.amount.toLocaleString('id-ID')}\n\n`;
+        });
+        message += `• *Subtotal Bonus: Rp ${totalBonusExtra.toLocaleString('id-ID')}*\n`;
+    }
+    
+    // GRAND TOTAL
+    message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `💰 *GRAND TOTAL DIBAYAR:*\n`;
+    message += `*Rp ${grandTotal.toLocaleString('id-ID')}*\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+    
+    // TRANSFER INFO
+    const bank = document.getElementById('fieldBank').value.trim() || '-';
+    const norek = document.getElementById('fieldNorek').value.trim() || '-';
+    message += `🏦 *Transfer ke:*\n`;
+    message += `• Bank: ${bank}\n`;
+    message += `• No. Rek: ${norek}\n`;
+    message += `• A/n: ${nama}\n\n`;
+    
+    message += `Silakan cek rekening kamu ya!\n`;
+    message += `Barakallahu fiik atas kerja samanya 🙏\n\n`;
+    message += `- Ibaadurrahmaan Web Designer`;
+}
 
     let waNumber = autoFilledResellerWA || '';
     if (waNumber) {
@@ -1471,7 +1466,7 @@ window.addEventListener('load',()=>{
                     }
                 }
 
-        // ─── MODE BULK (dari dashboard-reseller / goToSlip) ───
+    // ─── MODE BULK (dari dashboard-reseller / goToSlip) ───
 else if(d.mode==='bulk'){
     isBulkMode=true;
     selectMode('monthly');
@@ -1487,18 +1482,26 @@ else if(d.mode==='bulk'){
     if(Array.isArray(d.closings)&&d.closings.length>0){
         d.closings.forEach(c=>addClosingWithData(c));
     }else{
-        addClosing(); // fallback
+        // Kalau ga ada closing tapi ada reward/bonus, tetap perlu 1 baris kosong
+        // biar preview tidak error
+        if((!d.rewards || d.rewards.length===0) && (!d.bonuses || d.bonuses.length===0)){
+            addClosing(); // fallback
+        }
     }
-
-    // ⭐ NEW: Simpan reward & bonus ke global var (untuk render slip)
+    
+    // ⭐ NEW: Simpan reward & bonus ke global var
     _slipExtraData = {
         rewards: Array.isArray(d.rewards) ? d.rewards : [],
         bonuses: Array.isArray(d.bonuses) ? d.bonuses : []
     };
     
-    console.log('📦 Reward & Bonus loaded:', _slipExtraData);
+    console.log('📦 Bulk Data loaded:');
+    console.log('   💼 Closings:', d.closings?.length || 0);
+    console.log('   🎓 Rewards :', _slipExtraData.rewards.length);
+    console.log('   🎁 Bonuses :', _slipExtraData.bonuses.length);
+    console.log('   💰 Grand Total:', d.grandTotal || 0);
 
-    // ═══ TAMPILKAN BULK NOTICE (dengan Bank + Rekening + Reward + Bonus) ═══
+    // ═══ TAMPILKAN BULK NOTICE (dengan Bank + Rekening + Info Reward/Bonus) ═══
     const bulkNotice=document.getElementById('bulkNotice');
     const bulkTitle=document.getElementById('bulkNoticeTitle');
     const bulkDesc=document.getElementById('bulkNoticeDesc');
@@ -1507,16 +1510,15 @@ else if(d.mode==='bulk'){
         bulkNotice.style.display='flex';
         
         const totalClosing = Array.isArray(d.closings) ? d.closings.length : 0;
-        const totalReward  = Array.isArray(d.rewards)  ? d.rewards.length  : 0;
-        const totalBonus   = Array.isArray(d.bonuses)  ? d.bonuses.length  : 0;
+        const totalReward  = _slipExtraData.rewards.length;
+        const totalBonus   = _slipExtraData.bonuses.length;
         
         const periodLabel = d.period
             ? new Date(d.period+'-01').toLocaleDateString('id-ID',{month:'long',year:'numeric'})
             : 'Semua Waktu';
         
-        // ═══ TITLE — nama reseller + count items ═══
+        // Title — nama + count items
         if(bulkTitle){
-            // Build item counts array
             const itemCounts = [`${totalClosing} Closing`];
             if(totalReward > 0) itemCounts.push(`${totalReward} Reward`);
             if(totalBonus > 0)  itemCounts.push(`${totalBonus} Bonus`);
@@ -1524,16 +1526,15 @@ else if(d.mode==='bulk'){
             bulkTitle.textContent = `Slip Bulanan — ${d.nama} (${itemCounts.join(' + ')})`;
         }
         
-        // ═══ DESC — Periode + Bank + Rek (+ Grand Total kalau ada) ═══
+        // Desc — Periode + Bank + Rek + Total
         if(bulkDesc){
             const parts = [];
             parts.push(`Periode: ${periodLabel}`);
             parts.push(`Bank: ${d.bank||'-'}`);
             parts.push(`Rek: ${d.norek||'-'}`);
             
-            // Kalau ada grandTotal dari reseller.html
             if(d.grandTotal && d.grandTotal > 0){
-                parts.push(`Total: ${formatRp(d.grandTotal)}`);
+                parts.push(`💰 Total: ${formatRp(d.grandTotal)}`);
             }
             
             bulkDesc.textContent = parts.join(' • ');
