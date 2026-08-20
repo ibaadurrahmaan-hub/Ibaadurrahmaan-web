@@ -930,10 +930,8 @@ function generateMonthlySlip() {
         periode : document.getElementById('fieldPeriode').value,
         tglBayar: document.getElementById('fieldTglBayar').value,
         closings: getClosings(),
-        // ⭐ Reward & Bonus dari raw data (ada info paid/unpaid)
         rewards : Array.isArray(rawData.rewards) ? rawData.rewards : [],
         bonuses : Array.isArray(rawData.bonuses) ? rawData.bonuses : [],
-        // ⭐ Data closings dengan info paid dari raw data
         closingsRaw: Array.isArray(rawData.closings) ? rawData.closings : []
     };
     
@@ -951,12 +949,8 @@ function generateMonthlySlip() {
     };
     
     // ═══ RENDER: BARIS KOMISI CLOSING ═══
-    // Kalau ada raw closings, pakai (biar dapat info isPaid)
-    // Kalau nggak, pakai getClosings() biasa
-    const useClosings = data.closingsRaw.length > 0 ? data.closingsRaw : data.closings.map((c, idx) => ({
-        ...c,
-        isPaid: false,
-        paidAt: null
+    const useClosings = data.closingsRaw.length > 0 ? data.closingsRaw : data.closings.map((c) => ({
+        ...c, isPaid: false, paidAt: null
     }));
     
     let totalKomisiPaid = 0, totalKomisiUnpaid = 0;
@@ -966,10 +960,8 @@ function generateMonthlySlip() {
         const base = c.paket || c.basePrice || 0;
         const komisi = c.komisi || (base * data.tier) / 100;
         const bonusT = c.bonus || tierInfo.bonus;
-        const totalRow = c.total || (komisi + bonusT);
         const isPaid = c.isPaid === true;
         
-        // Hitung total
         if (isPaid) {
             totalKomisiPaid += komisi;
             totalBonusTierPaid += bonusT;
@@ -978,7 +970,6 @@ function generateMonthlySlip() {
             totalBonusTierUnpaid += bonusT;
         }
         
-        // Status tag
         const statusTag = isPaid 
             ? `<span class="status-tag paid" title="Sudah dibayar${c.paidAt ? ' pada ' + fmtShortDate(c.paidAt) : ''}">✓ PAID</span>`
             : `<span class="status-tag unpaid">⏳ UNPAID</span>`;
@@ -1022,9 +1013,8 @@ function generateMonthlySlip() {
     // ═══ GRAND TOTAL (yang harus ditransfer sekarang = UNPAID) ═══
     const grandTotalUnpaid = totalKomisiUnpaidSum + totalRewardUnpaid + totalBonusExtraUnpaid;
     const totalAllPaid = totalKomisiPaidSum + totalRewardPaid + totalBonusExtraPaid;
-    const totalGrandFull = grandTotalUnpaid + totalAllPaid;
     
-    // ═══ RENDER: REWARD SECTION (FIXED LAYOUT) ═══
+    // ═══ RENDER: REWARD SECTION ═══
     const rewardHTML = data.rewards.length > 0 ? `
         <div class="slip-extra-section reward">
             <div class="slip-extra-header">
@@ -1065,7 +1055,7 @@ function generateMonthlySlip() {
         </div>
     ` : '';
     
-    // ═══ RENDER: BONUS SECTION (FIXED LAYOUT) ═══
+    // ═══ RENDER: BONUS SECTION (TIDAK ADA DUPLIKAT LAGI) ═══
     const bonusHTML = data.bonuses.length > 0 ? `
         <div class="slip-extra-section bonus">
             <div class="slip-extra-header">
@@ -1101,47 +1091,6 @@ function generateMonthlySlip() {
                         ${totalBonusExtraPaid > 0 ? `<span class="sub-note">✓ ${formatRp(totalBonusExtraPaid)} sudah dibayar sebelumnya</span>` : ''}
                     </div>
                     <span>${formatRp(totalBonusExtraUnpaid)}</span>
-                </div>
-            </div>
-        </div>
-    ` : '';
-    
-    // ═══ RENDER: BONUS SECTION ═══
-    const bonusHTML = data.bonuses.length > 0 ? `
-        <div class="slip-extra-section bonus">
-            <div class="slip-extra-header">
-                <i class="fas fa-gift"></i>
-                <span>🎁 Bonus Lainnya</span>
-            </div>
-            <div class="slip-extra-list">
-                ${data.bonuses.map(b => {
-                    const isPaid = b.paid === true;
-                    const statusHTML = isPaid
-                        ? `<span class="status-tag paid">✓ SUDAH DIBAYAR${b.paidAt ? ` <span class="tag-date">· ${fmtShortDate(b.paidAt)}</span>` : ''}</span>`
-                        : `<span class="status-tag unpaid">⏳ BELUM DIBAYAR</span>`;
-                    
-                    return `
-                        <div class="slip-extra-row ${isPaid ? 'is-paid' : 'is-unpaid'}">
-                            <div class="slip-extra-info">
-                                <div class="slip-extra-name">
-                                    <span class="emo">${b.icon || '🎁'}</span>
-                                    <span>${b.name}</span>
-                                    ${statusHTML}
-                                </div>
-                                ${b.desc ? `<div class="slip-extra-desc">${b.desc}</div>` : ''}
-                            </div>
-                            <div class="slip-extra-amount">${formatRp(b.amount)}</div>
-                        </div>
-                    `;
-                }).join('')}
-                <div class="slip-extra-subtotal">
-                    <div class="sub-label">
-                        <span>Subtotal Bonus</span>
-                        ${totalBonusExtraPaid > 0 && totalBonusExtraUnpaid > 0 
-                            ? `<span class="sub-note">✓ ${formatRp(totalBonusExtraPaid)} sudah dibayar</span>` 
-                            : ''}
-                    </div>
-                    <span>${totalBonusExtraUnpaid > 0 ? formatRp(totalBonusExtraUnpaid) : formatRp(totalBonusExtraAll)}</span>
                 </div>
             </div>
         </div>
@@ -1257,6 +1206,267 @@ function generateMonthlySlip() {
         <div class="slip-footer">
             <div class="slip-footer-info">
                 <strong>Terima kasih atas kerja sama Anda! 🙏</strong><br>
+                Slip resmi Ibaadurrahmaan Web Designer.<br>
+                Verifikasi: WA 0814-0164-3188
+            </div>
+            <div class="slip-stamp paid">
+                <i class="fas fa-check-circle"></i>Lunas
+            </div>
+        </div>`;
+}
+
+function generateSingleSlip() {
+    const rawData = window._slipRawData || {};
+    
+    const data = {
+        nama      : document.getElementById('fieldNama').value.trim() || 'Nama Reseller',
+        kode      : document.getElementById('fieldKode').value.trim() || 'RSL-XXX',
+        tier      : getTierPercent(document.getElementById('resellerLevel').value),
+        bank      : document.getElementById('fieldBank').value.trim() || 'Bank',
+        norek     : document.getElementById('fieldNorek').value.trim() || '000-0000-0000',
+        client    : document.getElementById('singleClient').value.trim() || 'Nama Client',
+        paket     : parseInt(document.getElementById('singlePaket').value) || 0,
+        paketName : document.getElementById('singlePaket').options[document.getElementById('singlePaket').selectedIndex].text,
+        tglClosing: document.getElementById('singleTglClosing').value,
+        tglBayar  : document.getElementById('singleTglBayar').value,
+        // Reward & Bonus dari auto-fill
+        rewards   : Array.isArray(rawData.rewards) ? rawData.rewards : [],
+        bonuses   : Array.isArray(rawData.bonuses) ? rawData.bonuses : []
+    };
+    
+    const tierInfo = getTierName(data.tier);
+    const slipNo = generateSlipNo('single');
+    
+    const fmtShortDate = (iso) => {
+        if (!iso) return '';
+        try {
+            const d = new Date(iso);
+            const m = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+            return `${d.getDate()} ${m[d.getMonth()]} ${d.getFullYear()}`;
+        } catch(e) { return ''; }
+    };
+    
+    // ═══ HITUNG KOMISI CLOSING ═══
+    const komisi = (data.paket * data.tier) / 100;
+    const bonusT = tierInfo.bonus;
+    const totalKomisiAll = komisi + bonusT; 
+    
+    // ═══ HITUNG REWARD ═══
+    let totalRewardPaid = 0, totalRewardUnpaid = 0;
+    data.rewards.forEach(r => {
+        if (r.paid) totalRewardPaid += (r.amount || 0);
+        else totalRewardUnpaid += (r.amount || 0);
+    });
+    const totalRewardAll = totalRewardPaid + totalRewardUnpaid;
+    
+    // ═══ HITUNG BONUS ═══
+    let totalBonusExtraPaid = 0, totalBonusExtraUnpaid = 0;
+    data.bonuses.forEach(b => {
+        if (b.paid) totalBonusExtraPaid += (b.amount || 0);
+        else totalBonusExtraUnpaid += (b.amount || 0);
+    });
+    const totalBonusExtraAll = totalBonusExtraPaid + totalBonusExtraUnpaid;
+    
+    // ═══ GRAND TOTAL ═══
+    const grandTotalUnpaid = totalKomisiAll + totalRewardUnpaid + totalBonusExtraUnpaid;
+    const totalAllPaid = totalRewardPaid + totalBonusExtraPaid;
+    
+    // ═══ RENDER: REWARD SECTION ═══
+    const rewardHTML = data.rewards.length > 0 ? `
+        <div class="slip-extra-section reward">
+            <div class="slip-extra-header">
+                <i class="fas fa-graduation-cap"></i>
+                <span>🎓 Reward Pembelajaran & SOP</span>
+            </div>
+            <div class="slip-extra-list">
+                ${data.rewards.map(r => {
+                    const isPaid = r.paid === true;
+                    const statusHTML = isPaid
+                        ? `<span class="status-tag paid">✓ SUDAH DIBAYAR ${r.paidAt ? `· ${fmtShortDate(r.paidAt)}` : ''}</span>`
+                        : `<span class="status-tag unpaid">⏳ BELUM DIBAYAR</span>`;
+                    return `
+                        <div class="slip-extra-row ${isPaid ? 'is-paid' : 'is-unpaid'}">
+                            <div class="slip-extra-info">
+                                <div class="slip-extra-title-group">
+                                    <div class="slip-extra-name">
+                                        <span class="emo">${r.icon || '🎁'}</span>
+                                        <span>${r.name}</span>
+                                    </div>
+                                    ${statusHTML}
+                                </div>
+                                ${r.desc ? `<div class="slip-extra-desc">${r.desc}</div>` : ''}
+                            </div>
+                            <div class="slip-extra-amount">${formatRp(r.amount)}</div>
+                        </div>
+                    `;
+                }).join('')}
+                <div class="slip-extra-subtotal">
+                    <div class="sub-label">
+                        <span>Subtotal Reward (Ditransfer Sekarang)</span>
+                        ${totalRewardPaid > 0 ? `<span class="sub-note">✓ ${formatRp(totalRewardPaid)} sudah dibayar sebelumnya</span>` : ''}
+                    </div>
+                    <span>${formatRp(totalRewardUnpaid)}</span>
+                </div>
+            </div>
+        </div>
+    ` : '';
+    
+    // ═══ RENDER: BONUS SECTION ═══
+    const bonusHTML = data.bonuses.length > 0 ? `
+        <div class="slip-extra-section bonus">
+            <div class="slip-extra-header">
+                <i class="fas fa-gift"></i>
+                <span>🎁 Bonus Lainnya</span>
+            </div>
+            <div class="slip-extra-list">
+                ${data.bonuses.map(b => {
+                    const isPaid = b.paid === true;
+                    const statusHTML = isPaid
+                        ? `<span class="status-tag paid">✓ SUDAH DIBAYAR ${b.paidAt ? `· ${fmtShortDate(b.paidAt)}` : ''}</span>`
+                        : `<span class="status-tag unpaid">⏳ BELUM DIBAYAR</span>`;
+                    return `
+                        <div class="slip-extra-row ${isPaid ? 'is-paid' : 'is-unpaid'}">
+                            <div class="slip-extra-info">
+                                <div class="slip-extra-title-group">
+                                    <div class="slip-extra-name">
+                                        <span class="emo">${b.icon || '🎁'}</span>
+                                        <span>${b.name}</span>
+                                    </div>
+                                    ${statusHTML}
+                                </div>
+                                ${b.desc ? `<div class="slip-extra-desc">${b.desc}</div>` : ''}
+                            </div>
+                            <div class="slip-extra-amount">${formatRp(b.amount)}</div>
+                        </div>
+                    `;
+                }).join('')}
+                <div class="slip-extra-subtotal">
+                    <div class="sub-label">
+                        <span>Subtotal Bonus (Ditransfer Sekarang)</span>
+                        ${totalBonusExtraPaid > 0 ? `<span class="sub-note">✓ ${formatRp(totalBonusExtraPaid)} sudah dibayar sebelumnya</span>` : ''}
+                    </div>
+                    <span>${formatRp(totalBonusExtraUnpaid)}</span>
+                </div>
+            </div>
+        </div>
+    ` : '';
+    
+    // ═══ SUMMARY BREAKDOWN ═══
+    const summaryHTML = `
+        <div class="slip-summary-breakdown">
+            <span class="label">💼 Komisi Per Closing</span>
+            <span class="value">${formatRp(totalKomisiAll)}</span>
+        </div>
+        ${totalRewardUnpaid > 0 || totalRewardPaid > 0 ? `
+            <div class="slip-summary-breakdown">
+                <span class="label">🎓 Reward (${data.rewards.length} item)</span>
+                <span class="value">${formatRp(totalRewardUnpaid)}</span>
+            </div>
+        ` : ''}
+        ${totalBonusExtraUnpaid > 0 || totalBonusExtraPaid > 0 ? `
+            <div class="slip-summary-breakdown">
+                <span class="label">🎁 Bonus (${data.bonuses.length} item)</span>
+                <span class="value">${formatRp(totalBonusExtraUnpaid)}</span>
+            </div>
+        ` : ''}
+        ${totalAllPaid > 0 ? `
+            <div class="slip-summary-breakdown paid-info">
+                <span class="label">✓ Sudah dibayar sebelumnya (info)</span>
+                <span class="value">${formatRp(totalAllPaid)}</span>
+            </div>
+        ` : ''}
+    `;
+
+    // ═══ RENDER FINAL SLIP ═══
+    document.getElementById('slipPreview').innerHTML = `
+        <div class="slip-doc-header">
+            <div class="slip-brand">
+                <div class="slip-brand-logo">
+                    <img src="main-logo.jpg" alt="Ibaadurrahmaan"
+                         onerror="this.parentElement.innerHTML='I';this.parentElement.classList.add('fallback');">
+                </div>
+                <div class="slip-brand-text">
+                    <h2>Ibaadurrahmaan</h2>
+                    <p>WEB DESIGNER</p>
+                </div>
+            </div>
+            <div class="slip-doc-info">
+                <h3>Slip Komisi Closing</h3>
+                <p class="slip-no">No: ${slipNo}</p>
+                <p>Tgl Closing: <b>${formatDate(data.tglClosing)}</b></p>
+                <p>Tgl Bayar: <b>${formatDate(data.tglBayar)}</b></p>
+            </div>
+        </div>
+
+        <div class="slip-parties">
+            <div class="slip-party">
+                <div class="slip-party-label">DIBAYAR OLEH</div>
+                <div class="slip-party-name">Ibaadurrahmaan Web Designer</div>
+                <div class="slip-party-detail">
+                    WhatsApp: 0814-0164-3188<br>
+                    Email: ibadurrohman1428@gmail.com
+                </div>
+            </div>
+            <div class="slip-party reseller">
+                <div class="slip-party-label">DIBAYAR KEPADA</div>
+                <div class="slip-party-name">${data.nama}</div>
+                <div class="slip-party-detail">
+                    Kode: <b>${data.kode}</b><br>
+                    Tier: <span class="tier-badge ${tierInfo.class}">${tierInfo.name}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="slip-detail-title">⚡ Detail Komisi Per Closing</div>
+        <table class="slip-table">
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Paket</th>
+                    <th class="right">Nilai</th>
+                    <th class="center">%</th>
+                    <th class="right">Komisi</th>
+                    <th class="right">Bonus</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row-paid">
+                    <td><b>${data.client}</b> <span class="status-tag unpaid" style="margin-left:8px;">⏳ UNPAID</span></td>
+                    <td>${data.paketName}</td>
+                    <td class="right">${formatRp(data.paket)}</td>
+                    <td class="center">${data.tier}%</td>
+                    <td class="right">${formatRp(komisi)}</td>
+                    <td class="right">${formatRp(bonusT)}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        ${rewardHTML}
+        ${bonusHTML}
+
+        <div class="slip-summary">
+            ${summaryHTML}
+            <div class="slip-summary-total">
+                <span class="label">💰 Total Dibayar Sekarang</span>
+                <span class="value">${formatRp(grandTotalUnpaid)}</span>
+            </div>
+        </div>
+
+        <div class="slip-payment">
+            <div class="slip-payment-title">
+                <i class="fas fa-university"></i> Transfer ke Rekening
+            </div>
+            <div class="slip-payment-detail">
+                <div><strong>Bank</strong>${data.bank}</div>
+                <div><strong>No. Rekening</strong>${data.norek}</div>
+                <div><strong>A/n</strong>${data.nama}</div>
+                <div><strong>Jumlah</strong>${formatRp(grandTotalUnpaid)}</div>
+            </div>
+        </div>
+
+        <div class="slip-footer">
+            <div class="slip-footer-info">
+                <strong>Terima kasih atas closing-nya! 🎉</strong><br>
                 Slip resmi Ibaadurrahmaan Web Designer.<br>
                 Verifikasi: WA 0814-0164-3188
             </div>
@@ -1396,7 +1606,6 @@ function downloadPDF(){
         customClass:{popup:'swal-premium'},timer:4000,showConfirmButton:false,timerProgressBar:true,toast:true,position:'top-end'
     });
 }
-
 // ════════════════════════════════════════
 // SEND TO WHATSAPP
 // ════════════════════════════════════════
@@ -1415,84 +1624,174 @@ function sendToWA() {
     const tierInfo = getTierName(tier);
     let message = '';
 
-if(currentMode==='monthly'){
-    const periode = formatPeriode(document.getElementById('fieldPeriode').value);
-    const tglBayar = formatDate(document.getElementById('fieldTglBayar').value);
-    const closings = getClosings();
-    const totalKomisi = closings.reduce((sum,c)=>sum+(c.paket*tier)/100,0);
-    const totalBonusTier = closings.length*tierInfo.bonus;
-    const totalKomisiAll = totalKomisi+totalBonusTier;
-    
-    // ⭐ Reward & Bonus dari global var
-    const rewards = _slipExtraData?.rewards || [];
-    const bonuses = _slipExtraData?.bonuses || [];
-    const totalReward = rewards.reduce((s,r)=>s+(r.amount||0),0);
-    const totalBonusExtra = bonuses.reduce((s,b)=>s+(b.amount||0),0);
-    const grandTotal = totalKomisiAll+totalReward+totalBonusExtra;
-    
-    // ═══ BUILD MESSAGE ═══
-    message = `Halo *${nama}* 👋\n\n`;
-    message += `🎉 *SLIP KOMISI BULANAN* 🎉\n\n`;
-    message += `📅 Periode: *${periode}*\n`;
-    message += `📆 Tanggal Bayar: *${tglBayar}*\n\n`;
-    
-    // KOMISI CLOSING
-    message += `━━━━━━━━━━━━━━━━━━━━\n`;
-    message += `💼 *KOMISI CLOSING*\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━\n`;
-    message += `• Jumlah Closing: ${closings.length}\n`;
-    message += `• Tier: ${tierInfo.name} (${tier}%)\n`;
-    message += `• Komisi: Rp ${totalKomisi.toLocaleString('id-ID')}\n`;
-    if(totalBonusTier > 0){
-        message += `• Bonus Tier: Rp ${totalBonusTier.toLocaleString('id-ID')}\n`;
-    }
-    message += `• *Subtotal: Rp ${totalKomisiAll.toLocaleString('id-ID')}*\n`;
-    
-    // ⭐ REWARD PEMBELAJARAN
-    if(rewards.length > 0){
-        message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
-        message += `🎓 *REWARD PEMBELAJARAN*\n`;
-        message += `━━━━━━━━━━━━━━━━━━━━\n`;
-        rewards.forEach(r => {
-            message += `${r.icon || '🎁'} ${r.name}\n`;
-            if(r.desc) message += `   _${r.desc}_\n`;
-            message += `   💰 Rp ${r.amount.toLocaleString('id-ID')}\n\n`;
-        });
-        message += `• *Subtotal Reward: Rp ${totalReward.toLocaleString('id-ID')}*\n`;
-    }
-    
-    // ⭐ BONUS LAINNYA
-    if(bonuses.length > 0){
-        message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
-        message += `🎁 *BONUS LAINNYA*\n`;
-        message += `━━━━━━━━━━━━━━━━━━━━\n`;
-        bonuses.forEach(b => {
-            message += `${b.icon || '🎁'} ${b.name}\n`;
-            if(b.desc) message += `   _${b.desc}_\n`;
-            message += `   💰 Rp ${b.amount.toLocaleString('id-ID')}\n\n`;
-        });
-        message += `• *Subtotal Bonus: Rp ${totalBonusExtra.toLocaleString('id-ID')}*\n`;
-    }
-    
-    // GRAND TOTAL
-    message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
-    message += `💰 *GRAND TOTAL DIBAYAR:*\n`;
-    message += `*Rp ${grandTotal.toLocaleString('id-ID')}*\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
-    
-    // TRANSFER INFO
-    const bank = document.getElementById('fieldBank').value.trim() || '-';
-    const norek = document.getElementById('fieldNorek').value.trim() || '-';
-    message += `🏦 *Transfer ke:*\n`;
-    message += `• Bank: ${bank}\n`;
-    message += `• No. Rek: ${norek}\n`;
-    message += `• A/n: ${nama}\n\n`;
-    
-    message += `Silakan cek rekening kamu ya!\n`;
-    message += `Barakallahu fiik atas kerja samanya 🙏\n\n`;
-    message += `- Ibaadurrahmaan Web Designer`;
-}
+    // ════════════════════════════════════
+    // MODE MONTHLY
+    // ════════════════════════════════════
+    if (currentMode === 'monthly') {
+        const periode = formatPeriode(document.getElementById('fieldPeriode').value);
+        const tglBayar = formatDate(document.getElementById('fieldTglBayar').value);
+        const closings = getClosings();
+        const totalKomisi = closings.reduce((sum, c) => sum + (c.paket * tier) / 100, 0);
+        const totalBonusTier = closings.length * tierInfo.bonus;
+        const totalKomisiAll = totalKomisi + totalBonusTier;
 
+        // ⭐ Reward & Bonus dari global var (hanya UNPAID)
+        const rewards = (_slipExtraData?.rewards || []).filter(r => !r.paid);
+        const bonuses = (_slipExtraData?.bonuses || []).filter(b => !b.paid);
+        const totalReward = rewards.reduce((s, r) => s + (r.amount || 0), 0);
+        const totalBonusExtra = bonuses.reduce((s, b) => s + (b.amount || 0), 0);
+        const grandTotal = totalKomisiAll + totalReward + totalBonusExtra;
+
+        // ═══ BUILD MESSAGE ═══
+        message = `Halo *${nama}* 👋\n\n`;
+        message += `🎉 *SLIP KOMISI BULANAN* 🎉\n\n`;
+        message += `📅 Periode: *${periode}*\n`;
+        message += `📆 Tanggal Bayar: *${tglBayar}*\n\n`;
+
+        // KOMISI CLOSING
+        message += `━━━━━━━━━━━━━━━━━━━━\n`;
+        message += `💼 *KOMISI CLOSING*\n`;
+        message += `━━━━━━━━━━━━━━━━━━━━\n`;
+        message += `• Jumlah Closing: ${closings.length}\n`;
+        message += `• Tier: ${tierInfo.name} (${tier}%)\n`;
+        message += `• Komisi: Rp ${totalKomisi.toLocaleString('id-ID')}\n`;
+        if (totalBonusTier > 0) {
+            message += `• Bonus Tier: Rp ${totalBonusTier.toLocaleString('id-ID')}\n`;
+        }
+        message += `• *Subtotal: Rp ${totalKomisiAll.toLocaleString('id-ID')}*\n`;
+
+        // REWARD
+        if (rewards.length > 0) {
+            message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+            message += `🎓 *REWARD PEMBELAJARAN*\n`;
+            message += `━━━━━━━━━━━━━━━━━━━━\n`;
+            rewards.forEach(r => {
+                message += `${r.icon || '🎁'} ${r.name}\n`;
+                if (r.desc) message += `   _${r.desc}_\n`;
+                message += `   💰 Rp ${r.amount.toLocaleString('id-ID')}\n\n`;
+            });
+            message += `• *Subtotal Reward: Rp ${totalReward.toLocaleString('id-ID')}*\n`;
+        }
+
+        // BONUS
+        if (bonuses.length > 0) {
+            message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+            message += `🎁 *BONUS LAINNYA*\n`;
+            message += `━━━━━━━━━━━━━━━━━━━━\n`;
+            bonuses.forEach(b => {
+                message += `${b.icon || '🎁'} ${b.name}\n`;
+                if (b.desc) message += `   _${b.desc}_\n`;
+                message += `   💰 Rp ${b.amount.toLocaleString('id-ID')}\n\n`;
+            });
+            message += `• *Subtotal Bonus: Rp ${totalBonusExtra.toLocaleString('id-ID')}*\n`;
+        }
+
+        // GRAND TOTAL
+        message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+        message += `💰 *TOTAL DIBAYAR SEKARANG:*\n`;
+        message += `*Rp ${grandTotal.toLocaleString('id-ID')}*\n`;
+        message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+        // TRANSFER INFO
+        const bank = document.getElementById('fieldBank').value.trim() || '-';
+        const norek = document.getElementById('fieldNorek').value.trim() || '-';
+        message += `🏦 *Transfer ke:*\n`;
+        message += `• Bank: ${bank}\n`;
+        message += `• No. Rek: ${norek}\n`;
+        message += `• A/n: ${nama}\n\n`;
+
+        message += `Silakan cek rekening kamu ya!\n`;
+        message += `Barakallahu fiik atas kerja samanya 🙏\n\n`;
+        message += `- Ibaadurrahmaan Web Designer`;
+
+    // ════════════════════════════════════
+    // MODE SINGLE (Per Closing)
+    // ════════════════════════════════════
+    } else {
+        const client = document.getElementById('singleClient').value.trim() || 'Client';
+        const paket = parseInt(document.getElementById('singlePaket').value) || 0;
+        const paketName = document.getElementById('singlePaket').options[
+            document.getElementById('singlePaket').selectedIndex
+        ].text;
+        const komisi = (paket * tier) / 100;
+        const bonusT = tierInfo.bonus;
+        const totalKomisiAll = komisi + bonusT;
+        const tglBayar = formatDate(document.getElementById('singleTglBayar').value);
+        const bank = document.getElementById('fieldBank').value.trim() || '-';
+        const norek = document.getElementById('fieldNorek').value.trim() || '-';
+
+        // ⭐ Reward & Bonus dari global var (hanya UNPAID)
+        const rewards = (_slipExtraData?.rewards || []).filter(r => !r.paid);
+        const bonuses = (_slipExtraData?.bonuses || []).filter(b => !b.paid);
+        const totalRewardUnpaid = rewards.reduce((s, r) => s + (r.amount || 0), 0);
+        const totalBonusUnpaid = bonuses.reduce((s, b) => s + (b.amount || 0), 0);
+        const grandTotal = totalKomisiAll + totalRewardUnpaid + totalBonusUnpaid;
+
+        // ═══ BUILD MESSAGE ═══
+        message = `Halo *${nama}* 👋\n\n`;
+        message += `🎉 *SLIP KOMISI CLOSING* 🎉\n\n`;
+        message += `Selamat! Komisi closing kamu dicairkan 🎊\n\n`;
+        message += `⚡ *DETAIL:*\n`;
+        message += `• Client: *${client}*\n`;
+        message += `• Paket: ${paketName}\n`;
+        message += `• Tanggal Bayar: *${tglBayar}*\n\n`;
+
+        // KOMISI
+        message += `━━━━━━━━━━━━━━━━━━━━\n`;
+        message += `💼 *RINCIAN KOMISI*\n`;
+        message += `━━━━━━━━━━━━━━━━━━━━\n`;
+        message += `• Komisi ${tier}%: Rp ${komisi.toLocaleString('id-ID')}\n`;
+        if (bonusT > 0) {
+            message += `• Bonus ${tierInfo.name}: Rp ${bonusT.toLocaleString('id-ID')}\n`;
+        }
+        message += `• *Subtotal: Rp ${totalKomisiAll.toLocaleString('id-ID')}*\n`;
+
+        // REWARD (hanya unpaid)
+        if (rewards.length > 0) {
+            message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+            message += `🎓 *REWARD PEMBELAJARAN*\n`;
+            message += `━━━━━━━━━━━━━━━━━━━━\n`;
+            rewards.forEach(r => {
+                message += `${r.icon || '🎁'} ${r.name}\n`;
+                if (r.desc) message += `   _${r.desc}_\n`;
+                message += `   💰 Rp ${r.amount.toLocaleString('id-ID')}\n\n`;
+            });
+            message += `• *Subtotal Reward: Rp ${totalRewardUnpaid.toLocaleString('id-ID')}*\n`;
+        }
+
+        // BONUS (hanya unpaid)
+        if (bonuses.length > 0) {
+            message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+            message += `🎁 *BONUS LAINNYA*\n`;
+            message += `━━━━━━━━━━━━━━━━━━━━\n`;
+            bonuses.forEach(b => {
+                message += `${b.icon || '🎁'} ${b.name}\n`;
+                if (b.desc) message += `   _${b.desc}_\n`;
+                message += `   💰 Rp ${b.amount.toLocaleString('id-ID')}\n\n`;
+            });
+            message += `• *Subtotal Bonus: Rp ${totalBonusUnpaid.toLocaleString('id-ID')}*\n`;
+        }
+
+        // GRAND TOTAL
+        message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+        message += `💰 *TOTAL DIBAYAR SEKARANG:*\n`;
+        message += `*Rp ${grandTotal.toLocaleString('id-ID')}*\n`;
+        message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+        // TRANSFER INFO
+        message += `🏦 *Dikirim ke:*\n`;
+        message += `• Bank: ${bank}\n`;
+        message += `• No. Rek: ${norek}\n`;
+        message += `• A/n: ${nama}\n\n`;
+
+        message += `Silakan cek rekening kamu!\n`;
+        message += `Terus semangat closing ya! 🚀\n\n`;
+        message += `- Ibaadurrahmaan Web Designer`;
+    }
+
+    // ════════════════════════════════════
+    // BUKA WHATSAPP
+    // ════════════════════════════════════
     let waNumber = autoFilledResellerWA || '';
     if (waNumber) {
         waNumber = waNumber.replace(/[^0-9]/g, '');
