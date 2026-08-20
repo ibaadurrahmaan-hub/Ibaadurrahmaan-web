@@ -1802,20 +1802,15 @@ window.sendStarterKitLink = sendStarterKitLink;
 console.log('[REWARD HANDLER] ✅ Loaded');
 </script>
 
+<script>
 // ═══════════════════════════════════════════
 // 🎁 FITUR MANAJEMEN BONUS
 // ═══════════════════════════════════════════
 
-/**
- * Membuka Modal Daftar Bonus Reseller
- */
 async function openBonusModal(resellerId) {
     const reseller = allResellers.find(r => r.id === resellerId);
     if (!reseller) return;
-
     const bonuses = Array.isArray(reseller.bonuses) ? reseller.bonuses : [];
-    
-    // Render List Bonus
     const bonusListHTML = bonuses.length > 0 ? bonuses.map((b, index) => `
         <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); padding:12px; border-radius:10px; margin-bottom:8px; border-left:3px solid ${b.paid ? '#25d366' : '#f39c12'};">
             <div style="text-align:left;">
@@ -1829,96 +1824,39 @@ async function openBonusModal(resellerId) {
                 <div style="font-weight:800; color:#d4a536; font-family:'Montserrat',sans-serif;">${toRp(b.amount)}</div>
                 <button onclick="deleteBonus('${resellerId}', ${index})" style="background:transparent; border:none; color:#e74c3c; cursor:pointer; font-size:0.8rem; margin-top:5px;"><i class="fas fa-trash"></i></button>
             </div>
-        </div>
-    `).join('') : '<p style="color:var(--text-muted); padding:20px;">Belum ada bonus tambahan.</p>';
-
+        </div>`).join('') : '<p style="color:var(--text-muted); padding:20px;">Belum ada bonus tambahan.</p>';
     Swal.fire({
         title: `🎁 Bonus — ${reseller.nama}`,
-        html: `
-            <div style="max-height:300px; overflow-y:auto; margin-bottom:15px;">
-                ${bonusListHTML}
-            </div>
-            <button onclick="showAddBonusForm('${resellerId}')" class="btn-send-link" style="background:linear-gradient(135deg,#9b59b6,#8e44ad); width:100%;">
-                <i class="fas fa-plus-circle"></i> Tambah Bonus Baru
-            </button>
-        `,
-        showConfirmButton: false,
-        showCloseButton: true,
-        customClass: { popup: 'swal-premium' }
+        html: `<div style="max-height:300px; overflow-y:auto; margin-bottom:15px;">${bonusListHTML}</div><button onclick="showAddBonusForm('${resellerId}')" class="btn-send-link" style="background:linear-gradient(135deg,#9b59b6,#8e44ad); width:100%; border:none; padding:12px; border-radius:10px; color:#fff; font-weight:700; cursor:pointer;"><i class="fas fa-plus-circle"></i> Tambah Bonus Baru</button>`,
+        showConfirmButton: false, showCloseButton: true, customClass: { popup: 'swal-premium' }
     });
 }
 
-/**
- * Form Input Bonus Baru
- */
 async function showAddBonusForm(resellerId) {
     const { value: formValues } = await Swal.fire({
         title: 'Tambah Bonus',
-        html: `
-            <input id="swal-bonus-name" class="swal2-input" placeholder="Nama Bonus (Misal: Top Performer)">
-            <input id="swal-bonus-amount" class="swal2-input" placeholder="Jumlah (Misal: 100000)">
-            <textarea id="swal-bonus-desc" class="swal2-textarea" placeholder="Keterangan singkat..."></textarea>
-        `,
-        focusConfirm: false,
-        showCancelButton: true,
-        confirmButtonText: 'Simpan',
-        customClass: { popup: 'swal-premium' },
-        preConfirm: () => {
-            return {
-                name: document.getElementById('swal-bonus-name').value,
-                amount: parseRp(document.getElementById('swal-bonus-amount').value),
-                desc: document.getElementById('swal-bonus-desc').value
-            }
-        }
+        html: `<input id="swal-bonus-name" class="swal2-input" placeholder="Nama Bonus"><input id="swal-bonus-amount" class="swal2-input" placeholder="Jumlah (Angka)"><textarea id="swal-bonus-desc" class="swal2-textarea" placeholder="Keterangan..."></textarea>`,
+        focusConfirm: false, showCancelButton: true, confirmButtonText: 'Simpan', customClass: { popup: 'swal-premium' },
+        preConfirm: () => { return { name: document.getElementById('swal-bonus-name').value, amount: parseRp(document.getElementById('swal-bonus-amount').value), desc: document.getElementById('swal-bonus-desc').value } }
     });
-
-    if (formValues && formValues.name && formValues.amount) {
-        addBonusToFirestore(resellerId, formValues);
-    }
+    if (formValues && formValues.name && formValues.amount) { addBonusToFirestore(resellerId, formValues); }
 }
 
-/**
- * Simpan ke Firebase
- */
 async function addBonusToFirestore(resellerId, bonusData) {
     try {
         const { db, doc, getDoc, updateDoc } = window.firebase;
         const ref = doc(db, 'resellers', resellerId);
         const snap = await getDoc(ref);
-        const data = snap.data();
-        
-        const bonuses = Array.isArray(data.bonuses) ? data.bonuses : [];
-        bonuses.push({
-            id: 'BNS-' + Date.now(),
-            name: bonusData.name,
-            amount: bonusData.amount,
-            desc: bonusData.desc,
-            icon: '🎁',
-            addedAt: new Date(),
-            paid: false
-        });
-
+        const bonuses = Array.isArray(snap.data().bonuses) ? snap.data().bonuses : [];
+        bonuses.push({ id: 'BNS-' + Date.now(), name: bonusData.name, amount: bonusData.amount, desc: bonusData.desc, icon: '🎁', addedAt: new Date(), paid: false });
         await updateDoc(ref, { bonuses: bonuses });
         Swal.fire({ icon: 'success', title: 'Bonus Ditambahkan', toast: true, position: 'top-end', showConfirmButton: false, timer: 2000 });
-        loadResellers(); // Reload data
-    } catch (e) {
-        console.error(e);
-    }
+        loadResellers();
+    } catch (e) { console.error(e); }
 }
 
-/**
- * Hapus Bonus
- */
 async function deleteBonus(resellerId, index) {
-    const result = await Swal.fire({
-        title: 'Hapus Bonus?',
-        text: "Data bonus ini akan dihapus permanen.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Ya, Hapus',
-        customClass: { popup: 'swal-premium' }
-    });
-
+    const result = await Swal.fire({ title: 'Hapus Bonus?', icon: 'warning', showCancelButton: true, confirmButtonText: 'Ya, Hapus', customClass: { popup: 'swal-premium' } });
     if (result.isConfirmed) {
         try {
             const { db, doc, getDoc, updateDoc } = window.firebase;
@@ -1928,10 +1866,10 @@ async function deleteBonus(resellerId, index) {
             bonuses.splice(index, 1);
             await updateDoc(ref, { bonuses: bonuses });
             loadResellers();
-            openBonusModal(resellerId); // Buka modal lagi
+            openBonusModal(resellerId);
         } catch (e) { console.error(e); }
     }
 }
-
+</script>
 </body>
 </html>
