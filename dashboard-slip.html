@@ -918,270 +918,307 @@ function updatePreview(){
 }
 
 function generateMonthlySlip() {
-    const rawData = window._slipRawData || {};
-    
-    const data = {
-        nama    : document.getElementById('fieldNama').value.trim() || 'Nama Reseller',
-        kode    : document.getElementById('fieldKode').value.trim() || 'RSL-XXX',
-        tier    : getTierPercent(document.getElementById('resellerLevel').value),
-        bank    : document.getElementById('fieldBank').value.trim() || 'Bank',
-        norek   : document.getElementById('fieldNorek').value.trim() || '000-0000-0000',
-        periode : document.getElementById('fieldPeriode').value,
-        tglBayar: document.getElementById('fieldTglBayar').value,
-        closings: getClosings(),
-        rewards : Array.isArray(rawData.rewards) ? rawData.rewards : [],
-        bonuses : Array.isArray(rawData.bonuses) ? rawData.bonuses : [],
-        closingsRaw: Array.isArray(rawData.closings) ? rawData.closings : []
-    };
-    
-    const tierInfo = getTierName(data.tier);
-    const slipNo = generateSlipNo('monthly');
-    
-    const fmtShortDate = (iso) => {
-        if (!iso) return '';
-        try {
-            const d = new Date(iso);
-            const m = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
-            return `${d.getDate()} ${m[d.getMonth()]} ${d.getFullYear()}`;
-        } catch(e) { return ''; }
-    };
-    
-    // ═══ 1. RENDER & HITUNG KOMISI CLOSING ═══
-    const useClosings = data.closingsRaw.length > 0 ? data.closingsRaw : data.closings.map((c) => ({
-        ...c, isPaid: false, paidAt: null
-    }));
-    
-    let totalKomisiFull = 0;
-    
-    const rowsHTML = useClosings.map((c, idx) => {
-        const base = c.paket || c.basePrice || 0;
-        const komisi = c.komisi || (base * data.tier) / 100;
-        const bonusT = c.bonus || tierInfo.bonus;
-        const totalRow = komisi + bonusT;
-        const isPaid = c.isPaid === true;
-        
-        totalKomisiFull += totalRow;
-        
-        const statusTag = isPaid 
-            ? `<span class="status-tag paid">✓ DIBAYAR ${c.paidAt ? `· ${fmtShortDate(c.paidAt)}` : ''}</span>`
-            : `<span class="status-tag unpaid">⏳ PENDING</span>`;
-        
-        const clientName = c.clientName || c.client || `Client ${idx + 1}`;
-        const paketName = c.paketName || c.project || `Custom - ${formatRp(base)}`;
-        
-        return `<tr class="${isPaid ? 'row-paid' : ''}">
-            <td class="center">${idx + 1}</td>
-            <td>${clientName} ${statusTag}</td>
-            <td>${paketName}</td>
-            <td class="right">${formatRp(base)}</td>
-            <td class="center">${data.tier}%</td>
-            <td class="right">${formatRp(komisi)}</td>
-            <td class="right">${formatRp(bonusT)}</td>
-        </tr>`;
-    }).join('');
-    
-    // ═══ 2. HITUNG TOTAL REWARD (UTUH) ═══
-    const totalRewardFull = data.rewards.reduce((s, r) => s + (r.amount || 0), 0);
-    
-    // ═══ 3. HITUNG TOTAL BONUS (UTUH) ═══
-    const totalBonusFull = data.bonuses.reduce((s, b) => s + (b.amount || 0), 0);
-    
-    // ═══ 4. GRAND TOTAL UTUH SLIP ═══
-    const grandTotalSlip = totalKomisiFull + totalRewardFull + totalBonusFull;
-    
-    // Cek status pelunasan slip
-    const hasUnpaidClosing = useClosings.some(c => !c.isPaid);
-    const hasUnpaidReward  = data.rewards.some(r => !r.paid);
-    const hasUnpaidBonus   = data.bonuses.some(b => !b.paid);
-    const isFullyPaid      = !hasUnpaidClosing && !hasUnpaidReward && !hasUnpaidBonus;
+    try {
+        const rawData = window._slipRawData || {};
 
-    // ═══ RENDER: REWARD SECTION ═══
-    const rewardHTML = data.rewards.length > 0 ? `
-        <div class="slip-extra-section reward">
-            <div class="slip-extra-header">
-                <i class="fas fa-graduation-cap"></i>
-                <span>🎓 Reward Pembelajaran & SOP</span>
-            </div>
-            <div class="slip-extra-list">
-                ${data.rewards.map(r => {
-                    const isPaid = r.paid === true;
-                    const statusHTML = isPaid
-                        ? `<span class="status-tag paid">✓ SUDAH DIBAYAR ${r.paidAt ? `· ${fmtShortDate(r.paidAt)}` : ''}</span>`
-                        : `<span class="status-tag unpaid">⏳ BELUM DIBAYAR</span>`;
-                    
-                    return `
-                        <div class="slip-extra-row ${isPaid ? 'is-paid' : 'is-unpaid'}">
-                            <div class="slip-extra-info">
-                                <div class="slip-extra-title-group">
-                                    <div class="slip-extra-name">
-                                        <span class="emo">${r.icon || '🎁'}</span>
-                                        <span>${r.name}</span>
-                                    </div>
-                                    ${statusHTML}
-                                </div>
-                                ${r.desc ? `<div class="slip-extra-desc">${r.desc}</div>` : ''}
-                            </div>
-                            <div class="slip-extra-amount">${formatRp(r.amount)}</div>
-                        </div>
-                    `;
-                }).join('')}
-                <div class="slip-extra-subtotal">
-                    <span>Subtotal Reward</span>
-                    <span>${formatRp(totalRewardFull)}</span>
-                </div>
-            </div>
-        </div>
-    ` : '';
-    
-    // ═══ RENDER: BONUS SECTION ═══
-    const bonusHTML = data.bonuses.length > 0 ? `
-        <div class="slip-extra-section bonus">
-            <div class="slip-extra-header">
-                <i class="fas fa-gift"></i>
-                <span>🎁 Bonus Lainnya</span>
-            </div>
-            <div class="slip-extra-list">
-                ${data.bonuses.map(b => {
-                    const isPaid = b.paid === true;
-                    const statusHTML = isPaid
-                        ? `<span class="status-tag paid">✓ SUDAH DIBAYAR ${b.paidAt ? `· ${fmtShortDate(b.paidAt)}` : ''}</span>`
-                        : `<span class="status-tag unpaid">⏳ BELUM DIBAYAR</span>`;
-                    
-                    return `
-                        <div class="slip-extra-row ${isPaid ? 'is-paid' : 'is-unpaid'}">
-                            <div class="slip-extra-info">
-                                <div class="slip-extra-title-group">
-                                    <div class="slip-extra-name">
-                                        <span class="emo">${b.icon || '🎁'}</span>
-                                        <span>${b.name}</span>
-                                    </div>
-                                    ${statusHTML}
-                                </div>
-                                ${b.desc ? `<div class="slip-extra-desc">${b.desc}</div>` : ''}
-                            </div>
-                            <div class="slip-extra-amount">${formatRp(b.amount)}</div>
-                        </div>
-                    `;
-                }).join('')}
-                <div class="slip-extra-subtotal">
-                    <span>Subtotal Bonus</span>
-                    <span>${formatRp(totalBonusFull)}</span>
-                </div>
-            </div>
-        </div>
-    ` : '';
-    
-    // ═══ SUMMARY BREAKDOWN ═══
-    const summaryHTML = `
-        <div class="slip-summary-breakdown">
-            <span class="label">💼 Komisi Closing (${useClosings.length} closing)</span>
-            <span class="value">${formatRp(totalKomisiFull)}</span>
-        </div>
-        ${data.rewards.length > 0 ? `
-            <div class="slip-summary-breakdown">
-                <span class="label">🎓 Reward (${data.rewards.length} item)</span>
-                <span class="value">${formatRp(totalRewardFull)}</span>
-            </div>
-        ` : ''}
-        ${data.bonuses.length > 0 ? `
-            <div class="slip-summary-breakdown">
-                <span class="label">🎁 Bonus (${data.bonuses.length} item)</span>
-                <span class="value">${formatRp(totalBonusFull)}</span>
-            </div>
-        ` : ''}
-    `;
-    
-    // ═══ RENDER FINAL SLIP ═══
-    document.getElementById('slipPreview').innerHTML = `
-        <div class="slip-doc-header">
-            <div class="slip-brand">
-                <div class="slip-brand-logo">
-                    <img src="main-logo.jpg" alt="Ibaadurrahmaan"
-                         onerror="this.parentElement.innerHTML='I';this.parentElement.classList.add('fallback');">
-                </div>
-                <div class="slip-brand-text">
-                    <h2>Ibaadurrahmaan</h2>
-                    <p>WEB DESIGNER</p>
-                </div>
-            </div>
-            <div class="slip-doc-info">
-                <h3>Slip Komisi Bulanan</h3>
-                <p class="slip-no">No: ${slipNo}</p>
-                <p>Periode: <b>${formatPeriode(data.periode)}</b></p>
-                <p>Tanggal Bayar: <b>${formatDate(data.tglBayar)}</b></p>
-            </div>
-        </div>
+        const data = {
+            nama     : document.getElementById('fieldNama')?.value.trim() || 'Nama Reseller',
+            kode     : document.getElementById('fieldKode')?.value.trim() || 'RSL-XXX',
+            tier     : getTierPercent(document.getElementById('resellerLevel')?.value || 'silver'),
+            bank     : document.getElementById('fieldBank')?.value.trim() || 'Bank',
+            norek    : document.getElementById('fieldNorek')?.value.trim() || '-',
+            periode  : document.getElementById('fieldPeriode')?.value || '',
+            tglBayar : document.getElementById('fieldTglBayar')?.value || '',
+            closings : getClosings(),
+            rewards  : Array.isArray(rawData.rewards) ? rawData.rewards : [],
+            bonuses  : Array.isArray(rawData.bonuses) ? rawData.bonuses : [],
+            closingsRaw: Array.isArray(rawData.closings) ? rawData.closings : []
+        };
 
-        <div class="slip-parties">
-            <div class="slip-party">
-                <div class="slip-party-label">DIBAYAR OLEH</div>
-                <div class="slip-party-name">Ibaadurrahmaan Web Designer</div>
-                <div class="slip-party-detail">
-                    WhatsApp: 0814-0164-3188<br>
-                    Email: ibadurrohman1428@gmail.com
-                </div>
-            </div>
-            <div class="slip-party reseller">
-                <div class="slip-party-label">DIBAYAR KEPADA</div>
-                <div class="slip-party-name">${data.nama}</div>
-                <div class="slip-party-detail">
-                    Kode: <b>${data.kode}</b><br>
-                    Tier: <span class="tier-badge ${tierInfo.class}">${tierInfo.name}</span>
-                </div>
-            </div>
-        </div>
+        const tierInfo = getTierName(data.tier);
+        const slipNo   = generateSlipNo('monthly');
 
-        <div class="slip-detail-title">💼 Detail Komisi Closing (${useClosings.length} closing)</div>
-        <table class="slip-table">
-            <thead>
-                <tr>
-                    <th class="center" style="width:40px;">No</th>
-                    <th>Client</th>
-                    <th>Paket</th>
-                    <th class="right">Nilai</th>
-                    <th class="center">%</th>
-                    <th class="right">Komisi</th>
-                    <th class="right">Bonus</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${rowsHTML || '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px;">Belum ada closing.</td></tr>'}
-            </tbody>
-        </table>
+        const fmtShortDate = (iso) => {
+            if (!iso) return '';
+            try {
+                const d = new Date(iso);
+                if (isNaN(d.getTime())) return '';
+                const m = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+                return d.getDate() + ' ' + m[d.getMonth()] + ' ' + d.getFullYear();
+            } catch (e) { return ''; }
+        };
 
-        ${rewardHTML}
-        ${bonusHTML}
+        // ═══ CLOSING ROWS ═══
+        const useClosings = data.closingsRaw.length > 0
+            ? data.closingsRaw
+            : data.closings.map(function(c) {
+                return Object.assign({}, c, { isPaid: false, paidAt: null });
+            });
 
-        <div class="slip-summary">
-            ${summaryHTML}
-            <div class="slip-summary-total">
-                <span class="label">💰 Total Dibayarkan</span>
-                <span class="value">${formatRp(grandTotalSlip)}</span>
-            </div>
-        </div>
+        let totalKomisiFull = 0;
 
-        <div class="slip-payment">
-            <div class="slip-payment-title">
-                <i class="fas fa-university"></i> Transfer ke Rekening
-            </div>
-            <div class="slip-payment-detail">
-                <div><strong>Bank</strong>${data.bank}</div>
-                <div><strong>No. Rekening</strong>${data.norek}</div>
-                <div><strong>A/n</strong>${data.nama}</div>
-                <div><strong>Jumlah Transfer</strong>${formatRp(grandTotalSlip)}</div>
-            </div>
-        </div>
+        const rowsHTML = useClosings.map(function(c, idx) {
+            const base   = Number(c.paket || c.basePrice || 0);
+            const komisi = Number(c.komisi != null ? c.komisi : (base * data.tier) / 100);
+            const bonusT = Number(c.bonus  != null ? c.bonus  : tierInfo.bonus);
+            const isPaid = c.isPaid === true;
 
-        <div class="slip-footer">
-            <div class="slip-footer-info">
-                <strong>Terima kasih atas kerja sama Anda! 🙏</strong><br>
-                Slip resmi Ibaadurrahmaan Web Designer.<br>
-                Verifikasi: WA 0814-0164-3188
-            </div>
-            <div class="slip-stamp ${isFullyPaid ? 'paid' : ''}">
-                <i class="fas ${isFullyPaid ? 'fa-check-circle' : 'fa-clock'}"></i>${isFullyPaid ? 'Lunas' : 'Proses'}
-            </div>
-        </div>`;
+            totalKomisiFull += (komisi + bonusT);
+
+            const statusTag = isPaid
+                ? '<span class="status-tag paid">✓ DIBAYAR' + (c.paidAt ? ' · ' + fmtShortDate(c.paidAt) : '') + '</span>'
+                : '<span class="status-tag unpaid">⏳ PENDING</span>';
+
+            const clientName = c.clientName || c.client || ('Client ' + (idx + 1));
+            const paketName  = c.paketName || c.project || ('Custom - ' + formatRp(base));
+
+            return '<tr class="' + (isPaid ? 'row-paid' : '') + '">' +
+                '<td class="center">' + (idx + 1) + '</td>' +
+                '<td>' + clientName + ' ' + statusTag + '</td>' +
+                '<td>' + paketName + '</td>' +
+                '<td class="right">' + formatRp(base) + '</td>' +
+                '<td class="center">' + data.tier + '%</td>' +
+                '<td class="right">' + formatRp(komisi) + '</td>' +
+                '<td class="right">' + formatRp(bonusT) + '</td>' +
+                '</tr>';
+        }).join('');
+
+        // ═══ REWARD TOTAL (UTUH) ═══
+        let totalRewardFull = 0;
+        data.rewards.forEach(function(r) {
+            totalRewardFull += Number(r.amount || 0);
+        });
+
+        // ═══ BONUS TOTAL (UTUH) ═══
+        let totalBonusFull = 0;
+        data.bonuses.forEach(function(b) {
+            totalBonusFull += Number(b.amount || 0);
+        });
+
+        // ═══ GRAND TOTAL UTUH ═══
+        const grandTotalSlip = totalKomisiFull + totalRewardFull + totalBonusFull;
+
+        const hasUnpaidClosing = useClosings.some(function(c) { return !c.isPaid; });
+        const hasUnpaidReward  = data.rewards.some(function(r) { return !r.paid; });
+        const hasUnpaidBonus   = data.bonuses.some(function(b) { return !b.paid; });
+        const isFullyPaid = !hasUnpaidClosing && !hasUnpaidReward && !hasUnpaidBonus;
+
+        // ═══ REWARD HTML ═══
+        let rewardHTML = '';
+        if (data.rewards.length > 0) {
+            const rewardRows = data.rewards.map(function(r) {
+                const isPaid = r.paid === true;
+                const statusHTML = isPaid
+                    ? '<span class="status-tag paid">✓ SUDAH DIBAYAR' + (r.paidAt ? ' · ' + fmtShortDate(r.paidAt) : '') + '</span>'
+                    : '<span class="status-tag unpaid">⏳ BELUM DIBAYAR</span>';
+
+                return '<div class="slip-extra-row ' + (isPaid ? 'is-paid' : 'is-unpaid') + '">' +
+                    '<div class="slip-extra-info">' +
+                        '<div class="slip-extra-title-group">' +
+                            '<div class="slip-extra-name">' +
+                                '<span class="emo">' + (r.icon || '🎁') + '</span>' +
+                                '<span>' + (r.name || 'Reward') + '</span>' +
+                            '</div>' +
+                            statusHTML +
+                        '</div>' +
+                        (r.desc ? '<div class="slip-extra-desc">' + r.desc + '</div>' : '') +
+                    '</div>' +
+                    '<div class="slip-extra-amount">' + formatRp(r.amount) + '</div>' +
+                '</div>';
+            }).join('');
+
+            rewardHTML =
+                '<div class="slip-extra-section reward">' +
+                    '<div class="slip-extra-header">' +
+                        '<i class="fas fa-graduation-cap"></i>' +
+                        '<span>🎓 Reward Pembelajaran & SOP</span>' +
+                    '</div>' +
+                    '<div class="slip-extra-list">' +
+                        rewardRows +
+                        '<div class="slip-extra-subtotal">' +
+                            '<span>Subtotal Reward</span>' +
+                            '<span>' + formatRp(totalRewardFull) + '</span>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+        }
+
+        // ═══ BONUS HTML ═══
+        let bonusHTML = '';
+        if (data.bonuses.length > 0) {
+            const bonusRows = data.bonuses.map(function(b) {
+                const isPaid = b.paid === true;
+                const statusHTML = isPaid
+                    ? '<span class="status-tag paid">✓ SUDAH DIBAYAR' + (b.paidAt ? ' · ' + fmtShortDate(b.paidAt) : '') + '</span>'
+                    : '<span class="status-tag unpaid">⏳ BELUM DIBAYAR</span>';
+
+                return '<div class="slip-extra-row ' + (isPaid ? 'is-paid' : 'is-unpaid') + '">' +
+                    '<div class="slip-extra-info">' +
+                        '<div class="slip-extra-title-group">' +
+                            '<div class="slip-extra-name">' +
+                                '<span class="emo">' + (b.icon || '🎁') + '</span>' +
+                                '<span>' + (b.name || 'Bonus') + '</span>' +
+                            '</div>' +
+                            statusHTML +
+                        '</div>' +
+                        (b.desc ? '<div class="slip-extra-desc">' + b.desc + '</div>' : '') +
+                    '</div>' +
+                    '<div class="slip-extra-amount">' + formatRp(b.amount) + '</div>' +
+                '</div>';
+            }).join('');
+
+            bonusHTML =
+                '<div class="slip-extra-section bonus">' +
+                    '<div class="slip-extra-header">' +
+                        '<i class="fas fa-gift"></i>' +
+                        '<span>🎁 Bonus Lainnya</span>' +
+                    '</div>' +
+                    '<div class="slip-extra-list">' +
+                        bonusRows +
+                        '<div class="slip-extra-subtotal">' +
+                            '<span>Subtotal Bonus</span>' +
+                            '<span>' + formatRp(totalBonusFull) + '</span>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+        }
+
+        // ═══ SUMMARY ═══
+        let summaryHTML =
+            '<div class="slip-summary-breakdown">' +
+                '<span class="label">💼 Komisi Closing (' + useClosings.length + ' closing)</span>' +
+                '<span class="value">' + formatRp(totalKomisiFull) + '</span>' +
+            '</div>';
+
+        if (data.rewards.length > 0) {
+            summaryHTML +=
+                '<div class="slip-summary-breakdown">' +
+                    '<span class="label">🎓 Reward (' + data.rewards.length + ' item)</span>' +
+                    '<span class="value">' + formatRp(totalRewardFull) + '</span>' +
+                '</div>';
+        }
+
+        if (data.bonuses.length > 0) {
+            summaryHTML +=
+                '<div class="slip-summary-breakdown">' +
+                    '<span class="label">🎁 Bonus (' + data.bonuses.length + ' item)</span>' +
+                    '<span class="value">' + formatRp(totalBonusFull) + '</span>' +
+                '</div>';
+        }
+
+        // ═══ RENDER KE DOM ═══
+        const previewEl = document.getElementById('slipPreview');
+        if (!previewEl) {
+            console.error('❌ #slipPreview tidak ditemukan!');
+            return;
+        }
+
+        previewEl.innerHTML =
+            '<div class="slip-doc-header">' +
+                '<div class="slip-brand">' +
+                    '<div class="slip-brand-logo">' +
+                        '<img src="main-logo.jpg" alt="Ibaadurrahmaan" ' +
+                             'onerror="this.parentElement.innerHTML=\'I\';this.parentElement.classList.add(\'fallback\');">' +
+                    '</div>' +
+                    '<div class="slip-brand-text">' +
+                        '<h2>Ibaadurrahmaan</h2>' +
+                        '<p>WEB DESIGNER</p>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="slip-doc-info">' +
+                    '<h3>Slip Komisi Bulanan</h3>' +
+                    '<p class="slip-no">No: ' + slipNo + '</p>' +
+                    '<p>Periode: <b>' + formatPeriode(data.periode) + '</b></p>' +
+                    '<p>Tanggal Bayar: <b>' + formatDate(data.tglBayar) + '</b></p>' +
+                '</div>' +
+            '</div>' +
+
+            '<div class="slip-parties">' +
+                '<div class="slip-party">' +
+                    '<div class="slip-party-label">DIBAYAR OLEH</div>' +
+                    '<div class="slip-party-name">Ibaadurrahmaan Web Designer</div>' +
+                    '<div class="slip-party-detail">' +
+                        'WhatsApp: 0814-0164-3188<br>' +
+                        'Email: ibadurrohman1428@gmail.com' +
+                    '</div>' +
+                '</div>' +
+                '<div class="slip-party reseller">' +
+                    '<div class="slip-party-label">DIBAYAR KEPADA</div>' +
+                    '<div class="slip-party-name">' + data.nama + '</div>' +
+                    '<div class="slip-party-detail">' +
+                        'Kode: <b>' + data.kode + '</b><br>' +
+                        'Tier: <span class="tier-badge ' + tierInfo.class + '">' + tierInfo.name + '</span>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+
+            '<div class="slip-detail-title">💼 Detail Komisi Closing (' + useClosings.length + ' closing)</div>' +
+            '<table class="slip-table">' +
+                '<thead>' +
+                    '<tr>' +
+                        '<th class="center" style="width:40px;">No</th>' +
+                        '<th>Client</th>' +
+                        '<th>Paket</th>' +
+                        '<th class="right">Nilai</th>' +
+                        '<th class="center">%</th>' +
+                        '<th class="right">Komisi</th>' +
+                        '<th class="right">Bonus</th>' +
+                    '</tr>' +
+                '</thead>' +
+                '<tbody>' +
+                    (rowsHTML || '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px;">Belum ada closing.</td></tr>') +
+                '</tbody>' +
+            '</table>' +
+
+            rewardHTML +
+            bonusHTML +
+
+            '<div class="slip-summary">' +
+                summaryHTML +
+                '<div class="slip-summary-total">' +
+                    '<span class="label">💰 Total Dibayarkan</span>' +
+                    '<span class="value">' + formatRp(grandTotalSlip) + '</span>' +
+                '</div>' +
+            '</div>' +
+
+            '<div class="slip-payment">' +
+                '<div class="slip-payment-title">' +
+                    '<i class="fas fa-university"></i> Transfer ke Rekening' +
+                '</div>' +
+                '<div class="slip-payment-detail">' +
+                    '<div><strong>Bank</strong>' + data.bank + '</div>' +
+                    '<div><strong>No. Rekening</strong>' + data.norek + '</div>' +
+                    '<div><strong>A/n</strong>' + data.nama + '</div>' +
+                    '<div><strong>Jumlah Transfer</strong>' + formatRp(grandTotalSlip) + '</div>' +
+                '</div>' +
+            '</div>' +
+
+            '<div class="slip-footer">' +
+                '<div class="slip-footer-info">' +
+                    '<strong>Terima kasih atas kerja sama Anda! 🙏</strong><br>' +
+                    'Slip resmi Ibaadurrahmaan Web Designer.<br>' +
+                    'Verifikasi: WA 0814-0164-3188' +
+                '</div>' +
+                '<div class="slip-stamp ' + (isFullyPaid ? 'paid' : '') + '">' +
+                    '<i class="fas ' + (isFullyPaid ? 'fa-check-circle' : 'fa-clock') + '"></i>' +
+                    (isFullyPaid ? 'Lunas' : 'Proses') +
+                '</div>' +
+            '</div>';
+
+        console.log('✅ Preview slip OK | Total:', formatRp(grandTotalSlip));
+
+    } catch (err) {
+        console.error('❌ generateMonthlySlip ERROR:', err);
+        const el = document.getElementById('slipPreview');
+        if (el) {
+            el.innerHTML =
+                '<div style="padding:40px;text-align:center;color:#e74c3c;">' +
+                    '<h3>⚠️ Gagal Generate Preview</h3>' +
+                    '<p style="font-size:0.85rem;margin-top:8px;">' + err.message + '</p>' +
+                    '<p style="font-size:0.75rem;color:#999;margin-top:12px;">Buka Console (F12) untuk detail error</p>' +
+                '</div>';
+        }
+    }
 }
 
 function generateSingleSlip() {
