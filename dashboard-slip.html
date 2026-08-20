@@ -835,7 +835,6 @@ function addClosing(){
     updatePreview();
 }
 
-// NEW: addClosingWithData untuk autofill bulk
 function addClosingWithData(data){
     closingCount++;
     const list=document.getElementById('closingList');
@@ -861,7 +860,6 @@ function addClosingWithData(data){
 
     list.appendChild(item);
 
-    // Set paket value — cek match dulu
     const select=item.querySelector('.closing-paket');
     let found=false;
     for(const opt of select.options){
@@ -871,7 +869,6 @@ function addClosingWithData(data){
             break;
         }
     }
-    // Kalau tidak match, tambah custom option
     if(!found && paketVal>0){
         const customOpt=document.createElement('option');
         customOpt.value=paketVal;
@@ -879,7 +876,6 @@ function addClosingWithData(data){
         customOpt.selected=true;
         select.appendChild(customOpt);
     }
-
     updatePreview();
 }
 
@@ -918,307 +914,270 @@ function updatePreview(){
 }
 
 function generateMonthlySlip() {
-    try {
-        const rawData = window._slipRawData || {};
+    const rawData = window._slipRawData || {};
+    
+    const data = {
+        nama    : document.getElementById('fieldNama').value.trim() || 'Nama Reseller',
+        kode    : document.getElementById('fieldKode').value.trim() || 'RSL-XXX',
+        tier    : getTierPercent(document.getElementById('resellerLevel').value),
+        bank    : document.getElementById('fieldBank').value.trim() || 'Bank',
+        norek   : document.getElementById('fieldNorek').value.trim() || '000-0000-0000',
+        periode : document.getElementById('fieldPeriode').value,
+        tglBayar: document.getElementById('fieldTglBayar').value,
+        closings: getClosings(),
+        rewards : Array.isArray(rawData.rewards) ? rawData.rewards : [],
+        bonuses : Array.isArray(rawData.bonuses) ? rawData.bonuses : [],
+        closingsRaw: Array.isArray(rawData.closings) ? rawData.closings : []
+    };
+    
+    const tierInfo = getTierName(data.tier);
+    const slipNo = generateSlipNo('monthly');
+    
+    const fmtShortDate = (iso) => {
+        if (!iso) return '';
+        try {
+            const d = new Date(iso);
+            const m = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+            return `${d.getDate()} ${m[d.getMonth()]} ${d.getFullYear()}`;
+        } catch(e) { return ''; }
+    };
+    
+    // ═══ 1. RENDER & HITUNG KOMISI CLOSING ═══
+    const useClosings = data.closingsRaw.length > 0 ? data.closingsRaw : data.closings.map((c) => ({
+        ...c, isPaid: false, paidAt: null
+    }));
+    
+    let totalKomisiFull = 0;
+    
+    const rowsHTML = useClosings.map((c, idx) => {
+        const base = c.paket || c.basePrice || 0;
+        const komisi = c.komisi || (base * data.tier) / 100;
+        const bonusT = c.bonus || tierInfo.bonus;
+        const totalRow = komisi + bonusT;
+        const isPaid = c.isPaid === true;
+        
+        totalKomisiFull += totalRow;
+        
+        const statusTag = isPaid 
+            ? `<span class="status-tag paid">✓ DIBAYAR ${c.paidAt ? `· ${fmtShortDate(c.paidAt)}` : ''}</span>`
+            : `<span class="status-tag unpaid">⏳ PENDING</span>`;
+        
+        const clientName = c.clientName || c.client || `Client ${idx + 1}`;
+        const paketName = c.paketName || c.project || `Custom - ${formatRp(base)}`;
+        
+        return `<tr class="${isPaid ? 'row-paid' : ''}">
+            <td class="center">${idx + 1}</td>
+            <td>${clientName} ${statusTag}</td>
+            <td>${paketName}</td>
+            <td class="right">${formatRp(base)}</td>
+            <td class="center">${data.tier}%</td>
+            <td class="right">${formatRp(komisi)}</td>
+            <td class="right">${formatRp(bonusT)}</td>
+        </tr>`;
+    }).join('');
+    
+    // ═══ 2. HITUNG TOTAL REWARD (UTUH) ═══
+    const totalRewardFull = data.rewards.reduce((s, r) => s + (r.amount || 0), 0);
+    
+    // ═══ 3. HITUNG TOTAL BONUS (UTUH) ═══
+    const totalBonusFull = data.bonuses.reduce((s, b) => s + (b.amount || 0), 0);
+    
+    // ═══ 4. GRAND TOTAL UTUH SLIP ═══
+    const grandTotalSlip = totalKomisiFull + totalRewardFull + totalBonusFull;
+    
+    // Cek status pelunasan slip
+    const hasUnpaidClosing = useClosings.some(c => !c.isPaid);
+    const hasUnpaidReward  = data.rewards.some(r => !r.paid);
+    const hasUnpaidBonus   = data.bonuses.some(b => !b.paid);
+    const isFullyPaid      = !hasUnpaidClosing && !hasUnpaidReward && !hasUnpaidBonus;
 
-        const data = {
-            nama     : document.getElementById('fieldNama')?.value.trim() || 'Nama Reseller',
-            kode     : document.getElementById('fieldKode')?.value.trim() || 'RSL-XXX',
-            tier     : getTierPercent(document.getElementById('resellerLevel')?.value || 'silver'),
-            bank     : document.getElementById('fieldBank')?.value.trim() || 'Bank',
-            norek    : document.getElementById('fieldNorek')?.value.trim() || '-',
-            periode  : document.getElementById('fieldPeriode')?.value || '',
-            tglBayar : document.getElementById('fieldTglBayar')?.value || '',
-            closings : getClosings(),
-            rewards  : Array.isArray(rawData.rewards) ? rawData.rewards : [],
-            bonuses  : Array.isArray(rawData.bonuses) ? rawData.bonuses : [],
-            closingsRaw: Array.isArray(rawData.closings) ? rawData.closings : []
-        };
+    // ═══ RENDER: REWARD SECTION ═══
+    const rewardHTML = data.rewards.length > 0 ? `
+        <div class="slip-extra-section reward">
+            <div class="slip-extra-header">
+                <i class="fas fa-graduation-cap"></i>
+                <span>🎓 Reward Pembelajaran & SOP</span>
+            </div>
+            <div class="slip-extra-list">
+                ${data.rewards.map(r => {
+                    const isPaid = r.paid === true;
+                    const statusHTML = isPaid
+                        ? `<span class="status-tag paid">✓ SUDAH DIBAYAR ${r.paidAt ? `· ${fmtShortDate(r.paidAt)}` : ''}</span>`
+                        : `<span class="status-tag unpaid">⏳ BELUM DIBAYAR</span>`;
+                    
+                    return `
+                        <div class="slip-extra-row ${isPaid ? 'is-paid' : 'is-unpaid'}">
+                            <div class="slip-extra-info">
+                                <div class="slip-extra-title-group">
+                                    <div class="slip-extra-name">
+                                        <span class="emo">${r.icon || '🎁'}</span>
+                                        <span>${r.name}</span>
+                                    </div>
+                                    ${statusHTML}
+                                </div>
+                                ${r.desc ? `<div class="slip-extra-desc">${r.desc}</div>` : ''}
+                            </div>
+                            <div class="slip-extra-amount">${formatRp(r.amount)}</div>
+                        </div>
+                    `;
+                }).join('')}
+                <div class="slip-extra-subtotal">
+                    <span>Subtotal Reward</span>
+                    <span>${formatRp(totalRewardFull)}</span>
+                </div>
+            </div>
+        </div>
+    ` : '';
+    
+    // ═══ RENDER: BONUS SECTION ═══
+    const bonusHTML = data.bonuses.length > 0 ? `
+        <div class="slip-extra-section bonus">
+            <div class="slip-extra-header">
+                <i class="fas fa-gift"></i>
+                <span>🎁 Bonus Lainnya</span>
+            </div>
+            <div class="slip-extra-list">
+                ${data.bonuses.map(b => {
+                    const isPaid = b.paid === true;
+                    const statusHTML = isPaid
+                        ? `<span class="status-tag paid">✓ SUDAH DIBAYAR ${b.paidAt ? `· ${fmtShortDate(b.paidAt)}` : ''}</span>`
+                        : `<span class="status-tag unpaid">⏳ BELUM DIBAYAR</span>`;
+                    
+                    return `
+                        <div class="slip-extra-row ${isPaid ? 'is-paid' : 'is-unpaid'}">
+                            <div class="slip-extra-info">
+                                <div class="slip-extra-title-group">
+                                    <div class="slip-extra-name">
+                                        <span class="emo">${b.icon || '🎁'}</span>
+                                        <span>${b.name}</span>
+                                    </div>
+                                    ${statusHTML}
+                                </div>
+                                ${b.desc ? `<div class="slip-extra-desc">${b.desc}</div>` : ''}
+                            </div>
+                            <div class="slip-extra-amount">${formatRp(b.amount)}</div>
+                        </div>
+                    `;
+                }).join('')}
+                <div class="slip-extra-subtotal">
+                    <span>Subtotal Bonus</span>
+                    <span>${formatRp(totalBonusFull)}</span>
+                </div>
+            </div>
+        </div>
+    ` : '';
+    
+    // ═══ SUMMARY BREAKDOWN ═══
+    const summaryHTML = `
+        <div class="slip-summary-breakdown">
+            <span class="label">💼 Komisi Closing (${useClosings.length} closing)</span>
+            <span class="value">${formatRp(totalKomisiFull)}</span>
+        </div>
+        ${data.rewards.length > 0 ? `
+            <div class="slip-summary-breakdown">
+                <span class="label">🎓 Reward (${data.rewards.length} item)</span>
+                <span class="value">${formatRp(totalRewardFull)}</span>
+            </div>
+        ` : ''}
+        ${data.bonuses.length > 0 ? `
+            <div class="slip-summary-breakdown">
+                <span class="label">🎁 Bonus (${data.bonuses.length} item)</span>
+                <span class="value">${formatRp(totalBonusFull)}</span>
+            </div>
+        ` : ''}
+    `;
+    
+    // ═══ RENDER FINAL SLIP ═══
+    document.getElementById('slipPreview').innerHTML = `
+        <div class="slip-doc-header">
+            <div class="slip-brand">
+                <div class="slip-brand-logo">
+                    <img src="main-logo.jpg" alt="Ibaadurrahmaan"
+                         onerror="this.parentElement.innerHTML='I';this.parentElement.classList.add('fallback');">
+                </div>
+                <div class="slip-brand-text">
+                    <h2>Ibaadurrahmaan</h2>
+                    <p>WEB DESIGNER</p>
+                </div>
+            </div>
+            <div class="slip-doc-info">
+                <h3>Slip Komisi Bulanan</h3>
+                <p class="slip-no">No: ${slipNo}</p>
+                <p>Periode: <b>${formatPeriode(data.periode)}</b></p>
+                <p>Tanggal Bayar: <b>${formatDate(data.tglBayar)}</b></p>
+            </div>
+        </div>
 
-        const tierInfo = getTierName(data.tier);
-        const slipNo   = generateSlipNo('monthly');
+        <div class="slip-parties">
+            <div class="slip-party">
+                <div class="slip-party-label">DIBAYAR OLEH</div>
+                <div class="slip-party-name">Ibaadurrahmaan Web Designer</div>
+                <div class="slip-party-detail">
+                    WhatsApp: 0814-0164-3188<br>
+                    Email: ibadurrohman1428@gmail.com
+                </div>
+            </div>
+            <div class="slip-party reseller">
+                <div class="slip-party-label">DIBAYAR KEPADA</div>
+                <div class="slip-party-name">${data.nama}</div>
+                <div class="slip-party-detail">
+                    Kode: <b>${data.kode}</b><br>
+                    Tier: <span class="tier-badge ${tierInfo.class}">${tierInfo.name}</span>
+                </div>
+            </div>
+        </div>
 
-        const fmtShortDate = (iso) => {
-            if (!iso) return '';
-            try {
-                const d = new Date(iso);
-                if (isNaN(d.getTime())) return '';
-                const m = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
-                return d.getDate() + ' ' + m[d.getMonth()] + ' ' + d.getFullYear();
-            } catch (e) { return ''; }
-        };
+        <div class="slip-detail-title">💼 Detail Komisi Closing (${useClosings.length} closing)</div>
+        <table class="slip-table">
+            <thead>
+                <tr>
+                    <th class="center" style="width:40px;">No</th>
+                    <th>Client</th>
+                    <th>Paket</th>
+                    <th class="right">Nilai</th>
+                    <th class="center">%</th>
+                    <th class="right">Komisi</th>
+                    <th class="right">Bonus</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${rowsHTML || '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px;">Belum ada closing.</td></tr>'}
+            </tbody>
+        </table>
 
-        // ═══ CLOSING ROWS ═══
-        const useClosings = data.closingsRaw.length > 0
-            ? data.closingsRaw
-            : data.closings.map(function(c) {
-                return Object.assign({}, c, { isPaid: false, paidAt: null });
-            });
+        ${rewardHTML}
+        ${bonusHTML}
 
-        let totalKomisiFull = 0;
+        <div class="slip-summary">
+            ${summaryHTML}
+            <div class="slip-summary-total">
+                <span class="label">💰 Total Dibayarkan</span>
+                <span class="value">${formatRp(grandTotalSlip)}</span>
+            </div>
+        </div>
 
-        const rowsHTML = useClosings.map(function(c, idx) {
-            const base   = Number(c.paket || c.basePrice || 0);
-            const komisi = Number(c.komisi != null ? c.komisi : (base * data.tier) / 100);
-            const bonusT = Number(c.bonus  != null ? c.bonus  : tierInfo.bonus);
-            const isPaid = c.isPaid === true;
+        <div class="slip-payment">
+            <div class="slip-payment-title">
+                <i class="fas fa-university"></i> Transfer ke Rekening
+            </div>
+            <div class="slip-payment-detail">
+                <div><strong>Bank</strong>${data.bank}</div>
+                <div><strong>No. Rekening</strong>${data.norek}</div>
+                <div><strong>A/n</strong>${data.nama}</div>
+                <div><strong>Jumlah Transfer</strong>${formatRp(grandTotalSlip)}</div>
+            </div>
+        </div>
 
-            totalKomisiFull += (komisi + bonusT);
-
-            const statusTag = isPaid
-                ? '<span class="status-tag paid">✓ DIBAYAR' + (c.paidAt ? ' · ' + fmtShortDate(c.paidAt) : '') + '</span>'
-                : '<span class="status-tag unpaid">⏳ PENDING</span>';
-
-            const clientName = c.clientName || c.client || ('Client ' + (idx + 1));
-            const paketName  = c.paketName || c.project || ('Custom - ' + formatRp(base));
-
-            return '<tr class="' + (isPaid ? 'row-paid' : '') + '">' +
-                '<td class="center">' + (idx + 1) + '</td>' +
-                '<td>' + clientName + ' ' + statusTag + '</td>' +
-                '<td>' + paketName + '</td>' +
-                '<td class="right">' + formatRp(base) + '</td>' +
-                '<td class="center">' + data.tier + '%</td>' +
-                '<td class="right">' + formatRp(komisi) + '</td>' +
-                '<td class="right">' + formatRp(bonusT) + '</td>' +
-                '</tr>';
-        }).join('');
-
-        // ═══ REWARD TOTAL (UTUH) ═══
-        let totalRewardFull = 0;
-        data.rewards.forEach(function(r) {
-            totalRewardFull += Number(r.amount || 0);
-        });
-
-        // ═══ BONUS TOTAL (UTUH) ═══
-        let totalBonusFull = 0;
-        data.bonuses.forEach(function(b) {
-            totalBonusFull += Number(b.amount || 0);
-        });
-
-        // ═══ GRAND TOTAL UTUH ═══
-        const grandTotalSlip = totalKomisiFull + totalRewardFull + totalBonusFull;
-
-        const hasUnpaidClosing = useClosings.some(function(c) { return !c.isPaid; });
-        const hasUnpaidReward  = data.rewards.some(function(r) { return !r.paid; });
-        const hasUnpaidBonus   = data.bonuses.some(function(b) { return !b.paid; });
-        const isFullyPaid = !hasUnpaidClosing && !hasUnpaidReward && !hasUnpaidBonus;
-
-        // ═══ REWARD HTML ═══
-        let rewardHTML = '';
-        if (data.rewards.length > 0) {
-            const rewardRows = data.rewards.map(function(r) {
-                const isPaid = r.paid === true;
-                const statusHTML = isPaid
-                    ? '<span class="status-tag paid">✓ SUDAH DIBAYAR' + (r.paidAt ? ' · ' + fmtShortDate(r.paidAt) : '') + '</span>'
-                    : '<span class="status-tag unpaid">⏳ BELUM DIBAYAR</span>';
-
-                return '<div class="slip-extra-row ' + (isPaid ? 'is-paid' : 'is-unpaid') + '">' +
-                    '<div class="slip-extra-info">' +
-                        '<div class="slip-extra-title-group">' +
-                            '<div class="slip-extra-name">' +
-                                '<span class="emo">' + (r.icon || '🎁') + '</span>' +
-                                '<span>' + (r.name || 'Reward') + '</span>' +
-                            '</div>' +
-                            statusHTML +
-                        '</div>' +
-                        (r.desc ? '<div class="slip-extra-desc">' + r.desc + '</div>' : '') +
-                    '</div>' +
-                    '<div class="slip-extra-amount">' + formatRp(r.amount) + '</div>' +
-                '</div>';
-            }).join('');
-
-            rewardHTML =
-                '<div class="slip-extra-section reward">' +
-                    '<div class="slip-extra-header">' +
-                        '<i class="fas fa-graduation-cap"></i>' +
-                        '<span>🎓 Reward Pembelajaran & SOP</span>' +
-                    '</div>' +
-                    '<div class="slip-extra-list">' +
-                        rewardRows +
-                        '<div class="slip-extra-subtotal">' +
-                            '<span>Subtotal Reward</span>' +
-                            '<span>' + formatRp(totalRewardFull) + '</span>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>';
-        }
-
-        // ═══ BONUS HTML ═══
-        let bonusHTML = '';
-        if (data.bonuses.length > 0) {
-            const bonusRows = data.bonuses.map(function(b) {
-                const isPaid = b.paid === true;
-                const statusHTML = isPaid
-                    ? '<span class="status-tag paid">✓ SUDAH DIBAYAR' + (b.paidAt ? ' · ' + fmtShortDate(b.paidAt) : '') + '</span>'
-                    : '<span class="status-tag unpaid">⏳ BELUM DIBAYAR</span>';
-
-                return '<div class="slip-extra-row ' + (isPaid ? 'is-paid' : 'is-unpaid') + '">' +
-                    '<div class="slip-extra-info">' +
-                        '<div class="slip-extra-title-group">' +
-                            '<div class="slip-extra-name">' +
-                                '<span class="emo">' + (b.icon || '🎁') + '</span>' +
-                                '<span>' + (b.name || 'Bonus') + '</span>' +
-                            '</div>' +
-                            statusHTML +
-                        '</div>' +
-                        (b.desc ? '<div class="slip-extra-desc">' + b.desc + '</div>' : '') +
-                    '</div>' +
-                    '<div class="slip-extra-amount">' + formatRp(b.amount) + '</div>' +
-                '</div>';
-            }).join('');
-
-            bonusHTML =
-                '<div class="slip-extra-section bonus">' +
-                    '<div class="slip-extra-header">' +
-                        '<i class="fas fa-gift"></i>' +
-                        '<span>🎁 Bonus Lainnya</span>' +
-                    '</div>' +
-                    '<div class="slip-extra-list">' +
-                        bonusRows +
-                        '<div class="slip-extra-subtotal">' +
-                            '<span>Subtotal Bonus</span>' +
-                            '<span>' + formatRp(totalBonusFull) + '</span>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>';
-        }
-
-        // ═══ SUMMARY ═══
-        let summaryHTML =
-            '<div class="slip-summary-breakdown">' +
-                '<span class="label">💼 Komisi Closing (' + useClosings.length + ' closing)</span>' +
-                '<span class="value">' + formatRp(totalKomisiFull) + '</span>' +
-            '</div>';
-
-        if (data.rewards.length > 0) {
-            summaryHTML +=
-                '<div class="slip-summary-breakdown">' +
-                    '<span class="label">🎓 Reward (' + data.rewards.length + ' item)</span>' +
-                    '<span class="value">' + formatRp(totalRewardFull) + '</span>' +
-                '</div>';
-        }
-
-        if (data.bonuses.length > 0) {
-            summaryHTML +=
-                '<div class="slip-summary-breakdown">' +
-                    '<span class="label">🎁 Bonus (' + data.bonuses.length + ' item)</span>' +
-                    '<span class="value">' + formatRp(totalBonusFull) + '</span>' +
-                '</div>';
-        }
-
-        // ═══ RENDER KE DOM ═══
-        const previewEl = document.getElementById('slipPreview');
-        if (!previewEl) {
-            console.error('❌ #slipPreview tidak ditemukan!');
-            return;
-        }
-
-        previewEl.innerHTML =
-            '<div class="slip-doc-header">' +
-                '<div class="slip-brand">' +
-                    '<div class="slip-brand-logo">' +
-                        '<img src="main-logo.jpg" alt="Ibaadurrahmaan" ' +
-                             'onerror="this.parentElement.innerHTML=\'I\';this.parentElement.classList.add(\'fallback\');">' +
-                    '</div>' +
-                    '<div class="slip-brand-text">' +
-                        '<h2>Ibaadurrahmaan</h2>' +
-                        '<p>WEB DESIGNER</p>' +
-                    '</div>' +
-                '</div>' +
-                '<div class="slip-doc-info">' +
-                    '<h3>Slip Komisi Bulanan</h3>' +
-                    '<p class="slip-no">No: ' + slipNo + '</p>' +
-                    '<p>Periode: <b>' + formatPeriode(data.periode) + '</b></p>' +
-                    '<p>Tanggal Bayar: <b>' + formatDate(data.tglBayar) + '</b></p>' +
-                '</div>' +
-            '</div>' +
-
-            '<div class="slip-parties">' +
-                '<div class="slip-party">' +
-                    '<div class="slip-party-label">DIBAYAR OLEH</div>' +
-                    '<div class="slip-party-name">Ibaadurrahmaan Web Designer</div>' +
-                    '<div class="slip-party-detail">' +
-                        'WhatsApp: 0814-0164-3188<br>' +
-                        'Email: ibadurrohman1428@gmail.com' +
-                    '</div>' +
-                '</div>' +
-                '<div class="slip-party reseller">' +
-                    '<div class="slip-party-label">DIBAYAR KEPADA</div>' +
-                    '<div class="slip-party-name">' + data.nama + '</div>' +
-                    '<div class="slip-party-detail">' +
-                        'Kode: <b>' + data.kode + '</b><br>' +
-                        'Tier: <span class="tier-badge ' + tierInfo.class + '">' + tierInfo.name + '</span>' +
-                    '</div>' +
-                '</div>' +
-            '</div>' +
-
-            '<div class="slip-detail-title">💼 Detail Komisi Closing (' + useClosings.length + ' closing)</div>' +
-            '<table class="slip-table">' +
-                '<thead>' +
-                    '<tr>' +
-                        '<th class="center" style="width:40px;">No</th>' +
-                        '<th>Client</th>' +
-                        '<th>Paket</th>' +
-                        '<th class="right">Nilai</th>' +
-                        '<th class="center">%</th>' +
-                        '<th class="right">Komisi</th>' +
-                        '<th class="right">Bonus</th>' +
-                    '</tr>' +
-                '</thead>' +
-                '<tbody>' +
-                    (rowsHTML || '<tr><td colspan="7" style="text-align:center;color:#999;padding:20px;">Belum ada closing.</td></tr>') +
-                '</tbody>' +
-            '</table>' +
-
-            rewardHTML +
-            bonusHTML +
-
-            '<div class="slip-summary">' +
-                summaryHTML +
-                '<div class="slip-summary-total">' +
-                    '<span class="label">💰 Total Dibayarkan</span>' +
-                    '<span class="value">' + formatRp(grandTotalSlip) + '</span>' +
-                '</div>' +
-            '</div>' +
-
-            '<div class="slip-payment">' +
-                '<div class="slip-payment-title">' +
-                    '<i class="fas fa-university"></i> Transfer ke Rekening' +
-                '</div>' +
-                '<div class="slip-payment-detail">' +
-                    '<div><strong>Bank</strong>' + data.bank + '</div>' +
-                    '<div><strong>No. Rekening</strong>' + data.norek + '</div>' +
-                    '<div><strong>A/n</strong>' + data.nama + '</div>' +
-                    '<div><strong>Jumlah Transfer</strong>' + formatRp(grandTotalSlip) + '</div>' +
-                '</div>' +
-            '</div>' +
-
-            '<div class="slip-footer">' +
-                '<div class="slip-footer-info">' +
-                    '<strong>Terima kasih atas kerja sama Anda! 🙏</strong><br>' +
-                    'Slip resmi Ibaadurrahmaan Web Designer.<br>' +
-                    'Verifikasi: WA 0814-0164-3188' +
-                '</div>' +
-                '<div class="slip-stamp ' + (isFullyPaid ? 'paid' : '') + '">' +
-                    '<i class="fas ' + (isFullyPaid ? 'fa-check-circle' : 'fa-clock') + '"></i>' +
-                    (isFullyPaid ? 'Lunas' : 'Proses') +
-                '</div>' +
-            '</div>';
-
-        console.log('✅ Preview slip OK | Total:', formatRp(grandTotalSlip));
-
-    } catch (err) {
-        console.error('❌ generateMonthlySlip ERROR:', err);
-        const el = document.getElementById('slipPreview');
-        if (el) {
-            el.innerHTML =
-                '<div style="padding:40px;text-align:center;color:#e74c3c;">' +
-                    '<h3>⚠️ Gagal Generate Preview</h3>' +
-                    '<p style="font-size:0.85rem;margin-top:8px;">' + err.message + '</p>' +
-                    '<p style="font-size:0.75rem;color:#999;margin-top:12px;">Buka Console (F12) untuk detail error</p>' +
-                '</div>';
-        }
-    }
+        <div class="slip-footer">
+            <div class="slip-footer-info">
+                <strong>Terima kasih atas kerja sama Anda! 🙏</strong><br>
+                Slip resmi Ibaadurrahmaan Web Designer.<br>
+                Verifikasi: WA 0814-0164-3188
+            </div>
+            <div class="slip-stamp ${isFullyPaid ? 'paid' : ''}">
+                <i class="fas ${isFullyPaid ? 'fa-check-circle' : 'fa-clock'}"></i>${isFullyPaid ? 'Lunas' : 'Proses'}
+            </div>
+        </div>`;
 }
 
 function generateSingleSlip() {
@@ -1235,7 +1194,6 @@ function generateSingleSlip() {
         paketName : document.getElementById('singlePaket').options[document.getElementById('singlePaket').selectedIndex].text,
         tglClosing: document.getElementById('singleTglClosing').value,
         tglBayar  : document.getElementById('singleTglBayar').value,
-        // Reward & Bonus dari auto-fill
         rewards   : Array.isArray(rawData.rewards) ? rawData.rewards : [],
         bonuses   : Array.isArray(rawData.bonuses) ? rawData.bonuses : []
     };
@@ -1257,25 +1215,16 @@ function generateSingleSlip() {
     const bonusT = tierInfo.bonus;
     const totalKomisiAll = komisi + bonusT; 
     
-    // ═══ HITUNG REWARD ═══
-    let totalRewardPaid = 0, totalRewardUnpaid = 0;
-    data.rewards.forEach(r => {
-        if (r.paid) totalRewardPaid += (r.amount || 0);
-        else totalRewardUnpaid += (r.amount || 0);
-    });
-    const totalRewardAll = totalRewardPaid + totalRewardUnpaid;
+    // ═══ HITUNG REWARD & BONUS UTUH ═══
+    const totalRewardFull = data.rewards.reduce((s, r) => s + (r.amount || 0), 0);
+    const totalBonusFull  = data.bonuses.reduce((s, b) => s + (b.amount || 0), 0);
+    const grandTotalSlip  = totalKomisiAll + totalRewardFull + totalBonusFull;
     
-    // ═══ HITUNG BONUS ═══
-    let totalBonusExtraPaid = 0, totalBonusExtraUnpaid = 0;
-    data.bonuses.forEach(b => {
-        if (b.paid) totalBonusExtraPaid += (b.amount || 0);
-        else totalBonusExtraUnpaid += (b.amount || 0);
-    });
-    const totalBonusExtraAll = totalBonusExtraPaid + totalBonusExtraUnpaid;
-    
-    // ═══ GRAND TOTAL ═══
-    const grandTotalUnpaid = totalKomisiAll + totalRewardUnpaid + totalBonusExtraUnpaid;
-    const totalAllPaid = totalRewardPaid + totalBonusExtraPaid;
+    // Cek status pelunasan
+    const isClosingPaid = (rawData.closings && rawData.closings[0] && rawData.closings[0].isPaid === true);
+    const hasUnpaidReward  = data.rewards.some(r => !r.paid);
+    const hasUnpaidBonus   = data.bonuses.some(b => !b.paid);
+    const isFullyPaid      = isClosingPaid && !hasUnpaidReward && !hasUnpaidBonus;
     
     // ═══ RENDER: REWARD SECTION ═══
     const rewardHTML = data.rewards.length > 0 ? `
@@ -1307,11 +1256,8 @@ function generateSingleSlip() {
                     `;
                 }).join('')}
                 <div class="slip-extra-subtotal">
-                    <div class="sub-label">
-                        <span>Subtotal Reward (Ditransfer Sekarang)</span>
-                        ${totalRewardPaid > 0 ? `<span class="sub-note">✓ ${formatRp(totalRewardPaid)} sudah dibayar sebelumnya</span>` : ''}
-                    </div>
-                    <span>${formatRp(totalRewardUnpaid)}</span>
+                    <span>Subtotal Reward</span>
+                    <span>${formatRp(totalRewardFull)}</span>
                 </div>
             </div>
         </div>
@@ -1347,11 +1293,8 @@ function generateSingleSlip() {
                     `;
                 }).join('')}
                 <div class="slip-extra-subtotal">
-                    <div class="sub-label">
-                        <span>Subtotal Bonus (Ditransfer Sekarang)</span>
-                        ${totalBonusExtraPaid > 0 ? `<span class="sub-note">✓ ${formatRp(totalBonusExtraPaid)} sudah dibayar sebelumnya</span>` : ''}
-                    </div>
-                    <span>${formatRp(totalBonusExtraUnpaid)}</span>
+                    <span>Subtotal Bonus</span>
+                    <span>${formatRp(totalBonusFull)}</span>
                 </div>
             </div>
         </div>
@@ -1363,22 +1306,16 @@ function generateSingleSlip() {
             <span class="label">💼 Komisi Per Closing</span>
             <span class="value">${formatRp(totalKomisiAll)}</span>
         </div>
-        ${totalRewardUnpaid > 0 || totalRewardPaid > 0 ? `
+        ${data.rewards.length > 0 ? `
             <div class="slip-summary-breakdown">
                 <span class="label">🎓 Reward (${data.rewards.length} item)</span>
-                <span class="value">${formatRp(totalRewardUnpaid)}</span>
+                <span class="value">${formatRp(totalRewardFull)}</span>
             </div>
         ` : ''}
-        ${totalBonusExtraUnpaid > 0 || totalBonusExtraPaid > 0 ? `
+        ${data.bonuses.length > 0 ? `
             <div class="slip-summary-breakdown">
                 <span class="label">🎁 Bonus (${data.bonuses.length} item)</span>
-                <span class="value">${formatRp(totalBonusExtraUnpaid)}</span>
-            </div>
-        ` : ''}
-        ${totalAllPaid > 0 ? `
-            <div class="slip-summary-breakdown paid-info">
-                <span class="label">✓ Sudah dibayar sebelumnya (info)</span>
-                <span class="value">${formatRp(totalAllPaid)}</span>
+                <span class="value">${formatRp(totalBonusFull)}</span>
             </div>
         ` : ''}
     `;
@@ -1436,8 +1373,8 @@ function generateSingleSlip() {
                 </tr>
             </thead>
             <tbody>
-                <tr class="row-paid">
-                    <td><b>${data.client}</b> <span class="status-tag unpaid" style="margin-left:8px;">⏳ UNPAID</span></td>
+                <tr class="${isClosingPaid ? 'row-paid' : ''}">
+                    <td><b>${data.client}</b> ${isClosingPaid ? `<span class="status-tag paid" style="margin-left:8px;">✓ PAID</span>` : `<span class="status-tag unpaid" style="margin-left:8px;">⏳ PENDING</span>`}</td>
                     <td>${data.paketName}</td>
                     <td class="right">${formatRp(data.paket)}</td>
                     <td class="center">${data.tier}%</td>
@@ -1453,8 +1390,8 @@ function generateSingleSlip() {
         <div class="slip-summary">
             ${summaryHTML}
             <div class="slip-summary-total">
-                <span class="label">💰 Total Dibayar Sekarang</span>
-                <span class="value">${formatRp(grandTotalUnpaid)}</span>
+                <span class="label">💰 Total Dibayarkan</span>
+                <span class="value">${formatRp(grandTotalSlip)}</span>
             </div>
         </div>
 
@@ -1466,7 +1403,7 @@ function generateSingleSlip() {
                 <div><strong>Bank</strong>${data.bank}</div>
                 <div><strong>No. Rekening</strong>${data.norek}</div>
                 <div><strong>A/n</strong>${data.nama}</div>
-                <div><strong>Jumlah</strong>${formatRp(grandTotalUnpaid)}</div>
+                <div><strong>Jumlah Transfer</strong>${formatRp(grandTotalSlip)}</div>
             </div>
         </div>
 
@@ -1476,8 +1413,8 @@ function generateSingleSlip() {
                 Slip resmi Ibaadurrahmaan Web Designer.<br>
                 Verifikasi: WA 0814-0164-3188
             </div>
-            <div class="slip-stamp paid">
-                <i class="fas fa-check-circle"></i>Lunas
+            <div class="slip-stamp ${isFullyPaid ? 'paid' : ''}">
+                <i class="fas ${isFullyPaid ? 'fa-check-circle' : 'fa-clock'}"></i>${isFullyPaid ? 'Lunas' : 'Proses'}
             </div>
         </div>`;
 }
@@ -1535,7 +1472,7 @@ function downloadPDF(){
         .slip-table th{background:#faf5e6!important;color:#d4a536!important;padding:10px 12px!important;text-align:left;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #d4a536!important;}
         .slip-table th.center{text-align:center;}
         .slip-table th.right{text-align:right;}
-        .slip-table td{padding:12px!important;border-bottom:1px solid #eee!important;color:#333;}
+        .slip-table td{padding:12px!important;border-bottom:1px solid #eee!important;color:#333;vertical-align:top;}
         .slip-table td.center{text-align:center;}
         .slip-table td.right{text-align:right;font-family:'Courier New',monospace;font-weight:600;}
         .tier-badge{display:inline-block;padding:3px 8px;border-radius:100px;font-size:0.7rem;font-weight:800;text-transform:uppercase;}
@@ -1560,6 +1497,37 @@ function downloadPDF(){
         .slip-stamp{text-align:center;padding:16px;border:2px dashed #d4a536;border-radius:8px;color:#d4a536;font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:0.75rem;background:rgba(212,165,54,0.05);min-width:140px;}
         .slip-stamp i{font-size:1.5rem;display:block;margin-bottom:4px;}
         .slip-stamp.paid{border-color:#25d366;color:#128c7e;background:rgba(37,211,102,0.08);}
+
+        /* ═══ REWARD & BONUS CSS PRINT ═══ */
+        .slip-extra-section {margin: 16px 0;padding: 14px;border-radius: 10px;border-left: 4px solid;}
+        .slip-extra-section.reward {background: #fff9e6;border-left-color: #d4a536;}
+        .slip-extra-section.bonus {background: #ede9fe;border-left-color: #9b59b6;}
+        .slip-extra-header {display: flex;align-items: center;gap: 8px;font-family: 'Montserrat', sans-serif;font-size: 0.82rem;font-weight: 800;text-transform: uppercase;letter-spacing: 0.8px;margin-bottom: 12px;padding-bottom: 8px;border-bottom: 1px dashed rgba(0,0,0,0.12);}
+        .slip-extra-section.reward .slip-extra-header { color: #b8860b; }
+        .slip-extra-section.bonus  .slip-extra-header { color: #7c3aed; }
+        .slip-extra-list {display: flex;flex-direction: column;gap: 10px;}
+        .slip-extra-row {display: flex;justify-content: space-between;align-items: flex-start;gap: 10px;padding: 10px 12px;background: rgba(255,255,255,0.7);border-radius: 8px;font-size: 0.82rem;border: 1px solid transparent;}
+        .slip-extra-row.is-paid {background: rgba(37,211,102,0.06);border-color: rgba(37,211,102,0.25);}
+        .slip-extra-info {flex: 1;min-width: 0;}
+        .slip-extra-title-group {display: flex;flex-direction: column;align-items: flex-start;gap: 4px;margin-bottom: 4px;}
+        .slip-extra-name {font-weight: 800;color: #333;display: flex;align-items: center;gap: 6px;line-height: 1.3;font-size: 0.85rem;}
+        .slip-extra-name .emo {font-size: 1.1rem;line-height: 1;flex-shrink: 0;}
+        .slip-extra-desc {font-size: 0.72rem;color: #666;font-style: italic;line-height: 1.35;}
+        .slip-extra-amount {font-family: 'Courier New', monospace;font-weight: 800;white-space: nowrap;font-size: 0.9rem;text-align: right;padding-top: 2px;}
+        .slip-extra-section.reward .slip-extra-amount { color: #b8860b; }
+        .slip-extra-section.bonus  .slip-extra-amount { color: #7c3aed; }
+        .status-tag {display: inline-flex;align-items: center;gap: 4px;padding: 2px 8px;border-radius: 4px;font-size: 0.6rem;font-weight: 800;letter-spacing: 0.3px;font-family: 'Poppins', sans-serif;text-transform: uppercase;white-space: nowrap;line-height: 1.2;}
+        .status-tag.paid {background: #25d366;color: #fff;}
+        .status-tag.unpaid {background: #f39c12;color: #fff;}
+        .status-tag .tag-date {font-weight: 600;opacity: 0.9;}
+        .slip-extra-subtotal {margin-top: 8px;padding: 10px 12px;background: rgba(0,0,0,0.04);border-radius: 6px;display: flex;justify-content: space-between;align-items: center;font-weight: 800;font-size: 0.85rem;font-family: 'Poppins', sans-serif;}
+        .slip-extra-subtotal .sub-label {display: flex;flex-direction: column;gap: 2px;}
+        .slip-extra-subtotal .sub-note {font-size: 0.68rem;font-weight: 600;color: #25d366;text-transform: none;}
+        .slip-summary-breakdown {display: flex;justify-content: space-between;padding: 6px 0;font-size: 0.9rem;color: #555;border-bottom: 1px dashed rgba(212,165,54,0.15);}
+        .slip-summary-breakdown:last-of-type { border-bottom: none; }
+        .slip-summary-breakdown .value {font-family: 'Courier New', monospace;font-weight: 700;color: #333;}
+        .slip-table tr.row-paid td {background: rgba(37,211,102,0.06) !important;opacity: 0.85;}
+
         @media(max-width:768px){
             body{padding:12px 8px;}
             .slip-preview{padding:20px 14px!important;max-width:100%!important;}
@@ -1581,6 +1549,10 @@ function downloadPDF(){
             .print-info{display:none!important;}
             .slip-preview{padding:12mm 10mm!important;box-shadow:none!important;border-radius:0!important;max-width:100%!important;width:100%!important;margin:0!important;}
             @page{size:A4 portrait;margin:10mm 8mm;}
+            .slip-extra-section, .slip-extra-row, .status-tag, .slip-table tr.row-paid td {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
         }`;
 
     win.document.write(`
@@ -1613,8 +1585,26 @@ function downloadPDF(){
     });
 }
 
+// ════════════════════════════════════════
+// SEND TO WHATSAPP
+// ════════════════════════════════════════
+function sendToWA() {
+    const nama = document.getElementById('fieldNama').value.trim();
+    if (!nama) {
+        Swal.fire({
+            icon: 'warning', title: 'Data Belum Lengkap',
+            text: 'Silakan isi nama reseller terlebih dahulu',
+            customClass: { popup: 'swal-premium' }, confirmButtonText: 'Oke'
+        });
+        return;
+    }
+
+    const tier = getTierPercent(document.getElementById('resellerLevel').value);
+    const tierInfo = getTierName(tier);
+    let message = '';
+
     // ════════════════════════════════════
-    // MODE MONTHLY (VERSI FIXED NOMINAL UTUH)
+    // MODE MONTHLY
     // ════════════════════════════════════
     if (currentMode === 'monthly') {
         const periode = formatPeriode(document.getElementById('fieldPeriode').value);
@@ -1624,13 +1614,14 @@ function downloadPDF(){
         const totalBonusTier = closings.length * tierInfo.bonus;
         const totalKomisiAll = totalKomisi + totalBonusTier;
 
+        // Ambil data utuh
         const rewards = _slipExtraData?.rewards || [];
         const bonuses = _slipExtraData?.bonuses || [];
-        const totalReward = rewards.reduce((s, r) => s + (r.amount || 0), 0);
-        const totalBonusExtra = bonuses.reduce((s, b) => s + (b.amount || 0), 0);
+        const totalRewardFull = rewards.reduce((s, r) => s + (r.amount || 0), 0);
+        const totalBonusExtraFull = bonuses.reduce((s, b) => s + (b.amount || 0), 0);
         
         // ⭐ NOMINAL UTUH SLIP
-        const grandTotal = totalKomisiAll + totalReward + totalBonusExtra;
+        const grandTotal = totalKomisiAll + totalRewardFull + totalBonusExtraFull;
 
         // ═══ BUILD MESSAGE ═══
         message = `Halo *${nama}* 👋\n\n`;
@@ -1660,7 +1651,7 @@ function downloadPDF(){
                 message += `${r.icon || '🎁'} ${r.name} (${st})\n`;
                 message += `   💰 Rp ${r.amount.toLocaleString('id-ID')}\n\n`;
             });
-            message += `• *Subtotal Reward: Rp ${totalReward.toLocaleString('id-ID')}*\n`;
+            message += `• *Subtotal Reward: Rp ${totalRewardFull.toLocaleString('id-ID')}*\n`;
         }
 
         // BONUS
@@ -1673,7 +1664,7 @@ function downloadPDF(){
                 message += `${b.icon || '🎁'} ${b.name} (${st})\n`;
                 message += `   💰 Rp ${b.amount.toLocaleString('id-ID')}\n\n`;
             });
-            message += `• *Subtotal Bonus: Rp ${totalBonusExtra.toLocaleString('id-ID')}*\n`;
+            message += `• *Subtotal Bonus: Rp ${totalBonusExtraFull.toLocaleString('id-ID')}*\n`;
         }
 
         // GRAND TOTAL SLIP
@@ -1693,8 +1684,7 @@ function downloadPDF(){
         message += `Silakan rekap slip pembayaran ini ya!\n`;
         message += `Barakallahu fiik atas kerja samanya 🙏\n\n`;
         message += `- Ibaadurrahmaan Web Designer`;
-    }
-    
+
     // ════════════════════════════════════
     // MODE SINGLE (Per Closing)
     // ════════════════════════════════════
@@ -1711,12 +1701,15 @@ function downloadPDF(){
         const bank = document.getElementById('fieldBank').value.trim() || '-';
         const norek = document.getElementById('fieldNorek').value.trim() || '-';
 
-        // ⭐ Reward & Bonus dari global var (hanya UNPAID)
-        const rewards = (_slipExtraData?.rewards || []).filter(r => !r.paid);
-        const bonuses = (_slipExtraData?.bonuses || []).filter(b => !b.paid);
-        const totalRewardUnpaid = rewards.reduce((s, r) => s + (r.amount || 0), 0);
-        const totalBonusUnpaid = bonuses.reduce((s, b) => s + (b.amount || 0), 0);
-        const grandTotal = totalKomisiAll + totalRewardUnpaid + totalBonusUnpaid;
+        // ⭐ Reward & Bonus dari global var
+        const rewards = _slipExtraData?.rewards || [];
+        const bonuses = _slipExtraData?.bonuses || [];
+        
+        const totalRewardFull = rewards.reduce((s, r) => s + (r.amount || 0), 0);
+        const totalBonusFull = bonuses.reduce((s, b) => s + (b.amount || 0), 0);
+        
+        // ⭐ NOMINAL UTUH SLIP
+        const grandTotal = totalKomisiAll + totalRewardFull + totalBonusFull;
 
         // ═══ BUILD MESSAGE ═══
         message = `Halo *${nama}* 👋\n\n`;
@@ -1737,35 +1730,35 @@ function downloadPDF(){
         }
         message += `• *Subtotal: Rp ${totalKomisiAll.toLocaleString('id-ID')}*\n`;
 
-        // REWARD (hanya unpaid)
+        // REWARD 
         if (rewards.length > 0) {
             message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
             message += `🎓 *REWARD PEMBELAJARAN*\n`;
             message += `━━━━━━━━━━━━━━━━━━━━\n`;
             rewards.forEach(r => {
-                message += `${r.icon || '🎁'} ${r.name}\n`;
-                if (r.desc) message += `   _${r.desc}_\n`;
+                const st = r.paid ? '✓ Sudah Dibayar' : '💰 Belum Dibayar';
+                message += `${r.icon || '🎁'} ${r.name} (${st})\n`;
                 message += `   💰 Rp ${r.amount.toLocaleString('id-ID')}\n\n`;
             });
-            message += `• *Subtotal Reward: Rp ${totalRewardUnpaid.toLocaleString('id-ID')}*\n`;
+            message += `• *Subtotal Reward: Rp ${totalRewardFull.toLocaleString('id-ID')}*\n`;
         }
 
-        // BONUS (hanya unpaid)
+        // BONUS 
         if (bonuses.length > 0) {
             message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
             message += `🎁 *BONUS LAINNYA*\n`;
             message += `━━━━━━━━━━━━━━━━━━━━\n`;
             bonuses.forEach(b => {
-                message += `${b.icon || '🎁'} ${b.name}\n`;
-                if (b.desc) message += `   _${b.desc}_\n`;
+                const st = b.paid ? '✓ Sudah Dibayar' : '💰 Belum Dibayar';
+                message += `${b.icon || '🎁'} ${b.name} (${st})\n`;
                 message += `   💰 Rp ${b.amount.toLocaleString('id-ID')}\n\n`;
             });
-            message += `• *Subtotal Bonus: Rp ${totalBonusUnpaid.toLocaleString('id-ID')}*\n`;
+            message += `• *Subtotal Bonus: Rp ${totalBonusFull.toLocaleString('id-ID')}*\n`;
         }
 
         // GRAND TOTAL
         message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
-        message += `💰 *TOTAL DIBAYAR SEKARANG:*\n`;
+        message += `💰 *TOTAL DIBAYARKAN:*\n`;
         message += `*Rp ${grandTotal.toLocaleString('id-ID')}*\n`;
         message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
 
@@ -1918,6 +1911,12 @@ window.addEventListener('load',()=>{
                         customOpt.selected=true;
                         paketSelect.appendChild(customOpt);
                     }
+                    
+                    window._slipRawData = d;
+                    _slipExtraData = {
+                        rewards: Array.isArray(d.rewards) ? d.rewards : [],
+                        bonuses: Array.isArray(d.bonuses) ? d.bonuses : []
+                    };
                 }
 
     // ─── MODE BULK (dari dashboard-reseller / goToSlip) ───
