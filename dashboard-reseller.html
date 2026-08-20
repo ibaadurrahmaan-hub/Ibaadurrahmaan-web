@@ -500,6 +500,35 @@ body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min
     border: 2px solid var(--bg-card);
 }
 
+/* ═══ MENGATASI MODAL POPUP MELENCENG DI HP ═══ */
+.swal2-container {
+    padding: 8px !important;
+    overflow-x: hidden !important;
+}
+
+.swal2-popup, 
+.swal-premium {
+    width: calc(100vw - 20px) !important;
+    max-width: 480px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+    padding: 20px 14px !important;
+}
+
+.swal2-html-container {
+    margin: 10px 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+}
+
+.swal2-input, 
+.swal2-textarea, 
+.swal2-select {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 8px 0 !important;
+}
 </style>
 </head>
 <body>
