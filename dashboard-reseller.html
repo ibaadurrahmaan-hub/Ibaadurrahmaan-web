@@ -499,6 +499,175 @@ body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min
     border-radius: 100px;
     border: 2px solid var(--bg-card);
 }
+
+/* ════════════════════════════════════════════════════════
+   🚫 HAPUS SCROLL HORIZONTAL PADA SLIP (FULL RESPONSIVE HP)
+   ════════════════════════════════════════════════════════ */
+
+/* Pastikan semua elemen menghitung padding di dalam width */
+.slip-preview, .slip-preview * {
+    box-sizing: border-box !important;
+}
+
+/* Hapus overflow scrollbar horizontal */
+.slip-preview {
+    overflow-x: hidden !important;
+    width: 100% !important;
+}
+
+/* ═══ OPTIMASI KHUSUS MOBILE (Layar <= 768px) ═══ */
+@media (max-width: 768px) {
+    /* Kurangi padding container luar */
+    .slip-container {
+        padding: 16px 8px 40px !important;
+    }
+
+    /* Kurangi padding card wrapper preview */
+    .slip-preview-wrapper {
+        padding: 10px 6px !important;
+        border-radius: 12px !important;
+    }
+
+    /* Kurangi padding dokumen kertas slip di HP */
+    .slip-preview {
+        padding: 16px 10px !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important;
+    }
+
+    /* Header Slip */
+    .slip-doc-header {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 8px !important;
+        padding-bottom: 14px !important;
+        margin-bottom: 16px !important;
+    }
+
+    .slip-doc-info {
+        text-align: center !important;
+    }
+
+    /* Pihak Dibayar & Menerima */
+    .slip-parties {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+        margin-bottom: 16px !important;
+    }
+
+    /* ═══ TABEL PAS DI LAYAR (TANPA SCROLL) ═══ */
+    .slip-table {
+        display: table !important;
+        width: 100% !important;
+        font-size: 0.68rem !important;
+        table-layout: fixed !important; /* Paksa kolom terbagi proporsional */
+        overflow-x: hidden !important;
+    }
+
+    .slip-table th, 
+    .slip-table td {
+        padding: 6px 3px !important;
+        white-space: normal !important; /* Izinkan teks turun ke bawah jika panjang */
+        word-break: break-word !important;
+        font-size: 0.68rem !important;
+    }
+
+    /* Atur lebar kolom secara presisi di HP */
+    .slip-table th:nth-child(1), .slip-table td:nth-child(1) { width: 8% !important; text-align: center !important; }  /* No */
+    .slip-table th:nth-child(2), .slip-table td:nth-child(2) { width: 30% !important; } /* Client & Badge */
+    .slip-table th:nth-child(3), .slip-table td:nth-child(3) { width: 22% !important; } /* Paket */
+    .slip-table th:nth-child(4), .slip-table td:nth-child(4) { width: 16% !important; text-align: right !important; } /* Nilai */
+    .slip-table th:nth-child(5), .slip-table td:nth-child(5) { width: 8% !important; text-align: center !important; }  /* % */
+    .slip-table th:nth-child(6), .slip-table td:nth-child(6) { width: 16% !important; text-align: right !important; } /* Komisi */
+    .slip-table th:nth-child(7), .slip-table td:nth-child(7) { display: none !important; } /* Sembunyikan kolom Bonus kosong di HP agar hemat ruang */
+
+    /* Badge Status di dalam Tabel */
+    .slip-table .status-tag {
+        display: block !important;
+        margin-top: 3px !important;
+        font-size: 0.52rem !important;
+        padding: 1px 4px !important;
+        width: fit-content !important;
+    }
+
+    /* Section Reward & Bonus */
+    .slip-extra-section {
+        padding: 10px 8px !important;
+        margin: 12px 0 !important;
+    }
+
+    .slip-extra-row {
+        padding: 8px !important;
+        gap: 6px !important;
+    }
+
+    .slip-extra-name {
+        font-size: 0.78rem !important;
+    }
+
+    .slip-extra-amount {
+        font-size: 0.82rem !important;
+    }
+
+    .slip-extra-subtotal {
+        font-size: 0.78rem !important;
+        padding: 8px 10px !important;
+    }
+
+    /* Ringkasan (Summary) & Kotak Total */
+    .slip-summary {
+        padding: 12px 10px !important;
+        margin-bottom: 14px !important;
+    }
+
+    .slip-summary-row, 
+    .slip-summary-breakdown {
+        font-size: 0.78rem !important;
+        padding: 5px 0 !important;
+    }
+
+    /* Kotak Emas Total Dibayarkan - Vertikal di HP agar angka besar tidak terpotong */
+    .slip-summary-total {
+        padding: 12px 14px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 4px !important;
+    }
+
+    .slip-summary-total .label {
+        font-size: 0.72rem !important;
+    }
+
+    .slip-summary-total .value {
+        font-size: 1.25rem !important;
+        font-weight: 900 !important;
+    }
+
+    /* Detail Rekening Pembayaran */
+    .slip-payment {
+        padding: 12px 10px !important;
+    }
+
+    .slip-payment-detail {
+        grid-template-columns: 1fr !important;
+        gap: 6px !important;
+        font-size: 0.78rem !important;
+    }
+
+    /* Stempel & Footer */
+    .slip-footer {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 10px !important;
+    }
+
+    .slip-stamp {
+        width: 100% !important;
+        min-width: unset !important;
+        padding: 10px !important;
+    }
+}
 </style>
 </head>
 <body>
@@ -1864,90 +2033,6 @@ async function deleteBonus(resellerId, index) {
 window.openBonusModal = openBonusModal;
 window.showAddBonusForm = showAddBonusForm;
 window.deleteBonus = deleteBonus;
-
-// ═══════════════════════════════════════════
-// 🔧 SCRIPT INI UNTUK MENAMBAH FIELD bonuses: [] KE FIRESTORE
-// ═══════════════════════════════════════════
-async function initBonusesFieldInFirestore() {
-    if (!window.firebase || !window.firebase.ready) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Firebase Belum Siap',
-            text: 'Tunggu sebentar sampai Firebase terhubung, lalu coba lagi.',
-            customClass: { popup: 'swal-premium' }
-        });
-        return;
-    }
-
-    const { db, collection, getDocs, doc, writeBatch } = window.firebase;
-
-    try {
-        Swal.fire({
-            title: 'Memproses Firestore...',
-            html: 'Mengecek & menambahkan field <b>bonuses: []</b> ke semua reseller',
-            allowOutsideClick: false,
-            customClass: { popup: 'swal-premium' },
-            didOpen: () => Swal.showLoading()
-        });
-
-        // 1. Ambil seluruh data reseller dari Firestore
-        const snap = await getDocs(collection(db, 'resellers'));
-        const batch = writeBatch(db);
-        let updatedCount = 0;
-        let skippedCount = 0;
-
-        // 2. Loop setiap dokumen reseller
-        snap.forEach(docSnap => {
-            const data = docSnap.data();
-            
-            // Jika field bonuses belum ada atau bukan array
-            if (!Array.isArray(data.bonuses)) {
-                const docRef = doc(db, 'resellers', docSnap.id);
-                batch.update(docRef, {
-                    bonuses: [] // Inisialisasi array kosong
-                });
-                updatedCount++;
-            } else {
-                skippedCount++;
-            }
-        });
-
-        // 3. Eksekusi batch update ke Firestore
-        if (updatedCount > 0) {
-            await batch.commit();
-        }
-
-        Swal.fire({
-            icon: 'success',
-            title: '✅ Inisialisasi Berhasil!',
-            html: `
-                <div style="text-align:left; font-size:0.9rem; line-height:1.6;">
-                    • <b>Total Reseller:</b> ${snap.size}<br>
-                    • <b style="color:#25d366;">Ditambahkan field bonuses:</b> ${updatedCount} reseller<br>
-                    • <b style="color:#3498db;">Sudah memiliki field bonuses:</b> ${skippedCount} reseller
-                </div>
-            `,
-            customClass: { popup: 'swal-premium' }
-        });
-
-        // Reload data agar lokal state sinkron
-        if (typeof loadResellers === 'function') {
-            loadResellers();
-        }
-
-    } catch (err) {
-        console.error('❌ Error init bonuses field:', err);
-        Swal.fire({
-            icon: 'error',
-            title: 'Gagal Update Firestore',
-            html: `Error: <code>${err.message}</code>`,
-            customClass: { popup: 'swal-premium' }
-        });
-    }
-}
-
-// Expose ke window agar bisa dipanggil langsung dari Console Browser (F12)
-window.initBonusesFieldInFirestore = initBonusesFieldInFirestore;
 </script>
 </body>
 </html>
