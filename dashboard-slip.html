@@ -456,6 +456,175 @@ document.dispatchEvent(new CustomEvent('firebaseReady'));
     text-transform: none;
 }
 
+
+/* ════════════════════════════════════════════════════════
+   🚫 HAPUS SCROLL HORIZONTAL PADA SLIP (FULL RESPONSIVE HP)
+   ════════════════════════════════════════════════════════ */
+
+/* Pastikan semua elemen menghitung padding di dalam width */
+.slip-preview, .slip-preview * {
+    box-sizing: border-box !important;
+}
+
+/* Hapus overflow scrollbar horizontal */
+.slip-preview {
+    overflow-x: hidden !important;
+    width: 100% !important;
+}
+
+/* ═══ OPTIMASI KHUSUS MOBILE (Layar <= 768px) ═══ */
+@media (max-width: 768px) {
+    /* Kurangi padding container luar */
+    .slip-container {
+        padding: 16px 8px 40px !important;
+    }
+
+    /* Kurangi padding card wrapper preview */
+    .slip-preview-wrapper {
+        padding: 10px 6px !important;
+        border-radius: 12px !important;
+    }
+
+    /* Kurangi padding dokumen kertas slip di HP */
+    .slip-preview {
+        padding: 16px 10px !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important;
+    }
+
+    /* Header Slip */
+    .slip-doc-header {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 8px !important;
+        padding-bottom: 14px !important;
+        margin-bottom: 16px !important;
+    }
+
+    .slip-doc-info {
+        text-align: center !important;
+    }
+
+    /* Pihak Dibayar & Menerima */
+    .slip-parties {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+        margin-bottom: 16px !important;
+    }
+
+    /* ═══ TABEL PAS DI LAYAR (TANPA SCROLL) ═══ */
+    .slip-table {
+        display: table !important;
+        width: 100% !important;
+        font-size: 0.68rem !important;
+        table-layout: fixed !important; /* Paksa kolom terbagi proporsional */
+        overflow-x: hidden !important;
+    }
+
+    .slip-table th, 
+    .slip-table td {
+        padding: 6px 3px !important;
+        white-space: normal !important; /* Izinkan teks turun ke bawah jika panjang */
+        word-break: break-word !important;
+        font-size: 0.68rem !important;
+    }
+
+    /* Atur lebar kolom secara presisi di HP */
+    .slip-table th:nth-child(1), .slip-table td:nth-child(1) { width: 8% !important; text-align: center !important; }  /* No */
+    .slip-table th:nth-child(2), .slip-table td:nth-child(2) { width: 30% !important; } /* Client & Badge */
+    .slip-table th:nth-child(3), .slip-table td:nth-child(3) { width: 22% !important; } /* Paket */
+    .slip-table th:nth-child(4), .slip-table td:nth-child(4) { width: 16% !important; text-align: right !important; } /* Nilai */
+    .slip-table th:nth-child(5), .slip-table td:nth-child(5) { width: 8% !important; text-align: center !important; }  /* % */
+    .slip-table th:nth-child(6), .slip-table td:nth-child(6) { width: 16% !important; text-align: right !important; } /* Komisi */
+    .slip-table th:nth-child(7), .slip-table td:nth-child(7) { display: none !important; } /* Sembunyikan kolom Bonus kosong di HP agar hemat ruang */
+
+    /* Badge Status di dalam Tabel */
+    .slip-table .status-tag {
+        display: block !important;
+        margin-top: 3px !important;
+        font-size: 0.52rem !important;
+        padding: 1px 4px !important;
+        width: fit-content !important;
+    }
+
+    /* Section Reward & Bonus */
+    .slip-extra-section {
+        padding: 10px 8px !important;
+        margin: 12px 0 !important;
+    }
+
+    .slip-extra-row {
+        padding: 8px !important;
+        gap: 6px !important;
+    }
+
+    .slip-extra-name {
+        font-size: 0.78rem !important;
+    }
+
+    .slip-extra-amount {
+        font-size: 0.82rem !important;
+    }
+
+    .slip-extra-subtotal {
+        font-size: 0.78rem !important;
+        padding: 8px 10px !important;
+    }
+
+    /* Ringkasan (Summary) & Kotak Total */
+    .slip-summary {
+        padding: 12px 10px !important;
+        margin-bottom: 14px !important;
+    }
+
+    .slip-summary-row, 
+    .slip-summary-breakdown {
+        font-size: 0.78rem !important;
+        padding: 5px 0 !important;
+    }
+
+    /* Kotak Emas Total Dibayarkan - Vertikal di HP agar angka besar tidak terpotong */
+    .slip-summary-total {
+        padding: 12px 14px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 4px !important;
+    }
+
+    .slip-summary-total .label {
+        font-size: 0.72rem !important;
+    }
+
+    .slip-summary-total .value {
+        font-size: 1.25rem !important;
+        font-weight: 900 !important;
+    }
+
+    /* Detail Rekening Pembayaran */
+    .slip-payment {
+        padding: 12px 10px !important;
+    }
+
+    .slip-payment-detail {
+        grid-template-columns: 1fr !important;
+        gap: 6px !important;
+        font-size: 0.78rem !important;
+    }
+
+    /* Stempel & Footer */
+    .slip-footer {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 10px !important;
+    }
+
+    .slip-stamp {
+        width: 100% !important;
+        min-width: unset !important;
+        padding: 10px !important;
+    }
+}
 </style>
 </head>
 
