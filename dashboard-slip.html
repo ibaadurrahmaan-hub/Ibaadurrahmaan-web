@@ -291,10 +291,10 @@ document.dispatchEvent(new CustomEvent('firebaseReady'));
     .nav-item i{font-size:1.2rem;}
     .slip-preview{padding:16px 10px;font-size:0.78rem;}
 }
-/* ═══ REWARD & BONUS SECTIONS DI SLIP ═══ */
+/* ═══ FIX REWARD & BONUS LAYOUT UNTUK MOBILE ═══ */
 .slip-extra-section {
-    margin: 20px 0;
-    padding: 16px 18px;
+    margin: 16px 0;
+    padding: 14px;
     border-radius: 10px;
     border-left: 4px solid;
 }
@@ -314,13 +314,13 @@ document.dispatchEvent(new CustomEvent('firebaseReady'));
     align-items: center;
     gap: 8px;
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
     margin-bottom: 12px;
     padding-bottom: 8px;
-    border-bottom: 1px dashed rgba(0,0,0,0.15);
+    border-bottom: 1px dashed rgba(0,0,0,0.12);
 }
 
 .slip-extra-section.reward .slip-extra-header { color: #b8860b; }
@@ -329,18 +329,24 @@ document.dispatchEvent(new CustomEvent('firebaseReady'));
 .slip-extra-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .slip-extra-row {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 12px;
+    gap: 10px;
     padding: 10px 12px;
-    background: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.7);
     border-radius: 8px;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
+    border: 1px solid transparent;
+}
+
+.slip-extra-row.is-paid {
+    background: rgba(37,211,102,0.06);
+    border-color: rgba(37,211,102,0.25);
 }
 
 .slip-extra-info {
@@ -348,75 +354,106 @@ document.dispatchEvent(new CustomEvent('firebaseReady'));
     min-width: 0;
 }
 
+/* FIX: Susun Judul & Status Badge secara Vertikal agar Tidak Tumpuk */
+.slip-extra-title-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    margin-bottom: 4px;
+}
+
 .slip-extra-name {
-    font-weight: 700;
+    font-weight: 800;
     color: #333;
     display: flex;
     align-items: center;
     gap: 6px;
     line-height: 1.3;
-    margin-bottom: 2px;
+    font-size: 0.85rem;
 }
 
 .slip-extra-name .emo {
     font-size: 1.1rem;
     line-height: 1;
+    flex-shrink: 0;
 }
 
 .slip-extra-desc {
     font-size: 0.72rem;
     color: #666;
     font-style: italic;
-    line-height: 1.4;
+    line-height: 1.35;
 }
 
 .slip-extra-amount {
     font-family: 'Montserrat', monospace;
     font-weight: 800;
     white-space: nowrap;
-    font-size: 0.92rem;
+    font-size: 0.9rem;
+    text-align: right;
+    padding-top: 2px;
 }
 
 .slip-extra-section.reward .slip-extra-amount { color: #b8860b; }
 .slip-extra-section.bonus  .slip-extra-amount { color: #7c3aed; }
 
+/* Status Badge Tag */
+.status-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    white-space: nowrap;
+    line-height: 1.2;
+}
+
+.status-tag.paid {
+    background: #25d366;
+    color: #fff;
+}
+
+.status-tag.unpaid {
+    background: #f39c12;
+    color: #fff;
+}
+
+.status-tag .tag-date {
+    font-weight: 600;
+    opacity: 0.9;
+}
+
+/* Subtotal Box Inside Section */
 .slip-extra-subtotal {
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid rgba(0,0,0,0.15);
+    margin-top: 8px;
+    padding: 10px 12px;
+    background: rgba(0,0,0,0.04);
+    border-radius: 6px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-weight: 800;
-    font-size: 0.92rem;
+    font-size: 0.85rem;
     font-family: 'Poppins', sans-serif;
 }
 
-.slip-extra-section.reward .slip-extra-subtotal { color: #b8860b; }
-.slip-extra-section.bonus  .slip-extra-subtotal { color: #7c3aed; }
-
-/* Breakdown baris di summary */
-.slip-summary-breakdown {
+.slip-extra-subtotal .sub-label {
     display: flex;
-    justify-content: space-between;
-    padding: 6px 0;
-    font-size: 0.9rem;
-    color: #555;
-    border-bottom: 1px dashed rgba(212,165,54,0.15);
-}
-.slip-summary-breakdown:last-child { border-bottom: none; }
-.slip-summary-breakdown .value {
-    font-family: 'Montserrat', monospace;
-    font-weight: 700;
-    color: #333;
+    flex-direction: column;
+    gap: 2px;
 }
 
-/* Print mode support */
-@media print {
-    .slip-extra-section {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        page-break-inside: avoid !important;
-    }
+.slip-extra-subtotal .sub-note {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #25d366;
+    text-transform: none;
 }
 
 </style>
@@ -987,7 +1024,7 @@ function generateMonthlySlip() {
     const totalAllPaid = totalKomisiPaidSum + totalRewardPaid + totalBonusExtraPaid;
     const totalGrandFull = grandTotalUnpaid + totalAllPaid;
     
-    // ═══ RENDER: REWARD SECTION ═══
+    // ═══ RENDER: REWARD SECTION (FIXED LAYOUT) ═══
     const rewardHTML = data.rewards.length > 0 ? `
         <div class="slip-extra-section reward">
             <div class="slip-extra-header">
@@ -998,15 +1035,17 @@ function generateMonthlySlip() {
                 ${data.rewards.map(r => {
                     const isPaid = r.paid === true;
                     const statusHTML = isPaid
-                        ? `<span class="status-tag paid">✓ SUDAH DIBAYAR${r.paidAt ? ` <span class="tag-date">· ${fmtShortDate(r.paidAt)}</span>` : ''}</span>`
+                        ? `<span class="status-tag paid">✓ SUDAH DIBAYAR ${r.paidAt ? `· ${fmtShortDate(r.paidAt)}` : ''}</span>`
                         : `<span class="status-tag unpaid">⏳ BELUM DIBAYAR</span>`;
                     
                     return `
                         <div class="slip-extra-row ${isPaid ? 'is-paid' : 'is-unpaid'}">
                             <div class="slip-extra-info">
-                                <div class="slip-extra-name">
-                                    <span class="emo">${r.icon || '🎁'}</span>
-                                    <span>${r.name}</span>
+                                <div class="slip-extra-title-group">
+                                    <div class="slip-extra-name">
+                                        <span class="emo">${r.icon || '🎁'}</span>
+                                        <span>${r.name}</span>
+                                    </div>
                                     ${statusHTML}
                                 </div>
                                 ${r.desc ? `<div class="slip-extra-desc">${r.desc}</div>` : ''}
@@ -1017,12 +1056,51 @@ function generateMonthlySlip() {
                 }).join('')}
                 <div class="slip-extra-subtotal">
                     <div class="sub-label">
-                        <span>Subtotal Reward</span>
-                        ${totalRewardPaid > 0 && totalRewardUnpaid > 0 
-                            ? `<span class="sub-note">✓ ${formatRp(totalRewardPaid)} sudah dibayar</span>` 
-                            : ''}
+                        <span>Subtotal Reward (Ditransfer Sekarang)</span>
+                        ${totalRewardPaid > 0 ? `<span class="sub-note">✓ ${formatRp(totalRewardPaid)} sudah dibayar sebelumnya</span>` : ''}
                     </div>
-                    <span>${totalRewardUnpaid > 0 ? formatRp(totalRewardUnpaid) : formatRp(totalRewardAll)}</span>
+                    <span>${formatRp(totalRewardUnpaid)}</span>
+                </div>
+            </div>
+        </div>
+    ` : '';
+    
+    // ═══ RENDER: BONUS SECTION (FIXED LAYOUT) ═══
+    const bonusHTML = data.bonuses.length > 0 ? `
+        <div class="slip-extra-section bonus">
+            <div class="slip-extra-header">
+                <i class="fas fa-gift"></i>
+                <span>🎁 Bonus Lainnya</span>
+            </div>
+            <div class="slip-extra-list">
+                ${data.bonuses.map(b => {
+                    const isPaid = b.paid === true;
+                    const statusHTML = isPaid
+                        ? `<span class="status-tag paid">✓ SUDAH DIBAYAR ${b.paidAt ? `· ${fmtShortDate(b.paidAt)}` : ''}</span>`
+                        : `<span class="status-tag unpaid">⏳ BELUM DIBAYAR</span>`;
+                    
+                    return `
+                        <div class="slip-extra-row ${isPaid ? 'is-paid' : 'is-unpaid'}">
+                            <div class="slip-extra-info">
+                                <div class="slip-extra-title-group">
+                                    <div class="slip-extra-name">
+                                        <span class="emo">${b.icon || '🎁'}</span>
+                                        <span>${b.name}</span>
+                                    </div>
+                                    ${statusHTML}
+                                </div>
+                                ${b.desc ? `<div class="slip-extra-desc">${b.desc}</div>` : ''}
+                            </div>
+                            <div class="slip-extra-amount">${formatRp(b.amount)}</div>
+                        </div>
+                    `;
+                }).join('')}
+                <div class="slip-extra-subtotal">
+                    <div class="sub-label">
+                        <span>Subtotal Bonus (Ditransfer Sekarang)</span>
+                        ${totalBonusExtraPaid > 0 ? `<span class="sub-note">✓ ${formatRp(totalBonusExtraPaid)} sudah dibayar sebelumnya</span>` : ''}
+                    </div>
+                    <span>${formatRp(totalBonusExtraUnpaid)}</span>
                 </div>
             </div>
         </div>
