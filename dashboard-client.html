@@ -1871,9 +1871,8 @@ function calcCommission(totalValue, tier) {
     };
 }
 
-
 // ═══════════════════════════════════════════
-// 📤 GENERATE SLIP KOMISI (redirect ke dashboard-slip)
+// 📤 GENERATE SLIP KOMISI (mode single + Include Reward & Bonus)
 // ═══════════════════════════════════════════
 async function generateSlipKomisi(clientId) {
     const client = allClients.find(c => c.id === clientId);
@@ -1881,7 +1880,6 @@ async function generateSlipKomisi(clientId) {
     
     const referral = client.referral || {};
     
-    // ═══ 🔥 FIX: Ambil dari priceDetail ═══
     const pd = client.priceDetail || {};
     const totalValue = pd.total || pd.subtotal || parseRp(client.value) || 0;
     const basePrice = pd.basePrice || totalValue;
@@ -1890,7 +1888,7 @@ async function generateSlipKomisi(clientId) {
     
     Swal.fire({
         title: 'Mempersiapkan Slip...',
-        html: 'Mengambil data reseller',
+        html: 'Mengambil data reseller, reward & bonus',
         allowOutsideClick: false,
         customClass: { popup: 'swal-premium' },
         didOpen: () => Swal.showLoading()
@@ -1901,6 +1899,20 @@ async function generateSlipKomisi(clientId) {
         norek   : '',
         atasNama: referral.resellerName || '',
         wa      : referral.resellerPhone || ''
+    };
+    
+    let rewards = [];
+    let bonuses = [];
+    
+    // Helper timestamp ke ISO string
+    const tsToISO = (ts) => {
+        if (!ts) return null;
+        try {
+            if (ts.toDate) return ts.toDate().toISOString();
+            if (ts.seconds) return new Date(ts.seconds * 1000).toISOString();
+            if (ts instanceof Date) return ts.toISOString();
+            return null;
+        } catch(e) { return null; }
     };
     
     if (resellerId) {
@@ -1921,6 +1933,55 @@ async function generateSlipKomisi(clientId) {
                         atasNama: resellerData.atasNama || resellerData.nama || referral.resellerName,
                         wa      : resellerData.wa || referral.resellerPhone || ''
                     };
+                    
+                    // ⭐ AMBIL REWARD RESELLER (Tier 1 & Tier 2 yang sudah earned)
+                    const rRewards = resellerData.rewards || {};
+                    const tier1 = rRewards.tier1 || {};
+                    const tier2 = rRewards.tier2 || {};
+                    
+                    if (tier1.earned) {
+                        rewards.push({
+                            id      : 'reward_tier1',
+                            type    : 'reward_module',
+                            icon    : '🥈',
+                            name    : 'Reward Tier 1 · Belajar',
+                            desc    : 'Menyelesaikan 15 modul curriculum',
+                            amount  : parseInt(tier1.amount) || 50000,
+                            earnedAt: tsToISO(tier1.earnedAt),
+                            paid    : tier1.paid === true,
+                            paidAt  : tsToISO(tier1.paidAt)
+                        });
+                    }
+                    
+                    if (tier2.earned) {
+                        rewards.push({
+                            id      : 'reward_tier2',
+                            type    : 'reward_sop',
+                            icon    : '🥇',
+                            name    : 'Reward Tier 2 · Siap Jualan',
+                            desc    : 'Menyelesaikan 15 modul + 6 SOP',
+                            amount  : parseInt(tier2.amount) || 100000,
+                            earnedAt: tsToISO(tier2.earnedAt),
+                            paid    : tier2.paid === true,
+                            paidAt  : tsToISO(tier2.paidAt)
+                        });
+                    }
+                    
+                    // ⭐ AMBIL BONUS RESELLER (dari array bonuses)
+                    const rBonuses = Array.isArray(resellerData.bonuses) ? resellerData.bonuses : [];
+                    rBonuses.forEach(b => {
+                        bonuses.push({
+                            id     : b.id || 'bonus_' + Date.now(),
+                            type   : b.type || 'custom',
+                            icon   : b.icon || '🎁',
+                            name   : b.name || 'Bonus',
+                            desc   : b.desc || '',
+                            amount : parseInt(b.amount) || 0,
+                            addedAt: tsToISO(b.addedAt),
+                            paid   : b.paid === true,
+                            paidAt : tsToISO(b.paidAt)
+                        });
+                    });
                 }
             }
         } catch (err) {
@@ -1930,25 +1991,40 @@ async function generateSlipKomisi(clientId) {
     
     Swal.close();
     
+    // Hitung komisi per closing
+    const tier = (referral.resellerTier || 'silver').toLowerCase();
+    const comm = calcCommission(basePrice, tier);
+    
+    // Total unpaid
+    const totalRewardUnpaid = rewards.filter(r => !r.paid).reduce((s, r) => s + r.amount, 0);
+    const totalBonusUnpaid  = bonuses.filter(b => !b.paid).reduce((s, b) => s + b.amount, 0);
+    const grandTotalUnpaid  = comm.total + totalRewardUnpaid + totalBonusUnpaid;
+    
     const slipData = {
         mode      : 'single',
+        resellerId: resellerId,
         nama      : referral.resellerName || bankData.atasNama || '',
         kode      : referral.referralCode || '',
-        tier      : (referral.resellerTier || 'silver').toLowerCase(),
+        tier      : tier,
         bank      : bankData.bank,
         norek     : bankData.norek,
         atasNama  : bankData.atasNama,
         wa        : bankData.wa,
         client    : client.name || '',
         
-        // ⭐ FIX: Kirim basePrice sebagai basis komisi
         paket     : basePrice,
         paketName : client.project || 'Custom Project',
         
-        // ⭐ NEW: Kirim data tambahan untuk info
         totalValue : totalValue,
         addonsTotal: pd.addonsTotal || 0,
         deadlineFee: pd.deadlineFee || 0,
+        
+        // ⭐ data Reward & Bonus lengkap
+        rewards    : rewards,
+        bonuses    : bonuses,
+        totalReward: totalRewardUnpaid,
+        totalBonus : totalBonusUnpaid,
+        grandTotal : grandTotalUnpaid,
         
         tglClosing: client.createdAt?.toDate 
                      ? client.createdAt.toDate().toISOString().split('T')[0] 
@@ -1956,6 +2032,8 @@ async function generateSlipKomisi(clientId) {
         tglBayar  : new Date().toISOString().split('T')[0],
         clientId  : clientId
     };
+    
+    console.log('📤 Single Slip Data:', slipData);
     
     sessionStorage.setItem('slip_autofill', JSON.stringify(slipData));
     window.location.href = 'dashboard-slip.html?autofill=1';
