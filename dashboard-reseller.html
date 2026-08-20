@@ -1255,18 +1255,44 @@ async function markAllKomisiPaid() {
 }
 
 function goToSlipFromKomisi() {
-    if (!mkCurrentResellerId || !mkCurrentResellerData) return;
+    console.log('🚀 [SLIP] goToSlipFromKomisi() dipanggil');
+    
+    // ═══ VALIDASI AWAL ═══
+    if (!mkCurrentResellerId) {
+        console.error('❌ mkCurrentResellerId kosong!');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Reseller ID tidak ditemukan. Coba tutup modal dan buka lagi.',
+            customClass: { popup: 'swal-premium' }
+        });
+        return;
+    }
+    
+    if (!mkCurrentResellerData) {
+        console.error('❌ mkCurrentResellerData kosong!');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Data reseller tidak ditemukan.',
+            customClass: { popup: 'swal-premium' }
+        });
+        return;
+    }
+    
     const r = mkCurrentResellerData;
     const tier = (r.tier || 'silver').toLowerCase();
     const monthVal = document.getElementById('mkMonthFilter')?.value || '';
     
+    console.log('📋 Reseller:', r.nama, '| Tier:', tier, '| Period:', monthVal);
+    
     // ═══ 1. AMBIL CLOSING (yang sudah lunas) ═══
-    let list = getResellerClientsCommission(mkCurrentResellerId)
+    let closingList = getResellerClientsCommission(mkCurrentResellerId)
         .filter(c => c.paymentStatus === 'paid_full');
     
     if (monthVal) {
         const [yr, mon] = monthVal.split('-').map(Number);
-        list = list.filter(c => {
+        closingList = closingList.filter(c => {
             let d = null;
             if (c.paidAt?.toDate) d = c.paidAt.toDate();
             else if (c.createdAt?.toDate) d = c.createdAt.toDate();
@@ -1275,13 +1301,28 @@ function goToSlipFromKomisi() {
         });
     }
     
+    console.log('💼 Closing ditemukan:', closingList.length);
+    
     // ═══ 2. TRANSFORM CLOSINGS ═══
-    const closings = list.map(c => {
+    const closings = closingList.map((c, idx) => {
         const pd = c.priceDetail || {};
         const base = pd.basePrice || pd.total || parseRp(c.value) || 0;
         const comm = calcKomisi(base, tier);
+        
+        // Ambil tanggal aman
+        let tglClosing = new Date().toISOString().split('T')[0];
+        try {
+            if (c.paidAt?.toDate) {
+                tglClosing = c.paidAt.toDate().toISOString().split('T')[0];
+            } else if (c.createdAt?.toDate) {
+                tglClosing = c.createdAt.toDate().toISOString().split('T')[0];
+            }
+        } catch(e) {
+            console.warn('⚠️ Error parse tanggal untuk client:', c.id);
+        }
+        
         return {
-            clientId  : c.id,
+            clientId  : c.id || '',
             client    : c.name || '-',
             clientName: c.name || '-',
             project   : c.project || '-',
@@ -1293,19 +1334,34 @@ function goToSlipFromKomisi() {
             total     : comm.total,
             pct       : comm.pct,
             isPaid    : c.referral?.commissionStatus === 'paid',
-            tglClosing: c.paidAt?.toDate?.().toISOString().split('T')[0] 
-                     || c.createdAt?.toDate?.().toISOString().split('T')[0] 
-                     || new Date().toISOString().split('T')[0]
+            tglClosing: tglClosing
         };
     });
     
-    // ═══ 3. ⭐ AMBIL REWARD (Tier 1 & Tier 2) yang EARNED tapi BELUM PAID ═══
+    // ═══ 3. AMBIL REWARD (Tier 1 & Tier 2) yang EARNED tapi BELUM PAID ═══
     const rewards = [];
     const resellerRewards = r.rewards || {};
     const tier1 = resellerRewards.tier1 || {};
     const tier2 = resellerRewards.tier2 || {};
     
-    // Reward Tier 1 — earned tapi belum paid → include
+    console.log('🎓 Reward status:', {
+        tier1: { earned: tier1.earned, paid: tier1.paid },
+        tier2: { earned: tier2.earned, paid: tier2.paid }
+    });
+    
+    // Helper: convert timestamp ke string ISO agar bisa di-JSON.stringify
+    const tsToISO = (ts) => {
+        if (!ts) return null;
+        try {
+            if (ts.toDate) return ts.toDate().toISOString();
+            if (ts.seconds) return new Date(ts.seconds * 1000).toISOString();
+            if (ts instanceof Date) return ts.toISOString();
+            return null;
+        } catch(e) {
+            return null;
+        }
+    };
+    
     if (tier1.earned && !tier1.paid) {
         rewards.push({
             id      : 'reward_tier1',
@@ -1313,12 +1369,11 @@ function goToSlipFromKomisi() {
             icon    : '🥈',
             name    : 'Reward Tier 1 · Belajar',
             desc    : 'Menyelesaikan 15 modul curriculum',
-            amount  : tier1.amount || 50000,
-            earnedAt: tier1.earnedAt || null
+            amount  : parseInt(tier1.amount) || 50000,
+            earnedAt: tsToISO(tier1.earnedAt)
         });
     }
     
-    // Reward Tier 2 — earned tapi belum paid → include
     if (tier2.earned && !tier2.paid) {
         rewards.push({
             id      : 'reward_tier2',
@@ -1326,31 +1381,36 @@ function goToSlipFromKomisi() {
             icon    : '🥇',
             name    : 'Reward Tier 2 · Siap Jualan',
             desc    : 'Menyelesaikan 15 modul + 6 SOP',
-            amount  : tier2.amount || 100000,
-            earnedAt: tier2.earnedAt || null
+            amount  : parseInt(tier2.amount) || 100000,
+            earnedAt: tsToISO(tier2.earnedAt)
         });
     }
     
-    // ═══ 4. ⭐ AMBIL BONUS (dari array bonuses yang belum paid) ═══
+    console.log('🎓 Reward pending:', rewards.length);
+    
+    // ═══ 4. AMBIL BONUS (dari array bonuses yang belum paid) ═══
     const bonuses = [];
     const resellerBonuses = Array.isArray(r.bonuses) ? r.bonuses : [];
     
     resellerBonuses.forEach(b => {
         if (!b.paid) {
             bonuses.push({
-                id     : b.id || 'bonus_' + Date.now(),
+                id     : b.id || 'bonus_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
                 type   : b.type || 'custom',
                 icon   : b.icon || '🎁',
                 name   : b.name || 'Bonus',
                 desc   : b.desc || '',
                 amount : parseInt(b.amount) || 0,
-                addedAt: b.addedAt || null
+                addedAt: tsToISO(b.addedAt)
             });
         }
     });
     
-    // ═══ 5. VALIDASI ═══
+    console.log('🎁 Bonus pending:', bonuses.length);
+    
+    // ═══ 5. VALIDASI: HARUS ADA MINIMAL 1 ITEM ═══
     if (closings.length === 0 && rewards.length === 0 && bonuses.length === 0) {
+        console.warn('⚠️ Tidak ada data untuk dibayarkan');
         Swal.fire({
             icon: 'warning',
             title: 'Tidak Ada Data',
@@ -1358,9 +1418,9 @@ function goToSlipFromKomisi() {
                 <div style="text-align:left;font-size:0.9rem;line-height:1.7;">
                     Tidak ada yang bisa dibayarkan:<br>
                     <ul style="margin:10px 0 0;padding-left:24px;color:rgba(255,255,255,0.7);">
-                        <li>❌ Tidak ada closing lunas ${monthVal ? 'di periode ini' : ''}</li>
-                        <li>❌ Tidak ada reward pending</li>
-                        <li>❌ Tidak ada bonus pending</li>
+                        <li>❌ Closing lunas: ${closingList.length}${monthVal ? ' (di periode ini)' : ''}</li>
+                        <li>❌ Reward pending: ${rewards.length}</li>
+                        <li>❌ Bonus pending: ${bonuses.length}</li>
                     </ul>
                 </div>
             `,
@@ -1370,9 +1430,9 @@ function goToSlipFromKomisi() {
     }
     
     // ═══ 6. HITUNG TOTAL ═══
-    const totalKomisi = closings.reduce((s, c) => s + c.total, 0);
-    const totalReward = rewards.reduce((s, r) => s + r.amount, 0);
-    const totalBonus  = bonuses.reduce((s, b) => s + b.amount, 0);
+    const totalKomisi = closings.reduce((s, c) => s + (c.total || 0), 0);
+    const totalReward = rewards.reduce((s, x) => s + (x.amount || 0), 0);
+    const totalBonus  = bonuses.reduce((s, b) => s + (b.amount || 0), 0);
     const grandTotal  = totalKomisi + totalReward + totalBonus;
     
     // ═══ 7. BUILD SLIP DATA ═══
@@ -1393,26 +1453,57 @@ function goToSlipFromKomisi() {
         closings    : closings,
         totalKomisi : totalKomisi,
         
-        // ⭐ Data reward
+        // Data reward
         rewards     : rewards,
         totalReward : totalReward,
         
-        // ⭐ Data bonus
+        // Data bonus
         bonuses     : bonuses,
         totalBonus  : totalBonus,
         
-        // ⭐ Grand total
+        // Grand total
         grandTotal  : grandTotal
     };
     
-    console.log('📤 Slip data lengkap:', slipData);
-    console.log('   💼 Komisi :', closings.length, 'items →', formatRp?.(totalKomisi) || totalKomisi);
-    console.log('   🎓 Reward :', rewards.length, 'items →', formatRp?.(totalReward) || totalReward);
-    console.log('   🎁 Bonus  :', bonuses.length, 'items →', formatRp?.(totalBonus) || totalBonus);
-    console.log('   💰 TOTAL  :', formatRp?.(grandTotal) || grandTotal);
+    // ═══ LOG (safe — pakai toRp yg sudah ada) ═══
+    console.log('═══════════════════════════════════');
+    console.log('📤 SLIP DATA SIAP DIKIRIM');
+    console.log('═══════════════════════════════════');
+    console.log('👤 Reseller  :', slipData.nama, '(' + slipData.kode + ')');
+    console.log('🏦 Bank      :', slipData.bank, '- ' + slipData.norek);
+    console.log('📱 WA        :', slipData.wa);
+    console.log('📅 Period    :', slipData.period || 'All Time');
+    console.log('───────────────────────────────────');
+    console.log('💼 Komisi    :', closings.length, 'items →', toRp(totalKomisi));
+    console.log('🎓 Reward    :', rewards.length, 'items →', toRp(totalReward));
+    console.log('🎁 Bonus     :', bonuses.length, 'items →', toRp(totalBonus));
+    console.log('───────────────────────────────────');
+    console.log('💰 GRAND TOTAL:', toRp(grandTotal));
+    console.log('═══════════════════════════════════');
     
-    sessionStorage.setItem('slip_autofill', JSON.stringify(slipData));
-    window.location.href = 'dashboard-slip.html?autofill=1';
+    // ═══ 8. SIMPAN & REDIRECT ═══
+    try {
+        sessionStorage.setItem('slip_autofill', JSON.stringify(slipData));
+        console.log('✅ Data tersimpan di sessionStorage');
+        
+        // Close modal dulu biar smooth
+        Swal.close();
+        
+        // Redirect
+        setTimeout(() => {
+            console.log('🔀 Redirecting ke dashboard-slip.html...');
+            window.location.href = 'dashboard-slip.html?autofill=1';
+        }, 300);
+        
+    } catch (err) {
+        console.error('❌ Error simpan sessionStorage:', err);
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal Simpan Data',
+            html: `Error: <code>${err.message}</code>`,
+            customClass: { popup: 'swal-premium' }
+        });
+    }
 }
 
 // SEARCH & FILTER
