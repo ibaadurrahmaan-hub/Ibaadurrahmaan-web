@@ -880,6 +880,7 @@ const dropdownValues = {
 
 function toggleDropdown(id) {
     const dropdown = document.getElementById(id);
+    if (!dropdown) return;
     const isOpen = dropdown.classList.contains('open');
     document.querySelectorAll('.custom-dropdown').forEach(d => d.classList.remove('open'));
     if (!isOpen) dropdown.classList.add('open');
@@ -887,30 +888,37 @@ function toggleDropdown(id) {
 
 function selectOption(dropdownId, element) {
     const dropdown = document.getElementById(dropdownId);
+    if (!dropdown || !element) return;
+
     const value = element.getAttribute('data-value');
     const icon = element.getAttribute('data-icon');
-    const title = element.querySelector('.dropdown-option-title').innerText;
-    const desc = element.querySelector('.dropdown-option-desc').innerText;
-    
-    dropdown.querySelector('.dropdown-selected-icon').innerText = icon;
-    dropdown.querySelector('.dropdown-selected-text').innerText = title + ' - ' + desc;
-    dropdownValues[dropdownId] = parseInt(value);
-    
+    const titleEl = element.querySelector('.dropdown-option-title');
+    const descEl = element.querySelector('.dropdown-option-desc');
+    const title = titleEl ? titleEl.innerText : '';
+    const desc = descEl ? descEl.innerText : '';
+
+    const iconEl = dropdown.querySelector('.dropdown-selected-icon');
+    const textEl = dropdown.querySelector('.dropdown-selected-text');
+    if (iconEl) iconEl.innerText = icon || '';
+    if (textEl) textEl.innerText = title + (desc ? ' - ' + desc : '');
+
+    dropdownValues[dropdownId] = parseInt(value, 10);
+
     dropdown.querySelectorAll('.dropdown-option').forEach(opt => {
         opt.classList.remove('selected');
         const check = opt.querySelector('.dropdown-option-check');
         if (check) check.remove();
     });
     element.classList.add('selected');
-    
+
     if (!element.querySelector('.dropdown-option-check')) {
         const check = document.createElement('i');
         check.className = 'fas fa-check dropdown-option-check';
         element.appendChild(check);
     }
-    
+
     dropdown.classList.remove('open');
-    updateCalculator();
+    if (typeof updateCalculator === 'function') updateCalculator();
 }
 
 document.addEventListener('click', e => {
@@ -934,14 +942,13 @@ let currentSlide  = 0;
 const totalSlides = bannerSlides.length;
 let autoTimer     = null;
 
-// Durasi per slide
 function getSlideDuration(index) {
     if (index === 0) return 5500;
     return 8500;
 }
 
 function showSlide(index) {
-    if (index < 0 || index >= totalSlides) return;
+    if (!totalSlides || index < 0 || index >= totalSlides) return;
     bannerSlides.forEach((slide, i) => {
         slide.classList.remove('active', 'prev');
         if (i < index) slide.classList.add('prev');
@@ -975,6 +982,7 @@ function freezeProgressBar() {
 }
 
 function startAutoPlay() {
+    if (!totalSlides) return;
     stopAutoPlay();
     const duration = getSlideDuration(currentSlide);
     startProgressBar(duration);
@@ -989,11 +997,9 @@ function stopAutoPlay() {
     autoTimer = null;
 }
 
-// Arrows
 bannerNext?.addEventListener('click', () => { nextSlide(); startAutoPlay(); });
 bannerPrev?.addEventListener('click', () => { prevSlide(); startAutoPlay(); });
 
-// Dots
 bannerDots.forEach(dot => {
     dot.addEventListener('click', () => {
         const i = parseInt(dot.getAttribute('data-dot'), 10);
@@ -1001,11 +1007,9 @@ bannerDots.forEach(dot => {
     });
 });
 
-// Hover
 bannerSlider?.addEventListener('mouseenter', () => { stopAutoPlay(); freezeProgressBar(); });
 bannerSlider?.addEventListener('mouseleave', () => { startAutoPlay(); });
 
-// Touch
 let touchStartX = 0, touchEndX = 0;
 bannerSlider?.addEventListener('touchstart', e => {
     touchStartX = e.changedTouches[0].screenX;
@@ -1019,7 +1023,6 @@ bannerSlider?.addEventListener('touchend', e => {
     startAutoPlay();
 }, { passive: true });
 
-// Keyboard
 document.addEventListener('keydown', e => {
     if (!bannerSlider) return;
     const r = bannerSlider.getBoundingClientRect();
@@ -1028,31 +1031,27 @@ document.addEventListener('keydown', e => {
     if (e.key === 'ArrowLeft') { prevSlide(); startAutoPlay(); }
 });
 
-// Tab visibility
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) { stopAutoPlay(); freezeProgressBar(); }
     else { startAutoPlay(); }
 });
 
-// Init slider
-showSlide(0);
-startAutoPlay();
-console.log('Slides:', totalSlides, '| Durations:', Array.from(bannerSlides).map((_, i) => getSlideDuration(i) + 'ms'));
+if (totalSlides > 0) {
+    showSlide(0);
+    startAutoPlay();
+    console.log('Slides:', totalSlides, '| Durations:', Array.from(bannerSlides).map((_, i) => getSlideDuration(i) + 'ms'));
+}
+</script>
+<!-- ⬆️ WAJIB: tutup script dropdown + slider di sini -->
+
 
 <!-- ====================================================
      CALCULATOR (inline, halaman reseller saja)
      ==================================================== -->
 <script>
-// Pastikan dropdownValues di-set dari custom dropdown kamu.
-// Contoh fallback jika belum ada:
-window.dropdownValues = window.dropdownValues || {
-    tierDropdown: 20,
-    paketDropdown: 2500000
-};
-
 function updateCalculator() {
-    const tier = Number(window.dropdownValues?.tierDropdown ?? 10);
-    const paket = Number(window.dropdownValues?.paketDropdown ?? 0);
+    const tier = Number(dropdownValues?.tierDropdown ?? 10);
+    const paket = Number(dropdownValues?.paketDropdown ?? 0);
     const closingInput = document.getElementById('closingCount');
     if (!closingInput) return;
 
@@ -1065,8 +1064,7 @@ function updateCalculator() {
     if (tier === 25) bonus = 200000;
 
     const komisiPerClosing = (paket * tier) / 100;
-    const totalPerClosing = komisiPerClosing + bonus;
-    const totalMonth = totalPerClosing * closing;
+    const totalMonth = (komisiPerClosing + bonus) * closing;
     const totalYear = totalMonth * 12;
 
     const elKomisi = document.getElementById('komisiPerClosing');
@@ -1105,7 +1103,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<!-- script utama: navbar, mobile sheet, dll -->
 <script src="script.js"></script>
 </body>
 </html>
