@@ -1039,14 +1039,19 @@ showSlide(0);
 startAutoPlay();
 console.log('Slides:', totalSlides, '| Durations:', Array.from(bannerSlides).map((_, i) => getSlideDuration(i) + 'ms'));
 
-
+<!-- ====================================================
+     JAVA SCRIPT - CALCULATOR & INTERACTIVE
+     ==================================================== -->
+<script>
 // ====================================================
 // CALCULATOR
 // ====================================================
 function updateCalculator() {
-    const tier = dropdownValues.tierDropdown;
-    const paket = dropdownValues.paketDropdown;
+    const tier = dropdownValues?.tierDropdown || 10; // Fallback aman jika dropdownValues belum load
+    const paket = dropdownValues?.paketDropdown || 0;
     const closingInput = document.getElementById('closingCount');
+    if (!closingInput) return; // Guard clause jika elemen tidak ada
+    
     let closing = parseInt(closingInput.value) || 1;
     if (closing < 1) { closing = 1; closingInput.value = 1; }
     if (closing > 50) { closing = 50; closingInput.value = 50; }
@@ -1060,44 +1065,58 @@ function updateCalculator() {
     const totalMonth = totalPerClosing * closing;
     const totalYear = totalMonth * 12;
     
-    document.getElementById('komisiPerClosing').innerText = 'Rp ' + komisiPerClosing.toLocaleString('id-ID');
-    document.getElementById('bonusPerClosing').innerText = bonus > 0 ? 'Rp ' + bonus.toLocaleString('id-ID') : 'Rp 0';
-    document.getElementById('totalIncome').innerText = 'Rp ' + totalMonth.toLocaleString('id-ID');
-    document.getElementById('totalYear').innerText = 'Rp ' + totalYear.toLocaleString('id-ID');
+    // Gunakan Optional Chaining (?.) agar aman dari error null
+    const elKomisi = document.getElementById('komisiPerClosing');
+    const elBonus = document.getElementById('bonusPerClosing');
+    const elTotalIncome = document.getElementById('totalIncome');
+    const elTotalYear = document.getElementById('totalYear');
+
+    if (elKomisi) elKomisi.innerText = 'Rp ' + komisiPerClosing.toLocaleString('id-ID');
+    if (elBonus) elBonus.innerText = bonus > 0 ? 'Rp ' + bonus.toLocaleString('id-ID') : 'Rp 0';
+    if (elTotalIncome) elTotalIncome.innerText = 'Rp ' + totalMonth.toLocaleString('id-ID');
+    if (elTotalYear) elTotalYear.innerText = 'Rp ' + totalYear.toLocaleString('id-ID');
 }
 
 function incrementClosing() {
     const input = document.getElementById('closingCount');
+    if (!input) return;
     let value = parseInt(input.value) || 0;
     if (value < 50) { input.value = value + 1; updateCalculator(); }
 }
 
 function decrementClosing() {
     const input = document.getElementById('closingCount');
+    if (!input) return;
     let value = parseInt(input.value) || 0;
     if (value > 1) { input.value = value - 1; updateCalculator(); }
 }
 
 
 // ====================================================
-// FAQ + NAVBAR
+// FAQ + NAVBAR (Aman dari null / Optional Chaining)
 // ====================================================
 document.querySelectorAll('.faq-q').forEach(btn => {
-    btn.addEventListener('click', () => btn.parentElement.classList.toggle('active'));
+    btn.addEventListener('click', () => {
+        btn.parentElement?.classList.toggle('active');
+    });
 });
 
+// Perbaikan Error classList Toggle (Menggunakan Optional Chaining ?.)
 window.addEventListener('scroll', () => {
     const navbar = document.getElementById('navbar');
-    navbar.classList.toggle('scrolled', window.scrollY > 20);
+    if (navbar) {
+        navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }
 });
 
-updateCalculator();
+// Jalankan kalkulator pertama kali setelah semua DOM siap
+document.addEventListener('DOMContentLoaded', () => {
+    updateCalculator();
+});
 </script>
-
 
 <!-- ⭐ WAJIB: Load script.js utama (Auto-navbar, Mobile sheet, dll) -->
 <script src="script.js"></script>
-
 
 </body>
 </html>
