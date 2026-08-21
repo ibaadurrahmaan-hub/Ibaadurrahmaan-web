@@ -1040,32 +1040,35 @@ startAutoPlay();
 console.log('Slides:', totalSlides, '| Durations:', Array.from(bannerSlides).map((_, i) => getSlideDuration(i) + 'ms'));
 
 <!-- ====================================================
-     JAVA SCRIPT - CALCULATOR & INTERACTIVE
+     CALCULATOR (inline, halaman reseller saja)
      ==================================================== -->
 <script>
-// ====================================================
-// CALCULATOR
-// ====================================================
+// Pastikan dropdownValues di-set dari custom dropdown kamu.
+// Contoh fallback jika belum ada:
+window.dropdownValues = window.dropdownValues || {
+    tierDropdown: 20,
+    paketDropdown: 2500000
+};
+
 function updateCalculator() {
-    const tier = dropdownValues?.tierDropdown || 10; // Fallback aman jika dropdownValues belum load
-    const paket = dropdownValues?.paketDropdown || 0;
+    const tier = Number(window.dropdownValues?.tierDropdown ?? 10);
+    const paket = Number(window.dropdownValues?.paketDropdown ?? 0);
     const closingInput = document.getElementById('closingCount');
-    if (!closingInput) return; // Guard clause jika elemen tidak ada
-    
-    let closing = parseInt(closingInput.value) || 1;
+    if (!closingInput) return;
+
+    let closing = parseInt(closingInput.value, 10) || 1;
     if (closing < 1) { closing = 1; closingInput.value = 1; }
     if (closing > 50) { closing = 50; closingInput.value = 50; }
-    
+
     let bonus = 0;
     if (tier === 20) bonus = 100000;
     if (tier === 25) bonus = 200000;
-    
+
     const komisiPerClosing = (paket * tier) / 100;
     const totalPerClosing = komisiPerClosing + bonus;
     const totalMonth = totalPerClosing * closing;
     const totalYear = totalMonth * 12;
-    
-    // Gunakan Optional Chaining (?.) agar aman dari error null
+
     const elKomisi = document.getElementById('komisiPerClosing');
     const elBonus = document.getElementById('bonusPerClosing');
     const elTotalIncome = document.getElementById('totalIncome');
@@ -1080,43 +1083,29 @@ function updateCalculator() {
 function incrementClosing() {
     const input = document.getElementById('closingCount');
     if (!input) return;
-    let value = parseInt(input.value) || 0;
-    if (value < 50) { input.value = value + 1; updateCalculator(); }
+    let value = parseInt(input.value, 10) || 0;
+    if (value < 50) {
+        input.value = value + 1;
+        updateCalculator();
+    }
 }
 
 function decrementClosing() {
     const input = document.getElementById('closingCount');
     if (!input) return;
-    let value = parseInt(input.value) || 0;
-    if (value > 1) { input.value = value - 1; updateCalculator(); }
+    let value = parseInt(input.value, 10) || 0;
+    if (value > 1) {
+        input.value = value - 1;
+        updateCalculator();
+    }
 }
 
-
-// ====================================================
-// FAQ + NAVBAR (Aman dari null / Optional Chaining)
-// ====================================================
-document.querySelectorAll('.faq-q').forEach(btn => {
-    btn.addEventListener('click', () => {
-        btn.parentElement?.classList.toggle('active');
-    });
-});
-
-// Perbaikan Error classList Toggle (Menggunakan Optional Chaining ?.)
-window.addEventListener('scroll', () => {
-    const navbar = document.getElementById('navbar');
-    if (navbar) {
-        navbar.classList.toggle('scrolled', window.scrollY > 20);
-    }
-});
-
-// Jalankan kalkulator pertama kali setelah semua DOM siap
 document.addEventListener('DOMContentLoaded', () => {
     updateCalculator();
 });
 </script>
 
-<!-- ⭐ WAJIB: Load script.js utama (Auto-navbar, Mobile sheet, dll) -->
+<!-- script utama: navbar, mobile sheet, dll -->
 <script src="script.js"></script>
-
 </body>
 </html>
