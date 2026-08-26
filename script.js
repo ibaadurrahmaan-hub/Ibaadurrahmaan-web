@@ -1,22 +1,16 @@
 /* ====================================================
    IBAADURRAHMAAN — Interactive Script
-   Version 8.3 · Inject Subpage Header + Nav + Bot
+   Version 8.5 · Full Inject, Fixed Nav Bug, & Live Demos
    ==================================================== */
 
 /* ===== 1. INJECT SUBPAGE HEADER (Back + Logo + Brand Box) ===== */
 function injectSubpageHeader() {
-  // Jangan inject di beranda / index
   const path = (window.location.pathname || '').toLowerCase();
   const file = path.split('/').pop() || 'index.html';
-  const isHome =
-    file === '' ||
-    file === 'index.html' ||
-    file === 'index' ||
-    path.endsWith('/');
+  const isHome = file === '' || file === 'index.html' || file === 'index' || path.endsWith('/');
 
+  // Hanya muncul di halaman selain Beranda (Home)
   if (isHome) return;
-
-  // Sudah ada? jangan double inject
   if (document.querySelector('.subpage-header-wrapper')) return;
 
   const headerHTML = `
@@ -26,7 +20,7 @@ function injectSubpageHeader() {
           <i class="fas fa-arrow-left"></i>
         </a>
         <a href="index.html" class="subpage-brand-center" aria-label="Beranda Ibaadurrahmaan">
-          <img src="main-logo.png" alt="Logo Ibaadurrahmaan" class="subpage-logo" onerror="this.style.display='none'">
+          <img src="main-logo.png" alt="Logo" class="subpage-logo" onerror="this.style.display='none'">
           <div class="subpage-brand-text">
             <span class="subpage-title">Ibaadurrahmaan</span>
             <span class="subpage-sub">WEB DESIGNER</span>
@@ -36,10 +30,8 @@ function injectSubpageHeader() {
     </div>
   `;
 
-  // Sisipkan di paling atas body (sebelum konten)
   document.body.insertAdjacentHTML('afterbegin', headerHTML);
 
-  // Tombol back
   const btnBack = document.getElementById('btnBackHeader');
   if (btnBack) {
     btnBack.addEventListener('click', (e) => {
@@ -62,7 +54,15 @@ const sheetData = {
       { href: 'layanan.html', icon: 'fa-briefcase', color: 'blue', title: 'Layanan Kami', desc: 'Overview semua jasa pembuatan website' },
       { href: 'portfolio.html', icon: 'fa-images', color: 'purple', title: 'Portfolio', desc: 'Kumpulan karya-karya terbaik kami' },
       { href: 'template.html', icon: 'fa-palette', color: 'green', title: 'Template Website', desc: 'Katalog desain premium siap pakai' },
-      { href: 'demo/', icon: 'fa-globe', color: 'cyan', title: 'Live Demo', desc: 'Coba website interaktif secara langsung' }
+      
+      // LIVE DEMO MENUS
+      { href: 'demo/busana-muslim/', icon: 'fa-star-and-crescent', color: 'cyan', title: 'Demo · Busana Muslim', desc: 'Template toko busana muslim' },
+      { href: 'demo/corporate-1/', icon: 'fa-building', color: 'cyan', title: 'Demo · Corporate 1', desc: 'Template profil perusahaan' },
+      { href: 'demo/fashion-1/', icon: 'fa-shirt', color: 'cyan', title: 'Demo · Fashion 1', desc: 'Template toko distro & fashion' },
+      { href: 'demo/portal-lokal/', icon: 'fa-newspaper', color: 'cyan', title: 'Demo · Portal Lokal', desc: 'Template web portal berita' },
+      { href: 'demo/restaurant-1/', icon: 'fa-utensils', color: 'cyan', title: 'Demo · Restaurant 1', desc: 'Template rumah makan / kafe' },
+      { href: 'demo/travel-umrah/', icon: 'fa-kaaba', color: 'cyan', title: 'Demo · Travel Umrah', desc: 'Template biro travel & umrah' },
+      { href: 'demo/wifi-provider/', icon: 'fa-wifi', color: 'cyan', title: 'Demo · WiFi Provider', desc: 'Template layanan ISP & RT-RW Net' }
     ]
   },
   paket: {
@@ -84,8 +84,8 @@ const sheetData = {
   }
 };
 
-function openMobileSheet(key) {
-  const data = sheetData[key];
+function openMobileSheet(sheetKey) {
+  const data = sheetData[sheetKey];
   if (!data) return;
 
   const overlay = document.getElementById('mobileSheetOverlay');
@@ -114,8 +114,9 @@ function openMobileSheet(key) {
   overlay.classList.add('active');
   sheet.classList.add('active');
 
+  // PASTIKAN HANYA 1 YANG ACTIVE (Hapus semua, lalu tambah di yg di-klik)
   document.querySelectorAll('.mnav-item').forEach((el) => el.classList.remove('active'));
-  const activeBtn = document.querySelector(`.mnav-item[data-page="${key}"], .mnav-item[onclick*="'${key}'"]`);
+  const activeBtn = document.querySelector(`.mnav-item[data-page="${sheetKey}"]`);
   if (activeBtn) activeBtn.classList.add('active');
 }
 
@@ -124,10 +125,11 @@ function closeMobileSheet() {
   const sheet = document.getElementById('mobileSheet');
   if (overlay) overlay.classList.remove('active');
   if (sheet) sheet.classList.remove('active');
+  
+  // Kembalikan ke menu aktif berdasarkan halaman saat ini
   highlightCurrentPage();
 }
 
-// Expose ke HTML onclick
 window.openMobileSheet = openMobileSheet;
 window.closeMobileSheet = closeMobileSheet;
 
@@ -161,17 +163,27 @@ function initNavScroll() {
 }
 
 
-/* ===== 5. ACTIVE MENU HIGHLIGHT ===== */
+/* ===== 5. ACTIVE MENU HIGHLIGHT (STRICT MODE & DEMO DETECT) ===== */
 function highlightCurrentPage() {
   const path = (window.location.pathname || '').toLowerCase();
-  let page = path.split('/').pop().replace('.html', '') || 'index';
-  if (!page || page === 'index.html') page = 'index';
+  
+  // Ambil nama file atau folder terakhir dari URL (Abaikan slash kosong)
+  const segments = path.split('/').filter(Boolean);
+  let page = segments.pop() || 'index';
+  page = page.replace('.html', '');
 
-  // turunan → parent menu
+  // Mapping sub-halaman & folder demo ke induk menu navigasi
   const map = {
     portfolio: 'layanan',
     template: 'layanan',
     demo: 'layanan',
+    'busana-muslim': 'layanan',
+    'corporate-1': 'layanan',
+    'fashion-1': 'layanan',
+    'portal-lokal': 'layanan',
+    'restaurant-1': 'layanan',
+    'travel-umrah': 'layanan',
+    'wifi-provider': 'layanan',
     order: 'paket',
     penawaran: 'paket',
     'mou-reseller': 'reseller',
@@ -182,25 +194,18 @@ function highlightCurrentPage() {
     reseller: 'reseller',
     index: 'index'
   };
-  const navKey = map[page] || page;
+  const navKey = map[page] || 'index';
 
-  // reset SEMUA dulu
+  // 1. Hapus class 'active' dari SEMUA menu (Mobile & Desktop)
   document.querySelectorAll('.mnav-item, .nav-link').forEach((el) => {
     el.classList.remove('active');
   });
 
-  // pasang active HANYA ke 1 kunci
-  
-document.querySelectorAll('.mnav-item').forEach((el) => el.classList.remove('active'));
-const btn = document.querySelector(`.mnav-item[data-page="${key}"]`);
-if (btn) btn.classList.add('active');
-
-  // fallback beranda
-  if (navKey === 'index') {
-    document
-      .querySelectorAll('.mnav-item[data-page="index"], .nav-link[data-page="index"]')
-      .forEach((el) => el.classList.add('active'));
-  }
+  // 2. Beri class 'active' HANYA ke menu yang cocok
+  const activeItems = document.querySelectorAll(`.mnav-item[data-page="${navKey}"], .nav-link[data-page="${navKey}"]`);
+  activeItems.forEach((el) => {
+    el.classList.add('active');
+  });
 }
 
 function initActiveMenu() {
@@ -321,6 +326,7 @@ function initWhatsAppBot() {
   const waContactAdmin = document.getElementById('waContactAdmin');
   const waBotBadge = document.querySelector('.wa-bot-badge');
   const adminNumber = '6281401643188';
+  
   if (!waBotToggle || !waBotWindow || !waBotChat) return;
 
   waBotToggle.addEventListener('click', () => {
@@ -439,11 +445,11 @@ function initWhatsAppBot() {
 }
 
 
-/* ===== 13. INJECT CSS (Header box + typing + WA button) ===== */
+/* ===== 13. INJECT CSS (Style Header Box + Typing Bot) ===== */
 function injectSupportCSS() {
   if (document.getElementById('ibaad-support-css')) return;
   const css = `
-    /* Subpage Header Box (inject) */
+    /* Header Box Subpage */
     .subpage-header-wrapper{
       position: sticky;
       top: 0;
@@ -532,13 +538,12 @@ function injectSupportCSS() {
       .subpage-sub{ font-size: 0.52rem; letter-spacing: 1.6px; }
     }
 
-    /* Mobile nav active pill (kurang bulat) */
+    /* Pastikan HANYA Mnav yang active yang dikotaki EMAS (Rounded 14px) */
     .mnav-item{
       border: none !important;
       outline: none !important;
       -webkit-appearance: none !important;
       -webkit-tap-highlight-color: transparent !important;
-      border-radius: 14px !important;
       background: transparent;
     }
     .mnav-item.active{
@@ -553,24 +558,28 @@ function injectSupportCSS() {
       opacity: 1 !important;
     }
 
-    /* WA floating: icon only */
-    .wa-bot-toggle{
+    /* WA Bot Inject (Icon Only, No Green Box) */
+    .wa-bot-toggle {
       background: transparent !important;
       box-shadow: none !important;
       color: #25D366 !important;
-      font-size: 3.4rem !important;
+      font-size: 58px !important;
       width: auto !important;
       height: auto !important;
-      filter: drop-shadow(0 8px 18px rgba(37,211,102,0.55));
+      filter: drop-shadow(0 8px 18px rgba(37,211,102,0.4));
     }
-    .wa-bot-toggle:hover{ transform: scale(1.08); }
+    .wa-bot-toggle:hover { 
+      transform: scale(1.08); 
+      filter: drop-shadow(0 10px 24px rgba(37,211,102,0.6));
+    }
 
-    /* Typing + direct WA btn */
+    /* Chat Bot Typing Animation */
     .typing-dots{display:inline-flex;align-items:center;gap:4px;height:16px;}
     .typing-dots span{width:6px;height:6px;background:#555;border-radius:50%;opacity:.4;animation:bounceDot 1.4s infinite both;}
     .typing-dots span:nth-child(2){animation-delay:.2s;}
     .typing-dots span:nth-child(3){animation-delay:.4s;}
     @keyframes bounceDot{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1.1);opacity:1}}
+    
     .wa-direct-button{
       display:inline-flex;align-items:center;gap:8px;
       background:#25D366;color:#fff;padding:10px 14px;border-radius:10px;
@@ -599,5 +608,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initMockupParallax();
   initWhatsAppBot();
 
-  console.log('%cIbaadurrahmaan Web Designer v8.3', 'color:#D4A536;font-weight:bold;');
+  console.log('%cIbaadurrahmaan Web Designer v8.5', 'color:#D4A536;font-weight:bold;');
 });
