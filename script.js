@@ -163,11 +163,11 @@ function initNavScroll() {
 
 /* ===== 5. ACTIVE MENU HIGHLIGHT ===== */
 function highlightCurrentPage() {
-  const path = window.location.pathname || '';
+  const path = (window.location.pathname || '').toLowerCase();
   let page = path.split('/').pop().replace('.html', '') || 'index';
-  if (page === '' || page === 'index.html') page = 'index';
+  if (!page || page === 'index.html') page = 'index';
 
-  // Mapping halaman turunan ke parent nav
+  // turunan → parent menu
   const map = {
     portfolio: 'layanan',
     template: 'layanan',
@@ -175,18 +175,32 @@ function highlightCurrentPage() {
     order: 'paket',
     penawaran: 'paket',
     'mou-reseller': 'reseller',
-    'starter-kit': 'reseller'
+    'starter-kit': 'reseller',
+    faq: 'faq',
+    layanan: 'layanan',
+    paket: 'paket',
+    reseller: 'reseller',
+    index: 'index'
   };
   const navKey = map[page] || page;
 
-  document.querySelectorAll('.nav-link, .mnav-item').forEach((link) => {
-    link.classList.remove('active');
-    const dp = link.getAttribute('data-page');
-    const href = (link.getAttribute('href') || '').replace('.html', '');
-    if (dp === navKey || dp === page || href === page || (page === 'index' && (href === 'index' || href === 'index.html' || href === ''))) {
-      link.classList.add('active');
-    }
+  // reset SEMUA dulu
+  document.querySelectorAll('.mnav-item, .nav-link').forEach((el) => {
+    el.classList.remove('active');
   });
+
+  // pasang active HANYA ke 1 kunci
+  
+document.querySelectorAll('.mnav-item').forEach((el) => el.classList.remove('active'));
+const btn = document.querySelector(`.mnav-item[data-page="${key}"]`);
+if (btn) btn.classList.add('active');
+
+  // fallback beranda
+  if (navKey === 'index') {
+    document
+      .querySelectorAll('.mnav-item[data-page="index"], .nav-link[data-page="index"]')
+      .forEach((el) => el.classList.add('active'));
+  }
 }
 
 function initActiveMenu() {
