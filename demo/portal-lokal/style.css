@@ -811,24 +811,36 @@ body {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  width: 56px;
-  height: 56px;
-  background: #16A34A;
-  color: white;
-  border-radius: 50%;
+  width: auto;
+  height: auto;
+  background: transparent;          /* hilangkan background hijau */
+  color: #25D366;                   /* warna ikon WA resmi */
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.7rem;
+  font-size: 2.6rem;                /* ikon lebih besar biar tetap menonjol */
   text-decoration: none;
-  box-shadow: 0 8px 20px rgba(22, 163, 74, 0.4);
+  box-shadow: none;                 /* hilangkan bayangan bulat */
   z-index: 90;
   transition: var(--transition);
-  animation: pulse 2s infinite;
+  animation: none;                  /* hilangkan pulse hijau */
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2)); /* bayangan halus di ikon saja */
 }
 
-.fab-wa:hover { transform: scale(1.1); }
+.fab-wa:hover {
+  transform: scale(1.12);
+  color: #128C7E;
+}
 
+/* Mobile */
+@media (max-width: 768px) {
+  .fab-wa {
+    bottom: 20px;
+    right: 20px;
+    font-size: 2.3rem;
+  }
+}
 @keyframes pulse {
   0%, 100% { box-shadow: 0 8px 20px rgba(22, 163, 74, 0.4); }
   50% { box-shadow: 0 8px 30px rgba(22, 163, 74, 0.7); }
