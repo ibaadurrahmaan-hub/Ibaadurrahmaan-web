@@ -603,104 +603,117 @@ body{
 .footer-copy{text-align:right;}
 .footer-copy p{ color:var(--text-dim); font-size:0.85rem; }
 
-
 /* ==================================================
-   MOBILE BOTTOM NAV & BOTTOM SHEET
+   MOBILE BOTTOM NAV — HANYA 1 ITEM ACTIVE = GOLD
    ================================================== */
-.mobile-nav {
-  display: none;
-  position: fixed;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 24px);
-  max-width: 440px;
-  z-index: 1000;
-  background: rgba(5,11,24,0.94);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  padding: 6px 8px;
-  gap: 4px;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.55);
-  transition: transform 0.4s var(--ease), opacity 0.3s var(--ease);
-  align-items: center;
-  justify-content: space-around;
+.mobile-nav{
+  display:none;
+  position:fixed;
+  bottom:16px;
+  left:50%;
+  transform:translateX(-50%);
+  width:calc(100% - 24px);
+  max-width:440px;
+  z-index:1000;
+
+  background:rgba(5,11,24,0.94);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+
+  border:1px solid var(--border);
+  border-radius:100px;
+  padding:6px 8px;
+  gap:4px;
+
+  box-shadow:0 12px 40px rgba(0,0,0,0.55);
+  align-items:center;
+  justify-content:space-around;
 }
 
-.mobile-nav.hidden {
-  transform: translateX(-50%) translateY(120%);
-  opacity: 0;
-  pointer-events: none;
+.mobile-nav.hidden{
+  transform:translateX(-50%) translateY(120%);
+  opacity:0;
+  pointer-events:none;
 }
 
-/* Nav Item Bawah (Kurangi bulat jadi kotak melengkung) */
-.mnav-item {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3px;
-  padding: 8px 6px;
-  color: var(--text-muted);
-  text-decoration: none;
-  background: transparent;
-  
-  /* HAPUS SEMUA STYLE BAWAAN */
-  border: none !important;
-  outline: none !important;
-  -webkit-appearance: none !important;
-  -webkit-tap-highlight-color: transparent !important;
-  
-  border-radius: 14px; /* <--- KURANGI BORDER RADIUS */
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.3s var(--ease);
+/* DEFAULT = TIDAK EMAS */
+.mobile-nav .mnav-item,
+.mobile-nav a.mnav-item,
+.mobile-nav button.mnav-item{
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  padding:8px 4px;
+
+  background:transparent !important;   /* wajib */
+  color:var(--text-muted) !important;
+  text-decoration:none;
+  font-family:inherit;
+  cursor:pointer;
+
+  border:none !important;
+  outline:none !important;
+  box-shadow:none !important;
+  -webkit-appearance:none !important;
+  appearance:none !important;
+  -webkit-tap-highlight-color:transparent !important;
+
+  border-radius:14px;                  /* kurang bulat */
+  transition:all 0.25s var(--ease);
 }
 
-.mnav-item i {
-  font-size: 1.15rem;
-  line-height: 1;
-  color: var(--text-muted);
-  border: none !important;
-  outline: none !important;
-  transition: transform 0.3s var(--ease), color 0.3s var(--ease);
+.mobile-nav .mnav-item i{
+  font-size:1.15rem;
+  line-height:1;
+  color:var(--text-muted) !important;
+  background:transparent !important;
+  border:none !important;
 }
 
-.mnav-item span {
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
-  opacity: 0.85;
-  color: var(--text-muted);
+.mobile-nav .mnav-item span{
+  font-size:0.62rem;
+  font-weight:600;
+  letter-spacing:0.2px;
+  white-space:nowrap;
+  color:var(--text-muted) !important;
+  opacity:0.9;
 }
 
-.mnav-item:active { transform: scale(0.92); }
-
-/* PILL ACTIVE (Tidak terlalu bulat) */
-.mnav-item.active {
-  background: var(--grad-gold-shine) !important;
-  color: var(--bg) !important;
-  border-radius: 14px !important; /* <--- KOTAK MELENGKUNG */
-  border: none !important;
-  outline: none !important;
-  box-shadow: 0 6px 18px var(--gold-glow) !important;
+/* highlight reseller JANGAN bikin full gold */
+.mobile-nav .mnav-item.mnav-highlight{
+  background:transparent !important;
+  color:var(--gold-light) !important;
+}
+.mobile-nav .mnav-item.mnav-highlight i,
+.mobile-nav .mnav-item.mnav-highlight span{
+  color:var(--gold-light) !important;
 }
 
-.mnav-item.active i, 
-.mnav-item.active span {
-  color: var(--bg) !important;
-  opacity: 1 !important;
+/* HANYA .active YANG EMAS */
+.mobile-nav .mnav-item.active{
+  background:var(--grad-gold-shine) !important;
+  color:var(--bg) !important;
+  border-radius:14px !important;
+  box-shadow:0 6px 16px var(--gold-glow) !important;
 }
-.mnav-item.active i {
-  transform: scale(1.12);
+
+.mobile-nav .mnav-item.active i,
+.mobile-nav .mnav-item.active span{
+  color:var(--bg) !important;
+  opacity:1 !important;
+  font-weight:800;
+}
+
+.mobile-nav .mnav-item.active i{
+  transform:scale(1.1);
+}
+
+.mobile-nav .mnav-item:active{
+  transform:scale(0.94);
 }
 
 
