@@ -1,38 +1,441 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+<!-- ============================================
+     BASIC META TAGS
+     ============================================ -->
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <meta name="theme-color" content="#EA580C">
-<title>PortalWarga — Pusat Layanan Terpadu Kecamatan</title>
-<meta name="description" content="Portal layanan terpadu untuk warga: belanja pasar, cari property, info pendidikan, dan pasang WiFi. Semua dalam satu genggaman.">
+<meta name="msapplication-TileColor" content="#EA580C">
+<meta name="msapplication-navbutton-color" content="#EA580C">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+<!-- ============================================
+     PRIMARY SEO META TAGS
+     ============================================ -->
+<title>PortalWarga — Pusat Layanan Terpadu Kecamatan | Pasar, Property, Pendidikan & WiFi</title>
+<meta name="title" content="PortalWarga — Pusat Layanan Terpadu Kecamatan | Pasar, Property, Pendidikan & WiFi">
+<meta name="description" content="Portal layanan terpadu tingkat kecamatan. Belanja pasar segar dari UMKM lokal, cari kontrakan & property, info pendidikan/bimbel, hingga pasang WiFi. Order & daftar langsung via WhatsApp CS. Cepat, terpercaya, antar ke rumah.">
+<meta name="keywords" content="portal warga, layanan kecamatan, pasar online lokal, belanja UMKM, property kontrakan kos, info pendidikan bimbel, pasang wifi rumah, kurir lokal, super app kecamatan, marketplace hyperlocal, portal layanan terpadu, pesan antar pasar, daftar wifi, CS whatsapp">
+<meta name="author" content="PortalWarga">
+<meta name="creator" content="Ibaadurrahmaan Web Designer">
+<meta name="publisher" content="PortalWarga">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="googlebot" content="index, follow">
+<meta name="bingbot" content="index, follow">
+<meta name="language" content="Indonesian">
+<meta name="revisit-after" content="3 days">
+<meta name="rating" content="general">
+<meta name="distribution" content="global">
+<meta name="coverage" content="Worldwide">
+<meta name="target" content="all">
+<meta name="audience" content="all">
+<meta name="category" content="Local Services, Marketplace, Community Portal">
+
+<!-- ============================================
+     GEO LOCATION (Indonesia / Lokal)
+     ============================================ -->
+<meta name="geo.region" content="ID">
+<meta name="geo.country" content="Indonesia">
+<meta name="geo.placename" content="Indonesia">
+<meta name="ICBM" content="-6.200000, 106.816666">
+<meta name="geo.position" content="-6.200000;106.816666">
+<meta name="DC.title" content="PortalWarga — Pusat Layanan Terpadu Kecamatan">
+
+<!-- ============================================
+     CANONICAL & ALTERNATE
+     ============================================ -->
+<link rel="canonical" href="https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/index.html">
+<link rel="alternate" hreflang="id" href="https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/index.html">
+<link rel="alternate" hreflang="x-default" href="https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/index.html">
+
+<!-- ============================================
+     OPEN GRAPH (Facebook, LinkedIn, WhatsApp, Telegram)
+     ============================================ -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PortalWarga">
+<meta property="og:url" content="https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/index.html">
+<meta property="og:title" content="PortalWarga — Semua Kebutuhan Warga Dalam Satu Portal">
+<meta property="og:description" content="Belanja pasar UMKM, cari property, info pendidikan, dan pasang WiFi. Tim CS siap layani & antar di wilayah kecamatan Anda.">
+<meta property="og:image" content="https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/og-portalwarga.jpg">
+<meta property="og:image:secure_url" content="https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/og-portalwarga.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PortalWarga - Pusat Layanan Terpadu Kecamatan: Pasar, Property, Pendidikan, WiFi">
+<meta property="og:locale" content="id_ID">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="article:author" content="PortalWarga">
+<meta property="article:section" content="Local Services">
+<meta property="article:tag" content="Pasar Lokal">
+<meta property="article:tag" content="Property">
+<meta property="article:tag" content="Pendidikan">
+<meta property="article:tag" content="WiFi">
+<meta property="article:tag" content="UMKM">
+
+<!-- ============================================
+     TWITTER / X CARDS
+     ============================================ -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@portalwarga">
+<meta name="twitter:creator" content="@ibaadurrahmaan">
+<meta name="twitter:url" content="https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/index.html">
+<meta name="twitter:title" content="PortalWarga — Pusat Layanan Terpadu Kecamatan">
+<meta name="twitter:description" content="Pasar, Property, Pendidikan & WiFi dalam satu portal. Order via WhatsApp CS, kurir lokal antar cepat.">
+<meta name="twitter:image" content="https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/og-portalwarga.jpg">
+<meta name="twitter:image:alt" content="PortalWarga - Super App Layanan Lokal Kecamatan">
+<meta name="twitter:label1" content="Layanan">
+<meta name="twitter:data1" content="Pasar · Property · Pendidikan · WiFi">
+<meta name="twitter:label2" content="Wilayah">
+<meta name="twitter:data2" content="±2 Kecamatan">
+
+<!-- ============================================
+     FAVICON & APP ICONS
+     ============================================ -->
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="shortcut icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="mask-icon" href="safari-pinned-tab.svg" color="#EA580C">
+<meta name="apple-mobile-web-app-title" content="PortalWarga">
+<meta name="application-name" content="PortalWarga">
+<meta name="msapplication-TileImage" content="mstile-150x150.png">
+
+<!-- ============================================
+     MOBILE & PWA
+     ============================================ -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=yes">
+<meta name="format-detection" content="address=yes">
+<meta name="format-detection" content="email=yes">
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<!-- Uncomment jika sudah punya manifest.json -->
+<!-- <link rel="manifest" href="manifest.json"> -->
+
+<!-- ============================================
+     SECURITY HEADERS
+     ============================================ -->
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+
+<!-- ============================================
+     PRECONNECT & DNS PREFETCH (Performance)
+     ============================================ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://wa.me">
+<link rel="dns-prefetch" href="https://api.whatsapp.com">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
+<!-- ============================================
+     FONTS & CSS
+     ============================================ -->
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="style.css">
+
+<!-- ============================================
+     SCHEMA.ORG - WEB APPLICATION / LOCAL BUSINESS
+     ============================================ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "PortalWarga",
+  "alternateName": "Portal Layanan Terpadu Kecamatan",
+  "url": "https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/index.html",
+  "description": "Portal layanan terpadu tingkat kecamatan untuk belanja pasar UMKM, property, pendidikan, dan pemasangan WiFi dengan dukungan CS WhatsApp dan kurir lokal.",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "Web, Android, iOS",
+  "inLanguage": "id-ID",
+  "browserRequirements": "Requires JavaScript. Requires HTML5.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "IDR",
+    "description": "Akses portal gratis untuk warga"
+  },
+  "featureList": [
+    "Belanja Pasar UMKM Lokal",
+    "Listing Property & Kontrakan",
+    "Direktori Pendidikan & Bimbel",
+    "Pendaftaran WiFi Rumah",
+    "Checkout via WhatsApp CS",
+    "Kurir Delivery Lokal"
+  ],
+  "screenshot": "https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/og-portalwarga.jpg",
+  "image": "https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/og-portalwarga.jpg",
+  "provider": {
+    "@type": "Organization",
+    "name": "PortalWarga",
+    "url": "https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/"
+  }
+}
+</script>
+
+<!-- ============================================
+     SCHEMA.ORG - ORGANIZATION / LOCAL BUSINESS
+     ============================================ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "PortalWarga",
+  "image": "https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/og-portalwarga.jpg",
+  "url": "https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/index.html",
+  "telephone": "+62-814-0164-3188",
+  "email": "cs@portalwarga.id",
+  "description": "Pusat layanan terpadu kecamatan: pasar, property, pendidikan, dan WiFi. Melayani warga sekitar ±2 kecamatan dengan CS dan kurir lokal.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Kecamatan Contoh Sejahtera",
+    "addressRegion": "Indonesia",
+    "addressCountry": "ID"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -6.200000,
+    "longitude": 106.816666
+  },
+  "areaServed": [
+    {
+      "@type": "AdministrativeArea",
+      "name": "Kecamatan Contoh Sejahtera"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Kecamatan Sekitar"
+    }
+  ],
+  "priceRange": "Rp",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+    ],
+    "opens": "07:00",
+    "closes": "21:00"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+62-814-0164-3188",
+    "contactType": "customer service",
+    "areaServed": "ID",
+    "availableLanguage": ["Indonesian"],
+    "contactOption": "TollFree"
+  },
+  "sameAs": [
+    "https://wa.me/6281401643188"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Layanan PortalWarga",
+    "itemListElement": [
+      {
+        "@type": "OfferCatalog",
+        "name": "Pasar",
+        "description": "Belanja sayur, lauk, sembako dari UMKM lokal"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Property",
+        "description": "Kontrakan, kos, rumah, dan tanah lokal"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Pendidikan",
+        "description": "Info sekolah, bimbel, kursus, dan TPQ"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "WiFi",
+        "description": "Pendaftaran pemasangan internet rumah"
+      }
+    ]
+  }
+}
+</script>
+
+<!-- ============================================
+     SCHEMA.ORG - WEBSITE
+     ============================================ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "PortalWarga",
+  "url": "https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/",
+  "description": "Portal layanan terpadu kecamatan untuk pasar, property, pendidikan, dan WiFi",
+  "inLanguage": "id-ID",
+  "publisher": {
+    "@type": "Organization",
+    "name": "PortalWarga",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/favicon.png"
+    }
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/index.html?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- ============================================
+     SCHEMA.ORG - BREADCRUMB
+     ============================================ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Beranda Template",
+      "item": "https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Template Showcase",
+      "item": "https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/template.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "PortalWarga Demo",
+      "item": "https://ibaadurrahmaan-hub.github.io/Ibaadurrahmaan-web/demo/portal-lokal/index.html"
+    }
+  ]
+}
+</script>
+
+<!-- ============================================
+     SCHEMA.ORG - FAQ
+     ============================================ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Apa itu PortalWarga?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PortalWarga adalah portal layanan terpadu tingkat kecamatan yang menggabungkan belanja pasar UMKM, listing property, info pendidikan, dan pendaftaran WiFi. Semua pesanan dan pendaftaran diproses terpusat melalui WhatsApp CS dengan dukungan kurir lokal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Bagaimana cara belanja di kategori Pasar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pilih produk dari berbagai UMKM, masukkan ke keranjang, lalu checkout. Rincian pesanan otomatis terkirim ke WhatsApp CS. Tim kami akan konfirmasi, belanja ke mitra, dan antar ke alamat Anda."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wilayah mana saja yang dilayani?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Saat ini PortalWarga melayani sekitar 2 kecamatan di sekitar lokasi operasional. Cakupan dapat diperluas sesuai ketersediaan mitra UMKM dan kurir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Apakah bisa daftar WiFi melalui portal ini?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ya. Isi formulir pendaftaran WiFi (nama, WhatsApp, alamat, paket). Data terkirim ke CS untuk dijadwalkan survei dan instalasi."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Bagaimana cara tanya property atau daftar bimbel?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pada kartu property atau lembaga pendidikan, klik tombol Tanya CS / Daftar. WhatsApp akan terbuka dengan pesan siap kirim berisi detail listing yang Anda minati."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ============================================
+     SCHEMA.ORG - ITEM LIST (4 KATEGORI)
+     ============================================ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Kategori Layanan PortalWarga",
+  "description": "Empat layanan utama portal terpadu kecamatan",
+  "numberOfItems": 4,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Pasar",
+      "description": "Belanja sayur, lauk, dan sembako dari UMKM lokal dengan antar kurir"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Property",
+      "description": "Listing kontrakan, kos, rumah, dan tanah di sekitar kecamatan"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Pendidikan",
+      "description": "Direktori bimbel, TPQ, kursus, dan lembaga pendidikan lokal"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "WiFi",
+      "description": "Pendaftaran paket internet rumah dengan survei dan instalasi"
+    }
+  ]
+}
+</script>
 </head>
+
 <body>
 
 <!-- ============ TOP HEADER ============ -->
 <header class="app-header">
   <div class="container">
     <div class="header-inner">
-      <a href="#" class="brand">
-        <span class="brand-icon">📍</span>
+      <a href="#" class="brand" aria-label="PortalWarga Beranda">
+        <span class="brand-icon" aria-hidden="true">📍</span>
         <div class="brand-text">
           <strong>PortalWarga</strong>
           <small>Kec. Contoh Sejahtera</small>
         </div>
       </a>
       <div class="header-actions">
-        <button class="btn-cart" onclick="openCart()">
-          <i class="fas fa-shopping-basket"></i>
+        <button class="btn-cart" onclick="openCart()" aria-label="Buka keranjang belanja">
+          <i class="fas fa-shopping-basket" aria-hidden="true"></i>
           <span class="cart-badge" id="cartBadge">0</span>
         </button>
-        <a href="https://wa.me/6285267891619" class="btn-cs" title="Hubungi CS">
-          <i class="fab fa-whatsapp"></i>
+        <a href="https://wa.me/6281401643188" class="btn-cs" title="Hubungi CS WhatsApp" aria-label="Chat WhatsApp CS" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i>
         </a>
       </div>
     </div>
@@ -44,7 +447,7 @@
 <section class="hero">
   <div class="container">
     <div class="hero-content">
-      <span class="hero-badge"><i class="fas fa-bolt"></i> Pelayanan Cepat Tingkat Kecamatan</span>
+      <span class="hero-badge"><i class="fas fa-bolt" aria-hidden="true"></i> Pelayanan Cepat Tingkat Kecamatan</span>
       <h1>Semua Kebutuhan Warga <br><span class="text-highlight">Dalam Satu Portal</span></h1>
       <p>Belanja pasar segar, cari property, info pendidikan, hingga daftar WiFi. Tim CS kami siap layani & antar ke lokasi Anda.</p>
       <div class="hero-stats">
@@ -58,7 +461,7 @@
 
 
 <!-- ============ MAIN MENU (4 CATEGORY) ============ -->
-<section class="main-menu">
+<section class="main-menu" aria-label="Menu layanan utama">
   <div class="container">
     <div class="section-title">
       <h2>Pilih Layanan</h2>
@@ -66,32 +469,32 @@
     </div>
 
     <div class="menu-grid">
-      <button class="menu-card menu-pasar" onclick="showCategory('pasar')">
-        <div class="menu-icon">🛒</div>
+      <button class="menu-card menu-pasar" onclick="showCategory('pasar')" type="button" aria-label="Buka kategori Pasar">
+        <div class="menu-icon" aria-hidden="true">🛒</div>
         <h3>Pasar</h3>
         <p>Sayur, lauk, sembako</p>
-        <span class="menu-arrow"><i class="fas fa-arrow-right"></i></span>
+        <span class="menu-arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
       </button>
 
-      <button class="menu-card menu-property" onclick="showCategory('property')">
-        <div class="menu-icon">🏠</div>
+      <button class="menu-card menu-property" onclick="showCategory('property')" type="button" aria-label="Buka kategori Property">
+        <div class="menu-icon" aria-hidden="true">🏠</div>
         <h3>Property</h3>
         <p>Kontrakan, kos, tanah</p>
-        <span class="menu-arrow"><i class="fas fa-arrow-right"></i></span>
+        <span class="menu-arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
       </button>
 
-      <button class="menu-card menu-pendidikan" onclick="showCategory('pendidikan')">
-        <div class="menu-icon">🎓</div>
+      <button class="menu-card menu-pendidikan" onclick="showCategory('pendidikan')" type="button" aria-label="Buka kategori Pendidikan">
+        <div class="menu-icon" aria-hidden="true">🎓</div>
         <h3>Pendidikan</h3>
         <p>Sekolah, bimbel, kursus</p>
-        <span class="menu-arrow"><i class="fas fa-arrow-right"></i></span>
+        <span class="menu-arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
       </button>
 
-      <button class="menu-card menu-wifi" onclick="showCategory('wifi')">
-        <div class="menu-icon">📡</div>
+      <button class="menu-card menu-wifi" onclick="showCategory('wifi')" type="button" aria-label="Buka kategori WiFi">
+        <div class="menu-icon" aria-hidden="true">📡</div>
         <h3>WiFi</h3>
         <p>Pasang internet cepat</p>
-        <span class="menu-arrow"><i class="fas fa-arrow-right"></i></span>
+        <span class="menu-arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
       </button>
     </div>
   </div>
@@ -111,7 +514,6 @@
           <p>Belanja dari berbagai UMKM lokal, kami yang antar ke rumah Anda!</p>
         </div>
       </div>
-
       <div class="product-grid" id="pasarGrid"></div>
     </div>
   </div>
@@ -126,7 +528,6 @@
           <p>Kontrakan, kos, rumah, dan tanah dari warga lokal. Verified by CS.</p>
         </div>
       </div>
-
       <div class="property-grid" id="propertyGrid"></div>
     </div>
   </div>
@@ -141,7 +542,6 @@
           <p>Direktori pendidikan lokal, daftar cepat via CS kami.</p>
         </div>
       </div>
-
       <div class="edu-grid" id="eduGrid"></div>
     </div>
   </div>
@@ -159,27 +559,26 @@
 
       <div class="wifi-grid" id="wifiGrid"></div>
 
-      <!-- Form WiFi -->
       <div class="wifi-form-card">
-        <h3><i class="fas fa-clipboard-list"></i> Formulir Pendaftaran WiFi</h3>
+        <h3><i class="fas fa-clipboard-list" aria-hidden="true"></i> Formulir Pendaftaran WiFi</h3>
         <form id="wifiForm" onsubmit="submitWifi(event)">
           <div class="form-row-2">
             <div class="form-group">
-              <label>Nama Lengkap</label>
-              <input type="text" id="wifiNama" required placeholder="cth: Budi Santoso">
+              <label for="wifiNama">Nama Lengkap</label>
+              <input type="text" id="wifiNama" name="nama" required placeholder="cth: Budi Santoso" autocomplete="name">
             </div>
             <div class="form-group">
-              <label>No. WhatsApp</label>
-              <input type="tel" id="wifiWa" required placeholder="cth: 08123456789">
+              <label for="wifiWa">No. WhatsApp</label>
+              <input type="tel" id="wifiWa" name="whatsapp" required placeholder="cth: 08123456789" autocomplete="tel">
             </div>
           </div>
           <div class="form-group">
-            <label>Alamat Pemasangan</label>
-            <textarea id="wifiAlamat" rows="2" required placeholder="Jl. Contoh No. 10, RT/RW, Desa..."></textarea>
+            <label for="wifiAlamat">Alamat Pemasangan</label>
+            <textarea id="wifiAlamat" name="alamat" rows="2" required placeholder="Jl. Contoh No. 10, RT/RW, Desa..."></textarea>
           </div>
           <div class="form-group">
-            <label>Pilih Paket</label>
-            <select id="wifiPaket" required>
+            <label for="wifiPaket">Pilih Paket</label>
+            <select id="wifiPaket" name="paket" required>
               <option value="">-- Pilih Paket --</option>
               <option value="Basic 10 Mbps - Rp 150.000">Basic 10 Mbps — Rp 150.000/bulan</option>
               <option value="Standar 20 Mbps - Rp 200.000">Standar 20 Mbps — Rp 200.000/bulan</option>
@@ -187,7 +586,7 @@
             </select>
           </div>
           <button type="submit" class="btn-submit">
-            <i class="fab fa-whatsapp"></i> Kirim Pendaftaran ke CS
+            <i class="fab fa-whatsapp" aria-hidden="true"></i> Kirim Pendaftaran ke CS
           </button>
         </form>
       </div>
@@ -206,22 +605,22 @@
     </div>
     <div class="why-grid">
       <div class="why-item">
-        <div class="why-icon"><i class="fas fa-headset"></i></div>
+        <div class="why-icon"><i class="fas fa-headset" aria-hidden="true"></i></div>
         <h4>CS Ramah 24/7</h4>
         <p>Tim CS kami siap melayani dan menjawab pertanyaan Anda kapan saja.</p>
       </div>
       <div class="why-item">
-        <div class="why-icon"><i class="fas fa-motorcycle"></i></div>
+        <div class="why-icon"><i class="fas fa-motorcycle" aria-hidden="true"></i></div>
         <h4>Kurir Lokal Cepat</h4>
         <p>Kurir kami hafal jalan sekitar, antar pesanan dalam hitungan menit.</p>
       </div>
       <div class="why-item">
-        <div class="why-icon"><i class="fas fa-handshake"></i></div>
+        <div class="why-icon"><i class="fas fa-handshake" aria-hidden="true"></i></div>
         <h4>Support UMKM</h4>
         <p>Setiap transaksi membantu UMKM tetangga Anda naik kelas.</p>
       </div>
       <div class="why-item">
-        <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="why-icon"><i class="fas fa-shield-alt" aria-hidden="true"></i></div>
         <h4>Terpercaya & Aman</h4>
         <p>Semua mitra terverifikasi. Pembayaran mudah lewat CS.</p>
       </div>
@@ -235,15 +634,15 @@
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <span class="brand-icon">📍</span>
+        <span class="brand-icon" aria-hidden="true">📍</span>
         <div>
           <strong>PortalWarga</strong>
           <p>Portal Layanan Terpadu Kecamatan</p>
         </div>
       </div>
       <div class="footer-contact">
-        <a href="https://wa.me/6281401643188"><i class="fab fa-whatsapp"></i> 0814-0164-3188</a>
-        <a href="mailto:cs@portalwarga.id"><i class="fas fa-envelope"></i> cs@portalwarga.id</a>
+        <a href="https://wa.me/6281401643188" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i> 0814-0164-3188</a>
+        <a href="mailto:cs@portalwarga.id"><i class="fas fa-envelope" aria-hidden="true"></i> cs@portalwarga.id</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -255,10 +654,10 @@
 
 <!-- ============ CART DRAWER ============ -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
-<aside class="cart-drawer" id="cartDrawer">
+<aside class="cart-drawer" id="cartDrawer" aria-label="Keranjang belanja">
   <div class="cart-head">
-    <h3><i class="fas fa-shopping-basket"></i> Keranjang Belanja</h3>
-    <button onclick="closeCart()" class="cart-close"><i class="fas fa-times"></i></button>
+    <h3><i class="fas fa-shopping-basket" aria-hidden="true"></i> Keranjang Belanja</h3>
+    <button onclick="closeCart()" class="cart-close" aria-label="Tutup keranjang"><i class="fas fa-times"></i></button>
   </div>
   <div class="cart-body" id="cartBody"></div>
   <div class="cart-foot">
@@ -267,20 +666,20 @@
       <b id="cartTotal">Rp 0</b>
     </div>
     <button class="btn-checkout" onclick="checkoutWA()">
-      <i class="fab fa-whatsapp"></i> Checkout via WhatsApp CS
+      <i class="fab fa-whatsapp" aria-hidden="true"></i> Checkout via WhatsApp CS
     </button>
   </div>
 </aside>
 
 
 <!-- ============ FLOATING WA ============ -->
-<a href="https://wa.me/6285267891619" class="fab-wa" title="Chat CS">
-  <i class="fab fa-whatsapp"></i>
+<a href="https://wa.me/6281401643188" class="fab-wa" title="Chat CS WhatsApp" aria-label="Chat WhatsApp CS" target="_blank" rel="noopener noreferrer">
+  <i class="fab fa-whatsapp" aria-hidden="true"></i>
 </a>
 
 
 <!-- ============ TOAST NOTIF ============ -->
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 
 <script src="script.js"></script>
