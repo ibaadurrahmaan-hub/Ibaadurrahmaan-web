@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#EA580C">
+<title>PortalWarga — Pusat Layanan Terpadu Kecamatan</title>
+<meta name="description" content="Portal layanan terpadu untuk warga: belanja pasar, cari property, info pendidikan, dan pasang WiFi. Semua dalam satu genggaman.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ TOP HEADER ============ -->
+<header class="app-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="#" class="brand">
+        <span class="brand-icon">📍</span>
+        <div class="brand-text">
+          <strong>PortalWarga</strong>
+          <small>Kec. Contoh Sejahtera</small>
+        </div>
+      </a>
+      <div class="header-actions">
+        <button class="btn-cart" onclick="openCart()">
+          <i class="fas fa-shopping-basket"></i>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+        <a href="https://wa.me/6281401643188" class="btn-cs" title="Hubungi CS">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <span class="hero-badge"><i class="fas fa-bolt"></i> Pelayanan Cepat Tingkat Kecamatan</span>
+      <h1>Semua Kebutuhan Warga <br><span class="text-highlight">Dalam Satu Portal</span></h1>
+      <p>Belanja pasar segar, cari property, info pendidikan, hingga daftar WiFi. Tim CS kami siap layani & antar ke lokasi Anda.</p>
+      <div class="hero-stats">
+        <div class="stat"><b>50+</b><span>Mitra UMKM</span></div>
+        <div class="stat"><b>2</b><span>Kecamatan Coverage</span></div>
+        <div class="stat"><b>4</b><span>Layanan Utama</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ MAIN MENU (4 CATEGORY) ============ -->
+<section class="main-menu">
+  <div class="container">
+    <div class="section-title">
+      <h2>Pilih Layanan</h2>
+      <p>Semua terpusat di WhatsApp CS kami</p>
+    </div>
+
+    <div class="menu-grid">
+      <button class="menu-card menu-pasar" onclick="showCategory('pasar')">
+        <div class="menu-icon">🛒</div>
+        <h3>Pasar</h3>
+        <p>Sayur, lauk, sembako</p>
+        <span class="menu-arrow"><i class="fas fa-arrow-right"></i></span>
+      </button>
+
+      <button class="menu-card menu-property" onclick="showCategory('property')">
+        <div class="menu-icon">🏠</div>
+        <h3>Property</h3>
+        <p>Kontrakan, kos, tanah</p>
+        <span class="menu-arrow"><i class="fas fa-arrow-right"></i></span>
+      </button>
+
+      <button class="menu-card menu-pendidikan" onclick="showCategory('pendidikan')">
+        <div class="menu-icon">🎓</div>
+        <h3>Pendidikan</h3>
+        <p>Sekolah, bimbel, kursus</p>
+        <span class="menu-arrow"><i class="fas fa-arrow-right"></i></span>
+      </button>
+
+      <button class="menu-card menu-wifi" onclick="showCategory('wifi')">
+        <div class="menu-icon">📡</div>
+        <h3>WiFi</h3>
+        <p>Pasang internet cepat</p>
+        <span class="menu-arrow"><i class="fas fa-arrow-right"></i></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ CONTENT AREA (DYNAMIC) ============ -->
+<section class="content-area" id="contentArea">
+
+  <!-- ==== PASAR ==== -->
+  <div class="cat-section active" id="cat-pasar">
+    <div class="container">
+      <div class="cat-header">
+        <div>
+          <span class="cat-tag pasar">🛒 PASAR</span>
+          <h2>Pasar Warga Segar</h2>
+          <p>Belanja dari berbagai UMKM lokal, kami yang antar ke rumah Anda!</p>
+        </div>
+      </div>
+
+      <div class="product-grid" id="pasarGrid"></div>
+    </div>
+  </div>
+
+  <!-- ==== PROPERTY ==== -->
+  <div class="cat-section" id="cat-property">
+    <div class="container">
+      <div class="cat-header">
+        <div>
+          <span class="cat-tag property">🏠 PROPERTY</span>
+          <h2>Cari Hunian Sekitar Anda</h2>
+          <p>Kontrakan, kos, rumah, dan tanah dari warga lokal. Verified by CS.</p>
+        </div>
+      </div>
+
+      <div class="property-grid" id="propertyGrid"></div>
+    </div>
+  </div>
+
+  <!-- ==== PENDIDIKAN ==== -->
+  <div class="cat-section" id="cat-pendidikan">
+    <div class="container">
+      <div class="cat-header">
+        <div>
+          <span class="cat-tag pendidikan">🎓 PENDIDIKAN</span>
+          <h2>Info Sekolah & Bimbel</h2>
+          <p>Direktori pendidikan lokal, daftar cepat via CS kami.</p>
+        </div>
+      </div>
+
+      <div class="edu-grid" id="eduGrid"></div>
+    </div>
+  </div>
+
+  <!-- ==== WIFI ==== -->
+  <div class="cat-section" id="cat-wifi">
+    <div class="container">
+      <div class="cat-header">
+        <div>
+          <span class="cat-tag wifi">📡 WIFI</span>
+          <h2>Pasang WiFi Rumah</h2>
+          <p>Internet cepat & stabil. Cukup daftar, tim survei akan datang!</p>
+        </div>
+      </div>
+
+      <div class="wifi-grid" id="wifiGrid"></div>
+
+      <!-- Form WiFi -->
+      <div class="wifi-form-card">
+        <h3><i class="fas fa-clipboard-list"></i> Formulir Pendaftaran WiFi</h3>
+        <form id="wifiForm" onsubmit="submitWifi(event)">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Nama Lengkap</label>
+              <input type="text" id="wifiNama" required placeholder="cth: Budi Santoso">
+            </div>
+            <div class="form-group">
+              <label>No. WhatsApp</label>
+              <input type="tel" id="wifiWa" required placeholder="cth: 08123456789">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Alamat Pemasangan</label>
+            <textarea id="wifiAlamat" rows="2" required placeholder="Jl. Contoh No. 10, RT/RW, Desa..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Pilih Paket</label>
+            <select id="wifiPaket" required>
+              <option value="">-- Pilih Paket --</option>
+              <option value="Basic 10 Mbps - Rp 150.000">Basic 10 Mbps — Rp 150.000/bulan</option>
+              <option value="Standar 20 Mbps - Rp 200.000">Standar 20 Mbps — Rp 200.000/bulan</option>
+              <option value="Premium 50 Mbps - Rp 300.000">Premium 50 Mbps — Rp 300.000/bulan</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-submit">
+            <i class="fab fa-whatsapp"></i> Kirim Pendaftaran ke CS
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ============ KEUNGGULAN ============ -->
+<section class="why-us">
+  <div class="container">
+    <div class="section-title">
+      <h2>Kenapa PortalWarga?</h2>
+      <p>Kami memudahkan hidup warga sekitar</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-icon"><i class="fas fa-headset"></i></div>
+        <h4>CS Ramah 24/7</h4>
+        <p>Tim CS kami siap melayani dan menjawab pertanyaan Anda kapan saja.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><i class="fas fa-motorcycle"></i></div>
+        <h4>Kurir Lokal Cepat</h4>
+        <p>Kurir kami hafal jalan sekitar, antar pesanan dalam hitungan menit.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><i class="fas fa-handshake"></i></div>
+        <h4>Support UMKM</h4>
+        <p>Setiap transaksi membantu UMKM tetangga Anda naik kelas.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+        <h4>Terpercaya & Aman</h4>
+        <p>Semua mitra terverifikasi. Pembayaran mudah lewat CS.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="brand-icon">📍</span>
+        <div>
+          <strong>PortalWarga</strong>
+          <p>Portal Layanan Terpadu Kecamatan</p>
+        </div>
+      </div>
+      <div class="footer-contact">
+        <a href="https://wa.me/6281401643188"><i class="fab fa-whatsapp"></i> 0814-0164-3188</a>
+        <a href="mailto:cs@portalwarga.id"><i class="fas fa-envelope"></i> cs@portalwarga.id</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 PortalWarga — Demo Template by <a href="../../template.html">Ibaadurrahmaan Web Designer</a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ============ CART DRAWER ============ -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-head">
+    <h3><i class="fas fa-shopping-basket"></i> Keranjang Belanja</h3>
+    <button onclick="closeCart()" class="cart-close"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-foot">
+    <div class="cart-total">
+      <span>Total:</span>
+      <b id="cartTotal">Rp 0</b>
+    </div>
+    <button class="btn-checkout" onclick="checkoutWA()">
+      <i class="fab fa-whatsapp"></i> Checkout via WhatsApp CS
+    </button>
+  </div>
+</aside>
+
+
+<!-- ============ FLOATING WA ============ -->
+<a href="https://wa.me/6281401643188" class="fab-wa" title="Chat CS">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+
+<!-- ============ TOAST NOTIF ============ -->
+<div class="toast" id="toast"></div>
+
+
+<script src="script.js"></script>
+</body>
+</html>
