@@ -806,26 +806,25 @@ body {
 
 .btn-checkout:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(22, 163, 74, 0.3); }
 
-/* ============ FAB WA ============ */
+/* ============ FAB WA (IKON TANPA BACKGROUND - LEBIH BESAR) ============ */
 .fab-wa {
   position: fixed;
   bottom: 24px;
   right: 24px;
   width: auto;
   height: auto;
-  background: transparent;          /* hilangkan background hijau */
-  color: #25D366;                   /* warna ikon WA resmi */
+  background: transparent;
+  color: #25D366;                   /* Warna hijau WA */
   border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.6rem;                /* ikon lebih besar biar tetap menonjol */
+  font-size: 3.5rem;                /* ⚡ UKURAN DIPERBESAR (sebelumnya 2.6rem) */
   text-decoration: none;
-  box-shadow: none;                 /* hilangkan bayangan bulat */
+  box-shadow: none;
   z-index: 90;
   transition: var(--transition);
-  animation: none;                  /* hilangkan pulse hijau */
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2)); /* bayangan halus di ikon saja */
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25)); /* Bayangan ikon */
 }
 
 .fab-wa:hover {
@@ -838,7 +837,7 @@ body {
   .fab-wa {
     bottom: 20px;
     right: 20px;
-    font-size: 3.5rem;
+    font-size: 3.0rem;              /* ⚡ UKURAN MOBILE DIPERBESAR (sebelumnya 2.3rem) */
   }
 }
 @keyframes pulse {
