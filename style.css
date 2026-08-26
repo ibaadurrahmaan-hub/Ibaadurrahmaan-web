@@ -1,6 +1,7 @@
 /* ====================================================
    IBAADURRAHMAAN — Modern Premium Web Design
-   Version 8.0 · Full Redesign ==================================================== */
+   Version 8.2 · Full Redesign & Fixed Nav / WA Bot
+   ==================================================== */
 
 :root{
   /* Colors */
@@ -75,7 +76,7 @@ body{
 
 
 /* ==================================================
-   NAVBAR
+   NAVBAR & DESKTOP DROPDOWNS
    ================================================== */
 .navbar{
   position:fixed;
@@ -145,6 +146,10 @@ body{
   align-items:center;
 }
 
+.nav-item {
+  position: relative;
+}
+
 .nav-link{
   color:var(--text-muted);
   text-decoration:none;
@@ -153,7 +158,9 @@ body{
   padding:10px 18px;
   border-radius:100px;
   transition:all 0.3s var(--ease);
-  position:relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .nav-link:hover{
@@ -164,6 +171,113 @@ body{
 .nav-link.active{
   color:var(--gold);
   background:rgba(212,165,54,0.12);
+}
+
+.nav-link-highlight {
+  color: var(--gold-light) !important;
+  font-weight: 600;
+}
+
+.dd-arrow {
+  font-size: 0.7rem;
+  transition: transform 0.3s var(--ease);
+}
+
+/* Dropdown Container */
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  width: 300px;
+  background: rgba(10, 21, 38, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 10px;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s var(--ease);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 120;
+}
+
+.nav-has-dropdown:hover .nav-dropdown,
+.nav-has-dropdown.open .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.nav-has-dropdown:hover .dd-arrow,
+.nav-has-dropdown.open .dd-arrow {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Links */
+.dropdown-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--text-muted);
+  transition: all 0.25s var(--ease);
+}
+
+.dropdown-link:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+}
+
+.dropdown-link.featured {
+  background: rgba(37, 211, 102, 0.06);
+  border: 1px solid rgba(37, 211, 102, 0.18);
+}
+
+.dropdown-link.featured:hover {
+  background: rgba(37, 211, 102, 0.12);
+  border-color: var(--wa);
+}
+
+.dd-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+.dd-icon.icon-blue   { background: rgba(30, 74, 143, 0.18); color: #3b82f6; }
+.dd-icon.icon-purple { background: rgba(139, 92, 246, 0.18); color: #a78bfa; }
+.dd-icon.icon-green  { background: rgba(37, 211, 102, 0.18); color: var(--wa); }
+.dd-icon.icon-cyan   { background: rgba(6, 182, 212, 0.18); color: #06b6d4; }
+.dd-icon.icon-gold   { background: rgba(212, 165, 54, 0.18); color: var(--gold); }
+
+.dd-text { display: flex; flex-direction: column; line-height: 1.3; }
+.dd-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dd-desc { font-size: 0.7rem; color: var(--text-dim); }
+.dd-badge {
+  background: var(--grad-gold-shine);
+  color: var(--bg);
+  font-size: 0.55rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
 
@@ -234,8 +348,6 @@ body{
   object-fit:contain;
 }
 
-
-/* Feature Boxes — REDESIGNED */
 .header-features{
   display:flex;
   gap:14px;
@@ -361,8 +473,6 @@ body{
   text-transform:uppercase;
 }
 
-
-/* Benefits List — MODERN */
 .hero-benefits{
   list-style:none;
   margin-bottom:28px;
@@ -411,7 +521,7 @@ body{
 }
 
 
-/* Action Buttons — MODERN */
+/* Action Buttons */
 .hero-actions{
   display:flex;
   gap:14px;
@@ -478,7 +588,7 @@ body{
 
 
 /* ==================================================
-   MOCKUP (Simplified & Cleaner)
+   MOCKUP
    ================================================== */
 .hero-right{
   position:relative;
@@ -684,7 +794,6 @@ body{
   border-radius:0 0 8px 8px;
 }
 
-
 /* Phone Mockup */
 .phone{
   position:absolute;
@@ -837,6 +946,167 @@ body{
   font-size:7.5px;
   font-weight:700;
   line-height:1.2;
+}
+
+
+/* ==================================================
+   RESELLER BANNER
+   ================================================== */
+.reseller-banner-section {
+  padding: 60px 0;
+  background: var(--bg);
+}
+
+.reseller-banner {
+  background: var(--grad-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 40px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.reseller-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(212,165,54,0.1), transparent 60%);
+  pointer-events: none;
+}
+
+.reseller-banner-content {
+  position: relative;
+  z-index: 2;
+}
+
+.reseller-banner-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  background: rgba(212,165,54,0.1);
+  color: var(--gold);
+  border: 1px solid rgba(212,165,54,0.2);
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+.reseller-banner-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.reseller-banner-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.reseller-banner-desc strong {
+  color: var(--gold-light);
+}
+
+.reseller-banner-stats {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.reseller-stat {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  min-width: 100px;
+}
+
+.reseller-stat-num {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.reseller-stat-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.reseller-banner-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.reseller-banner-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 220px;
+  z-index: 1;
+}
+
+.reseller-icon-large {
+  font-size: 8rem;
+  color: var(--gold);
+  opacity: 0.12;
+  filter: drop-shadow(0 10px 20px var(--gold-glow));
+  animation: logoFloat 5s ease-in-out infinite;
+}
+
+.reseller-coins {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.reseller-coins i {
+  position: absolute;
+  color: var(--gold-light);
+  filter: drop-shadow(0 4px 10px var(--gold-glow));
+}
+
+.reseller-coins i:nth-child(1) {
+  font-size: 1.8rem;
+  top: 15%;
+  left: 20%;
+  animation: logoFloat 4s ease-in-out infinite;
+}
+
+.reseller-coins i:nth-child(2) {
+  font-size: 2.2rem;
+  bottom: 15%;
+  right: 20%;
+  animation: logoFloat 6s ease-in-out infinite 1s;
+}
+
+.reseller-coins i:nth-child(3) {
+  font-size: 1.5rem;
+  top: 55%;
+  left: 75%;
+  animation: logoFloat 5s ease-in-out infinite 0.5s;
 }
 
 
@@ -1160,7 +1430,7 @@ body{
 }
 
 
-/* CTA Box — REDESIGNED */
+/* CTA Box */
 .cta-box{
   background:var(--grad-card);
   border:1px solid var(--border);
@@ -1663,24 +1933,31 @@ body{
 
 
 /* ==================================================
-   MOBILE BOTTOM NAV
+   MOBILE BOTTOM NAV — PILL GOLD & BORDERLESS FIX
    ================================================== */
 .mobile-nav{
-  display:none;
+  display:none; /* Diaktifkan lewat Media Query max-width: 768px */
   position:fixed;
   bottom:16px;
   left:50%;
   transform:translateX(-50%);
-  background:rgba(5,11,24,0.92);
+  width:calc(100% - 24px);
+  max-width:440px;
+  z-index:1000;
+
+  background:rgba(5,11,24,0.94);
   backdrop-filter:blur(24px) saturate(180%);
   -webkit-backdrop-filter:blur(24px) saturate(180%);
+
   border:1px solid var(--border);
-  border-radius:28px;
-  padding:10px;
-  z-index:1000;
+  border-radius:100px; /* Full Capsule */
+  padding:6px 8px;
   gap:4px;
-  box-shadow:0 12px 40px rgba(0,0,0,0.5);
+
+  box-shadow:0 12px 40px rgba(0,0,0,0.55);
   transition:transform 0.4s var(--ease),opacity 0.3s var(--ease);
+  align-items:center;
+  justify-content:space-around;
 }
 
 .mobile-nav.hidden{
@@ -1689,122 +1966,371 @@ body{
   pointer-events:none;
 }
 
+/* Item Base State */
 .mnav-item{
+  flex:1;
+  min-width:0;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:4px;
-  min-width:70px;
-  padding:10px 14px;
+  gap:3px;
+  padding:8px 6px;
+
   color:var(--text-muted);
   text-decoration:none;
-  border-radius:18px;
+  background:transparent;
+  border:none !important; /* Hapus frame/border putih yang liar */
+  outline:none !important;
+  border-radius:100px; /* Memastikan highlight hover/active berbentuk pil */
+  font-family:inherit;
+  cursor:pointer;
   transition:all 0.3s var(--ease);
-  
-  /* FIX BORDER PUTIH (TOMBOL HTML) */
-  border: none !important;
-  outline: none !important;
-  background: transparent;
-  font-family: inherit;
 }
 
 .mnav-item i{
-  font-size:1.2rem;
-  transition:transform 0.3s var(--ease);
+  font-size:1.15rem;
+  line-height:1;
+  color:var(--text-muted);
+  border:none !important;
+  outline:none !important;
+  transition:transform 0.3s var(--ease), color 0.3s var(--ease);
 }
 
 .mnav-item span{
-  font-size:0.65rem;
+  font-size:0.62rem;
   font-weight:600;
-  letter-spacing:0.3px;
-  opacity:0.8;
+  letter-spacing:0.2px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:100%;
+  opacity:0.85;
+  color:var(--text-muted);
 }
 
-.mnav-item:active{transform:scale(0.92);}
+.mnav-item:active{ transform:scale(0.92); }
 
-/* FIX PILL GOLD ACTIVE */
+/* ACTIVE STATE = PILL GOLD SOLID */
 .mnav-item.active{
   background:var(--grad-gold-shine) !important;
   color:var(--bg) !important;
+  border-radius:100px !important;
+  border:none !important;
+  outline:none !important;
   box-shadow:0 6px 18px var(--gold-glow) !important;
-  border-radius: 100px !important;
 }
 
-.mnav-item.active i { transform:scale(1.15); color: var(--bg) !important; }
-.mnav-item.active span { opacity:1; font-weight:700; color: var(--bg) !important; }
+.mnav-item.active i{
+  color:var(--bg) !important;
+  transform:scale(1.12);
+}
+
+.mnav-item.active span{
+  color:var(--bg) !important;
+  font-weight:800 !important;
+  opacity:1 !important;
+}
 
 
 /* ==================================================
-   FLOATING WA
+   MOBILE BOTTOM SHEET
    ================================================== */
-.fab-wa{
-  display:none;
+.mobile-sheet-overlay{
+  position:fixed; inset:0;
+  background:rgba(5,11,24,0.85);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  z-index:10001;
+  opacity:0; pointer-events:none;
+  transition:opacity 0.35s var(--ease);
+}
+.mobile-sheet-overlay.active{
+  opacity:1; pointer-events:auto;
+}
+
+.mobile-sheet{
   position:fixed;
-  right:18px;
-  bottom:110px;
-  color:var(--wa);
-  text-decoration:none;
-  font-size:4rem;
-  z-index:999;
-  filter:drop-shadow(0 6px 20px rgba(37,211,102,0.7));
-  transition:transform 0.3s var(--ease);
-  animation:iconPulse 2s ease-in-out infinite;
-  line-height:1;
+  bottom:0; left:50%;
+  transform:translateX(-50%) translateY(110%);
+  width:100%; max-width:480px;
+  background:var(--bg-card);
+  border-top:1px solid var(--border);
+  border-radius:24px 24px 0 0;
+  z-index:10002;
+  padding:20px 20px 28px;
+  box-shadow:0 -12px 40px rgba(0,0,0,0.55);
+  transition:transform 0.4s var(--ease);
+}
+.mobile-sheet.active{
+  transform:translateX(-50%) translateY(0);
 }
 
-.fab-wa:hover{
-  transform:scale(1.15);
-  animation:none;
+.sheet-handle{
+  width:42px; height:4px;
+  background:var(--text-dim);
+  border-radius:4px;
+  margin:0 auto 16px;
+  opacity:0.5;
+}
+.sheet-header{
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:16px;
+}
+.sheet-title{
+  font-family:'Montserrat',sans-serif;
+  font-weight:800; font-size:1.15rem; color:var(--text);
+}
+.sheet-close{
+  width:34px; height:34px;
+  border:none; background:transparent;
+  color:var(--text-muted); font-size:1.1rem;
+  border-radius:50%; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+}
+.sheet-close:hover{ background:rgba(255,255,255,0.06); color:var(--text); }
+
+.sheet-content{
+  max-height:55vh;
+  overflow-y:auto;
+  display:flex; flex-direction:column; gap:8px;
+  padding-bottom:12px;
+}
+.sheet-content .dropdown-link{ width:100%; }
+
+
+/* ==================================================
+   WHATSAPP BOT & TOGGLE BUTTON (TRANSPARAN BACKGROUND)
+   ================================================== */
+.wa-bot-container {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9999;
+  font-family: inherit;
 }
 
-.fab-wa:active{transform:scale(0.9);}
+/* Floating Button — Hanya Ikon Hijau tanpa Box Background */
+.wa-bot-toggle {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border: none;
+  background: transparent !important; /* Dihilangkan */
+  color: var(--wa) !important; /* Ikon WhatsApp berwarna Hijau Original */
+  font-size: 58px; /* Diperbesar karena tidak ada box */
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  
+  box-shadow: none !important; /* Hapus kotak bayangan */
+  filter: drop-shadow(0 6px 16px rgba(37, 211, 102, 0.4)); /* Ganti dengan bayangan khusus logo */
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
 
-@keyframes iconPulse{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.1);}
+.wa-bot-toggle:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 10px 24px rgba(37, 211, 102, 0.6));
+}
+
+/* Notification Badge disesuaikan posisinya karena tombol membesar */
+.wa-bot-badge {
+  position: absolute;
+  top: 0px;
+  right: -2px;
+  width: 22px;
+  height: 22px;
+  background: #e53935;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--bg);
+}
+
+/* BOT WINDOW */
+.wa-bot-window {
+  position: absolute;
+  right: 0;
+  bottom: 78px;
+  width: 360px;
+  max-width: calc(100vw - 32px);
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.96);
+  transform-origin: bottom right;
+  transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
+}
+
+.wa-bot-window.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* HEADER */
+.wa-bot-header {
+  padding: 16px;
+  background: #075E54;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wa-bot-profile {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.wa-bot-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.wa-bot-title {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.wa-bot-status {
+  margin-top: 3px;
+  font-size: 11px;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.wa-bot-status span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #25D366;
+}
+
+.wa-bot-close {
+  width: 34px;
+  height: 34px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.wa-bot-close:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* CHAT */
+.wa-bot-chat {
+  padding: 18px;
+  background: #efeae2;
+  min-height: 330px;
+  max-height: 430px;
+  overflow-y: auto;
+}
+
+.wa-message {
+  max-width: 88%;
+  margin-bottom: 14px;
+}
+
+.wa-message-content {
+  padding: 12px 14px;
+  background: #fff;
+  border-radius: 4px 14px 14px 14px;
+  color: #222;
+  font-size: 13px;
+  line-height: 1.55;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+}
+
+.wa-message.user {
+  margin-left: auto;
+}
+
+.wa-message.user .wa-message-content {
+  background: #d9fdd3;
+  border-radius: 14px 4px 14px 14px;
+}
+
+.wa-message-time {
+  margin-top: 4px;
+  font-size: 9px;
+  color: #777;
+  text-align: right;
+}
+
+/* MENU */
+.wa-bot-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* FOOTER */
+.wa-bot-footer {
+  padding: 12px;
+  background: #fff;
+  border-top: 1px solid #eee;
+}
+
+.wa-contact-admin {
+  width: 100%;
+  padding: 11px;
+  border: none;
+  border-radius: 10px;
+  background: #25D366;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.wa-contact-admin:hover {
+  background: #1ebe5d;
+  transform: translateY(-1px);
 }
 
 
 /* ==================================================
    SCROLL ANIMATIONS
    ================================================== */
-.fade-in{
-  opacity:0;
-  transform:translateY(30px);
-  transition:all 0.8s cubic-bezier(0.2,0.7,0.3,1);
-}
-
-.fade-in.visible{
-  opacity:1;
-  transform:translateY(0);
-}
-
-.fade-left{
-  opacity:0;
-  transform:translateX(-40px);
-  transition:all 0.8s cubic-bezier(0.2,0.7,0.3,1);
-}
-
-.fade-left.visible{
-  opacity:1;
-  transform:translateX(0);
-}
-
-.fade-right{
-  opacity:0;
-  transform:translateX(40px);
-  transition:all 0.8s cubic-bezier(0.2,0.7,0.3,1);
-}
-
-.fade-right.visible{
-  opacity:1;
-  transform:translateX(0);
-}
+.fade-in{ opacity:0; transform:translateY(30px); transition:all 0.8s cubic-bezier(0.2,0.7,0.3,1); }
+.fade-in.visible{ opacity:1; transform:translateY(0); }
+.fade-left{ opacity:0; transform:translateX(-40px); transition:all 0.8s cubic-bezier(0.2,0.7,0.3,1); }
+.fade-left.visible{ opacity:1; transform:translateX(0); }
+.fade-right{ opacity:0; transform:translateX(40px); transition:all 0.8s cubic-bezier(0.2,0.7,0.3,1); }
+.fade-right.visible{ opacity:1; transform:translateX(0); }
 
 
 /* ==================================================
-   RESPONSIVE
+   RESPONSIVE (MEDIA QUERIES)
    ================================================== */
 @media (max-width:992px){
   .hero{grid-template-columns:1fr;gap:50px;}
@@ -1816,13 +2342,13 @@ body{
   .bottom-grid{grid-template-columns:1fr;}
   .info-grid{grid-template-columns:1fr;}
   .hero-title{font-size:64px;}
+  .reseller-banner {grid-template-columns: 1fr; gap: 30px;}
+  .reseller-banner-visual {min-height: auto;}
 }
-
 
 @media (max-width:768px){
   .nav-menu{display:none;}
   .mobile-nav{display:flex;}
-  .fab-wa{display:flex;}
   body{padding-bottom:110px;}
   
   .navbar{
@@ -1832,17 +2358,11 @@ body{
   }
   
   .nav-inner{justify-content:center;}
-  
-  .nav-brand-text{
-    align-items:center;
-    text-align:center;
-  }
-  
+  .nav-brand-text{ align-items:center; text-align:center; }
   .brand-name-nav{font-size:1.05rem;}
   .brand-sub-nav{font-size:0.6rem;letter-spacing:1.8px;}
   
   .poster{padding:100px 20px 50px;}
-  
   .header{
     flex-direction:column;
     align-items:center;
@@ -1852,12 +2372,7 @@ body{
   }
   
   .brand-logo-img{height:110px;max-width:250px;}
-  
-  .header-features{
-    justify-content:center;
-    gap:10px;
-  }
-  
+  .header-features{ justify-content:center; gap:10px; }
   .hf-box{padding:14px 12px;min-width:88px;}
   .hf-box i{font-size:24px;}
   .hf-box span{font-size:9px;}
@@ -1867,21 +2382,11 @@ body{
   .hero-desc{font-size:14px;}
   
   .mockup-wrapper{
-    display:flex;
-    justify-content:center;
-    padding-right:60px;
-    position:relative;
-    max-width:100%;
+    display:flex; justify-content:center;
+    padding-right:60px; position:relative; max-width:100%;
   }
-  
   .laptop{max-width:100%;}
-  
-  .phone{
-    width:130px;
-    right:-10px;
-    top:auto;
-    bottom:30px;
-  }
+  .phone{ width:130px; right:-10px; top:auto; bottom:30px; }
   
   .info-box{padding:26px;}
   .cocok-grid{grid-template-columns:repeat(5,1fr);}
@@ -1889,41 +2394,27 @@ body{
   .cocok-item span{font-size:9px;}
   
   .layanan-grid{grid-template-columns:1fr;}
-  
   .cta-heading{font-size:36px;}
   .phone-number{font-size:20px;}
   
   .section{padding:70px 0;}
-  
   .proses-grid{grid-template-columns:1fr;}
   
-  .footer-features{
-    grid-template-columns:1fr 1fr;
-    gap:16px;
-  }
-  
-  .footer-bottom{
-    grid-template-columns:1fr;
-    text-align:center;
-    gap:24px;
-  }
-  
+  .footer-features{ grid-template-columns:1fr 1fr; gap:16px; }
+  .footer-bottom{ grid-template-columns:1fr; text-align:center; gap:24px; }
   .footer-brand{display:flex;justify-content:center;}
   .footer-copy{text-align:center;}
   
-  .fab-wa{
-    font-size:3.6rem;
-    right:14px;
-    bottom:105px;
-  }
+  .reseller-banner { padding: 30px 24px; gap: 20px; }
+  .reseller-banner-visual { order: -1; min-height: auto; margin-bottom: 10px; }
+  .reseller-icon-large { font-size: 5rem; }
 
-  /* POSISI WA BOT AGAR TIDAK NABRAK NAV */
+  /* MENGGESER TOMBOL BOT AGAR TIDAK MENUTUPI NAVIGASI */
   .wa-bot-container {
-    right: 16px;
-    bottom: 92px; /* Naik di atas nav */
+    right: 16px !important;
+    bottom: 92px !important; /* Aman di atas navbar */
   }
 }
-
 
 @media (max-width:640px){
   .brand-logo-img{height:95px;max-width:220px;}
@@ -1942,27 +2433,21 @@ body{
   .paket-card.featured{margin-top:15px;transform:scale(1);}
   
   .cocok-grid{grid-template-columns:repeat(3,1fr);}
-  
   .mockup-wrapper{padding-right:50px;}
   .phone{width:110px;bottom:20px;right:-5px;}
   .laptop-hero h2{font-size:18px;}
   
   .hero-actions{flex-direction:column;}
   .btn-primary,.btn-secondary{
-    width:100%;
-    justify-content:center;
+    width:100%; justify-content:center;
   }
-  
-  .fab-wa{font-size:3.3rem;}
   
   .info-title{font-size:16px;letter-spacing:2px;}
   .paket-header h3{font-size:18px;}
 }
 
-
 @media (max-width:480px){
   .navbar{padding:10px 18px;}
-  
   .brand-name-nav{font-size:0.98rem;}
   .brand-sub-nav{font-size:0.55rem;letter-spacing:1.2px;}
   
@@ -1971,7 +2456,6 @@ body{
   
   .hero-title{font-size:36px;}
   .cta-heading{font-size:26px;}
-  
   .brand-logo-img{height:85px;max-width:190px;}
   
   .header-features{gap:8px;}
@@ -1981,366 +2465,25 @@ body{
   
   .footer-features{grid-template-columns:1fr 1fr;}
   
-  .mnav-item{min-width:62px;padding:8px 10px;}
-  .mnav-item span{font-size:0.62rem;}
+  /* Ukuran di HP layar kecil agar pas */
+  .mnav-item{padding:8px 4px;}
+  .mnav-item span{font-size:0.6rem;}
   .mnav-item i{font-size:1.05rem;}
-  
-  .fab-wa{font-size:3rem;}
   
   .section{padding:60px 0;}
   .section-header{margin-bottom:40px;}
   
-  /* POSISI WA BOT AGAR TIDAK NABRAK NAV (HP KECIL) */
   .wa-bot-container {
-    right: 16px;
-    bottom: 92px; /* Naik di atas nav */
+    right: 14px !important;
+    bottom: 90px !important;
   }
   .wa-bot-window {
     width: calc(100vw - 32px);
     right: 0;
-    bottom: 74px;
+    bottom: 84px; /* Sesuaikan sedikit panel bot-nya */
   }
   .wa-bot-chat {
     min-height: 300px;
     max-height: 60vh;
   }
-  .wa-bot-toggle {
-    width: 58px;
-    height: 58px;
-    font-size: 27px;
-  }
-}
-
-/* =========================================
-   WHATSAPP BOT BASIC
-========================================= */
-
-.wa-bot-container {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 99999;
-  font-family: inherit;
-}
-
-
-/* =========================================
-   FLOATING BUTTON
-========================================= */
-
-.wa-bot-toggle {
-  position: relative;
-  width: 62px;
-  height: 62px;
-
-  border: none;
-  border-radius: 50%;
-
-  background: #25D366;
-  color: #fff;
-
-  font-size: 30px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
-
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.25);
-
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-.wa-bot-toggle:hover {
-  transform: scale(1.08);
-
-  box-shadow:
-    0 14px 35px rgba(0, 0, 0, 0.30);
-}
-
-
-/* Notification Badge */
-
-.wa-bot-badge {
-  position: absolute;
-
-  top: -3px;
-  right: -2px;
-
-  width: 21px;
-  height: 21px;
-
-  background: #e53935;
-  color: #fff;
-
-  border-radius: 50%;
-
-  font-size: 11px;
-  font-weight: 700;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 2px solid #fff;
-}
-
-
-/* =========================================
-   BOT WINDOW
-========================================= */
-
-.wa-bot-window {
-  position: absolute;
-
-  right: 0;
-  bottom: 78px;
-
-  width: 360px;
-  max-width: calc(100vw - 32px);
-
-  background: #fff;
-
-  border-radius: 18px;
-
-  overflow: hidden;
-
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.25);
-
-  opacity: 0;
-  visibility: hidden;
-
-  transform:
-    translateY(20px)
-    scale(0.96);
-
-  transform-origin: bottom right;
-
-  transition:
-    opacity 0.25s ease,
-    visibility 0.25s ease,
-    transform 0.25s ease;
-}
-
-
-/* Active */
-
-.wa-bot-window.active {
-  opacity: 1;
-  visibility: visible;
-
-  transform:
-    translateY(0)
-    scale(1);
-}
-
-
-/* =========================================
-   HEADER
-========================================= */
-
-.wa-bot-header {
-  padding: 16px;
-
-  background: #075E54;
-  color: #fff;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.wa-bot-profile {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-}
-
-.wa-bot-avatar {
-  width: 42px;
-  height: 42px;
-
-  border-radius: 50%;
-
-  background: #25D366;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 22px;
-}
-
-.wa-bot-title {
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.wa-bot-status {
-  margin-top: 3px;
-
-  font-size: 11px;
-  opacity: 0.9;
-
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.wa-bot-status span {
-  width: 7px;
-  height: 7px;
-
-  border-radius: 50%;
-
-  background: #25D366;
-}
-
-.wa-bot-close {
-  width: 34px;
-  height: 34px;
-
-  border: none;
-  background: transparent;
-
-  color: #fff;
-
-  font-size: 18px;
-
-  cursor: pointer;
-
-  border-radius: 50%;
-}
-
-.wa-bot-close:hover {
-  background: rgba(255, 255, 255, 0.12);
-}
-
-
-/* =========================================
-   CHAT
-========================================= */
-
-.wa-bot-chat {
-  padding: 18px;
-
-  background:
-    #efeae2;
-
-  min-height: 330px;
-  max-height: 430px;
-
-  overflow-y: auto;
-}
-
-
-/* Message */
-
-.wa-message {
-  max-width: 88%;
-
-  margin-bottom: 14px;
-}
-
-.wa-message-content {
-  padding: 12px 14px;
-
-  background: #fff;
-
-  border-radius:
-    4px 14px 14px 14px;
-
-  color: #222;
-
-  font-size: 13px;
-  line-height: 1.55;
-
-  box-shadow:
-    0 2px 5px rgba(0, 0, 0, 0.06);
-}
-
-.wa-message.user {
-  margin-left: auto;
-}
-
-.wa-message.user .wa-message-content {
-  background: #d9fdd3;
-
-  border-radius:
-    14px 4px 14px 14px;
-}
-
-.wa-message-time {
-  margin-top: 4px;
-
-  font-size: 9px;
-
-  color: #777;
-
-  text-align: right;
-}
-
-
-/* =========================================
-   MENU
-========================================= */
-
-.wa-bot-menu {
-  display: flex;
-  flex-direction: column;
-
-  gap: 8px;
-
-  margin-top: 10px;
-}
-
-/* =========================================
-   FOOTER
-========================================= */
-
-.wa-bot-footer {
-  padding: 12px;
-
-  background: #fff;
-
-  border-top: 1px solid #eee;
-}
-
-.wa-contact-admin {
-  width: 100%;
-
-  padding: 11px;
-
-  border: none;
-
-  border-radius: 10px;
-
-  background: #25D366;
-  color: #fff;
-
-  font-size: 13px;
-  font-weight: 700;
-
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 7px;
-
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
-}
-
-.wa-contact-admin:hover {
-  background: #1ebe5d;
-
-  transform: translateY(-1px);
 }
