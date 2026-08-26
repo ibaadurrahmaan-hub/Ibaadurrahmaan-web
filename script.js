@@ -1,6 +1,6 @@
 /* ====================================================
    IBAADURRAHMAAN — Interactive Script
-   Version 8.5 · Full Inject, Fixed Nav Bug, & Live Demos
+   Version 8.6 · Nested Live Demo & Fixed Sheet Z-Index
    ==================================================== */
 
 /* ===== 1. INJECT SUBPAGE HEADER (Back + Logo + Brand Box) ===== */
@@ -9,7 +9,6 @@ function injectSubpageHeader() {
   const file = path.split('/').pop() || 'index.html';
   const isHome = file === '' || file === 'index.html' || file === 'index' || path.endsWith('/');
 
-  // Hanya muncul di halaman selain Beranda (Home)
   if (isHome) return;
   if (document.querySelector('.subpage-header-wrapper')) return;
 
@@ -36,17 +35,14 @@ function injectSubpageHeader() {
   if (btnBack) {
     btnBack.addEventListener('click', (e) => {
       e.preventDefault();
-      if (window.history.length > 1) {
-        window.history.back();
-      } else {
-        window.location.href = 'index.html';
-      }
+      if (window.history.length > 1) window.history.back();
+      else window.location.href = 'index.html';
     });
   }
 }
 
 
-/* ===== 2. BOTTOM SHEET DATA + ENGINE ===== */
+/* ===== 2. BOTTOM SHEET (NESTED MENU) ===== */
 const sheetData = {
   layanan: {
     title: 'Layanan Website',
@@ -54,17 +50,25 @@ const sheetData = {
       { href: 'layanan.html', icon: 'fa-briefcase', color: 'blue', title: 'Layanan Kami', desc: 'Overview semua jasa pembuatan website' },
       { href: 'portfolio.html', icon: 'fa-images', color: 'purple', title: 'Portfolio', desc: 'Kumpulan karya-karya terbaik kami' },
       { href: 'template.html', icon: 'fa-palette', color: 'green', title: 'Template Website', desc: 'Katalog desain premium siap pakai' },
-      
-      // LIVE DEMO MENUS
-      { href: 'demo/busana-muslim/', icon: 'fa-star-and-crescent', color: 'cyan', title: 'Demo · Busana Muslim', desc: 'Template toko busana muslim' },
-      { href: 'demo/corporate-1/', icon: 'fa-building', color: 'cyan', title: 'Demo · Corporate 1', desc: 'Template profil perusahaan' },
-      { href: 'demo/fashion-1/', icon: 'fa-shirt', color: 'cyan', title: 'Demo · Fashion 1', desc: 'Template toko distro & fashion' },
-      { href: 'demo/portal-lokal/', icon: 'fa-newspaper', color: 'cyan', title: 'Demo · Portal Lokal', desc: 'Template web portal berita' },
-      { href: 'demo/restaurant-1/', icon: 'fa-utensils', color: 'cyan', title: 'Demo · Restaurant 1', desc: 'Template rumah makan / kafe' },
-      { href: 'demo/travel-umrah/', icon: 'fa-kaaba', color: 'cyan', title: 'Demo · Travel Umrah', desc: 'Template biro travel & umrah' },
-      { href: 'demo/wifi-provider/', icon: 'fa-wifi', color: 'cyan', title: 'Demo · WiFi Provider', desc: 'Template layanan ISP & RT-RW Net' }
+      { type: 'submenu', submenu: 'live-demo', icon: 'fa-globe', color: 'cyan', title: 'Live Demo', desc: 'Preview template interaktif' }
     ]
   },
+  
+  // SUBMENU LIVE DEMO
+  'live-demo': {
+    title: 'Live Demo',
+    parent: 'layanan', // Key parent untuk tombol kembali
+    items: [
+      { href: 'demo/busana-muslim/', icon: 'fa-star-and-crescent', color: 'cyan', title: 'Busana Muslim', desc: 'Template toko busana muslim' },
+      { href: 'demo/corporate-1/', icon: 'fa-building', color: 'cyan', title: 'Corporate 1', desc: 'Template profil perusahaan' },
+      { href: 'demo/fashion-1/', icon: 'fa-shirt', color: 'cyan', title: 'Fashion 1', desc: 'Template toko distro & fashion' },
+      { href: 'demo/portal-lokal/', icon: 'fa-newspaper', color: 'cyan', title: 'Portal Lokal', desc: 'Template web portal berita' },
+      { href: 'demo/restaurant-1/', icon: 'fa-utensils', color: 'cyan', title: 'Restaurant 1', desc: 'Template rumah makan / kafe' },
+      { href: 'demo/travel-umrah/', icon: 'fa-kaaba', color: 'cyan', title: 'Travel Umrah', desc: 'Template biro travel & umrah' },
+      { href: 'demo/wifi-provider/', icon: 'fa-wifi', color: 'cyan', title: 'WiFi Provider', desc: 'Template layanan ISP / wifi' }
+    ]
+  },
+
   paket: {
     title: 'Paket & Harga',
     items: [
@@ -84,7 +88,7 @@ const sheetData = {
   }
 };
 
-function openMobileSheet(sheetKey) {
+function renderSheet(sheetKey) {
   const data = sheetData[sheetKey];
   if (!data) return;
 
@@ -92,41 +96,95 @@ function openMobileSheet(sheetKey) {
   const sheet = document.getElementById('mobileSheet');
   const titleEl = document.getElementById('sheetTitle');
   const contentEl = document.getElementById('sheetContent');
+  const mobileNav = document.getElementById('mobileNav');
   if (!overlay || !sheet || !titleEl || !contentEl) return;
 
-  triggerVibration(40);
-  titleEl.textContent = data.title;
+  triggerVibration(35);
 
+  // Render Header (Jika Submenu, Munculkan Tombol Back)
+  if (data.parent) {
+    titleEl.innerHTML = `
+      <button type="button" class="sheet-back-btn" id="sheetBackBtn" aria-label="Kembali">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <span>${data.title}</span>
+    `;
+  } else {
+    titleEl.textContent = data.title;
+  }
+
+  // Render Konten List
   contentEl.innerHTML = data.items.map((item) => {
     const badge = item.badge ? `<span class="dd-badge">${item.badge}</span>` : '';
     const featured = item.badge ? 'featured' : '';
+
+    if (item.type === 'submenu') {
+      return `
+        <button type="button" class="dropdown-link sheet-submenu-btn ${featured}" data-submenu="${item.submenu}">
+          <div class="dd-icon icon-${item.color}"><i class="fas ${item.icon}"></i></div>
+          <div class="dd-text">
+            <div class="dd-title">${item.title} ${badge}</div>
+            <div class="dd-desc">${item.desc || ''}</div>
+          </div>
+          <i class="fas fa-chevron-right sheet-chevron"></i>
+        </button>
+      `;
+    }
+
     return `
       <a href="${item.href}" class="dropdown-link ${featured}">
         <div class="dd-icon icon-${item.color}"><i class="fas ${item.icon}"></i></div>
         <div class="dd-text">
           <div class="dd-title">${item.title} ${badge}</div>
-          <div class="dd-desc">${item.desc}</div>
+          <div class="dd-desc">${item.desc || ''}</div>
         </div>
       </a>
     `;
   }).join('');
 
+  // Attach Submenu Event
+  contentEl.querySelectorAll('.sheet-submenu-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const sub = btn.getAttribute('data-submenu');
+      if (sub) renderSheet(sub);
+    });
+  });
+
+  // Attach Back Event
+  const backBtn = document.getElementById('sheetBackBtn');
+  if (backBtn && data.parent) {
+    backBtn.addEventListener('click', () => renderSheet(data.parent));
+  }
+
   overlay.classList.add('active');
   sheet.classList.add('active');
 
-  // PASTIKAN HANYA 1 YANG ACTIVE (Hapus semua, lalu tambah di yg di-klik)
+  // Pastikan navbar tidak hilang
+  if (mobileNav) {
+    mobileNav.classList.remove('hidden');
+    mobileNav.classList.add('sheet-open');
+  }
+
+  // Handle Active Menu Bottom Nav
   document.querySelectorAll('.mnav-item').forEach((el) => el.classList.remove('active'));
-  const activeBtn = document.querySelector(`.mnav-item[data-page="${sheetKey}"]`);
+  const navKey = data.parent || sheetKey; 
+  const activeBtn = document.querySelector(`.mnav-item[data-page="${navKey}"]`);
   if (activeBtn) activeBtn.classList.add('active');
+}
+
+function openMobileSheet(sheetKey) {
+  renderSheet(sheetKey);
 }
 
 function closeMobileSheet() {
   const overlay = document.getElementById('mobileSheetOverlay');
   const sheet = document.getElementById('mobileSheet');
+  const mobileNav = document.getElementById('mobileNav');
+
   if (overlay) overlay.classList.remove('active');
   if (sheet) sheet.classList.remove('active');
+  if (mobileNav) mobileNav.classList.remove('sheet-open');
   
-  // Kembalikan ke menu aktif berdasarkan halaman saat ini
   highlightCurrentPage();
 }
 
@@ -167,12 +225,10 @@ function initNavScroll() {
 function highlightCurrentPage() {
   const path = (window.location.pathname || '').toLowerCase();
   
-  // Ambil nama file atau folder terakhir dari URL (Abaikan slash kosong)
   const segments = path.split('/').filter(Boolean);
   let page = segments.pop() || 'index';
   page = page.replace('.html', '');
 
-  // Mapping sub-halaman & folder demo ke induk menu navigasi
   const map = {
     portfolio: 'layanan',
     template: 'layanan',
@@ -196,16 +252,12 @@ function highlightCurrentPage() {
   };
   const navKey = map[page] || 'index';
 
-  // 1. Hapus class 'active' dari SEMUA menu (Mobile & Desktop)
   document.querySelectorAll('.mnav-item, .nav-link').forEach((el) => {
     el.classList.remove('active');
   });
 
-  // 2. Beri class 'active' HANYA ke menu yang cocok
   const activeItems = document.querySelectorAll(`.mnav-item[data-page="${navKey}"], .nav-link[data-page="${navKey}"]`);
-  activeItems.forEach((el) => {
-    el.classList.add('active');
-  });
+  activeItems.forEach((el) => el.classList.add('active'));
 }
 
 function initActiveMenu() {
@@ -445,90 +497,20 @@ function initWhatsAppBot() {
 }
 
 
-/* ===== 13. INJECT CSS (Style Header Box + Typing Bot) ===== */
+/* ===== 13. INJECT CSS (Nested Menu, Header Box, Tumbuk Fixes) ===== */
 function injectSupportCSS() {
   if (document.getElementById('ibaad-support-css')) return;
   const css = `
     /* Header Box Subpage */
-    .subpage-header-wrapper{
-      position: sticky;
-      top: 0;
-      z-index: 90;
-      padding: 14px 16px 8px;
-      max-width: 920px;
-      margin: 0 auto;
-    }
-    .subpage-header-box{
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 64px;
-      padding: 10px 56px;
-      background: rgba(5,11,24,0.82);
-      border: 1px solid rgba(212,165,54,0.18);
-      border-radius: 100px;
-      backdrop-filter: blur(18px) saturate(160%);
-      -webkit-backdrop-filter: blur(18px) saturate(160%);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-    }
-    .btn-back-header{
-      position: absolute;
-      left: 12px;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      color: #B8C2D1;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: all .25s ease;
-    }
-    .btn-back-header:hover{
-      background: linear-gradient(180deg,#FBE38E 0%,#D4A536 50%,#8B6914 100%);
-      color: #050B18;
-      border-color: #D4A536;
-    }
-    .subpage-brand-center{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-    .subpage-logo{
-      height: 34px;
-      width: auto;
-      object-fit: contain;
-      filter: drop-shadow(0 4px 12px rgba(212,165,54,0.35));
-    }
-    .subpage-brand-text{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      line-height: 1.1;
-    }
-    .subpage-title{
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 800;
-      letter-spacing: -0.3px;
-      background: linear-gradient(180deg,#FBE38E 0%,#D4A536 50%,#8B6914 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .subpage-sub{
-      font-size: 0.58rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-      color: #B8C2D1;
-      text-transform: uppercase;
-      margin-top: 3px;
-    }
+    .subpage-header-wrapper{ position: sticky; top: 0; z-index: 90; padding: 14px 16px 8px; max-width: 920px; margin: 0 auto; }
+    .subpage-header-box{ position: relative; display: flex; align-items: center; justify-content: center; min-height: 64px; padding: 10px 56px; background: rgba(5,11,24,0.82); border: 1px solid rgba(212,165,54,0.18); border-radius: 100px; backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%); box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
+    .btn-back-header{ position: absolute; left: 12px; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #B8C2D1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); transition: all .25s ease; }
+    .btn-back-header:hover{ background: linear-gradient(180deg,#FBE38E 0%,#D4A536 50%,#8B6914 100%); color: #050B18; border-color: #D4A536; }
+    .subpage-brand-center{ display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; }
+    .subpage-logo{ height: 34px; width: auto; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(212,165,54,0.35)); }
+    .subpage-brand-text{ display: flex; flex-direction: column; align-items: center; line-height: 1.1; }
+    .subpage-title{ font-family: 'Montserrat', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: -0.3px; background: linear-gradient(180deg,#FBE38E 0%,#D4A536 50%,#8B6914 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .subpage-sub{ font-size: 0.58rem; font-weight: 600; letter-spacing: 2px; color: #B8C2D1; text-transform: uppercase; margin-top: 3px; }
     @media (max-width: 480px){
       .subpage-header-wrapper{ padding: 12px 12px 6px; }
       .subpage-header-box{ min-height: 58px; padding: 8px 48px; }
@@ -538,54 +520,46 @@ function injectSupportCSS() {
       .subpage-sub{ font-size: 0.52rem; letter-spacing: 1.6px; }
     }
 
-    /* Pastikan HANYA Mnav yang active yang dikotaki EMAS (Rounded 14px) */
-    .mnav-item{
-      border: none !important;
-      outline: none !important;
-      -webkit-appearance: none !important;
-      -webkit-tap-highlight-color: transparent !important;
-      background: transparent;
+    /* FIX: Bottom Nav selalu tampil dan di atas */
+    .mobile-nav { z-index: 10050 !important; }
+    .mobile-nav.sheet-open { opacity: 1 !important; transform: translateX(-50%) translateY(0) !important; pointer-events: auto !important; }
+    .mobile-sheet-overlay { z-index: 1000 !important; }
+    .mobile-sheet {
+      z-index: 1001 !important;
+      bottom: 88px !important;
+      left: 50%;
+      transform: translateX(-50%) translateY(110%);
+      width: calc(100% - 20px) !important;
+      max-width: 480px;
+      max-height: calc(100vh - 120px);
+      border-radius: 24px !important;
+      padding-bottom: 20px;
     }
-    .mnav-item.active{
-      background: linear-gradient(180deg,#FBE38E 0%,#D4A536 50%,#8B6914 100%) !important;
-      color: #050B18 !important;
-      border-radius: 14px !important;
-      box-shadow: 0 6px 18px rgba(212,165,54,0.4) !important;
-    }
-    .mnav-item.active i,
-    .mnav-item.active span{
-      color: #050B18 !important;
-      opacity: 1 !important;
-    }
+    .mobile-sheet.active { transform: translateX(-50%) translateY(0) !important; }
+    .sheet-content { max-height: min(52vh, 420px) !important; overflow-y: auto; padding-bottom: 8px; }
+    @media (max-width: 768px){ .wa-bot-container{ z-index: 10040 !important; bottom: 92px !important; } .wa-bot-window{ bottom: 74px; } }
 
-    /* WA Bot Inject (Icon Only, No Green Box) */
-    .wa-bot-toggle {
-      background: transparent !important;
-      box-shadow: none !important;
-      color: #25D366 !important;
-      font-size: 58px !important;
-      width: auto !important;
-      height: auto !important;
-      filter: drop-shadow(0 8px 18px rgba(37,211,102,0.4));
-    }
-    .wa-bot-toggle:hover { 
-      transform: scale(1.08); 
-      filter: drop-shadow(0 10px 24px rgba(37,211,102,0.6));
-    }
+    /* Nested Menu (Sheet Back Button) */
+    .sheet-title { display: flex; align-items: center; gap: 10px; }
+    .sheet-back-btn { width: 32px; height: 32px; border: none; border-radius: 50%; background: rgba(255,255,255,0.06); color: #B8C2D1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+    .sheet-back-btn:hover { background: linear-gradient(180deg,#FBE38E 0%,#D4A536 50%,#8B6914 100%); color: #050B18; }
+    .sheet-submenu-btn { width: 100%; border: none; background: transparent; font-family: inherit; text-align: left; cursor: pointer; position: relative; padding-right: 36px !important; }
+    .sheet-chevron { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 0.75rem; color: #7A8494; }
+    .sheet-submenu-btn:hover .sheet-chevron { color: #D4A536; }
 
-    /* Chat Bot Typing Animation */
+    /* Nav active & WA Icon */
+    .mnav-item{ border: none !important; outline: none !important; -webkit-appearance: none !important; -webkit-tap-highlight-color: transparent !important; background: transparent; }
+    .mnav-item.active{ background: linear-gradient(180deg,#FBE38E 0%,#D4A536 50%,#8B6914 100%) !important; color: #050B18 !important; border-radius: 14px !important; box-shadow: 0 6px 18px rgba(212,165,54,0.4) !important; }
+    .mnav-item.active i, .mnav-item.active span{ color: #050B18 !important; opacity: 1 !important; }
+    .wa-bot-toggle { background: transparent !important; box-shadow: none !important; color: #25D366 !important; font-size: 58px !important; width: auto !important; height: auto !important; filter: drop-shadow(0 8px 18px rgba(37,211,102,0.4)); }
+    .wa-bot-toggle:hover { transform: scale(1.08); filter: drop-shadow(0 10px 24px rgba(37,211,102,0.6)); }
+
     .typing-dots{display:inline-flex;align-items:center;gap:4px;height:16px;}
     .typing-dots span{width:6px;height:6px;background:#555;border-radius:50%;opacity:.4;animation:bounceDot 1.4s infinite both;}
     .typing-dots span:nth-child(2){animation-delay:.2s;}
     .typing-dots span:nth-child(3){animation-delay:.4s;}
     @keyframes bounceDot{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1.1);opacity:1}}
-    
-    .wa-direct-button{
-      display:inline-flex;align-items:center;gap:8px;
-      background:#25D366;color:#fff;padding:10px 14px;border-radius:10px;
-      font-size:12px;font-weight:700;text-decoration:none;
-      box-shadow:0 4px 12px rgba(37,211,102,.3);
-    }
+    .wa-direct-button{ display:inline-flex;align-items:center;gap:8px; background:#25D366;color:#fff;padding:10px 14px;border-radius:10px; font-size:12px;font-weight:700;text-decoration:none; box-shadow:0 4px 12px rgba(37,211,102,.3); }
   `;
   const style = document.createElement('style');
   style.id = 'ibaad-support-css';
@@ -608,5 +582,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initMockupParallax();
   initWhatsAppBot();
 
-  console.log('%cIbaadurrahmaan Web Designer v8.5', 'color:#D4A536;font-weight:bold;');
+  console.log('%cIbaadurrahmaan Web Designer v8.6', 'color:#D4A536;font-weight:bold;');
 });
