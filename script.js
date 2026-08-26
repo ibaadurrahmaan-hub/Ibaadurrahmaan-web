@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* =========================================
-   WHATSAPP BOT BASIC
+   WHATSAPP BOT BASIC (OPTIMIZED & FIXED)
 ========================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -207,266 +207,218 @@ document.addEventListener("DOMContentLoaded", function () {
   const waBotChat = document.getElementById("waBotChat");
   const waBotMenu = document.getElementById("waBotMenu");
   const waContactAdmin = document.getElementById("waContactAdmin");
-
+  const waBotBadge = document.querySelector(".wa-bot-badge");
 
   /* ========================================
      NOMOR WHATSAPP ADMIN
-     
-     Format:
-     628xxxxxxxxxx
-
-     Jangan gunakan:
-     +62
-     08
-     spasi
-     tanda -
   ======================================== */
-
   const adminNumber = "6281401643188";
-
 
   /* ========================================
      BUKA / TUTUP BOT
   ======================================== */
+  if (waBotToggle && waBotWindow) {
+    waBotToggle.addEventListener("click", function () {
+      waBotWindow.classList.toggle("active");
 
-  waBotToggle.addEventListener("click", function () {
+      // Hilangkan badge notifikasi angka "1" saat pertama dibuka
+      if (waBotBadge) {
+        waBotBadge.style.display = "none";
+      }
 
-    waBotWindow.classList.toggle("active");
+      if (waBotWindow.classList.contains("active")) {
+        scrollChatToBottom();
+      }
+    });
+  }
 
-    if (waBotWindow.classList.contains("active")) {
-      scrollChatToBottom();
-    }
-
-  });
-
-
-  waBotClose.addEventListener("click", function () {
-
-    waBotWindow.classList.remove("active");
-
-  });
-
+  if (waBotClose && waBotWindow) {
+    waBotClose.addEventListener("click", function () {
+      waBotWindow.classList.remove("active");
+    });
+  }
 
   /* ========================================
-     DATA RESPONS BOT
+     DATA RESPONS BOT (DIPERBAIKI EMOJI)
   ======================================== */
-
   const botResponses = {
-
     website: {
       title: "🌐 Paket Website",
-
-      text:
-        "Kami menyediakan website profesional untuk berbagai kebutuhan seperti UMKM, sekolah, lembaga pendidikan, yayasan, klinik, organisasi, personal brand, dan bisnis."
+      text: "Kami menyediakan website profesional untuk berbagai kebutuhan seperti UMKM, sekolah, lembaga pendidikan, yayasan, klinik, organisasi, personal brand, dan bisnis."
     },
-
-
     price: {
       title: "💰 Harga Website",
-
-      text:
-        "Paket website tersedia mulai dari harga yang disesuaikan dengan kebutuhan dan fitur website Anda. Silakan konsultasikan kebutuhan Anda agar kami dapat memberikan rekomendasi paket yang tepat."
+      text: "Paket website kami sangat terjangkau, disesuaikan dengan kebutuhan & fitur. Mulai dari Paket Hemat (Rp 1,5jt), Reguler (Rp 2,5jt), hingga Premium (Rp 5jt)."
     },
-
-
     domain: {
       title: "🔗 Domain & Hosting",
-
-      text:
-        "Kami menyediakan layanan Domain .COM dan Premium Hosting untuk membantu website Anda memiliki alamat profesional serta performa yang cepat dan stabil."
+      text: "Semua paket sudah termasuk GRATIS Domain (.COM / .ID) dan Premium Hosting cepat & stabil selama 1 tahun pertama. Anda terima beres!"
     },
-
-
     maintenance: {
       title: "🔧 Maintenance Website",
-
-      text:
-        "Layanan maintenance meliputi update konten, perbaikan bug, pengecekan fungsi, dan monitoring website sesuai paket maintenance yang dipilih."
+      text: "Layanan maintenance meliputi update konten, perbaikan bug, pengecekan fungsi, dan monitoring keamanan website agar selalu lancar diakses."
     },
-
-
     consultation: {
-      title: "💬 Konsultasi",
-
-      text:
-        "Silakan konsultasikan kebutuhan website Anda. Kami akan membantu menentukan konsep, fitur, paket, domain, hosting, dan layanan tambahan yang sesuai."
+      title: "💬 Konsultasi Gratis",
+      text: "Silakan konsultasikan kebutuhan website Anda secara langsung. Kami siap membantu menentukan konsep, fitur, dan paket yang paling pas untuk bisnis Anda."
     }
-
   };
 
-
   /* ========================================
-     KLIK MENU
+     KLIK MENU BOT
   ======================================== */
-
-  const menuButtons =
-    document.querySelectorAll(".wa-menu-btn");
-
+  const menuButtons = document.querySelectorAll(".wa-menu-btn");
 
   menuButtons.forEach(function (button) {
-
     button.addEventListener("click", function () {
-
-      const menuType =
-        this.getAttribute("data-menu");
-
-      const response =
-        botResponses[menuType];
+      const menuType = this.getAttribute("data-menu");
+      const response = botResponses[menuType];
 
       if (!response) return;
 
+      // 1. Pesan User
+      const userText = this.textContent.trim();
+      addMessage(userText, "user");
 
-      /* User message */
+      // 2. Sembunyikan menu pilihan sejenak
+      if (waBotMenu) waBotMenu.style.display = "none";
 
-      const userText =
-        this.textContent.trim();
+      // 3. Animasi Indikator Mengetik
+      showTypingIndicator();
 
-      addMessage(
-        userText,
-        "user"
-      );
-
-
-      /* Delay respons bot */
-
+      // 4. Delay Respons Bot (600ms agar alami)
       setTimeout(function () {
+        removeTypingIndicator();
 
-        addMessage(
-          `<strong>${response.title}</strong><br><br>${response.text}`,
-          "bot"
-        );
+        // Tambah pesan balasan bot
+        addMessage(`<strong>${response.title}</strong><br><br>${response.text}`, "bot");
 
+        // Tambahkan Tombol Direct WhatsApp
+        addWhatsAppButton(response.title);
 
-        /* Tombol WhatsApp */
+        // Pindahkan menu pilihan ke paling bawah & tampilkan lagi
+        if (waBotMenu) {
+          waBotChat.appendChild(waBotMenu);
+          waBotMenu.style.display = "flex";
+        }
 
-        addWhatsAppButton(
-          response.title
-        );
-
-      }, 500);
-
+        scrollChatToBottom();
+      }, 600);
     });
-
   });
 
-
   /* ========================================
-     TAMBAHKAN PESAN
+     FUNGSI TAMBAH PESAN
   ======================================== */
-
   function addMessage(text, sender) {
+    const message = document.createElement("div");
+    message.className = "wa-message " + sender;
 
-    const message =
-      document.createElement("div");
-
-    message.className =
-      "wa-message " + sender;
-
+    const currentTime = getFormattedTime();
+    const checkDouble = sender === "user" ? '<i class="fas fa-check-double" style="color:#53bdeb; margin-left:3px;"></i>' : '';
 
     message.innerHTML = `
-
       <div class="wa-message-content">
         ${text}
       </div>
-
       <div class="wa-message-time">
-        Sekarang
+        ${currentTime} ${checkDouble}
       </div>
-
     `;
 
-
-    waBotChat.appendChild(message);
+    // Selalu sisipkan sebelum menu jika menu ada
+    if (waBotMenu && waBotMenu.parentNode === waBotChat) {
+      waBotChat.insertBefore(message, waBotMenu);
+    } else {
+      waBotChat.appendChild(message);
+    }
 
     scrollChatToBottom();
-
   }
 
-
   /* ========================================
-     TOMBOL KIRIM WHATSAPP
+     TOMBOL DIRECT WHATSAPP DI BUBBLE CHAT
   ======================================== */
-
   function addWhatsAppButton(topic) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "wa-message bot";
 
-    const wrapper =
-      document.createElement("div");
-
-    wrapper.className =
-      "wa-message bot";
-
-
-    const encodedMessage =
-      encodeURIComponent(
-        `Halo Ibaadurrahmaan Web, saya ingin berkonsultasi mengenai ${topic}.`
-      );
-
+    const cleanTopic = topic.replace(/[^\w\s]/gi, '').trim(); // Hapus emoji dari teks topik
+    const encodedMessage = encodeURIComponent(
+      `Halo Ibaadurrahmaan Web, saya ingin berkonsultasi mengenai ${cleanTopic}.`
+    );
 
     wrapper.innerHTML = `
-
-      <div class="wa-message-content">
-
+      <div class="wa-message-content" style="background: transparent; box-shadow: none; padding: 0;">
         <a
           href="https://wa.me/${adminNumber}?text=${encodedMessage}"
           target="_blank"
           rel="noopener noreferrer"
           class="wa-direct-button"
         >
-
           <i class="fab fa-whatsapp"></i>
-
           Lanjutkan ke WhatsApp
-
         </a>
-
       </div>
-
     `;
 
-
-    waBotChat.appendChild(wrapper);
+    if (waBotMenu && waBotMenu.parentNode === waBotChat) {
+      waBotChat.insertBefore(wrapper, waBotMenu);
+    } else {
+      waBotChat.appendChild(wrapper);
+    }
 
     scrollChatToBottom();
-
   }
 
-
   /* ========================================
-     HUBUNGI ADMIN
+     TOMBO HUBUNGI ADMIN (FOOTER)
   ======================================== */
-
-  waContactAdmin.addEventListener(
-    "click",
-    function () {
-
-      const message =
-        encodeURIComponent(
-          "Halo Ibaadurrahmaan Web, saya ingin berkonsultasi mengenai layanan website."
-        );
-
-
-      window.open(
-        `https://wa.me/${adminNumber}?text=${message}`,
-        "_blank"
+  if (waContactAdmin) {
+    waContactAdmin.addEventListener("click", function () {
+      const message = encodeURIComponent(
+        "Halo Ibaadurrahmaan Web, saya ingin berkonsultasi mengenai layanan website."
       );
-
-    }
-  );
-
+      window.open(`https://wa.me/${adminNumber}?text=${message}`, "_blank");
+    });
+  }
 
   /* ========================================
-     SCROLL CHAT
+     HELPER FUNCTIONS (Time, Typing, Scroll)
   ======================================== */
+  function getFormattedTime() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    return `${hours}:${minutes}`;
+  }
+
+  function showTypingIndicator() {
+    const typingDiv = document.createElement("div");
+    typingDiv.className = "wa-message bot";
+    typingDiv.id = "waTypingIndicator";
+    typingDiv.innerHTML = `
+      <div class="wa-message-content">
+        <span class="typing-dots"><span></span><span></span><span></span></span>
+      </div>
+    `;
+    if (waBotMenu && waBotMenu.parentNode === waBotChat) {
+      waBotChat.insertBefore(typingDiv, waBotMenu);
+    } else {
+      waBotChat.appendChild(typingDiv);
+    }
+    scrollChatToBottom();
+  }
+
+  function removeTypingIndicator() {
+    const el = document.getElementById("waTypingIndicator");
+    if (el) el.remove();
+  }
 
   function scrollChatToBottom() {
-
     setTimeout(function () {
-
-      waBotChat.scrollTop =
-        waBotChat.scrollHeight;
-
+      waBotChat.scrollTop = waBotChat.scrollHeight;
     }, 50);
-
   }
 
 });
