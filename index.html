@@ -548,10 +548,130 @@
     <div class="sheet-content" id="sheetContent"></div>
 </div>
 
-<!-- ===== FLOATING WA ===== -->
-<a href="https://wa.me/6281401643188?text=Assalamu'alaikum%20Ibaadurrahmaan%2C%0A%0ASaya%20ingin%20bertanya%20tentang%20jasa%20pembuatan%20website.%0A%0ANama%20%3A%20%0AJenis%20Bisnis%20%3A%20%0A%0AKursus%20%3A%20%0A%0ATerima%20kasih!" class="fab-wa" aria-label="Chat WhatsApp">
+<!-- ================================
+     WHATSAPP BOT BASIC
+================================ -->
+
+<div class="wa-bot-container">
+
+  <!-- Floating Button -->
+  <button class="wa-bot-toggle" id="waBotToggle" aria-label="Buka WhatsApp Bot">
     <i class="fab fa-whatsapp"></i>
-</a>
+    <span class="wa-bot-badge">1</span>
+  </button>
+
+
+  <!-- Bot Window -->
+  <div class="wa-bot-window" id="waBotWindow">
+
+    <!-- Header -->
+    <div class="wa-bot-header">
+
+      <div class="wa-bot-profile">
+        <div class="wa-bot-avatar">
+          <i class="fab fa-whatsapp"></i>
+        </div>
+
+        <div>
+          <div class="wa-bot-title">
+            Ibaadurrahmaan Web
+          </div>
+
+          <div class="wa-bot-status">
+            <span></span>
+            Online
+          </div>
+        </div>
+      </div>
+
+      <button
+        class="wa-bot-close"
+        id="waBotClose"
+        aria-label="Tutup WhatsApp Bot"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+
+    </div>
+
+
+    <!-- Chat Area -->
+    <div class="wa-bot-chat" id="waBotChat">
+
+      <!-- Initial Bot Message -->
+      <div class="wa-message bot">
+        <div class="wa-message-content">
+          👋 Halo! Selamat datang di
+          <strong>Ibaadurrahmaan Web</strong>.
+          <br><br>
+          Ada yang bisa kami bantu?
+        </div>
+
+        <div class="wa-message-time">
+          Sekarang
+        </div>
+      </div>
+
+
+      <!-- Menu -->
+      <div class="wa-bot-menu" id="waBotMenu">
+
+        <button
+          class="wa-menu-btn"
+          data-menu="website"
+        >
+          🌐 Paket Website
+        </button>
+
+        <button
+          class="wa-menu-btn"
+          data-menu="price"
+        >
+          💰 Harga Website
+        </button>
+
+        <button
+          class="wa-menu-btn"
+          data-menu="domain"
+        >
+          🔗 Domain & Hosting
+        </button>
+
+        <button
+          class="wa-menu-btn"
+          data-menu="maintenance"
+        >
+          🔧 Maintenance
+        </button>
+
+        <button
+          class="wa-menu-btn"
+          data-menu="consultation"
+        >
+          💬 Konsultasi
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <div class="wa-bot-footer">
+
+      <button
+        class="wa-contact-admin"
+        id="waContactAdmin"
+      >
+        <i class="fab fa-whatsapp"></i>
+        Hubungi Admin
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 
 <script src="script.js"></script>
 </body>
