@@ -1,7 +1,6 @@
 /* ====================================================
    IBAADURRAHMAAN — Interactive Script
-   Version 8.1 · Clean, Rich Bottom Sheets & Bot Engine
-   ==================================================== */
+   Version 8.1 · Clean, Rich Bottom Sheets & Bot Engine ==================================================== */
 
 /* ===== 1. BOTTOM SHEET ENGINE (NEW - FIXED MOBILE MENU) ===== */
 const sheetData = {
