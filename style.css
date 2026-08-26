@@ -716,23 +716,64 @@ body{
   transform:scale(0.94);
 }
 
+/* ==================================================
+   FIX: BOTTOM SHEET TIDAK MENUTUPI MOBILE NAV
+   ================================================== */
 
-/* Bottom Sheet */
+/* Overlay: di bawah nav, tetap full layar */
 .mobile-sheet-overlay{
-  position:fixed; inset:0;
-  background:rgba(5,11,24,0.85); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
-  z-index:10001; opacity:0; pointer-events:none; transition:opacity 0.35s var(--ease);
+  z-index: 1000 !important; /* di BAWAH mobile-nav */
 }
-.mobile-sheet-overlay.active{ opacity:1; pointer-events:auto; }
 
+/* Sheet: di bawah nav, tapi di atas konten */
 .mobile-sheet{
-  position:fixed; bottom:0; left:50%; transform:translateX(-50%) translateY(110%);
-  width:100%; max-width:480px; background:var(--bg-card); border-top:1px solid var(--border);
-  border-radius:24px 24px 0 0; z-index:10002; padding:20px 20px 28px;
-  box-shadow:0 -12px 40px rgba(0,0,0,0.55); transition:transform 0.4s var(--ease);
+  z-index: 1001 !important;
+  bottom: 88px !important;          /* jarak di atas bottom nav */
+  left: 50%;
+  transform: translateX(-50%) translateY(110%);
+  width: calc(100% - 20px) !important;
+  max-width: 480px;
+  max-height: calc(100vh - 120px);  /* jangan kepanjangan */
+  border-radius: 24px !important;   /* full rounded (bukan cuma atas) */
+  padding-bottom: 20px;
+  margin: 0;
 }
-.mobile-sheet.active{ transform:translateX(-50%) translateY(0); }
 
+.mobile-sheet.active{
+  transform: translateX(-50%) translateY(0) !important;
+}
+
+/* Bottom nav SELALU di atas sheet & overlay */
+.mobile-nav{
+  z-index: 10050 !important; /* paling atas */
+  pointer-events: auto !important;
+}
+
+/* Opsional: saat sheet terbuka, nav tetap terlihat tajam */
+.mobile-nav.sheet-open{
+  opacity: 1 !important;
+  transform: translateX(-50%) translateY(0) !important;
+  pointer-events: auto !important;
+}
+
+/* Konten sheet bisa discroll, nav tetap kelihatan */
+.sheet-content{
+  max-height: min(52vh, 420px) !important;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+}
+
+/* WA bot jangan nutupin nav / sheet handle */
+@media (max-width: 768px){
+  .wa-bot-container{
+    z-index: 10040 !important; /* di bawah nav, di atas sheet */
+    bottom: 92px !important;
+  }
+  .wa-bot-window{
+    bottom: 74px;
+  }
+}
 .sheet-handle{ width:42px; height:4px; background:var(--text-dim); border-radius:4px; margin:0 auto 16px; opacity:0.5; }
 .sheet-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
 .sheet-title{ font-family:'Montserrat',sans-serif; font-weight:800; font-size:1.15rem; color:var(--text); }
