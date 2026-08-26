@@ -1,9 +1,9 @@
 /* ==============================================
-   PORTAL WARGA - DEMO SCRIPT
+   PORTAL WARGA - DEMO SCRIPT (FINAL)
    ============================================== */
 
 // ⭐ Ganti nomor WA CS di sini
-const CS_WA = '6285267891619';
+const CS_WA = '6285267891619' ;
 
 // ============ DATA DUMMY ============
 const dataPasar = [
@@ -167,7 +167,6 @@ function showCategory(cat) {
   document.querySelectorAll('.menu-card').forEach(m => m.classList.remove('active'));
   event.currentTarget.classList.add('active');
   
-  // Smooth scroll ke content
   setTimeout(() => {
     document.getElementById('contentArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 100);
@@ -246,16 +245,18 @@ function updateCartUI() {
 }
 
 
-// ============ CART DRAWER ============
+// ============ CART DRAWER (dgn Auto-Hide FAB WA) ============
 function openCart() {
   document.getElementById('cartDrawer').classList.add('open');
   document.getElementById('cartOverlay').classList.add('show');
+  document.body.classList.add('cart-open'); // Menyembunyikan WA
   document.body.style.overflow = 'hidden';
 }
 
 function closeCart() {
   document.getElementById('cartDrawer').classList.remove('open');
   document.getElementById('cartOverlay').classList.remove('show');
+  document.body.classList.remove('cart-open'); // Menampilkan WA kembali
   document.body.style.overflow = 'auto';
 }
 
