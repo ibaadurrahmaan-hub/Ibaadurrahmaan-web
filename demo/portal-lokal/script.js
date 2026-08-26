@@ -3,7 +3,7 @@
    ============================================== */
 
 // ⭐ Ganti nomor WA CS di sini
-const CS_WA = '6281401643188';
+const CS_WA = '6285267891619';
 
 // ============ DATA DUMMY ============
 const dataPasar = [
