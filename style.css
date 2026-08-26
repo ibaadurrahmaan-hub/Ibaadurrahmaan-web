@@ -1702,6 +1702,12 @@ body{
   text-decoration:none;
   border-radius:18px;
   transition:all 0.3s var(--ease);
+  
+  /* FIX BORDER PUTIH (TOMBOL HTML) */
+  border: none !important;
+  outline: none !important;
+  background: transparent;
+  font-family: inherit;
 }
 
 .mnav-item i{
@@ -1718,14 +1724,16 @@ body{
 
 .mnav-item:active{transform:scale(0.92);}
 
+/* FIX PILL GOLD ACTIVE */
 .mnav-item.active{
-  background:var(--grad-gold-shine);
-  color:var(--bg);
-  box-shadow:0 6px 18px var(--gold-glow);
+  background:var(--grad-gold-shine) !important;
+  color:var(--bg) !important;
+  box-shadow:0 6px 18px var(--gold-glow) !important;
+  border-radius: 100px !important;
 }
 
-.mnav-item.active i{transform:scale(1.15);}
-.mnav-item.active span{opacity:1;font-weight:700;}
+.mnav-item.active i { transform:scale(1.15); color: var(--bg) !important; }
+.mnav-item.active span { opacity:1; font-weight:700; color: var(--bg) !important; }
 
 
 /* ==================================================
@@ -1909,6 +1917,12 @@ body{
     right:14px;
     bottom:105px;
   }
+
+  /* POSISI WA BOT AGAR TIDAK NABRAK NAV */
+  .wa-bot-container {
+    right: 16px;
+    bottom: 92px; /* Naik di atas nav */
+  }
 }
 
 
@@ -1976,6 +1990,26 @@ body{
   
   .section{padding:60px 0;}
   .section-header{margin-bottom:40px;}
+  
+  /* POSISI WA BOT AGAR TIDAK NABRAK NAV (HP KECIL) */
+  .wa-bot-container {
+    right: 16px;
+    bottom: 92px; /* Naik di atas nav */
+  }
+  .wa-bot-window {
+    width: calc(100vw - 32px);
+    right: 0;
+    bottom: 74px;
+  }
+  .wa-bot-chat {
+    min-height: 300px;
+    max-height: 60vh;
+  }
+  .wa-bot-toggle {
+    width: 58px;
+    height: 58px;
+    font-size: 27px;
+  }
 }
 
 /* =========================================
@@ -2310,37 +2344,4 @@ body{
   background: #1ebe5d;
 
   transform: translateY(-1px);
-}
-
-
-/* =========================================
-   RESPONSIVE MOBILE
-========================================= */
-
-@media (max-width: 480px) {
-
-  .wa-bot-container {
-    right: 16px;
-    bottom: 16px;
-  }
-
-  .wa-bot-window {
-    width: calc(100vw - 32px);
-
-    right: 0;
-    bottom: 74px;
-  }
-
-  .wa-bot-chat {
-    min-height: 300px;
-    max-height: 60vh;
-  }
-
-  .wa-bot-toggle {
-    width: 58px;
-    height: 58px;
-
-    font-size: 27px;
-  }
-
 }
