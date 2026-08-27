@@ -2145,3 +2145,57 @@ body{
   .wa-bot-chat { min-height: 300px; max-height: 60vh; }
 }
 
+/* ==================================================
+   RESELLER MENU HIGHLIGHT (NEON HOT RED & BADGE)
+   ================================================== */
+
+/* --- MOBILE NAV (NAVBAR Bawah HP) --- */
+.mnav-item.mnav-highlight {
+  position: relative;
+}
+
+/* Warna ikon api jadi Merah/Coral Menyala */
+.mnav-item.mnav-highlight i {
+  color: #ff4d4d !important;
+  filter: drop-shadow(0 2px 8px rgba(255, 77, 77, 0.4));
+}
+
+/* Warna teks Reseller */
+.mnav-item.mnav-highlight span {
+  color: #f87171 !important;
+  font-weight: 700;
+}
+
+/* Badge "HOT" Kecil Melayang di Atas Ikon */
+.mnav-item.mnav-highlight::after {
+  content: 'HOT';
+  position: absolute;
+  top: 4px;
+  right: 14px;
+  background: linear-gradient(135deg, #ff4d4d 0%, #f97316 100%);
+  color: #ffffff;
+  font-size: 0.52rem;
+  font-weight: 900;
+  padding: 1px 5px;
+  border-radius: 50px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(255, 77, 77, 0.5);
+  animation: pulseHot 2s infinite ease-in-out;
+}
+
+/* --- DESKTOP NAV (NAVBAR Atas Laptop) --- */
+.nav-link-highlight {
+  color: #f87171 !important;
+}
+
+.nav-link-highlight i.fa-fire {
+  color: #ff4d4d !important;
+  filter: drop-shadow(0 0 6px rgba(255, 77, 77, 0.5));
+}
+
+/* Animasi denyut halus pada badge HOT */
+@keyframes pulseHot {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
