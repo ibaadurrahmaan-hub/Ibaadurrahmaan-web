@@ -1745,3 +1745,257 @@ body{
   .wa-bot-window { width: calc(100vw - 32px); right: 0; bottom: 84px; }
   .wa-bot-chat { min-height: 300px; max-height: 60vh; }
 }
+
+/* ==================================================
+   DROPDOWN + FLYOUT LIVE DEMO — PREMIUM DARK FIX
+   ================================================== */
+
+/* Box dropdown utama */
+.nav-dropdown,
+#layanan-dd,
+#paket-dd,
+#reseller-dd{
+  width: 310px !important;
+  padding: 10px !important;
+  border-radius: 18px !important;
+  background: rgba(8, 14, 28, 0.97) !important;
+  backdrop-filter: blur(24px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
+  border: 1px solid rgba(212, 165, 54, 0.22) !important;
+  box-shadow:
+    0 22px 50px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset !important;
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+/* Item link & trigger Live Demo (button) */
+.nav-dropdown .dropdown-link,
+.nav-dropdown .dropdown-sub-trigger,
+.nav-dropdown button.dropdown-link,
+.nav-dropdown button.dropdown-sub-trigger{
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 11px 12px !important;
+
+  /* MATIKAN STYLE BAWAAN BUTTON PUTIH */
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  border: 1px solid transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  color: var(--text-muted) !important;
+  font-family: inherit !important;
+  text-align: left !important;
+  cursor: pointer !important;
+  border-radius: 14px !important;
+  text-decoration: none !important;
+  transition: all 0.22s ease !important;
+  position: relative !important;
+}
+
+/* Hover gelap emas — BUKAN putih */
+.nav-dropdown .dropdown-link:hover,
+.nav-dropdown .dropdown-link:focus,
+.nav-dropdown .dropdown-sub-trigger:hover,
+.nav-dropdown .dropdown-sub-trigger:focus,
+.dropdown-item-has-sub:hover > .dropdown-sub-trigger,
+.dropdown-item-has-sub.open > .dropdown-sub-trigger{
+  background: rgba(212, 165, 54, 0.10) !important;
+  background-color: rgba(212, 165, 54, 0.10) !important;
+  border-color: rgba(212, 165, 54, 0.22) !important;
+  color: #fff !important;
+  transform: none !important; /* biar stabil, tidak loncat */
+}
+
+.nav-dropdown .dropdown-link:hover .dd-title,
+.nav-dropdown .dropdown-sub-trigger:hover .dd-title,
+.dropdown-item-has-sub:hover .dd-title,
+.dropdown-item-has-sub.open .dd-title{
+  color: #F5D77A !important;
+}
+
+.nav-dropdown .dropdown-link:hover .dd-desc,
+.nav-dropdown .dropdown-sub-trigger:hover .dd-desc{
+  color: #B8C2D1 !important;
+}
+
+/* Icon box */
+.nav-dropdown .dd-icon{
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 11px !important;
+  flex-shrink: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0.95rem !important;
+}
+
+.dd-icon.icon-blue   { background: rgba(59,130,246,0.14) !important; color: #60a5fa !important; }
+.dd-icon.icon-purple { background: rgba(168,85,247,0.14) !important; color: #c084fc !important; }
+.dd-icon.icon-green  { background: rgba(34,197,94,0.14) !important; color: #4ade80 !important; }
+.dd-icon.icon-cyan   { background: rgba(34,211,238,0.14) !important; color: #22d3ee !important; }
+.dd-icon.icon-gold   { background: rgba(212,165,54,0.14) !important; color: #F5D77A !important; }
+
+.dd-text{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+.dd-title{
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  line-height: 1.2 !important;
+}
+.dd-desc{
+  font-size: 0.7rem !important;
+  color: #7A8494 !important;
+  line-height: 1.25 !important;
+}
+
+/* Arrow Live Demo */
+.dd-flyout-arrow{
+  position: absolute !important;
+  right: 12px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  font-size: 0.7rem !important;
+  color: #7A8494 !important;
+  transition: all 0.2s ease !important;
+}
+.dropdown-item-has-sub:hover .dd-flyout-arrow,
+.dropdown-item-has-sub.open .dd-flyout-arrow{
+  color: #F5D77A !important;
+  transform: translateY(-50%) translateX(2px) !important;
+}
+
+.dropdown-sub-trigger{
+  padding-right: 34px !important;
+}
+
+/* Parent Live Demo */
+.dropdown-item-has-sub{
+  position: relative !important;
+}
+
+/* ==================================================
+   FLYOUT PANEL (KANAN) — PREMIUM
+   ================================================== */
+.nav-flyout{
+  position: absolute !important;
+  top: -8px !important;
+  left: calc(100% + 10px) !important;
+  width: 250px !important;
+
+  background: rgba(8, 14, 28, 0.98) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(212, 165, 54, 0.22) !important;
+  border-radius: 16px !important;
+  padding: 10px !important;
+
+  box-shadow:
+    0 20px 45px rgba(0,0,0,0.55),
+    0 0 0 1px rgba(255,255,255,0.03) inset !important;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(6px);
+  transition: all 0.22s ease;
+  z-index: 200 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* jembatan hover agar tidak putus */
+.dropdown-item-has-sub::after{
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -14px;
+  width: 14px;
+  height: 100%;
+}
+
+.dropdown-item-has-sub:hover .nav-flyout,
+.dropdown-item-has-sub.open .nav-flyout{
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateX(0) !important;
+}
+
+.flyout-title{
+  font-size: 0.62rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 1.2px !important;
+  text-transform: uppercase !important;
+  color: #D4A536 !important;
+  padding: 6px 10px 10px !important;
+  margin: 0 0 4px !important;
+  border-bottom: 1px solid rgba(212,165,54,0.14) !important;
+  background: none !important;
+  -webkit-text-fill-color: #D4A536 !important;
+}
+
+.flyout-link{
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 10px 12px !important;
+  border-radius: 11px !important;
+  text-decoration: none !important;
+  color: #B8C2D1 !important;
+  font-size: 0.84rem !important;
+  font-weight: 600 !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  transition: all 0.18s ease !important;
+  position: relative !important;
+}
+
+.flyout-link i{
+  width: 18px !important;
+  text-align: center !important;
+  color: #D4A536 !important;
+  font-size: 0.88rem !important;
+  flex-shrink: 0 !important;
+}
+
+.flyout-link:hover{
+  background: rgba(212, 165, 54, 0.10) !important;
+  border-color: rgba(212, 165, 54, 0.18) !important;
+  color: #fff !important;
+  transform: none !important;
+  padding-left: 14px !important;
+}
+
+.flyout-link:hover i{
+  color: #F5D77A !important;
+}
+
+/* garis emas kiri saat hover */
+.flyout-link::before{
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 22%;
+  bottom: 22%;
+  width: 2.5px;
+  border-radius: 0 3px 3px 0;
+  background: #D4A536;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+.flyout-link:hover::before{
+  opacity: 1;
+}
+
+@media (max-width: 768px){
+  .nav-flyout{ display: none !important; }
+}
