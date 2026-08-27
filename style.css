@@ -1373,6 +1373,65 @@ body{
 .fade-right{ opacity:0; transform:translateX(40px); transition:all 0.8s cubic-bezier(0.2,0.7,0.3,1); }
 .fade-right.visible{ opacity:1; transform:translateX(0); }
 
+/* ==================================================
+   DESKTOP DROPDOWN LIVE DEMO SUB-GRID
+   ================================================== */
+#layanan-dd {
+  width: 320px !important;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.dropdown-section {
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(212, 165, 54, 0.15);
+}
+
+.dropdown-section-title {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 1px;
+  padding: 4px 10px 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+}
+
+.dropdown-sub-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dropdown-sub-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s var(--ease);
+}
+
+.dropdown-sub-item i {
+  font-size: 0.85rem;
+  color: var(--gold);
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.dropdown-sub-item:hover {
+  background: rgba(212, 165, 54, 0.1);
+  color: var(--text);
+  transform: translateX(4px);
+}
 
 /* ==================================================
    RESPONSIVE
