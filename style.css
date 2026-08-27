@@ -2202,3 +2202,29 @@ body{
   0%, 100% { transform: translateX(6px) scale(1); }
   50% { transform: translateX(6px) scale(1.15); }
 }
+
+/* Hanya halaman dalam */
+body.page-inner .page-header {
+  padding-bottom: 16px !important;
+  margin-bottom: 0 !important;
+}
+
+body.page-inner .page-header + .section,
+body.page-inner .page-header + section {
+  padding-top: 12px !important;
+}
+
+@media (max-width: 768px) {
+  body.page-inner .page-header {
+    padding-top: 88px !important;
+    padding-bottom: 6px !important;
+  }
+  body.page-inner .page-header + .section,
+  body.page-inner .page-header + section,
+  body.page-inner .section {
+    padding-top: 8px !important;
+  }
+}
+
+/* Beranda tidak tersentuh */
+body.page-home .poster { /* biarkan apa adanya */ }
