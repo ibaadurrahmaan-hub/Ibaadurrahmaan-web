@@ -2146,7 +2146,7 @@ body{
 }
 
 /* ==================================================
-   RESELLER MENU HIGHLIGHT (NEON HOT RED & BADGE)
+   RESELLER MENU HIGHLIGHT (NEON HOT RED & BADGE FIX)
    ================================================== */
 
 /* --- MOBILE NAV (NAVBAR Bawah HP) --- */
@@ -2166,20 +2166,24 @@ body{
   font-weight: 700;
 }
 
-/* Badge "HOT" Kecil Melayang di Atas Ikon */
+/* Badge "HOT" Geser ke Bahu Kanan Atas Ikon (Tidak Menutupi) */
 .mnav-item.mnav-highlight::after {
   content: 'HOT';
   position: absolute;
-  top: 4px;
-  right: 14px;
+  top: 1px;
+  left: 50%;
+  transform: translateX(6px); /* Geser presisi di sebelah kanan ikon */
   background: linear-gradient(135deg, #ff4d4d 0%, #f97316 100%);
   color: #ffffff;
-  font-size: 0.52rem;
+  font-size: 0.48rem;
   font-weight: 900;
-  padding: 1px 5px;
+  padding: 1px 4px;
   border-radius: 50px;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(255, 77, 77, 0.5);
+  box-shadow: 0 2px 6px rgba(255, 77, 77, 0.6);
+  z-index: 5;
+  pointer-events: none;
+  line-height: 1;
   animation: pulseHot 2s infinite ease-in-out;
 }
 
@@ -2193,9 +2197,8 @@ body{
   filter: drop-shadow(0 0 6px rgba(255, 77, 77, 0.5));
 }
 
-/* Animasi denyut halus pada badge HOT */
+/* Animasi denyut halus */
 @keyframes pulseHot {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
+  0%, 100% { transform: translateX(6px) scale(1); }
+  50% { transform: translateX(6px) scale(1.15); }
 }
-
