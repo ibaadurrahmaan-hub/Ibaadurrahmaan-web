@@ -604,7 +604,7 @@ body{
 .footer-copy p{ color:var(--text-dim); font-size:0.85rem; }
 
 /* ==================================================
-   MOBILE BOTTOM NAV — HANYA 1 ITEM ACTIVE = GOLD
+   MOBILE BOTTOM NAV
    ================================================== */
 .mobile-nav{
   display:none;
@@ -614,20 +614,19 @@ body{
   transform:translateX(-50%);
   width:calc(100% - 24px);
   max-width:440px;
-  z-index:1000;
+  z-index:10050; /* SELALU di atas sheet */
 
   background:rgba(5,11,24,0.94);
   backdrop-filter:blur(24px) saturate(180%);
   -webkit-backdrop-filter:blur(24px) saturate(180%);
-
   border:1px solid var(--border);
   border-radius:100px;
   padding:6px 8px;
   gap:4px;
-
   box-shadow:0 12px 40px rgba(0,0,0,0.55);
   align-items:center;
   justify-content:space-around;
+  pointer-events:auto;
 }
 
 .mobile-nav.hidden{
@@ -636,7 +635,12 @@ body{
   pointer-events:none;
 }
 
-/* DEFAULT = TIDAK EMAS */
+.mobile-nav.sheet-open{
+  opacity:1 !important;
+  transform:translateX(-50%) translateY(0) !important;
+  pointer-events:auto !important;
+}
+
 .mobile-nav .mnav-item,
 .mobile-nav a.mnav-item,
 .mobile-nav button.mnav-item{
@@ -648,21 +652,18 @@ body{
   justify-content:center;
   gap:3px;
   padding:8px 4px;
-
-  background:transparent !important;   /* wajib */
+  background:transparent !important;
   color:var(--text-muted) !important;
   text-decoration:none;
   font-family:inherit;
   cursor:pointer;
-
   border:none !important;
   outline:none !important;
   box-shadow:none !important;
   -webkit-appearance:none !important;
   appearance:none !important;
   -webkit-tap-highlight-color:transparent !important;
-
-  border-radius:14px;                  /* kurang bulat */
+  border-radius:14px;
   transition:all 0.25s var(--ease);
 }
 
@@ -671,7 +672,6 @@ body{
   line-height:1;
   color:var(--text-muted) !important;
   background:transparent !important;
-  border:none !important;
 }
 
 .mobile-nav .mnav-item span{
@@ -683,17 +683,13 @@ body{
   opacity:0.9;
 }
 
-/* highlight reseller JANGAN bikin full gold */
-.mobile-nav .mnav-item.mnav-highlight{
+.mobile-nav .mnav-item.mnav-highlight,
+.mobile-nav .mnav-item.mnav-highlight i,
+.mobile-nav .mnav-item.mnav-highlight span{
   background:transparent !important;
   color:var(--gold-light) !important;
 }
-.mobile-nav .mnav-item.mnav-highlight i,
-.mobile-nav .mnav-item.mnav-highlight span{
-  color:var(--gold-light) !important;
-}
 
-/* HANYA .active YANG EMAS */
 .mobile-nav .mnav-item.active{
   background:var(--grad-gold-shine) !important;
   color:var(--bg) !important;
@@ -708,84 +704,201 @@ body{
   font-weight:800;
 }
 
-.mobile-nav .mnav-item.active i{
-  transform:scale(1.1);
+.mobile-nav .mnav-item.active i{ transform:scale(1.1); }
+.mobile-nav .mnav-item:active{ transform:scale(0.94); }
+
+@media (max-width:768px){
+  .mobile-nav{ display:flex; }
+  body{ padding-bottom:110px; }
 }
 
-.mobile-nav .mnav-item:active{
-  transform:scale(0.94);
-}
 
 /* ==================================================
-   FIX: BOTTOM SHEET TIDAK MENUTUPI MOBILE NAV
+   MOBILE BOTTOM SHEET + OVERLAY (LENGKAP)
    ================================================== */
-
-/* Overlay: di bawah nav, tetap full layar */
 .mobile-sheet-overlay{
-  z-index: 1000 !important; /* di BAWAH mobile-nav */
+  position:fixed;
+  inset:0;
+  background:rgba(5,11,24,0.72);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  z-index:1000;              /* di bawah nav */
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity 0.3s ease, visibility 0.3s ease;
 }
 
-/* Sheet: di bawah nav, tapi di atas konten */
+.mobile-sheet-overlay.active{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+
 .mobile-sheet{
-  z-index: 1001 !important;
-  bottom: 88px !important;          /* jarak di atas bottom nav */
-  left: 50%;
-  transform: translateX(-50%) translateY(110%);
-  width: calc(100% - 20px) !important;
-  max-width: 480px;
-  max-height: calc(100vh - 120px);  /* jangan kepanjangan */
-  border-radius: 24px !important;   /* full rounded (bukan cuma atas) */
-  padding-bottom: 20px;
-  margin: 0;
+  position:fixed !important;
+  left:50%;
+  bottom:88px !important;     /* di ATAS bottom nav */
+  transform:translateX(-50%) translateY(120%);
+  width:calc(100% - 20px) !important;
+  max-width:480px;
+  max-height:calc(100vh - 130px);
+
+  background:var(--bg-card, #0D1829) !important;
+  border:1px solid var(--border, rgba(212,165,54,0.15));
+  border-radius:24px !important;
+  box-shadow:0 -8px 40px rgba(0,0,0,0.55);
+
+  z-index:1001 !important;    /* di atas overlay, di bawah nav */
+  padding:16px 16px 18px;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:transform 0.35s cubic-bezier(0.4,0,0.2,1),
+              opacity 0.25s ease,
+              visibility 0.25s ease;
 }
 
 .mobile-sheet.active{
-  transform: translateX(-50%) translateY(0) !important;
+  transform:translateX(-50%) translateY(0) !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  pointer-events:auto !important;
 }
 
-/* Bottom nav SELALU di atas sheet & overlay */
-.mobile-nav{
-  z-index: 10050 !important; /* paling atas */
-  pointer-events: auto !important;
+.sheet-handle{
+  width:42px;
+  height:4px;
+  background:var(--text-dim, #7A8494);
+  border-radius:4px;
+  margin:0 auto 14px;
+  opacity:0.5;
 }
 
-/* Opsional: saat sheet terbuka, nav tetap terlihat tajam */
-.mobile-nav.sheet-open{
-  opacity: 1 !important;
-  transform: translateX(-50%) translateY(0) !important;
-  pointer-events: auto !important;
+.sheet-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
 }
 
-/* Konten sheet bisa discroll, nav tetap kelihatan */
-.sheet-content{
-  max-height: min(52vh, 420px) !important;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 8px;
+.sheet-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:0;
+  font-family:'Montserrat',sans-serif;
+  font-weight:800;
+  font-size:1.1rem;
+  color:var(--text, #fff);
+  line-height:1.2;
 }
 
-/* WA bot jangan nutupin nav / sheet handle */
-@media (max-width: 768px){
-  .wa-bot-container{
-    z-index: 10040 !important; /* di bawah nav, di atas sheet */
-    bottom: 92px !important;
-  }
-  .wa-bot-window{
-    bottom: 74px;
-  }
+.sheet-back-btn{
+  width:34px;
+  height:34px;
+  border:none;
+  border-radius:50%;
+  background:rgba(255,255,255,0.06);
+  color:var(--text-muted, #B8C2D1);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  flex-shrink:0;
 }
-.sheet-handle{ width:42px; height:4px; background:var(--text-dim); border-radius:4px; margin:0 auto 16px; opacity:0.5; }
-.sheet-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
-.sheet-title{ font-family:'Montserrat',sans-serif; font-weight:800; font-size:1.15rem; color:var(--text); }
+
+.sheet-back-btn:hover{
+  background:var(--grad-gold-shine);
+  color:var(--bg, #050B18);
+}
+
 .sheet-close{
-  width:34px; height:34px; border:none; background:transparent; color:var(--text-muted); font-size:1.1rem;
-  border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  width:34px;
+  height:34px;
+  border:none;
+  background:transparent;
+  color:var(--text-muted, #B8C2D1);
+  font-size:1.1rem;
+  border-radius:50%;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
 }
-.sheet-close:hover{ background:rgba(255,255,255,0.06); color:var(--text); }
-.sheet-content{ max-height:55vh; overflow-y:auto; display:flex; flex-direction:column; gap:8px; padding-bottom:12px; }
-.sheet-content .dropdown-link{ width:100%; }
 
+.sheet-close:hover{
+  background:rgba(255,255,255,0.06);
+  color:var(--text, #fff);
+}
 
+.sheet-content{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  max-height:min(52vh, 420px) !important;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:6px;
+}
+
+.sheet-content .dropdown-link,
+.sheet-content .sheet-submenu-btn{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 14px;
+  border-radius:14px;
+  text-decoration:none;
+  color:var(--text-muted);
+  background:rgba(255,255,255,0.02);
+  border:1px solid transparent;
+  font-family:inherit;
+  text-align:left;
+  cursor:pointer;
+  transition:all 0.2s ease;
+  position:relative;
+}
+
+.sheet-content .dropdown-link:hover,
+.sheet-content .sheet-submenu-btn:hover{
+  background:rgba(255,255,255,0.05);
+  border-color:rgba(212,165,54,0.2);
+  color:var(--text);
+}
+
+.sheet-content .dropdown-link.featured{
+  background:rgba(37,211,102,0.06);
+  border-color:rgba(37,211,102,0.18);
+}
+
+.sheet-submenu-btn{
+  padding-right:40px !important;
+}
+
+.sheet-chevron{
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:0.75rem;
+  color:var(--text-dim, #7A8494);
+}
+
+.sheet-submenu-btn:hover .sheet-chevron{
+  color:var(--gold, #D4A536);
+}
+
+/* WA di mobile */
+@media (max-width:768px){
+  .wa-bot-container{
+    z-index:10040 !important;
+    bottom:92px !important;
+  }
+}
 /* ==================================================
    SUBPAGE HEADER BOX (Inject via JS / HTML)
    ================================================== */
