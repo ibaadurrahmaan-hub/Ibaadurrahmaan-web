@@ -1374,64 +1374,130 @@ body{
 .fade-right.visible{ opacity:1; transform:translateX(0); }
 
 /* ==================================================
-   DESKTOP DROPDOWN LIVE DEMO SUB-GRID
+   DESKTOP FLYOUT SUBMENU — LIVE DEMO
    ================================================== */
-#layanan-dd {
-  width: 320px !important;
-  max-height: 85vh;
-  overflow-y: auto;
+#layanan-dd{
+  width: 300px;
+  overflow: visible !important; /* penting agar flyout tidak terpotong */
+  max-height: none;
 }
 
-.dropdown-section {
-  margin-top: 6px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(212, 165, 54, 0.15);
+.dropdown-item-has-sub{
+  position: relative;
 }
 
-.dropdown-section-title {
-  font-size: 0.68rem;
-  font-weight: 800;
+.dropdown-sub-trigger{
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  padding-right: 36px !important;
+}
+
+.dd-flyout-arrow{
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.dropdown-item-has-sub:hover .dd-flyout-arrow,
+.dropdown-item-has-sub.open .dd-flyout-arrow{
   color: var(--gold);
+  transform: translateY(-50%) translateX(2px);
+}
+
+/* Panel submenu di KANAN */
+.nav-flyout{
+  position: absolute;
+  top: 0;
+  left: calc(100% + 8px);
+  width: 240px;
+
+  background: rgba(10, 21, 38, 0.98);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.55);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(8px);
+  transition: all 0.25s var(--ease);
+  z-index: 130;
+  pointer-events: none;
+}
+
+/* Muncul saat hover parent ATAU class open */
+.dropdown-item-has-sub:hover .nav-flyout,
+.dropdown-item-has-sub.open .nav-flyout{
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.flyout-title{
+  font-size: 0.65rem;
+  font-weight: 800;
   letter-spacing: 1px;
-  padding: 4px 10px 8px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
   text-transform: uppercase;
+  color: var(--gold);
+  padding: 6px 10px 8px;
+  border-bottom: 1px solid rgba(212,165,54,0.12);
+  margin-bottom: 6px;
 }
 
-.dropdown-sub-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.dropdown-sub-item {
+.flyout-link{
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 12px;
-  border-radius: 8px;
+  padding: 9px 12px;
+  border-radius: 10px;
   text-decoration: none;
   color: var(--text-muted);
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   font-weight: 600;
-  transition: all 0.2s var(--ease);
+  transition: all 0.2s ease;
 }
 
-.dropdown-sub-item i {
-  font-size: 0.85rem;
-  color: var(--gold);
+.flyout-link i{
   width: 18px;
   text-align: center;
+  color: var(--gold);
+  font-size: 0.85rem;
   flex-shrink: 0;
 }
 
-.dropdown-sub-item:hover {
-  background: rgba(212, 165, 54, 0.1);
+.flyout-link:hover{
+  background: rgba(212,165,54,0.1);
   color: var(--text);
-  transform: translateX(4px);
+  transform: translateX(3px);
 }
+
+/* Jembatan hover agar tidak putus saat mouse ke flyout */
+.dropdown-item-has-sub::after{
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -12px;
+  width: 12px;
+  height: 100%;
+}
+
+/* Mobile: sembunyikan flyout desktop (pakai bottom sheet nested) */
+@media (max-width: 768px){
+  .nav-flyout{ display: none !important; }
+}
+
 
 /* ==================================================
    RESPONSIVE
