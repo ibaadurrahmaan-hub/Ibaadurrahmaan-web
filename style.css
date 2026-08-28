@@ -2204,91 +2204,35 @@ body{
 }
 
 /* ==================================================
-   RAPATKAN HEADER → KONTEN (SEMUA HALAMAN DALAM)
-   Kecuali Beranda
+   HEADER → KONTEN RAPAT (halaman dalam, kecuali beranda)
    ================================================== */
-
-/* Jangan pakai page-home di halaman dalam! */
-body.page-inner .page-header,
-body[data-page="layanan"] .page-header,
-body[data-page="paket"] .page-header,
-body[data-page="faq"] .page-header,
-body[data-page="reseller"] .page-header,
-body[data-page="portfolio"] .page-header,
-body[data-page="template"] .page-header,
-body[data-page="order"] .page-header {
-  padding-bottom: 20px !important;
-  margin-bottom: 0 !important;
-}
-
-body.page-inner .layanan-content-section,
-body[data-page="layanan"] .layanan-content-section,
-.layanan-content-section {
-  padding-top: 24px !important;
-}
-
-/* Section umum setelah header */
-body.page-inner .page-header + section,
-body.page-inner .page-header + .section {
-  padding-top: 20px !important;
-}
-
 @media (max-width: 768px) {
   body.page-inner .page-header,
   body[data-page="layanan"] .page-header,
   body[data-page="paket"] .page-header,
   body[data-page="faq"] .page-header,
-  body[data-page="reseller"] .page-header {
-    padding-top: 96px !important;
-    padding-bottom: 10px !important;
+  body[data-page="reseller"] .page-header,
+  .page-header {
+    padding-top: 88px !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .page-header .section-desc {
+    margin-bottom: 0 !important;
   }
 
   body.page-inner .layanan-content-section,
   body[data-page="layanan"] .layanan-content-section,
-  .layanan-content-section {
-    padding-top: 10px !important;
-  }
-
-  body.page-inner .page-header + section,
-  body.page-inner .page-header + .section,
-  body.page-inner .section {
-    padding-top: 10px !important;
-  }
-
-  /* Beranda tidak tersentuh */
-  body.page-home .poster,
-  body[data-page="index"] .poster {
-    padding-bottom: unset;
-  }
-}
-
-/* ==================================================
-   PANGKAS HABIS GAP HEADER KE BOX (MOBILE ONLY)
-   ================================================== */
-@media (max-width: 768px) {
-  /* 1. Hilangkan padding & margin bawah header */
-  .page-header {
-    padding-top: 85px !important;   /* Menjaga jarak aman dari navbar */
-    padding-bottom: 0px !important; /* HAPUS total spasi bawah */
-    margin-bottom: 0px !important;
-  }
-
-  /* 2. Hilangkan margin pada deskripsi teks */
-  .page-header .section-desc {
-    margin-bottom: 0px !important;
-  }
-
-  /* 3. Tarik box konten langsung ke atas mendekati teks */
   .layanan-content-section,
   .page-header + section,
   .page-header + .section {
-    padding-top: 10px !important; /* Jarak teks ke box HANYA 10px */
+    padding-top: 8px !important;
+    margin-top: 0 !important;
   }
 
-  /* 4. Hilangkan margin internal pada grid box */
   .info-grid,
-  .info-box,
-  .layanan-grid {
-    margin-top: 0px !important;
+  .info-box {
+    margin-top: 0 !important;
   }
 }
