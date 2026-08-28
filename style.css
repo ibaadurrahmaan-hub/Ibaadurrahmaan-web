@@ -3163,3 +3163,119 @@ body{
     margin-top: 0 !important;
   }
 }
+
+/* ==================================================
+   FIX RUANG KOSONG - BONUS INFO & CTA BOTTOM
+   ================================================== */
+
+/* ========== FIX BONUS INFO ========== */
+.paket-bonus-info {
+  display: flex !important;
+  gap: 20px;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+.paket-bonus-info .bonus-icon {
+  flex: 0 0 auto !important;
+}
+
+.paket-bonus-info .bonus-content {
+  flex: 1 1 auto !important;
+  height: auto !important;
+}
+
+.paket-bonus-info .bonus-content ul {
+  height: auto !important;
+  min-height: 0 !important;
+  justify-content: flex-start !important;
+}
+
+/* ========== FIX CTA BOTTOM ========== */
+.paket-cta-bottom {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+.paket-cta-bottom .cta-bottom-text {
+  flex: 1 1 280px !important;
+  height: auto !important;
+}
+
+.paket-cta-bottom .cta-bottom-actions {
+  flex: 0 0 auto !important;
+  height: auto !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+
+/* ========== MOBILE FIX (HP) ========== */
+@media (max-width: 768px) {
+  /* Bonus Info - Rapat tanpa ruang kosong */
+  .paket-bonus-info {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+    padding: 20px 18px !important;
+    gap: 12px !important;
+    height: auto !important;
+  }
+
+  .paket-bonus-info .bonus-icon {
+    margin: 0 !important;
+    align-self: flex-start !important;
+  }
+
+  .paket-bonus-info .bonus-content {
+    width: 100%;
+  }
+
+  .paket-bonus-info .bonus-content h4 {
+    margin-bottom: 12px !important;
+  }
+
+  .paket-bonus-info .bonus-content ul {
+    gap: 8px !important;
+  }
+
+  /* CTA Bottom - Rapat tanpa ruang kosong */
+  .paket-cta-bottom {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    padding: 24px 20px !important;
+    gap: 18px !important;
+    height: auto !important;
+    justify-content: flex-start !important;
+  }
+
+  .paket-cta-bottom .cta-bottom-text {
+    width: 100%;
+    flex: 0 0 auto !important;
+  }
+
+  .paket-cta-bottom .cta-bottom-text h3 {
+    margin-bottom: 8px !important;
+  }
+
+  .paket-cta-bottom .cta-bottom-text p {
+    margin: 0 auto !important;
+    max-width: 100%;
+  }
+
+  .paket-cta-bottom .cta-bottom-actions {
+    width: 100%;
+    flex-direction: column !important;
+    gap: 10px !important;
+    margin-top: 4px;
+  }
+
+  .cta-bottom-btn {
+    width: 100%;
+  }
+}
