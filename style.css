@@ -2203,28 +2203,61 @@ body{
   50% { transform: translateX(6px) scale(1.15); }
 }
 
-/* Hanya halaman dalam */
-body.page-inner .page-header {
-  padding-bottom: 16px !important;
+/* ==================================================
+   RAPATKAN HEADER → KONTEN (SEMUA HALAMAN DALAM)
+   Kecuali Beranda
+   ================================================== */
+
+/* Jangan pakai page-home di halaman dalam! */
+body.page-inner .page-header,
+body[data-page="layanan"] .page-header,
+body[data-page="paket"] .page-header,
+body[data-page="faq"] .page-header,
+body[data-page="reseller"] .page-header,
+body[data-page="portfolio"] .page-header,
+body[data-page="template"] .page-header,
+body[data-page="order"] .page-header {
+  padding-bottom: 20px !important;
   margin-bottom: 0 !important;
 }
 
-body.page-inner .page-header + .section,
-body.page-inner .page-header + section {
-  padding-top: 12px !important;
+body.page-inner .layanan-content-section,
+body[data-page="layanan"] .layanan-content-section,
+.layanan-content-section {
+  padding-top: 24px !important;
+}
+
+/* Section umum setelah header */
+body.page-inner .page-header + section,
+body.page-inner .page-header + .section {
+  padding-top: 20px !important;
 }
 
 @media (max-width: 768px) {
-  body.page-inner .page-header {
-    padding-top: 88px !important;
-    padding-bottom: 6px !important;
+  body.page-inner .page-header,
+  body[data-page="layanan"] .page-header,
+  body[data-page="paket"] .page-header,
+  body[data-page="faq"] .page-header,
+  body[data-page="reseller"] .page-header {
+    padding-top: 96px !important;
+    padding-bottom: 10px !important;
   }
-  body.page-inner .page-header + .section,
+
+  body.page-inner .layanan-content-section,
+  body[data-page="layanan"] .layanan-content-section,
+  .layanan-content-section {
+    padding-top: 10px !important;
+  }
+
   body.page-inner .page-header + section,
+  body.page-inner .page-header + .section,
   body.page-inner .section {
-    padding-top: 8px !important;
+    padding-top: 10px !important;
+  }
+
+  /* Beranda tidak tersentuh */
+  body.page-home .poster,
+  body[data-page="index"] .poster {
+    padding-bottom: unset;
   }
 }
-
-/* Beranda tidak tersentuh */
-body.page-home .poster { /* biarkan apa adanya */ }
