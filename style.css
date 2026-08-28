@@ -2037,40 +2037,57 @@ body{
 /* Opsional: versi lebih “rahasia” — hanya
 
 /* ==================================================
-   HALAMAN PAKET — RESTORE STYLE (FULL)
+   HALAMAN PAKET — FULL STYLE
+   Class sesuai paket.html
    ================================================== */
 
-/* Header halaman paket (sama pola layanan) */
-body[data-page="paket"] .page-header,
-.page-header {
-  text-align: center;
+.paket-detail-section {
+  padding: 20px 0 80px;
+  background: var(--bg, #050b18);
 }
 
-/* Tip / konsultasi box di bawah header */
-.paket-tip,
-.paket-consult-box,
-.hint-box {
-  max-width: 720px;
-  margin: 16px auto 28px;
-  padding: 18px 20px;
+.paket-detail-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ---------- GUIDE / KONSULTASI ---------- */
+.paket-guide {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto 36px;
+  padding: 18px 22px;
   background: rgba(212, 165, 54, 0.08);
   border: 1px solid rgba(212, 165, 54, 0.22);
-  border-radius: 16px;
-  color: #cbd5e1;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  text-align: left;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
-.paket-tip a,
-.paket-consult-box a,
-.hint-box a,
-a.btn-konsultasi {
+.paket-guide-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+
+.paket-guide-text {
+  flex: 1 1 220px;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.paket-guide-text b {
+  color: #fff;
+}
+
+.paket-guide-btn {
   display: inline-flex !important;
   align-items: center;
   gap: 8px;
-  margin-top: 12px;
-  padding: 10px 18px;
+  padding: 12px 20px;
   border-radius: 100px;
   background: rgba(37, 211, 102, 0.15) !important;
   border: 1px solid rgba(37, 211, 102, 0.4);
@@ -2078,198 +2095,259 @@ a.btn-konsultasi {
   font-weight: 700;
   font-size: 0.9rem;
   text-decoration: none !important;
+  white-space: nowrap;
+  transition: all 0.3s ease;
 }
 
-.paket-tip a:hover,
-a.btn-konsultasi:hover {
+.paket-guide-btn:hover {
   background: rgba(37, 211, 102, 0.25) !important;
   color: #86efac !important;
+  text-decoration: none !important;
+  transform: translateY(-2px);
 }
 
-/* ---------- GRID KARTU PAKET ---------- */
-.paket-grid,
-.pricing-grid,
-.packages-grid {
+/* ---------- GRID 3 KARTU ---------- */
+.paket-detail-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-  max-width: 1100px;
-  margin: 0 auto 40px;
-  padding: 0 16px;
+  gap: 24px;
+  align-items: stretch;
+  margin-bottom: 48px;
 }
 
-@media (max-width: 992px) {
-  .paket-grid,
-  .pricing-grid,
-  .packages-grid {
-    grid-template-columns: 1fr;
-    max-width: 420px;
-  }
-}
-
-/* Kartu paket */
-.paket-card,
-.pricing-card,
-.package-card {
-  background: linear-gradient(160deg, rgba(15, 23, 42, 0.98) 0%, rgba(8, 14, 28, 0.99) 100%);
-  border: 1px solid rgba(212, 165, 54, 0.22);
-  border-radius: 22px;
-  padding: 28px 24px 24px;
+/* ---------- KARTU PAKET ---------- */
+.paket-detail-card {
   position: relative;
-  overflow: hidden;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  background: linear-gradient(165deg, rgba(15, 23, 42, 0.98) 0%, rgba(7, 12, 24, 0.99) 100%);
+  border: 1px solid rgba(212, 165, 54, 0.22);
+  border-radius: 22px;
+  padding: 28px 22px 22px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
   color: #e2e8f0;
 }
 
-.paket-card.featured,
-.paket-card.popular,
-.pricing-card.featured {
+.paket-detail-card.featured {
   border-color: rgba(212, 165, 54, 0.55);
-  box-shadow: 0 0 0 1px rgba(212, 165, 54, 0.25), 0 20px 50px rgba(0, 0, 0, 0.55);
-  transform: scale(1.02);
+  box-shadow:
+    0 0 0 1px rgba(212, 165, 54, 0.2),
+    0 22px 50px rgba(0, 0, 0, 0.55);
+  transform: translateY(-6px);
 }
 
-/* Badge Starter / Hemat / dll */
-.paket-badge,
-.package-badge,
-.paket-card .badge {
+.paket-detail-card.premium {
+  border-color: rgba(168, 85, 247, 0.35);
+}
+
+/* Ribbon paling diminati */
+.paket-popular-ribbon {
+  position: absolute;
+  top: 18px;
+  right: -32px;
+  background: linear-gradient(135deg, #d4a536, #f5d78e);
+  color: #0b111e;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  padding: 6px 40px;
+  transform: rotate(35deg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+/* Badge tier */
+.paket-tier-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 1px;
   text-transform: uppercase;
+  margin-bottom: 12px;
   color: var(--gold, #d4a536);
 }
 
-.paket-card h3,
-.paket-card .paket-name,
-.pricing-card h3 {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.6rem;
-  font-weight: 900;
-  color: #fff;
-  margin: 0;
-  line-height: 1.2;
+.tier-reguler { color: #fbbf24; }
+.tier-premium { color: #c084fc; }
+
+.paket-detail-head {
+  margin-bottom: 8px;
 }
 
-.paket-card .paket-tagline,
-.paket-card > p:first-of-type {
+.paket-detail-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: #fff;
+  margin: 0 0 6px 0;
+  line-height: 1.15;
+}
+
+.paket-detail-tagline {
   color: #94a3b8;
   font-size: 0.9rem;
-  margin: 0;
+  margin: 0 0 14px 0;
 }
 
 /* Harga */
-.paket-price,
-.price-box {
-  margin: 8px 0 4px;
+.paket-detail-price {
+  margin-bottom: 8px;
 }
 
-.paket-price .label,
-.price-from {
+.paket-detail-price .price-label,
+.price-label {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: #64748b;
   margin-bottom: 4px;
 }
 
-.paket-price .amount,
-.paket-price strong,
 .price-value {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+}
+
+.price-value .rp {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gold, #d4a536);
+}
+
+.price-value .amount {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.75rem;
+  font-size: 2.4rem;
   font-weight: 900;
   color: var(--gold, #d4a536);
-  line-height: 1.1;
+  line-height: 1;
 }
 
-/* Cocok untuk */
-.paket-cocok,
-.paket-for {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 12px;
-  padding: 12px 14px;
-  font-size: 0.88rem;
-  color: #cbd5e1;
-  line-height: 1.5;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* List fitur */
-.paket-features,
-.feature-list,
-.paket-card ul {
-  list-style: none;
-  margin: 8px 0 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.paket-features li,
-.feature-list li,
-.paket-card ul li {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 0.9rem;
-  color: #cbd5e1;
-  line-height: 1.45;
-  padding: 0;
-  border: none;
-  background: none;
-}
-
-.paket-features li i,
-.feature-list li i,
-.paket-card ul li .fa-check,
-.paket-card ul li .fa-check-circle {
-  color: #4ade80;
-  margin-top: 3px;
-  flex-shrink: 0;
-}
-
-.paket-card ul li .fa-times,
-.exclude-list li i,
-.not-include i {
-  color: #f87171;
-}
-
-/* Sub-judul di dalam kartu */
-.paket-card h4,
-.paket-section-title {
+.price-value .unit {
   font-size: 0.95rem;
   font-weight: 800;
+  color: var(--gold, #d4a536);
+  letter-spacing: 1px;
+}
+
+.paket-detail-desc {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 12px 0 8px;
+}
+
+.paket-detail-desc p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #cbd5e1;
+}
+
+.paket-detail-desc b {
   color: #fff;
-  margin: 16px 0 8px;
+}
+
+/* Sub judul section di kartu */
+.paket-detail-section-title {
   display: flex;
   align-items: center;
   gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 18px 0 10px;
 }
 
-/* Tombol di kartu paket — hilangkan link biru */
-.paket-actions,
-.paket-card-actions,
-.card-actions {
+.paket-detail-section-title i {
+  color: var(--gold, #d4a536);
+}
+
+/* List fitur */
+.paket-detail-features,
+.paket-detail-benefits,
+.paket-detail-not-include ul,
+.paket-detail-included ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.paket-detail-features li,
+.paket-detail-benefits li,
+.paket-detail-not-include li,
+.paket-detail-included li {
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #cbd5e1;
+  padding-left: 2px;
+}
+
+.paket-detail-features li b,
+.paket-detail-benefits li b {
+  color: #f1f5f9;
+}
+
+/* Tidak termasuk */
+.paket-detail-not-include {
+  margin-top: 16px;
+  padding: 14px;
+  background: rgba(248, 113, 113, 0.06);
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  border-radius: 14px;
+}
+
+.not-include-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #f87171;
+  margin-bottom: 10px;
+}
+
+.paket-detail-not-include li {
+  color: #94a3b8;
+  font-size: 0.84rem;
+}
+
+/* Bonus premium */
+.paket-detail-included {
+  margin-top: 16px;
+  padding: 14px;
+  background: rgba(212, 165, 54, 0.08);
+  border: 1px solid rgba(212, 165, 54, 0.22);
+  border-radius: 14px;
+}
+
+.included-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--gold, #d4a536);
+  margin-bottom: 10px;
+}
+
+/* ---------- TOMBOL CTA KARTU ---------- */
+.paket-cta-group {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-top: 18px;
+  margin-top: auto;
+  padding-top: 22px;
 }
 
-.paket-card a,
-.pricing-card a,
-.package-card a,
-a.btn-order,
-a.btn-chat-paket,
-a.order-btn,
-a.wa-btn-paket {
+.paket-detail-cta {
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
@@ -2280,101 +2358,86 @@ a.wa-btn-paket {
   font-weight: 700;
   font-size: 0.92rem;
   text-decoration: none !important;
+  border: 1px solid transparent;
   transition: all 0.3s ease;
   box-sizing: border-box;
+  line-height: 1.2;
 }
 
-/* Order — emas */
-.paket-card a.btn-primary,
-.paket-card a.order-btn,
-.paket-card a.btn-order,
-a.btn-order,
-.cta-order {
-  background: var(--grad-gold-shine, linear-gradient(135deg, #f5d78e, #d4a536)) !important;
+.paket-detail-cta span {
+  color: inherit;
+  text-decoration: none !important;
+}
+
+.paket-detail-cta.primary {
+  background: var(--grad-gold-shine, linear-gradient(135deg, #f5d78e 0%, #d4a536 50%, #b8860b 100%)) !important;
   color: #0b111e !important;
-  border: none !important;
   box-shadow: 0 8px 22px rgba(212, 165, 54, 0.35);
 }
 
-.paket-card a.btn-primary:hover,
-a.btn-order:hover {
+.paket-detail-cta.primary:hover {
   transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(212, 165, 54, 0.45);
   color: #0b111e !important;
   text-decoration: none !important;
 }
 
-/* Chat WA — hijau outline */
-.paket-card a.btn-secondary,
-.paket-card a.wa-btn,
-.paket-card a.btn-wa,
-a.btn-chat-paket,
-a.wa-btn-paket {
+.paket-detail-cta.wa {
   background: rgba(37, 211, 102, 0.1) !important;
   color: #4ade80 !important;
-  border: 1px solid rgba(37, 211, 102, 0.35) !important;
+  border-color: rgba(37, 211, 102, 0.35) !important;
 }
 
-.paket-card a.btn-secondary:hover,
-a.btn-chat-paket:hover {
+.paket-detail-cta.wa:hover {
   background: rgba(37, 211, 102, 0.2) !important;
   color: #86efac !important;
   text-decoration: none !important;
+  transform: translateY(-2px);
 }
 
-/* Override SEMUA link biru default di section paket */
-.paket-section a:link,
-.paket-section a:visited,
+/* Matikan link biru default di section paket */
 .paket-detail-section a:link,
-.paket-detail-section a:visited,
-.pricing-section a:link,
-.pricing-section a:visited,
-.paket-card a:link,
-.paket-card a:visited {
+.paket-detail-section a:visited {
   text-decoration: none !important;
 }
 
-/* Link teks yang masih biru (fallback) */
-.paket-section a[href*="wa.me"],
-.paket-detail-section a[href*="wa.me"],
-.paket-section a[href*="order"] {
-  color: inherit;
-}
-
 /* ---------- TABEL PERBANDINGAN ---------- */
-.compare-wrap,
-.comparison-table-wrap,
-.tabel-banding-wrap {
-  max-width: 900px;
-  margin: 30px auto 50px;
-  padding: 0 16px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+.paket-compare-wrap {
+  margin: 20px 0 40px;
 }
 
-.compare-title,
-.comparison-title {
+.paket-compare-title {
   text-align: center;
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 800;
   color: #fff;
-  margin-bottom: 20px;
+  margin: 0 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-.comparison-table,
-.tabel-banding,
-table.paket-compare {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 520px;
-  background: rgba(11, 17, 30, 0.9);
-  border: 1px solid rgba(212, 165, 54, 0.2);
+.paket-compare-title i {
+  color: var(--gold, #d4a536);
+}
+
+.paket-compare-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-radius: 16px;
-  overflow: hidden;
+  border: 1px solid rgba(212, 165, 54, 0.2);
+  background: rgba(11, 17, 30, 0.95);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
 }
 
-.comparison-table th,
-.tabel-banding th,
-table.paket-compare th {
+.paket-compare-table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+}
+
+.paket-compare-table th {
   background: rgba(212, 165, 54, 0.12);
   color: var(--gold, #d4a536);
   font-size: 0.85rem;
@@ -2382,17 +2445,15 @@ table.paket-compare th {
   padding: 14px 12px;
   text-align: center;
   border-bottom: 1px solid rgba(212, 165, 54, 0.2);
+  white-space: nowrap;
 }
 
-.comparison-table th:first-child,
-.tabel-banding th:first-child {
+.paket-compare-table th:first-child {
   text-align: left;
   color: #e2e8f0;
 }
 
-.comparison-table td,
-.tabel-banding td,
-table.paket-compare td {
+.paket-compare-table td {
   padding: 12px;
   font-size: 0.88rem;
   color: #cbd5e1;
@@ -2401,55 +2462,267 @@ table.paket-compare td {
   vertical-align: middle;
 }
 
-.comparison-table td:first-child,
-.tabel-banding td:first-child {
+.paket-compare-table td:first-child {
   text-align: left;
   font-weight: 600;
   color: #e2e8f0;
 }
 
-.comparison-table tr:last-child td,
-.tabel-banding tr:last-child td {
+.paket-compare-table tr:last-child td {
   border-bottom: none;
 }
 
-.comparison-table tr:hover td,
-.tabel-banding tr:hover td {
+.paket-compare-table tr:hover td {
   background: rgba(212, 165, 54, 0.04);
 }
 
-/* ---------- MOBILE PAKET ---------- */
-@media (max-width: 768px) {
-  body[data-page="paket"] .page-header,
-  .page-header {
-    padding-top: 76px !important;
-    padding-bottom: 8px !important;
+.paket-compare-table .yes {
+  color: #4ade80;
+}
+
+.paket-compare-table .no {
+  color: #f87171;
+}
+
+.col-reguler {
+  background: rgba(212, 165, 54, 0.04);
+}
+
+/* ---------- BONUS INFO ---------- */
+.paket-bonus-info {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  max-width: 900px;
+  margin: 0 auto 36px;
+  padding: 22px 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(212, 165, 54, 0.2);
+  border-radius: 18px;
+}
+
+.bonus-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.bonus-content h4 {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.bonus-content ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bonus-content li {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  line-height: 1.45;
+}
+
+/* ---------- CTA BOTTOM ---------- */
+.paket-cta-bottom {
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.95) 0%, rgba(7, 13, 26, 0.98) 100%);
+  border: 1px solid rgba(212, 165, 54, 0.25);
+  border-radius: 24px;
+  padding: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+  margin-bottom: 20px;
+}
+
+.cta-bottom-text {
+  flex: 1 1 280px;
+}
+
+.cta-bottom-text h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 10px;
+}
+
+.cta-bottom-text p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 480px;
+}
+
+.cta-bottom-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.cta-bottom-btn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  text-decoration: none !important;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.cta-bottom-btn.primary {
+  background: var(--grad-gold-shine, linear-gradient(135deg, #f5d78e, #d4a536)) !important;
+  color: #0b111e !important;
+  box-shadow: 0 8px 22px rgba(212, 165, 54, 0.35);
+}
+
+.cta-bottom-btn.primary:hover {
+  transform: translateY(-2px);
+  color: #0b111e !important;
+  text-decoration: none !important;
+}
+
+.cta-bottom-btn.wa {
+  background: rgba(37, 211, 102, 0.12) !important;
+  color: #4ade80 !important;
+  border-color: rgba(37, 211, 102, 0.35) !important;
+}
+
+.cta-bottom-btn.wa:hover {
+  background: rgba(37, 211, 102, 0.22) !important;
+  color: #86efac !important;
+  text-decoration: none !important;
+  transform: translateY(-2px);
+}
+
+/* ---------- FLOATING WA (ikon only) ---------- */
+.fab-wa {
+  position: fixed !important;
+  right: 16px !important;
+  bottom: 100px !important;
+  z-index: 90;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: #25d366 !important;
+  text-decoration: none !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  animation: none !important;
+}
+
+.fab-wa i {
+  font-size: 2.1rem !important;
+  color: #25d366 !important;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
+}
+
+.fab-wa:hover {
+  transform: scale(1.1);
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #4ade80 !important;
+  text-decoration: none !important;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 992px) {
+  .paket-detail-grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  .paket-grid,
-  .pricing-grid {
-    gap: 18px;
-    padding: 0 14px 20px;
-  }
-
-  .paket-card,
-  .pricing-card {
-    padding: 22px 18px;
-    border-radius: 18px;
-  }
-
-  .paket-card.featured {
+  .paket-detail-card.featured {
     transform: none;
+    order: -1; /* Reguler di atas di mobile */
+  }
+}
+
+@media (max-width: 768px) {
+  .paket-detail-section {
+    padding: 12px 0 110px;
   }
 
-  .paket-price .amount,
-  .price-value {
-    font-size: 1.5rem;
+  .paket-detail-section .container {
+    padding: 0 14px;
   }
 
-  .compare-wrap,
-  .comparison-table-wrap {
-    margin-bottom: 100px; /* ruang mobile nav */
+  .paket-guide {
+    flex-direction: column;
+    text-align: center;
+    padding: 16px;
+    margin-bottom: 24px;
+  }
+
+  .paket-guide-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .paket-detail-card {
+    padding: 22px 18px;
+  }
+
+  .price-value .amount {
+    font-size: 2rem;
+  }
+
+  .paket-bonus-info {
+    flex-direction: column;
+    text-align: left;
+    padding: 18px;
+  }
+
+  .paket-cta-bottom {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px 18px;
+  }
+
+  .cta-bottom-text p {
+    margin: 0 auto;
+  }
+
+  .cta-bottom-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .cta-bottom-btn {
+    width: 100%;
+  }
+
+  .fab-wa {
+    bottom: 96px !important;
+    right: 14px !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .fab-wa {
+    bottom: 28px !important;
+    right: 22px !important;
   }
 }
 
