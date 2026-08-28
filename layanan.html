@@ -41,86 +41,89 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 
-<!-- Page Header CSS (khusus halaman sub) -->
 <style>
-.page-header{
-    padding: 110px 20px 8px;   /* bottom 50 → 8 */
-    background: var(--grad-bg);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 0;
-}
-.page-header::before{
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(circle at 20% 30%, rgba(212,165,54,0.1) 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(30,74,143,0.15) 0%, transparent 40%);
-    pointer-events: none;
-}
-.page-header > *{ position: relative; z-index: 1; }
-
-.page-header .section-badge{
-    display: inline-block;
-    padding: 8px 20px;
-    background: rgba(212,165,54,0.1);
-    border: 1px solid rgba(212,165,54,0.3);
-    color: var(--gold);
-    border-radius: 100px;
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 12px;   /* 20 → 12 */
-}
-.page-header .section-title{
-    font-family: 'Montserrat', sans-serif;
-    font-size: clamp(2rem, 4vw, 2.8rem);
-    font-weight: 900;
-    color: var(--text);
-    line-height: 1.2;
-    margin-bottom: 10px;   /* 16 → 10 */
-    letter-spacing: -1px;
-}
-.page-header .section-desc{
-    color: var(--text-muted);
-    font-size: 1.05rem;
-    line-height: 1.55;
-    max-width: 640px;
-    margin: 0 auto;
+/* ==================================================
+   PAGE HEADER — rapat ke brand + back
+   ================================================== */
+.page-header {
+  padding: 88px 20px 6px;
+  background: var(--grad-bg);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
 }
 
-.layanan-content-section{
-    padding: 12px 20px 50px;   /* top 60 → 12 */
-    background: var(--bg);
-}
-.layanan-content-section .container{
-    max-width: 1200px;
-    margin: 0 auto;
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(212, 165, 54, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(30, 74, 143, 0.15) 0%, transparent 40%);
+  pointer-events: none;
 }
 
-@media (max-width: 768px){
-    .page-header{
-        padding: 88px 16px 4px;   /* bottom 40 → 4 */
-    }
-    .page-header .section-badge{ margin-bottom: 10px; }
-    .page-header .section-title{
-        font-size: 1.75rem;
-        margin-bottom: 8px;
-    }
-    .page-header .section-desc{ font-size: 0.92rem; }
-    .layanan-content-section{
-        padding: 8px 16px 40px;   /* top 40 → 8 */
-    }
+.page-header > * {
+  position: relative;
+  z-index: 1;
+}
+
+.page-header .section-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  background: rgba(212, 165, 54, 0.1);
+  border: 1px solid rgba(212, 165, 54, 0.3);
+  color: var(--gold);
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin: 0 0 10px 0;
+}
+
+.page-header .section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.85rem, 4vw, 2.8rem);
+  font-weight: 900;
+  color: var(--text);
+  line-height: 1.2;
+  margin: 0 0 8px 0;
+  letter-spacing: -1px;
+}
+
+.page-header .section-desc {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* ==================================================
+   KONTEN LAYANAN — nempel ke header
+   ================================================== */
+.layanan-content-section {
+  padding: 10px 20px 50px;
+  background: var(--bg);
+  margin: 0;
+}
+
+.layanan-content-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.layanan-content-section .info-grid,
+.layanan-content-section .info-box {
+  margin-top: 0;
 }
 
 /* ==================================================
    CTA BOTTOM — Siap Punya Website Impian?
-   (restore style yang terhapus)
    ================================================== */
-
 .paket-detail-section {
   padding: 40px 20px 80px;
 }
@@ -174,7 +177,6 @@
   max-width: 520px;
 }
 
-/* Tombol actions */
 .cta-bottom-actions {
   display: flex;
   flex-wrap: wrap;
@@ -184,7 +186,6 @@
   z-index: 1;
 }
 
-/* Base button — hilangkan style link default */
 .cta-bottom-btn {
   display: inline-flex !important;
   align-items: center;
@@ -211,7 +212,6 @@
   text-decoration: none !important;
 }
 
-/* Tombol emas — Lihat Paket */
 .cta-bottom-btn.primary {
   background: var(--grad-gold-shine, linear-gradient(135deg, #f5d78e 0%, #d4a536 50%, #b8860b 100%));
   color: #0b111e !important;
@@ -225,7 +225,6 @@
   text-decoration: none !important;
 }
 
-/* Tombol WA hijau */
 .cta-bottom-btn.wa {
   background: rgba(37, 211, 102, 0.12);
   color: #4ade80 !important;
@@ -241,16 +240,109 @@
   text-decoration: none !important;
 }
 
-/* Fallback kalau class hanya .cta-bottom-btn tanpa primary/wa */
 a.cta-bottom-btn:link,
 a.cta-bottom-btn:visited {
   text-decoration: none !important;
 }
 
-/* Mobile */
+/* ==================================================
+   FLOATING WA — IKON SAJA (tanpa background hijau)
+   ================================================== */
+.fab-wa {
+  position: fixed !important;
+  right: 16px !important;
+  bottom: 100px !important;
+  z-index: 90;
+
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+
+  color: #25d366 !important;
+  text-decoration: none !important;
+  animation: none !important;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.fab-wa i,
+.fab-wa .fa-whatsapp {
+  font-size: 2.15rem !important;
+  color: #25d366 !important;
+  line-height: 1 !important;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+}
+
+.fab-wa:hover,
+.fab-wa:focus {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  transform: scale(1.12);
+  color: #4ade80 !important;
+  text-decoration: none !important;
+  animation: none !important;
+}
+
+.fab-wa:hover i,
+.fab-wa:focus i {
+  color: #4ade80 !important;
+  filter: drop-shadow(0 4px 14px rgba(37, 211, 102, 0.55));
+}
+
+.fab-wa:active {
+  transform: scale(0.96);
+}
+
+/* Jangan double dengan WA bot di beranda */
+body.page-home .fab-wa,
+body[data-page="index"] .fab-wa {
+  display: none !important;
+}
+
+/* ==================================================
+   MOBILE
+   ================================================== */
 @media (max-width: 768px) {
+  .page-header {
+    padding: 76px 16px 4px; /* naik dekat brand + back */
+  }
+
+  .page-header .section-badge {
+    margin-bottom: 8px;
+    font-size: 0.72rem;
+    padding: 6px 16px;
+  }
+
+  .page-header .section-title {
+    font-size: 1.7rem;
+    margin-bottom: 6px;
+  }
+
+  .page-header .section-desc {
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .layanan-content-section {
+    padding: 8px 16px 40px;
+  }
+
   .paket-detail-section {
-    padding: 24px 16px 100px; /* ruang untuk mobile nav */
+    padding: 24px 16px 100px;
   }
 
   .paket-cta-bottom {
@@ -275,107 +367,55 @@ a.cta-bottom-btn:visited {
     padding: 15px 24px;
     justify-content: center;
   }
-}
 
-/* ==================================================
-   FLOATING WHATSAPP BUTTON (.fab-wa)
-   ================================================== */
-
-.fab-wa {
-  position: fixed;
-  right: 18px;
-  bottom: 100px; /* di atas mobile nav */
-  z-index: 90;
-
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-
-  background: linear-gradient(145deg, #25d366 0%, #128c7e 100%) !important;
-  color: #ffffff !important;
-  text-decoration: none !important;
-  border: none;
-  outline: none;
-
-  box-shadow:
-    0 8px 24px rgba(37, 211, 102, 0.45),
-    0 0 0 0 rgba(37, 211, 102, 0.4);
-
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation: fabWaPulse 2.4s ease-in-out infinite;
-}
-
-.fab-wa i {
-  font-size: 1.75rem;
-  color: #ffffff !important;
-  line-height: 1;
-}
-
-.fab-wa:hover,
-.fab-wa:focus {
-  transform: scale(1.08) translateY(-2px);
-  color: #ffffff !important;
-  text-decoration: none !important;
-  box-shadow:
-    0 12px 32px rgba(37, 211, 102, 0.55),
-    0 0 0 6px rgba(37, 211, 102, 0.15);
-  animation: none; /* stop pulse saat hover */
-}
-
-.fab-wa:active {
-  transform: scale(0.96);
-}
-
-/* Pulse ring halus */
-@keyframes fabWaPulse {
-  0%, 100% {
-    box-shadow:
-      0 8px 24px rgba(37, 211, 102, 0.45),
-      0 0 0 0 rgba(37, 211, 102, 0.35);
+  .fab-wa {
+    right: 14px !important;
+    bottom: 96px !important; /* di atas mobile nav */
   }
-  50% {
-    box-shadow:
-      0 8px 24px rgba(37, 211, 102, 0.45),
-      0 0 0 12px rgba(37, 211, 102, 0);
+
+  .fab-wa i {
+    font-size: 2.05rem !important;
   }
 }
 
-/* Desktop: sedikit lebih rendah (tidak ada mobile nav) */
 @media (min-width: 769px) {
   .fab-wa {
-    right: 24px;
-    bottom: 28px;
-    width: 60px;
-    height: 60px;
+    right: 22px !important;
+    bottom: 28px !important;
   }
+
   .fab-wa i {
-    font-size: 1.9rem;
+    font-size: 2.3rem !important;
   }
 }
 
-/* HP kecil */
 @media (max-width: 480px) {
-  .fab-wa {
-    right: 14px;
-    bottom: 92px;
-    width: 52px;
-    height: 52px;
+  .page-header {
+    padding: 72px 14px 2px;
   }
-  .fab-wa i {
-    font-size: 1.6rem;
-  }
-}
 
-/* Kalau di homepage ada WA Bot, sembunyikan fab-wa biar tidak dobel */
-body.page-home .fab-wa,
-body[data-page="index"] .fab-wa {
-  display: none !important;
+  .page-header .section-title {
+    font-size: 1.5rem;
+  }
+
+  .page-header .section-desc {
+    font-size: 0.88rem;
+  }
+
+  .layanan-content-section {
+    padding: 6px 14px 30px;
+  }
+
+  .fab-wa {
+    right: 12px !important;
+    bottom: 90px !important;
+  }
+
+  .fab-wa i {
+    font-size: 1.95rem !important;
+  }
 }
-</style>
+</style> 
 
 <script type="application/ld+json">
 {
