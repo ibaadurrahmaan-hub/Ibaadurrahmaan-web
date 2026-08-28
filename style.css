@@ -2761,9 +2761,16 @@ body{
   box-shadow: 0 8px 20px rgba(37, 211, 102, 0.2);
 }
 
+
 /* ==================================================
    RESPONSIVE (TABLET & MOBILE)
    ================================================== */
+
+/* ==================================================
+   RESPONSIVE PAKET (FIX - URUTAN & RUANG KOSONG)
+   ================================================== */
+
+/* Tablet & HP: 1 kolom */
 @media (max-width: 992px) {
   .paket-detail-grid {
     grid-template-columns: 1fr;
@@ -2771,11 +2778,13 @@ body{
     margin-left: auto;
     margin-right: auto;
     gap: 20px;
+    align-items: start; /* PENTING: cegah kartu stretch */
   }
 
+  /* Reset urutan agar sesuai HTML: HEMAT → REGULER → PREMIUM */
   .paket-detail-card.featured {
-    transform: none;
-    order: -1; /* Reguler tampil di paling atas di HP */
+    transform: none; /* Tidak lagi diangkat */
+    order: unset;    /* HAPUS order -1 */
   }
 
   .paket-detail-card.featured:hover {
@@ -2785,32 +2794,57 @@ body{
 
 @media (max-width: 768px) {
   .paket-detail-section {
-    padding: 12px 0 110px; /* Ruang untuk mobile nav */
+    padding: 12px 0 110px;
   }
 
   .paket-detail-section .container {
     padding: 0 14px;
   }
 
+  /* ==================================================
+     FIX KOTAK KONSULTASI (Bingung pilih paket?)
+     Hilangkan ruang kosong hitam
+     ================================================== */
   .paket-guide {
+    display: flex;
     flex-direction: column;
+    align-items: center;
     text-align: center;
-    padding: 18px 16px;
+    padding: 20px 18px;
     margin-bottom: 24px;
-    gap: 12px;
+    gap: 14px;
+    height: auto !important;   /* JANGAN stretch */
+    min-height: 0 !important;
+  }
+
+  .paket-guide-icon {
+    font-size: 1.8rem;
+    margin: 0;
   }
 
   .paket-guide-text {
+    flex: 0 0 auto;   /* JANGAN grow */
     text-align: center;
+    padding: 0;
   }
 
   .paket-guide-btn {
     width: 100%;
+    max-width: 320px;
     justify-content: center;
+    margin-top: 4px;
   }
 
+  /* Grid tidak stretch item */
+  .paket-detail-grid {
+    align-items: start !important;
+    grid-auto-rows: min-content;
+  }
+
+  /* Kartu paket biar rapi */
   .paket-detail-card {
     padding: 22px 18px 20px;
+    height: auto;
   }
 
   .paket-detail-name {
@@ -2862,6 +2896,42 @@ body{
   .paket-compare-table td {
     padding: 11px 8px;
     font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .paket-detail-card {
+    padding: 20px 16px;
+  }
+
+  .paket-tier-badge {
+    font-size: 0.68rem;
+    padding: 5px 12px;
+  }
+
+  .paket-detail-name {
+    font-size: 1.5rem;
+  }
+
+  .price-value .amount {
+    font-size: 2rem;
+  }
+
+  .paket-detail-features li,
+  .paket-detail-benefits li {
+    font-size: 0.84rem;
+  }
+
+  .paket-cta-bottom {
+    padding: 24px 16px;
+  }
+
+  .paket-guide {
+    padding: 18px 14px;
+  }
+
+  .paket-guide-text {
+    font-size: 0.88rem;
   }
 }
 
