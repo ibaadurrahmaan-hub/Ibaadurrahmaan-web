@@ -2261,3 +2261,34 @@ body.page-inner .page-header + .section {
     padding-bottom: unset;
   }
 }
+
+/* ==================================================
+   PANGKAS HABIS GAP HEADER KE BOX (MOBILE ONLY)
+   ================================================== */
+@media (max-width: 768px) {
+  /* 1. Hilangkan padding & margin bawah header */
+  .page-header {
+    padding-top: 85px !important;   /* Menjaga jarak aman dari navbar */
+    padding-bottom: 0px !important; /* HAPUS total spasi bawah */
+    margin-bottom: 0px !important;
+  }
+
+  /* 2. Hilangkan margin pada deskripsi teks */
+  .page-header .section-desc {
+    margin-bottom: 0px !important;
+  }
+
+  /* 3. Tarik box konten langsung ke atas mendekati teks */
+  .layanan-content-section,
+  .page-header + section,
+  .page-header + .section {
+    padding-top: 10px !important; /* Jarak teks ke box HANYA 10px */
+  }
+
+  /* 4. Hilangkan margin internal pada grid box */
+  .info-grid,
+  .info-box,
+  .layanan-grid {
+    margin-top: 0px !important;
+  }
+}
