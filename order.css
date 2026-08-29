@@ -3237,6 +3237,7 @@ html {
    ================================================== */
 .summary-card, .package-card, .addon-card { word-wrap: break-word; }
 .summary-row span, .pkg-features li { min-width: 0; word-break: break-word; hyphens: auto; }
+
 /* ==================================================
    📄 PDF LOADING OVERLAY (Muncul saat Generate PDF)
    ================================================== */
