@@ -3237,3 +3237,215 @@ html {
    ================================================== */
 .summary-card, .package-card, .addon-card { word-wrap: break-word; }
 .summary-row span, .pkg-features li { min-width: 0; word-break: break-word; hyphens: auto; }
+/* ==================================================
+   📄 PDF LOADING OVERLAY (Muncul saat Generate PDF)
+   ================================================== */
+.pdf-loading {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 11, 24, 0.95);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  z-index: 999999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+
+.pdf-loading.show {
+  display: flex;
+  animation: fadeInScale 0.3s ease;
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Spinner emas berputar */
+.pdf-loading-spinner {
+  width: 70px;
+  height: 70px;
+  border: 5px solid rgba(212, 165, 54, 0.15);
+  border-top-color: #d4a536;
+  border-right-color: #d4a536;
+  border-radius: 50%;
+  animation: pdfSpin 0.8s linear infinite;
+  box-shadow: 0 0 40px rgba(212, 165, 54, 0.3);
+  margin-bottom: 10px;
+}
+
+@keyframes pdfSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Teks utama */
+.pdf-loading-text {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--gold, #d4a536);
+  letter-spacing: 0.5px;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Teks deskripsi */
+.pdf-loading-desc {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 350px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+
+/* ==================================================
+   📄 INVOICE PDF MODE (Untuk Generate PDF Bersih)
+   ================================================== */
+.invoice-card.pdf-mode {
+  background: #fff !important;
+  color: #000 !important;
+  padding: 30px !important;
+  max-width: 800px !important;
+  margin: 0 auto !important;
+  box-shadow: none !important;
+  border: 1px solid #ddd !important;
+  border-radius: 0 !important;
+  border-top: 8px solid #d4a536 !important;
+}
+
+.invoice-card.pdf-mode * {
+  color: #333 !important;
+}
+
+.invoice-card.pdf-mode .inv-brand-name,
+.invoice-card.pdf-mode .inv-title h2,
+.invoice-card.pdf-mode h4 {
+  color: #d4a536 !important;
+}
+
+.invoice-card.pdf-mode .grand-total,
+.invoice-card.pdf-mode .inv-paynow,
+.invoice-card.pdf-mode .ipb-amount {
+  color: #d4a536 !important;
+  font-weight: 900 !important;
+}
+
+.invoice-card.pdf-mode .status-badge.pending {
+  background: #fff3cd !important;
+  color: #856404 !important;
+  border: 1px solid #ffc107 !important;
+}
+
+.invoice-card.pdf-mode .discount {
+  color: #dc3545 !important;
+}
+
+.invoice-card.pdf-mode .invoice-payment-box {
+  background: #fff8e1 !important;
+  border: 2px solid #d4a536 !important;
+}
+
+.invoice-card.pdf-mode .ipb-item {
+  background: #fff !important;
+  border: 1px solid #eee !important;
+}
+
+.invoice-card.pdf-mode .ipb-item.highlight {
+  background: #d4a536 !important;
+}
+
+.invoice-card.pdf-mode .ipb-item.highlight * {
+  color: #fff !important;
+}
+
+.invoice-card.pdf-mode .invoice-nextsteps {
+  background: #f8f9fa !important;
+  padding: 20px !important;
+  border-radius: 8px !important;
+  margin-top: 20px !important;
+  border-left: 4px solid #d4a536 !important;
+}
+
+.invoice-card.pdf-mode .invoice-nextsteps li {
+  margin-bottom: 8px !important;
+}
+
+.invoice-card.pdf-mode table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+}
+
+.invoice-card.pdf-mode th {
+  background: #d4a536 !important;
+  color: #fff !important;
+  padding: 12px 8px !important;
+  border: 1px solid #d4a536 !important;
+}
+
+.invoice-card.pdf-mode td {
+  padding: 10px 8px !important;
+  border: 1px solid #eee !important;
+}
+
+.invoice-card.pdf-mode .invoice-footer {
+  border-top: 2px solid #d4a536 !important;
+  padding-top: 20px !important;
+  margin-top: 30px !important;
+  text-align: center !important;
+  color: #666 !important;
+}
+
+/* Body saat sedang generate PDF (agar tidak scroll) */
+body.html2pdf-active {
+  overflow: hidden !important;
+}
+
+
+/* ==================================================
+   🎨 INVOICE LOGO (Tampilan Logo di Invoice)
+   ================================================== */
+.inv-logo-wrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  background: #fff;
+  padding: 6px;
+  box-shadow: 0 4px 15px rgba(212, 165, 54, 0.3);
+  border: 2px solid #d4a536;
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inv-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.inv-logo-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #d4a536, #c19a2e);
+  color: #050B18;
+  font-size: 1.8rem;
+  font-weight: 900;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 10px;
+}
