@@ -3450,3 +3450,94 @@ body.html2pdf-active {
   font-family: 'Montserrat', sans-serif;
   border-radius: 10px;
 }
+
+/* ==================================================
+   🟢 FLOATING WHATSAPP BUTTON (Icon Only - Halaman Order)
+   ================================================== */
+.fab-wa {
+  position: fixed !important;
+  right: 20px !important;
+  bottom: 20px !important;
+  z-index: 999 !important;
+  
+  /* Reset semua background/border default */
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  
+  /* Layout */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  
+  /* Warna & efek */
+  color: #25d366 !important;
+  text-decoration: none !important;
+  animation: waFloat 2.5s ease-in-out infinite;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Ikon WA-nya */
+.fab-wa i,
+.fab-wa .fa-whatsapp {
+  font-size: 3.2rem !important;
+  color: #25d366 !important;
+  line-height: 1 !important;
+  filter: drop-shadow(0 6px 15px rgba(37, 211, 102, 0.5));
+  background: transparent !important;
+}
+
+/* Efek hover (di desktop) */
+.fab-wa:hover,
+.fab-wa:focus {
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: scale(1.15) rotate(-8deg);
+  color: #4ade80 !important;
+  text-decoration: none !important;
+  animation: none !important;
+}
+
+.fab-wa:hover i,
+.fab-wa:focus i {
+  color: #4ade80 !important;
+  filter: drop-shadow(0 8px 20px rgba(74, 222, 128, 0.7));
+}
+
+.fab-wa:active {
+  transform: scale(0.95);
+}
+
+/* Animasi Melayang Halus */
+@keyframes waFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Responsif untuk HP */
+@media (max-width: 768px) {
+  .fab-wa {
+    right: 16px !important;
+    bottom: 90px !important; /* Naik ke atas agar tidak tertutup mobile nav */
+  }
+  .fab-wa i {
+    font-size: 2.8rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .fab-wa {
+    right: 12px !important;
+    bottom: 85px !important;
+  }
+  .fab-wa i {
+    font-size: 2.5rem !important;
+  }
+}
