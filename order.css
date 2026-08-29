@@ -4231,4 +4231,77 @@ html, body {
 
 }
 
+/* ==================================================
+   FIX BADGE "PALING DIMINATI" — JANGAN TERPOTONG
+   ================================================== */
+
+/* Kartu featured boleh overflow agar badge kelihatan */
+.paket-detail-card.featured {
+  overflow: visible !important;
+  margin-top: 16px; /* ruang untuk badge di atas kartu */
+}
+
+/* Badge di TENGAH ATAS kartu (tidak diagonal, tidak ketutup) */
+.paket-popular-ribbon {
+  position: absolute !important;
+  top: -14px !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important; /* tengah, bukan rotate */
+  z-index: 5 !important;
+
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  background: linear-gradient(135deg, #f5d78e 0%, #d4a536 50%, #b8860b 100%) !important;
+  color: #0b111e !important;
+  font-size: 0.68rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+
+  padding: 7px 18px !important;
+  border-radius: 100px !important;
+  box-shadow:
+    0 6px 18px rgba(212, 165, 54, 0.45),
+    0 0 0 3px rgba(11, 17, 30, 0.9) !important;
+
+  /* reset style ribbon miring lama */
+  width: auto !important;
+  max-width: none !important;
+}
+
+/* Pastikan tier badge & isi kartu tidak ketindih */
+.paket-detail-card.featured .paket-tier-badge {
+  margin-top: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Parent grid jangan clip badge */
+.paket-detail-grid {
+  overflow: visible !important;
+}
+
+.paket-detail-section,
+.paket-detail-section .container {
+  overflow: visible !important;
+}
+
+@media (max-width: 768px) {
+  .paket-detail-card.featured {
+    margin-top: 18px;
+    overflow: visible !important;
+  }
+
+  .paket-popular-ribbon {
+    top: -13px !important;
+    font-size: 0.62rem !important;
+    padding: 6px 14px !important;
+  }
+}
+
 */
